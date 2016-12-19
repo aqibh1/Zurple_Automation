@@ -26,4 +26,8 @@ public class HomePage
         return driver.findElement(By.xpath("//*[@id=\"wrap\"]/nav/div/div[1]/a"));
     }
 
+    public WebElement getTopMenu(){
+        return driver.findElement(By.xpath("//*[@id=\"wrap\"]/nav/div/div[2]/ul"));
+    }
+
 }
