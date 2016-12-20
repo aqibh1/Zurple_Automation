@@ -9,7 +9,9 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class HomePageTest extends AbstractPageTest
 {
 
-    protected static AbstractPage getPage(){
+    private static HomePage page;
+
+    public AbstractPage getPage(){
         if(page == null){
             page = new HomePage();
             page.setDriver(getDriver());

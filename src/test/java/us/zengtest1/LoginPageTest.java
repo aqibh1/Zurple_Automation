@@ -1,12 +1,12 @@
 package us.zengtest1;
 
 public class LoginPageTest
-        extends HomePageTest
+        extends AbstractPageTest
 {
 
     private static LoginPage page;
 
-    protected static AbstractPage getPage(){
+    public AbstractPage getPage(){
         if(page == null){
             page = new LoginPage();
             page.setDriver(getDriver());
@@ -20,6 +20,13 @@ public class LoginPageTest
 
     public void testTitle() {
         assertEquals("Login | zengtest1.us", getPage().getTitle());
+    }
+
+
+    public void testBrand() {
+        assertEquals("ZENG\n"
+                + "TEST\n"
+                + "PROPERTIES", getPage().getBrand().getText());
     }
 
 }
