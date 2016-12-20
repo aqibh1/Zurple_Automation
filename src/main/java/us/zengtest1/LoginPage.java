@@ -11,7 +11,7 @@ public class LoginPage extends AbstractPage
     }
 
     public WebElement getLoginForm(){
-        return driver.findElement(By.xpath("//*[@id=\"form\"]"));
+        return driver.findElement(By.xpath("//*[@id=\"form\"]/form"));
     }
 
     public WebElement getSignUpLink(){

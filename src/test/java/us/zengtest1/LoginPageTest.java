@@ -1,12 +1,14 @@
 package us.zengtest1;
 
+import org.openqa.selenium.By;
+
 public class LoginPageTest
         extends AbstractPageTest
 {
 
     private static LoginPage page;
 
-    public AbstractPage getPage(){
+    public LoginPage getPage(){
         if(page == null){
             page = new LoginPage();
             page.setDriver(getDriver());
@@ -27,6 +29,20 @@ public class LoginPageTest
         assertEquals("ZENG\n"
                 + "TEST\n"
                 + "PROPERTIES", getPage().getBrand().getText());
+    }
+
+    public void testLoginFormErrorMessage(){
+        assertFalse(checkLoginFormErrorMessageIsShown());
+    }
+
+    public void testLoginFormSubmitting(){
+        getPage().getLoginForm().submit();
+        assertEquals("http://dev.zengtest1.us/login",getDriver().getCurrentUrl());
+        assertTrue(checkLoginFormErrorMessageIsShown());
+    }
+
+    public boolean checkLoginFormErrorMessageIsShown(){
+        return getPage().getLoginForm().findElement(By.xpath("//div[1]/div[4]/div/p")).isDisplayed();
     }
 
 }
