@@ -1,4 +1,4 @@
-package com.zurple.selenium;
+package us.zengtest1;
 
 import junit.framework.TestCase;
 import org.junit.AfterClass;
@@ -9,7 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class HomePageTest extends TestCase
 {
 
-    private static WebDriver driver;
+    protected static WebDriver driver;
     private static HomePage page;
 
     protected static WebDriver getDriver(){

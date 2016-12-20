@@ -1,4 +1,4 @@
-package com.zurple.selenium;
+package us.zengtest1;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,10 +8,20 @@ public class HomePage
 {
 
     protected WebDriver driver;
+    protected String url;
+
+    public HomePage(){
+        url = "http://dev.zengtest1.us/";
+    }
+
+    public String getUrl()
+    {
+        return url;
+    }
 
     public void setDriver(WebDriver driver){
         this.driver=driver;
-        driver.get("http://dev.zengtest1.us/");
+        driver.get(getUrl());
     }
 
     public String getTitle(){
