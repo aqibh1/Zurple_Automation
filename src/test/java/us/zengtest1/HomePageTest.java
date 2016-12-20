@@ -6,30 +6,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class HomePageTest extends TestCase
+public class HomePageTest extends AbstractPageTest
 {
 
-    protected static WebDriver driver;
-    private static HomePage page;
-
-    protected static WebDriver getDriver(){
-        if(driver == null){
-            driver = new FirefoxDriver();
-        }
-        return driver;
-    }
-
-    protected static HomePage getPage(){
+    protected static AbstractPage getPage(){
         if(page == null){
             page = new HomePage();
             page.setDriver(getDriver());
         }
         return page;
-    }
-
-    @AfterClass
-    public static void cleanup(){
-        getDriver().quit();
     }
 
     public void testTitle() {
@@ -42,14 +27,6 @@ public class HomePageTest extends TestCase
 
     public void testBrand() {
         assertEquals("ZENG TEST PROPERTIES", getPage().getBrand().getText());
-    }
-
-    public void testTopMenu() {
-        assertEquals("",getPage().getTopMenu().findElement(By.xpath("//li[1]/a")).getText());
-        assertEquals("SEARCH",getPage().getTopMenu().findElement(By.xpath("//li[2]/a")).getText());
-        assertEquals("REAL ESTATE NOTES",getPage().getTopMenu().findElement(By.xpath("//li[3]/a")).getText());
-        assertEquals("SOLD HOMES",getPage().getTopMenu().findElement(By.xpath("//li[4]/a")).getText());
-        assertEquals(" LOG IN",getPage().getTopMenu().findElement(By.xpath("//li[5]/a")).getText());
     }
 
 }
