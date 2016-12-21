@@ -61,6 +61,7 @@ public class PropertyDetailsPageTest
         {
             sleep(3000);
             assertTrue(getPage().getSweetAlertNotification().getAlert().isDisplayed());
+            assertEquals("Your question has been sent.", getPage().getSweetAlertNotification().getMessage());
         }
         catch (InterruptedException e)
         {}
