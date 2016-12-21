@@ -1,10 +1,13 @@
 package us.zengtest1.alerts;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 public abstract class AbstractAlert
 {
+
+    public static String alertXpath = "//div[contains(@class,\"sweet-alert\")]";
 
     protected WebElement alert;
     protected WebElement okButton;
@@ -25,6 +28,13 @@ public abstract class AbstractAlert
     {
         return message;
     }
+
+    public void close()
+    {
+        alert.sendKeys(Keys.ESCAPE);
+    }
+
+
 
 
 }

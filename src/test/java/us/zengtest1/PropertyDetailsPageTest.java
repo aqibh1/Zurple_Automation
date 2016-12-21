@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import us.zengtest1.alerts.SweetAlertNotification;
 
 import static java.lang.Thread.sleep;
 
@@ -57,14 +58,14 @@ public class PropertyDetailsPageTest
             assertTrue(getPage().getContactAgentForm().checkInputHasCorrectValue(input));
         }
 
-        try
-        {
-            sleep(3000);
-            assertTrue(getPage().getSweetAlertNotification().getAlert().isDisplayed());
-            assertEquals("Your question has been sent.", getPage().getSweetAlertNotification().getMessage());
-        }
-        catch (InterruptedException e)
-        {}
+        Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(SweetAlertNotification.alertXpath)));
+
+        assertTrue(getPage().getSweetAlertNotification().getAlert().isDisplayed());
+        assertEquals("Your question has been sent.", getPage().getSweetAlertNotification().getMessage());
+
+        getPage().getSweetAlertNotification().close();
+        assertFalse(getPage().getSweetAlertNotification().getAlert().isDisplayed());
 
     }
 

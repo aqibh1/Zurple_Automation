@@ -41,7 +41,7 @@ public class PropertyDetailsPage
         if(null == sweetAlertNotification){
             sweetAlertNotification = new SweetAlertNotification();
             sweetAlertNotification.setAlert(driver.findElement(
-                    By.xpath("//div[contains(@class,\"sweet-alert\")]")));
+                    By.xpath(SweetAlertNotification.alertXpath)));
         }
         return sweetAlertNotification;
     }
