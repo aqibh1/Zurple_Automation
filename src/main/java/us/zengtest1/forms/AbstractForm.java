@@ -28,7 +28,7 @@ public abstract class AbstractForm
         }
 
     }
-
+    //TODO - we should add required attribute to inputs
     public List<WebElement> getRequiredInputs(){
         return form.findElements(By.xpath("//descendant::input[@required]"));
     }
