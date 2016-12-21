@@ -39,4 +39,17 @@ public class PropertyDetailsPageTest
 
     }
 
+    public void testSubmittingFilledContactAgentForm(){
+        getPage().getContactAgentForm().setInputValue("name","John Doe");
+        getPage().getContactAgentForm().setInputValue("email","jdoe@test.com");
+        getPage().getContactAgentForm().setInputValue("phone","4958435471");
+        getPage().getContactAgentForm().setTextareaValue("comment","Some question");
+        getPage().getContactAgentForm().submit();
+
+        for (WebElement input: getPage().getContactAgentForm().getRequiredInputs()) {
+            assertTrue(getPage().getContactAgentForm().checkInputHasCorrectValue(input));
+        }
+
+    }
+
 }

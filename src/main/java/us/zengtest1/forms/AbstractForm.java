@@ -45,4 +45,14 @@ public abstract class AbstractForm
         return true;
     }
 
+    public void setInputValue(String inputName, String value)
+    {
+        form.findElement(By.xpath("//descendant::input[@id=\""+inputName+"\"]")).sendKeys(value);
+    }
+
+    public void setTextareaValue(String inputName, String value)
+    {
+        form.findElement(By.xpath("//descendant::textarea[@id=\""+inputName+"\"]")).sendKeys(value);
+    }
+
 }
