@@ -1,6 +1,13 @@
 package us.zengtest1;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static java.lang.Thread.sleep;
 
 public class PropertyDetailsPageTest
         extends AbstractPageTest
@@ -49,6 +56,14 @@ public class PropertyDetailsPageTest
         for (WebElement input: getPage().getContactAgentForm().getRequiredInputs()) {
             assertTrue(getPage().getContactAgentForm().checkInputHasCorrectValue(input));
         }
+
+        try
+        {
+            sleep(3000);
+            assertTrue(getPage().getSweetAlertNotification().getAlert().isDisplayed());
+        }
+        catch (InterruptedException e)
+        {}
 
     }
 
