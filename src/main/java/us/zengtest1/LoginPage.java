@@ -2,16 +2,23 @@ package us.zengtest1;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import us.zengtest1.forms.LoginForm;
 
 public class LoginPage extends AbstractPage
 {
+
+    private LoginForm loginForm;
 
     public LoginPage(){
         url = "http://dev.zengtest1.us/login";
     }
 
-    public WebElement getLoginForm(){
-        return driver.findElement(By.xpath("//*[@id=\"form\"]/form"));
+    public LoginForm getLoginForm(){
+        if(null == loginForm){
+            loginForm = new LoginForm();
+            loginForm.setForm(driver.findElement(By.xpath("//*[@id=\"form\"]/form")));
+        }
+        return loginForm;
     }
 
     public WebElement getSignUpLink(){
