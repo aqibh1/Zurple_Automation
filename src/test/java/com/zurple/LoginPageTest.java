@@ -40,4 +40,11 @@ public class LoginPageTest
         assertEquals("This Admin account is not active. Please contact us at 800-520-2312.",getPage().getLoginForm().getErrorMessage());
     }
 
+    public void testSubmittingValidLoginForm(){
+        getPage().getLoginForm().setInputValue("username","testsiteowner@zurple.com");
+        getPage().getLoginForm().setInputValue("passwd","test");
+        getPage().getLoginForm().submit();
+        assertEquals("https://my.dev.zurple.com/dashboard",getDriver().getCurrentUrl());
+    }
+
 }
