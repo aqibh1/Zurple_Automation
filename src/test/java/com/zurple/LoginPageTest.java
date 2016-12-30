@@ -23,14 +23,21 @@ public class LoginPageTest
 
 
     public void testBrand() {
-        assertFalse(getPage().getBrand()==null);
+        assertFalse(getPage().getBrand() == null);
     }
 
     public void testSubmittingEmptyLoginForm(){
         getPage().getLoginForm().clearFields();
         getPage().getLoginForm().submit();
-        getPage().getLoginForm().getRequiredInputs();
-        //assertFalse(checkLoginFormErrorMessageIsShown());
+        assertTrue(getPage().checkLoginFormExists());
+    }
+
+    public void testSubmittingInvalidLoginForm(){
+        getPage().getLoginForm().setInputValue("username","test@test.com");
+        getPage().getLoginForm().setInputValue("passwd","123");
+        getPage().getLoginForm().submit();
+        assertTrue(getPage().checkLoginFormExists());
+        assertEquals("This Admin account is not active. Please contact us at 800-520-2312.",getPage().getLoginForm().getErrorMessage());
     }
 
 }

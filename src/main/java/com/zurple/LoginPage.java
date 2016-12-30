@@ -1,9 +1,9 @@
 package com.zurple;
 
+import com.zurple.resources.forms.LoginForm;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
-import resources.AbstractPage;
-import resources.forms.LoginForm;
 
 public class LoginPage
         extends Page
@@ -15,11 +15,18 @@ public class LoginPage
         url = "https://my.dev.zurple.com/access/login";
     }
 
-    public LoginForm getLoginForm(){
-        if(null == loginForm){
-            loginForm = new LoginForm();
-            loginForm.setForm(driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/form")));
+    public boolean checkLoginFormExists(){
+        try{
+            getLoginForm();
+            return true;
+        }catch(StaleElementReferenceException e){
+            return false;
         }
+    }
+
+    public LoginForm getLoginForm(){
+        loginForm = new LoginForm();
+        loginForm.setForm(driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/form")));
         return loginForm;
     }
 
