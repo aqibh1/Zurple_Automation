@@ -1,12 +1,12 @@
-package us.zengtest1;
+package resources;
 
 import junit.framework.TestCase;
 import org.junit.AfterClass;
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import resources.interfaces.TestHavingHeader;
+import resources.interfaces.UsingPage;
 
 public abstract class AbstractPageTest extends TestCase implements UsingPage, TestHavingHeader
 {

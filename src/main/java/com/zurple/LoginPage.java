@@ -1,17 +1,18 @@
-package us.zengtest1;
+package com.zurple;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import resources.AbstractPage;
 import resources.forms.LoginForm;
 
-public class LoginPage extends AbstractPage
+public class LoginPage
+        extends AbstractPage
 {
 
     private LoginForm loginForm;
 
     public LoginPage(){
-        url = "http://dev.zengtest1.us/login";
+        url = "http://my.dev.zurple.com";
     }
 
     public LoginForm getLoginForm(){

@@ -1,4 +1,4 @@
-package us.zengtest1.alerts;
+package resources.alerts;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;

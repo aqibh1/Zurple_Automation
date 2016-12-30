@@ -1,6 +1,6 @@
 package us.zengtest1;
 
-import org.openqa.selenium.By;
+import resources.AbstractPageTest;
 
 public class LoginPageTest
         extends AbstractPageTest

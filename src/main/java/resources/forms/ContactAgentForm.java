@@ -1,4 +1,4 @@
-package us.zengtest1.forms;
+package resources.forms;
 
 public class ContactAgentForm
         extends AbstractForm

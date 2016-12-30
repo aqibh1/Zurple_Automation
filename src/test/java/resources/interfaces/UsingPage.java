@@ -1,4 +1,6 @@
-package us.zengtest1;
+package resources.interfaces;
+
+import resources.AbstractPage;
 
 /**
  * todo

@@ -2,9 +2,9 @@ package us.zengtest1;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import us.zengtest1.alerts.SweetAlertNotification;
-import us.zengtest1.forms.ContactAgentForm;
-import us.zengtest1.forms.LoginForm;
+import resources.AbstractPage;
+import resources.alerts.SweetAlertNotification;
+import resources.forms.ContactAgentForm;
 
 public class PropertyDetailsPage
         extends AbstractPage

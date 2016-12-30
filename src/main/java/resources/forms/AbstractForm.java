@@ -1,4 +1,4 @@
-package us.zengtest1.forms;
+package resources.forms;
 
 import java.util.List;
 import org.openqa.selenium.By;

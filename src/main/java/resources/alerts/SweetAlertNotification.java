@@ -1,4 +1,4 @@
-package us.zengtest1.alerts;
+package resources.alerts;
 
 public class SweetAlertNotification extends AbstractAlert
 {

@@ -1,6 +1,7 @@
-package us.zengtest1;
+package resources;
 
 import org.openqa.selenium.WebDriver;
+import resources.interfaces.HavingHeader;
 
 public abstract class AbstractPage implements HavingHeader
 {

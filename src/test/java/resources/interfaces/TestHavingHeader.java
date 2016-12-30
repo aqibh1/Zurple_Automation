@@ -1,4 +1,4 @@
-package us.zengtest1;
+package resources.interfaces;
 
 public interface TestHavingHeader
 {

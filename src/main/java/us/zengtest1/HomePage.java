@@ -2,6 +2,7 @@ package us.zengtest1;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import resources.AbstractPage;
 
 public class HomePage extends AbstractPage
 {

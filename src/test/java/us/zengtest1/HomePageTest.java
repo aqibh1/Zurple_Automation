@@ -1,10 +1,7 @@
 package us.zengtest1;
 
-import junit.framework.TestCase;
-import org.junit.AfterClass;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import resources.AbstractPage;
+import resources.AbstractPageTest;
 
 public class HomePageTest extends AbstractPageTest
 {
