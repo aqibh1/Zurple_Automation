@@ -1,9 +1,12 @@
 package us.zengtest1;
 
+import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import us.zengtest1.alerts.SweetAlertNotification;
@@ -25,11 +28,11 @@ public class PropertyDetailsPageTest
     }
 
     public void testHeader() {
-        assertEquals("3958 Bayside Walk,  San Diego  (92109)", getPage().getHeader().getText());
+        assertEquals("Shell Canyon Rd.,  Ocotillo  (92259)", getPage().getHeader().getText());
     }
 
     public void testTitle() {
-        assertEquals("3958 Bayside Walk San Diego, CA - MLS#: 160040130 - 7 Bed, 8 Bath, 4391 Sqft Home Built in 1978 | zengtest1.us", getPage().getTitle());
+        assertEquals("Shell Canyon Rd. Ocotillo, CA - MLS#: 160046005 | zengtest1.us", getPage().getTitle());
     }
 
 
@@ -67,6 +70,28 @@ public class PropertyDetailsPageTest
         getPage().getSweetAlertNotification().close();
         assertFalse(getPage().getSweetAlertNotification().getAlert().isDisplayed());
 
+    }
+
+    public void testAddingPropertyToFavorites()
+    {
+        getPage().getFavoriteButton().click();
+
+        Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(SweetAlertNotification.alertXpath)));
+
+        assertTrue(getPage().getSweetAlertNotification().getAlert().isDisplayed());
+        assertEquals("Please sign in to use all features.", getPage().getSweetAlertNotification().getMessage());
+
+        /*
+        Wait wait2 = new FluentWait(driver)
+                .withTimeout(1, TimeUnit.SECONDS)
+                .pollingEvery(1, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class);
+        wait2.until(new Function() {
+            public WebElement apply(WebDriver driver) {
+                return driver.findElement(By.id("foo"));
+            }
+        });*/
     }
 
 }

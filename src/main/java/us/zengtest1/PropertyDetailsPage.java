@@ -37,6 +37,10 @@ public class PropertyDetailsPage
         return driver.findElement(By.xpath("//*[@id=\"wrap\"]/nav/div/div[1]/a"));
     }
 
+    public WebElement getFavoriteButton(){
+        return driver.findElement(By.xpath("//*[@id=\"add_fav\"]/button"));
+    }
+
     public SweetAlertNotification getSweetAlertNotification(){
         if(null == sweetAlertNotification){
             sweetAlertNotification = new SweetAlertNotification();

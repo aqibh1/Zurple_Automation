@@ -24,7 +24,7 @@ public class HomePageTest extends AbstractPageTest
     }
 
     public void testHeader() {
-        assertEquals("7,483 HOMES FOR SALE IN SAN DIEGO, CA AND NEARBY", getPage().getHeader().getText());
+        assertEquals("6,873 HOMES FOR SALE IN SAN DIEGO, CA AND NEARBY", getPage().getHeader().getText());
     }
 
     public void testBrand() {
