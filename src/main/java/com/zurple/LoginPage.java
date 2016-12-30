@@ -28,7 +28,7 @@ public class LoginPage
     }
     //TODO - this method is marker that we should refactor our templates
     public WebElement getBrand(){
-        return driver.findElement(By.xpath("//*[@id=\"logo\"]/a"));
+        return driver.findElement(By.xpath("//*[@id=\"logo\"]/a/img"));
     }
 
 }

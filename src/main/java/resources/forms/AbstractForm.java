@@ -1,7 +1,9 @@
 package resources.forms;
 
+import java.util.Collections;
 import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 public abstract class AbstractForm
@@ -30,7 +32,13 @@ public abstract class AbstractForm
     }
     //TODO - we should add required attribute to inputs
     public List<WebElement> getRequiredInputs(){
-        return form.findElements(By.xpath("//descendant::input[@required]"));
+        try{
+            return form.findElements(By.xpath("//descendant::input[@required]"));
+        }catch (StaleElementReferenceException e){
+            List<WebElement> emptyList = Collections.emptyList();
+            return emptyList;
+        }
+
     }
 
     public boolean checkInputHasCorrectValue(WebElement input){

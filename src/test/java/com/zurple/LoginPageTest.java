@@ -4,7 +4,7 @@ import resources.AbstractPageTest;
 import com.zurple.LoginPage;
 
 public class LoginPageTest
-        extends AbstractPageTest
+        extends PageTest
 {
 
     private static com.zurple.LoginPage page;
@@ -18,14 +18,12 @@ public class LoginPageTest
     }
 
     public void testTitle() {
-        assertEquals("Login | zengtest1.us", getPage().getTitle());
+        assertEquals("Zurple Inc.", getPage().getTitle());
     }
 
 
     public void testBrand() {
-        assertEquals("ZENG\n"
-                + "TEST\n"
-                + "PROPERTIES", getPage().getBrand().getText());
+        assertFalse(getPage().getBrand()==null);
     }
 
     public void testSubmittingEmptyLoginForm(){
@@ -34,15 +32,5 @@ public class LoginPageTest
         getPage().getLoginForm().getRequiredInputs();
         //assertFalse(checkLoginFormErrorMessageIsShown());
     }
-
-    /*public void testLoginFormSubmitting(){
-        getPage().getLoginForm().submit();
-        //assertEquals("http://dev.zengtest1.us/login", getDriver().getCurrentUrl());
-        //assertTrue(checkLoginFormErrorMessageIsShown());
-    } */
-
-    /*public boolean checkLoginFormErrorMessageIsShown(){
-        //return getPage().getLoginForm().findElement(By.xpath("//div[1]/div[4]/div/p")).isDisplayed();
-    } */
 
 }
