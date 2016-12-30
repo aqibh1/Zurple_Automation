@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import resources.AbstractPage;
 
-public class HomePage extends AbstractPage
+public class HomePage extends Page
 {
 
     public HomePage(){

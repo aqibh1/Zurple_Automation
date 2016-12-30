@@ -7,7 +7,7 @@ import resources.alerts.SweetAlertNotification;
 import resources.forms.ContactAgentForm;
 
 public class PropertyDetailsPage
-        extends AbstractPage
+        extends Page
 {
 
     private ContactAgentForm contactAgentForm;

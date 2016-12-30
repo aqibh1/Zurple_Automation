@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import resources.AbstractPage;
 import resources.forms.LoginForm;
 
-public class LoginPage extends AbstractPage
+public class LoginPage extends Page
 {
 
     private LoginForm loginForm;

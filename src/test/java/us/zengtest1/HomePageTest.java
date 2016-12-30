@@ -8,7 +8,7 @@ public class HomePageTest extends AbstractPageTest
 
     private static HomePage page;
 
-    public AbstractPage getPage(){
+    public Page getPage(){
         if(page == null){
             page = new HomePage();
             page.setDriver(getDriver());

@@ -3,7 +3,7 @@ package resources;
 import org.openqa.selenium.WebDriver;
 import resources.interfaces.HavingHeader;
 
-public abstract class AbstractPage implements HavingHeader
+public abstract class AbstractPage
 {
     protected WebDriver driver;
     protected String url;

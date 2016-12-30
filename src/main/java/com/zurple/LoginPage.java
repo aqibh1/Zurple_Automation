@@ -6,37 +6,29 @@ import resources.AbstractPage;
 import resources.forms.LoginForm;
 
 public class LoginPage
-        extends AbstractPage
+        extends Page
 {
 
     private LoginForm loginForm;
 
     public LoginPage(){
-        url = "http://my.dev.zurple.com";
+        url = "https://my.dev.zurple.com/access/login";
     }
 
     public LoginForm getLoginForm(){
         if(null == loginForm){
             loginForm = new LoginForm();
-            loginForm.setForm(driver.findElement(By.xpath("//*[@id=\"form\"]/form")));
+            loginForm.setForm(driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/form")));
         }
         return loginForm;
     }
 
-    public WebElement getSignUpLink(){
-        return driver.findElement(By.xpath("//*[@id=\"form\"]/p[1]/a"));
-    }
-    //TODO - this method is marker that we should refactor our templates
-    public WebElement getTopMenu(){
-        return driver.findElement(By.xpath("//*[@id=\"newnavi\"]/ul"));
-    }
-    //TODO - this method is marker that we should refactor our templates
-    public WebElement getHeader(){
-        return driver.findElement(By.xpath("//*[@id=\"search_box\"]/div[3]/div/div/h1"));
+    public WebElement getForgotPasswordLink(){
+        return driver.findElement(By.xpath("/html/body/div[1]/div[2]/div/form/small/a"));
     }
     //TODO - this method is marker that we should refactor our templates
     public WebElement getBrand(){
-        return driver.findElement(By.xpath("//*[@id=\"mainlogo\"]"));
+        return driver.findElement(By.xpath("//*[@id=\"logo\"]/a"));
     }
 
 }

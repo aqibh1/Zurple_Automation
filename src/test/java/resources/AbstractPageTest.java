@@ -8,7 +8,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import resources.interfaces.TestHavingHeader;
 import resources.interfaces.UsingPage;
 
-public abstract class AbstractPageTest extends TestCase implements UsingPage, TestHavingHeader
+public abstract class AbstractPageTest extends TestCase
 {
 
     protected static WebDriver driver;
@@ -26,15 +26,6 @@ public abstract class AbstractPageTest extends TestCase implements UsingPage, Te
     @AfterClass
     public static void cleanup(){
         getDriver().quit();
-    }
-
-    public void testTopMenu() {
-        assertEquals("",getPage().getTopMenu().findElement(By.xpath("//li[1]/a")).getText());
-        assertEquals("SEARCH",getPage().getTopMenu().findElement(By.xpath("//li[2]/a")).getText());
-        assertEquals("REAL ESTATE NOTES",getPage().getTopMenu().findElement(By.xpath("//li[3]/a")).getText());
-        assertEquals("SOLD HOMES",getPage().getTopMenu().findElement(By.xpath("//li[4]/a")).getText());
-        //TODO - assert below is invalid because trim method is used. This is the marker that html markup is invalid
-        assertEquals("LOG IN",getPage().getTopMenu().findElement(By.xpath("//li[5]/a")).getText().trim());
     }
 
 }
