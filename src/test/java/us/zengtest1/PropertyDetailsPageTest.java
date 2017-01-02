@@ -1,8 +1,11 @@
 package us.zengtest1;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -48,6 +51,32 @@ public class PropertyDetailsPageTest
 
     }
 
+    public void testSlider(){
+
+        int currentSlide;
+
+        //We must focus on page to run slider scrolling
+        getPage().focusOnPage();
+
+        currentSlide=getPage().getSlider().getCurrentActiveSlide();
+
+        getPage().pressButton(Keys.ARROW_RIGHT,1000);
+        assertEquals(currentSlide + 1, getPage().getSlider().getCurrentActiveSlide());
+
+        getPage().pressButton(Keys.ARROW_LEFT, 1000);
+        assertEquals(currentSlide,getPage().getSlider().getCurrentActiveSlide());
+
+        //Focusing on input
+        getPage().getContactAgentForm().setInputValue("name","");
+
+        getPage().pressButton(Keys.ARROW_LEFT, 1000);
+        assertEquals(currentSlide,getPage().getSlider().getCurrentActiveSlide());
+
+        getPage().pressButton(Keys.ARROW_RIGHT,1000);
+        assertEquals(currentSlide,getPage().getSlider().getCurrentActiveSlide());
+
+    }
+
     public void testSubmittingFilledContactAgentForm(){
         getPage().getContactAgentForm().setInputValue("name","John Doe");
         getPage().getContactAgentForm().setInputValue("email","jdoe@test.com");
@@ -72,14 +101,14 @@ public class PropertyDetailsPageTest
 
     public void testAddingPropertyToFavorites()
     {
-        getPage().getFavoriteButton().click();
+        /*getPage().getFavoriteButton().click();
 
         Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(SweetAlertNotification.alertXpath)));
 
         assertTrue(getPage().getSweetAlertNotification().getAlert().isDisplayed());
         assertEquals("Please sign in to use all features.", getPage().getSweetAlertNotification().getMessage());
-
+          */
         /*
         Wait wait2 = new FluentWait(driver)
                 .withTimeout(1, TimeUnit.SECONDS)
