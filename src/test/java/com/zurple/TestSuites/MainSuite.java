@@ -2,8 +2,11 @@ package com.zurple.TestSuites;
 
 import com.zurple.DashboardPageTest;
 import com.zurple.LoginPageTest;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import resources.AbstractPageTest;
 
 @RunWith(Suite.class)
 
@@ -13,4 +16,10 @@ import org.junit.runners.Suite;
 })
 
 public class MainSuite {
+
+    @AfterClass
+    public static void tearDown() {
+        AbstractPageTest.getDriver().close();
+    }
+
 }

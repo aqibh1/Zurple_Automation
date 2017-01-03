@@ -16,7 +16,7 @@ public abstract class AbstractPageTest extends TestCase
 
     public abstract AbstractPage getPage();
 
-    protected static WebDriver getDriver(){
+    public static WebDriver getDriver(){
         if(driver == null){
             driver = new FirefoxDriver();
         }
