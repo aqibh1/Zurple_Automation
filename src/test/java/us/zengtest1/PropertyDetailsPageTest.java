@@ -103,7 +103,7 @@ public class PropertyDetailsPageTest
     {
         /*getPage().getFavoriteButton().click();
 
-        Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
+        Wait<FirefoxDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(SweetAlertNotification.alertXpath)));
 
         assertTrue(getPage().getSweetAlertNotification().getAlert().isDisplayed());
@@ -115,7 +115,7 @@ public class PropertyDetailsPageTest
                 .pollingEvery(1, TimeUnit.SECONDS)
                 .ignoring(NoSuchElementException.class);
         wait2.until(new Function() {
-            public WebElement apply(WebDriver driver) {
+            public WebElement apply(FirefoxDriver driver) {
                 return driver.findElement(By.id("foo"));
             }
         });*/

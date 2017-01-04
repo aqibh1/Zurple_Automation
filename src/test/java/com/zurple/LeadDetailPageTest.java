@@ -37,8 +37,15 @@ public class LeadDetailPageTest
         assertTrue(getPage().getRemindersBlock().getReminderForm().emailCheckboxEnabled());
         getPage().getRemindersBlock().getReminderForm().toggleCheckboxValue("task_reminder_type_sms");
         assertFalse(getPage().getRemindersBlock().getReminderForm().smsCheckboxEnabled());
+
         getPage().getRemindersBlock().getReminderForm().submit();
         assertTrue(getPage().getRemindersBlock().getReminderForm().waitWhileSubmitting());
+
+        assertTrue(getPage().getSweetAlertNotification().getAlert().isDisplayed());
+        assertEquals("New reminder has been added.", getPage().getSweetAlertNotification().getMessage());
+        getPage().getSweetAlertNotification().close();
+
+        assertEquals("Test reminder",getPage().getRemindersBlock().getReminders().get(1).getText());
     }
 
 }

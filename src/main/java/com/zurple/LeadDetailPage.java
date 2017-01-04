@@ -5,6 +5,7 @@ import com.zurple.resources.blocks.RemindersBlock;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import resources.alerts.SweetAlertNotification;
 
 public class LeadDetailPage
         extends Page
@@ -12,6 +13,16 @@ public class LeadDetailPage
 
     BouncedEmailAlertBlock bouncedEmailAlertBlock;
     RemindersBlock remindersBlock;
+    private SweetAlertNotification sweetAlertNotification;
+
+    public SweetAlertNotification getSweetAlertNotification(){
+        if(null == sweetAlertNotification){
+            sweetAlertNotification = new SweetAlertNotification();
+            sweetAlertNotification.setAlert(driver.findElement(
+                    By.xpath(SweetAlertNotification.alertXpath)));
+        }
+        return sweetAlertNotification;
+    }
 
     public boolean checkBouncedEmailAlertBlock(){
         try{
