@@ -12,15 +12,17 @@ import resources.interfaces.HavingHeader;
 public abstract class AbstractPage
 {
     protected WebDriver driver;
-    protected String url;
+    protected static String url;
 
     public void setDriver(WebDriver driver){
         this.driver=driver;
-        driver.get(getUrl());
+        if(this.driver.getCurrentUrl()!=getUrl()){
+            driver.get(getUrl());
+        }
         focusOnPage();
     }
 
-    public String getUrl()
+    public static String getUrl()
     {
         return url;
     }

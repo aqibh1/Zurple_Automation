@@ -25,4 +25,11 @@ public class DashboardPageTest
         assertEquals(5,getPage().getNewLeadsBlock().getLeadIds().size());
     }
 
+    public void testNewLeadLink(){
+        assertTrue(getPage().checkNewLeadsBlock());
+        Integer n = getPage().getNewLeadsBlock().getLeadIds().get(0);
+        getPage().getNewLeadsBlock().getNewLeadLink(1).click();
+        assertEquals("https://my.dev.zurple.com/lead/"+n+"?from=new", getDriver().getCurrentUrl());
+    }
+
 }

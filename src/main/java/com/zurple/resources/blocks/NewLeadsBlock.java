@@ -37,13 +37,20 @@ public class NewLeadsBlock
             return list;
         }catch (StaleElementReferenceException e) {
             List<Integer> emptyList = Collections.emptyList();
-            System.out.println("!!!");
             return emptyList;
-        } catch( TimeoutException e ) {
+        } catch( TimeoutException e )
+        {
             System.out.println("!!");
             List<Integer> emptyList = Collections.emptyList();
             return emptyList;
         }
+    }
 
-}
+    public WebElement getNewLeadLink(Integer n){
+        try{
+            return block.findElement(By.xpath("./descendant::table/tbody[2]/tr["+n+"]//td/div/span[1]/span[1]/a"));
+        }catch(StaleElementReferenceException e){
+            return null;
+        }
+    }
 }
