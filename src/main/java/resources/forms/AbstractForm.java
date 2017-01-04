@@ -3,17 +3,21 @@ package resources.forms;
 import java.util.Collections;
 import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import resources.interfaces.UsesDriver;
 
-public abstract class AbstractForm
+public abstract class AbstractForm implements UsesDriver
 {
     protected WebElement form;
     protected WebElement submitButton;
+    protected WebDriver driver;
 
     public void setForm(WebElement object){
         form = object;
-        submitButton = form.findElement(By.xpath("//descendant::button[@type=\"submit\"]"));
+        submitButton = form.findElement(By.xpath("./descendant::*[@type=\"submit\"]"));
     }
 
     public void submit(){
@@ -23,7 +27,7 @@ public abstract class AbstractForm
     public void clearFields(){
 
         List<WebElement> allInputs = form.findElements(
-                By.xpath("//descendant::input[@type=\"input\" or @type=\"email\" or @type=\"password\"]"));
+                By.xpath("./descendant::input[@type=\"input\" or @type=\"email\" or @type=\"password\"]"));
 
         for (WebElement input: allInputs) {
             input.sendKeys("");
@@ -33,7 +37,7 @@ public abstract class AbstractForm
     //TODO - we should add required attribute to inputs
     public List<WebElement> getRequiredInputs(){
         try{
-            return form.findElements(By.xpath("//descendant::input[@required]"));
+            return form.findElements(By.xpath("./descendant::input[@required]"));
         }catch (StaleElementReferenceException e){
             List<WebElement> emptyList = Collections.emptyList();
             return emptyList;
@@ -55,12 +59,25 @@ public abstract class AbstractForm
 
     public void setInputValue(String inputName, String value)
     {
-        form.findElement(By.xpath("//descendant::input[@id=\""+inputName+"\"]")).sendKeys(value);
+        form.findElement(By.xpath("./descendant::input[@id=\""+inputName+"\"]")).sendKeys(value);
+    }
+
+    public void toggleCheckboxValue(String inputName)
+    {
+        form.findElement(By.xpath("./descendant::input[@id=\""+inputName+"\"]")).click();
     }
 
     public void setTextareaValue(String inputName, String value)
     {
-        form.findElement(By.xpath("//descendant::textarea[@id=\""+inputName+"\"]")).sendKeys(value);
+        form.findElement(By.xpath("./descendant::textarea[@id=\""+inputName+"\"]")).sendKeys(value);
+    }
+
+    public void setDriver(WebDriver object){
+        driver = object;
+    }
+
+    public WebDriver getDriver(){
+        return driver;
     }
 
 }

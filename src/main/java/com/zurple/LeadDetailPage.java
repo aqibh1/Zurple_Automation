@@ -26,7 +26,7 @@ public class LeadDetailPage
 
     public boolean checkRemindersBlock(){
         try{
-            System.out.println(getRemindersBlock().getHeader());
+            getRemindersBlock().getHeader();
             return true;
         }catch(StaleElementReferenceException e){
             return false;
@@ -44,6 +44,7 @@ public class LeadDetailPage
     public RemindersBlock getRemindersBlock(){
         remindersBlock = new RemindersBlock();
         remindersBlock.setBlock(driver.findElement(By.xpath("/html/body/div[2]/div[3]/div[1]/div[5]")));
+        remindersBlock.setDriver(driver);
         return remindersBlock;
     }
 
