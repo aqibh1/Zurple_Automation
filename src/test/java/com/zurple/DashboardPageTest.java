@@ -1,5 +1,8 @@
 package com.zurple;
 
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
+
 public class DashboardPageTest
         extends PageTest
 {
@@ -18,18 +21,17 @@ public class DashboardPageTest
         assertEquals("Zurple Backoffice", getPage().getTitle());
     }
 
-
     public void testNewLeadsBlock(){
         assertTrue(getPage().checkNewLeadsBlock());
         assertFalse(getPage().getNewLeadsBlock().getLeadIds().isEmpty());
         assertEquals(5,getPage().getNewLeadsBlock().getLeadIds().size());
     }
 
-    public void testNewLeadLink(){
+    public void testNewLeadsLink(){
         assertTrue(getPage().checkNewLeadsBlock());
         Integer n = getPage().getNewLeadsBlock().getLeadIds().get(0);
-        getPage().getNewLeadsBlock().getNewLeadLink(1).click();
-        assertEquals("https://my.dev.zurple.com/lead/"+n+"?from=new", getDriver().getCurrentUrl());
+        getEnvironment().setLeadToCheck(n);
+        assertEquals("https://my.dev.zurple.com/lead/"+n+"?from=new", getPage().getNewLeadsBlock().getNewLeadLink(1).getAttribute("href"));
     }
 
 }
