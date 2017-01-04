@@ -27,6 +27,10 @@ public abstract class AbstractPage
         return url;
     }
 
+    public void setUrl(String u){
+        url = u;
+    }
+
     public String getTitle(){
         return driver.getTitle();
     }

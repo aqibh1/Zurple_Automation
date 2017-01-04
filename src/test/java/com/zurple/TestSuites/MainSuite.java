@@ -1,6 +1,7 @@
 package com.zurple.TestSuites;
 
 import com.zurple.DashboardPageTest;
+import com.zurple.LeadDetailPageTest;
 import com.zurple.LoginPageTest;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -13,7 +14,8 @@ import resources.AbstractPageTest;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         LoginPageTest.class,
-        DashboardPageTest.class
+        DashboardPageTest.class,
+        LeadDetailPageTest.class
 })
 
 public class MainSuite {
