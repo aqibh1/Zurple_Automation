@@ -60,11 +60,10 @@
       <version>5.1.9</version>
     </dependency>
 
-    <!-- Hibernate framework -->
     <dependency>
-      <groupId>hibernate</groupId>
-      <artifactId>hibernate3</artifactId>
-      <version>3.2.3.GA</version>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate</artifactId>
+      <version>3.2.7.ga</version>
     </dependency>
 
 

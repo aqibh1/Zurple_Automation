@@ -26,6 +26,10 @@ public class LeadDetailPageTest
         assertEquals("Zurple Backoffice", getPage().getTitle());
     }
 
+    public void testLead() {
+        getEnvironment().getLeadObject();
+    }
+
     public void testRemindersBlock(){
         assertTrue(getPage().checkRemindersBlock());
     }
