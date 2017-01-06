@@ -8,6 +8,6 @@ public interface LeadDao
     void save(Lead lead);
     void update(Lead lead);
     void delete(Lead lead);
-    Lead findByCode(String stockCode);
+    Lead findByCode(String leadCode);
 
 }

@@ -22,9 +22,9 @@ public class LeadDaoImpl
         getHibernateTemplate().delete(lead);
     }
 
-    public Lead findByCode(String stockCode){
+    public Lead findByCode(String leadCode){
         List list = getHibernateTemplate().find(
-                "from Lead where stockCode=?",stockCode
+                "from leads where lead_id=?",leadCode
         );
         return (Lead)list.get(0);
     }

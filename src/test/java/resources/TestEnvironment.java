@@ -23,7 +23,7 @@ public class TestEnvironment
     public void getLeadObject( )
     {
         ApplicationContext appContext =
-                new ClassPathXmlApplicationContext("spring/config/BeanLocations.xml");
+                new ClassPathXmlApplicationContext("config/BeanLocations.xml");
 
         LeadBo leadBo = (LeadBo)appContext.getBean("leadBo");
 

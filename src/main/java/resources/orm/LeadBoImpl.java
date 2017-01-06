@@ -2,30 +2,31 @@ package resources.orm;
 
 //import com.mkyong.stock.dao.StockDao;
 
+import resources.orm.dao.LeadDao;
+
 public class LeadBoImpl
         implements LeadBo
 {
 
-    //StockDao stockDao;
+    LeadDao leadDao;
 
-    /*public void setStockDao(StockDao stockDao) {
-        //this.stockDao = stockDao;
-    } */
+    public void setLeadDao(LeadDao leadDao) {
+        this.leadDao = leadDao;
+    }
 
     public void save(Lead lead){
-        //stockDao.save(stock);
+        leadDao.save(lead);
     }
 
     public void update(Lead lead){
-        //stockDao.update(stock);
+        leadDao.update(lead);
     }
 
     public void delete(Lead lead){
-        //stockDao.delete(stock);
+        leadDao.delete(lead);
     }
 
-    public Lead findByCode(String stockCode){
-        return new Lead();
-        //return stockDao.findByStockCode(stockCode);
+    public Lead findByCode(String leadCode){
+        return leadDao.findByCode(leadCode);
     }
 }

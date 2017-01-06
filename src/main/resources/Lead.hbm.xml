@@ -8,9 +8,6 @@
       <column name="lead_id" />
       <generator class="identity" />
     </id>
-    <property name="leadCode" type="string">
-      <column name="first_name" length="10" not-null="true" unique="true" />
-    </property>
     <property name="leadName" type="string">
       <column name="first_name" length="20" not-null="true" unique="true" />
     </property>

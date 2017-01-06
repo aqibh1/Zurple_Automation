@@ -11,5 +11,34 @@ public class Lead
     private String leadCode;
     private String leadName;
 
-    //getter and setter methods...
+    public Long getLeadId()
+    {
+        return leadId;
+    }
+
+    public void setLeadId(Long leadId)
+    {
+        this.leadId = leadId;
+    }
+
+    public String getLeadCode()
+    {
+        return leadCode;
+    }
+
+    public void setLeadCode(String leadCode)
+    {
+        this.leadCode = leadCode;
+    }
+
+    public String getLeadName()
+    {
+        return leadName;
+    }
+
+    public void setLeadName(String leadName)
+    {
+        this.leadName = leadName;
+    }
+
 }
