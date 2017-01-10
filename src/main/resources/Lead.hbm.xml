@@ -6,10 +6,6 @@
   <class name="resources.orm.Lead" table="leads" catalog="zurple_platform">
     <id name="leadId" type="java.lang.Long">
       <column name="lead_id" />
-      <generator class="identity" />
     </id>
-    <property name="leadName" type="string">
-      <column name="first_name" length="20" not-null="true" unique="true" />
-    </property>
   </class>
 </hibernate-mapping>

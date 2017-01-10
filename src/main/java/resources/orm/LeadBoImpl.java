@@ -26,7 +26,7 @@ public class LeadBoImpl
         leadDao.delete(lead);
     }
 
-    public Lead findByCode(String leadCode){
-        return leadDao.findByCode(leadCode);
+    public Lead findById(Integer leadId){
+        return leadDao.findById(leadId);
     }
 }

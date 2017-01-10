@@ -2,6 +2,7 @@ package resources.orm.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import resources.orm.Lead;
@@ -22,9 +23,9 @@ public class LeadDaoImpl
         getHibernateTemplate().delete(lead);
     }
 
-    public Lead findByCode(String leadCode){
+    public Lead findById(Integer leadId){
         List list = getHibernateTemplate().find(
-                "from leads where lead_id=?",leadCode
+                "select leadId from Lead where lead_id=?", leadId
         );
         return (Lead)list.get(0);
     }

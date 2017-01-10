@@ -27,8 +27,8 @@ public class TestEnvironment
 
         LeadBo leadBo = (LeadBo)appContext.getBean("leadBo");
 
-        Lead lead2 = leadBo.findByCode("7668");
-        System.out.println(lead2);
+        Lead lead = leadBo.findById(100001);
+        System.out.println(lead);
 
     }
 }
