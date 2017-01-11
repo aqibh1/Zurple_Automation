@@ -1,29 +1,42 @@
 package resources.orm.hibernate;
 
 import java.util.List;
-import java.util.Date;
 import java.util.Iterator;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 public class ManageLead {
-    private static SessionFactory factory;
-    public static void main(String[] args) {
 
-    }
+    private SessionFactory factory;
+
+    public ManageLead(SessionFactory factory) {this.factory = factory;}
+
     /* Method to CREATE an employee in the database */
-    public Integer addEmployee(String fname, String lname, String email){
+    public Integer addLead(
+            String email,
+            String first_name,
+            String last_name,
+            String phone,
+            String cell,
+            String memo
+    ){
         Session session = factory.openSession();
         Transaction tx = null;
         Integer leadID = null;
         try{
             tx = session.beginTransaction();
-            Lead employee = new Lead(lname, email);
-            leadID = (Integer) session.save(employee);
+            Lead lead = new Lead(
+                    email,
+                    first_name,
+                    last_name,
+                    phone,
+                    cell,
+                    memo
+            );
+            leadID = (Integer) session.save(lead);
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
@@ -43,7 +56,7 @@ public class ManageLead {
             for (Iterator iterator =
                     leads.iterator(); iterator.hasNext();){
                 Lead lead = (Lead) iterator.next();
-                System.out.print("First Name: " + lead.getLeadName());
+                System.out.print("First Name: " + lead.getLastName());
             }
             tx.commit();
         }catch (HibernateException e) {
@@ -61,7 +74,7 @@ public class ManageLead {
             tx = session.beginTransaction();
             Lead lead =
                     (Lead)session.get(Lead.class, LeadID);
-            lead.setLeadEmail( email );
+            lead.setEmail( email );
             session.update(lead);
             tx.commit();
         }catch (HibernateException e) {

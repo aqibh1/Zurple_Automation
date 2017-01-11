@@ -2,6 +2,7 @@ package resources;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.ManageLead;
 
 public class TestEnvironment
@@ -22,18 +23,14 @@ public class TestEnvironment
 
     public void getLeadObject( )
     {
-        try{
-            factory = new Configuration().configure().buildSessionFactory();
-        }catch (Throwable ex) {
-            System.err.println("Failed to create sessionFactory object." + ex);
-            throw new ExceptionInInitializerError(ex);
-        }
-        ManageLead ME = new ManageLead();
+        factory = new HibernateUtil().getSessionFactory();
+
+        ManageLead ME = new ManageLead(factory);
 
       /* Add few employee records in database */
-        Integer empID1 = ME.addEmployee("Zara", "Ali", "azara@test.com");
-        Integer empID2 = ME.addEmployee("Daisy", "Das", "ddas@test.com");
-        Integer empID3 = ME.addEmployee("John", "Paul", "jpaul@test.com");
+        Integer empID1 = ME.addLead( "azara@test.com","Ali","Baba","1234567890","","");
+        Integer empID2 = ME.addLead("ddas@test.com","Das", "Karabas","", "","");
+        Integer empID3 = ME.addLead( "jpaul@test.com", "Paul", "Anderson", "", "","");
 
       /* List down all the employees */
         ME.listLeads();

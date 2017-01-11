@@ -1,5 +1,6 @@
 package resources.orm.hibernate;
 
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
@@ -22,11 +23,6 @@ public class HibernateUtil {
 
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
-    }
-
-    public static void shutdown() {
-        // Close caches and connection pools
-        getSessionFactory().close();
     }
 
 }
