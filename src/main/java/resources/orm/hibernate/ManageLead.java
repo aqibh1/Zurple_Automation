@@ -3,6 +3,7 @@ package resources.orm.hibernate;
 import java.util.List;
 import java.util.Iterator;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -48,7 +49,7 @@ public class ManageLead {
         }
         return leadID;
     }
-    /* Method to  READ all the employees */
+    /* Method to  READ all the leads */
     public void listLeads( ){
         Session session = factory.openSession();
         Transaction tx = null;
@@ -58,7 +59,6 @@ public class ManageLead {
             for (Iterator iterator =
                     leads.iterator(); iterator.hasNext();){
                 Lead lead = (Lead) iterator.next();
-                System.out.print("First Name: " + lead.getLastName());
             }
             tx.commit();
         }catch (HibernateException e) {
@@ -67,6 +67,22 @@ public class ManageLead {
         }finally {
             session.close();
         }
+    }
+    /* Method to  READ lead by id */
+    public Lead getLead( Integer lead_id ){
+        Session session = factory.openSession();
+        Lead lead = null;
+        try {
+            lead = (Lead) session.get(Lead.class, lead_id);
+            Hibernate.initialize(lead);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return lead;
     }
     /* Method to UPDATE salary for an employee */
     public void updateLead(Integer LeadID, String email ){

@@ -1,8 +1,10 @@
 package resources;
 
+import java.util.Iterator;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import resources.orm.hibernate.HibernateUtil;
+import resources.orm.hibernate.Lead;
 import resources.orm.hibernate.ManageLead;
 
 public class TestEnvironment
@@ -25,8 +27,15 @@ public class TestEnvironment
     {
         factory = new HibernateUtil().getSessionFactory();
 
-        ManageLead lead = new ManageLead(factory);
-        lead.listLeads();
+        ManageLead ml = new ManageLead(factory);
+
+        Lead lead = ml.getLead(100001);
+        System.out.print(lead.getFirstName());
+        System.out.print(lead.getLastName());
+        System.out.print(lead.getEmail());
+        System.out.print(lead.getOwnerId().getFirstName());
+        System.out.print(lead.getOwnerId().getLastName());
+        System.out.print(lead.getOwnerId().getEmail());
         //System.out.println(lead.listLeads());
       /* Add few employee records in database */
         /*Integer empID1 = ME.addLead( "azara@test.com","Ali","Baba","1234567890","","");
