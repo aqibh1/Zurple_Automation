@@ -1,5 +1,6 @@
 package resources.orm.hibernate;
 
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 @Entity
@@ -25,6 +28,8 @@ public class Lead
     private String cell;
     private String memo;
     private Admin owner_id;
+    private Date create_datetime;
+    private Date update_datetime;
 
     public Lead() {
     }
@@ -50,11 +55,11 @@ public class Lead
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "lead_id", unique = true, nullable = false)
-    public Integer getLeadId() {
+    public Integer getId() {
         return this.lead_id;
     }
 
-    public void setLeadId(Integer lead_id) {
+    public void setId(Integer lead_id) {
         this.lead_id = lead_id;
     }
 
@@ -120,6 +125,26 @@ public class Lead
 
     public void setOwnerId(Admin owner_id) {
         this.owner_id = owner_id;
+    }
+
+    @Column(name = "create_datetime", columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getCreateDatetime() {
+        return this.create_datetime;
+    }
+
+    public void setCreateDatetime(Date create_datetime) {
+        this.create_datetime = create_datetime;
+    }
+
+    @Column(name = "update_datetime", columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getUpdateDatetime() {
+        return this.update_datetime;
+    }
+
+    public void setUpdateDatetime(Date update_datetime) {
+        this.update_datetime = update_datetime;
     }
 
 }

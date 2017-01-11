@@ -1,5 +1,6 @@
 package resources.orm.hibernate;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Iterator;
 
@@ -39,6 +40,8 @@ public class ManageLead {
                     memo,
                     admin
             );
+            lead.setCreateDatetime(new Date());
+            lead.setUpdateDatetime(new Date());
             leadID = (Integer) session.save(lead);
             tx.commit();
         }catch (HibernateException e) {

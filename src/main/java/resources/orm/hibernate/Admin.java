@@ -48,11 +48,11 @@ public class Admin
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "admin_id", unique = true, nullable = false)
-    public Integer getLeadId() {
+    public Integer getId() {
         return this.admin_id;
     }
 
-    public void setLeadId(Integer lead_id) {
+    public void setId(Integer lead_id) {
         this.admin_id = lead_id;
     }
 
