@@ -21,7 +21,8 @@ public class ManageLead {
             String last_name,
             String phone,
             String cell,
-            String memo
+            String memo,
+            Admin admin
     ){
         Session session = factory.openSession();
         Transaction tx = null;
@@ -34,7 +35,8 @@ public class ManageLead {
                     last_name,
                     phone,
                     cell,
-                    memo
+                    memo,
+                    admin
             );
             leadID = (Integer) session.save(lead);
             tx.commit();

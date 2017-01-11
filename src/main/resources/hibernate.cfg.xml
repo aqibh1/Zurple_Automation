@@ -12,5 +12,6 @@
     <property name="show_sql">true</property>
 
     <mapping class="resources.orm.hibernate.Lead"></mapping>
+    <mapping class="resources.orm.hibernate.Admin"></mapping>
   </session-factory>
 </hibernate-configuration>

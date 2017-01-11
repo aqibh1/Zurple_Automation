@@ -1,61 +1,59 @@
 package resources.orm.hibernate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
-@Table(name = "leads", catalog = "zurple_platform", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "lead_id")})
-public class Lead
+@Table(name = "admins", catalog = "zurple_platform", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "admin_id")})
+public class Admin
         implements java.io.Serializable {
 
-    private Integer lead_id;
+    private Integer admin_id;
     private String first_name;
     private String last_name;
     private String email;
+    private String alt_email;
     private String phone;
-    private String cell;
-    private String memo;
-    private Admin owner_id;
+    private String password_hash;
+    private String bio;
 
-    public Lead() {
+    public Admin() {
     }
 
-    public Lead(
+    public Admin(
             String email,
+            String alt_email,
             String first_name,
             String last_name,
             String phone,
-            String cell,
-            String memo,
-            Admin owner_id
+            String password_hash,
+            String bio
     ) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
+        this.alt_email = alt_email;
         this.phone = phone;
-        this.cell = cell;
-        this.memo = memo;
-        this.owner_id = owner_id;
+        this.password_hash = password_hash;
+        this.bio = bio;
     }
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "lead_id", unique = true, nullable = false)
+    @Column(name = "admin_id", unique = true, nullable = false)
     public Integer getLeadId() {
-        return this.lead_id;
+        return this.admin_id;
     }
 
     public void setLeadId(Integer lead_id) {
-        this.lead_id = lead_id;
+        this.admin_id = lead_id;
     }
 
     @Column(name = "last_name", unique = false, nullable = false, length = 255)
@@ -85,6 +83,15 @@ public class Lead
         this.email = email;
     }
 
+    @Column(name = "alt_email", unique = true, nullable = false, length = 255)
+    public String getAltEmail() {
+        return this.alt_email;
+    }
+
+    public void setAltEmail(String alt_email) {
+        this.alt_email = alt_email;
+    }
+
     @Column(name = "phone", unique = false, nullable = false, length = 255)
     public String getPhone() {
         return this.phone;
@@ -94,32 +101,22 @@ public class Lead
         this.phone = phone;
     }
 
-    @Column(name = "cell", unique = false, nullable = false, length = 255)
-    public String getCell() {
-        return this.cell;
+    @Column(name = "password_hash", unique = false, nullable = false, length = 255)
+    public String getPasswordHash() {
+        return this.password_hash;
     }
 
-    public void setCell(String cell) {
-        this.cell = cell;
+    public void setPasswordHash(String password_hash) {
+        this.password_hash = password_hash;
     }
 
-    @Column(name = "memo", unique = false, nullable = false, length = 255)
-    public String getMemo() {
-        return this.memo;
+    @Column(name = "bio", unique = false, nullable = false, length = 255)
+    public String getBio() {
+        return this.bio;
     }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
-    }
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "owner_id")
-    public Admin getOwnerId() {
-        return this.owner_id;
-    }
-
-    public void setOwnerId(Admin owner_id) {
-        this.owner_id = owner_id;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
 }
