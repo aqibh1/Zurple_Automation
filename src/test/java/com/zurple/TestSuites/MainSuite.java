@@ -1,8 +1,6 @@
 package com.zurple.TestSuites;
 
-import com.zurple.DashboardPageTest;
-import com.zurple.LeadDetailPageTest;
-import com.zurple.LoginPageTest;
+import com.zurple.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -15,7 +13,15 @@ import resources.AbstractPageTest;
 @Suite.SuiteClasses({
         LoginPageTest.class,
         DashboardPageTest.class,
-        LeadDetailPageTest.class
+        LeadDetailPageTest.class,
+        LeadEditPageTest.class,
+        LeadListPageTest.class,
+        AgentsPageTest.class,
+        AgentPageTest.class,
+        MarketingMessemailPageTest.class,
+        MarketingTextmessagePageTest.class,
+        StatisticsPageTest.class,
+        SupportPageTest.class
 })
 
 public class MainSuite {

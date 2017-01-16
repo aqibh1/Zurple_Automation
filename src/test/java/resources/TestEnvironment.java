@@ -12,6 +12,7 @@ public class TestEnvironment
 {
 
     private Integer leadToCheck;
+    private Integer agentToCheck;
     private static SessionFactory factory;
 
     public Integer getLeadToCheck()
@@ -57,5 +58,15 @@ public class TestEnvironment
         //ME.listLeads();
 
 
+    }
+
+    public Integer getAgentToCheck()
+    {
+        return agentToCheck;
+    }
+
+    public void setAgentToCheck(Integer agentToCheck)
+    {
+        this.agentToCheck = agentToCheck;
     }
 }

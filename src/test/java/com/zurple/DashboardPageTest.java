@@ -16,6 +16,7 @@ public class DashboardPageTest
         if(page == null){
             page = new DashboardPage();
             page.setDriver(getDriver());
+            getEnvironment().setAgentToCheck(4);
         }
         return page;
     }
