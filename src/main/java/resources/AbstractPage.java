@@ -1,10 +1,16 @@
 package resources;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import resources.classes.Asset;
 
 public abstract class AbstractPage
 {
@@ -18,6 +24,27 @@ public abstract class AbstractPage
         }
         focusOnPage();
     }
+
+    public List<Asset> getAssets(){
+
+        ArrayList<Asset> list = new ArrayList<Asset>();
+
+        for (WebElement style: driver.findElements(By.xpath("/html/head/link[@type='text/css']"))) {
+            Asset asset = new Asset();
+            asset.setType(style.getAttribute("type"));
+            asset.setUrl(style.getAttribute("href"));
+            list.add(asset);
+        }
+
+        for (WebElement js: driver.findElements(By.xpath("/html/head/script"))) {
+            Asset asset = new Asset();
+            asset.setType(js.getAttribute("type"));
+            asset.setUrl(js.getAttribute("src"));
+            list.add(asset);
+        }
+
+        return list;
+    };
 
     public static String getUrl()
     {

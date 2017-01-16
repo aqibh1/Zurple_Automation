@@ -1,9 +1,13 @@
 package resources;
 
+import java.util.regex.Pattern;
 import junit.framework.TestCase;
 import org.junit.AfterClass;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import resources.classes.Asset;
 
 public abstract class AbstractPageTest extends TestCase
 {
@@ -30,6 +34,12 @@ public abstract class AbstractPageTest extends TestCase
 
     public static void setEnvironment( TestEnvironment object){
         environment = object;
+    }
+
+    public void testAsssetsVerions() {
+        for (Asset asset: getPage().getAssets()) {
+            assertTrue(Pattern.matches("\\?v=\\d{4}\\.\\d{2}\\.\\d$",asset.getUrl()));
+        }
     }
 
 
