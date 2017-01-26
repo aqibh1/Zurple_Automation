@@ -1,7 +1,10 @@
 package com.zurple.resources.blocks;
 
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -12,35 +15,38 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import resources.classes.Alert;
+import resources.classes.AdminProduct;
 
-public class ProductsBlock
+public class AdminProductsBlock
         extends resources.blocks.AbstractBlock
 {
-    public List<Alert> getProductsList(){
+    public List<AdminProduct> getAdminProductsList(){
         try{
             Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
             wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"products-grid\"]/table/tbody/tr[1]")));
 
             List<WebElement> allProductsRows = block.findElements(By.xpath("//*[@id=\"products-grid\"]/table/tbody/tr"));
-            ArrayList<Alert> list = new ArrayList<Alert>();
+            List<AdminProduct> list = new ArrayList<AdminProduct>();
             for (WebElement row: allProductsRows) {
-                Alert alert = new Alert();
-                alert.setLeadLink(row.findElement(By.xpath("./td/div/span[1]/span[1]/a")).getAttribute("href"));
-                try{
-                    alert.setPropertyLink(row.findElement(By.xpath("./td/div/span[2]/span[1]/a")).getAttribute("href"));
-                }catch(NoSuchElementException e){
-                    alert.setPropertyLink("");
+                AdminProduct adminProduct = new AdminProduct();
+                adminProduct.setDisplayName(row.findElement(By.xpath("./td[1]")).getText());
+                adminProduct.setFee(new BigDecimal(row.findElement(By.xpath("./td[2]")).getText().replaceAll("\\$", "")));
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                try
+                {
+                    adminProduct.setNextBillDate(df.parse(row.findElement(By.xpath("./td[3]")).getText()));
                 }
-                list.add(alert);
+                catch (ParseException e) {}
+                catch(NoSuchElementException e){}
+                list.add(adminProduct);
             }
             return list;
         }catch (StaleElementReferenceException e) {
-            List<Alert> emptyList = Collections.emptyList();
+            List<AdminProduct> emptyList = new ArrayList<AdminProduct>();
             return emptyList;
         } catch( TimeoutException e )
         {
-            List<Alert> emptyList = Collections.emptyList();
+            List<AdminProduct> emptyList = new ArrayList<AdminProduct>();
             return emptyList;
         }
     }

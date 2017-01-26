@@ -28,6 +28,7 @@ public abstract class AbstractPageTest extends TestCase
     public static TestEnvironment getEnvironment(){
         if(environment == null){
             environment = new TestEnvironment();
+            environment.setAgentToCheck(4);
         }
         return environment;
     }

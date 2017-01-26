@@ -1,4 +1,4 @@
-package resources.orm.hibernate;
+package resources.orm.hibernate.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +23,7 @@ public class Admin
     private String phone;
     private String password_hash;
     private String bio;
+    private Integer netsuite_id;
 
     public Admin() {
     }
@@ -34,7 +35,8 @@ public class Admin
             String last_name,
             String phone,
             String password_hash,
-            String bio
+            String bio,
+            Integer netsuite_id
     ) {
         this.first_name = first_name;
         this.last_name = last_name;
@@ -43,10 +45,10 @@ public class Admin
         this.phone = phone;
         this.password_hash = password_hash;
         this.bio = bio;
+        this.netsuite_id = netsuite_id;
     }
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "admin_id", unique = true, nullable = false)
     public Integer getId() {
         return this.admin_id;
@@ -117,6 +119,15 @@ public class Admin
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    @Column(name = "netsuite_id", unique = false, nullable = false)
+    public Integer getNetsuiteId() {
+        return this.netsuite_id;
+    }
+
+    public void setNetsuiteId(Integer netsuite_id) {
+        this.netsuite_id = netsuite_id;
     }
 
 }

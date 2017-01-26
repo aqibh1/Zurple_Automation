@@ -1,18 +1,23 @@
 package resources;
 
-import java.util.Iterator;
+import java.util.List;
+import org.apache.commons.lang3.ObjectUtils.Null;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import resources.orm.hibernate.Admin;
+import resources.orm.hibernate.dao.ManageAdmin;
+import resources.orm.hibernate.models.Admin;
 import resources.orm.hibernate.HibernateUtil;
-import resources.orm.hibernate.Lead;
-import resources.orm.hibernate.ManageLead;
+import resources.orm.hibernate.dao.ManageAdminProducts;
+import resources.orm.hibernate.models.AdminProduct;
+import resources.orm.hibernate.models.Lead;
+import resources.orm.hibernate.dao.ManageLead;
 
 public class TestEnvironment
 {
 
     private Integer leadToCheck;
     private Integer agentToCheck;
+    private List<AdminProduct> adminProducts;
+
     private static SessionFactory factory;
 
     public Integer getLeadToCheck()
@@ -23,6 +28,22 @@ public class TestEnvironment
     public void setLeadToCheck(Integer leadToCheck)
     {
         this.leadToCheck = leadToCheck;
+    }
+
+    public List<AdminProduct> getProductsList( )
+    {
+        if(adminProducts == null){
+            factory = new HibernateUtil().getSessionFactory();
+
+            ManageAdmin ma = new ManageAdmin(factory);
+
+            ManageAdminProducts map = new ManageAdminProducts(factory);
+
+            adminProducts = map.getAdminProductsList(ma.getAdmin(agentToCheck));
+
+        }
+
+        return adminProducts;
     }
 
     public void getLeadObject( )

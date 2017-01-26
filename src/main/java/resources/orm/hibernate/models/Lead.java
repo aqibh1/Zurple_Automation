@@ -1,4 +1,4 @@
-package resources.orm.hibernate;
+package resources.orm.hibernate.models;
 
 import java.util.Date;
 import javax.persistence.CascadeType;

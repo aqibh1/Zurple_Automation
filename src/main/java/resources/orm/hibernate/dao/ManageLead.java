@@ -1,4 +1,4 @@
-package resources.orm.hibernate;
+package resources.orm.hibernate.dao;
 
 import java.util.Date;
 import java.util.List;
@@ -9,6 +9,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
+import resources.orm.hibernate.models.Admin;
+import resources.orm.hibernate.models.Lead;
 
 public class ManageLead {
 

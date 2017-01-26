@@ -3,59 +3,48 @@ package resources.classes;
 public class Product
 {
 
-    private Integer id;
-    private String text;
-    private String date;
-    private String type;
-    private Boolean editable;
+    private Integer product_id;
+    private String recordtype;
+    private String displayname;
+    private String code_name;
 
     public Integer getId()
     {
-        return id;
+        return product_id;
     }
 
-    public void setId(Integer id)
+    public void setId(Integer product_id)
     {
-        this.id = id;
+        this.product_id = product_id;
     }
 
-    public String getText()
+    public String getRecordType()
     {
-        return text;
+        return recordtype;
     }
 
-    public void setText(String text)
+    public void setRecordType(String recordtype)
     {
-        this.text = text;
+        this.recordtype = recordtype;
     }
 
-    public String getDate()
+    public String getDisplayName()
     {
-        return date;
+        return displayname;
     }
 
-    public void setDate(String date)
+    public void setDisplayName(String displayname)
     {
-        this.date = date;
+        this.displayname = displayname;
     }
 
-    public Boolean getEditable()
+    public String getCodeName()
     {
-        return editable;
+        return code_name;
     }
 
-    public void setEditable(Boolean editable)
+    public void setCodeName(String code_name)
     {
-        this.editable = editable;
-    }
-
-    public String getType()
-    {
-        return type;
-    }
-
-    public void setType(String type)
-    {
-        this.type = type;
+        this.code_name = code_name;
     }
 }
