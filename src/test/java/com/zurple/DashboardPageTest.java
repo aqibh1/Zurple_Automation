@@ -46,14 +46,10 @@ public class DashboardPageTest
             Matcher matcher = pattern.matcher(alert.getLeadLink());
             assertTrue(matcher.find());
             Integer lead_id = Integer.parseInt(matcher.group(1));
-            System.out.println(lead_id);
             List<String> expectedFlags = getEnvironment().getLeadFlags(lead_id);
             List<String> parsedFlags = alert.getFlagsList();
-            System.out.println(expectedFlags);
-            System.out.println(parsedFlags);
-            expectedFlags.retainAll(parsedFlags);
-
-            assertEquals(0,expectedFlags.size());
+            assertTrue(expectedFlags.size()>0);
+            assertFalse(expectedFlags.retainAll(parsedFlags));
         }
     }
 

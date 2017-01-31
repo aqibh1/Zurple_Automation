@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
@@ -100,19 +101,38 @@ public class ManageLead {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            List records = session.createQuery("select \n"
-                    + "\tar.alert_type\n"
-                    + "from \n"
-                    + "\tuser_alert as ua join\n"
-                    + "\talert_rules as ar on ar.arule_id=ua.alert_rule_id\n"
-                    + "where \n"
-                    + "ar.alert_type in ('activity','return','price','preferred','favorite', 'favorite_high_appreciation')"
-                    + "\tua.user_id="+lead_id).list();
 
-            for (Iterator iterator =
-                    records.iterator(); iterator.hasNext();){
-                String flag = (String) iterator.next();
-                flagList.add(flag);
+            Query query = session.createSQLQuery("select "
+                    + " cast(ar.alert_type as CHAR(50)) as  alert_type "
+                    + " from "
+                    + " user_alert ua join "
+                    + " alert_rules ar on ar.arule_id=ua.alert_rule_id "
+                    + " where "
+                    + " ar.alert_type in ('activity','return','price','preferred','favorite', 'favorite_high_appreciation') and "
+                    + " ua.user_id = "+Integer.toString(lead_id)
+                    + " group by ar.alert_type "
+            );
+            List<String> flags = query.list();
+
+            for(String flagCode: flags){
+                if(flagCode.equals("activity")) {
+                    flagList.add("browsing");
+                }
+                if(flagCode.equals("return")) {
+                    flagList.add("return");
+                }
+                if(flagCode.equals("price")) {
+                    flagList.add("expensive");
+                }
+                if(flagCode.equals("preferred")) {
+                    flagList.add("preferred");
+                }
+                if(flagCode.equals("favorite")) {
+                    flagList.add("favorites");
+                }
+                if(flagCode.equals("favorite_high_appreciation")) {
+                    flagList.add("favorites");
+                }
             }
             tx.commit();
         } catch (Exception e) {
