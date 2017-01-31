@@ -48,7 +48,7 @@ public class ManageAdminProducts
         return result;
     }
 
-    /* Method to  READ produts list by admin id */
+    /* Method to  READ products list by admin id */
     public List<AdminProduct> getAdminProductsList( Admin admin ){
         Session session = factory.openSession();
         List<AdminProduct> adminProducts = new ArrayList<AdminProduct>();

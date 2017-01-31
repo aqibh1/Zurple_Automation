@@ -1,5 +1,6 @@
 package resources.orm.hibernate.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Iterator;
@@ -88,6 +89,40 @@ public class ManageLead {
             }
         }
         return lead;
+    }
+
+    /*
+        Method returns list of hot behavior flags by lead id
+     */
+    public List<String> getFlags( Integer lead_id ){
+        Session session = factory.openSession();
+        List<String> flagList = new ArrayList<String>();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            List records = session.createQuery("select \n"
+                    + "\tar.alert_type\n"
+                    + "from \n"
+                    + "\tuser_alert as ua join\n"
+                    + "\talert_rules as ar on ar.arule_id=ua.alert_rule_id\n"
+                    + "where \n"
+                    + "ar.alert_type in ('activity','return','price','preferred','favorite', 'favorite_high_appreciation')"
+                    + "\tua.user_id="+lead_id).list();
+
+            for (Iterator iterator =
+                    records.iterator(); iterator.hasNext();){
+                String flag = (String) iterator.next();
+                flagList.add(flag);
+            }
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return flagList;
     }
     /* Method to UPDATE salary for an employee */
     public void updateLead(Integer LeadID, String email ){

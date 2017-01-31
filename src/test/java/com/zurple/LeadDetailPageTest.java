@@ -27,7 +27,7 @@ public class LeadDetailPageTest
     }
 
     public void testLead() {
-        getEnvironment().getLeadObject();
+        //getEnvironment().getLeadObject();
     }
 
     public void testRemindersBlock(){

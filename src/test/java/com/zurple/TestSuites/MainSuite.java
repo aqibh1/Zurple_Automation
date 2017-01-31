@@ -12,7 +12,7 @@ import resources.AbstractPageTest;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         LoginPageTest.class,
-        //DashboardPageTest.class,
+        DashboardPageTest.class,
         //LeadDetailPageTest.class,
         //LeadEditPageTest.class,
         //LeadListPageTest.class,
@@ -22,7 +22,7 @@ import resources.AbstractPageTest;
         //MarketingTextmessagePageTest.class,
         //StatisticsPageTest.class,
         //SupportPageTest.class
-        TransactionsPageTest.class
+        //TransactionsPageTest.class
 })
 
 public class MainSuite {

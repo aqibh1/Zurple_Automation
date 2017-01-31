@@ -46,39 +46,22 @@ public class TestEnvironment
         return adminProducts;
     }
 
-    public void getLeadObject( )
+    public Lead getLeadObject(Integer lead_id)
     {
         factory = new HibernateUtil().getSessionFactory();
 
         ManageLead ml = new ManageLead(factory);
 
-        Lead lead = ml.getLead(100001);
-        System.out.print(lead.getFirstName());
-        System.out.print(lead.getLastName());
-        System.out.print(lead.getEmail());
-        Admin admin = lead.getOwnerId();
-        System.out.print(admin.getFirstName());
-        System.out.print(admin.getLastName());
-        System.out.print(admin.getEmail());
-        //System.out.println(lead.listLeads());
-      /* Add few employee records in database */
-        Integer leadID1 = ml.addLead( "azara@test.com","Ali","Baba","1234567890","","", admin);
-        /*Integer empID2 = ME.addLead("ddas@test.com","Das", "Karabas","", "","");
-        Integer empID3 = ME.addLead( "jpaul@test.com", "Paul", "Anderson", "", "","");*/
+        return ml.getLead(lead_id);
+    }
 
-      /* List down all the employees */
-        //ME.listLeads();
+    public List<String> getLeadFlags(Integer lead_id)
+    {
+        factory = new HibernateUtil().getSessionFactory();
 
+        ManageLead ml = new ManageLead(factory);
 
-        ml.updateLead(lead.getId(), "azara_new@test.com");
-
-      /* Delete an employee from the database */
-        //ME.deleteLead(empID2);
-
-      /* List down new list of the employees */
-        //ME.listLeads();
-
-
+        return ml.getFlags(lead_id);
     }
 
     public Integer getAgentToCheck()

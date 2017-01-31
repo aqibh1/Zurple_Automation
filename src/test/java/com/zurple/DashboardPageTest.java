@@ -1,5 +1,6 @@
 package com.zurple;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import resources.classes.Alert;
@@ -41,11 +42,19 @@ public class DashboardPageTest
     public void testHotBehaviors(){
         assertTrue(getPage().checkHotBehaviorBlock());
         for (Alert alert: getPage().getHotBehaviorBlock().getHotBehaviorList()) {
-            System.out.print(alert.getLeadLink());
-            assertTrue(Pattern.matches("https://ya\\.ru/param","https://ya.ru/param"));
-            assertTrue(Pattern.matches("https://my\\.dev\\.zurple\\.com/lead/(\\d+)\\?from=hotlead",alert.getLeadLink()));
-        }
+            Pattern pattern = Pattern.compile("https://my\\.dev\\.zurple\\.com/lead/(\\d+)\\?from=hotlead");
+            Matcher matcher = pattern.matcher(alert.getLeadLink());
+            assertTrue(matcher.find());
+            Integer lead_id = Integer.parseInt(matcher.group(1));
+            System.out.println(lead_id);
+            List<String> expectedFlags = getEnvironment().getLeadFlags(lead_id);
+            List<String> parsedFlags = alert.getFlagsList();
+            System.out.println(expectedFlags);
+            System.out.println(parsedFlags);
+            expectedFlags.retainAll(parsedFlags);
 
+            assertEquals(0,expectedFlags.size());
+        }
     }
 
 }
