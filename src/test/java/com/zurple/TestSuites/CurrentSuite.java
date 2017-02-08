@@ -1,11 +1,9 @@
 package com.zurple.TestSuites;
 
-import com.zurple.*;
+import com.zurple.DashboardPageTest;
+import com.zurple.LoginPageTest;
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.junit.runners.Suite;
 import resources.AbstractPageTest;
 
@@ -25,7 +23,8 @@ import resources.AbstractPageTest;
         //TransactionsPageTest.class
 })
 
-public class MainSuite {
+public class CurrentSuite
+{
 
     @AfterClass
     public static void tearDown() {
