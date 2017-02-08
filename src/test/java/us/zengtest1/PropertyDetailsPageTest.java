@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
 import resources.AbstractPageTest;
 import resources.alerts.SweetAlertNotification;
 import static org.testng.Assert.assertEquals;
@@ -27,19 +28,22 @@ public class PropertyDetailsPageTest
         return page;
     }
 
+    @Test
     public void testHeader() {
         assertEquals("Shell Canyon Rd.,  Ocotillo  (92259)", getPage().getHeader().getText());
     }
 
+    @Test
     public void testTitle() {
         assertEquals("Shell Canyon Rd. Ocotillo, CA - MLS#: 160046005 | zengtest1.us", getPage().getTitle());
     }
 
-
+    @Test
     public void testBrand() {
         assertEquals("ZENG TEST PROPERTIES", getPage().getBrand().getText());
     }
 
+    @Test
     public void testSubmittingEmptyContactAgentForm(){
         getPage().getContactAgentForm().clearFields();
         getPage().getContactAgentForm().submit();
@@ -50,6 +54,7 @@ public class PropertyDetailsPageTest
 
     }
 
+    @Test
     public void testSlider(){
 
         int currentSlide;
@@ -76,6 +81,7 @@ public class PropertyDetailsPageTest
 
     }
 
+    @Test
     public void testSubmittingFilledContactAgentForm(){
         getPage().getContactAgentForm().setInputValue("name","John Doe");
         getPage().getContactAgentForm().setInputValue("email","jdoe@test.com");
@@ -98,6 +104,7 @@ public class PropertyDetailsPageTest
 
     }
 
+    @Test
     public void testAddingPropertyToFavorites()
     {
         /*getPage().getFavoriteButton().click();

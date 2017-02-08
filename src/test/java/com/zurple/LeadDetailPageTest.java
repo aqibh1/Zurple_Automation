@@ -1,5 +1,7 @@
 package com.zurple;
 
+import org.testng.annotations.Test;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.assertFalse;
@@ -18,19 +20,22 @@ public class LeadDetailPageTest
         }
         return page;
     }
-
+    @Test
     public void testTitle() {
         assertEquals("Zurple Backoffice", getPage().getTitle());
     }
 
+    @Test
     public void testLead() {
         //getEnvironment().getLeadObject();
     }
 
+    @Test
     public void testRemindersBlock(){
         assertTrue(getPage().checkRemindersBlock());
     }
 
+    @Test
     public void testAddNewEmailReminder(){
         getPage().getRemindersBlock().getReminderForm().setTextareaValue("text_area_reminder", "Test reminder");
         //Just touching reminder input

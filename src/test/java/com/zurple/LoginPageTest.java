@@ -20,24 +20,24 @@ public class LoginPageTest
         return page;
     }
 
-    @Test(groups = "layout")
+    @Test
     public void testTitle() {
         assertEquals("Zurple Inc.", getPage().getTitle());
     }
 
-    @Test(groups = "layout")
+    @Test
     public void testBrand() {
         assertFalse(getPage().getBrand() == null);
     }
 
-    @Test(groups = "login")
+    @Test
     public void testSubmittingEmptyLoginForm(){
         getPage().getLoginForm().clearFields();
         getPage().getLoginForm().submit();
         assertTrue(getPage().checkLoginFormExists());
     }
 
-    @Test(groups = "login")
+    @Test
     public void testSubmittingInvalidLoginForm(){
         getPage().getLoginForm().setInputValue("username","test@test.com");
         getPage().getLoginForm().setInputValue("passwd","123");
@@ -46,7 +46,7 @@ public class LoginPageTest
         assertEquals("This Admin account is not active. Please contact us at 800-520-2312.",getPage().getLoginForm().getErrorMessage());
     }
 
-    @Test(groups = "login")
+    @Test
     public void testSubmittingValidLoginForm(){
         getPage().getLoginForm().setInputValue("username","testsiteowner@zurple.com");
         getPage().getLoginForm().setInputValue("passwd","test");

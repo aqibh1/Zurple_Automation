@@ -2,6 +2,7 @@ package com.zurple;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import org.testng.annotations.Test;
 import resources.orm.hibernate.models.AdminProduct;
 
 import static org.testng.Assert.assertEquals;
@@ -20,6 +21,7 @@ public class TransactionsPageTest
         return page;
     }
 
+    @Test
     public void testProducts(){
 
         assertTrue(getPage().checkProdcutsBlock());

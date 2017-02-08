@@ -1,6 +1,7 @@
 package us.zengtest1;
 
 import org.openqa.selenium.By;
+import org.testng.annotations.Test;
 import resources.AbstractPageTest;
 import resources.interfaces.TestHavingHeader;
 import resources.interfaces.UsingPage;
@@ -11,6 +12,7 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
 
     public abstract Page getPage();
 
+    @Test
     public void testTopMenu() {
         assertEquals("",getPage().getTopMenu().findElement(By.xpath("//li[1]/a")).getText());
         assertEquals("SEARCH",getPage().getTopMenu().findElement(By.xpath("//li[2]/a")).getText());

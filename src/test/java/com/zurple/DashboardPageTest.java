@@ -3,6 +3,7 @@ package com.zurple;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.testng.annotations.Test;
 import resources.classes.Alert;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -22,17 +23,19 @@ public class DashboardPageTest
         }
         return page;
     }
-
+    @Test
     public void testTitle() {
         assertEquals("Zurple Backoffice", getPage().getTitle());
     }
 
+    @Test
     public void testNewLeadsBlock(){
         assertTrue(getPage().checkNewLeadsBlock());
         assertFalse(getPage().getNewLeadsBlock().getLeadIds().isEmpty());
         assertEquals(5,getPage().getNewLeadsBlock().getLeadIds().size());
     }
 
+    @Test
     public void testNewLeadsLink(){
         assertTrue(getPage().checkNewLeadsBlock());
         Integer n = getPage().getNewLeadsBlock().getLeadIds().get(0);
@@ -40,6 +43,7 @@ public class DashboardPageTest
         assertEquals("https://my.dev.zurple.com/lead/"+n+"?from=new", getPage().getNewLeadsBlock().getNewLeadLink(1).getAttribute("href"));
     }
 
+    @Test
     public void testHotBehaviors(){
         assertTrue(getPage().checkHotBehaviorBlock());
         for (Alert alert: getPage().getHotBehaviorBlock().getHotBehaviorList()) {

@@ -1,5 +1,6 @@
 package us.zengtest1;
 
+import org.testng.annotations.Test;
 import resources.AbstractPageTest;
 import static org.testng.Assert.assertEquals;
 
@@ -17,21 +18,24 @@ public class LoginPageTest
         return page;
     }
 
+    @Test
     public void testHeader() {
         assertEquals("MEMBER LOGIN", getPage().getHeader().getText());
     }
 
+    @Test
     public void testTitle() {
         assertEquals("Login | zengtest1.us", getPage().getTitle());
     }
 
-
+    @Test
     public void testBrand() {
         assertEquals("ZENG\n"
                 + "TEST\n"
                 + "PROPERTIES", getPage().getBrand().getText());
     }
 
+    @Test
     public void testSubmittingEmptyLoginForm(){
         getPage().getLoginForm().clearFields();
         getPage().getLoginForm().submit();

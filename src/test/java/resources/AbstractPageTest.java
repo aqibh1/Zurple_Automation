@@ -44,10 +44,4 @@ public abstract class AbstractPageTest
         }
     }
 
-
-    @AfterClass
-    public static void cleanup(){
-        getDriver().quit();
-    }
-
 }
