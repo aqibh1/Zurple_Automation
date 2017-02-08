@@ -1,7 +1,5 @@
 package com.zurple;
 
-import static org.junit.Assert.*;
-
 /**
  * todo
  *

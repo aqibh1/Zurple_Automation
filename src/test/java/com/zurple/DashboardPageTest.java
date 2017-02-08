@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import resources.classes.Alert;
-
-import static java.util.regex.Pattern.compile;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertFalse;
 
 public class DashboardPageTest
         extends PageTest

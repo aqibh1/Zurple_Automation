@@ -3,7 +3,9 @@ package com.zurple;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import resources.orm.hibernate.models.AdminProduct;
-import resources.orm.hibernate.models.Product;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class TransactionsPageTest
         extends PageTest

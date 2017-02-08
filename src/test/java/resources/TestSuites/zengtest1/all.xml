@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Zengtest all tests">
+
+  <suite-files>
+    <suite-file path="site.xml"/>
+  </suite-files>
+
+</suite>

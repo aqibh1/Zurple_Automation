@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Site pages tests">
+
+  <test name="my.zurple.com">
+    <classes>
+      <class name="com.zurple.LoginPageTest" />
+      <class name="com.zurple.DashboardPageTest" />
+    </classes>
+  </test>
+
+</suite>

@@ -1,6 +1,7 @@
 package us.zengtest1;
 
 import resources.AbstractPageTest;
+import static org.testng.Assert.assertEquals;
 
 public class LoginPageTest
         extends AbstractPageTest

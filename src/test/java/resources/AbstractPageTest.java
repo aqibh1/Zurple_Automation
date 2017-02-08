@@ -1,15 +1,15 @@
 package resources;
 
 import java.util.regex.Pattern;
-import junit.framework.TestCase;
-import org.junit.AfterClass;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.Test;
 import resources.classes.Asset;
 
-public abstract class AbstractPageTest extends TestCase
+import static org.testng.Assert.assertTrue;
+
+public abstract class AbstractPageTest
 {
 
     protected static WebDriver driver;
@@ -37,6 +37,7 @@ public abstract class AbstractPageTest extends TestCase
         environment = object;
     }
 
+    @Test
     public void testAsssetsVerions() {
         for (Asset asset: getPage().getAssets()) {
             assertTrue(Pattern.matches("\\?v=\\d{4}\\.\\d{2}\\.\\d$",asset.getUrl()));

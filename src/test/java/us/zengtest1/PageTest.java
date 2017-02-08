@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import resources.AbstractPageTest;
 import resources.interfaces.TestHavingHeader;
 import resources.interfaces.UsingPage;
+import static org.testng.Assert.assertEquals;
 
 public abstract class PageTest extends AbstractPageTest  implements UsingPage, TestHavingHeader
 {

@@ -1,7 +1,8 @@
 package us.zengtest1;
 
-import resources.AbstractPage;
 import resources.AbstractPageTest;
+
+import static org.testng.Assert.assertEquals;
 
 public class HomePageTest extends AbstractPageTest
 {
