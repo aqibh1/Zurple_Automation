@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import resources.classes.Alert;
 
-public class HotBevaiorBlock
+public class HotBehaviorBlock
         extends resources.blocks.AbstractBlock
 {
     public List<Alert> getHotBehaviorList(){

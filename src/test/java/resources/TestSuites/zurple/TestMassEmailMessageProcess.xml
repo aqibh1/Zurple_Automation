@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Zurple Mass Email Message Process">
+
+  <suite-files>
+    <suite-file path="login.xml"/>
+    <suite-file path="TestDashboardPage.xml"/>
+    <suite-file path="TestMassEmailPage.xml"/>
+  </suite-files>
+
+</suite>
