@@ -1,11 +1,12 @@
 package com.zurple;
 
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.testng.annotations.Test;
-import resources.orm.hibernate.dao.ManageEmailQueue;
 import resources.orm.hibernate.models.EmailQueue;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.assertFalse;
 
@@ -38,17 +39,22 @@ public class MarketingMessemailPageTest  extends PageTest
         {
             assertTrue(false);
         }
-        getPage().getMassEmailForm().setInputValue("subject","  double  spaces  ");
-        getPage().getMassEmailForm().setTextareaValue("body","  double  spaces  ");
+        String uuid = UUID.randomUUID().toString();
+        String subject = "  double    spaces  "+uuid;
+        String body = "  double    spaces  "+uuid;
+        getPage().getMassEmailForm().setInputValue("subject",subject);
+        getPage().getMassEmailForm().setTextareaValue("body",body);
         getPage().getMassEmailForm().submit();
         assertTrue(getPage().getMassEmailForm().waitWhileSubmitting());
         assertTrue(getPage().checkMassEmailSuccessfullySentAlertBlockExists());
         //Checking DB record body
         EmailQueue lastEmailQueueEntry = getEnvironment().getLastEmailQueueEntry();
+
+        assertEquals(lastEmailQueueEntry.getSubject(),subject.replaceAll("\\p{Blank}+", " "));
+        assertEquals(lastEmailQueueEntry.getBodyHtml(),body.replaceAll("\\p{Blank}+", " "));
+
         Pattern pattern = Pattern.compile("&nbsp;");
         Matcher matcher = pattern.matcher(lastEmailQueueEntry.getBodyHtml());
         assertFalse(matcher.find());
-        System.out.println(lastEmailQueueEntry.getSubject());
-        System.out.println(lastEmailQueueEntry.getBodyHtml());
     }
 }
