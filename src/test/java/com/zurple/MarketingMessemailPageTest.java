@@ -1,7 +1,13 @@
 package com.zurple;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.testng.annotations.Test;
+import resources.orm.hibernate.dao.ManageEmailQueue;
+import resources.orm.hibernate.models.EmailQueue;
+
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.assertFalse;
 
 /**
  * todo
@@ -37,5 +43,12 @@ public class MarketingMessemailPageTest  extends PageTest
         getPage().getMassEmailForm().submit();
         assertTrue(getPage().getMassEmailForm().waitWhileSubmitting());
         assertTrue(getPage().checkMassEmailSuccessfullySentAlertBlockExists());
+        //Checking DB record body
+        EmailQueue lastEmailQueueEntry = getEnvironment().getLastEmailQueueEntry();
+        Pattern pattern = Pattern.compile("&nbsp;");
+        Matcher matcher = pattern.matcher(lastEmailQueueEntry.getBodyHtml());
+        assertFalse(matcher.find());
+        System.out.println(lastEmailQueueEntry.getSubject());
+        System.out.println(lastEmailQueueEntry.getBodyHtml());
     }
 }

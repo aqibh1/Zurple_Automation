@@ -39,7 +39,7 @@ public class MassEmailForm
     public void setTextareaValue(String inputName, String value)
     {
         //Diving inside iframe
-        getDriver().switchTo().frame(getDriver().findElement(By.xpath("//*[@id=\"cke_contents_body\"]/iframe")));
+        getDriver().switchTo().frame(getDriver().findElement(By.xpath("//*[@id=\"cke_1_contents\"]/iframe")));
         getDriver().findElement(By.xpath("/html/body")).sendKeys(value);
         //Floating back to the surface
         getDriver().switchTo().defaultContent();
@@ -72,13 +72,13 @@ public class MassEmailForm
 
     //TODO not unified loader
     private WebElement getLoader(){
-        return getDriver().findElement(By.xpath("/html/body/div[@aria-labelledby=\"ui-id-4\"]"));
+        return getDriver().findElement(By.xpath("/html/body/div[@aria-describedby=\"progress_box\"]"));
     }
 
     public Boolean waitWhileSubmitting(){
         try{
             Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(Helper.generateXPATH(getLoader(),""))));
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(Helper.generateXPATH(getLoader(),""))));
             return true;
         }catch(StaleElementReferenceException e){
              return false;
