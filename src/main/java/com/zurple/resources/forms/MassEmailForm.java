@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -73,6 +74,15 @@ public class MassEmailForm
     //TODO not unified loader
     private WebElement getLoader(){
         return getDriver().findElement(By.xpath("/html/body/div[@aria-describedby=\"progress_box\"]"));
+    }
+
+    public Boolean statusBarIsEmpty(){
+        try{
+            WebElement statusBar = getDriver().findElement(By.xpath("//*[@id=\"cke_1_path\"]"));
+            return true;
+        }catch(NoSuchElementException e){
+            return false;
+        }
     }
 
     public Boolean waitWhileSubmitting(){
