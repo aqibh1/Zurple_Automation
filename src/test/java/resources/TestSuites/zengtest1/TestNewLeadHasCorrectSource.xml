@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Check a new lead has correct source">
+
+  <test name="search_and_register">
+    <classes>
+      <class name="us.zengtest1.HomePageTest" />
+      <class name="us.zengtest1.RegisterPageTest" />
+    </classes>
+  </test>
+
+</suite>
