@@ -29,6 +29,11 @@ public class MarketingMessemailPageTest  extends PageTest
     }
 
     @Test
+    public void testCKEditorStatusBarIsHidden(){
+        assertFalse(getPage().getMassEmailForm().statusBarIsEmpty());
+    }
+
+    @Test
     public void testSendingIndividualEmail(){
         assertTrue(getPage().checkMassEmailFormExists());
         try
