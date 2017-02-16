@@ -11,6 +11,10 @@ public class HomePage extends Page
         url = "http://dev.zengtest1.us/";
     }
 
+    public HomePage(String source_in_url){
+        url = "http://dev.zengtest1.us/"+source_in_url;
+    }
+
     public WebElement getHeader(){
         return driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div/div/div[1]/h3"));
     }

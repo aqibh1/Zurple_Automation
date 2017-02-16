@@ -5,6 +5,7 @@ import org.apache.commons.lang3.ObjectUtils.Null;
 import org.hibernate.SessionFactory;
 import resources.orm.hibernate.dao.ManageAdmin;
 import resources.orm.hibernate.dao.ManageEmailQueue;
+import resources.orm.hibernate.dao.ManageUser;
 import resources.orm.hibernate.models.Admin;
 import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.dao.ManageAdminProducts;
@@ -12,6 +13,7 @@ import resources.orm.hibernate.models.AdminProduct;
 import resources.orm.hibernate.models.EmailQueue;
 import resources.orm.hibernate.models.Lead;
 import resources.orm.hibernate.dao.ManageLead;
+import resources.orm.hibernate.models.User;
 
 public class TestEnvironment
 {
@@ -55,6 +57,15 @@ public class TestEnvironment
         ManageLead ml = new ManageLead(factory);
 
         return ml.getLead(lead_id);
+    }
+
+    public User getUserById(Integer user_id)
+    {
+        factory = new HibernateUtil().getSessionFactory();
+
+        ManageUser mu = new ManageUser(factory);
+
+        return mu.getUser(user_id);
     }
 
     public EmailQueue getLastEmailQueueEntry()

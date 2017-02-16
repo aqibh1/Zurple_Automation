@@ -12,6 +12,7 @@
     <property name="show_sql">true</property>
 
     <mapping class="resources.orm.hibernate.models.Lead"></mapping>
+    <mapping class="resources.orm.hibernate.models.User"></mapping>
     <mapping class="resources.orm.hibernate.models.Admin"></mapping>
     <mapping class="resources.orm.hibernate.models.AdminProduct"></mapping>
     <mapping class="resources.orm.hibernate.models.Product"></mapping>

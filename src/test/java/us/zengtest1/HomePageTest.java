@@ -1,6 +1,8 @@
 package us.zengtest1;
 
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.annotations.Parameters;
 import resources.AbstractPageTest;
 
 import static org.testng.Assert.assertEquals;
@@ -9,10 +11,17 @@ public class HomePageTest extends AbstractPageTest
 {
 
     private static HomePage page;
+    private static String source_in_url;
+
+    @Parameters("source_in_url")
+    @BeforeTest
+    public void globalSetUp(String source_in_url){
+        this.source_in_url = source_in_url;
+    }
 
     public Page getPage(){
         if(page == null){
-            page = new HomePage();
+            page = new HomePage(this.source_in_url);
             page.setDriver(getDriver());
         }
         return page;
