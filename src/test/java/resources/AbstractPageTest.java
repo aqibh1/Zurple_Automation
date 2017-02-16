@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import resources.classes.Asset;
 
@@ -23,6 +24,11 @@ public abstract class AbstractPageTest
             driver = new FirefoxDriver();
         }
         return driver;
+    }
+
+    @BeforeTest
+    public void settingUpDriver(){
+        getDriver();
     }
 
     public static TestEnvironment getEnvironment(){
