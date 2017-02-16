@@ -28,17 +28,17 @@ public class RegisterPageTest
         return page;
     }
 
-    @Test
+    @Test(priority=10)
     public void testTitle() {
         assertEquals("Search for Homes in San Diego, CA", getPage().getTitle());
     }
 
-    @Test
+    @Test(priority=20)
     public void testBrand() {
         assertEquals(getPage().getBrand().getText(), "ZENG TEST PROPERTIES");
     }
 
-    @Test
+    @Test(priority=30)
     public void testSubmittingEmptyRegisterForm(){
         getPage().getRegisterForm().clearFields();
         getPage().getRegisterForm().submit();
@@ -46,7 +46,7 @@ public class RegisterPageTest
         assertTrue(getPage().getRegisterForm().getFormErrorMessagesList().isEmpty());
     }
 
-    @Test
+    @Test(priority=40)
     public void testRegisterNewPersonalLead(){
         String username = "test_personal_lead_" + UUID.randomUUID().toString();
         String email = username + "_zurpleqa@test.com";
