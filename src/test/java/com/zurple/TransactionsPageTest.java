@@ -21,6 +21,10 @@ public class TransactionsPageTest
         return page;
     }
 
+    public void clearPage(){
+        page=null;
+    };
+
     @Test
     public void testProducts(){
 

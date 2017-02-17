@@ -20,6 +20,10 @@ public class LoginPageTest
         return page;
     }
 
+    public void clearPage(){
+        page=null;
+    };
+
     @Test
     public void testTitle() {
         assertEquals("Zurple Inc.", getPage().getTitle());

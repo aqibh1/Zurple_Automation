@@ -2,6 +2,7 @@ package resources;
 
 import java.util.regex.Pattern;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
 import resources.classes.Asset;
@@ -19,9 +20,12 @@ public class CurrentPageTest
 
     @Test
     public void closeBrowser(){
-        System.out.println("Closed!");
         driver.close();
         driver=null;
     }
+
+    public void clearPage(){
+        page=null;
+    };
 
 }

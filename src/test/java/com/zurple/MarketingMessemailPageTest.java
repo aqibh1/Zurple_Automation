@@ -28,6 +28,10 @@ public class MarketingMessemailPageTest  extends PageTest
         return page;
     }
 
+    public void clearPage(){
+        page=null;
+    };
+
     @Test
     public void testCKEditorStatusBarIsHidden(){
         assertFalse(getPage().getMassEmailForm().statusBarIsEmpty());

@@ -2,9 +2,15 @@ package resources;
 
 import java.util.regex.Pattern;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.classes.Asset;
 
@@ -16,14 +22,28 @@ public abstract class AbstractPageTest
     protected static WebDriver driver;
     protected static TestEnvironment environment;
     protected AbstractPage page;
+    protected static String source_in_url="";
 
     public abstract AbstractPage getPage();
 
+    public abstract void clearPage();
+
     public static WebDriver getDriver(){
         if(driver == null){
-            driver = new FirefoxDriver();
+            driver = new ChromeDriver();
         }
         return driver;
+    }
+
+    @Parameters("source_in_url")
+    @BeforeMethod
+    public void globalSetUp(String source_in_url){
+        this.source_in_url = source_in_url;
+    }
+
+    @BeforeClass
+    public void clearingPageObject(){
+        clearPage();
     }
 
     @BeforeTest

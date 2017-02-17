@@ -40,7 +40,6 @@ public class NewLeadsBlock
             return emptyList;
         } catch( TimeoutException e )
         {
-            System.out.println("!!");
             List<Integer> emptyList = Collections.emptyList();
             return emptyList;
         }

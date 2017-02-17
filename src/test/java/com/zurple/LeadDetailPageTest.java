@@ -20,6 +20,11 @@ public class LeadDetailPageTest
         }
         return page;
     }
+
+    public void clearPage(){
+        page=null;
+    };
+
     @Test
     public void testTitle() {
         assertEquals("Zurple Backoffice", getPage().getTitle());

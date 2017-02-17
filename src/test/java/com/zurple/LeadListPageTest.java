@@ -16,4 +16,9 @@ public class LeadListPageTest  extends PageTest
         }
         return page;
     }
+
+    public void clearPage(){
+        page=null;
+    };
+
 }

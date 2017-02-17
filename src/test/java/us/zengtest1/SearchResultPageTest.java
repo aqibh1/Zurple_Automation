@@ -20,6 +20,10 @@ public class SearchResultPageTest
         return page;
     }
 
+    public void clearPage(){
+        page=null;
+    };
+
     @Test(priority=10)
     public void testTitle() {
         assertEquals("San Diego Homes for Sale | zengtest1.us", getPage().getTitle());

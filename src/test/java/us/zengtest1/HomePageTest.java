@@ -1,5 +1,6 @@
 package us.zengtest1;
 
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.annotations.Parameters;
@@ -11,13 +12,10 @@ public class HomePageTest extends AbstractPageTest
 {
 
     private static HomePage page;
-    private static String source_in_url;
 
-    @Parameters("source_in_url")
-    @BeforeTest
-    public void globalSetUp(String source_in_url){
-        this.source_in_url = source_in_url;
-    }
+    public void clearPage(){
+        page=null;
+    };
 
     public Page getPage(){
         if(page == null){
@@ -38,8 +36,6 @@ public class HomePageTest extends AbstractPageTest
     }
 
     @Test
-    public void testBrand() {
-        assertEquals("ZENG TEST PROPERTIES", getPage().getBrand().getText());
-    }
+    public void testBrand() {        assertEquals("ZENG TEST PROPERTIES", getPage().getBrand().getText());    }
 
 }

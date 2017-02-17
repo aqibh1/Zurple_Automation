@@ -16,4 +16,9 @@ public class StatisticsPageTest  extends PageTest
         }
         return page;
     }
+
+    public void clearPage(){
+        page=null;
+    };
+
 }

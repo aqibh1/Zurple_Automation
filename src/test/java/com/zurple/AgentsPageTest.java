@@ -16,4 +16,8 @@ public class AgentsPageTest  extends PageTest
         }
         return page;
     }
+
+    public void clearPage(){
+        page=null;
+    };
 }

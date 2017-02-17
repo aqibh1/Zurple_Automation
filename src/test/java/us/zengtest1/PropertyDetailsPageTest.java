@@ -20,6 +20,10 @@ public class PropertyDetailsPageTest
 
     private static PropertyDetailsPage page;
 
+    public void clearPage(){
+        page=null;
+    };
+
     public PropertyDetailsPage getPage(){
         if(page == null){
             page = new PropertyDetailsPage();

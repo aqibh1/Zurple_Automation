@@ -28,6 +28,10 @@ public class RegisterPageTest
         return page;
     }
 
+    public void clearPage(){
+        page=null;
+    };
+
     @Test(priority=10)
     public void testTitle() {
         assertEquals("Search for Homes in San Diego, CA", getPage().getTitle());

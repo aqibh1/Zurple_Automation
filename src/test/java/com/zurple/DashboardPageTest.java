@@ -58,4 +58,8 @@ public class DashboardPageTest
         }
     }
 
+    public void clearPage(){
+        page=null;
+    };
+
 }

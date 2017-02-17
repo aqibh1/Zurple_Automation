@@ -10,6 +10,10 @@ public class LoginPageTest
 
     private static LoginPage page;
 
+    public void clearPage(){
+        page=null;
+    };
+
     public LoginPage getPage(){
         if(page == null){
             page = new LoginPage();
