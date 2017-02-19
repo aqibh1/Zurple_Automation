@@ -36,7 +36,7 @@ public abstract class AbstractPageTest
     }
 
     @Parameters("source_in_url")
-    @BeforeMethod
+    @BeforeTest
     public void globalSetUp(String source_in_url){
         this.source_in_url = source_in_url;
     }

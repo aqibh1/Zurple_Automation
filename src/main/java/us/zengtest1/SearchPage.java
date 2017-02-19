@@ -26,8 +26,9 @@ public class SearchPage
         url = "http://dev.zengtest1.us/search/"+source_in_url;
     }
 
+    //TODO not standart page layout
     public WebElement getHeader(){
-        return driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div/div/div[1]/h3"));
+        return driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div/div/div[1]/div/h3"));
     }
 
     public WebElement getBrand(){

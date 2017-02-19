@@ -23,12 +23,13 @@ public class SearchResultsPage
         url = "http://dev.zengtest1.us/search/page";
     }
 
-    public SearchResultsPage(Integer page_number){
-        url = "http://dev.zengtest1.us/search/page/"+page_number;
+    public SearchResultsPage(String url){
+        this.url = url;
     }
 
+    //TODO not standart header location
     public WebElement getHeader(){
-        return driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div/div/div[1]/h3"));
+        return driver.findElement(By.xpath("//*[@id=\"search-result\"]/div[2]/div/h2"));
     }
 
     public WebElement getBrand(){
