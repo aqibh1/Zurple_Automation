@@ -1,11 +1,17 @@
 package resources.classes;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.openqa.selenium.WebElement;
+
 public class SearchResult
 {
 
+    private Integer id;
     private String title;
     private String img_link;
     private String url;
+    private WebElement element;
 
     public String getTitle()
     {
@@ -35,6 +41,31 @@ public class SearchResult
     public void setUrl(String url)
     {
         this.url = url;
+        Pattern pattern = Pattern.compile("(\\d*)$");
+        Matcher matcher = pattern.matcher(url);
+        if(matcher.find()){
+            setId(Integer.parseInt(matcher.group(1)));
+        }
+    }
+
+    public Integer getId()
+    {
+        return id;
+    }
+
+    public void setId(Integer id)
+    {
+        this.id = id;
+    }
+
+    public WebElement getElement()
+    {
+        return element;
+    }
+
+    public void setElement(WebElement element)
+    {
+        this.element = element;
     }
 
 }

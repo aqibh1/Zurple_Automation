@@ -21,9 +21,9 @@ import resources.classes.SearchResult;
 public class SearchResultsBlock
         extends resources.blocks.AbstractBlock
 {
-    public List<SearchResult> getSearchResultsList(){
+    public ArrayList<SearchResult> getSearchResultsList(){
 
-        List<SearchResult> list = new ArrayList<SearchResult>();
+        ArrayList<SearchResult> list = new ArrayList<SearchResult>();
 
         try{
 
@@ -32,8 +32,9 @@ public class SearchResultsBlock
             for (WebElement row: allSearchResultsRows) {
                 SearchResult searchResult = new SearchResult();
                 searchResult.setImgLink(row.findElement(By.xpath("./a/img")).getAttribute("src"));
-                searchResult.setTitle(row.findElement(By.xpath("./a/text()[1]")).getText());
+                searchResult.setTitle(row.findElement(By.xpath("./a")).getText());
                 searchResult.setUrl(row.findElement(By.xpath("./a")).getAttribute("href"));
+                searchResult.setElement(row);
 
                 list.add(searchResult);
             }

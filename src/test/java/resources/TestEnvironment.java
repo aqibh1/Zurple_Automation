@@ -19,6 +19,7 @@ public class TestEnvironment
 {
 
     private Integer leadToCheck;
+    private Integer propertyToCheck;
     private Integer agentToCheck;
     private List<AdminProduct> adminProducts;
 
@@ -34,9 +35,15 @@ public class TestEnvironment
         this.leadToCheck = leadToCheck;
     }
 
+    public void setPropertyToCheck(Integer propertyToCheck)
+    {
+        this.propertyToCheck = propertyToCheck;
+    }
+
     public List<AdminProduct> getProductsList( )
     {
         if(adminProducts == null){
+
             factory = new HibernateUtil().getSessionFactory();
 
             ManageAdmin ma = new ManageAdmin(factory);

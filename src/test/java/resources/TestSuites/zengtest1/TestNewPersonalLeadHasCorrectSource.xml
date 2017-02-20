@@ -21,7 +21,7 @@
       <class name="us.zengtest1.HomePageTest" />
       <class name="us.zengtest1.SearchPageTest" />
       <class name="us.zengtest1.SearchResultPageTest" />
-
+      <class name="us.zengtest1.RegisterPageTest" />
     </classes>
   </test>
 

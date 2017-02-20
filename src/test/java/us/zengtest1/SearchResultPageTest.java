@@ -1,7 +1,10 @@
 package us.zengtest1;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.testng.annotations.Test;
 import resources.AbstractPageTest;
+import resources.classes.SearchResult;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -41,7 +44,9 @@ public class SearchResultPageTest
 
     @Test(priority=30)
     public void testSearchResultsList(){
-        assertFalse(getPage().getSearchResultsBlock().getSearchResultsList().isEmpty());
+        ArrayList<SearchResult> searchResultsList = getPage().getSearchResultsBlock().getSearchResultsList();
+        assertFalse(searchResultsList.isEmpty());
+        searchResultsList.get(1).getElement().click();
     }
 
 }
