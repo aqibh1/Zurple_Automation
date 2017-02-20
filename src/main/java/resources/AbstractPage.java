@@ -20,6 +20,7 @@ public abstract class AbstractPage
     public void setDriver(WebDriver driver){
         this.driver=driver;
         System.out.println(getUrl());
+        System.out.println(this.driver.getCurrentUrl().equals(getUrl()));
         if(!this.driver.getCurrentUrl().equals(getUrl())){
             driver.get(getUrl());
         }
@@ -66,7 +67,8 @@ public abstract class AbstractPage
 
     public void focusOnPage()
     {
-        driver.findElement(By.xpath("/html/body")).click();
+        String currentWindow = driver.getWindowHandle();
+        driver.switchTo().window(currentWindow);
     }
 
     public void pressButton(Keys key, int timeout)
