@@ -1,5 +1,12 @@
 package com.zurple;
 
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import resources.classes.LeadSearchCriteria;
+
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 /**
  * todo
  *
@@ -20,5 +27,23 @@ public class LeadListPageTest  extends PageTest
     public void clearPage(){
         page=null;
     };
+
+    @Test
+    public void testTitle() {
+        assertEquals("Zurple Backoffice", getPage().getTitle());
+    }
+
+
+    @Test
+    public void testByAgentSearchFilterCriteriaExists(){
+        assertTrue(getPage().checkLeadsSearchFormExists());
+        Boolean flag = false;
+        for(LeadSearchCriteria lsc: getPage().getLeadsSearchForm().getSearchCriteriaVariants()){
+            if(lsc.getDescription().equals("By Agent")){
+                flag=true;
+            }
+        }
+        assertTrue(flag);
+    }
 
 }

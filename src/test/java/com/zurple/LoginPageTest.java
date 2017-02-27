@@ -1,5 +1,7 @@
 package com.zurple;
 
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -50,10 +52,11 @@ public class LoginPageTest
         assertEquals("This Admin account is not active. Please contact us at 800-520-2312.",getPage().getLoginForm().getErrorMessage());
     }
 
+    @Parameters({"login","password"})
     @Test
-    public void testSubmittingValidLoginForm(){
-        getPage().getLoginForm().setInputValue("username","testsiteowner@zurple.com");
-        getPage().getLoginForm().setInputValue("passwd","test");
+    public void testSubmittingValidLoginForm(@Optional("testsiteowner@zurple.com") String login, @Optional("test") String password){
+        getPage().getLoginForm().setInputValue("username",login);
+        getPage().getLoginForm().setInputValue("passwd",password);
         getPage().getLoginForm().submit();
         assertEquals("https://my.dev.zurple.com/dashboard",getDriver().getCurrentUrl());
     }

@@ -1,0 +1,31 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Leads List Page">
+
+  <test name="With regular admin access">
+    <classes>
+      <class name="com.zurple.LoginPageTest" />
+      <class name="com.zurple.LeadListPageTest" />
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="With ro admin access">
+    <parameter name="login" value="dev_ro@test.com"/>
+    <parameter name="password" value="12345"/>
+    <classes>
+      <class name="com.zurple.LoginPageTest" />
+      <class name="com.zurple.LeadListPageTest" />
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

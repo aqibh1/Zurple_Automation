@@ -10,6 +10,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.classes.Asset;
@@ -37,7 +38,7 @@ public abstract class AbstractPageTest
 
     @Parameters("source_in_url")
     @BeforeTest
-    public void globalSetUp(String source_in_url){
+    public void globalSetUp(@Optional("") String source_in_url){
         this.source_in_url = source_in_url;
     }
 
