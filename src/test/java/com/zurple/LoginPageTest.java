@@ -26,24 +26,24 @@ public class LoginPageTest
         page=null;
     };
 
-    @Test
+    @Test(priority=10)
     public void testTitle() {
-        assertEquals("Zurple Inc.", getPage().getTitle());
+        assertEquals(getPage().getTitle(),"Zurple Inc.");
     }
 
-    @Test
+    @Test(priority=10)
     public void testBrand() {
         assertFalse(getPage().getBrand() == null);
     }
 
-    @Test
+    @Test(priority=20)
     public void testSubmittingEmptyLoginForm(){
         getPage().getLoginForm().clearFields();
         getPage().getLoginForm().submit();
         assertTrue(getPage().checkLoginFormExists());
     }
 
-    @Test
+    @Test(priority=30)
     public void testSubmittingInvalidLoginForm(){
         getPage().getLoginForm().setInputValue("username","test@test.com");
         getPage().getLoginForm().setInputValue("passwd","123");
@@ -53,7 +53,7 @@ public class LoginPageTest
     }
 
     @Parameters({"login","password"})
-    @Test
+    @Test(priority=40)
     public void testSubmittingValidLoginForm(@Optional("testsiteowner@zurple.com") String login, @Optional("test") String password){
         getPage().getLoginForm().setInputValue("username",login);
         getPage().getLoginForm().setInputValue("passwd",password);
