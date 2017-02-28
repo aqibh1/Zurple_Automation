@@ -5,6 +5,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.testng.annotations.Test;
 import resources.classes.Alert;
+import resources.orm.hibernate.models.Lead;
+import resources.orm.hibernate.models.User;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.assertFalse;
@@ -46,6 +49,7 @@ public class DashboardPageTest
     @Test
     public void testHotBehaviors(){
         assertTrue(getPage().checkHotBehaviorBlock());
+        assertTrue(getPage().getHotBehaviorBlock().getHotBehaviorList().size()>0);
         for (Alert alert: getPage().getHotBehaviorBlock().getHotBehaviorList()) {
             Pattern pattern = Pattern.compile("https://my\\.dev\\.zurple\\.com/lead/(\\d+)\\?from=hotlead");
             Matcher matcher = pattern.matcher(alert.getLeadLink());
@@ -56,6 +60,30 @@ public class DashboardPageTest
             assertTrue(expectedFlags.size()>0);
             assertFalse(expectedFlags.retainAll(parsedFlags));
         }
+
+        // #1300 ticket - changing first lead's status to hidden - it should disappear from the list
+        try
+        {
+            Integer leadId = getPage().getHotBehaviorBlock().getHotBehaviorList().get(0).getLeadId();
+            User u = getEnvironment().getUserById(leadId);
+
+            String initial_status = u.getUserStatus();
+            u.setUserStatus("hidden");
+            getEnvironment().updateUser(u);
+            getDriver().navigate().refresh();
+            System.out.println(leadId);
+            System.out.println(getPage().getHotBehaviorBlock().getHotBehaviorList().get(0).getLeadId());
+            assertFalse(leadId.equals(getPage().getHotBehaviorBlock().getHotBehaviorList().get(0).getLeadId()));
+
+            u.setUserStatus(initial_status);
+            getEnvironment().updateUser(u);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+
     }
 
     public void clearPage(){

@@ -75,6 +75,15 @@ public class TestEnvironment
         return mu.getUser(user_id);
     }
 
+    public void updateUser(User user)
+    {
+        factory = new HibernateUtil().getSessionFactory();
+
+        ManageUser mu = new ManageUser(factory);
+
+        mu.updateUser(user);
+    }
+
     public EmailQueue getLastEmailQueueEntry()
     {
         factory = new HibernateUtil().getSessionFactory();

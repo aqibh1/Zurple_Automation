@@ -2,6 +2,8 @@ package resources.classes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Alert
 {
@@ -38,5 +40,21 @@ public class Alert
     public void addFlag(String flag)
     {
         this.flagsList.add(flag);
+    }
+
+    /**
+     *  Function parses lead id from leadurl
+     * @return Integer  lead id
+     * @throws Exception if lead id can't be parced
+     */
+    public Integer getLeadId()
+            throws Exception
+    {
+        Pattern p = Pattern.compile("(\\d+)");
+        Matcher m = p.matcher(leadLink);
+        while (m.find()) {
+            return Integer.parseInt(m.group());
+        }
+        throw new Exception("Can't parce lead id");
     }
 }
