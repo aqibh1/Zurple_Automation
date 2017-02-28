@@ -12,12 +12,12 @@ public class LeadsSearchForm
         extends resources.forms.LoginForm
 {
 
-    public List<LeadSearchCriteria> getSearchCriteriaVariants(){
+    public List<LeadSearchCriteria> getSearchCriteriaVariants(Integer filter_id){
 
         ArrayList<LeadSearchCriteria> list = new ArrayList<LeadSearchCriteria>();
 
         try{
-            List<WebElement> allCriteriaRows = form.findElements(By.xpath("//descendant::select[@id=\"location-parent-1\"]/option"));
+            List<WebElement> allCriteriaRows = form.findElements(By.xpath("//descendant::select[@id=\"location-parent-"+filter_id+"\"]/option"));
 
             for (WebElement row: allCriteriaRows) {
                 LeadSearchCriteria l = new LeadSearchCriteria();
@@ -31,5 +31,12 @@ public class LeadsSearchForm
         catch( TimeoutException e ) {}
 
         return list;
+    }
+
+    /**
+     * Function toggles second search criteria
+     */
+    public void toggleSecondFilter(){
+        form.findElement(By.xpath("./descendant::*[@id=\"leads-search-filter-plus\"]")).click();
     }
 }

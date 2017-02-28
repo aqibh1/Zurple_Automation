@@ -38,7 +38,17 @@ public class LeadListPageTest  extends PageTest
     public void testByAgentSearchFilterCriteriaExists(){
         assertTrue(getPage().checkLeadsSearchFormExists());
         Boolean flag = false;
-        for(LeadSearchCriteria lsc: getPage().getLeadsSearchForm().getSearchCriteriaVariants()){
+        for(LeadSearchCriteria lsc: getPage().getLeadsSearchForm().getSearchCriteriaVariants(1)){
+            if(lsc.getDescription().equals("By Agent")){
+                flag=true;
+            }
+        }
+        assertTrue(flag);
+
+        //Adding second filter and checking there
+        flag=false;
+        getPage().getLeadsSearchForm().toggleSecondFilter();
+        for(LeadSearchCriteria lsc: getPage().getLeadsSearchForm().getSearchCriteriaVariants(2)){
             if(lsc.getDescription().equals("By Agent")){
                 flag=true;
             }
