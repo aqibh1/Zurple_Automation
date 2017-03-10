@@ -10,7 +10,7 @@ public class Alert
 
     private String leadLink;
     private String propertyLink;
-    private List<String> flagsList=new ArrayList<String>();
+    private HotAlertsFlags flagsList=new HotAlertsFlags();
 
     public String getPropertyLink()
     {
@@ -32,14 +32,14 @@ public class Alert
         this.leadLink = leadLink;
     }
 
-    public List<String> getFlagsList()
+    public HotAlertsFlags getFlagsList()
     {
         return flagsList;
     }
 
-    public void addFlag(String flag)
+    public void setFlagsList(HotAlertsFlags flagsList)
     {
-        this.flagsList.add(flag);
+        this.flagsList=flagsList;
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.zurple;
 
+import com.zurple.resources.blocks.LeadsListBlock;
 import com.zurple.resources.forms.LeadsSearchForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -17,6 +18,7 @@ public class LeadListPage
     }
 
     private LeadsSearchForm leadsSearchForm;
+    private LeadsListBlock leadsListBlock;
 
     public boolean checkLeadsSearchFormExists(){
         try{
@@ -31,5 +33,21 @@ public class LeadListPage
         leadsSearchForm = new LeadsSearchForm();
         leadsSearchForm.setForm(driver.findElement(By.xpath("//*[@id=\"leads-grid-filter-form\"]")));
         return leadsSearchForm;
+    }
+
+    public boolean checkLeadsListBlockExists(){
+        try{
+            getLeadsListBlock();
+            return true;
+        }catch(StaleElementReferenceException e){
+            return false;
+        }
+    }
+
+    public LeadsListBlock getLeadsListBlock(){
+        leadsListBlock = new LeadsListBlock();
+        leadsListBlock.setBlock(driver.findElement(By.xpath("//*[@id=\"DataTables_Table_0_wrapper\"]")));
+        leadsListBlock.setDriver(driver);
+        return leadsListBlock;
     }
 }

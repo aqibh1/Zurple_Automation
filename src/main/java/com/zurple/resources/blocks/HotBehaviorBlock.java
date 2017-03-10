@@ -32,15 +32,11 @@ public class HotBehaviorBlock
                 }catch(NoSuchElementException e){
                     alert.setPropertyLink("");
                 }
+
                 //Adding flags
-                for(WebElement flag: row.findElements(By.xpath("./descendant::div[@class='flags']/descendant::li[contains(concat(\" \",normalize-space(@class),\" \"),\" flag-selected \")]"))){
-                    String flagTitle=flag.getAttribute("class")
-                                    .replaceAll("flag ", "")
-                                    .replaceAll("flag-selected", "")
-                                    .replaceAll("flag-", "")
-                                    .replaceAll(" ", "");
-                    alert.addFlag(flagTitle);
-                }
+                alert.setFlagsList(parseHotAlertsFlags(row.findElement(By.xpath("./descendant::div[@class='flags']"))));
+
+
                 list.add(alert);
             }
             return list;

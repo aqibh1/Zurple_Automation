@@ -56,4 +56,12 @@ public class LeadListPageTest  extends PageTest
         assertTrue(flag);
     }
 
+    @Test
+    public void testLeadList(){
+        assertTrue(getPage().checkLeadsListBlockExists());
+
+        assertEquals(getPage().getLeadsListBlock().getLeadList().size(),15);
+        assertEquals(Math.ceil(getPage().getLeadsListBlock().getTotalLeadsNumber()/15),(double)getPage().getLeadsListBlock().getNumberOfPages());
+    }
+
 }

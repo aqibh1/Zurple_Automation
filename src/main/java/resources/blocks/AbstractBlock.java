@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import resources.classes.HotAlertsFlags;
 import resources.interfaces.UsesDriver;
 
 public abstract class AbstractBlock implements UsesDriver
@@ -30,6 +31,19 @@ public abstract class AbstractBlock implements UsesDriver
         return driver;
     }
 
+    public HotAlertsFlags parseHotAlertsFlags(WebElement flagsBlock){
+        HotAlertsFlags flags = new HotAlertsFlags();
+        //Adding flags
+        for(WebElement flag: flagsBlock.findElements(By.xpath("./descendant::li[contains(concat(\" \",normalize-space(@class),\" \"),\" flag-selected \")]"))){
+            String flagTitle=flag.getAttribute("class")
+                    .replaceAll("flag ", "")
+                    .replaceAll("flag-selected", "")
+                    .replaceAll("flag-", "")
+                    .replaceAll(" ", "");
+            flags.addFlag(flagTitle);
+        }
 
+        return flags;
+    }
 
 }

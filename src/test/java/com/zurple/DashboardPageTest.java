@@ -56,7 +56,7 @@ public class DashboardPageTest
             assertTrue(matcher.find());
             Integer lead_id = Integer.parseInt(matcher.group(1));
             List<String> expectedFlags = getEnvironment().getLeadFlags(lead_id);
-            List<String> parsedFlags = alert.getFlagsList();
+            List<String> parsedFlags = alert.getFlagsList().getFlagsList();
             assertTrue(expectedFlags.size()>0);
             assertFalse(expectedFlags.retainAll(parsedFlags));
         }
@@ -71,8 +71,6 @@ public class DashboardPageTest
             u.setUserStatus("hidden");
             getEnvironment().updateUser(u);
             getDriver().navigate().refresh();
-            System.out.println(leadId);
-            System.out.println(getPage().getHotBehaviorBlock().getHotBehaviorList().get(0).getLeadId());
             assertFalse(leadId.equals(getPage().getHotBehaviorBlock().getHotBehaviorList().get(0).getLeadId()));
 
             u.setUserStatus(initial_status);
