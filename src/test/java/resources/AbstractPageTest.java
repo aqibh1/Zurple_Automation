@@ -64,11 +64,4 @@ public abstract class AbstractPageTest
         environment = object;
     }
 
-    @Test
-    public void testAsssetsVerions() {
-        for (Asset asset: getPage().getAssets()) {
-            assertTrue(Pattern.matches("\\?v=\\d{4}\\.\\d{2}\\.\\d$",asset.getUrl()));
-        }
-    }
-
 }

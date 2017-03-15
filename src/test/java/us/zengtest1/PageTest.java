@@ -1,14 +1,24 @@
 package us.zengtest1;
 
+import java.util.regex.Pattern;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import resources.AbstractPageTest;
+import resources.classes.Asset;
 import resources.interfaces.TestHavingHeader;
 import resources.interfaces.UsingPage;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public abstract class PageTest extends AbstractPageTest  implements UsingPage, TestHavingHeader
 {
+
+    @Test
+    public void testAssetsVersions() {
+        for (Asset asset: getPage().getAssets()) {
+            assertTrue(Pattern.matches("\\?v=\\d{4}\\.\\d{2}\\.\\d$",asset.getUrl()));
+        }
+    }
 
     public abstract Page getPage();
 
