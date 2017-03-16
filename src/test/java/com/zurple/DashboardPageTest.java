@@ -38,7 +38,7 @@ public class DashboardPageTest
         assertEquals(5,getPage().getNewLeadsBlock().getLeadIds().size());
     }
 
-    @Test
+    @Test(groups = "asset")
     public void testNewLeadsLink(){
         assertTrue(getPage().checkNewLeadsBlock());
         Integer n = getPage().getNewLeadsBlock().getLeadIds().get(0);
