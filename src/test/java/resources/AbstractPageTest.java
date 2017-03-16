@@ -1,5 +1,7 @@
 package resources;
 
+import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -62,6 +64,34 @@ public abstract class AbstractPageTest
 
     public static void setEnvironment( TestEnvironment object){
         environment = object;
+    }
+
+    protected boolean checkAssetsVersion(List<Asset> assets){
+        for (Asset asset: getPage().getAssets()) {
+
+            //We should chekc only self-hosted assets
+            Pattern pattern_host = Pattern.compile("zurple\\.com");
+            Matcher matcher_host = pattern_host.matcher(asset.getUrl());
+
+            //We shouln't check ckeditor dynamically loaded assets
+            Pattern pattern_ckeditor = Pattern.compile("\\/ckeditor\\/");
+            Matcher matcher_ckeditor = pattern_ckeditor.matcher(asset.getUrl());
+
+
+            Pattern pattern_version = Pattern.compile("\\?v=\\d+$");
+            Matcher matcher_version = pattern_version.matcher(asset.getUrl());
+
+            if(
+                    matcher_host.find() &&
+                    !matcher_ckeditor.find() &&
+                    !matcher_version.find()
+            ){
+                System.out.println(asset.getUrl());
+                System.out.println(matcher_ckeditor.find());
+                return false;
+            }
+        }
+        return true;
     }
 
 }

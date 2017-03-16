@@ -1,0 +1,37 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Test assets have version in URL">
+
+  <test name="Login">
+    <groups>
+      <run>
+        <include name="login"/>
+        <include name="asset"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="com.zurple.LoginPageTest" />
+    </classes>
+  </test>
+
+  <test name="Check Assets versions">
+    <groups>
+      <run>
+        <include name="asset"/>
+      </run>
+    </groups>
+    <packages> <package name=".*" /> </packages>
+
+  </test>
+
+  <test name="Close browser">
+    <classes>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

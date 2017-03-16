@@ -53,7 +53,7 @@ public class LoginPageTest
     }
 
     @Parameters({"login","password"})
-    @Test(priority=40)
+    @Test(priority=40,groups = { "login" })
     public void testSubmittingValidLoginForm(@Optional("testsiteowner@zurple.com") String login, @Optional("test") String password){
         getPage().getLoginForm().setInputValue("username",login);
         getPage().getLoginForm().setInputValue("passwd",password);
