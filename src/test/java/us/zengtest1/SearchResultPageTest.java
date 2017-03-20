@@ -10,7 +10,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
 public class SearchResultPageTest
-        extends AbstractPageTest
+        extends PageTest
 {
 
     private static SearchResultsPage page;

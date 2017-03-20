@@ -6,16 +6,13 @@ import java.util.regex.Pattern;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.assertFalse;
-import resources.AbstractPageTest;
-import resources.orm.hibernate.models.EmailQueue;
-import resources.orm.hibernate.models.Lead;
+
 import resources.orm.hibernate.models.User;
 
 import static org.testng.Assert.assertEquals;
 
 public class RegisterPageTest
-        extends AbstractPageTest
+        extends PageTest
 {
 
     private static RegisterPage page;
@@ -35,6 +32,11 @@ public class RegisterPageTest
     @Test(priority=10)
     public void testTitle() {
         assertEquals("Search for Homes in San Diego, CA", getPage().getTitle());
+    }
+
+    @Test(priority=10)
+    public void testHeader() {
+        assertEquals("THE #1 SEARCH ENGINE FOR SAN DIEGO REAL ESTATE", getPage().getHeader().getText());
     }
 
     @Test(priority=20)

@@ -2,26 +2,6 @@
 
 <suite name="Test assets have version in URL">
 
-  <test name="Login">
-    <groups>
-      <run>
-        <include name="login"/>
-        <include name="asset"/>
-      </run>
-    </groups>
-    <classes>
-      <class name="com.zurple.my.LoginPageTest" />
-    </classes>
-  </test>
-
-  <test name="Init">
-    <groups>
-      <run>
-        <include name="init"/>
-      </run>
-    </groups>
-    <packages> <package name=".*" /> </packages>
-  </test>
 
   <test name="Check Assets versions">
     <groups>
@@ -29,7 +9,7 @@
         <include name="asset"/>
       </run>
     </groups>
-    <packages> <package name="com.zurple.my" /> </packages>
+    <packages> <package name="us.zengtest1" /> </packages>
 
   </test>
 

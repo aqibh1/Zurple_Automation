@@ -75,11 +75,8 @@ public abstract class AbstractPageTest
             Matcher matcher_domain = pattern_domain.matcher(asset.getUrl());
             if (matcher_domain.find()) {
                 String domain = matcher_domain.group();
-                //We should chekc only self-hosted assets
-                Pattern pattern_host = Pattern.compile("zurple\\.com");
-                Matcher matcher_host = pattern_host.matcher(domain);
-
-                if(matcher_host.find()){
+                //We should check only self-hosted assets
+                if(domain.contains("zurple.com") || domain.contains("zengtest")){
                     checkFlag = true;
                 }
 

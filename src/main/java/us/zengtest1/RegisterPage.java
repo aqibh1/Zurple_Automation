@@ -29,7 +29,7 @@ public class RegisterPage
     }
     //TODO - this method is marker that we should refactor our templates
     public WebElement getHeader(){
-        return driver.findElement(By.xpath("//*[@id=\"search_box\"]/div[3]/div/div/h1"));
+        return driver.findElement(By.xpath("//*[@id=\"wrap\"]/div[1]/div/div/div/div[2]/div[1]/div/h3"));
     }
     //TODO - this method is marker that we should refactor our templates
     public WebElement getBrand(){

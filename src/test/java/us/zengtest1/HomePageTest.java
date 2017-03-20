@@ -8,7 +8,7 @@ import resources.AbstractPageTest;
 
 import static org.testng.Assert.assertEquals;
 
-public class HomePageTest extends AbstractPageTest
+public class HomePageTest extends PageTest
 {
 
     private static HomePage page;

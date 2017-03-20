@@ -11,7 +11,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class SearchPageTest
-        extends AbstractPageTest
+        extends PageTest
 {
 
     private static SearchPage page;

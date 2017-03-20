@@ -5,7 +5,7 @@ import resources.AbstractPageTest;
 import static org.testng.Assert.assertEquals;
 
 public class LoginPageTest
-        extends AbstractPageTest
+        extends PageTest
 {
 
     private static LoginPage page;
