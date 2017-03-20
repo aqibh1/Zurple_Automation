@@ -1,0 +1,23 @@
+package com.zurple.my.admin;
+
+import com.zurple.my.Admin.MailgunmgrReportPage;
+import com.zurple.my.PageTest;
+
+public class MailgunmgrReportPageTest
+        extends PageTest
+{
+    private static MailgunmgrReportPage page;
+
+    public MailgunmgrReportPage getPage(){
+        if(page == null){
+            page = new MailgunmgrReportPage();
+            page.setUrl("https://my.dev.zurple.com/mailgunmgr/report");
+            page.setDriver(getDriver());
+        }
+        return page;
+    }
+
+    public void clearPage(){
+        page=null;
+    };
+}

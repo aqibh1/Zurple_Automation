@@ -4,16 +4,16 @@
 
   <test name="my.zurple.com">
     <classes>
-      <class name="com.zurple.DashboardPageTest" />
-      <class name="com.zurple.LeadListPageTest" />
-      <class name="com.zurple.LeadDetailPageTest" />
-      <class name="com.zurple.AgentPageTest" />
-      <class name="com.zurple.AgentsPageTest" />
-      <class name="com.zurple.LeadEditPageTest" />
-      <class name="com.zurple.MarketingMessemailPageTest" />
-      <class name="com.zurple.MarketingTextmessagePageTest" />
-      <class name="com.zurple.StatisticsPageTest" />
-      <class name="com.zurple.SupportPageTest" />
+      <class name="com.zurple.my.DashboardPageTest" />
+      <class name="com.zurple.my.LeadListPageTest" />
+      <class name="com.zurple.my.LeadDetailPageTest" />
+      <class name="com.zurple.my.AgentPageTest" />
+      <class name="com.zurple.my.AgentsPageTest" />
+      <class name="com.zurple.my.LeadEditPageTest" />
+      <class name="com.zurple.my.MarketingMessemailPageTest" />
+      <class name="com.zurple.my.MarketingTextmessagePageTest" />
+      <class name="com.zurple.my.StatisticsPageTest" />
+      <class name="com.zurple.my.SupportPageTest" />
     </classes>
   </test>
 

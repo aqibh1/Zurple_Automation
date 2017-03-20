@@ -4,8 +4,8 @@
 
   <test name="With regular admin access">
     <classes>
-      <class name="com.zurple.LoginPageTest" />
-      <class name="com.zurple.LeadListPageTest" />
+      <class name="com.zurple.my.LoginPageTest" />
+      <class name="com.zurple.my.LeadListPageTest" />
       <class name="resources.CurrentPageTest">
         <methods>
           <include name="closeBrowser" />
@@ -18,8 +18,8 @@
     <parameter name="login" value="dev_ro@test.com"/>
     <parameter name="password" value="12345"/>
     <classes>
-      <class name="com.zurple.LoginPageTest" />
-      <class name="com.zurple.LeadListPageTest" />
+      <class name="com.zurple.my.LoginPageTest" />
+      <class name="com.zurple.my.LeadListPageTest" />
       <class name="resources.CurrentPageTest">
         <methods>
           <include name="closeBrowser" />
