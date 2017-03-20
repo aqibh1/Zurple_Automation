@@ -2,6 +2,17 @@
 
 <suite name="Test assets have version in URL">
 
+  <test name="Register">
+    <groups>
+      <run>
+        <include name="register"/>
+        <include name="asset"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="us.zengtest1.RegisterPageTest" />
+    </classes>
+  </test>
 
   <test name="Check Assets versions">
     <groups>

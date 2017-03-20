@@ -52,12 +52,30 @@ public class RegisterPageTest
         assertTrue(getPage().getRegisterForm().getFormErrorMessagesList().isEmpty());
     }
 
-    @Test(priority=40)
+    @Test(priority=40,groups = "register")
+    public void testRegisterNewRegularLead(){
+        String username = "test_regular_lead_" + UUID.randomUUID().toString();
+        String email = username + "_zurpleqa@test.com";
+        String phone = "(212) 435-8762";
+        getPage().getRegisterForm().setInputValue("first_name",username);
+        getPage().getRegisterForm().setInputValue("email",email);
+        getPage().getRegisterForm().setInputValue("phone",phone);
+        getPage().getRegisterForm().submit();
+        // We must be redirected
+        // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
+        Pattern pattern = Pattern.compile("http://dev\\.zengtest1\\.us/thankyou\\?lead_id=(\\d+)");
+        Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
+        assertTrue(matcher.find());
+    }
+
+    @Test(priority=50)
     public void testRegisterNewPersonalLead(){
         String username = "test_personal_lead_" + UUID.randomUUID().toString();
         String email = username + "_zurpleqa@test.com";
+        String phone = "(212) 435-8762";
         getPage().getRegisterForm().setInputValue("first_name",username);
         getPage().getRegisterForm().setInputValue("email",email);
+        getPage().getRegisterForm().setInputValue("phone",phone);
         getPage().getRegisterForm().submit();
         // We must be redirected
         // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
