@@ -3,6 +3,9 @@ package com.zurple.admin;
 import com.zurple.Admin.SimplecontentmanagerPage;
 import com.zurple.Admin.SimpletmplmgrPage;
 import com.zurple.PageTest;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertTrue;
 
 public class SimplecontentmanagerPageTest
         extends PageTest
@@ -21,4 +24,5 @@ public class SimplecontentmanagerPageTest
     public void clearPage(){
         page=null;
     };
+
 }

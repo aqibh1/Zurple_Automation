@@ -69,9 +69,22 @@ public abstract class AbstractPageTest
     protected boolean checkAssetsVersion(List<Asset> assets){
         for (Asset asset: getPage().getAssets()) {
 
-            //We should chekc only self-hosted assets
-            Pattern pattern_host = Pattern.compile("zurple\\.com");
-            Matcher matcher_host = pattern_host.matcher(asset.getUrl());
+            //We should check only self-hosted assets
+            Boolean checkFlag = false;
+            Pattern pattern_domain = Pattern.compile("^(?:https?:\\/\\/)?(?:[^@\\n]+@)?(?:www\\.)?([^:\\/\\n]+)");
+            Matcher matcher_domain = pattern_domain.matcher(asset.getUrl());
+            if (matcher_domain.find()) {
+                String domain = matcher_domain.group();
+                //We should chekc only self-hosted assets
+                Pattern pattern_host = Pattern.compile("zurple\\.com");
+                Matcher matcher_host = pattern_host.matcher(domain);
+
+                if(matcher_host.find()){
+                    checkFlag = true;
+                }
+
+            }
+
 
             //We shouln't check ckeditor dynamically loaded assets
             Pattern pattern_ckeditor = Pattern.compile("\\/ckeditor\\/");
@@ -82,7 +95,7 @@ public abstract class AbstractPageTest
             Matcher matcher_version = pattern_version.matcher(asset.getUrl());
 
             if(
-                    matcher_host.find() &&
+                    checkFlag &&
                     !matcher_ckeditor.find() &&
                     !matcher_version.find()
             ){
