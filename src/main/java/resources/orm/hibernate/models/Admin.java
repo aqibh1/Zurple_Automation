@@ -1,9 +1,15 @@
 package resources.orm.hibernate.models;
 
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -23,6 +29,7 @@ public class Admin
     private String phone;
     private String password_hash;
     private String bio;
+    private Set<Site> sites;
     private Integer netsuite_id;
 
     public Admin() {
@@ -119,6 +126,19 @@ public class Admin
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "site_admins", catalog = "zurple_platform", joinColumns = {
+            @JoinColumn(name = "admin_id", nullable = false, updatable = false) },
+            inverseJoinColumns = { @JoinColumn(name = "site_id",
+                    nullable = false, updatable = false) })
+    public Set<Site> getSites() {
+        return this.sites;
+    }
+
+    public void setSites(Set<Site> sites) {
+        this.sites = sites;
     }
 
     @Column(name = "netsuite_id", unique = false, nullable = false)

@@ -47,6 +47,7 @@ public class TestEnvironment
         this.propertyToCheck = propertyToCheck;
     }
 
+
     public List<AdminProduct> getProductsList( )
     {
         if(adminProducts == null){
@@ -80,6 +81,15 @@ public class TestEnvironment
         ManageUser mu = new ManageUser(factory);
 
         return mu.getUser(user_id);
+    }
+
+    public Admin getAdminById(Integer admin_id)
+    {
+        factory = new HibernateUtil().getSessionFactory();
+
+        ManageAdmin ma = new ManageAdmin(factory);
+
+        return ma.getAdmin(admin_id);
     }
 
     public void updateUser(User user)
@@ -122,5 +132,10 @@ public class TestEnvironment
     public Integer getTemplateToCheck()
     {
         return templateToCheck;
+    }
+
+    public Integer getPropertyToCheck()
+    {
+        return propertyToCheck;
     }
 }
