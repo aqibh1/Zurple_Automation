@@ -31,14 +31,14 @@ public abstract class AbstractPage
 
         ArrayList<Asset> list = new ArrayList<Asset>();
 
-        for (WebElement style: driver.findElements(By.xpath("/html/head/link[@type='text/css']"))) {
+        for (WebElement style: driver.findElements(By.xpath("/html/descendant::link[@type='text/css']"))) {
             Asset asset = new Asset();
             asset.setType(style.getAttribute("type"));
             asset.setUrl(style.getAttribute("href"));
             list.add(asset);
         }
 
-        for (WebElement js: driver.findElements(By.xpath("/html/head/script"))) {
+        for (WebElement js: driver.findElements(By.xpath("/html/descendant::script"))) {
             Asset asset = new Asset();
             asset.setType(js.getAttribute("type"));
             asset.setUrl(js.getAttribute("src"));
