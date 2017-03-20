@@ -14,6 +14,15 @@
     </classes>
   </test>
 
+  <test name="Init">
+    <groups>
+      <run>
+        <include name="init"/>
+      </run>
+    </groups>
+    <packages> <package name=".*" /> </packages>
+  </test>
+
   <test name="Check Assets versions">
     <groups>
       <run>

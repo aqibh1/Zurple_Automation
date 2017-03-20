@@ -13,7 +13,7 @@ import static org.testng.Assert.assertTrue;
 public abstract class PageTest extends AbstractPageTest  implements UsingPage, TestHavingHeader
 {
 
-    @Test(groups = { "asset" })
+    @Test(groups = { "asset" },dependsOnGroups = { "init.*" })
     public void testAssetsVersions() {
         assertTrue(checkAssetsVersion(getPage().getAssets()));
     }

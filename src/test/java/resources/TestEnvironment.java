@@ -21,6 +21,8 @@ public class TestEnvironment
     private Integer leadToCheck;
     private Integer propertyToCheck;
     private Integer agentToCheck;
+    private Integer templateToCheck;
+
     private List<AdminProduct> adminProducts;
 
     private static SessionFactory factory;
@@ -33,6 +35,11 @@ public class TestEnvironment
     public void setLeadToCheck(Integer leadToCheck)
     {
         this.leadToCheck = leadToCheck;
+    }
+
+    public void setTemplateToCheck(Integer templateToCheck)
+    {
+        this.templateToCheck = templateToCheck;
     }
 
     public void setPropertyToCheck(Integer propertyToCheck)
@@ -110,5 +117,10 @@ public class TestEnvironment
     public void setAgentToCheck(Integer agentToCheck)
     {
         this.agentToCheck = agentToCheck;
+    }
+
+    public Integer getTemplateToCheck()
+    {
+        return templateToCheck;
     }
 }

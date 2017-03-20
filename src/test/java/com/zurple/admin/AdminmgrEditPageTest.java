@@ -12,7 +12,7 @@ public class AdminmgrEditPageTest
     public AdminmgrEditPage getPage(){
         if(page == null){
             page = new AdminmgrEditPage();
-            page.setUrl("https://my.dev.zurple.com/adminmgr/edit");
+            page.setUrl("https://my.dev.zurple.com/adminmgr/edit/admin_id/"+getEnvironment().getAgentToCheck());
             page.setDriver(getDriver());
         }
         return page;

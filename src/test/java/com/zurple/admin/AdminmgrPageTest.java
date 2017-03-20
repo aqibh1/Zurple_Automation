@@ -3,6 +3,9 @@ package com.zurple.admin;
 import com.zurple.Admin.AdmgrPage;
 import com.zurple.Admin.AdminmgrPage;
 import com.zurple.PageTest;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertTrue;
 
 public class AdminmgrPageTest
         extends PageTest
@@ -21,4 +24,14 @@ public class AdminmgrPageTest
     public void clearPage(){
         page=null;
     };
+
+    @Test(groups = {"init"})
+    public void testAdminsList(){
+        assertTrue(getPage().checkAdminListBlockExists());
+        assertTrue(getPage().getAdminsListBlock().getAdminsList().size()>0);
+        Integer n = getPage().getAdminsListBlock().getAdminsList().get(0).getId();
+        System.out.println(n);
+        getEnvironment().setAgentToCheck(n);
+    }
+
 }

@@ -12,7 +12,7 @@ public class SimpletmplmgrEditPageTest
     public SimpletmplmgrEditPage getPage(){
         if(page == null){
             page = new SimpletmplmgrEditPage();
-            page.setUrl("https://my.dev.zurple.com/simpletemplmgr/edit");
+            page.setUrl("https://my.dev.zurple.com/simpletemplmgr/edit/id/"+getEnvironment().getTemplateToCheck());
             page.setDriver(getDriver());
         }
         return page;
