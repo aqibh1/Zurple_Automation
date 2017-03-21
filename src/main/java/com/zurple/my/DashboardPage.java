@@ -1,7 +1,9 @@
 package com.zurple.my;
 
+import com.zurple.my.resources.blocks.AdminMenuBlock;
 import com.zurple.my.resources.blocks.HotBehaviorBlock;
 import com.zurple.my.resources.blocks.NewLeadsBlock;
+import com.zurple.my.resources.blocks.TopMenuBlock;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 
@@ -10,6 +12,8 @@ public class DashboardPage
 {
 
     NewLeadsBlock newLeadsBlock;
+    AdminMenuBlock adminMenuBlock;
+    TopMenuBlock topMenuBlock;
     HotBehaviorBlock hotBehaviorBlock;
 
     public DashboardPage(){
@@ -32,6 +36,38 @@ public class DashboardPage
         }catch(StaleElementReferenceException e){
             return false;
         }
+    }
+
+    public boolean checkAdminMenuBlock(){
+        try{
+            getAdminMenuBlock();
+            return true;
+        }catch(StaleElementReferenceException e){
+            return false;
+        }
+    }
+
+    public AdminMenuBlock getAdminMenuBlock(){
+        adminMenuBlock = new AdminMenuBlock();
+        adminMenuBlock.setDriver(driver);
+        adminMenuBlock.setBlock(driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div[2]/ul[2]")));
+        return adminMenuBlock;
+    }
+
+    public boolean checkTopMenuBlock(){
+        try{
+            getTopMenuBlock();
+            return true;
+        }catch(StaleElementReferenceException e){
+            return false;
+        }
+    }
+
+    public TopMenuBlock getTopMenuBlock(){
+        topMenuBlock = new TopMenuBlock();
+        topMenuBlock.setDriver(driver);
+        topMenuBlock.setBlock(driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div[2]")));
+        return topMenuBlock;
     }
 
     public NewLeadsBlock getNewLeadsBlock(){

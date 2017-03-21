@@ -3,8 +3,11 @@ package com.zurple.my;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import resources.classes.MenuItem;
 import resources.classes.Alert;
 import resources.orm.hibernate.models.User;
 
@@ -36,6 +39,35 @@ public class DashboardPageTest
         assertTrue(getPage().checkNewLeadsBlock());
         assertFalse(getPage().getNewLeadsBlock().getLeadIds().isEmpty());
         Assert.assertEquals(5,getPage().getNewLeadsBlock().getLeadIds().size());
+    }
+
+    @Test
+    public void testAdminMenuBlock(){
+        assertTrue(getPage().checkAdminMenuBlock());
+        assertFalse(getPage().getAdminMenuBlock().getItemsList().isEmpty());
+        //Hover
+        Actions builder = new Actions(driver);
+        String adminName = getEnvironment().getAdmin().getFirstName()+" "+getEnvironment().getAdmin().getLastName();
+        try
+        {
+            WebElement we = getPage().getTopMenuBlock().getMenuItemWebElementByName(adminName);
+            builder.moveToElement(we).perform();
+        }
+        catch (Exception e)
+        {
+            assertTrue(false);
+        }
+
+        //Checking if billing item is shown
+        Boolean billing_access_flag = false;
+        for(MenuItem item:getPage().getAdminMenuBlock().getItemsList()){
+            if(item.getTitle().equals("Billing")){
+                billing_access_flag=true;
+            }
+        }
+
+        assertEquals(billing_access_flag,getEnvironment().getAdmin().getBillingAccessFlag());
+
     }
 
     @Test(groups = "asset")

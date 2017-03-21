@@ -83,7 +83,12 @@ public class TestEnvironment
         return mu.getUser(user_id);
     }
 
-    public Admin getAdminById(Integer admin_id)
+    public Admin getAdmin()
+    {
+        return getAdmin(getAgentToCheck());
+    }
+
+    public Admin getAdmin(Integer admin_id)
     {
         factory = new HibernateUtil().getSessionFactory();
 

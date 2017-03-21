@@ -29,6 +29,7 @@ public class Admin
     private String phone;
     private String password_hash;
     private String bio;
+    private Boolean billing_access_flag;
     private Set<Site> sites;
     private Integer netsuite_id;
 
@@ -148,6 +149,15 @@ public class Admin
 
     public void setNetsuiteId(Integer netsuite_id) {
         this.netsuite_id = netsuite_id;
+    }
+
+    @Column(name = "billing_access_flag", unique = false, nullable = false)
+    public Boolean getBillingAccessFlag() {
+        return this.billing_access_flag;
+    }
+
+    public void setBillingAccessFlag(Boolean billing_access_flag) {
+        this.billing_access_flag = billing_access_flag;
     }
 
 }
