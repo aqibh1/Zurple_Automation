@@ -3,6 +3,7 @@ package com.zurple.my.Admin;
 import com.zurple.my.Page;
 import com.zurple.my.resources.blocks.TemplatesListBlock;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 
 public class SimpletmplmgrPage
@@ -14,7 +15,7 @@ public class SimpletmplmgrPage
         try{
             getTemlatesListBlock();
             return true;
-        }catch(StaleElementReferenceException e){
+        }catch(NoSuchElementException e){
             return false;
         }
     }
