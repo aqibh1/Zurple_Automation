@@ -24,10 +24,10 @@ public class CraigslistPageTest
     };
 
 
-    @Test
-    public void testLeadList(){
+    @Test(groups = "init")
+    public void testPropertiesList(){
         assertTrue(getPage().checkLeadsListBlockExists());
-        assertEquals(getPage().getLeadsListBlock().getCraigsList().size(),15);
+        assertTrue(getPage().getLeadsListBlock().getCraigsList().size()>0);
 
         Integer n = getPage().getLeadsListBlock().getCraigsList().get(0).getId();
         getEnvironment().setPropertyToCheck(n);
