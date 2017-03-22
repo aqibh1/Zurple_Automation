@@ -37,7 +37,7 @@ public class AdminmgrEditPageTest
         assertTrue(getPage().getAdminEditForm().checkBillingAccessCheckboxExists());
         assertEquals(getPage().getAdminEditForm().getBillingAccessCheckbox().getValue(),getEnvironment().getAdmin(getEnvironment().getAgentToCheck()).getBillingAccessFlag());
         Boolean initialBilligAccessCheckboxValue = getPage().getAdminEditForm().getBillingAccessCheckbox().getValue();
-        getPage().getAdminEditForm().toggleBillingAccessCheckbox();
+        getPage().getAdminEditForm().toggleCheckboxValue("billing_access_flag");
         assertTrue(initialBilligAccessCheckboxValue!=getPage().getAdminEditForm().getBillingAccessCheckbox().getValue());
 
         getPage().getAdminEditForm().submit();

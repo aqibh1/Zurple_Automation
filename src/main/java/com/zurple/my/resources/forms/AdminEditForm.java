@@ -29,15 +29,6 @@ public class AdminEditForm
         return billingAccessCheckbox;
     }
 
-    public void toggleBillingAccessCheckbox(){
-        if(billingAccessCheckbox==null){
-            getBillingAccessCheckbox();
-        }
-        billingAccessCheckbox
-                .getElement()
-                .click();
-    }
-
     public String getErrorMessage(){
         try{
             return form.findElement(By.xpath("./descendant::p[@class=\"form-element-error\"]")).getText();

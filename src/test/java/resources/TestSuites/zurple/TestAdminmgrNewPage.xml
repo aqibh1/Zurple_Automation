@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Dashboard Page">
+
+  <test name="my.zurple.com">
+    <classes>
+      <class name="com.zurple.my.LoginPageTest" />
+      <class name="com.zurple.my.DashboardPageTest" />
+      <class name="com.zurple.my.admin.AdminmgrPageTest" />
+      <class name="com.zurple.my.admin.AdminmgrNewPageTest" />
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

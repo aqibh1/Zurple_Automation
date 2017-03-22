@@ -97,6 +97,15 @@ public class TestEnvironment
         return ma.getAdmin(admin_id);
     }
 
+    public Admin getAdminByEmail(String email)
+    {
+        factory = new HibernateUtil().getSessionFactory();
+
+        ManageAdmin ma = new ManageAdmin(factory);
+
+        return ma.getAdminByEmail(email);
+    }
+
     public void updateUser(User user)
     {
         factory = new HibernateUtil().getSessionFactory();

@@ -9,6 +9,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import resources.classes.Alert;
 import resources.classes.FormErrorMessage;
 import resources.interfaces.UsesDriver;
@@ -64,6 +65,12 @@ public abstract class AbstractForm implements UsesDriver
     public void setInputValue(String inputName, String value)
     {
         form.findElement(By.xpath("./descendant::input[@id=\""+inputName+"\"]")).sendKeys(value);
+    }
+
+    public void setSelectValue(String inputName, Integer index)
+    {
+        Select dropdown = new Select(form.findElement(By.xpath("./descendant::select[@id=\""+inputName+"\"]")));
+        dropdown.selectByIndex(index);
     }
 
     public void toggleCheckboxValue(String inputName)
