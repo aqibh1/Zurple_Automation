@@ -1,11 +1,13 @@
 package resources.elements;
 
+import org.openqa.selenium.WebElement;
 
 public class CheckBox
 {
 
     private String label;
     private Boolean value;
+    private WebElement element;
 
     public String getLabel()
     {
@@ -19,11 +21,21 @@ public class CheckBox
 
     public Boolean getValue()
     {
-        return value;
+        return this.element.isSelected();
     }
 
     public void setValue(Boolean value)
     {
         this.value = value;
+    }
+
+    public WebElement getElement()
+    {
+        return element;
+    }
+
+    public void setElement(WebElement element)
+    {
+        this.element = element;
     }
 }

@@ -31,4 +31,24 @@ public class AdminmgrEditPageTest
         assertTrue(getPage().checkBillingAccessCheckboxExists());
         assertEquals(getPage().getBillingAccessCheckbox().getValue(),getEnvironment().getAdmin(getEnvironment().getAgentToCheck()).getBillingAccessFlag());
     }
+
+    @Test
+    public void testUpdateButtonExists(){
+        assertTrue(getPage().checkUpdateButtonExists());
+    }
+
+    @Test
+    public void testToggleBillingAccessCheckbox(){
+        assertTrue(getPage().checkBillingAccessCheckboxExists());
+        assertEquals(getPage().getBillingAccessCheckbox().getValue(),getEnvironment().getAdmin(getEnvironment().getAgentToCheck()).getBillingAccessFlag());
+        Boolean initialBilligAccessCheckboxValue = getPage().getBillingAccessCheckbox().getValue();
+        getPage().toggleBillingAccessCheckbox();
+        assertTrue(initialBilligAccessCheckboxValue!=getPage().getBillingAccessCheckbox().getValue());
+
+        getPage().submitPage();
+        clearPage();
+
+        assertTrue(getPage().checkBillingAccessCheckboxExists());
+        assertTrue(initialBilligAccessCheckboxValue!=getPage().getBillingAccessCheckbox().getValue());
+    }
 }

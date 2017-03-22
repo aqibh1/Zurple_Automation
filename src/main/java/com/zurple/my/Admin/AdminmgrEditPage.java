@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
+import resources.elements.Button;
 import resources.elements.CheckBox;
 
 public class AdminmgrEditPage
@@ -13,6 +14,7 @@ public class AdminmgrEditPage
 {
 
     private CheckBox billingAccessCheckbox;
+    private Button updateButton;
 
     public boolean checkBillingAccessCheckboxExists(){
         try{
@@ -27,9 +29,37 @@ public class AdminmgrEditPage
         billingAccessCheckbox = new CheckBox();
 
         WebElement we_label = driver.findElement(By.xpath("//*[@id=\"billing_access_flag\"]"));
-        billingAccessCheckbox.setValue(Boolean.parseBoolean(driver.findElement(By.xpath("//*[@id=\"billing_access_flag\"]")).getAttribute("value")));
         billingAccessCheckbox.setLabel(driver.findElement(By.xpath("//*[@for=\"billing_access_flag\"]")).getText());
+        billingAccessCheckbox.setElement(driver.findElement(By.xpath("//*[@id=\"billing_access_flag\"]")));
 
         return billingAccessCheckbox;
+    }
+
+    public boolean checkUpdateButtonExists(){
+        try{
+            getUpdateButton();
+            return true;
+        }catch(NoSuchElementException e){
+            return false;
+        }
+    }
+
+    public Button getUpdateButton(){
+        updateButton = new Button();
+        updateButton.setElement(driver.findElement(By.xpath("//*[@id=\"update\"]")));
+
+        return updateButton;
+    }
+
+    public void toggleBillingAccessCheckbox(){
+        billingAccessCheckbox.getElement().click();
+    }
+
+    public void submitPage()
+    {
+        if(updateButton==null){
+            getUpdateButton();
+        }
+        updateButton.getElement().click();
     }
 }
