@@ -5,6 +5,7 @@ import org.apache.commons.lang3.ObjectUtils.Null;
 import org.hibernate.SessionFactory;
 import resources.orm.hibernate.dao.ManageAdmin;
 import resources.orm.hibernate.dao.ManageEmailQueue;
+import resources.orm.hibernate.dao.ManageTransactions;
 import resources.orm.hibernate.dao.ManageUser;
 import resources.orm.hibernate.models.Admin;
 import resources.orm.hibernate.HibernateUtil;
@@ -13,6 +14,7 @@ import resources.orm.hibernate.models.AdminProduct;
 import resources.orm.hibernate.models.EmailQueue;
 import resources.orm.hibernate.models.Lead;
 import resources.orm.hibernate.dao.ManageLead;
+import resources.orm.hibernate.models.Transaction;
 import resources.orm.hibernate.models.User;
 
 public class TestEnvironment
@@ -24,6 +26,8 @@ public class TestEnvironment
     private Integer templateToCheck;
 
     private List<AdminProduct> adminProducts;
+
+    private List<Transaction> transactions;
 
     private static SessionFactory factory;
 
@@ -63,6 +67,21 @@ public class TestEnvironment
         }
 
         return adminProducts;
+    }
+
+    public List<Transaction> getTransactionsList( )
+    {
+        if(transactions == null){
+
+            factory = new HibernateUtil().getSessionFactory();
+
+            ManageTransactions mt = new ManageTransactions(factory);
+
+            transactions = mt.getTransactionsListByCustomerId(agentToCheck);
+
+        }
+
+        return transactions;
     }
 
     public Lead getLeadObject(Integer lead_id)
