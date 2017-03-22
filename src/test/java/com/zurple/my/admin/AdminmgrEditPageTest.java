@@ -28,27 +28,22 @@ public class AdminmgrEditPageTest
 
     @Test
     public void testBillingAccessFlag(){
-        assertTrue(getPage().checkBillingAccessCheckboxExists());
-        assertEquals(getPage().getBillingAccessCheckbox().getValue(),getEnvironment().getAdmin(getEnvironment().getAgentToCheck()).getBillingAccessFlag());
-    }
-
-    @Test
-    public void testUpdateButtonExists(){
-        assertTrue(getPage().checkUpdateButtonExists());
+        assertTrue(getPage().getAdminEditForm().checkBillingAccessCheckboxExists());
+        assertEquals(getPage().getAdminEditForm().getBillingAccessCheckbox().getValue(),getEnvironment().getAdmin(getEnvironment().getAgentToCheck()).getBillingAccessFlag());
     }
 
     @Test
     public void testToggleBillingAccessCheckbox(){
-        assertTrue(getPage().checkBillingAccessCheckboxExists());
-        assertEquals(getPage().getBillingAccessCheckbox().getValue(),getEnvironment().getAdmin(getEnvironment().getAgentToCheck()).getBillingAccessFlag());
-        Boolean initialBilligAccessCheckboxValue = getPage().getBillingAccessCheckbox().getValue();
-        getPage().toggleBillingAccessCheckbox();
-        assertTrue(initialBilligAccessCheckboxValue!=getPage().getBillingAccessCheckbox().getValue());
+        assertTrue(getPage().getAdminEditForm().checkBillingAccessCheckboxExists());
+        assertEquals(getPage().getAdminEditForm().getBillingAccessCheckbox().getValue(),getEnvironment().getAdmin(getEnvironment().getAgentToCheck()).getBillingAccessFlag());
+        Boolean initialBilligAccessCheckboxValue = getPage().getAdminEditForm().getBillingAccessCheckbox().getValue();
+        getPage().getAdminEditForm().toggleBillingAccessCheckbox();
+        assertTrue(initialBilligAccessCheckboxValue!=getPage().getAdminEditForm().getBillingAccessCheckbox().getValue());
 
-        getPage().submitPage();
+        getPage().getAdminEditForm().submit();
         clearPage();
 
-        assertTrue(getPage().checkBillingAccessCheckboxExists());
-        assertTrue(initialBilligAccessCheckboxValue!=getPage().getBillingAccessCheckbox().getValue());
+        assertTrue(getPage().getAdminEditForm().checkBillingAccessCheckboxExists());
+        assertTrue(initialBilligAccessCheckboxValue!=getPage().getAdminEditForm().getBillingAccessCheckbox().getValue());
     }
 }
