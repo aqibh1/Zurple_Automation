@@ -31,7 +31,8 @@ public class AdminProductsBlock
                 AdminProduct adminProduct = new AdminProduct();
                 adminProduct.setDisplayName(row.findElement(By.xpath("./td[1]")).getText());
                 adminProduct.setFee(new BigDecimal(row.findElement(By.xpath("./td[2]")).getText().replaceAll("\\$", "")));
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                adminProduct.setNextbillDateString(row.findElement(By.xpath("./td[3]")).getText());
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                 try
                 {
                     adminProduct.setNextBillDate(df.parse(row.findElement(By.xpath("./td[3]")).getText()));

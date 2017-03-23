@@ -53,4 +53,12 @@ public class TransactionListBlock
         return list;
     }
 
+    public String getSortingColumnName(){
+        return block.findElement(By.xpath("./descendant::th[@aria-sort]")).getText();
+    }
+
+    public String getSortingOrder(){
+        return block.findElement(By.xpath("./descendant::th[@aria-sort]")).getAttribute("aria-sort");
+    }
+
 }

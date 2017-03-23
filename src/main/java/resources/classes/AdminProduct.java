@@ -8,6 +8,7 @@ public class AdminProduct
 
     private String displayname;
     private Date nextbill_date;
+    private String nextbill_date_string;
     private BigDecimal fee;
 
     public String getDisplayName()
@@ -38,5 +39,15 @@ public class AdminProduct
     public void setFee(BigDecimal fee)
     {
         this.fee = fee;
+    }
+
+    public String getNextbillDateString()
+    {
+        return nextbill_date_string;
+    }
+
+    public void setNextbillDateString(String nextbill_date_string)
+    {
+        this.nextbill_date_string = nextbill_date_string;
     }
 }

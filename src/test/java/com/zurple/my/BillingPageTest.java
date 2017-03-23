@@ -47,10 +47,15 @@ public class BillingPageTest
         assertEquals(expectedAdminProducts.size(),parsedAdminProducts.size());
 
         for (AdminProduct adminProduct:  expectedAdminProducts) {
+
             Boolean match_flag=false;
             for (resources.classes.AdminProduct parsedAdminProduct: parsedAdminProducts){
 
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                Pattern p = Pattern.compile("^\\d{2}\\/\\d{2}\\/\\d{4}$");
+                Matcher m = p.matcher(parsedAdminProduct.getNextbillDateString());
+                assertTrue(m.find());
+
+                SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
                 if(
                     adminProduct.getProductId().getDisplayName().equals(parsedAdminProduct.getDisplayName()) &&
@@ -74,11 +79,19 @@ public class BillingPageTest
         assertTrue(parsedTransactions.size()>0);
 
         for (resources.classes.Transaction transaction: parsedTransactions){
-            Pattern p = Pattern.compile("^\\d{2}\\/\\d{2}\\/\\d{2}$");
+            Pattern p = Pattern.compile("^\\d{2}\\/\\d{2}\\/\\d{4}$");
             Matcher m = p.matcher(transaction.getBillingDateString());
             assertTrue(m.find());
             m = p.matcher(transaction.getPaymentDateString());
             assertTrue(m.find());
         }
+    }
+
+    @Test
+    public void testTransactionsListSorting(){
+        assertTrue(getPage().checkTransactionListBlock());
+
+        assertEquals(getPage().getTransactionListBlock().getSortingColumnName(),"Billing Date");
+        assertEquals(getPage().getTransactionListBlock().getSortingOrder(),"ascending");
     }
 }
