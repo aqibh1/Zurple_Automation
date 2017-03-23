@@ -21,6 +21,7 @@ public class TestEnvironment
 {
 
     private Integer leadToCheck;
+    private Integer currentAgentId;
     private Integer propertyToCheck;
     private Integer agentToCheck;
     private Integer templateToCheck;
@@ -170,5 +171,15 @@ public class TestEnvironment
     public Integer getPropertyToCheck()
     {
         return propertyToCheck;
+    }
+
+    public Integer getCurrentAgentId()
+    {
+        return currentAgentId;
+    }
+
+    public void setCurrentAgentId(Integer currentAgentId)
+    {
+        this.currentAgentId = currentAgentId;
     }
 }

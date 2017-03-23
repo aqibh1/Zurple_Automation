@@ -1,9 +1,6 @@
 package us.zengtest1;
 
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import org.testng.annotations.Parameters;
 import resources.AbstractPageTest;
 
 import static org.testng.Assert.assertEquals;

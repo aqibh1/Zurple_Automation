@@ -1,11 +1,9 @@
 package us.zengtest1;
 
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.testng.annotations.Test;
 import resources.AbstractPageTest;
-import resources.orm.hibernate.models.User;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;

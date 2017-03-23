@@ -1,7 +1,6 @@
 package us.zengtest1;
 
 import java.util.ArrayList;
-import java.util.List;
 import org.testng.annotations.Test;
 import resources.AbstractPageTest;
 import resources.classes.SearchResult;

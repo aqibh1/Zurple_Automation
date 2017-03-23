@@ -1,5 +1,6 @@
 package resources;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +27,7 @@ public abstract class AbstractPageTest
     protected static TestEnvironment environment;
     protected AbstractPage page;
     protected static String source_in_url="";
+    protected static Boolean incognito=false;
 
     public abstract AbstractPage getPage();
 
@@ -33,15 +35,22 @@ public abstract class AbstractPageTest
 
     public static WebDriver getDriver(){
         if(driver == null){
-            driver = new ChromeDriver();
+            if(incognito){
+                DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+                capabilities.setCapability("chrome.switches", Arrays.asList("--incognito"));
+                driver = new ChromeDriver(capabilities);
+            }else{
+                driver = new ChromeDriver();
+            }
         }
         return driver;
     }
 
-    @Parameters("source_in_url")
+    @Parameters({"source_in_url","incognito"})
     @BeforeTest
-    public void globalSetUp(@Optional("") String source_in_url){
+    public void globalSetUp(@Optional("") String source_in_url, @Optional("") String incognito){
         this.source_in_url = source_in_url;
+        this.incognito = Boolean.parseBoolean(incognito);
     }
 
     @BeforeClass
@@ -58,6 +67,7 @@ public abstract class AbstractPageTest
         if(environment == null){
             environment = new TestEnvironment();
             environment.setAgentToCheck(4);
+            environment.setCurrentAgentId(4);
         }
         return environment;
     }

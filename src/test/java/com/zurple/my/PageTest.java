@@ -1,10 +1,7 @@
 package com.zurple.my;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.testng.annotations.Test;
 import resources.AbstractPageTest;
-import resources.classes.Asset;
 
 import static org.testng.Assert.assertTrue;
 

@@ -26,7 +26,15 @@ public class CheckBox
 
     public void setValue(Boolean value)
     {
-        this.value = value;
+        if(value==true){
+            if(this.element.isSelected()==false){
+                this.element.click();
+            }
+        }else{
+            if(this.element.isSelected()==true){
+                this.element.click();
+            }
+        }
     }
 
     public WebElement getElement()

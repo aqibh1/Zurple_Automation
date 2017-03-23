@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Billing Page">
+
+  <test name="my.zurple.com">
+    <parameter name="incognito" value="true"/>
+    <classes>
+      <class name="com.zurple.my.LoginPageTest" />
+      <class name="com.zurple.my.BillingPageTest" />
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

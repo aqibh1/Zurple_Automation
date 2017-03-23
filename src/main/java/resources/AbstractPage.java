@@ -27,6 +27,10 @@ public abstract class AbstractPage
         focusOnPage();
     }
 
+    public String getCurrentUrl(){
+        return this.driver.getCurrentUrl();
+    }
+
     public List<Asset> getAssets(){
 
         ArrayList<Asset> list = new ArrayList<Asset>();

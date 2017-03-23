@@ -1,10 +1,8 @@
 package us.zengtest1;
 
-import java.util.regex.Pattern;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import resources.AbstractPageTest;
-import resources.classes.Asset;
 import resources.interfaces.TestHavingHeader;
 import resources.interfaces.UsingPage;
 import static org.testng.Assert.assertEquals;
