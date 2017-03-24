@@ -12,13 +12,13 @@ import javax.persistence.Table;
 import javax.persistence.CascadeType;
 
 @Entity
-@Table(name = "ns_admin_products", catalog = "zurple_platform", uniqueConstraints = {})
-public class AdminProduct
+@Table(name = "ns_package_products", catalog = "zurple_platform", uniqueConstraints = {})
+public class PackageProduct
         implements java.io.Serializable {
 
     @Id
-    @Column(name="admin_id")
-    private Integer admin_id;
+    @Column(name="package_id")
+    private Integer package_id;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
@@ -30,27 +30,27 @@ public class AdminProduct
     @Column(name = "fee", unique = false, nullable = false)
     private BigDecimal fee;
 
-    public AdminProduct() {
+    public PackageProduct() {
     }
 
-    public AdminProduct(
-            Integer admin_id,
+    public PackageProduct(
+            Integer package_id,
             Product product_id,
             Date nextbill_date,
             BigDecimal fee
     ) {
-        this.admin_id = admin_id;
+        this.package_id = package_id;
         this.product_id = product_id;
         this.nextbill_date = nextbill_date;
         this.fee = fee;
     }
 
-    public Integer getAdminId() {
-        return this.admin_id;
+    public Integer getPackageId() {
+        return this.package_id;
     }
 
-    public void setAdminId(Integer admin_id) {
-        this.admin_id = admin_id;
+    public void setPackageId(Integer package_id) {
+        this.package_id = package_id;
     }
 
     public Product getProductId() {

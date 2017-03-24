@@ -1,7 +1,6 @@
 package resources;
 
 import java.util.List;
-import org.apache.commons.lang3.ObjectUtils.Null;
 import org.hibernate.SessionFactory;
 import resources.orm.hibernate.dao.ManageAdmin;
 import resources.orm.hibernate.dao.ManageEmailQueue;
@@ -9,8 +8,8 @@ import resources.orm.hibernate.dao.ManageTransactions;
 import resources.orm.hibernate.dao.ManageUser;
 import resources.orm.hibernate.models.Admin;
 import resources.orm.hibernate.HibernateUtil;
-import resources.orm.hibernate.dao.ManageAdminProducts;
-import resources.orm.hibernate.models.AdminProduct;
+import resources.orm.hibernate.dao.ManagePackageProducts;
+import resources.orm.hibernate.models.PackageProduct;
 import resources.orm.hibernate.models.EmailQueue;
 import resources.orm.hibernate.models.Lead;
 import resources.orm.hibernate.dao.ManageLead;
@@ -26,7 +25,7 @@ public class TestEnvironment
     private Integer agentToCheck;
     private Integer templateToCheck;
 
-    private List<AdminProduct> adminProducts;
+    private List<PackageProduct> packageProducts;
 
     private List<Transaction> transactions;
 
@@ -53,21 +52,21 @@ public class TestEnvironment
     }
 
 
-    public List<AdminProduct> getProductsList( )
+    public List<PackageProduct> getProductsList( )
     {
-        if(adminProducts == null){
+        if(packageProducts == null){
 
             factory = new HibernateUtil().getSessionFactory();
 
             ManageAdmin ma = new ManageAdmin(factory);
 
-            ManageAdminProducts map = new ManageAdminProducts(factory);
+            ManagePackageProducts map = new ManagePackageProducts(factory);
 
-            adminProducts = map.getAdminProductsList(ma.getAdmin(agentToCheck));
+            packageProducts = map.getPackageProductsList(ma.getAdmin(agentToCheck).getPackage());
 
         }
 
-        return adminProducts;
+        return packageProducts;
     }
 
     public List<Transaction> getTransactionsList( )

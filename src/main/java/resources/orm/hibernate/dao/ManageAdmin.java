@@ -1,18 +1,12 @@
 package resources.orm.hibernate.dao;
 
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import org.hibernate.Hibernate;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import resources.orm.hibernate.models.Admin;
-import resources.orm.hibernate.models.AdminProduct;
-import resources.orm.hibernate.models.EmailQueue;
-import resources.orm.hibernate.models.Lead;
 
 public class ManageAdmin
 {

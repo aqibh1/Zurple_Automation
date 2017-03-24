@@ -33,7 +33,6 @@ public class Admin
     private String bio;
     private Boolean billing_access_flag;
     private Set<Site> sites;
-    private Integer netsuite_id;
 
     public Admin() {
     }
@@ -55,7 +54,6 @@ public class Admin
         this.phone = phone;
         this.password_hash = password_hash;
         this.bio = bio;
-        this.netsuite_id = netsuite_id;
     }
 
     @Id
@@ -142,15 +140,6 @@ public class Admin
 
     public void setSites(Set<Site> sites) {
         this.sites = sites;
-    }
-
-    @Column(name = "netsuite_id", unique = false, nullable = false)
-    public Integer getNetsuiteId() {
-        return this.netsuite_id;
-    }
-
-    public void setNetsuiteId(Integer netsuite_id) {
-        this.netsuite_id = netsuite_id;
     }
 
     @Column(name = "billing_access_flag", unique = false, nullable = false)

@@ -4,11 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
-import resources.orm.hibernate.models.AdminProduct;
-import resources.orm.hibernate.models.Transaction;
+import resources.orm.hibernate.models.PackageProduct;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -41,12 +38,12 @@ public class BillingPageTest
     public void testProducts(){
 
         assertTrue(getPage().checkProdcutsBlock());
-        List<AdminProduct> expectedAdminProducts = getEnvironment().getProductsList();
+        List<PackageProduct> expectedPackageProducts = getEnvironment().getProductsList();
         List<resources.classes.AdminProduct> parsedAdminProducts = getPage().getProdcutsBlock().getAdminProductsList();
 
-        assertEquals(expectedAdminProducts.size(),parsedAdminProducts.size());
+        assertEquals(expectedPackageProducts.size(),parsedAdminProducts.size());
 
-        for (AdminProduct adminProduct:  expectedAdminProducts) {
+        for (PackageProduct packageProduct : expectedPackageProducts) {
 
             Boolean match_flag=false;
             for (resources.classes.AdminProduct parsedAdminProduct: parsedAdminProducts){
@@ -58,9 +55,9 @@ public class BillingPageTest
                 SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
                 if(
-                    adminProduct.getProductId().getDisplayName().equals(parsedAdminProduct.getDisplayName()) &&
-                    adminProduct.getFee().equals(parsedAdminProduct.getFee()) &&
-                    df.format(adminProduct.getNextBillDate()).equals(df.format(parsedAdminProduct.getNextBillDate()))
+                    packageProduct.getProductId().getDisplayName().equals(parsedAdminProduct.getDisplayName()) &&
+                    packageProduct.getFee().equals(parsedAdminProduct.getFee()) &&
+                    df.format(packageProduct.getNextBillDate()).equals(df.format(parsedAdminProduct.getNextBillDate()))
                 ){
                     match_flag=true;
                 }
