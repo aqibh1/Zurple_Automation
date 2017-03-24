@@ -33,11 +33,19 @@ public class PackagemgrEditPageTest
     }
 
     @Test
+    public void testNetsuiteIdShownCorrect()
+    {
+        assertTrue(getPage().checkPackageEditFormExists());
+        assertEquals(getPage().getPackageEditForm().getInputValue("netsuite_id"),getEnvironment().getAdmin().getPackage().getNetsuiteId().toString());
+    }
+
+    @Test
     public void testEditNetsuiteId()
     {
 
         assertTrue(getPage().checkPackageEditFormExists());
         Integer randomNum = 1000 + (int)(Math.random() * 9999);
+        getPage().getPackageEditForm().clearFieldById("netsuite_id");
         getPage().getPackageEditForm().setInputValue("netsuite_id",randomNum.toString());
 
         getPage().getPackageEditForm().submit();
@@ -45,6 +53,13 @@ public class PackagemgrEditPageTest
         clearPage();
 
         assertEquals(getPage().getPackageEditForm().getInputValue("netsuite_id"),randomNum.toString());
+
+        //Returning back to normal ns id
+        getPage().getPackageEditForm().clearFieldById("netsuite_id");
+        getPage().getPackageEditForm().setInputValue("netsuite_id","4990247");
+        getPage().getPackageEditForm().submit();
+        clearPage();
+        assertEquals(getPage().getPackageEditForm().getInputValue("netsuite_id"),"4990247");
 
     }
 

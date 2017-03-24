@@ -42,6 +42,12 @@ public abstract class AbstractForm implements UsesDriver
         }
 
     }
+
+    public void clearFieldById(String id){
+
+        form.findElement(By.xpath("./descendant::input[@id=\""+id+"\"]")).clear();
+
+    }
     //TODO - we should add required attribute to inputs
     public List<WebElement> getRequiredInputs(){
         try{
