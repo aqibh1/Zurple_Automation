@@ -92,6 +92,6 @@ public class BillingPageTest
         assertTrue(getPage().checkTransactionListBlock());
 
         assertEquals(getPage().getTransactionListBlock().getSortingColumnName(),"Billing Date");
-        assertEquals(getPage().getTransactionListBlock().getSortingOrder(),"ascending");
+        assertEquals(getPage().getTransactionListBlock().getSortingOrder(),"descending");
     }
 }
