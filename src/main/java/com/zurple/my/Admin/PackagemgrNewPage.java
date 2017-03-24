@@ -5,7 +5,7 @@ import com.zurple.my.resources.forms.PackageEditForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 
-public class PackagemgrEditPage
+public class PackagemgrNewPage
         extends Page
 {
     private PackageEditForm packageEditForm;

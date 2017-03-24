@@ -18,6 +18,7 @@
     <mapping class="resources.orm.hibernate.models.AdminProduct"></mapping>
     <mapping class="resources.orm.hibernate.models.Transaction"></mapping>
     <mapping class="resources.orm.hibernate.models.Product"></mapping>
+    <mapping class="resources.orm.hibernate.models.Package"></mapping>
     <mapping class="resources.orm.hibernate.models.EmailQueue"></mapping>
   </session-factory>
 </hibernate-configuration>

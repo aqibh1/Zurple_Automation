@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -32,10 +33,12 @@ public abstract class AbstractForm implements UsesDriver
     public void clearFields(){
 
         List<WebElement> allInputs = form.findElements(
-                By.xpath("./descendant::input[@type=\"input\" or @type=\"email\" or @type=\"password\"]"));
+                By.xpath("./descendant::input[@type=\"text\" or @type=\"input\" or @type=\"email\" or @type=\"password\"]"));
 
         for (WebElement input: allInputs) {
-            input.sendKeys("");
+            try{
+                input.clear();
+            }catch(InvalidElementStateException e){}
         }
 
     }
@@ -62,6 +65,23 @@ public abstract class AbstractForm implements UsesDriver
         return true;
     }
 
+    public boolean checkElementExistsById(String id){
+
+        try{
+             form.findElement(By.xpath("./descendant::*[@id=\""+id+"\"]"));
+             return true;
+        }catch(NoSuchElementException e){
+            return false;
+        }
+
+    }
+
+    public String getInputValue(String id){
+
+         return form.findElement(By.xpath("./descendant::*[@id=\""+id+"\"]")).getAttribute("value");
+
+    }
+
     public void setInputValue(String inputName, String value)
     {
         form.findElement(By.xpath("./descendant::input[@id=\""+inputName+"\"]")).sendKeys(value);
@@ -74,6 +94,11 @@ public abstract class AbstractForm implements UsesDriver
     }
 
     public void toggleCheckboxValue(String inputName)
+    {
+        form.findElement(By.xpath("./descendant::input[@id=\""+inputName+"\"]")).click();
+    }
+
+    public void toggleRadioButtonValue(String inputName)
     {
         form.findElement(By.xpath("./descendant::input[@id=\""+inputName+"\"]")).click();
     }

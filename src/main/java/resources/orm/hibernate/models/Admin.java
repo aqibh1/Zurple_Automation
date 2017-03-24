@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -22,6 +23,7 @@ public class Admin
         implements java.io.Serializable {
 
     private Integer admin_id;
+    private Package pkg;
     private String first_name;
     private String last_name;
     private String email;
@@ -158,6 +160,16 @@ public class Admin
 
     public void setBillingAccessFlag(Boolean billing_access_flag) {
         this.billing_access_flag = billing_access_flag;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "package_id")
+    public Package getPackage() {
+        return this.pkg;
+    }
+
+    public void setPackage(Package pkg) {
+        this.pkg = pkg;
     }
 
 }
