@@ -55,4 +55,33 @@ public class ManageUser
             session.close();
         }
     }
+
+    /* Method to READ all leads owned by the admin */
+    public List<User> getNewLeadsAssignedToAdminById ( Integer admin_id ){
+
+        Session session = factory.openSession();
+        List<User> users = new ArrayList<User>();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            List records = session.createQuery("FROM User WHERE admin_id="+admin_id).list();
+
+            for (Iterator iterator =
+                    records.iterator(); iterator.hasNext();){
+                User user = (User) iterator.next();
+                users.add(user);
+            }
+            tx.commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return users;
+
+    }
+
 }

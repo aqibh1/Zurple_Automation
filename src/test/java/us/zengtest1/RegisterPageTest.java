@@ -1,5 +1,7 @@
 package us.zengtest1;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,6 +9,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+import resources.orm.hibernate.models.DistributionRule;
 import resources.orm.hibernate.models.User;
 
 import static org.testng.Assert.assertEquals;
@@ -93,7 +96,29 @@ public class RegisterPageTest
         assertEquals(newUser.getTrafficSource(),"personal");
         assertEquals(newUser.getUserStatus(),"new");
 
-
     }
+
+    @Test(priority=50)
+    public void testNewLeadDistribution(){
+        for(int i=1; i<11; i++){
+
+            clearPage();
+
+            String username = "test_personal_lead_distribution_"+i+"_" + UUID.randomUUID().toString();
+            String email = username + "_zurpleqa@test.com";
+            String phone = "(212) 435-8762";
+            getPage().getRegisterForm().setInputValue("first_name",username);
+            getPage().getRegisterForm().setInputValue("email",email);
+            getPage().getRegisterForm().setInputValue("phone",phone);
+            getPage().getRegisterForm().submit();
+            // We must be redirected
+            // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
+            Pattern pattern = Pattern.compile("http://dev\\.zengtest1\\.us/thankyou\\?lead_id=(\\d+)");
+            Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
+            assertTrue(matcher.find());
+            Integer lead_id = Integer.parseInt(matcher.group(1));
+        }
+    }
+
 
 }

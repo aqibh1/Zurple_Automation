@@ -1,0 +1,50 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Check a new leads are distributed correctly" verbose="1">
+
+  <test name="renew_distribution_rules">
+    <classes>
+      <class name="com.zurple.my.LoginPageTest" />
+      <class name="com.zurple.my.DistributionRuleEditPageTest" />
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="regular_leads_distribution">
+    <classes>
+      <class name="us.zengtest1.HomePageTest" />
+      <class name="us.zengtest1.RegisterPageTest" >
+        <methods>
+          <include name="testNewLeadDistribution" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="personal_leads_distribution">
+    <parameter name="source_in_url" value="p"/>
+    <classes>
+      <class name="us.zengtest1.HomePageTest" />
+      <class name="us.zengtest1.RegisterPageTest" >
+        <methods>
+          <include name="testNewLeadDistribution" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>
