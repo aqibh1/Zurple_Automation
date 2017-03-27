@@ -136,6 +136,15 @@ public class TestEnvironment
         return mu.getNewLeadsAssignedToAdminById(admin_id);
     }
 
+    public Integer getNumberAssignedToAdminOfLeadsByStatus(Integer admin_id, String status)
+    {
+        factory = new HibernateUtil().getSessionFactory();
+
+        ManageUser mu = new ManageUser(factory);
+
+        return mu.getNumberAssignedToAdminOfLeadsByStatus(admin_id, status);
+    }
+
     public Admin getAdminByEmail(String email)
     {
         factory = new HibernateUtil().getSessionFactory();

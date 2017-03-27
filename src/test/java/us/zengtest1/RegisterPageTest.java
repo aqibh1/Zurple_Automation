@@ -100,11 +100,18 @@ public class RegisterPageTest
 
     @Test(priority=50)
     public void testNewLeadDistribution(){
+
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+        for(DistributionRule distributionRule : getEnvironment().getDistributionRulesBySiteId(1)){
+            map.put(distributionRule.getAdmin().getId(),getEnvironment().getNumberAssignedToAdminOfLeadsByStatus(distributionRule.getAdmin().getId(),"new"));
+        }
+
         for(int i=1; i<11; i++){
 
             clearPage();
 
-            String username = "test_personal_lead_distribution_"+i+"_" + UUID.randomUUID().toString();
+            String username = "test_lead_distribution_"+i+"_" + UUID.randomUUID().toString();
             String email = username + "_zurpleqa@test.com";
             String phone = "(212) 435-8762";
             getPage().getRegisterForm().setInputValue("first_name",username);
@@ -116,8 +123,15 @@ public class RegisterPageTest
             Pattern pattern = Pattern.compile("http://dev\\.zengtest1\\.us/thankyou\\?lead_id=(\\d+)");
             Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
             assertTrue(matcher.find());
-            Integer lead_id = Integer.parseInt(matcher.group(1));
         }
+
+        for(DistributionRule distributionRule : getEnvironment().getDistributionRulesBySiteId(1)){
+            assertTrue(distributionRule.getWeight() % 10 == 0);
+            Integer dividedWeight = distributionRule.getWeight() / 10;
+            Integer expectedLeadsNumber = map.get(distributionRule.getAdmin().getId())+dividedWeight;
+            assertEquals(getEnvironment().getNumberAssignedToAdminOfLeadsByStatus(distributionRule.getAdmin().getId(),"new"),expectedLeadsNumber);
+        }
+
     }
 
 
