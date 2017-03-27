@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Check a new personal lead has correct source" verbose="1">
+
+  <test name="home_page_and_register">
+    <parameter name="source_in_url" value="sp"/>
+    <classes>
+      <class name="us.zengtest1.HomePageTest" />
+      <class name="us.zengtest1.RegisterPageTest" >
+        <methods>
+          <include name="testRegisterNewPersonalSellerLead" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

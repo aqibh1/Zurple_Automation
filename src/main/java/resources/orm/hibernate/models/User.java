@@ -23,6 +23,7 @@ public class User
 
     private Integer user_id;
     private Lead lead_id;
+    private TransactionGoal transaction_goal;
     private Admin admin_id;
     private String user_name;
     private String user_first_name;
@@ -63,6 +64,15 @@ public class User
 
     public void setAdminId(Admin admin_id) {
         this.admin_id = admin_id;
+    }
+
+    @OneToOne(mappedBy="user_id", cascade = CascadeType.ALL)
+    public TransactionGoal getTransactionGoal() {
+        return this.transaction_goal;
+    }
+
+    public void setTransactionGoal(TransactionGoal transaction_goal) {
+        this.transaction_goal = transaction_goal;
     }
 
     @Column(name = "user_name", unique = false, nullable = false, length = 255)
