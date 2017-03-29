@@ -1,6 +1,7 @@
 package com.zurple.my;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,6 +38,8 @@ public class BillingPageTest
     @Test
     public void testProducts(){
 
+        Date today = new Date();
+
         assertTrue(getPage().checkProdcutsBlock());
         List<PackageProduct> expectedPackageProducts = getEnvironment().getProductsList();
         List<resources.classes.AdminProduct> parsedAdminProducts = getPage().getProdcutsBlock().getAdminProductsList();
@@ -46,6 +49,7 @@ public class BillingPageTest
         for (PackageProduct packageProduct : expectedPackageProducts) {
 
             Boolean match_flag=false;
+
             for (resources.classes.AdminProduct parsedAdminProduct: parsedAdminProducts){
 
                 Pattern p = Pattern.compile("^\\d{2}\\/\\d{2}\\/\\d{4}$");
@@ -57,7 +61,8 @@ public class BillingPageTest
                 if(
                     packageProduct.getProductId().getDisplayName().equals(parsedAdminProduct.getDisplayName()) &&
                     packageProduct.getFee().equals(parsedAdminProduct.getFee()) &&
-                    df.format(packageProduct.getNextBillDate()).equals(df.format(parsedAdminProduct.getNextBillDate()))
+                    df.format(packageProduct.getNextBillDate()).equals(df.format(parsedAdminProduct.getNextBillDate())) &&
+                    today.before(packageProduct.getNextBillDate())
                 ){
                     match_flag=true;
                 }

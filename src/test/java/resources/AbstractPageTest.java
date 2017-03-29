@@ -1,11 +1,14 @@
 package resources;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.logging.LogManager;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -34,14 +37,11 @@ public abstract class AbstractPageTest
     public abstract void clearPage();
 
     public static WebDriver getDriver(){
+
         if(driver == null){
-            if(incognito){
-                DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-                capabilities.setCapability("chrome.switches", Arrays.asList("--incognito"));
-                driver = new ChromeDriver(capabilities);
-            }else{
-                driver = new ChromeDriver();
-            }
+
+            driver = new ChromeDriver(new ChromeDriverService.Builder().withSilent(true).build());
+
         }
         return driver;
     }
@@ -106,8 +106,6 @@ public abstract class AbstractPageTest
                     !matcher_ckeditor.find() &&
                     !matcher_version.find()
             ){
-                System.out.println(asset.getUrl());
-                System.out.println(matcher_ckeditor.find());
                 return false;
             }
         }

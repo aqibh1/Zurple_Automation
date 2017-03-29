@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Leads List Page">
+<suite name="Leads List Page with different acces levels">
 
   <test name="With regular admin access">
     <classes>

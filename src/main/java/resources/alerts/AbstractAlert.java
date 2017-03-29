@@ -2,6 +2,7 @@ package resources.alerts;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 public abstract class AbstractAlert
@@ -15,8 +16,10 @@ public abstract class AbstractAlert
 
     public void setAlert(WebElement object){
         alert = object;
-        okButton = alert.findElement(By.xpath("//descendant::button[@class=\"confirm\"]"));
-        message = alert.findElement(By.xpath("//descendant::div[contains(@class,\"sweet-alert\")]/h2")).getText();
+        try{
+            okButton = alert.findElement(By.xpath("//descendant::button[@class=\"confirm\"]"));
+            message = alert.findElement(By.xpath("//descendant::div[contains(@class,\"sweet-alert\")]/h2")).getText();
+        }catch(NoSuchElementException e){}
     }
 
     public WebElement getAlert()
@@ -27,6 +30,20 @@ public abstract class AbstractAlert
     public String getMessage()
     {
         return message;
+    }
+
+    public void setOkButton(WebElement object)
+    {
+        okButton = object;
+    }
+
+    public void clickOkButton()
+    {
+        okButton.click();
+    }
+
+    public boolean isVisible(){
+        return alert.isDisplayed();
     }
 
     public void close()

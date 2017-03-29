@@ -40,7 +40,7 @@ public class TopMenuBlock
             List<WebElement> allItemsRows = block.findElements(By.xpath("./ul/li"));
 
             for (WebElement row: allItemsRows) {
-                System.out.println(row.getText());
+
                 try{
                     MenuItem menuItem = new MenuItem();
                     menuItem.setLink(row.findElement(By.xpath("./a")).getAttribute("href"));

@@ -23,7 +23,13 @@ public abstract class AbstractForm implements UsesDriver
 
     public void setForm(WebElement object){
         form = object;
-        submitButton = form.findElement(By.xpath("./descendant::*[@type=\"submit\"]"));
+        try{
+            setSubmitButton(form.findElement(By.xpath("./descendant::*[@type=\"submit\"]")));
+        }catch(NoSuchElementException e){}
+    }
+
+    public void setSubmitButton(WebElement object){
+        submitButton = object;
     }
 
     public void submit(){

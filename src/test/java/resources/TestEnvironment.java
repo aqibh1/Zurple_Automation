@@ -3,12 +3,14 @@ package resources;
 import java.util.List;
 import org.hibernate.SessionFactory;
 import resources.orm.hibernate.dao.ManageAdmin;
+import resources.orm.hibernate.dao.ManageDistributionRules;
 import resources.orm.hibernate.dao.ManageEmailQueue;
 import resources.orm.hibernate.dao.ManageTransactions;
 import resources.orm.hibernate.dao.ManageUser;
 import resources.orm.hibernate.models.Admin;
 import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.dao.ManagePackageProducts;
+import resources.orm.hibernate.models.DistributionRule;
 import resources.orm.hibernate.models.PackageProduct;
 import resources.orm.hibernate.models.EmailQueue;
 import resources.orm.hibernate.models.Lead;
@@ -114,6 +116,33 @@ public class TestEnvironment
         ManageAdmin ma = new ManageAdmin(factory);
 
         return ma.getAdmin(admin_id);
+    }
+
+    public List<DistributionRule> getDistributionRulesBySiteId(Integer site_id)
+    {
+        factory = new HibernateUtil().getSessionFactory();
+
+        ManageDistributionRules mdr = new ManageDistributionRules(factory);
+
+        return mdr.getSitesDistributionRulesById(site_id);
+    }
+
+    public List<User> getLeadsAssignedToAdmin(Integer admin_id)
+    {
+        factory = new HibernateUtil().getSessionFactory();
+
+        ManageUser mu = new ManageUser(factory);
+
+        return mu.getNewLeadsAssignedToAdminById(admin_id);
+    }
+
+    public Integer getNumberAssignedToAdminOfLeadsByStatus(Integer admin_id, String status)
+    {
+        factory = new HibernateUtil().getSessionFactory();
+
+        ManageUser mu = new ManageUser(factory);
+
+        return mu.getNumberAssignedToAdminOfLeadsByStatus(admin_id, status);
     }
 
     public Admin getAdminByEmail(String email)

@@ -12,7 +12,7 @@ public class AgentPageTest  extends PageTest
     public LeadEditPage getPage(){
         if(page == null){
             page = new LeadEditPage();
-            page.setUrl("https://my.dev.zurple.com/agent/edit/admin_id/"+getEnvironment().getAgentToCheck());
+            page.setUrl("https://my.dev.zurple.com/agent/edit/admin_id/"+getEnvironment().getCurrentAgentId());
             page.setDriver(getDriver());
         }
         return page;
