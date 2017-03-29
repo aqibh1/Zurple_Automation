@@ -21,6 +21,7 @@ public abstract class AbstractPage
         this.driver=driver;
         if(!this.driver.getCurrentUrl().equals(getUrl())){
             driver.get(getUrl());
+            System.out.println(getUrl());
         }
         focusOnPage();
     }
