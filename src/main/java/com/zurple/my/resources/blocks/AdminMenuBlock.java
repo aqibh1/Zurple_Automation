@@ -21,9 +21,9 @@ public class AdminMenuBlock
         try{
 
             List<WebElement> allItemsRows = block.findElements(By.xpath("./descendant::li[@role=\"presentation\"]/ul/li"));
-            System.out.println(block.findElement(By.xpath("./descendant::li[@role=\"presentation\"]/ul/li")).isDisplayed());
+
             for (WebElement row: allItemsRows) {
-                System.out.println(row.getText());
+
                 try{
                     MenuItem menuItem = new MenuItem();
                     menuItem.setLink(row.findElement(By.xpath("./a")).getAttribute("href"));

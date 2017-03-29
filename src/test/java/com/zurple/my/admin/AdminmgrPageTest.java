@@ -29,7 +29,7 @@ public class AdminmgrPageTest
         assertTrue(getPage().checkAdminListBlockExists());
         assertTrue(getPage().getAdminsListBlock().getAdminsList().size()>0);
         Integer n = getPage().getAdminsListBlock().getAdminsList().get(0).getId();
-        System.out.println(n);
+
         getEnvironment().setAgentToCheck(n);
     }
 

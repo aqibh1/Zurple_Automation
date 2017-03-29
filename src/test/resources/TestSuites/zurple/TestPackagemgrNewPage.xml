@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Admin Package Mgr">
+<suite name="Admin Package Mgr New">
 
   <test name="my.zurple.com">
     <classes>

@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Test assets have version in URL">
+<suite name="Zengtest1 - Test assets have version in URL">
 
   <test name="Register">
     <groups>

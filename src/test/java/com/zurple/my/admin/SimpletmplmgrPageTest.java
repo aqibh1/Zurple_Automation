@@ -30,7 +30,7 @@ public class SimpletmplmgrPageTest
         assertTrue(getPage().checkTemplatesListBlockExists());
         assertTrue(getPage().getTemlatesListBlock().getTemlatesList().size()>0);
         Integer n = getPage().getTemlatesListBlock().getTemlatesList().get(0).getId();
-        System.out.println(n);
+
         getEnvironment().setTemplateToCheck(n);
     }
 }
