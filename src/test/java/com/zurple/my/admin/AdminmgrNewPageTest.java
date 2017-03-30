@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public class AdminmgrNewPageTest
@@ -31,7 +32,7 @@ public class AdminmgrNewPageTest
         assertTrue(getPage().getAdminCreateForm().checkBillingAccessCheckboxExists());
 
         //Checking default billing access flag state
-        assertTrue(getPage().getAdminCreateForm().getBillingAccessCheckbox().getValue());
+        assertFalse(getPage().getAdminCreateForm().getBillingAccessCheckbox().getValue());
     }
 
     @Test
