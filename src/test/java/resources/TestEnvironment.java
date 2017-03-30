@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import resources.orm.hibernate.dao.ManageAdmin;
 import resources.orm.hibernate.dao.ManageDistributionRules;
 import resources.orm.hibernate.dao.ManageEmailQueue;
+import resources.orm.hibernate.dao.ManageTransactionGoals;
 import resources.orm.hibernate.dao.ManageTransactions;
 import resources.orm.hibernate.dao.ManageUser;
 import resources.orm.hibernate.models.Admin;
@@ -16,6 +17,7 @@ import resources.orm.hibernate.models.EmailQueue;
 import resources.orm.hibernate.models.Lead;
 import resources.orm.hibernate.dao.ManageLead;
 import resources.orm.hibernate.models.Transaction;
+import resources.orm.hibernate.models.TransactionGoal;
 import resources.orm.hibernate.models.User;
 
 public class TestEnvironment
@@ -134,6 +136,15 @@ public class TestEnvironment
         ManageUser mu = new ManageUser(factory);
 
         return mu.getNewLeadsAssignedToAdminById(admin_id);
+    }
+
+    public List<TransactionGoal> getTransactionGoalsByLeadId(Integer lead_id)
+    {
+        factory = new HibernateUtil().getSessionFactory();
+
+        ManageTransactionGoals mtg = new ManageTransactionGoals(factory);
+
+        return mtg.getTransactionGoalsListByUserId(lead_id);
     }
 
     public Integer getNumberAssignedToAdminOfLeadsByStatus(Integer admin_id, String status)

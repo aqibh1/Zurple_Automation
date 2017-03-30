@@ -19,6 +19,7 @@ public class ManageTransactionGoals
         Session session = factory.openSession();
         List<resources.orm.hibernate.models.TransactionGoal> transactionGoalsList = new ArrayList<resources.orm.hibernate.models.TransactionGoal>();
         Transaction tx = null;
+
         try {
             tx = session.beginTransaction();
             List records = session.createQuery("FROM TransactionGoal WHERE user_id = " + user_id).list();
