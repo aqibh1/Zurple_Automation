@@ -1,5 +1,7 @@
 package com.zurple.my;
 
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -33,6 +35,12 @@ public class LeadDetailPageTest
     @Test
     public void testLead() {
         //getEnvironment().getLeadObject();
+    }
+
+    @Parameters("lead_source")
+    @Test
+    public void testLeadDetailsBlock(@Optional("") String lead_source) {
+        assertEquals(getPage().getLeadDetailsBlock().getLeadSource(),lead_source);
     }
 
     @Test

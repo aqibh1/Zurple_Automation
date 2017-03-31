@@ -113,6 +113,7 @@ public class RegisterPageTest
         Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
         assertTrue(matcher.find());
         Integer lead_id = Integer.parseInt(matcher.group(1));
+        getEnvironment().setLeadToCheck(lead_id);
 
         //Checking created lead source
         //Checking DB record body
@@ -152,6 +153,8 @@ public class RegisterPageTest
             Pattern pattern = Pattern.compile("http://dev\\.zengtest1\\.us/thankyou\\?lead_id=(\\d+)");
             Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
             assertTrue(matcher.find());
+            Integer lead_id = Integer.parseInt(matcher.group(1));
+
         }
 
         for(DistributionRule distributionRule : getEnvironment().getDistributionRulesBySiteId(1)){

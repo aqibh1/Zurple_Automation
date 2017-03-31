@@ -11,6 +11,18 @@
           <include name="testRegisterNewPersonalSellerLead" />
         </methods>
       </class>
+    </classes>
+  </test>
+
+  <test name="login_to_bo_and_check_leads_detail_page">
+    <parameter name="lead_source" value="Personal Seller"/>
+    <classes>
+      <class name="com.zurple.my.LoginPageTest" />
+      <class name="com.zurple.my.LeadDetailPageTest" >
+        <methods>
+          <include name="testLeadDetailsBlock" />
+        </methods>
+      </class>
       <class name="resources.CurrentPageTest">
         <methods>
           <include name="closeBrowser" />
