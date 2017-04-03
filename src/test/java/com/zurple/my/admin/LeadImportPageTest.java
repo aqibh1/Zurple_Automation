@@ -102,14 +102,13 @@ public class LeadImportPageTest
 
 
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
                 if(
                     parsedImport.getFileName().equals(expectedImport.getFileName()) &&
-                    parsedImport.getDataRows()==expectedImport.getAddedLeads() /*&&
-                    parsedImport.getNewLeads()==expectedImport.getAddedLeads() &&
-                    parsedImport.getIgnoredLeads()==expectedIgnored &&
+                    parsedImport.getDataRows().equals(expectedImport.getRowCount()) &&
+                    parsedImport.getNewLeads().equals(expectedImport.getAddedLeads()) &&
+                    parsedImport.getIgnoredLeads().equals(expectedIgnored) &&
                     parsedImport.getImporter().equals(expectedImport.getImporterAdmin().getEmail()) &&
-                    df.format(parsedImport.getDate()).equals(df.format(expectedImport.getCreateDatetime()))*/
+                    df.format(parsedImport.getDate()).equals(df.format(expectedImport.getCreateDatetime()))
                 ){
                     match_flag=true;
                 }
