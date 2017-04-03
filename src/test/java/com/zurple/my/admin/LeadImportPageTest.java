@@ -2,12 +2,16 @@ package com.zurple.my.admin;
 
 import com.zurple.my.Admin.LeadImportPage;
 import com.zurple.my.PageTest;
+import java.awt.AWTException;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import org.testng.annotations.Test;
+import resources.classes.LeadCSV;
 import resources.orm.hibernate.models.Admin;
 import resources.orm.hibernate.models.Import;
 import resources.orm.hibernate.models.Package;
@@ -44,6 +48,58 @@ public class LeadImportPageTest
         assertTrue(getPage().getLeadsImportForm().checkElementExistsById("sites"));
         assertTrue(getPage().getLeadsImportForm().checkElementExistsById("pun"));
         assertTrue(getPage().getLeadsImportForm().checkElementExistsById("csv"));
+
+    }
+
+    @Test
+    public void testLeadImportUpload()
+    {
+
+        assertTrue(getPage().checkLeadsImportFormExists());
+
+        Admin admin = getEnvironment().getAdmin();
+
+        Package pkg = admin.getPackage();
+        assertTrue(pkg!=null);
+
+        Set<Site> siteSet =  getEnvironment().getAdmin().getSites();
+        assertTrue(siteSet.size()>0);
+
+        Boolean siteFoundFlag = false;
+        Site s = new Site();
+        for (Iterator<Site> it = siteSet.iterator(); it.hasNext(); ) {
+            s = it.next();
+            if (s.getDomainName().equals("zengtest1.us"))
+                siteFoundFlag=true;
+        }
+        assertTrue(siteFoundFlag);
+
+        getPage().getLeadsImportForm().setSelectValueByValue("package",pkg.getId().toString());
+
+        waitLoad();
+
+        getPage().getLeadsImportForm().setSelectValueByValue("admins",getEnvironment().getAdmin().getId().toString());
+
+        waitLoad();
+
+        getPage().getLeadsImportForm().setSelectValueByValue("sites",s.getId().toString());
+
+        waitLoad();
+
+        getPage().getLeadsImportForm().setSelectValue("cities",2);
+
+        try
+        {
+            getPage().getLeadsImportForm().uploadFile(LeadCSV.create());
+        }
+        catch (AWTException e)
+        {
+            assertTrue(false);
+        }
+
+        getPage().getLeadsImportForm().submit();
+
+        assertEquals(getDriver().getCurrentUrl(),getPage().getUrl());
 
     }
 

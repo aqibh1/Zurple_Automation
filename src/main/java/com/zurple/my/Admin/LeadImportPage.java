@@ -27,6 +27,7 @@ public class LeadImportPage
         leadsImportForm = new LeadsImportForm();
         leadsImportForm.setForm(driver.findElement(By.xpath("//*[@id=\"import_form\"]")));
         leadsImportForm.setDriver(driver);
+        leadsImportForm.setDriver(driver);
         return leadsImportForm;
     }
 

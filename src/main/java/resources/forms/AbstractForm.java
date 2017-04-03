@@ -1,5 +1,10 @@
 package resources.forms;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -144,6 +149,28 @@ public abstract class AbstractForm implements UsesDriver
         }catch(NoSuchElementException e){}
 
         return errorsList;
+    }
+
+    public void uploadFile(String path)
+            throws AWTException
+    {
+        setClipboard(path);
+        form.findElement(By.xpath("./descendant::input[@type=\"file\"]")).click();
+
+        Robot robot = new Robot();
+        // Ctrl-V + Enter on Win
+        robot.delay(3000);
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_ENTER);
+
+    }
+
+    public static void setClipboard(String str) {
+        StringSelection ss = new StringSelection(str);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
     }
 
 }

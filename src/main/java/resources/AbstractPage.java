@@ -51,7 +51,7 @@ public abstract class AbstractPage
         return list;
     };
 
-    public static String getUrl()
+    public String getUrl()
     {
         return url;
     }
