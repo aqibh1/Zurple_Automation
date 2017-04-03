@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -20,6 +21,7 @@ public class Package
 
     private Integer package_id;
     private Integer netsuite_id;
+    private Set<Admin> admins;
 
     @Id
     @Column(name = "package_id", unique = true, nullable = false)
@@ -41,4 +43,13 @@ public class Package
         this.netsuite_id = netsuite_id;
     }
 
+    @OneToMany(fetch=FetchType.EAGER, mappedBy="package")
+    public Set<Admin> getAdmins() {
+        return this.admins;
+    }
+
+    public void setAdmins(Set<Admin> admins)
+    {
+        this.admins = admins;
+    }
 }

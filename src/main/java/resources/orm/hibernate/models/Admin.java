@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -33,6 +35,7 @@ public class Admin
     private String bio;
     private Boolean billing_access_flag;
     private Set<Site> sites;
+    private Set<Import> imports;
 
     public Admin() {
     }
@@ -129,11 +132,7 @@ public class Admin
         this.bio = bio;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "site_admins", catalog = "zurple_platform", joinColumns = {
-            @JoinColumn(name = "admin_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "site_id",
-                    nullable = false, updatable = false) })
+    @ManyToMany(fetch=FetchType.EAGER, mappedBy="admins")
     public Set<Site> getSites() {
         return this.sites;
     }
@@ -151,7 +150,7 @@ public class Admin
         this.billing_access_flag = billing_access_flag;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "package_id")
     public Package getPackage() {
         return this.pkg;
@@ -161,4 +160,14 @@ public class Admin
         this.pkg = pkg;
     }
 
+    @OneToMany(fetch=FetchType.EAGER, mappedBy="importer_admin")
+    public Set<Import> getImports()
+    {
+        return imports;
+    }
+
+    public void setImports(Set<Import> imports)
+    {
+        this.imports = imports;
+    }
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
@@ -117,7 +118,7 @@ public class Lead
         this.memo = memo;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch= FetchType.EAGER)
     @JoinColumn(name = "owner_id")
     public Admin getOwnerId() {
         return this.owner_id;

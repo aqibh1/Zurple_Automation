@@ -105,6 +105,12 @@ public abstract class AbstractForm implements UsesDriver
         dropdown.selectByIndex(index);
     }
 
+    public void setSelectValueByValue(String inputName, String value)
+    {
+        Select dropdown = new Select(form.findElement(By.xpath("./descendant::select[@id=\""+inputName+"\"]")));
+        dropdown.selectByValue(value);
+    }
+
     public void toggleCheckboxValue(String inputName)
     {
         form.findElement(By.xpath("./descendant::input[@id=\""+inputName+"\"]")).click();

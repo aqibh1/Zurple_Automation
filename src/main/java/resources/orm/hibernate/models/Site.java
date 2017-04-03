@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,6 +29,7 @@ public class Site
     private Integer site_id;
     private String domain_name;
     private Set<Admin> admins;
+    private Set<Import> imports;
     private Date create_datetime;
     private Date update_datetime;
 
@@ -54,11 +56,18 @@ public class Site
         this.domain_name = domain_name;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "site_admins", catalog = "zurple_platform", joinColumns = {
-            @JoinColumn(name = "site_id", nullable = false, updatable = false) },
-            inverseJoinColumns = { @JoinColumn(name = "admin_id",
-                    nullable = false, updatable = false) })
+    @OneToMany(fetch=FetchType.EAGER, mappedBy="site")
+    public Set<Import> getImports()
+    {
+        return imports;
+    }
+    public void setImports(Set<Import> imports)
+    {
+        this.imports = imports;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="site_admins", joinColumns=@JoinColumn(name="site_id"), inverseJoinColumns=@JoinColumn(name="admin_id"))
     public Set<Admin> getAdmins() {
         return this.admins;
     }

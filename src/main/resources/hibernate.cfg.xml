@@ -22,6 +22,7 @@
     <mapping class="resources.orm.hibernate.models.TransactionGoal"></mapping>
     <mapping class="resources.orm.hibernate.models.Product"></mapping>
     <mapping class="resources.orm.hibernate.models.DistributionRule"></mapping>
+    <mapping class="resources.orm.hibernate.models.Import"></mapping>
     <mapping class="resources.orm.hibernate.models.Package"></mapping>
     <mapping class="resources.orm.hibernate.models.EmailQueue"></mapping>
   </session-factory>

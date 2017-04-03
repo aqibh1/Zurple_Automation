@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,7 +21,7 @@ public class PackageProduct
     @Column(name="package_id")
     private Integer package_id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch= FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private Product product_id;
 
