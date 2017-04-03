@@ -29,7 +29,7 @@ public class Site
     private Integer site_id;
     private String domain_name;
     private Set<Admin> admins;
-    private Set<Import> imports;
+    //private Set<Import> imports;
     private Date create_datetime;
     private Date update_datetime;
 
@@ -56,7 +56,7 @@ public class Site
         this.domain_name = domain_name;
     }
 
-    @OneToMany(fetch=FetchType.EAGER, mappedBy="site")
+    /*@OneToMany(fetch=FetchType.EAGER, mappedBy="site")
     public Set<Import> getImports()
     {
         return imports;
@@ -64,9 +64,9 @@ public class Site
     public void setImports(Set<Import> imports)
     {
         this.imports = imports;
-    }
+    }*/
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="site_admins", joinColumns=@JoinColumn(name="site_id"), inverseJoinColumns=@JoinColumn(name="admin_id"))
     public Set<Admin> getAdmins() {
         return this.admins;

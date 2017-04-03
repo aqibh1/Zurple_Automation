@@ -1,6 +1,7 @@
 package resources.orm.hibernate.models;
 
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,14 +19,15 @@ public class Import
     @Column(name="import_id")
     private Integer import_id;
 
-    @Column(name = "admin_id")
+    @ManyToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    @Column(name = "site_id")
-    private Site site;
+    //@Column(name = "site_id")
+    //private Site site;
 
-    @Column(name = "importer_admin_id")
-    private Admin importer_admin;
+    //@Column(name = "importer_admin_id")
+    //private Admin importer_admin;
 
     @Column(name = "row_count")
     private Integer row_count;
@@ -62,7 +64,7 @@ public class Import
         this.admin = admin;
     }
 
-    @ManyToOne(fetch= FetchType.EAGER)
+    /*@ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name = "site_id")
     public Site getSite()
     {
@@ -72,9 +74,9 @@ public class Import
     public void setSite(Site site)
     {
         this.site = site;
-    }
+    }*/
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    /*@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "importer_admin_id")
     public Admin getImporterAdmin()
     {
@@ -84,7 +86,7 @@ public class Import
     public void setImporterAdmin(Admin importer_admin)
     {
         this.importer_admin = importer_admin;
-    }
+    }*/
 
     public Integer getRowCount()
     {

@@ -160,7 +160,7 @@ public class Admin
         this.pkg = pkg;
     }
 
-    @OneToMany(fetch=FetchType.EAGER, mappedBy="importer_admin")
+    @OneToMany(fetch=FetchType.EAGER, mappedBy="admin",cascade=CascadeType.ALL)
     public Set<Import> getImports()
     {
         return imports;

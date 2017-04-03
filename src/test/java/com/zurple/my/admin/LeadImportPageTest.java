@@ -61,7 +61,7 @@ public class LeadImportPageTest
         Set<Site> siteSet =  getEnvironment().getAdmin().getSites();
         assertTrue(siteSet.size()>0);
 
-        Boolean siteFoundFlag = false;
+        /*Boolean siteFoundFlag = false;
         Site s = new Site();
         for (Iterator<Site> it = siteSet.iterator(); it.hasNext(); ) {
             s = it.next();
@@ -114,7 +114,7 @@ public class LeadImportPageTest
             }
             assertTrue(match_flag);
         }
-
+            */
 
     }
 
