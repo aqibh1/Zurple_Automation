@@ -19,15 +19,17 @@ public class Import
     @Column(name="import_id")
     private Integer import_id;
 
-    @ManyToOne(cascade= CascadeType.ALL)
+    @ManyToOne(fetch= FetchType.EAGER,cascade= CascadeType.ALL)
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    //@Column(name = "site_id")
-    //private Site site;
+    @ManyToOne(fetch= FetchType.EAGER,cascade= CascadeType.ALL)
+    @JoinColumn(name = "site_id")
+    private Site site;
 
-    //@Column(name = "importer_admin_id")
-    //private Admin importer_admin;
+    @ManyToOne(fetch=FetchType.EAGER,cascade= CascadeType.ALL)
+    @JoinColumn(name = "importer_admin_id")
+    private Admin importer_admin;
 
     @Column(name = "row_count")
     private Integer row_count;
@@ -64,8 +66,6 @@ public class Import
         this.admin = admin;
     }
 
-    /*@ManyToOne(fetch= FetchType.EAGER)
-    @JoinColumn(name = "site_id")
     public Site getSite()
     {
         return site;
@@ -74,10 +74,8 @@ public class Import
     public void setSite(Site site)
     {
         this.site = site;
-    }*/
+    }
 
-    /*@ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name = "importer_admin_id")
     public Admin getImporterAdmin()
     {
         return importer_admin;
@@ -86,10 +84,13 @@ public class Import
     public void setImporterAdmin(Admin importer_admin)
     {
         this.importer_admin = importer_admin;
-    }*/
+    }
 
     public Integer getRowCount()
     {
+        if(row_count==null){
+            return 0;
+        }
         return row_count;
     }
 
@@ -100,6 +101,9 @@ public class Import
 
     public Integer getAddedLeads()
     {
+        if(added_leads==null){
+            return 0;
+        }
         return added_leads;
     }
 
