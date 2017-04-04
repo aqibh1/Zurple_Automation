@@ -101,6 +101,10 @@ public class LeadImportPageTest
 
         assertEquals(getDriver().getCurrentUrl(),getPage().getUrl());
 
+        assertTrue(getPage().checkLeadsImportFeedbackBlockExists());
+        assertTrue(getPage().getLeadsImportFeedbackBlock().isVisible());
+        assertEquals(getPage().getLeadsImportFeedbackBlock().getMessage(),"Import is finished.");
+
     }
 
     @Test

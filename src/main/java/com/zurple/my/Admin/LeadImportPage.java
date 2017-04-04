@@ -2,6 +2,7 @@ package com.zurple.my.Admin;
 
 import com.zurple.my.Page;
 import com.zurple.my.resources.blocks.ImportsListBlock;
+import com.zurple.my.resources.blocks.LeadImportFeedbackBlock;
 import com.zurple.my.resources.forms.AdminEditForm;
 import com.zurple.my.resources.forms.LeadsImportForm;
 import org.openqa.selenium.By;
@@ -13,6 +14,7 @@ public class LeadImportPage
 
     protected LeadsImportForm leadsImportForm;
     protected ImportsListBlock importsListBlock;
+    protected LeadImportFeedbackBlock leadImportFeedbackBlock;
 
     public boolean checkLeadsImportFormExists(){
         try{
@@ -27,8 +29,22 @@ public class LeadImportPage
         leadsImportForm = new LeadsImportForm();
         leadsImportForm.setForm(driver.findElement(By.xpath("//*[@id=\"import_form\"]")));
         leadsImportForm.setDriver(driver);
-        leadsImportForm.setDriver(driver);
         return leadsImportForm;
+    }
+
+    public boolean checkLeadsImportFeedbackBlockExists(){
+        try{
+            getLeadsImportFeedbackBlock();
+            return true;
+        }catch(NoSuchElementException e){
+            return false;
+        }
+    }
+
+    public LeadImportFeedbackBlock getLeadsImportFeedbackBlock(){
+        leadImportFeedbackBlock = new LeadImportFeedbackBlock();
+        leadImportFeedbackBlock.setBlock(driver.findElement(By.xpath("//*[@id=\"feedback\"]")));
+        return leadImportFeedbackBlock;
     }
 
     public boolean checkImportsListBlockExists(){

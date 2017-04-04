@@ -5,12 +5,12 @@
   <test name="my.zurple.com">
     <classes>
       <class name="com.zurple.my.LoginPageTest" />
-      <class name="com.zurple.my.admin.LeadImportPageTest" />
-      <class name="resources.CurrentPageTest">
+      <class name="com.zurple.my.admin.LeadImportPageTest" >
         <methods>
-          <include name="closeBrowser" />
+          <include name="testLeadImportUpload" />
         </methods>
       </class>
+
     </classes>
   </test>
 
