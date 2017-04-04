@@ -92,14 +92,16 @@ public class LeadImportPageTest
 
         List<Lead> leads = new ArrayList<Lead>();
 
-        String uuid = UUID.randomUUID().toString();
-        //leads.add(Lead.generateLead(getEnvironment().getAdmin().getId(),s.getId(),uuid.substring(0,5),false));
+        String uuid = "";
+
 
         for(int i=1; i<10; i++){
             uuid = UUID.randomUUID().toString();
             leads.add(Lead.generateLead(getEnvironment().getAdmin().getId(),s.getId(),uuid.substring(0,5),true));
         }
 
+        uuid = UUID.randomUUID().toString();
+        leads.add(Lead.generateLead(getEnvironment().getAdmin().getId(),s.getId(),uuid.substring(0,5),false));
 
         try
         {
@@ -116,7 +118,7 @@ public class LeadImportPageTest
 
         assertTrue(getPage().checkLeadsImportFeedbackBlockExists());
         assertTrue(getPage().getLeadsImportFeedbackBlock().isVisible());
-        assertEquals(getPage().getLeadsImportFeedbackBlock().getMessage(),"Import is finished.");
+        assertTrue(getPage().getLeadsImportFeedbackBlock().getMessage().contains("Import is finished."));
 
     }
 

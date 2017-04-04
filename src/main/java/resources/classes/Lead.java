@@ -195,7 +195,7 @@ public class Lead
         Boolean valid
     ){
 
-        String email = "";
+        String email = prefix+"@test.con";
         if(valid){
             email=prefix+"@test.com";
         }
