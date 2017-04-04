@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import org.testng.annotations.Test;
+import resources.classes.Lead;
 import resources.classes.LeadCSV;
 import resources.orm.hibernate.models.Admin;
 import resources.orm.hibernate.models.Import;
@@ -88,9 +90,20 @@ public class LeadImportPageTest
 
         getPage().getLeadsImportForm().setSelectValue("cities",2);
 
+        List<Lead> leads = new ArrayList<Lead>();
+
+        String uuid = UUID.randomUUID().toString();
+        //leads.add(Lead.generateLead(getEnvironment().getAdmin().getId(),s.getId(),uuid.substring(0,5),false));
+
+        for(int i=1; i<10; i++){
+            uuid = UUID.randomUUID().toString();
+            leads.add(Lead.generateLead(getEnvironment().getAdmin().getId(),s.getId(),uuid.substring(0,5),true));
+        }
+
+
         try
         {
-            getPage().getLeadsImportForm().uploadFile(LeadCSV.create());
+            getPage().getLeadsImportForm().uploadFile(LeadCSV.create(leads));
         }
         catch (AWTException e)
         {

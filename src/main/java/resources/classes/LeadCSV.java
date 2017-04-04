@@ -4,14 +4,16 @@ import au.com.bytecode.opencsv.CSVWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
 public class LeadCSV
 {
 
-    public static String create(){
+    public static String create(List<Lead> leads){
+        return create(leads,',');
+    }
+
+    public static String create(List<Lead> leads, char separator){
 
         CSVWriter writer = null;
         String res = "";
@@ -19,12 +21,37 @@ public class LeadCSV
         try
         {
             File temp = File.createTempFile("lead_import_",".csv");
-            writer = new CSVWriter(new FileWriter(temp), '\t');
+            writer = new CSVWriter(new FileWriter(temp), separator);
             // feed in your array (or convert your data to an array)
-            String[] entries = "first#second#third".split("#");
+            String[] entries = {
+                    "First Name",
+                    "Last Name",
+                    "Phone",
+                    "Cell Phone",
+                    "Email Address",
+                    "User Name",
+                    "Street",
+                    "City",
+                    "State",
+                    "Zip Code",
+                    "Price Low",
+                    "Price High",
+                    "Bedrooms",
+                    "Date",
+                    "Admin ID",
+                    "Site ID",
+                    "Notes",
+                    "Buyer Transaction Goals",
+                    "Seller Transaction Goals"
+            };
             writer.writeNext(entries);
+            for(Lead lead: leads){
+                //String[] entries = "first#second#third".split("#");
+                writer.writeNext(lead.toCSVLine());
+            }
             writer.close();
             res = temp.getAbsolutePath();
+            System.out.println(res);
         }
         catch (IOException e)
         {
