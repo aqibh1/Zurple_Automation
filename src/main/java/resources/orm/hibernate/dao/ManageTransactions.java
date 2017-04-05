@@ -10,13 +10,13 @@ import org.hibernate.Transaction;
 public class ManageTransactions
 {
 
-    private SessionFactory factory;
+    private Session session;
 
-    public ManageTransactions(SessionFactory factory) {this.factory = factory;}
+    public ManageTransactions(Session session) {this.session = session;}
 
     /* Method to  READ products list by admin id */
     public List<resources.orm.hibernate.models.Transaction> getTransactionsListByCustomerId( Integer customer_id ){
-        Session session = factory.openSession();
+
         List<resources.orm.hibernate.models.Transaction> transactionList = new ArrayList<resources.orm.hibernate.models.Transaction>();
         Transaction tx = null;
         try {

@@ -4,6 +4,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -52,7 +53,7 @@ public class User
         this.user_id = user_id;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch= FetchType.EAGER)
     @JoinColumn(name = "lead_id")
     public Lead getLeadId() {
         return this.lead_id;
@@ -62,7 +63,7 @@ public class User
         this.lead_id = lead_id;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "admin_id")
     public Admin getAdminId() {
         return this.admin_id;

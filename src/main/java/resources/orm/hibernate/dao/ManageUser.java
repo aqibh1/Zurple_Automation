@@ -19,13 +19,13 @@ import static java.lang.Math.toIntExact;
 public class ManageUser
 {
 
-    private SessionFactory factory;
+    private Session session;
 
-    public ManageUser(SessionFactory factory) {this.factory = factory;}
+    public ManageUser(Session session) {this.session = session;}
 
     /* Method to  READ user by id */
     public User getUser( Integer user_id ){
-        Session session = factory.openSession();
+
         User user = null;
         try {
             user = (User) session.get(User.class, user_id);
@@ -44,7 +44,7 @@ public class ManageUser
     public void updateUser(
             User user
     ){
-        Session session = factory.openSession();
+
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
@@ -61,7 +61,6 @@ public class ManageUser
     /* Method to READ all leads owned by the admin */
     public List<User> getNewLeadsAssignedToAdminById ( Integer admin_id ){
 
-        Session session = factory.openSession();
         List<User> users = new ArrayList<User>();
         Transaction tx = null;
         try {
@@ -88,7 +87,7 @@ public class ManageUser
 
     /* Method to READ number of leads by status */
     public Integer getNumberAssignedToAdminOfLeadsByStatus( Integer admin_id, String status ){
-        Session session = factory.openSession();
+
         Integer numberOfLeads = 0;
         try {
             Query q = session.createQuery("select count(*) FROM User WHERE admin_id=:admin_id and user_status=:status");

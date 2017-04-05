@@ -34,7 +34,7 @@ public class DistributionRule
         this.rule_id = rule_id;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "admin_id")
     public Admin getAdmin() {
         return this.admin;
@@ -44,7 +44,7 @@ public class DistributionRule
         this.admin = admin;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "site_id")
     public Site getSite() {
         return this.site;

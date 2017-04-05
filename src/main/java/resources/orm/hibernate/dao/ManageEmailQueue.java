@@ -12,13 +12,13 @@ import resources.orm.hibernate.models.Product;
 public class ManageEmailQueue
 {
 
-    private SessionFactory factory;
+    private Session session;
 
-    public ManageEmailQueue(SessionFactory factory) {this.factory = factory;}
+    public ManageEmailQueue(Session session) {this.session = session;}
 
     /* Method to  READ email queue entry by id */
     public EmailQueue getEmailQueueById( Integer email_queue_id ){
-        Session session = factory.openSession();
+
         EmailQueue emailQueue = null;
         try {
             emailQueue = (EmailQueue) session.get(EmailQueue.class, email_queue_id);
@@ -35,7 +35,7 @@ public class ManageEmailQueue
 
     /* Method to  READ last email queue entry */
     public EmailQueue getLastEmailQueue(){
-        Session session = factory.openSession();
+
         EmailQueue emailQueue = null;
         try {
             Query q = session.createQuery("FROM EmailQueue ORDER BY email_queue_id DESC");
