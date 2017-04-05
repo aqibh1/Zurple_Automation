@@ -9,13 +9,13 @@ import resources.orm.hibernate.models.Product;
 public class ManageProduct
 {
 
-    private SessionFactory factory;
+    private Session session;
 
-    public ManageProduct(SessionFactory factory) {this.factory = factory;}
+    public ManageProduct(Session session) {this.session = session;}
 
     /* Method to  READ product by id */
     public Product getProduct( Integer product_id ){
-        Session session = factory.openSession();
+
         Product product = null;
         try {
             product = (Product) session.get(Product.class, product_id);

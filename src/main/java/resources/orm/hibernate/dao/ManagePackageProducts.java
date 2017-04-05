@@ -13,14 +13,14 @@ import resources.orm.hibernate.models.PackageProduct;
 public class ManagePackageProducts
 {
 
-    private SessionFactory factory;
+    private Session session;
 
-    public ManagePackageProducts(SessionFactory factory) {this.factory = factory;}
+    public ManagePackageProducts(Session session) {this.session = session;}
 
 
     /* Method to  READ products list by admin id */
     public List<PackageProduct> getPackageProductsList( Package pkg ){
-        Session session = factory.openSession();
+
         List<PackageProduct> packageProducts = new ArrayList<PackageProduct>();
         Transaction tx = null;
         try {

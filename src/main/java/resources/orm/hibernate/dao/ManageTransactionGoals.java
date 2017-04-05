@@ -10,13 +10,13 @@ import org.hibernate.Transaction;
 public class ManageTransactionGoals
 {
 
-    private SessionFactory factory;
+    private Session session;
 
-    public ManageTransactionGoals(SessionFactory factory) {this.factory = factory;}
+    public ManageTransactionGoals(Session session) {this.session = session;}
 
     /* Method to  READ products list by admin id */
     public List<resources.orm.hibernate.models.TransactionGoal> getTransactionGoalsListByUserId( Integer user_id ){
-        Session session = factory.openSession();
+
         List<resources.orm.hibernate.models.TransactionGoal> transactionGoalsList = new ArrayList<resources.orm.hibernate.models.TransactionGoal>();
         Transaction tx = null;
 

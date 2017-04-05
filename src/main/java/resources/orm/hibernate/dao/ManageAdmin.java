@@ -17,13 +17,12 @@ import resources.orm.hibernate.models.User;
 public class ManageAdmin
 {
 
-    private SessionFactory factory;
+    private Session session;
 
-    public ManageAdmin(SessionFactory factory) {this.factory = factory;}
+    public ManageAdmin(Session session) {this.session = session;}
 
     /* Method to  READ admin by id */
     public Admin getAdmin( Integer admin_id ){
-        Session session = factory.openSession();
         Admin admin = null;
         try {
             admin = (Admin) session.get(Admin.class, admin_id);
@@ -40,7 +39,6 @@ public class ManageAdmin
 
     /* Method to  READ admin by email */
     public Admin getAdminByEmail( String email ){
-        Session session = factory.openSession();
         Admin admin = null;
         try {
             Query q = session.createQuery("FROM Admin WHERE email='"+email+"'");

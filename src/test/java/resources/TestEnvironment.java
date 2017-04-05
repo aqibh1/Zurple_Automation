@@ -1,10 +1,12 @@
 package resources;
 
 import java.util.List;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import resources.orm.hibernate.dao.ManageAdmin;
 import resources.orm.hibernate.dao.ManageDistributionRules;
 import resources.orm.hibernate.dao.ManageEmailQueue;
+import resources.orm.hibernate.dao.ManageImports;
 import resources.orm.hibernate.dao.ManageTransactionGoals;
 import resources.orm.hibernate.dao.ManageTransactions;
 import resources.orm.hibernate.dao.ManageUser;
@@ -12,6 +14,7 @@ import resources.orm.hibernate.models.Admin;
 import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.dao.ManagePackageProducts;
 import resources.orm.hibernate.models.DistributionRule;
+import resources.orm.hibernate.models.Import;
 import resources.orm.hibernate.models.PackageProduct;
 import resources.orm.hibernate.models.EmailQueue;
 import resources.orm.hibernate.models.Lead;
@@ -32,6 +35,10 @@ public class TestEnvironment
     private List<PackageProduct> packageProducts;
 
     private List<Transaction> transactions;
+
+    private List<Import> imports;
+
+    private Admin admin;
 
     private static SessionFactory factory;
 
@@ -55,17 +62,12 @@ public class TestEnvironment
         this.propertyToCheck = propertyToCheck;
     }
 
-
     public List<PackageProduct> getProductsList( )
     {
         if(packageProducts == null){
 
-            factory = new HibernateUtil().getSessionFactory();
-
-            ManageAdmin ma = new ManageAdmin(factory);
-
-            ManagePackageProducts map = new ManagePackageProducts(factory);
-
+            ManageAdmin ma = new ManageAdmin(getSession());
+            ManagePackageProducts map = new ManagePackageProducts(getSession());
             packageProducts = map.getPackageProductsList(ma.getAdmin(agentToCheck).getPackage());
 
         }
@@ -77,12 +79,13 @@ public class TestEnvironment
     {
         if(transactions == null){
 
-            factory = new HibernateUtil().getSessionFactory();
-
-            ManageTransactions mt = new ManageTransactions(factory);
-
+            ManageTransactions mt = new ManageTransactions(getSession());
             transactions = mt.getTransactionsListByCustomerId(agentToCheck);
 
+        }else{
+            for(Transaction trans : transactions){
+                getSession().refresh(trans);
+            }
         }
 
         return transactions;
@@ -90,20 +93,35 @@ public class TestEnvironment
 
     public Lead getLeadObject(Integer lead_id)
     {
-        factory = new HibernateUtil().getSessionFactory();
 
-        ManageLead ml = new ManageLead(factory);
+        ManageLead ml = new ManageLead(getSession());
 
         return ml.getLead(lead_id);
     }
 
     public User getUserById(Integer user_id)
     {
-        factory = new HibernateUtil().getSessionFactory();
 
-        ManageUser mu = new ManageUser(factory);
+        ManageUser mu = new ManageUser(getSession());
 
         return mu.getUser(user_id);
+    }
+
+    public List<Import> getImportByFilename(String file_name)
+    {
+        if(imports==null){
+
+            ManageImports mi = new ManageImports(getSession());
+            imports = mi.getImportByFilename(file_name);
+
+
+        }else{
+            for(Import imp : imports){
+                getSession().refresh(imp);
+            }
+        }
+
+        return imports;
     }
 
     public Admin getAdmin()
@@ -111,84 +129,70 @@ public class TestEnvironment
         return getAdmin(getAgentToCheck());
     }
 
+    private Session getSession(){
+
+        return HibernateUtil.getSessionFactory().openSession();
+
+    }
+
     public Admin getAdmin(Integer admin_id)
     {
-        factory = new HibernateUtil().getSessionFactory();
+        if(admin==null){
+            ManageAdmin ma = new ManageAdmin(getSession());
+            admin =  ma.getAdmin(admin_id);
+        }else{
+            getSession().refresh(admin);
+        }
 
-        ManageAdmin ma = new ManageAdmin(factory);
 
-        return ma.getAdmin(admin_id);
+        return admin;
     }
 
     public List<DistributionRule> getDistributionRulesBySiteId(Integer site_id)
     {
-        factory = new HibernateUtil().getSessionFactory();
-
-        ManageDistributionRules mdr = new ManageDistributionRules(factory);
-
+        ManageDistributionRules mdr = new ManageDistributionRules(getSession());
         return mdr.getSitesDistributionRulesById(site_id);
     }
 
     public List<User> getLeadsAssignedToAdmin(Integer admin_id)
     {
-        factory = new HibernateUtil().getSessionFactory();
-
-        ManageUser mu = new ManageUser(factory);
-
+        ManageUser mu = new ManageUser(getSession());
         return mu.getNewLeadsAssignedToAdminById(admin_id);
     }
 
     public List<TransactionGoal> getTransactionGoalsByLeadId(Integer lead_id)
     {
-        factory = new HibernateUtil().getSessionFactory();
-
-        ManageTransactionGoals mtg = new ManageTransactionGoals(factory);
-
+        ManageTransactionGoals mtg = new ManageTransactionGoals(getSession());
         return mtg.getTransactionGoalsListByUserId(lead_id);
     }
 
     public Integer getNumberAssignedToAdminOfLeadsByStatus(Integer admin_id, String status)
     {
-        factory = new HibernateUtil().getSessionFactory();
-
-        ManageUser mu = new ManageUser(factory);
-
+        ManageUser mu = new ManageUser(getSession());
         return mu.getNumberAssignedToAdminOfLeadsByStatus(admin_id, status);
     }
 
     public Admin getAdminByEmail(String email)
     {
-        factory = new HibernateUtil().getSessionFactory();
-
-        ManageAdmin ma = new ManageAdmin(factory);
-
+        ManageAdmin ma = new ManageAdmin(getSession());
         return ma.getAdminByEmail(email);
     }
 
     public void updateUser(User user)
     {
-        factory = new HibernateUtil().getSessionFactory();
-
-        ManageUser mu = new ManageUser(factory);
-
+        ManageUser mu = new ManageUser(getSession());
         mu.updateUser(user);
     }
 
     public EmailQueue getLastEmailQueueEntry()
     {
-        factory = new HibernateUtil().getSessionFactory();
-
-        ManageEmailQueue m = new ManageEmailQueue(factory);
-
+        ManageEmailQueue m = new ManageEmailQueue(getSession());
         return m.getLastEmailQueue();
     }
 
     public List<String> getLeadFlags(Integer lead_id)
     {
-        factory = new HibernateUtil().getSessionFactory();
-
-        ManageLead ml = new ManageLead(factory);
-
+        ManageLead ml = new ManageLead(getSession());
         return ml.getFlags(lead_id);
     }
 

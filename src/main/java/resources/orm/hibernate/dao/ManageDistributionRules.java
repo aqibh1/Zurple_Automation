@@ -15,14 +15,13 @@ import resources.orm.hibernate.models.User;
 public class ManageDistributionRules
 {
 
-    private SessionFactory factory;
+    private Session session;
 
-    public ManageDistributionRules(SessionFactory factory) {this.factory = factory;}
+    public ManageDistributionRules(Session session) {this.session = session;}
 
     /* Method to READ all distribution rules by the admin */
     public List<DistributionRule> getAdminsDistributionRulesById ( Integer admin_id ){
 
-        Session session = factory.openSession();
         List<DistributionRule> distributionRules = new ArrayList<DistributionRule>();
         Transaction tx = null;
         try {
@@ -50,7 +49,6 @@ public class ManageDistributionRules
     /* Method to READ all distribution rules by site id */
     public List<DistributionRule> getSitesDistributionRulesById ( Integer site_id ){
 
-        Session session = factory.openSession();
         List<DistributionRule> distributionRules = new ArrayList<DistributionRule>();
         Transaction tx = null;
         try {

@@ -16,9 +16,9 @@ import resources.orm.hibernate.models.Lead;
 
 public class ManageLead {
 
-    private SessionFactory factory;
+    private Session session;
 
-    public ManageLead(SessionFactory factory) {this.factory = factory;}
+    public ManageLead(Session session) {this.session = session;}
 
     /* Method to CREATE an employee in the database */
     public Integer addLead(
@@ -30,7 +30,7 @@ public class ManageLead {
             String memo,
             Admin admin
     ){
-        Session session = factory.openSession();
+
         Transaction tx = null;
         Integer leadID = null;
         try{
@@ -58,7 +58,7 @@ public class ManageLead {
     }
     /* Method to  READ all the leads */
     public void listLeads( ){
-        Session session = factory.openSession();
+
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
@@ -77,7 +77,7 @@ public class ManageLead {
     }
     /* Method to  READ lead by id */
     public Lead getLead( Integer lead_id ){
-        Session session = factory.openSession();
+
         Lead lead = null;
         try {
             lead = (Lead) session.get(Lead.class, lead_id);
@@ -96,7 +96,7 @@ public class ManageLead {
         Method returns list of hot behavior flags by lead id
      */
     public List<String> getFlags( Integer lead_id ){
-        Session session = factory.openSession();
+
         List<String> flagList = new ArrayList<String>();
         Transaction tx = null;
         try {
@@ -146,7 +146,7 @@ public class ManageLead {
     }
     /* Method to UPDATE salary for an employee */
     public void updateLead(Integer LeadID, String email ){
-        Session session = factory.openSession();
+
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
@@ -164,7 +164,7 @@ public class ManageLead {
     }
     /* Method to DELETE an employee from the records */
     public void deleteLead(Integer LeadID){
-        Session session = factory.openSession();
+
         Transaction tx = null;
         try{
             tx = session.beginTransaction();

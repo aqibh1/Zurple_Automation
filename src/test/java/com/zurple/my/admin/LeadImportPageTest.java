@@ -5,12 +5,14 @@ import com.zurple.my.PageTest;
 import java.awt.AWTException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import javafx.scene.shape.Path;
 import org.testng.annotations.Test;
 import resources.classes.Lead;
 import resources.classes.LeadCSV;
@@ -103,9 +105,13 @@ public class LeadImportPageTest
         uuid = UUID.randomUUID().toString();
         leads.add(Lead.generateLead(getEnvironment().getAdmin().getId(),s.getId(),uuid.substring(0,5),false));
 
+        String  csvFilePath = LeadCSV.create(leads);
+        File f = new File(csvFilePath);
+        String csvFileName = f.getName();
+
         try
         {
-            getPage().getLeadsImportForm().uploadFile(LeadCSV.create(leads));
+            getPage().getLeadsImportForm().uploadFile(csvFilePath);
         }
         catch (AWTException e)
         {
@@ -119,6 +125,36 @@ public class LeadImportPageTest
         assertTrue(getPage().checkLeadsImportFeedbackBlockExists());
         assertTrue(getPage().getLeadsImportFeedbackBlock().isVisible());
         assertTrue(getPage().getLeadsImportFeedbackBlock().getMessage().contains("Import is finished."));
+
+        waitLoad();
+        waitLoad();
+        waitLoad();
+        waitLoad();
+        waitLoad();
+
+        System.out.println(getEnvironment().getAdmin().getImports().size());
+
+        Boolean match_flag = false;
+
+        Import expectedImport = getEnvironment().getImportByFilename(csvFileName).get(0);
+        Integer expectedIgnored = expectedImport.getRowCount() - expectedImport.getAddedLeads();
+
+        for(resources.classes.Import imp: getPage().getImportsListBlock().getImportsList()){
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            if(
+                imp.getFileName().equals(expectedImport.getFileName()) &&
+                imp.getDataRows().equals(expectedImport.getRowCount()) &&
+                imp.getNewLeads().equals(expectedImport.getAddedLeads()) &&
+                imp.getIgnoredLeads().equals(expectedIgnored) &&
+                imp.getImporter().equals(expectedImport.getImporterAdmin().getEmail()) &&
+                df.format(imp.getDate()).equals(df.format(expectedImport.getCreateDatetime()))
+            )
+            {
+                    match_flag = true;
+            }
+        }
+
+        assertTrue(match_flag);
 
     }
 
