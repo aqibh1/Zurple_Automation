@@ -23,18 +23,17 @@ public class ManageImports
 
     public ManageImports(Session session) {this.session = session;}
 
-    public List<Import> getImportByFilename( String filename ){
-
-        List<Import> imports = new ArrayList<Import>();
-
+    public Import getImportByFilename( String filename ){
+        Import imp = null;
         try {
-            Criteria cr = session.createCriteria(Import.class);
-                    //.setProjection(Projections.projectionList()
-//                            .add(Projections.property("file_name"), filename))
-//                    .setResultTransformer(Transformers.aliasToBean(Import.class));
+            Query q = session.createQuery("FROM Import WHERE file_name='"+filename+"'");
+            List leads = q.list();
+            for (Iterator iterator =
+                    leads.iterator(); iterator.hasNext();){
+                imp = (Import) iterator.next();
+            }
 
-            List<Import> list = cr.list();
-            System.out.println(list.size());
+            Hibernate.initialize(imp);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -43,6 +42,6 @@ public class ManageImports
                 session.close();
             }
         }
-        return imports;
+        return imp;
     }
 }

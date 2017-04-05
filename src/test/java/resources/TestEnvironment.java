@@ -36,7 +36,7 @@ public class TestEnvironment
 
     private List<Transaction> transactions;
 
-    private List<Import> imports;
+    private Import imp;
 
     private Admin admin;
 
@@ -107,21 +107,19 @@ public class TestEnvironment
         return mu.getUser(user_id);
     }
 
-    public List<Import> getImportByFilename(String file_name)
+    public Import getImportByFilename(String file_name)
     {
-        if(imports==null){
+        if(imp==null){
 
             ManageImports mi = new ManageImports(getSession());
-            imports = mi.getImportByFilename(file_name);
+            imp = mi.getImportByFilename(file_name);
 
 
         }else{
-            for(Import imp : imports){
-                getSession().refresh(imp);
-            }
+            getSession().refresh(imp);
         }
 
-        return imports;
+        return imp;
     }
 
     public Admin getAdmin()

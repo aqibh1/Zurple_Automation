@@ -126,17 +126,9 @@ public class LeadImportPageTest
         assertTrue(getPage().getLeadsImportFeedbackBlock().isVisible());
         assertTrue(getPage().getLeadsImportFeedbackBlock().getMessage().contains("Import is finished."));
 
-        waitLoad();
-        waitLoad();
-        waitLoad();
-        waitLoad();
-        waitLoad();
-
-        System.out.println(getEnvironment().getAdmin().getImports().size());
-
         Boolean match_flag = false;
 
-        Import expectedImport = getEnvironment().getImportByFilename(csvFileName).get(0);
+        Import expectedImport = getEnvironment().getImportByFilename(csvFileName);
         Integer expectedIgnored = expectedImport.getRowCount() - expectedImport.getAddedLeads();
 
         for(resources.classes.Import imp: getPage().getImportsListBlock().getImportsList()){
