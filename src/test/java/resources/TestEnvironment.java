@@ -128,9 +128,7 @@ public class TestEnvironment
     }
 
     private Session getSession(){
-
         return HibernateUtil.getSessionFactory().openSession();
-
     }
 
     public Admin getAdmin(Integer admin_id)
@@ -141,8 +139,6 @@ public class TestEnvironment
         }else{
             getSession().refresh(admin);
         }
-
-
         return admin;
     }
 

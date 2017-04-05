@@ -37,7 +37,6 @@ public class ManageImports
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            System.out.println("&&&&&");
             if (session != null && session.isOpen()) {
                 session.close();
             }

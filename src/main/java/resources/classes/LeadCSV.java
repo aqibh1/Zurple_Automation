@@ -46,12 +46,11 @@ public class LeadCSV
             };
             writer.writeNext(entries);
             for(Lead lead: leads){
-                //String[] entries = "first#second#third".split("#");
                 writer.writeNext(lead.toCSVLine());
             }
             writer.close();
             res = temp.getAbsolutePath();
-            System.out.println(res);
+
         }
         catch (IOException e)
         {

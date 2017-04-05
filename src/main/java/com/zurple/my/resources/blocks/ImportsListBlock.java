@@ -38,8 +38,6 @@ public class ImportsListBlock
                     Import i = new Import();
 
                     i.setFileName(row.findElement(By.xpath("./td[2]")).getText());
-                    System.out.println(row.findElement(By.xpath("./td[2]")).getText());
-                    System.out.println(row.findElement(By.xpath("./td[3]")).getText());
                     try{
                         i.setDataRows(Integer.parseInt(row.findElement(By.xpath("./td[3]")).getText()));
                     }catch(NumberFormatException e){
