@@ -34,6 +34,8 @@ public class Admin
     private String password_hash;
     private String bio;
     private Boolean billing_access_flag;
+    private Boolean lead_flag;
+    private Boolean property_flag;
     private Set<Site> sites;
     private Set<Import> imports;
 

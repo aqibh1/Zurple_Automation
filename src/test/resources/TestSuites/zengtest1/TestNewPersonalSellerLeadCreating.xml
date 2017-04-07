@@ -16,6 +16,7 @@
 
   <test name="login_to_bo_and_check_leads_detail_page">
     <parameter name="lead_source" value="Personal Seller"/>
+    <parameter name="transaction_goals" value="Seller Goals"/>
     <classes>
       <class name="com.zurple.my.LoginPageTest" />
       <class name="com.zurple.my.LeadDetailPageTest" >
