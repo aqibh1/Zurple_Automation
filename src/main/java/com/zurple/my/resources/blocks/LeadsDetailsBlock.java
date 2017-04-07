@@ -56,4 +56,9 @@ public class LeadsDetailsBlock
     {
         return block.findElement(By.xpath("./descendant::div[2]/div[3]/div[2]/span[2]")).getText();
     }
+
+    public String getLeadTransactionGoals()
+    {
+        return block.findElement(By.xpath("./descendant::div[2]/div[4]/div[3]/span[2]")).getText();
+    }
 }

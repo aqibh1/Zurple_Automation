@@ -37,10 +37,11 @@ public class LeadDetailPageTest
         //getEnvironment().getLeadObject();
     }
 
-    @Parameters("lead_source")
+    @Parameters({"lead_source", "transaction_goals"})
     @Test
-    public void testLeadDetailsBlock(@Optional("") String lead_source) {
+    public void testLeadDetailsBlock(@Optional("") String lead_source,@Optional("") String transaction_goals) {
         assertEquals(getPage().getLeadDetailsBlock().getLeadSource(),lead_source);
+        assertEquals(getPage().getLeadDetailsBlock().getLeadTransactionGoals().trim(),transaction_goals.trim());
     }
 
     @Test
