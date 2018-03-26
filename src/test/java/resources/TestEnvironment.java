@@ -7,6 +7,7 @@ import resources.orm.hibernate.dao.ManageAdmin;
 import resources.orm.hibernate.dao.ManageDistributionRules;
 import resources.orm.hibernate.dao.ManageEmailQueue;
 import resources.orm.hibernate.dao.ManageImports;
+import resources.orm.hibernate.dao.ManageSite;
 import resources.orm.hibernate.dao.ManageTransactionGoals;
 import resources.orm.hibernate.dao.ManageTransactions;
 import resources.orm.hibernate.dao.ManageUser;
@@ -19,6 +20,7 @@ import resources.orm.hibernate.models.PackageProduct;
 import resources.orm.hibernate.models.EmailQueue;
 import resources.orm.hibernate.models.Lead;
 import resources.orm.hibernate.dao.ManageLead;
+import resources.orm.hibernate.models.Site;
 import resources.orm.hibernate.models.Transaction;
 import resources.orm.hibernate.models.TransactionGoal;
 import resources.orm.hibernate.models.User;
@@ -105,6 +107,14 @@ public class TestEnvironment
         ManageUser mu = new ManageUser(getSession());
 
         return mu.getUser(user_id);
+    }
+
+    public Site getSiteById(Integer site_id)
+    {
+
+        ManageSite ms = new ManageSite(getSession());
+
+        return ms.getSite(site_id);
     }
 
     public Import getImportByFilename(String file_name)

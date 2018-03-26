@@ -93,5 +93,7 @@
     </dependency>
 
   </dependencies>
-
+  <build>
+    <testSourceDirectory>${project.basedir}/src/test/resources/TestSuites</testSourceDirectory>
+  </build>
 </project>

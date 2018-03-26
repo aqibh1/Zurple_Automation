@@ -28,6 +28,7 @@ public class Site
 
     private Integer site_id;
     private String domain_name;
+    private Integer phone_flag;
     private Set<Admin> admins;
     private Set<Import> imports;
 
@@ -95,6 +96,15 @@ public class Site
 
     public void setUpdateDatetime(Date update_datetime) {
         this.update_datetime = update_datetime;
+    }
+
+    @Column(name = "phone_flag")
+    public Integer getPhoneFlag() {
+        return this.phone_flag;
+    }
+
+    public void setPhoneFlag(Integer phone_flag) {
+        this.phone_flag = phone_flag;
     }
 
 }

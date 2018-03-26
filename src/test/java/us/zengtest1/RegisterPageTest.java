@@ -9,7 +9,9 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+import resources.orm.hibernate.dao.ManageSite;
 import resources.orm.hibernate.models.DistributionRule;
+import resources.orm.hibernate.models.Site;
 import resources.orm.hibernate.models.User;
 
 import static org.testng.Assert.assertEquals;
@@ -102,10 +104,14 @@ public class RegisterPageTest
     public void testRegisterNewPersonalSellerLead(){
         String username = "test_personal_seller_lead_" + UUID.randomUUID().toString();
         String email = username + "_zurpleqa@test.com";
-        String phone = "(212) 435-8762";
         getPage().getRegisterForm().setInputValue("first_name",username);
         getPage().getRegisterForm().setInputValue("email",email);
-        getPage().getRegisterForm().setInputValue("phone",phone);
+
+        Site site = getEnvironment().getSiteById(1);
+        if(site.getPhoneFlag()!=0){
+            String phone = "(212) 435-8762";
+            getPage().getRegisterForm().setInputValue("phone",phone);
+        }
         getPage().getRegisterForm().submit();
         // We must be redirected
         // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
