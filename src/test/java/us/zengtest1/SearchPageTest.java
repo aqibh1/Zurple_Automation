@@ -2,8 +2,10 @@ package us.zengtest1;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import resources.AbstractPageTest;
+import us.zengtest1.resources.forms.SearchForm;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -44,6 +46,28 @@ public class SearchPageTest
     @Test(priority=30)
     public void testSubmittingDefaultSearchForm(){
         getPage().getSearchForm().submit();
+        // We must be redirected
+        // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
+        Pattern pattern = Pattern.compile("http://dev\\.zengtest1\\.us/search/page/1");
+        Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
+        assertTrue(matcher.find());
+
+    }
+    
+    @Test(priority=30)
+    public void testSubmittingBedsBathFeaturesSearchForm(){
+        SearchForm form = getPage().getSearchForm();
+        
+        assertTrue(form.checkElementExistsById("expand-search-fields"));
+        form.expand();
+        assertTrue(form.getElementById("bedrooms").isDisplayed());
+        assertTrue(form.getElementById("bathrooms").isDisplayed());
+        assertTrue(form.getElementById("feature").isDisplayed());
+        
+        form.setSelectValue("bedrooms",1);
+        form.setSelectValue("bathrooms",1);
+        form.setSelectValue("feature",1);
+        form.submit();
         // We must be redirected
         // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
         Pattern pattern = Pattern.compile("http://dev\\.zengtest1\\.us/search/page/1");

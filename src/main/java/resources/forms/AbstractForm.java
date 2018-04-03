@@ -173,4 +173,8 @@ public abstract class AbstractForm implements UsesDriver
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ss, null);
     }
 
+    public WebElement getElementById(String id){
+        return form.findElement(By.xpath("./descendant::*[@id=\""+id+"\"]"));
+    }
+
 }
