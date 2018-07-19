@@ -2,7 +2,7 @@
 
 <suite name="User Status New">
 
-  <test name="home_page_and_register">
+  <test name="user_register">
     <classes>
       <class name="us.zengtest1.HomePageTest" />
       <class name="us.zengtest1.RegisterPageTest" >

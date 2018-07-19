@@ -21,4 +21,6 @@ public class Button
     {
         this.element = element;
     }
+    
+    public void click(){this.element.click();}
 }

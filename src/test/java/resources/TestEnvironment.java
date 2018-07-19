@@ -7,6 +7,7 @@ import resources.orm.hibernate.dao.ManageAdmin;
 import resources.orm.hibernate.dao.ManageDistributionRules;
 import resources.orm.hibernate.dao.ManageEmailQueue;
 import resources.orm.hibernate.dao.ManageImports;
+import resources.orm.hibernate.dao.ManageSessionUser;
 import resources.orm.hibernate.dao.ManageSite;
 import resources.orm.hibernate.dao.ManageTransactionGoals;
 import resources.orm.hibernate.dao.ManageTransactions;
@@ -20,6 +21,7 @@ import resources.orm.hibernate.models.PackageProduct;
 import resources.orm.hibernate.models.EmailQueue;
 import resources.orm.hibernate.models.Lead;
 import resources.orm.hibernate.dao.ManageLead;
+import resources.orm.hibernate.models.SessionUser;
 import resources.orm.hibernate.models.Site;
 import resources.orm.hibernate.models.Transaction;
 import resources.orm.hibernate.models.TransactionGoal;
@@ -41,6 +43,8 @@ public class TestEnvironment
     private Import imp;
 
     private Admin admin;
+    
+    private User lastRegisteredUser;
 
     private static SessionFactory factory;
 
@@ -146,7 +150,9 @@ public class TestEnvironment
     }
 
     public Session getSession(){
-        return HibernateUtil.getSessionFactory().openSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.flush();
+        return session; 
     }
 
     public Admin getAdmin(Integer admin_id)
@@ -161,10 +167,19 @@ public class TestEnvironment
     }
 
     public User getLastRegisteredUser(){
-
+        
         ManageUser mu = new ManageUser(getSession());
-        User user =  mu.getLastRegisteredUser();
-        return user;
+        lastRegisteredUser =  mu.getLastRegisteredUser();
+        
+        return lastRegisteredUser;
+
+    }
+    
+    public List<SessionUser> getUserSessions(User user){
+
+        ManageSessionUser msu = new ManageSessionUser(getSession());
+        List<SessionUser> sessions =  msu.getSessionByUser(user);
+        return sessions;
     }
     
     public List<DistributionRule> getDistributionRulesBySiteId(Integer site_id)
@@ -201,6 +216,12 @@ public class TestEnvironment
     {
         ManageUser mu = new ManageUser(getSession());
         mu.updateUser(user);
+    }
+
+    public void updateSessionUser(SessionUser session)
+    {
+        ManageSessionUser msu = new ManageSessionUser(getSession());
+        msu.updateSessionUser(session);
     }
 
     public EmailQueue getLastEmailQueueEntry()

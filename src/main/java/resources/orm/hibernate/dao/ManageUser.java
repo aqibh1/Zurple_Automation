@@ -47,10 +47,14 @@ public class ManageUser
     public User getLastRegisteredUser(){
 
         User user = null;
+        Transaction tx = null;
         try {
-            List records = session.createQuery("FROM User ORDER BY user_id DESC LIMIT 1 ").list();
+            tx = session.beginTransaction();
+            List records = session.createQuery("FROM User ORDER BY user_id DESC").list();
             user = (User) records.get(0);
+            tx.commit();
         } catch (Exception e) {
+            if (tx!=null) tx.rollback();
             e.printStackTrace();
         } finally {
             if (session != null && session.isOpen()) {
