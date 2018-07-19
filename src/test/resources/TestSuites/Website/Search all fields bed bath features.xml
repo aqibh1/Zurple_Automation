@@ -1,0 +1,28 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="search all fields (bed/bath/features)">
+
+  <test name="Search">
+    <classes>
+      <class name="us.zengtest1.HomePageTest" />
+      <class name="us.zengtest1.SearchPageTest" >
+        <methods>
+          <include name="testSubmittingBedsBathFeaturesSearchForm" />
+        </methods>
+      </class>
+      <class name="us.zengtest1.SearchResultPageTest" >
+      </class>
+    </classes>
+  </test>
+  
+  <test name="Close browser">
+    <classes>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

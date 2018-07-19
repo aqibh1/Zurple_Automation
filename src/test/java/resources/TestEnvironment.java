@@ -109,6 +109,14 @@ public class TestEnvironment
         return mu.getUser(user_id);
     }
 
+    public User getUserObject()
+    {
+
+        ManageUser mu = new ManageUser(getSession());
+
+        return mu.getUser(getLeadToCheck());
+    }
+
     public Site getSiteById(Integer site_id)
     {
 
@@ -137,7 +145,7 @@ public class TestEnvironment
         return getAdmin(getAgentToCheck());
     }
 
-    private Session getSession(){
+    public Session getSession(){
         return HibernateUtil.getSessionFactory().openSession();
     }
 

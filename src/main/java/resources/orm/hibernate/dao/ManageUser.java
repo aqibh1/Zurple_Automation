@@ -12,7 +12,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import resources.orm.hibernate.models.Admin;
 import resources.orm.hibernate.models.Lead;
+import resources.orm.hibernate.models.SessionUser;
+import resources.orm.hibernate.models.Site;
 import resources.orm.hibernate.models.User;
+import resources.orm.hibernate.models.UserActivity;
 
 import static java.lang.Math.toIntExact;
 
@@ -103,6 +106,37 @@ public class ManageUser
             }
         }
         return numberOfLeads;
+    }
+    
+    /* Method creates user session*/
+    public Integer createSession(
+            User user
+    ){
+        SessionUser session_user = new SessionUser();
+        session_user.setUserId(user);
+        session_user.setSiteId(user.getSiteId());
+        ManageSessionUser msu = new ManageSessionUser(session);
+        return msu.updateSessionUser(session_user);
+    }
+
+    /* Method creates user session*/
+    public Integer createActivity(
+            User user,
+            SessionUser session_user,
+            Date user_activity_time,
+            String user_activity_type,
+            Integer user_activity_target
+    ){
+        UserActivity user_activity = new UserActivity(
+                user,
+                user.getSiteId(),
+                session_user,
+                user_activity_time,
+                user_activity_type,
+                user_activity_target
+        );
+        ManageUserActivity mua = new ManageUserActivity(session);
+        return mua.updateUserActivity(user_activity);
     }
 
 }

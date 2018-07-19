@@ -2,6 +2,7 @@ package com.zurple.my;
 
 import com.zurple.my.resources.blocks.BouncedEmailAlertBlock;
 import com.zurple.my.resources.blocks.LeadsDetailsBlock;
+import com.zurple.my.resources.blocks.PropertiesViewedBlock;
 import com.zurple.my.resources.blocks.RemindersBlock;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -13,6 +14,7 @@ public class LeadDetailPage
 {
 
     BouncedEmailAlertBlock bouncedEmailAlertBlock;
+    PropertiesViewedBlock propertiesViewedBlock;
     RemindersBlock remindersBlock;
     LeadsDetailsBlock leadsDetailsBlock;
 
@@ -38,6 +40,17 @@ public class LeadDetailPage
         }
     }
 
+    public boolean checkPropertiesViewedBlock(){
+        try{
+            getPropertiesViewedBlock();
+            return true;
+        }catch(StaleElementReferenceException e){
+            return false;
+        }catch(NoSuchElementException e){
+            return false;
+        }
+    }
+
     public boolean checkRemindersBlock(){
         try{
             getRemindersBlock().getHeader();
@@ -47,6 +60,12 @@ public class LeadDetailPage
         }catch(NoSuchElementException e){
             return false;
         }
+    }
+
+    public PropertiesViewedBlock getPropertiesViewedBlock(){
+        propertiesViewedBlock = new PropertiesViewedBlock();
+        propertiesViewedBlock.setBlock(driver.findElement(By.xpath("/html/body/div[2]/div[3]/div[2]/div[2]")));
+        return propertiesViewedBlock;
     }
 
     public BouncedEmailAlertBlock getBouncedEmailAlertBlock(){

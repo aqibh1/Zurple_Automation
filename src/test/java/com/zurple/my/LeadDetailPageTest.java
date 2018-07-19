@@ -1,8 +1,13 @@
 package com.zurple.my;
 
+import java.util.Date;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import resources.orm.hibernate.dao.ManageUser;
+import resources.orm.hibernate.dao.ManageUserActivity;
+import resources.orm.hibernate.models.SessionUser;
+import resources.orm.hibernate.models.User;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -66,6 +71,44 @@ public class LeadDetailPageTest
         getPage().getSweetAlertNotification().close();
 
         assertEquals("Test reminder",getPage().getRemindersBlock().getReminders().get(1).getText());
+    }
+    
+    @Test
+    public void testPropertiesViewedListOrder(){
+        
+        //Prepare data - create lead, user, views history records
+        User user = getEnvironment().getUserObject();
+        SessionUser session_user = new SessionUser();
+        ManageUser mu = new ManageUser(getEnvironment().getSession());
+        Date today = new Date (System.currentTimeMillis());
+        mu.createActivity(
+                user,
+                session_user,
+                today,
+                "property",
+                1
+        );
+        
+        Date yesterday = new Date (System.currentTimeMillis() -  24 * 60 * 60 * 1000);
+        mu.createActivity(
+                user,
+                session_user,
+                yesterday,
+                "property",
+                1
+        );
+        
+        Date beforeyesterday = new Date (System.currentTimeMillis() -  2 * (24 * 60 * 60 * 1000));
+        mu.createActivity(
+                user,
+                session_user,
+                beforeyesterday,
+                "property",
+                1
+        );
+        
+        assertTrue(getPage().checkPropertiesViewedBlock());
+        
     }
 
 }

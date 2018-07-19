@@ -26,6 +26,7 @@ public class User
     private Lead lead_id;
 
     private Admin admin_id;
+    private Site site_id;
     private String user_name;
     private String user_first_name;
     private String user_status;
@@ -71,6 +72,16 @@ public class User
 
     public void setAdminId(Admin admin_id) {
         this.admin_id = admin_id;
+    }
+
+    @OneToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "site_id")
+    public Site getSiteId() {
+        return this.site_id;
+    }
+
+    public void setSiteId(Site site_id) {
+        this.site_id = site_id;
     }
 
     @Column(name = "user_name", unique = false, nullable = false, length = 255)
