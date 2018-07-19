@@ -160,6 +160,13 @@ public class TestEnvironment
         return admin;
     }
 
+    public User getLastRegisteredUser(){
+
+        ManageUser mu = new ManageUser(getSession());
+        User user =  mu.getLastRegisteredUser();
+        return user;
+    }
+    
     public List<DistributionRule> getDistributionRulesBySiteId(Integer site_id)
     {
         ManageDistributionRules mdr = new ManageDistributionRules(getSession());

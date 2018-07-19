@@ -1,0 +1,32 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="User Status New">
+
+  <test name="home_page_and_register">
+    <classes>
+      <class name="us.zengtest1.HomePageTest" />
+      <class name="us.zengtest1.RegisterPageTest" >
+        <methods>
+          <include name="testRegisterNewRegularLead" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+  
+  <test name="user_status_new">
+    <parameter name="status_expected" value="new"/>
+    <classes>
+      <class name="resources.models.UserTest">
+        <methods>
+          <include name="testLastUserStatus" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

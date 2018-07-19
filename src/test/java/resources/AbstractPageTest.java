@@ -23,11 +23,10 @@ import resources.classes.Asset;
 
 import static org.testng.Assert.assertTrue;
 
-public abstract class AbstractPageTest
+public abstract class AbstractPageTest extends AbstractTest
 {
 
     protected static WebDriver driver;
-    protected static TestEnvironment environment;
     protected AbstractPage page;
     protected static String source_in_url="";
     protected static Boolean incognito=false;
@@ -61,19 +60,6 @@ public abstract class AbstractPageTest
     @BeforeTest
     public void settingUpDriver(){
         getDriver();
-    }
-
-    public static TestEnvironment getEnvironment(){
-        if(environment == null){
-            environment = new TestEnvironment();
-            environment.setAgentToCheck(4);
-            environment.setCurrentAgentId(4);
-        }
-        return environment;
-    }
-
-    public static void setEnvironment( TestEnvironment object){
-        environment = object;
     }
 
     protected boolean checkAssetsVersion(List<Asset> assets){

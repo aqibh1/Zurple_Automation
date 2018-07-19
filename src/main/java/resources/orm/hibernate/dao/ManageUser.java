@@ -43,6 +43,23 @@ public class ManageUser
         return user;
     }
 
+    /* Get last registered user */
+    public User getLastRegisteredUser(){
+
+        User user = null;
+        try {
+            List records = session.createQuery("FROM User ORDER BY user_id DESC LIMIT 1 ").list();
+            user = (User) records.get(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return user;
+    }
+
     /* Method to saves user to database */
     public void updateUser(
             User user
