@@ -1,6 +1,7 @@
 package resources.orm.hibernate.models;
 
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,6 +35,8 @@ public class User
     private String traffic_source;
     private Date create_datetime;
     private Date update_datetime;
+
+    private Set<UserAlert> user_alerts;
 
     public User() {
     }
@@ -138,6 +142,16 @@ public class User
 
     public void setUpdateDatetime(Date update_datetime) {
         this.update_datetime = update_datetime;
+    }
+
+    @OneToMany(fetch=FetchType.EAGER, mappedBy="user")
+    public Set<UserAlert> getUserAlerts() {
+        return this.user_alerts;
+    }
+
+    public void setUserAlerts(Set<UserAlert> user_alerts)
+    {
+        this.user_alerts = user_alerts;
     }
 
 }

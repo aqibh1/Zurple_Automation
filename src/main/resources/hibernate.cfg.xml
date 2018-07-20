@@ -14,9 +14,15 @@
     <property name="use_sql_comments">false</property>
 
     <mapping class="resources.orm.hibernate.models.Lead"></mapping>
+    <mapping class="resources.orm.hibernate.models.UserAlert"></mapping>
+    <mapping class="resources.orm.hibernate.models.City"></mapping>
+    <mapping class="resources.orm.hibernate.models.AlertRule"></mapping>
     <mapping class="resources.orm.hibernate.models.User"></mapping>
     <mapping class="resources.orm.hibernate.models.Admin"></mapping>
+    <mapping class="resources.orm.hibernate.models.SessionUser"></mapping>
     <mapping class="resources.orm.hibernate.models.Site"></mapping>
+    <mapping class="resources.orm.hibernate.models.Email"></mapping>
+    <mapping class="resources.orm.hibernate.models.UserActivity"></mapping>
     <mapping class="resources.orm.hibernate.models.PackageProduct"></mapping>
     <mapping class="resources.orm.hibernate.models.Transaction"></mapping>
     <mapping class="resources.orm.hibernate.models.TransactionGoal"></mapping>

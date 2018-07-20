@@ -42,7 +42,7 @@ public class ManageSessionUser
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            List records = session.createQuery("FROM SessionUser WHERE admin_id="+user.getId()).list();
+            List records = session.createQuery("FROM SessionUser WHERE user_id="+user.getId()).list();
 
             for (Iterator iterator =
                     records.iterator(); iterator.hasNext();){

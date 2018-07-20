@@ -31,6 +31,7 @@ public class Site
     private Integer phone_flag;
     private Set<Admin> admins;
     private Set<Import> imports;
+    private Set<AlertRule> alert_rules;
 
     private Date create_datetime;
     private Date update_datetime;
@@ -107,4 +108,14 @@ public class Site
         this.phone_flag = phone_flag;
     }
 
+    @OneToMany(fetch=FetchType.EAGER, mappedBy="site",cascade=CascadeType.ALL)
+    public Set<AlertRule> getAlertRules() {
+        return this.alert_rules;
+    }
+
+    public void setAlertRules(Set<AlertRule> alert_rules)
+    {
+        this.alert_rules = alert_rules;
+    }
+    
 }

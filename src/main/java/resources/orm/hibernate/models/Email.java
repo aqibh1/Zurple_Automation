@@ -35,7 +35,7 @@ public class Email
     private Integer order_number;
     private String dlnk;
     
-    private Date send_datetime;
+    private Date sent_datetime;
     private Date open_datetime;
 
     public Email() {
@@ -108,14 +108,14 @@ public class Email
     }
 
 
-    @Column(name = "send_datetime", columnDefinition="DATETIME")
+    @Column(name = "sent_datetime", columnDefinition="DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     public Date getSendDatetime() {
-        return this.send_datetime;
+        return this.sent_datetime;
     }
 
-    public void setSendDatetime(Date send_datetime) {
-        this.send_datetime = send_datetime;
+    public void setSendDatetime(Date sent_datetime) {
+        this.sent_datetime = sent_datetime;
     }
 
     @Column(name = "open_datetime", columnDefinition="DATETIME")
