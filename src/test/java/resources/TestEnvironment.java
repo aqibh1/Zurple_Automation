@@ -211,19 +211,7 @@ public class TestEnvironment
         ManageAdmin ma = new ManageAdmin(getSession());
         return ma.getAdminByEmail(email);
     }
-
-    public void updateUser(User user)
-    {
-        ManageUser mu = new ManageUser(getSession());
-        mu.updateUser(user);
-    }
-
-    public void updateSessionUser(SessionUser session)
-    {
-        ManageSessionUser msu = new ManageSessionUser(getSession());
-        msu.updateSessionUser(session);
-    }
-
+    
     public EmailQueue getLastEmailQueueEntry()
     {
         ManageEmailQueue m = new ManageEmailQueue(getSession());

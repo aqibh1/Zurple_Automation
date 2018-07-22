@@ -9,6 +9,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.AbstractTest;
+import resources.SSHConnector;
 import resources.orm.hibernate.dao.ManageUser;
 import resources.orm.hibernate.models.SessionUser;
 import resources.orm.hibernate.models.User;
@@ -39,7 +40,7 @@ public class UserTest extends AbstractTest
         Date d = new Date();
         d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
         lastRegisteredUser.setCreateDatetime(d);
-        getEnvironment().updateUser(lastRegisteredUser);
+        lastRegisteredUser.save();
                         
     }
     
@@ -50,12 +51,12 @@ public class UserTest extends AbstractTest
         Date d = new Date();
         d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
         lastRegisteredUser.setCreateDatetime(d);
-        getEnvironment().updateUser(lastRegisteredUser);
+        lastRegisteredUser.save();
 
         List<SessionUser> sessions = getEnvironment().getUserSessions(lastRegisteredUser);
         for (SessionUser session: sessions) {
             session.setSessionEnd(d);
-            getEnvironment().updateSessionUser(session);
+            session.save();
         }
         
         Set<UserAlert> alerts = lastRegisteredUser.getUserAlerts();
@@ -63,6 +64,19 @@ public class UserTest extends AbstractTest
             alert.setUserAlertTriggered(d);
             alert.save();
         }
+                
+    }
+
+    @Test
+    public void testProspect1UserBecomesProspect2(){
+        
+        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
+        
+        lastRegisteredUser.setUserStatus("prospect1");
+        lastRegisteredUser.save();
+
+        String res = SSHConnector.runRemoteScript("cd /workroot/platform/trunk && cd php/src/main/php/application/scripts && echo '{\"adminId\":"+lastRegisteredUser.getAdminId().getId()+",\"userId\":"+lastRegisteredUser.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e dev");
+        res = res;
                 
     }
 

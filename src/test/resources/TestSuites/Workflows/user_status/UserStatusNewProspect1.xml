@@ -2,7 +2,7 @@
 
 <suite name="User Change Status From New to Prospect1">
 
-  <test name="user_register">
+  <test name="Register new user">
     <classes>
       <class name="us.zengtest1.HomePageTest" />
       <class name="us.zengtest1.RegisterPageTest" >
@@ -18,7 +18,7 @@
     </classes>
   </test>
 
-  <test name="user_change_status_new_prospect1">
+  <test name="Trigger user status change new->prospect1">
     <classes>
       <class name="resources.models.UserTest">
         <methods>
@@ -48,7 +48,7 @@
     </classes>
   </test>
 
-  <test name="user_status_new">
+  <test name="Check user statis is PROSPECT1">
     <parameter name="status_expected" value="prospect1"/>
     <classes>
       <class name="resources.models.UserTest">

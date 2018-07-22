@@ -101,12 +101,12 @@ public class DashboardPageTest
 
             String initial_status = u.getUserStatus();
             u.setUserStatus("hidden");
-            getEnvironment().updateUser(u);
+            u.save();
             getDriver().navigate().refresh();
             assertFalse(leadId.equals(getPage().getHotBehaviorBlock().getHotBehaviorList().get(0).getLeadId()));
 
             u.setUserStatus(initial_status);
-            getEnvironment().updateUser(u);
+            u.save();
         }
         catch (Exception e)
         {

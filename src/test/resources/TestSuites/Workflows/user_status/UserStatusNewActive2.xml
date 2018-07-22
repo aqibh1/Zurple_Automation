@@ -2,7 +2,7 @@
 
 <suite name="User Change Status From New to Active2">
 
-  <test name="user_register">
+  <test name="Register new user">
     <classes>
       <class name="us.zengtest1.HomePageTest" />
       <class name="us.zengtest1.RegisterPageTest" >
@@ -13,7 +13,7 @@
     </classes>
   </test>
 
-  <test name="user_change_status_new_active1">
+  <test name="Preparing user status change new->active2">
     <classes>
       <class name="resources.models.UserTest">
         <methods>
@@ -23,7 +23,7 @@
     </classes>
   </test>
 
-  <test name="agent_inquire">
+  <test name="Agent Inquire">
     <classes>
       <class name="us.zengtest1.InsiderPageTest" >
         <methods>
@@ -63,7 +63,7 @@
     </classes>
   </test>
 
-  <test name="user_status_new">
+  <test name="Check user statis is ACTIVE2">
     <parameter name="status_expected" value="active2"/>
     <classes>
       <class name="resources.models.UserTest">

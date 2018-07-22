@@ -20,7 +20,7 @@ import resources.orm.hibernate.HibernateUtil;
 @Entity
 @Table(name = "user_alert", catalog = "zurple_platform", uniqueConstraints = {
         @UniqueConstraint(columnNames = "user_alert_id")})
-public class UserAlert
+public class UserAlert extends Abstract
         implements java.io.Serializable {
 
     private Integer user_alert_id;
@@ -85,24 +85,6 @@ public class UserAlert
 
     public void setEmailId(Email email_id) {
         this.email = email_id;
-    }
-
-    /* Method to save user alert to database */
-    public void save(){
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            session.update(this);
-            tx.commit();
-        }catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
-            e.printStackTrace();
-        }finally {
-            session.close();
-        }
-        
     }
 
     @ManyToOne(fetch=FetchType.EAGER)

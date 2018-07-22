@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="User Status New">
+<suite name="User Change Status From Prospect1 to Prospect2">
 
   <test name="Register new user">
     <classes>
@@ -17,9 +17,19 @@
       </class>
     </classes>
   </test>
+
+  <test name="Trigger user status change prospect1->prospect2">
+    <classes>
+      <class name="resources.models.UserTest">
+        <methods>
+          <include name="testProspect1UserBecomesProspect2" />
+        </methods>
+      </class>
+    </classes>
+  </test>
   
-  <test name="Check user statis is NEW">
-    <parameter name="status_expected" value="new"/>
+  <test name="Check user statis is PROSPECT2">
+    <parameter name="status_expected" value="prospect2"/>
     <classes>
       <class name="resources.models.UserTest">
         <methods>

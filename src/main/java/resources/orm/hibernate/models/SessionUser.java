@@ -18,7 +18,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "session_user", catalog = "zurple_platform", uniqueConstraints = {
         @UniqueConstraint(columnNames = "session_user_id")})
-public class SessionUser
+public class SessionUser extends Abstract
         implements java.io.Serializable {
 
     private Integer session_user_id;

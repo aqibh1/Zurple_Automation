@@ -15,13 +15,17 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import resources.orm.hibernate.HibernateUtil;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "users", catalog = "zurple_platform", uniqueConstraints = {
         @UniqueConstraint(columnNames = "user_id")})
-public class User
+public class User extends Abstract
         implements java.io.Serializable {
 
     private Integer user_id;

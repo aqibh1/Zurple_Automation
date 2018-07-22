@@ -5,7 +5,9 @@
   <suite-files>
     <suite-file path="user_status/UserStatusNew.xml"/>
     <suite-file path="user_status/UserStatusNewActive1.xml"/>
+    <suite-file path="user_status/UserStatusNewActive2.xml"/>
     <suite-file path="user_status/UserStatusNewProspect1.xml"/>
+    <suite-file path="user_status/UserStatusProspect1Prospect2.xml"/>
   </suite-files>
   
 </suite>
