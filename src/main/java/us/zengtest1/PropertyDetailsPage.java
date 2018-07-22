@@ -14,7 +14,6 @@ public class PropertyDetailsPage
 
     private ContactAgentForm contactAgentForm;
     private JssorSlider jssorSlider;
-    private SweetAlertNotification sweetAlertNotification;
 
     public PropertyDetailsPage(){
         url = "http://dev.zengtest1.us/CA/San_Diego/101217";
@@ -50,15 +49,6 @@ public class PropertyDetailsPage
 
     public WebElement getFavoriteButton(){
         return driver.findElement(By.xpath("//*[@id=\"add_fav\"]/button"));
-    }
-
-    public SweetAlertNotification getSweetAlertNotification(){
-        if(null == sweetAlertNotification){
-            sweetAlertNotification = new SweetAlertNotification();
-            sweetAlertNotification.setAlert(driver.findElement(
-                    By.xpath(SweetAlertNotification.alertXpath)));
-        }
-        return sweetAlertNotification;
     }
 
 }

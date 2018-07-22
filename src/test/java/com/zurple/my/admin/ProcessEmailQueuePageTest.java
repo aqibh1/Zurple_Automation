@@ -2,6 +2,9 @@ package com.zurple.my.admin;
 
 import com.zurple.my.Admin.ProcessEmailQueuePage;
 import com.zurple.my.PageTest;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertTrue;
 
 public class ProcessEmailQueuePageTest
         extends PageTest
@@ -20,4 +23,10 @@ public class ProcessEmailQueuePageTest
     public void clearPage(){
         page=null;
     };
+
+    @Test
+    public void testLeadAlertsQueueProcessing()
+    {
+        assertTrue(getPage().runLeadAlertsQueueProcessing());
+    }
 }

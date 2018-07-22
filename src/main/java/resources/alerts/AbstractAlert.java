@@ -17,8 +17,8 @@ public abstract class AbstractAlert
     public void setAlert(WebElement object){
         alert = object;
         try{
-            okButton = alert.findElement(By.xpath("//descendant::button[@class=\"confirm\"]"));
-            message = alert.findElement(By.xpath("//descendant::div[contains(@class,\"sweet-alert\")]/h2")).getText();
+            okButton = alert.findElement(By.xpath("./descendant::button[@class=\"confirm\"]"));
+            message = alert.findElement(By.xpath("./descendant::h2")).getText();
         }catch(NoSuchElementException e){}
     }
 

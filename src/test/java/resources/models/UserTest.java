@@ -29,7 +29,7 @@ public class UserTest extends AbstractTest
     @Parameters({"status_expected"})
     public void testLastUserStatus(@Optional("") String status_expected){
         User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
-        assertEquals(status_expected, lastRegisteredUser.getUserStatus());
+        assertEquals(lastRegisteredUser.getUserStatus(),status_expected);
     }
     
     @Test
