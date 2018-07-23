@@ -90,6 +90,30 @@ public class UserTest extends AbstractTest
         }
                 
     }
+    
+    @Test
+    public void testActive2UserBecomesProspect1(){
+        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
+        
+        Date d = new Date();
+        d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
+        lastRegisteredUser.setCreateDatetime(d);
+        lastRegisteredUser.setUserStatus("active2");
+        lastRegisteredUser.save();
+
+        List<SessionUser> sessions = getEnvironment().getUserSessions(lastRegisteredUser);
+        for (SessionUser session: sessions) {
+            session.setSessionEnd(d);
+            session.save();
+        }
+        
+        Set<UserAlert> alerts = lastRegisteredUser.getUserAlerts();
+        for (UserAlert alert: alerts) {
+            alert.setUserAlertTriggered(d);
+            alert.save();
+        }
+                
+    }
 
     @Test
     public void testProspect1UserBecomesProspect2(){
