@@ -1,0 +1,77 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="User Change Status From Client to Active2">
+
+  <test name="Register new user">
+    <classes>
+      <class name="us.zengtest1.HomePageTest" />
+      <class name="us.zengtest1.RegisterPageTest" >
+        <methods>
+          <include name="testRegisterNewRegularLead" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="Preparing user status change client->active2">
+    <classes>
+      <class name="resources.models.UserTest">
+        <methods>
+          <include name="testClientUserBecomesActive2" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="Agent Inquire">
+    <classes>
+      <class name="us.zengtest1.InsiderPageTest" >
+        <methods>
+          <include name="testAgentInquire" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+  
+  <test name="Processing leads status automation">
+    <classes>
+      <class name="com.zurple.my.LoginPageTest" >
+        <methods>
+          <include name="testSubmittingValidLoginForm" />
+        </methods>
+      </class>
+      <class name="com.zurple.my.admin.ProcessEmailQueuePageTest" >
+        <methods>
+          <include name="testLeadAlertsQueueProcessing" />
+        </methods>
+      </class>
+      <class name="com.zurple.my.admin.LeadStatusAutomationPageTest" >
+        <methods>
+          <include name="testLeadStatusAutomationProcessing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="Check user status is CLIENT">
+    <parameter name="status_expected" value="client"/>
+    <classes>
+      <class name="resources.models.UserTest">
+        <methods>
+          <include name="testLastUserStatus" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>
