@@ -91,5 +91,18 @@ public class UserTest extends AbstractTest
         lastRegisteredUser.save();
                         
     }
+    
+    @Test
+    public void testProspect1UserBecomesActive2(){
+        
+        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
+
+        Date d = new Date();
+        d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
+        lastRegisteredUser.setCreateDatetime(d);
+        lastRegisteredUser.setUserStatus("prospect1");
+        lastRegisteredUser.save();
+                        
+    }
 
 }
