@@ -63,7 +63,7 @@
     </classes>
   </test>
 
-  <test name="Check user statis is ACTIVE2">
+  <test name="Check user status is ACTIVE2">
     <parameter name="status_expected" value="active2"/>
     <classes>
       <class name="resources.models.UserTest">

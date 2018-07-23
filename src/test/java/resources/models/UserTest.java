@@ -76,8 +76,20 @@ public class UserTest extends AbstractTest
         lastRegisteredUser.save();
 
         String res = SSHConnector.runRemoteScript("cd /workroot/platform/trunk && cd php/src/main/php/application/scripts && echo '{\"adminId\":"+lastRegisteredUser.getAdminId().getId()+",\"userId\":"+lastRegisteredUser.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e dev");
-        res = res;
                 
+    }
+
+    @Test
+    public void testProspect1UserBecomesActive1(){
+        
+        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
+
+        Date d = new Date();
+        d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
+        lastRegisteredUser.setCreateDatetime(d);
+        lastRegisteredUser.setUserStatus("prospect1");
+        lastRegisteredUser.save();
+                        
     }
 
 }

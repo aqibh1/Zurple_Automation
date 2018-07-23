@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="User Change Status From New to Active1">
+<suite name="User Change Status From Prospect1 to Active1">
 
   <test name="Register new user">
     <classes>
@@ -10,44 +10,29 @@
           <include name="testRegisterNewRegularLead" />
         </methods>
       </class>
-      <class name="resources.CurrentPageTest">
-        <methods>
-          <include name="closeBrowser" />
-        </methods>
-      </class>
     </classes>
   </test>
 
-  <test name="Preparing user status change new->active1">
+  <test name="Trigger user status change prospect1->active1">
     <classes>
       <class name="resources.models.UserTest">
         <methods>
-          <include name="testNewUserBecomesActive1" />
+          <include name="testProspect1UserBecomesActive1" />
+        </methods>
+      </class>
+      <class name="us.zengtest1.SearchPageTest">
+        <methods>
+          <include name="testTitle" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
         </methods>
       </class>
     </classes>
   </test>
   
-  <test name="Processing leads status automation">
-    <classes>
-      <class name="com.zurple.my.LoginPageTest" >
-        <methods>
-          <include name="testSubmittingValidLoginForm" />
-        </methods>
-      </class>
-      <class name="com.zurple.my.admin.LeadStatusAutomationPageTest" >
-        <methods>
-          <include name="testLeadStatusAutomationProcessing" />
-        </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-        <methods>
-          <include name="closeBrowser" />
-        </methods>
-      </class>
-    </classes>
-  </test>
-
   <test name="Check user status is ACTIVE1">
     <parameter name="status_expected" value="active1"/>
     <classes>

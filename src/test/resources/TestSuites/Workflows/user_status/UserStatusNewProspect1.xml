@@ -48,7 +48,7 @@
     </classes>
   </test>
 
-  <test name="Check user statis is PROSPECT1">
+  <test name="Check user status is PROSPECT1">
     <parameter name="status_expected" value="prospect1"/>
     <classes>
       <class name="resources.models.UserTest">
