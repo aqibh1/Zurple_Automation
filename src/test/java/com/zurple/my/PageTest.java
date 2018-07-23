@@ -11,4 +11,12 @@ public abstract class PageTest extends AbstractPageTest
     public void testAssetsVersions() {
         assertTrue(checkAssetsVersion(getPage().getAssets()));
     }
+
+    protected static void waitLoad(){
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException qq) {
+            qq.printStackTrace();
+        }
+    }
 }

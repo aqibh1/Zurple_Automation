@@ -220,12 +220,4 @@ public class LeadImportPageTest
         }
 
     }
-
-    private static void waitLoad(){
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException qq) {
-            qq.printStackTrace();
-        }
-    }
 }

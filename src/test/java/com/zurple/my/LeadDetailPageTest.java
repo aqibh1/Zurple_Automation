@@ -1,11 +1,22 @@
 package com.zurple.my;
 
+import com.zurple.my.resources.forms.LeadStatusForm;
 import java.util.Date;
+import org.apache.commons.lang3.ObjectUtils.Null;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import resources.classes.Helper;
 import resources.orm.hibernate.dao.ManageUser;
 import resources.orm.hibernate.dao.ManageUserActivity;
+import resources.orm.hibernate.models.Lead;
 import resources.orm.hibernate.models.SessionUser;
 import resources.orm.hibernate.models.User;
 
@@ -22,7 +33,14 @@ public class LeadDetailPageTest
     public LeadDetailPage getPage(){
         if(page == null){
             page = new LeadDetailPage();
-            page.setUrl("https://my.dev.zurple.com/lead/"+getEnvironment().getLeadToCheck()+"?from=new");
+            
+            Integer leadToCheck = getEnvironment().getLeadToCheck();
+            if (leadToCheck == null){
+                User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
+                leadToCheck = lastRegisteredUser.getId();
+            }
+            
+            page.setUrl("https://my.dev.zurple.com/lead/"+leadToCheck+"?from=new");
             page.setDriver(getDriver());
         }
         return page;
@@ -110,5 +128,20 @@ public class LeadDetailPageTest
         assertTrue(getPage().checkPropertiesViewedBlock());
         
     }
+        
+    @Test
+    @Parameters({"status"})
+    public void testLeadStatusUpdate(@Optional("") String status){
+        assertTrue(getPage().checkLeadStatusFormExists());
+        LeadStatusForm form = getPage().getLeadStatusForm();
+        
+        form.setSelectValueByValue("lead_status",status);
+        
+        assertTrue(getPage().getLeadStatusUpdateNotification().getAlert().isDisplayed());
+        assertEquals(getPage().getLeadStatusUpdateNotification().getMessage(),"Is this a temporary update?");
+        getPage().getLeadStatusUpdateNotification().clickOkButton();
 
+        waitLoad();
+
+    }
 }

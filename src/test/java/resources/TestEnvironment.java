@@ -167,10 +167,14 @@ public class TestEnvironment
     }
 
     public User getLastRegisteredUser(){
-        
-        ManageUser mu = new ManageUser(getSession());
-        lastRegisteredUser =  mu.getLastRegisteredUser();
-        
+
+        if(admin==null){
+            ManageUser mu = new ManageUser(getSession());
+            lastRegisteredUser =  mu.getLastRegisteredUser();
+        }else{
+            getSession().refresh(lastRegisteredUser);
+        }
+                
         return lastRegisteredUser;
 
     }

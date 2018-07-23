@@ -2,8 +2,11 @@ package com.zurple.my;
 
 import com.zurple.my.resources.blocks.BouncedEmailAlertBlock;
 import com.zurple.my.resources.blocks.LeadsDetailsBlock;
+import com.zurple.my.resources.blocks.LeadsListBlock;
 import com.zurple.my.resources.blocks.PropertiesViewedBlock;
 import com.zurple.my.resources.blocks.RemindersBlock;
+import com.zurple.my.resources.forms.LeadStatusForm;
+import com.zurple.my.resources.forms.LeadsSearchForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -17,8 +20,11 @@ public class LeadDetailPage
     PropertiesViewedBlock propertiesViewedBlock;
     RemindersBlock remindersBlock;
     LeadsDetailsBlock leadsDetailsBlock;
-
+    private LeadStatusForm leadStatusForm;
+    
     private SweetAlertNotification sweetAlertNotification;
+    private SweetAlertNotification leadStatusUpdateNotification;
+    private SweetAlertNotification leadStatusUpdatedNotification;
 
     public SweetAlertNotification getSweetAlertNotification(){
         if(null == sweetAlertNotification){
@@ -27,6 +33,24 @@ public class LeadDetailPage
                     By.xpath(SweetAlertNotification.alertXpath)));
         }
         return sweetAlertNotification;
+    }
+
+    public SweetAlertNotification getLeadStatusUpdateNotification(){
+        if(null == leadStatusUpdateNotification){
+            leadStatusUpdateNotification = new SweetAlertNotification();
+            leadStatusUpdateNotification.setAlert(driver.findElement(
+                    By.xpath("//div[contains(@class,\"swal2-modal\")]")));
+        }                              
+        return leadStatusUpdateNotification;
+    }
+    
+    public SweetAlertNotification getLeadStatusUpdatedNotification(){
+        if(null == leadStatusUpdatedNotification){
+            leadStatusUpdatedNotification = new SweetAlertNotification();
+            leadStatusUpdatedNotification.setAlert(driver.findElement(
+                    By.xpath("//div[contains(@class,\"swal2-modal\")]")));
+        }                              
+        return leadStatusUpdatedNotification;
     }
 
     public boolean checkBouncedEmailAlertBlock(){
@@ -98,4 +122,19 @@ public class LeadDetailPage
         return leadsDetailsBlock;
     }
 
+    public boolean checkLeadStatusFormExists(){
+        try{
+            getLeadStatusForm();
+            return true;
+        }catch(StaleElementReferenceException e){
+            return false;
+        }
+    }
+
+    public LeadStatusForm getLeadStatusForm(){
+        leadStatusForm = new LeadStatusForm();
+        leadStatusForm.setForm(driver.findElement(By.xpath("//*[@id=\"form_change_status\"]")));
+        return leadStatusForm;
+    }
+    
 }
