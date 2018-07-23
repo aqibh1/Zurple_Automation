@@ -11,6 +11,7 @@
     <suite-file path="user_status/UserStatusProspect1Active1.xml"/>
     <suite-file path="user_status/UserStatusProspect1Active2.xml"/>
     <suite-file path="user_status/UserStatusClientProspect1.xml"/>
+    <suite-file path="user_status/UserStatusClientProspect2.xml"/>
   </suite-files>
   
 </suite>

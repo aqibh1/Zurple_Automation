@@ -129,4 +129,16 @@ public class UserTest extends AbstractTest
 
     }
 
+    @Test
+    public void testClientUserBecomesProspect2(){
+
+        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
+
+        lastRegisteredUser.setUserStatus("client");
+        lastRegisteredUser.save();
+
+        String res = SSHConnector.runRemoteScript("cd /workroot/platform/trunk && cd php/src/main/php/application/scripts && echo '{\"adminId\":"+lastRegisteredUser.getAdminId().getId()+",\"userId\":"+lastRegisteredUser.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e dev");
+
+    }
+
 }
