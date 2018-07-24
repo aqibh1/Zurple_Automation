@@ -32,73 +32,16 @@ public class UserTest extends AbstractTest
         User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
         assertEquals(lastRegisteredUser.getUserStatus(),status_expected);
     }
-    
-    @Test
-    public void testNewUserBecomesActive1(){
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
-        
-        Date d = new Date();
-        d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
-        lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.save();
-                        
-    }
-    
-    @Test
-    public void testNewUserBecomesProspect1(){
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
-        
-        Date d = new Date();
-        d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
-        lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.save();
 
-        List<SessionUser> sessions = getEnvironment().getUserSessions(lastRegisteredUser);
-        for (SessionUser session: sessions) {
-            session.setSessionEnd(d);
-            session.save();
-        }
-        
-        Set<UserAlert> alerts = lastRegisteredUser.getUserAlerts();
-        for (UserAlert alert: alerts) {
-            alert.setUserAlertTriggered(d);
-            alert.save();
-        }
-                
-    }
-    
     @Test
-    public void testActive1UserBecomesProspect1(){
+    @Parameters({"status_initial"})
+    public void testPrepareUserBecomesProspect1(@Optional("") String status_initial){
         User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
         
         Date d = new Date();
         d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
         lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.setUserStatus("active1");
-        lastRegisteredUser.save();
-
-        List<SessionUser> sessions = getEnvironment().getUserSessions(lastRegisteredUser);
-        for (SessionUser session: sessions) {
-            session.setSessionEnd(d);
-            session.save();
-        }
-        
-        Set<UserAlert> alerts = lastRegisteredUser.getUserAlerts();
-        for (UserAlert alert: alerts) {
-            alert.setUserAlertTriggered(d);
-            alert.save();
-        }
-                
-    }
-    
-    @Test
-    public void testActive2UserBecomesProspect1(){
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
-        
-        Date d = new Date();
-        d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
-        lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.setUserStatus("active2");
+        lastRegisteredUser.setUserStatus(status_initial);
         lastRegisteredUser.save();
 
         List<SessionUser> sessions = getEnvironment().getUserSessions(lastRegisteredUser);
@@ -116,11 +59,12 @@ public class UserTest extends AbstractTest
     }
 
     @Test
-    public void testProspect1UserBecomesProspect2(){
+    @Parameters({"status_initial"})
+    public void testPrepareUserBecomesProspect2(@Optional("") String status_initial){
         
         User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
         
-        lastRegisteredUser.setUserStatus("prospect1");
+        lastRegisteredUser.setUserStatus(status_initial);
         lastRegisteredUser.save();
 
         String res = SSHConnector.runRemoteScript("cd /workroot/platform/trunk && cd php/src/main/php/application/scripts && echo '{\"adminId\":"+lastRegisteredUser.getAdminId().getId()+",\"userId\":"+lastRegisteredUser.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e dev");
@@ -128,117 +72,30 @@ public class UserTest extends AbstractTest
     }
 
     @Test
-    public void testProspect1UserBecomesActive1(){
+    @Parameters({"status_initial"})
+    public void testPrepareUserBecomesActive1(@Optional("") String status_initial){
         
         User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
 
         Date d = new Date();
         d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
         lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.setUserStatus("prospect1");
+        lastRegisteredUser.setUserStatus(status_initial);
         lastRegisteredUser.save();
                         
     }
-    
+        
     @Test
-    public void testActive2UserBecomesActive1(){
+    @Parameters({"status_initial"})
+    public void testPrepareUserBecomesActive2(@Optional("") String status_initial){
         
         User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
 
         Date d = new Date();
         d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
         lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.setUserStatus("active2");
+        lastRegisteredUser.setUserStatus(status_initial);
         lastRegisteredUser.save();
                         
     }
-    
-    @Test
-    public void testClientUserBecomesActive1(){
-        
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
-
-        Date d = new Date();
-        d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
-        lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.setUserStatus("client");
-        lastRegisteredUser.save();
-                        
-    }
-    
-    @Test
-    public void testProspect1UserBecomesActive2(){
-        
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
-
-        Date d = new Date();
-        d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
-        lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.setUserStatus("prospect1");
-        lastRegisteredUser.save();
-                        
-    }
-    
-    @Test
-    public void testActive1UserBecomesActive2(){
-        
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
-
-        Date d = new Date();
-        d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
-        lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.setUserStatus("active1");
-        lastRegisteredUser.save();
-                        
-    }
-    
-    @Test
-    public void testClientUserBecomesActive2(){
-        
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
-
-        Date d = new Date();
-        d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
-        lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.setUserStatus("client");
-        lastRegisteredUser.save();
-                        
-    }
-
-    @Test
-    public void testClientUserBecomesProspect1(){
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
-
-        Date d = new Date();
-        d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
-        lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.setUserStatus("client");
-        lastRegisteredUser.save();
-
-        List<SessionUser> sessions = getEnvironment().getUserSessions(lastRegisteredUser);
-        for (SessionUser session: sessions) {
-            session.setSessionEnd(d);
-            session.save();
-        }
-
-        Set<UserAlert> alerts = lastRegisteredUser.getUserAlerts();
-        for (UserAlert alert: alerts) {
-            alert.setUserAlertTriggered(d);
-            alert.save();
-        }
-
-    }
-
-    @Test
-    public void testClientUserBecomesProspect2(){
-
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
-
-        lastRegisteredUser.setUserStatus("client");
-        lastRegisteredUser.save();
-
-        String res = SSHConnector.runRemoteScript("cd /workroot/platform/trunk && cd php/src/main/php/application/scripts && echo '{\"adminId\":"+lastRegisteredUser.getAdminId().getId()+",\"userId\":"+lastRegisteredUser.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e dev");
-
-    }
-
 }

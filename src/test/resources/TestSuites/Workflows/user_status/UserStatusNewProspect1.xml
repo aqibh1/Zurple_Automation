@@ -19,10 +19,11 @@
   </test>
 
   <test name="Trigger user status change new->prospect1">
+    <parameter name="status_initial" value="new"/>
     <classes>
       <class name="resources.models.UserTest">
         <methods>
-          <include name="testNewUserBecomesProspect1" />
+          <include name="testPrepareUserBecomesProspect1" />
         </methods>
       </class>
     </classes>

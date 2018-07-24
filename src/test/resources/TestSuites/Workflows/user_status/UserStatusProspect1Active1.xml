@@ -14,10 +14,11 @@
   </test>
 
   <test name="Trigger user status change prospect1->active1">
+    <parameter name="status_initial" value="prospect1"/>
     <classes>
       <class name="resources.models.UserTest">
         <methods>
-          <include name="testProspect1UserBecomesActive1" />
+          <include name="testPrepareUserBecomesActive1" />
         </methods>
       </class>
       <class name="us.zengtest1.SearchPageTest">

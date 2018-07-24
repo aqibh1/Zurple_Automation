@@ -19,10 +19,11 @@
   </test>
 
   <test name="Preparing user status change new->active1">
+    <parameter name="status_initial" value="new"/>
     <classes>
       <class name="resources.models.UserTest">
         <methods>
-          <include name="testNewUserBecomesActive1" />
+          <include name="testPrepareUserBecomesActive1" />
         </methods>
       </class>
     </classes>
