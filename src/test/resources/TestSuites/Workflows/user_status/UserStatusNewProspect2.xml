@@ -1,0 +1,43 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="User Change Status From New to Prospect2">
+
+  <test name="Register new user">
+    <classes>
+      <class name="us.zengtest1.HomePageTest" />
+      <class name="us.zengtest1.RegisterPageTest" >
+        <methods>
+          <include name="testRegisterNewRegularLead" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="Trigger user status change new->prospect2">
+    <parameter name="status_initial" value="new"/>
+    <classes>
+      <class name="resources.models.UserTest">
+        <methods>
+          <include name="testPrepareUserBecomesProspect2" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="Check user status is PROSPECT2">
+    <parameter name="status_expected" value="prospect2"/>
+    <classes>
+      <class name="resources.models.UserTest">
+        <methods>
+          <include name="testLastUserStatus" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>
