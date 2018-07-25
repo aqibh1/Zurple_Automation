@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="User Change Status From Active2 to Active1">
+<suite name="User Not Change Status From Active2 to Active1">
 
   <test name="Register new user">
     <classes>
@@ -34,8 +34,8 @@
     </classes>
   </test>
   
-  <test name="Check user status is ACTIVE1">
-    <parameter name="status_expected" value="active1"/>
+  <test name="Check user status is ACTIVE2">
+    <parameter name="status_expected" value="active2"/>
     <classes>
       <class name="resources.models.UserTest">
         <methods>
