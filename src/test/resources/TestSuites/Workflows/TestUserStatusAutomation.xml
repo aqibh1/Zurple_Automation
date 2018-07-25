@@ -20,6 +20,7 @@
     <suite-file path="user_status/UserStatusActive1Active2.xml"/>
     <suite-file path="user_status/UserStatusActive2Prospect1.xml"/>
     <suite-file path="user_status/UserStatusActive2Active1.xml"/>
+    <suite-file path="user_status/UserStatusProspect2Prospect1.xml"/>
   </suite-files>
   
 </suite>
