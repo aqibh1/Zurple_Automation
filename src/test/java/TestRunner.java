@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import org.apache.commons.io.IOUtils;
-import org.openqa.selenium.remote.ProtocolHandshake;
-import org.testng.TestListenerAdapter;
 import org.testng.TestNG;
 import org.testng.collections.Lists;
 import org.testng.log4testng.Logger;
