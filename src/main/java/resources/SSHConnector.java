@@ -12,7 +12,9 @@ public class SSHConnector
         Shell shell = null;
         try
         {
-            shell = new SshByPassword("127.0.0.1", 2200, "vazotov", "ipW6ptsH");
+            ConfigReader configReader = ConfigReader.load();
+            //shell = new SshByPassword(configReader.getPropertyByName("ssh_host"), Integer.parseInt(configReader.getPropertyByName("ssh_port")), configReader.getPropertyByName("ssh_user"), configReader.getPropertyByName("ssh_pass"));
+            shell = new SshByPassword("localhost", 22, "vzotov", "ipW6ptsH");
             String stdout = new Shell.Plain(shell).exec(command);
             return stdout;
         }

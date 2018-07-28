@@ -4,6 +4,7 @@ import com.zurple.my.Admin.AdminmgrNewPage;
 import com.zurple.my.PageTest;
 import java.util.UUID;
 import org.testng.annotations.Test;
+import resources.ConfigReader;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -36,6 +37,9 @@ public class AdminmgrNewPageTest
 
     @Test
     public void testCreationNewAdmin(){
+
+        ConfigReader configReader = ConfigReader.load();
+
         assertTrue(getPage().checkAdminCreateFormExists());
         String uuid = UUID.randomUUID().toString();
         String adminFirstName = uuid.substring(0,5)+"test";
@@ -54,7 +58,7 @@ public class AdminmgrNewPageTest
 
         getPage().getAdminCreateForm().submit();
 
-        assertEquals("https://my.dev.zurple.com/adminmgr",getDriver().getCurrentUrl());
+        assertEquals(configReader.getPropertyByName("bo_base_url")+ "/adminmgr",getDriver().getCurrentUrl());
 
         assertTrue(getEnvironment().getAdminByEmail(adminEmail).getBillingAccessFlag());
     }

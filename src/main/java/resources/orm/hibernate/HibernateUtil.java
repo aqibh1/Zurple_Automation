@@ -13,7 +13,7 @@ public class HibernateUtil {
     private static SessionFactory buildSessionFactory() {
         try {
             ConfigReader configReader = ConfigReader.load();
-            // Create the SessionFactory from hibernate.cfg.xml
+
             Configuration cfg = new AnnotationConfiguration().configure();
             cfg.setProperties(System.getProperties());
             cfg.getProperties().setProperty("hibernate.connection.url","jdbc:mysql://"+configReader.getPropertyByName("mysql_host")+":"+configReader.getPropertyByName("mysql_port")+"/"+configReader.getPropertyByName("mysql_db")+"?zeroDateTimeBehavior=convertToNull");

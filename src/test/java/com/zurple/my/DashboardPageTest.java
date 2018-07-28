@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import resources.ConfigReader;
 import resources.classes.MenuItem;
 import resources.classes.Alert;
 import resources.orm.hibernate.models.User;
@@ -72,18 +73,24 @@ public class DashboardPageTest
 
     @Test(groups = "asset")
     public void testNewLeadsLink(){
+
+        ConfigReader configReader = ConfigReader.load();
+
         assertTrue(getPage().checkNewLeadsBlock());
         Integer n = getPage().getNewLeadsBlock().getLeadIds().get(0);
         getEnvironment().setLeadToCheck(n);
-        Assert.assertEquals("https://my.dev.zurple.com/lead/"+n+"?from=new", getPage().getNewLeadsBlock().getNewLeadLink(1).getAttribute("href"));
+        Assert.assertEquals(configReader.getPropertyByName("bo_base_url")+"/lead/"+n+"?from=new", getPage().getNewLeadsBlock().getNewLeadLink(1).getAttribute("href"));
     }
 
     @Test
     public void testHotBehaviors(){
+
+        ConfigReader configReader = ConfigReader.load();
+
         assertTrue(getPage().checkHotBehaviorBlock());
         assertTrue(getPage().getHotBehaviorBlock().getHotBehaviorList().size()>0);
         for (Alert alert: getPage().getHotBehaviorBlock().getHotBehaviorList()) {
-            Pattern pattern = Pattern.compile("https://my\\.dev\\.zurple\\.com/lead/(\\d+)\\?from=hotlead");
+            Pattern pattern = Pattern.compile(configReader.getPropertyByName("bo_base_url")+ "/lead/(\\d+)\\?from=hotlead");
             Matcher matcher = pattern.matcher(alert.getLeadLink());
             assertTrue(matcher.find());
             Integer lead_id = Integer.parseInt(matcher.group(1));

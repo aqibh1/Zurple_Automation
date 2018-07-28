@@ -11,6 +11,7 @@ import org.apache.commons.io.IOUtils;
 import org.testng.Assert;
 import org.testng.TestNG;
 import org.testng.annotations.Test;
+import resources.ConfigReader;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -34,10 +35,13 @@ public class AdminmgrEditPageTest
 
     public AdminmgrEditPage getPage(Integer admin_id)
     {
+
+        ConfigReader configReader = ConfigReader.load();
+
         if (page == null)
         {
             page = new AdminmgrEditPage();
-            page.setUrl("https://my.dev.zurple.com/adminmgr/edit/admin_id/" + admin_id);
+            page.setUrl(configReader.getPropertyByName("bo_base_url")+"/adminmgr/edit/admin_id/" + admin_id);
             page.setDriver(getDriver());
         }
         return page;

@@ -3,6 +3,7 @@ package com.zurple.my;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import resources.ConfigReader;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
@@ -55,10 +56,11 @@ public class LoginPageTest
     @Parameters({"login","password"})
     @Test(priority=40,groups = { "login" })
     public void testSubmittingValidLoginForm(@Optional("testsiteowner@zurple.com") String login, @Optional("test") String password){
-        getPage().getLoginForm().setInputValue("username",login);
-        getPage().getLoginForm().setInputValue("passwd",password);
+        ConfigReader configReader = ConfigReader.load();
+        getPage().getLoginForm().setInputValue("username",configReader.getPropertyByName("bo_user"));
+        getPage().getLoginForm().setInputValue("passwd",configReader.getPropertyByName("bo_pass"));
         getPage().getLoginForm().submit();
-        assertEquals("https://my.dev.zurple.com/dashboard",getDriver().getCurrentUrl());
+        assertEquals(configReader.getPropertyByName("bo_base_url")+"/dashboard",getDriver().getCurrentUrl());
     }
 
 }
