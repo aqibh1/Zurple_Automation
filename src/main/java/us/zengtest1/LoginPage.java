@@ -11,7 +11,7 @@ public class LoginPage extends Page
     private LoginForm loginForm;
 
     public LoginPage(){
-        url = "http://dev.zengtest1.us/login";
+        url = "/login";
     }
 
     public LoginForm getLoginForm(){

@@ -8,7 +8,7 @@ public class ThankyouPage
 {
 
     public ThankyouPage(){
-        url = "http://dev.zengtest1.us/thankyou";
+        url = "/thankyou";
     }
 
     //TODO not standart page layout

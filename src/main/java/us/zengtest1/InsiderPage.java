@@ -20,7 +20,7 @@ public class InsiderPage
     private InquireContactForm inquireContactForm;
     
     public InsiderPage(){
-        url = "http://dev.zengtest1.us/insider/4";
+        url = "/insider/4";
     }
 
     public WebElement getHeader(){

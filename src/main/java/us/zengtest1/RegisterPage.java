@@ -12,7 +12,7 @@ public class RegisterPage
     private RegisterForm registerForm;
 
     public RegisterPage(){
-        url = "http://dev.zengtest1.us/register";
+        url = "/register";
     }
 
     public RegisterForm getRegisterForm(){

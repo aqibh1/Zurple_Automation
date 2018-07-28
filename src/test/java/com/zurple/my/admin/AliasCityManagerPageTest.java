@@ -11,7 +11,6 @@ public class AliasCityManagerPageTest
     public AliasCityManagerPage getPage(){
         if(page == null){
             page = new AliasCityManagerPage();
-            page.setUrl("https://my.dev.zurple.com/aliascitymgr/");
             page.setDriver(getDriver());
         }
         return page;

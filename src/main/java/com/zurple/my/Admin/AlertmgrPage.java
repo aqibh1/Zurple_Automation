@@ -5,5 +5,7 @@ import com.zurple.my.Page;
 public class AlertmgrPage
         extends Page
 {
-
+    public AlertmgrPage(){
+        url = "/alertmgr/";
+    }
 }

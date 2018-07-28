@@ -14,7 +14,6 @@ public class ProcessEmailQueuePageTest
     public ProcessEmailQueuePage getPage(){
         if(page == null){
             page = new ProcessEmailQueuePage();
-            page.setUrl("https://my.dev.zurple.com/admin/processemailqueue");
             page.setDriver(getDriver());
         }
         return page;

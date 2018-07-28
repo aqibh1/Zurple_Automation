@@ -7,7 +7,7 @@ public class ExportLeadsPage
 {
 
     public ExportLeadsPage(){
-        url = "https://my.dev.zurple.com/leads/exportleads";
+        url = "/leads/exportleads";
     }
 
 }

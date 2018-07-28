@@ -8,7 +8,7 @@ public class FavoritePage
 {
 
     public FavoritePage(){
-        url = "http://dev.zengtest1.us/favorite";
+        url = "/favorite";
     }
 
     //TODO not standart page layout

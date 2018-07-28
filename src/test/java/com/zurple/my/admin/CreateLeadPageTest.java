@@ -11,7 +11,6 @@ public class CreateLeadPageTest
     public CreateLeadPage getPage(){
         if(page == null){
             page = new CreateLeadPage();
-            page.setUrl("https://my.dev.zurple.com/admin/createlead");
             page.setDriver(getDriver());
         }
         return page;

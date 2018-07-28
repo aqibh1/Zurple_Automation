@@ -13,7 +13,7 @@ public class CraiglistPropertyPageTest
     public CraiglistPropertyPage getPage(){
         if(page == null){
             page = new CraiglistPropertyPage();
-            page.setUrl("https://my.dev.zurple.com/property/craigslist/prop_id/"+getEnvironment().getPropertyToCheck());
+            page.setPropertyId(getEnvironment().getPropertyToCheck());
             page.setDriver(getDriver());
         }
         return page;

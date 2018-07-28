@@ -11,6 +11,9 @@ public class AgentCreatePage
 {
     AgentCreateForm agentCreateForm;
 
+    public AgentCreatePage(){
+        url = "/agent/create";
+    }
 
     public boolean checkAgentEditForm(){
         try{

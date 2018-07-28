@@ -19,7 +19,6 @@ public class PackagemgrNewPageTest
     public PackagemgrNewPage getPage(){
         if(page == null){
             page = new PackagemgrNewPage();
-            page.setUrl("https://my.dev.zurple.com/packagemgr/edit/");
             page.setDriver(getDriver());
         }
         return page;

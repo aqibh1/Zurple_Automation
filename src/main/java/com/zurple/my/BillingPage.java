@@ -14,7 +14,7 @@ public class BillingPage
     TransactionListBlock transactionListBlock;
 
     public BillingPage(){
-        url = "https://my.dev.zurple.com/billing/";
+        url = "/billing/";
     }
 
     public String getHeader(){

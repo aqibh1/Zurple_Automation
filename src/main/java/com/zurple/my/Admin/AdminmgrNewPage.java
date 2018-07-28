@@ -11,6 +11,10 @@ public class AdminmgrNewPage
 
     private AdminEditForm adminCreateForm;
 
+    public AdminmgrNewPage(){
+        url = "/adminmgr/new";
+    }
+
     public boolean checkAdminCreateFormExists(){
         try{
             getAdminCreateForm();

@@ -11,7 +11,6 @@ public class IndexPageTest
     public IndexPage getPage(){
         if(page == null){
             page = new IndexPage();
-            page.setUrl("https://my.dev.zurple.com/admin/");
             page.setDriver(getDriver());
         }
         return page;

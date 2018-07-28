@@ -19,11 +19,11 @@ public class SearchPage
     }
 
     public SearchPage(){
-        url = "http://dev.zengtest1.us/search";
+        url = "/search";
     }
 
     public SearchPage(String source_in_url){
-        url = "http://dev.zengtest1.us/search/"+source_in_url;
+        url = getFullUrl()+source_in_url;
     }
 
     //TODO not standart page layout

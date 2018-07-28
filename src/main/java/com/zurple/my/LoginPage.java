@@ -12,7 +12,7 @@ public class LoginPage
     private LoginForm loginForm;
 
     public LoginPage(){
-        url = "https://my.dev.zurple.com/access/login";
+        url = "/access/login";
     }
 
     public boolean checkLoginFormExists(){

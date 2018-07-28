@@ -11,7 +11,6 @@ public class AdmgrPageTest
     public AdmgrPage getPage(){
         if(page == null){
             page = new AdmgrPage();
-            page.setUrl("https://my.dev.zurple.com/admgr/");
             page.setDriver(getDriver());
         }
         return page;

@@ -11,7 +11,6 @@ public class PmastermgrPageTest
     public PmastermgrPage getPage(){
         if(page == null){
             page = new PmastermgrPage();
-            page.setUrl("https://my.dev.zurple.com/pmastermgr/");
             page.setDriver(getDriver());
         }
         return page;

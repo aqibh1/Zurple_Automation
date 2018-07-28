@@ -9,7 +9,7 @@ public class SoldHomesPage
 {
 
     public SoldHomesPage(){
-        url = "http://dev.zengtest1.us/sold-homes";
+        url = "/sold-homes";
     }
 
     //TODO not standart page layout

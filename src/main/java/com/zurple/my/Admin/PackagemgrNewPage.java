@@ -10,6 +10,10 @@ public class PackagemgrNewPage
 {
     private PackageEditForm packageEditForm;
 
+    public PackagemgrNewPage(){
+        url = "/packagemgr/edit/";
+    }
+
     public boolean checkPackageEditFormExists(){
         try{
             getPackageEditForm();

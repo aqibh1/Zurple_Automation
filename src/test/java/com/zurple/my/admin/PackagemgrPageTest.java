@@ -11,7 +11,6 @@ public class PackagemgrPageTest
     public PackagemgrPage getPage(){
         if(page == null){
             page = new PackagemgrPage();
-            page.setUrl("https://my.dev.zurple.com/packagemgr/");
             page.setDriver(getDriver());
         }
         return page;

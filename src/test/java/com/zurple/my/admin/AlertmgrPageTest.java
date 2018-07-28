@@ -11,7 +11,6 @@ public class AlertmgrPageTest
     public AlertmgrPage getPage(){
         if(page == null){
             page = new AlertmgrPage();
-            page.setUrl("https://my.dev.zurple.com/alertmgr/");
             page.setDriver(getDriver());
         }
         return page;

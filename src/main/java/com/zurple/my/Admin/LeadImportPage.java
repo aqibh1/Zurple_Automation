@@ -16,6 +16,10 @@ public class LeadImportPage
     protected ImportsListBlock importsListBlock;
     protected LeadImportFeedbackBlock leadImportFeedbackBlock;
 
+    public LeadImportPage(){
+        url = "/leadmgr/import";
+    }
+
     public boolean checkLeadsImportFormExists(){
         try{
             getLeadsImportForm();

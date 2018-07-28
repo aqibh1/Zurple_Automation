@@ -11,7 +11,6 @@ public class EmailRestrictionsPageTest
     public EmailRestrictionsPage getPage(){
         if(page == null){
             page = new EmailRestrictionsPage();
-            page.setUrl("https://my.dev.zurple.com/admin/emailrestrictions");
             page.setDriver(getDriver());
         }
         return page;

@@ -21,7 +21,6 @@ public class AgentCreatePageTest
     public AgentCreatePage getPage(){
         if(page == null){
             page = new AgentCreatePage();
-            page.setUrl("https://my.dev.zurple.com/agent/create");
             page.setDriver(getDriver());
         }
         return page;

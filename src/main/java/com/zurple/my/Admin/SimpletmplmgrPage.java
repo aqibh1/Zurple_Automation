@@ -11,6 +11,10 @@ public class SimpletmplmgrPage
 {
     private TemplatesListBlock templatesListBlock;
 
+    public SimpletmplmgrPage(){
+        url = "/simpletemplmgr/";
+    }
+
     public boolean checkTemplatesListBlockExists(){
         try{
             getTemlatesListBlock();

@@ -19,7 +19,7 @@ public class DistributionRuleEditPageTest
 
             //TODO ArrayList<Site> sitesList = new ArrayList<Site>(getEnvironment().getAdminById(getEnvironment().getAgentToCheck()).getSites());
 
-            page.setUrl("https://my.dev.zurple.com/agents/distribution/site_id/1");
+            page.setSiteId(1);
             page.setDriver(getDriver());
         }
         return page;

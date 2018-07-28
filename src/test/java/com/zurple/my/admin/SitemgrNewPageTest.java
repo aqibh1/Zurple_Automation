@@ -11,7 +11,6 @@ public class SitemgrNewPageTest
     public SitemgrNewPage getPage(){
         if(page == null){
             page = new SitemgrNewPage();
-            page.setUrl("https://my.dev.zurple.com/sitemgr/new/");
             page.setDriver(getDriver());
         }
         return page;

@@ -5,5 +5,7 @@ import com.zurple.my.Page;
 public class AliasCityManagerPage
         extends Page
 {
-
+    public AliasCityManagerPage(){
+        url = "/aliascitymgr/";
+    }
 }

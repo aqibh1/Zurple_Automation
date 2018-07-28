@@ -10,6 +10,11 @@ public class AdminmgrEditPage
 {
 
     private AdminEditForm adminEditForm;
+    private Integer adminId;
+
+    public AdminmgrEditPage(){
+        url = "/adminmgr/edit/admin_id/";
+    }
 
     public boolean checkAdminEditFormExists(){
         try{
@@ -27,4 +32,16 @@ public class AdminmgrEditPage
         return adminEditForm;
     }
 
+    public Integer getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
+    }
+
+    public String getFullUrl()
+    {
+        return getBaseUrl() + url + getAdminId();
+    }
 }

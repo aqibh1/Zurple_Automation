@@ -16,7 +16,7 @@ public class PackagemgrEditPageTest
     public PackagemgrEditPage getPage(){
         if(page == null){
             page = new PackagemgrEditPage();
-            page.setUrl("https://my.dev.zurple.com/packagemgr/edit/package_id/"+getEnvironment().getAdmin().getPackage().getId());
+            page.setPackageId(getEnvironment().getAdmin().getPackage().getId());
             page.setDriver(getDriver());
         }
         return page;

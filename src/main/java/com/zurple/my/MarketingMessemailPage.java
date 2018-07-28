@@ -13,7 +13,7 @@ public class MarketingMessemailPage
     private MassEmailSuccessfullySentAlertBlock massEmailSuccessfullySentAlertBlock;
 
     public MarketingMessemailPage(){
-        url = "https://my.dev.zurple.com/marketing/massemail";
+        url = "/marketing/massemail";
     }
 
     public boolean checkMassEmailFormExists(){

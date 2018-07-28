@@ -11,7 +11,6 @@ public class LeadExportPageTest
     public LeadExportPage getPage(){
         if(page == null){
             page = new LeadExportPage();
-            page.setUrl("https://my.dev.zurple.com/leadmgr/export");
             page.setDriver(getDriver());
         }
         return page;

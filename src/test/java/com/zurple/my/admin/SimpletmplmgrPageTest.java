@@ -15,7 +15,6 @@ public class SimpletmplmgrPageTest
     public SimpletmplmgrPage getPage(){
         if(page == null){
             page = new SimpletmplmgrPage();
-            page.setUrl("https://my.dev.zurple.com/simpletemplmgr/");
             page.setDriver(getDriver());
         }
         return page;

@@ -5,5 +5,7 @@ import com.zurple.my.Page;
 public class IndexPage
         extends Page
 {
-
+    public IndexPage(){
+        url = "/admin/";
+    }
 }

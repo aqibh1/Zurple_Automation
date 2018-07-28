@@ -8,7 +8,7 @@ public class AgentsPage
 {
 
     public AgentsPage(){
-        url = "http://dev.zengtest1.us/agents";
+        url = "/agents";
     }
 
     public WebElement getHeader(){

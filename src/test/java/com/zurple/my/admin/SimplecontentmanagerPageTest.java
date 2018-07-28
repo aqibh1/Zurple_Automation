@@ -13,7 +13,6 @@ public class SimplecontentmanagerPageTest
     public SimplecontentmanagerPage getPage(){
         if(page == null){
             page = new SimplecontentmanagerPage();
-            page.setUrl("https://my.dev.zurple.com/simplecontentmanager/edit/?key=zurple_updates_v2");
             page.setDriver(getDriver());
         }
         return page;

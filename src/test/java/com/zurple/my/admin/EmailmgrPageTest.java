@@ -11,7 +11,6 @@ public class EmailmgrPageTest
     public EmailmgrPage getPage(){
         if(page == null){
             page = new EmailmgrPage();
-            page.setUrl("https://my.dev.zurple.com/emailmgr/");
             page.setDriver(getDriver());
         }
         return page;

@@ -11,7 +11,7 @@ public class ForgotPage
     private LoginForm loginForm;
 
     public ForgotPage(){
-        url = "https://my.dev.zurple.com/forgot";
+        url = "/forgot";
     }
 
     //TODO - this method is marker that we should refactor our templates

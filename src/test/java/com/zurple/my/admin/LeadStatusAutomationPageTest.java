@@ -30,7 +30,6 @@ public class LeadStatusAutomationPageTest
     public LeadStatusAutomationPage getPage(){
         if(page == null){
             page = new LeadStatusAutomationPage();
-            page.setUrl("https://my.dev.zurple.com/admin/processleadsstatuses");
             page.setDriver(getDriver());
         }
         return page;

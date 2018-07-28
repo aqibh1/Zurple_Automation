@@ -20,7 +20,7 @@ public class SearchResultsPage
     }
 
     public SearchResultsPage(){
-        url = "http://dev.zengtest1.us/search/page";
+        url = "/search/page";
     }
 
     public SearchResultsPage(String url){

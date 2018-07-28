@@ -11,7 +11,6 @@ public class CreateActivityAlertPageTest
     public CreateActivityAlertPage getPage(){
         if(page == null){
             page = new CreateActivityAlertPage();
-            page.setUrl("https://my.dev.zurple.com/admin/createactivityalert");
             page.setDriver(getDriver());
         }
         return page;

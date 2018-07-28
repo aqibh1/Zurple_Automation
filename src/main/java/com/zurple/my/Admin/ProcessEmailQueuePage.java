@@ -18,6 +18,10 @@ public class ProcessEmailQueuePage
     protected Button leadsAlertsQueueProcessButton;
     protected Button leadsAlertsQueueFetchButton;
 
+    public ProcessEmailQueuePage(){
+        url = "/admin/processemailqueue";
+    }
+
     public boolean checkLeadsAlertsQueueProcessingButtonExists(){
         try{
             getLeadsAlertsQueueProcessingButton();

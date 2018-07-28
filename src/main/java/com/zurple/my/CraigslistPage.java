@@ -10,7 +10,7 @@ public class CraigslistPage
 {
 
     public CraigslistPage(){
-        url = "https://my.dev.zurple.com/properties/craigslist";
+        url = "/properties/craigslist";
     }
 
     private CraigsListBlock craigsListBlock;

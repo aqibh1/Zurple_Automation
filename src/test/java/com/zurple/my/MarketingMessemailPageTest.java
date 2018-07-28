@@ -22,7 +22,6 @@ public class MarketingMessemailPageTest  extends PageTest
     public MarketingMessemailPage getPage(){
         if(page == null){
             page = new MarketingMessemailPage();
-            page.setUrl("https://my.dev.zurple.com/marketing/massemail/lead/"+getEnvironment().getLeadToCheck());
             page.setDriver(getDriver());
         }
         return page;

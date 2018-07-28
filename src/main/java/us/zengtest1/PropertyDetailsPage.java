@@ -16,7 +16,7 @@ public class PropertyDetailsPage
     private JssorSlider jssorSlider;
 
     public PropertyDetailsPage(){
-        url = "http://dev.zengtest1.us/CA/San_Diego/101217";
+        url = "/CA/San_Diego/101217";
     }
 
     public ContactAgentForm getContactAgentForm(){

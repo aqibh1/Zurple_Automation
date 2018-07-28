@@ -11,7 +11,6 @@ public class AgentmgrPageTest
     public AgentmgrPage getPage(){
         if(page == null){
             page = new AgentmgrPage();
-            page.setUrl("https://my.dev.zurple.com/agentmgr/");
             page.setDriver(getDriver());
         }
         return page;

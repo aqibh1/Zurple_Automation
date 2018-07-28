@@ -81,6 +81,9 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.20.1</version>
           <configuration>
+            <systemPropertyVariables>
+              <environment>${environment}</environment>
+            </systemPropertyVariables>
             <suiteXmlFiles>
               <suiteXmlFile>src/test/resources/TestSuites/${suite}</suiteXmlFile>
             </suiteXmlFiles>

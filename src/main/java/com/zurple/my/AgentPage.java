@@ -8,6 +8,11 @@ public class AgentPage
         extends Page
 {
     private AgentEditForm agentEditForm;
+    private Integer agentId;
+
+    public AgentPage(){
+        url = "/agent/edit/admin_id/";
+    }
 
     public boolean checkAgentEditFormExists(){
         try{
@@ -23,5 +28,18 @@ public class AgentPage
         agentEditForm.setDriver(driver);
         agentEditForm.setForm(driver.findElement(By.xpath("//*[@id=\"edit-admin-form\"]")));
         return agentEditForm;
+    }
+
+    public Integer getAgentId() {
+        return agentId;
+    }
+
+    public void setAgentId(Integer agentId) {
+        this.agentId = agentId;
+    }
+
+    public String getFullUrl()
+    {
+        return getBaseUrl() + url + getAgentId();
     }
 }

@@ -8,11 +8,11 @@ public class HomePage extends Page
 {
 
     public HomePage(){
-        url = "http://dev.zengtest1.us/";
+        url = "";
     }
 
     public HomePage(String source_in_url){
-        url = "http://dev.zengtest1.us/"+source_in_url;
+        url = source_in_url;
     }
 
     public WebElement getHeader(){

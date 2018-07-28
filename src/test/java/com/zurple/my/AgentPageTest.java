@@ -17,7 +17,7 @@ public class AgentPageTest  extends PageTest
     public AgentPage getPage(){
         if(page == null){
             page = new AgentPage();
-            page.setUrl("https://my.dev.zurple.com/agent/edit/admin_id/"+getEnvironment().getCurrentAgentId());
+            page.setAgentId(getEnvironment().getCurrentAgentId());
             page.setDriver(getDriver());
         }
         return page;

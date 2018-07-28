@@ -11,7 +11,6 @@ public class LeadScoreConfigPageTest
     public LeadScoreConfigPage getPage(){
         if(page == null){
             page = new LeadScoreConfigPage();
-            page.setUrl("https://my.dev.zurple.com/admin/leadscoreconfig");
             page.setDriver(getDriver());
         }
         return page;

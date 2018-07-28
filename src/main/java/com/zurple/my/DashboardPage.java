@@ -17,7 +17,7 @@ public class DashboardPage
     HotBehaviorBlock hotBehaviorBlock;
 
     public DashboardPage(){
-        url = "https://my.dev.zurple.com/dashboard";
+        url = "/dashboard";
     }
 
     public boolean checkNewLeadsBlock(){

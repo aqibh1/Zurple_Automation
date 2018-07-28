@@ -21,7 +21,12 @@ public class LeadDetailPage
     RemindersBlock remindersBlock;
     LeadsDetailsBlock leadsDetailsBlock;
     private LeadStatusForm leadStatusForm;
-    
+    private Integer leadId;
+
+    public LeadDetailPage(){
+        url = "/lead/";
+    }
+
     private SweetAlertNotification sweetAlertNotification;
     private SweetAlertNotification leadStatusUpdateNotification;
     private SweetAlertNotification leadStatusUpdatedNotification;
@@ -136,5 +141,18 @@ public class LeadDetailPage
         leadStatusForm.setForm(driver.findElement(By.xpath("//*[@id=\"form_change_status\"]")));
         return leadStatusForm;
     }
-    
+
+    public Integer getLeadId() {
+        return leadId;
+    }
+
+    public void setLeadId(Integer leadId) {
+        this.leadId = leadId;
+    }
+
+    public String getFullUrl()
+    {
+        return getBaseUrl() + url + getLeadId();
+    }
+
 }

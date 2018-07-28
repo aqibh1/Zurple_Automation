@@ -11,6 +11,10 @@ public class AdminmgrPage
 
     private AdminsListBlock adminsListBlock;
 
+    public AdminmgrPage(){
+        url = "/adminmgr/";
+    }
+
     public boolean checkAdminListBlockExists(){
         try{
             getAdminsListBlock();

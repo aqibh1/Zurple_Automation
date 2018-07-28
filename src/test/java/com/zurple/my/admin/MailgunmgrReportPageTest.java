@@ -11,7 +11,6 @@ public class MailgunmgrReportPageTest
     public MailgunmgrReportPage getPage(){
         if(page == null){
             page = new MailgunmgrReportPage();
-            page.setUrl("https://my.dev.zurple.com/mailgunmgr/report");
             page.setDriver(getDriver());
         }
         return page;

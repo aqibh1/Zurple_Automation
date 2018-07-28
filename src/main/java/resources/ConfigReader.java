@@ -6,20 +6,20 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigReader {
-    private static ConfigReader instance = null;
+    private static ConfigReader instance;
 
-    private Properties prop = null;
+    private Properties prop = new Properties();
 
     private ConfigReader() {
         // Exists only to defeat instantiation.
     }
 
-    private ConfigReader(String environment) {
+    public ConfigReader(String environment) {
         InputStream input = null;
 
         try {
 
-            input = new FileInputStream("config."+environment+".properties");
+            input = new FileInputStream("src/main/config/config."+environment+".properties");
 
             // load a properties file
             prop.load(input);
@@ -41,8 +41,9 @@ public class ConfigReader {
         return prop.getProperty(propertyName);
     }
 
-    public static ConfigReader load(String environment) {
+    public static ConfigReader load() {
         if (instance == null) {
+            String environment = System.getProperty("environment");
             instance = new ConfigReader(environment);
         }
         return instance;

@@ -19,12 +19,13 @@ public abstract class AbstractPage
 
     public void setDriver(WebDriver driver){
         this.driver=driver;
-        if(!this.driver.getCurrentUrl().equals(getUrl())){
-            driver.get(getUrl());
-            System.out.println(getUrl());
+        if(!this.driver.getCurrentUrl().equals(getFullUrl())){
+            driver.get(getFullUrl());
         }
         focusOnPage();
     }
+
+    protected abstract String getBaseUrl();
 
     public String getCurrentUrl(){
         return this.driver.getCurrentUrl();
@@ -58,6 +59,11 @@ public abstract class AbstractPage
 
     public void setUrl(String u){
         url = u;
+    }
+
+    public String getFullUrl()
+    {
+        return getBaseUrl() + url;
     }
 
     public String getTitle(){

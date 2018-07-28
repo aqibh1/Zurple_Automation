@@ -26,7 +26,7 @@ public class AdminmgrEditPageTest
         if (page == null)
         {
             page = new AdminmgrEditPage();
-            page.setUrl("https://my.dev.zurple.com/adminmgr/edit/admin_id/" + getEnvironment().getAgentToCheck());
+            page.setAdminId(getEnvironment().getAgentToCheck());
             page.setDriver(getDriver());
         }
         return page;

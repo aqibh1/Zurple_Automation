@@ -9,6 +9,11 @@ public class PackagemgrEditPage
         extends Page
 {
     private PackageEditForm packageEditForm;
+    private Integer packageId;
+
+    public PackagemgrEditPage(){
+        url = "/packagemgr/edit/package_id/";
+    }
 
     public boolean checkPackageEditFormExists(){
         try{
@@ -25,4 +30,18 @@ public class PackagemgrEditPage
         packageEditForm.setDriver(driver);
         return packageEditForm;
     }
+
+    public Integer getPackageId() {
+        return packageId;
+    }
+
+    public void setPackageId(Integer packageId) {
+        this.packageId = packageId;
+    }
+
+    public String getFullUrl()
+    {
+        return getBaseUrl() + url + getPackageId();
+    }
+
 }

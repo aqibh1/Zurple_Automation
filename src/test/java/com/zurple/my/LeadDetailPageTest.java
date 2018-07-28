@@ -40,7 +40,7 @@ public class LeadDetailPageTest
                 leadToCheck = lastRegisteredUser.getId();
             }
             
-            page.setUrl("https://my.dev.zurple.com/lead/"+leadToCheck+"?from=new");
+            page.setLeadId(leadToCheck);
             page.setDriver(getDriver());
         }
         return page;

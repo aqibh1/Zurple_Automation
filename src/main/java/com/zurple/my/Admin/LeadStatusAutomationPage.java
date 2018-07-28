@@ -22,6 +22,10 @@ public class LeadStatusAutomationPage
     protected Button leadsStatusAutomationProcessButton;
     protected LeadStatusAutomationProcessingWarning processingWarning;
 
+    public LeadStatusAutomationPage(){
+        url = "/admin/processleadsstatuses";
+    }
+
     public boolean checkLeadsStatusAutomationProcessingButtonExists(){
         try{
             getLeadsStatusAutomationProcessingButton();

@@ -9,7 +9,7 @@ public class PropertiesPage
 {
 
     public PropertiesPage(){
-        url = "https://my.dev.zurple.com/properties";
+        url = "/properties";
     }
 
     //TODO - this method is marker that we should refactor our templates

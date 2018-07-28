@@ -32,7 +32,6 @@ public class LeadImportPageTest
     public LeadImportPage getPage(){
         if(page == null){
             page = new LeadImportPage();
-            page.setUrl("https://my.dev.zurple.com/leadmgr/import");
             page.setDriver(getDriver());
         }
         return page;
@@ -119,8 +118,6 @@ public class LeadImportPageTest
         }
 
         getPage().getLeadsImportForm().submit();
-
-        assertEquals(getDriver().getCurrentUrl(),getPage().getUrl());
 
         assertTrue(getPage().checkLeadsImportFeedbackBlockExists());
         assertTrue(getPage().getLeadsImportFeedbackBlock().isVisible());

@@ -11,7 +11,6 @@ public class ViewARAlertsPageTest
     public ViewARAlertsPage getPage(){
         if(page == null){
             page = new ViewARAlertsPage();
-            page.setUrl("https://my.dev.zurple.com/admin/viewaralerts");
             page.setDriver(getDriver());
         }
         return page;
