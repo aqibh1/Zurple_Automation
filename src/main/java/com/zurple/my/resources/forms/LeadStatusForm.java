@@ -33,5 +33,35 @@ public class LeadStatusForm
 
         return list;
     }
-    
+
+    public LeadStatus getStatus(){
+        LeadStatus status = new LeadStatus();
+
+        try{
+            WebElement st = form.findElements(By.xpath("//descendant::select[@id=\"lead_status\"]/option[@selected]")).get(0);
+
+            status.setValue(st.getAttribute("value"));
+            status.setDescription(st.getText());
+
+        }
+        catch (StaleElementReferenceException e) {}
+        catch( TimeoutException e ) {}
+
+        return status;
+    }
+
+    public WebElement getStatusAutomationIcon(){
+        WebElement icon = null;
+
+        try{
+            icon = form.findElements(By.xpath("//div[@id=\"automation_marker\"]")).get(0);
+
+        }
+        catch (StaleElementReferenceException e) {}
+        catch( TimeoutException e ) {}
+
+        return icon;
+    }
+
+
 }

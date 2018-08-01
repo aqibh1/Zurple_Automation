@@ -12,6 +12,7 @@
 
     <mapping class="resources.orm.hibernate.models.Lead"></mapping>
     <mapping class="resources.orm.hibernate.models.UserAlert"></mapping>
+    <mapping class="resources.orm.hibernate.models.UserStatusChanges"></mapping>
     <mapping class="resources.orm.hibernate.models.City"></mapping>
     <mapping class="resources.orm.hibernate.models.AlertRule"></mapping>
     <mapping class="resources.orm.hibernate.models.User"></mapping>

@@ -1,7 +1,6 @@
 package resources.orm.hibernate.models;
 
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,6 +40,7 @@ public class User extends Abstract
     private Date update_datetime;
 
     private Set<UserAlert> user_alerts;
+    private List<UserStatusChanges> user_status_changes;
 
     public User() {
     }
@@ -156,6 +156,23 @@ public class User extends Abstract
     public void setUserAlerts(Set<UserAlert> user_alerts)
     {
         this.user_alerts = user_alerts;
+    }
+
+    @OneToMany(fetch=FetchType.EAGER, mappedBy="user")
+    public List<UserStatusChanges> getUserStatusChanges() {
+        Collections.sort(this.user_status_changes, new Comparator<UserStatusChanges>() {
+            public int compare(UserStatusChanges o1, UserStatusChanges o2) {
+                if (o1.getStatusChangeDatetime() == null || o2.getStatusChangeDatetime() == null)
+                    return 0;
+                return o1.getStatusChangeDatetime().compareTo(o2.getStatusChangeDatetime());
+            }
+        });
+        return this.user_status_changes;
+    }
+
+    public void setUserStatusChanges(List<UserStatusChanges> user_status_changes)
+    {
+        this.user_status_changes = user_status_changes;
     }
 
 }

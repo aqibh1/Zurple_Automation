@@ -130,8 +130,8 @@ public class LeadDetailPageTest
     }
         
     @Test
-    @Parameters({"status"})
-    public void testLeadStatusUpdate(@Optional("") String status){
+    @Parameters({"status", "temporary_status_change"})
+    public void testLeadStatusUpdate(@Optional("") String status,@Optional("false") Boolean temporary_status_change){
         assertTrue(getPage().checkLeadStatusFormExists());
         LeadStatusForm form = getPage().getLeadStatusForm();
         
@@ -139,9 +139,31 @@ public class LeadDetailPageTest
         
         assertTrue(getPage().getLeadStatusUpdateNotification().getAlert().isDisplayed());
         assertEquals(getPage().getLeadStatusUpdateNotification().getMessage(),"Is this a temporary update?");
-        getPage().getLeadStatusUpdateNotification().clickOkButton();
+        if (temporary_status_change == true){
+            getPage().getLeadStatusUpdateNotification().clickOkButton();
+        }else{
+            getPage().getLeadStatusUpdateNotification().clickCancelButton();
+        }
 
         waitLoad();
 
+    }
+
+    @Parameters({"status", "ignore_automation"})
+    @Test
+    public void testLeadStatusBlock(@Optional("") String status,@Optional("0") Integer ignore_automation) {
+        assertEquals(getPage().getLeadStatusForm().getStatus().getValue(),status);
+        if (ignore_automation == 0)
+        {
+            assertEquals(getPage().getLeadStatusForm().getStatusAutomationIcon(),null);
+        }else if(ignore_automation == 1)
+        {
+            assertEquals(getPage().getLeadStatusForm().getStatusAutomationIcon().getAttribute("title"),"30 days until lead automation is re-enabled");
+            assertEquals(getPage().getLeadStatusForm().getStatusAutomationIcon().getAttribute("class"),"z-lead-automation-marker z-lead-automation-paused");
+        }else
+        {
+            assertEquals(getPage().getLeadStatusForm().getStatusAutomationIcon().getAttribute("title"),"Lead status is paused from automation. To allow for automation to occur again, please update the status and select Temporary change.");
+            assertEquals(getPage().getLeadStatusForm().getStatusAutomationIcon().getAttribute("class"),"z-lead-automation-marker z-lead-automation-disabled");
+        }
     }
 }

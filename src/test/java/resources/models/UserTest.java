@@ -27,10 +27,16 @@ public class UserTest extends AbstractTest
 {
 
     @Test
-    @Parameters({"status_expected"})
-    public void testLastUserStatus(@Optional("") String status_expected){
+    @Parameters({"status_expected","ignore_automation"})
+    public void testLastUserStatus(@Optional("") String status_expected,@Optional("0") Integer ignore_automation){
         User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
         assertEquals(lastRegisteredUser.getUserStatus(),status_expected);
+
+        if (ignore_automation != 0)
+        {
+            assertEquals(lastRegisteredUser.getUserStatusChanges().get(0).getIgnoreAutomation(),ignore_automation);
+        }
+
     }
 
     @Test

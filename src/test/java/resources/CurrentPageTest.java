@@ -24,6 +24,11 @@ public class CurrentPageTest
         driver=null;
     }
 
+    @Test
+    public void refreshPage(){
+        driver.navigate().refresh();
+    }
+
     public void clearPage(){
         page=null;
     };

@@ -12,12 +12,14 @@ public abstract class AbstractAlert
 
     protected WebElement alert;
     protected WebElement okButton;
+    protected WebElement cancelButton;
     protected String message;
 
     public void setAlert(WebElement object){
         alert = object;
         try{
             okButton = alert.findElement(By.xpath("./descendant::button[contains(@class,\"confirm\")]"));
+            cancelButton = alert.findElement(By.xpath("./descendant::button[contains(@class,\"cancel\")]"));
             message = alert.findElement(By.xpath("./descendant::h2")).getText();
         }catch(NoSuchElementException e){}
     }
@@ -40,6 +42,16 @@ public abstract class AbstractAlert
     public void clickOkButton()
     {
         okButton.click();
+    }
+
+    public void setCancelButton(WebElement object)
+    {
+        cancelButton = object;
+    }
+
+    public void clickCancelButton()
+    {
+        cancelButton.click();
     }
 
     public boolean isVisible(){
