@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Lead status automation paused icon is show in lead details page">
+<suite name="Lead status automation icon is show correctly in lead details page">
 
   <test name="Register new user">
     <classes>
