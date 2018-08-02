@@ -1,9 +1,15 @@
 package com.zurple.my;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.classes.LeadSearchCriteria;
+import resources.orm.hibernate.models.User;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -14,6 +20,13 @@ import static org.testng.Assert.assertTrue;
 public class LeadListPageTest  extends PageTest
 {
     private static LeadListPage page;
+
+    public LeadListPage getPage(String url){
+        page = new LeadListPage();
+        page.setUrl(url);
+        page.setDriver(getDriver());
+        return page;
+    }
 
     public LeadListPage getPage(){
         if(page == null){
@@ -56,11 +69,32 @@ public class LeadListPageTest  extends PageTest
     }
 
     @Test
-    public void testLeadList(){
+    @Parameters({"url"})
+    public void testLeadList(@Optional("") String url){
+        getPage(url);
         assertTrue(getPage().checkLeadsListBlockExists());
 
         assertEquals(getPage().getLeadsListBlock().getLeadList().size(),15);
-        assertEquals(Math.ceil(getPage().getLeadsListBlock().getTotalLeadsNumber()/15),(double)getPage().getLeadsListBlock().getNumberOfPages());
+        assertEquals((int)Math.ceil(getPage().getLeadsListBlock().getTotalLeadsNumber()/15.0),(int)getPage().getLeadsListBlock().getNumberOfPages());
+    }
+
+    @Test
+    @Parameters({"status","ignore_automation"})
+    public void testLeadStatusAutomationIcon(@Optional("") String status, @Optional("0") Integer ignore_automation){
+
+        User user = getEnvironment().getUserToCheck();
+        if (ignore_automation == 0)
+        {
+            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()),null);
+        }else if(ignore_automation == 1)
+        {
+            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()).getAttribute("title"),"30 days until lead automation is re-enabled");
+            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()),"z-lead-automation-marker z-lead-automation-paused");
+        }else
+        {
+            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()),"Lead status is paused from automation. To allow for automation to occur again, please update the status and select Temporary change.");
+            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()),"z-lead-automation-marker z-lead-automation-disabled");
+        }
     }
 
 }

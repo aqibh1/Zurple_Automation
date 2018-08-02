@@ -65,6 +65,18 @@ public class UserTest extends AbstractTest
     }
 
     @Test
+    @Parameters({"status","ignore_automation"})
+    public void testChangeUserStatus(@Optional("") String status,@Optional("0") Integer ignore_automation) {
+        User user = getEnvironment().getUserToCheck();
+        user.setUserStatus(status);
+        if (ignore_automation != 0){
+            user.getUserStatusChanges().get(0).setIgnoreAutomation(ignore_automation);
+            user.getUserStatusChanges().get(0).save();
+        }
+        user.save();
+    }
+
+        @Test
     @Parameters({"status_initial"})
     public void testPrepareUserBecomesProspect2(@Optional("") String status_initial){
         

@@ -71,6 +71,13 @@ public class RegisterPageTest
         Pattern pattern = Pattern.compile("http://dev\\.zengtest1\\.us/thankyou\\?lead_id=(\\d+)");
         Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
         assertTrue(matcher.find());
+
+        Integer user_id = Integer.parseInt(matcher.group(1));
+
+        //Checking created lead source
+        //Checking DB record body
+        User newUser = getEnvironment().getUserById(user_id);
+        getEnvironment().setUserToCheck(newUser);
     }
 
     @Test(priority=50)

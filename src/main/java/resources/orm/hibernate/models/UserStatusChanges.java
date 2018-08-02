@@ -9,7 +9,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "user_status_changes", catalog = "zurple_platform", uniqueConstraints = {
         @UniqueConstraint(columnNames = "id")})
-public class UserStatusChanges
+public class UserStatusChanges extends Abstract
         implements java.io.Serializable  {
 
     private Integer id;

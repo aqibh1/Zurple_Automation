@@ -45,6 +45,8 @@ public class TestEnvironment
     private Admin admin;
     
     private User lastRegisteredUser;
+    private User userToCheck;
+
 
     private static SessionFactory factory;
 
@@ -256,5 +258,13 @@ public class TestEnvironment
     public void setCurrentAgentId(Integer currentAgentId)
     {
         this.currentAgentId = currentAgentId;
+    }
+
+    public User getUserToCheck() {
+        return userToCheck;
+    }
+
+    public void setUserToCheck(User userToCheck) {
+        this.userToCheck = userToCheck;
     }
 }

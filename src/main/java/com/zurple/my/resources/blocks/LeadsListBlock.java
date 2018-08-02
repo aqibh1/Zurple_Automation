@@ -9,14 +9,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.criteria.CriteriaBuilder.In;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import resources.classes.Helper;
 import resources.classes.Lead;
 
 public class LeadsListBlock
@@ -33,31 +31,61 @@ public class LeadsListBlock
 
         try{
 
+            Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("./descendant::table[@id=\"DataTables_Table_0\"]/tbody/tr")));
+
             List<WebElement> allLeadRows = block.findElements(By.xpath("./descendant::table[@id=\"DataTables_Table_0\"]/tbody/tr"));
 
             for (WebElement row: allLeadRows) {
                 Lead lead = new Lead();
-                lead.setLeadLink(row.findElement(By.xpath("./td[3]/a")).getAttribute("href"));
-                lead.setName(row.findElement(By.xpath("./td[3]")).getText());
+                lead.setLeadLink(this.getCellByTitle(row,"Name").findElement(By.xpath("//a")).getAttribute("href"));
+                lead.setName(this.getCellByTitle(row,"Name").findElement(By.xpath("//a")).getText());
 
-                lead.setEmail(row.findElement(By.xpath("./td[4]/a")).getText());
-                lead.setSearchLocation(row.findElement(By.xpath("./td[5]")).getText());
+                lead.setEmail(this.getCellByTitle(row,"Email").findElement(By.xpath("//a")).getText());
+                lead.setSearchLocation(this.getCellByTitle(row,"Search Location").getText());
                 DateFormat df = new SimpleDateFormat("mm/dd/yy hh:mma");
                 try
                 {
-                    lead.setLastVisit(df.parse(row.findElement(By.xpath("./td[7]")).getText().replace("at","")));
-                    lead.setDateCreated(df.parse(row.findElement(By.xpath("./td[8]")).getText().replace("at","")));
+                    lead.setLastVisit(df.parse(this.getCellByTitle(row,"Last Visit").getText().replace("at","")));
+                    lead.setDateCreated(df.parse(this.getCellByTitle(row,"Date Created").getText().replace("at","")));
                 }
                 catch (ParseException e) {}
-                lead.setAgent(row.findElement(By.xpath("./td[9]")).getText());
-                lead.setPriorityRank(row.findElement(By.xpath("./td[10]/span")).getText());
-                lead.setFlagsList(parseHotAlertsFlags(row.findElement(By.xpath("./td[11]"))));
+                lead.setPriorityRank(this.getCellByTitle(row,"Priority Rank").getText());
+                lead.setFlagsList(parseHotAlertsFlags(this.getCellByTitle(row,"Hot Behaviors")));
                 list.add(lead);
             }
             return list;
         }catch (StaleElementReferenceException e) {}
         catch( TimeoutException e ) {}
         return list;
+    }
+
+    public WebElement getCellByTitle(WebElement row, String title){
+
+        List<WebElement> allColumnTitles = block.findElements(By.xpath("./descendant::table[@id=\"DataTables_Table_0\"]/thead/tr/th"));
+        WebElement targetColumn = block.findElement(By.xpath("./descendant::table[@id=\"DataTables_Table_0\"]/thead/tr/th[contains(text(),\""+title+"\")]"));
+        Integer position = allColumnTitles.indexOf(targetColumn)+1;
+
+        return row.findElement(By.xpath("//ancestor::tr/td["+position+"]"));
+    }
+
+    public WebElement getLeadRowByUserId(Integer user_id){
+        return block.findElement(By.xpath("//descendant::table[@id=\"DataTables_Table_0\"]/tbody/tr/td/input[@value=\""+user_id+"\"]"));
+    }
+
+    public WebElement getUserStatusAutomationIcon(Integer user_id){
+        WebElement icon = null;
+
+        try{
+            WebElement row = this.getLeadRowByUserId(user_id);
+            WebElement cell = this.getCellByTitle(row,"Last Modified");
+            icon = cell.findElement(By.xpath("//div[@id=\"automation_marker\"]"));
+
+        }
+        catch (StaleElementReferenceException e) {}
+        catch( NoSuchElementException e ) {}
+
+        return icon;
     }
 
     public Integer getNumberOfPages(){
