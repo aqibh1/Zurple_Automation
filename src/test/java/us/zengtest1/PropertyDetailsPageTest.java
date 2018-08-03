@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.AbstractPageTest;
 import resources.alerts.SweetAlertNotification;
@@ -109,26 +111,22 @@ public class PropertyDetailsPageTest
     }
 
     @Test
-    public void testAddingPropertyToFavorites()
+    @Parameters({"property_id"})
+    public void testAddingPropertyToFavorites(@Optional("0") Integer property_id)
     {
-        /*getPage().getFavoriteButton().click();
+        getPage().getFavoriteButton().click();
 
-        Wait<FirefoxDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
+        Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(SweetAlertNotification.alertXpath)));
 
         assertTrue(getPage().getSweetAlertNotification().getAlert().isDisplayed());
-        assertEquals("Please sign in to use all features.", getPage().getSweetAlertNotification().getMessage());
-          */
-        /*
-        Wait wait2 = new FluentWait(driver)
-                .withTimeout(1, TimeUnit.SECONDS)
-                .pollingEvery(1, TimeUnit.SECONDS)
-                .ignoring(NoSuchElementException.class);
-        wait2.until(new Function() {
-            public WebElement apply(FirefoxDriver driver) {
-                return driver.findElement(By.id("foo"));
-            }
-        });*/
+        assertEquals("Added to your favorites.", getPage().getSweetAlertNotification().getMessage());
+
+        getPage().getSweetAlertNotification().clickOkButton();
+
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(SweetAlertNotification.alertXpath)));
+        assertFalse(getPage().getSweetAlertNotification().getAlert().isDisplayed());
+
     }
 
 }

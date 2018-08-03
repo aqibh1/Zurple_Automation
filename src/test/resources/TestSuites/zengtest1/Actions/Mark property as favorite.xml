@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Marking property as favorite">
+
+  <test name="Marking property as favorite">
+    <classes>
+      <class name="us.zengtest1.PropertyDetailsPageTest" >
+        <parameter name="property_id" value="100000"/>
+        <methods>
+          <include name="testAddingPropertyToFavorites" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

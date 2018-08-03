@@ -36,6 +36,7 @@ public class User extends Abstract
     private String user_first_name;
     private String user_status;
     private String traffic_source;
+    private Integer user_lead_score;
     private Date create_datetime;
     private Date update_datetime;
 
@@ -174,5 +175,15 @@ public class User extends Abstract
     {
         this.user_status_changes = user_status_changes;
     }
+
+    @Column(name = "user_lead_score")
+    public Integer getUserLeadScore() {
+        return this.user_lead_score;
+    }
+
+    public void setUserLeadScore(Integer user_lead_score) {
+        this.user_lead_score = user_lead_score;
+    }
+
 
 }

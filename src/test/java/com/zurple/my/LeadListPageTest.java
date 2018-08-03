@@ -6,6 +6,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.classes.LeadSearchCriteria;
+import resources.models.UserTest;
 import resources.orm.hibernate.models.User;
 
 import static org.testng.Assert.assertEquals;
@@ -74,9 +75,31 @@ public class LeadListPageTest  extends PageTest
         getPage(url);
         assertTrue(getPage().checkLeadsListBlockExists());
 
-        assertEquals(getPage().getLeadsListBlock().getLeadList().size(),15);
+        assertTrue(getPage().getLeadsListBlock().getLeadList().size() > 0);
         assertEquals((int)Math.ceil(getPage().getLeadsListBlock().getTotalLeadsNumber()/15.0),(int)getPage().getLeadsListBlock().getNumberOfPages());
     }
+
+    @Test
+    @Parameters({"urls","statuses","ignore_automation_values"})
+    public void runLeadStatusAutomationIconTests(@Optional("") String urls, @Optional("") String statuses, @Optional("") String ignore_automation_values){
+
+        String[] urlsList = urls.split("\\|", -1);
+        String[] statusesList = statuses.split("\\|", -1);
+        String[] ignoreAutomationValuesList = ignore_automation_values.split("\\|", -1);
+
+        for (String url: urlsList){
+            for (String status: statusesList){
+                for (String ignoreAutomation: ignoreAutomationValuesList){
+                    UserTest userTest = new UserTest();
+                    userTest.testChangeUserStatus(status,Integer.parseInt(ignoreAutomation));
+
+                    LeadListPageTest leadListPageTest = new LeadListPageTest();
+                    leadListPageTest.testLeadList(url);
+                }
+            }
+        }
+    }
+
 
     @Test
     @Parameters({"status","ignore_automation"})
@@ -89,11 +112,11 @@ public class LeadListPageTest  extends PageTest
         }else if(ignore_automation == 1)
         {
             assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()).getAttribute("title"),"30 days until lead automation is re-enabled");
-            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()),"z-lead-automation-marker z-lead-automation-paused");
+            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()).getAttribute("class"),"z-lead-automation-marker z-lead-automation-paused");
         }else
         {
-            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()),"Lead status is paused from automation. To allow for automation to occur again, please update the status and select Temporary change.");
-            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()),"z-lead-automation-marker z-lead-automation-disabled");
+            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()).getAttribute("title"),"Lead status is paused from automation. To allow for automation to occur again, please update the status and select Temporary change.");
+            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()).getAttribute("class"),"z-lead-automation-marker z-lead-automation-disabled");
         }
     }
 

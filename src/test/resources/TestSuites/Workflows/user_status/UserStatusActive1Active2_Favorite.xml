@@ -1,0 +1,56 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="User Change Status From Active1 to Active2 Favorite">
+
+  <test name="Preparing user status change active1->active2">
+    <parameter name="status_initial" value="active1"/>
+    <classes>
+      <class name="resources.models.UserTest">
+        <methods>
+          <include name="testPrepareUserBecomesActive2" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <suite-files>
+    <suite-file path="../../zengtest1/Actions/Mark property as favorite.xml"/>
+  </suite-files>
+  
+  <test name="Processing leads status automation">
+    <classes>
+      <class name="com.zurple.my.LoginPageTest" >
+        <methods>
+          <include name="testSubmittingValidLoginForm" />
+        </methods>
+      </class>
+      <class name="com.zurple.my.admin.ProcessEmailQueuePageTest" >
+        <methods>
+          <include name="testLeadAlertsQueueProcessing" />
+        </methods>
+      </class>
+      <class name="com.zurple.my.admin.LeadStatusAutomationPageTest" >
+        <methods>
+          <include name="testLeadStatusAutomationProcessing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+  <test name="Check user status is ACTIVE2">
+    <parameter name="status_expected" value="active2"/>
+    <classes>
+      <class name="resources.models.UserTest">
+        <methods>
+          <include name="testLastUserStatus" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

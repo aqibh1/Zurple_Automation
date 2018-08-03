@@ -5,6 +5,11 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -73,6 +78,10 @@ public class RegisterPageTest
         assertTrue(matcher.find());
 
         Integer user_id = Integer.parseInt(matcher.group(1));
+
+        //Waiting for redirect to search page
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10); //seconds
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@value=\"SEARCH\"]")));
 
         //Checking created lead source
         //Checking DB record body

@@ -38,10 +38,10 @@ public class LeadsListBlock
 
             for (WebElement row: allLeadRows) {
                 Lead lead = new Lead();
-                lead.setLeadLink(this.getCellByTitle(row,"Name").findElement(By.xpath("//a")).getAttribute("href"));
-                lead.setName(this.getCellByTitle(row,"Name").findElement(By.xpath("//a")).getText());
+                lead.setLeadLink(this.getCellByTitle(row,"Name").findElement(By.xpath("./a")).getAttribute("href"));
+                lead.setName(this.getCellByTitle(row,"Name").findElement(By.xpath("./a")).getText());
 
-                lead.setEmail(this.getCellByTitle(row,"Email").findElement(By.xpath("//a")).getText());
+                lead.setEmail(this.getCellByTitle(row,"Email").findElement(By.xpath("./a")).getText());
                 lead.setSearchLocation(this.getCellByTitle(row,"Search Location").getText());
                 DateFormat df = new SimpleDateFormat("mm/dd/yy hh:mma");
                 try
@@ -66,11 +66,11 @@ public class LeadsListBlock
         WebElement targetColumn = block.findElement(By.xpath("./descendant::table[@id=\"DataTables_Table_0\"]/thead/tr/th[contains(text(),\""+title+"\")]"));
         Integer position = allColumnTitles.indexOf(targetColumn)+1;
 
-        return row.findElement(By.xpath("//ancestor::tr/td["+position+"]"));
+        return row.findElement(By.xpath("./td["+position+"]"));
     }
 
     public WebElement getLeadRowByUserId(Integer user_id){
-        return block.findElement(By.xpath("//descendant::table[@id=\"DataTables_Table_0\"]/tbody/tr/td/input[@value=\""+user_id+"\"]"));
+        return block.findElement(By.xpath("./descendant::table[@id=\"DataTables_Table_0\"]/tbody/tr/td/input[@value=\""+user_id+"\"]/ancestor::tr"));
     }
 
     public WebElement getUserStatusAutomationIcon(Integer user_id){
@@ -79,7 +79,7 @@ public class LeadsListBlock
         try{
             WebElement row = this.getLeadRowByUserId(user_id);
             WebElement cell = this.getCellByTitle(row,"Last Modified");
-            icon = cell.findElement(By.xpath("//div[@id=\"automation_marker\"]"));
+            icon = cell.findElement(By.xpath("./div[contains(@class,\"z-lead-automation-marker\")]"));
 
         }
         catch (StaleElementReferenceException e) {}

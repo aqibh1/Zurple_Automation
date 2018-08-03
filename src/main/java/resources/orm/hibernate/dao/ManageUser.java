@@ -30,10 +30,14 @@ public class ManageUser
     public User getUser( Integer user_id ){
 
         User user = null;
+        Transaction tx = null;
         try {
+            tx = session.beginTransaction();
             user = (User) session.get(User.class, user_id);
             Hibernate.initialize(user);
+            tx.commit();
         } catch (Exception e) {
+            if (tx!=null) tx.rollback();
             e.printStackTrace();
         } finally {
             if (session != null && session.isOpen()) {

@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Lead status enabled automation icon is show correctly in leads active1 list page">
+
+    <test name="Using user for testing">
+        <parameter name="url" value="/leads/index/ext/active1"/>
+        <parameter name="status" value="active1"/>
+        <parameter name="ignore_automation" value="0"/>
+        <classes>
+          <class name="com.zurple.my.LeadListPageTest">
+            <methods>
+              <include name="testLeadList" />
+              <include name="testLeadStatusAutomationIcon" />
+            </methods>
+          </class>
+        </classes>
+    </test>
+
+</suite>

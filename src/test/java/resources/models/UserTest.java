@@ -76,6 +76,14 @@ public class UserTest extends AbstractTest
         user.save();
     }
 
+    @Test
+    @Parameters({"score"})
+    public void testChangeUserLeadScore(@Optional("0") Integer score) {
+        User user = getEnvironment().getUserToCheck();
+        user.setUserLeadScore(score);
+        user.save();
+    }
+
         @Test
     @Parameters({"status_initial"})
     public void testPrepareUserBecomesProspect2(@Optional("") String status_initial){
@@ -86,7 +94,9 @@ public class UserTest extends AbstractTest
         lastRegisteredUser.save();
 
         String res = SSHConnector.runRemoteScript("cd /workroot/platform/trunk && cd php/src/main/php/application/scripts && echo '{\"adminId\":"+lastRegisteredUser.getAdminId().getId()+",\"userId\":"+lastRegisteredUser.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e dev");
-                
+
+        assertEquals(res,"OK");// Check SSH server is running and accessible
+
     }
 
     @Test

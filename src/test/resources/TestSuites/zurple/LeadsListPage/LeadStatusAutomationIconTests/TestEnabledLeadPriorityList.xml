@@ -1,0 +1,26 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Lead status automation icon is not shown for new leads in priority leads list page">
+
+    <test name="Using NEW user for testing">
+        <parameter name="url" value="/leads/index/ext/priority"/>
+        <parameter name="status" value="new"/>
+        <parameter name="ignore_automation" value="0"/>
+        <parameter name="score" value="90"/>
+        <classes>
+          <class name="resources.models.UserTest">
+            <methods>
+                <include name="testChangeUserLeadScore" />
+                <include name="testChangeUserStatus" />
+            </methods>
+          </class>
+          <class name="com.zurple.my.LeadListPageTest">
+            <methods>
+              <include name="testLeadList" />
+              <include name="testLeadStatusAutomationIcon" />
+            </methods>
+          </class>
+        </classes>
+    </test>
+
+</suite>

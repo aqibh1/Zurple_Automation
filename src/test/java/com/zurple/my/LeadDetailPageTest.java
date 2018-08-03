@@ -19,6 +19,7 @@ import resources.orm.hibernate.dao.ManageUserActivity;
 import resources.orm.hibernate.models.Lead;
 import resources.orm.hibernate.models.SessionUser;
 import resources.orm.hibernate.models.User;
+import us.zengtest1.RegisterPageTest;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -36,7 +37,7 @@ public class LeadDetailPageTest
             
             Integer leadToCheck = getEnvironment().getLeadToCheck();
             if (leadToCheck == null){
-                User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
+                User lastRegisteredUser = getEnvironment().getUserToCheck();
                 leadToCheck = lastRegisteredUser.getId();
             }
             
@@ -134,9 +135,9 @@ public class LeadDetailPageTest
     public void testLeadStatusUpdate(@Optional("") String status,@Optional("false") Boolean temporary_status_change){
         assertTrue(getPage().checkLeadStatusFormExists());
         LeadStatusForm form = getPage().getLeadStatusForm();
-        
+
         form.setSelectValueByValue("lead_status",status);
-        
+
         assertTrue(getPage().getLeadStatusUpdateNotification().getAlert().isDisplayed());
         assertEquals(getPage().getLeadStatusUpdateNotification().getMessage(),"Is this a temporary update?");
         if (temporary_status_change == true){

@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Login to BO">
+
+  <test name="Login BO">
+    <classes>
+      <class name="com.zurple.my.LoginPageTest" >
+        <methods>
+          <include name="testSubmittingValidLoginForm" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

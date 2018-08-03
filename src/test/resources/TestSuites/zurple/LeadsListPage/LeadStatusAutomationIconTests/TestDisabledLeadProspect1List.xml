@@ -1,0 +1,31 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Lead status disabled automation icon is show correctly in prospect1 leads list page">
+
+    <test name="Change status manually permanent to prospect1">
+        <parameter name="status" value="prospect1"/>
+        <parameter name="temporary_status_change" value="false"/>
+        <classes>
+            <class name="com.zurple.my.LeadDetailPageTest">
+                <methods>
+                    <include name="testLeadStatusUpdate" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Using prospect1 user for testing">
+        <parameter name="url" value="/leads/index/ext/prospect1"/>
+        <parameter name="status" value="prospect1"/>
+        <parameter name="ignore_automation" value="2"/>
+        <classes>
+          <class name="com.zurple.my.LeadListPageTest">
+            <methods>
+              <include name="testLeadList" />
+              <include name="testLeadStatusAutomationIcon" />
+            </methods>
+          </class>
+        </classes>
+    </test>
+
+</suite>
