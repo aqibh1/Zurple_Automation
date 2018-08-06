@@ -12,5 +12,16 @@
     <suite-file path="email_alerts/UserRegistrationImmediateResponderEmail.xml"/>
     <suite-file path="../Common/Close Browser.xml"/>
   </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="../zurple/Actions/ClearAdminSignOff.xml"/>
+    <suite-file path="../zurple/Actions/SetLeadValidationStatusCorrect.xml"/>
+    <suite-file path="../zurple/Actions/Login.xml"/>
+    <suite-file path="../zurple/Actions/ProcessUserAlerts.xml"/>
+    <suite-file path="../zurple/Actions/ProcessImmediateResponderQueue.xml"/>
+    <suite-file path="email_alerts/UserRegistrationImmediateResponderEmail.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
   
 </suite>

@@ -47,11 +47,22 @@ public class UserTest extends AbstractTest
         assertEquals(lastEmail.getEmailType(),"auto_responder");
         assertEquals(lastEmail.getSubject(),"Quick Question");
 
-        Pattern p = Pattern.compile("Some unique sign off");
+        String pattern = "";
+        if(user.getAdminId().getEmailUniqueSignOff().isEmpty()){
+            pattern = "Respectfuly";
+        }else{
+            pattern = user.getAdminId().getEmailUniqueSignOff();
+        }
+        Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(lastEmail.getBody());
         assertTrue(m.find());
 
-        p = Pattern.compile("John Doe");
+        if(user.getAdminId().getEmailDisplayName().isEmpty()){
+            pattern = user.getAdminId().getFirstName();
+        }else{
+            pattern = user.getAdminId().getEmailDisplayName();
+        }
+        p = Pattern.compile(pattern);
         m = p.matcher(lastEmail.getBody());
         assertTrue(m.find());
     }
