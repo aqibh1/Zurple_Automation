@@ -27,7 +27,7 @@ public abstract class Abstract
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            session.update(this);
+            session.merge(this);
             tx.commit();
         }catch (HibernateException e) {
             if (tx!=null) tx.rollback();
