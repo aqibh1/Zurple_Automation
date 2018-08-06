@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Inquiring Agent">
+
+  <test name="Agent Inquire">
+    <classes>
+      <class name="us.zengtest1.InsiderPageTest" >
+        <methods>
+          <include name="testAgentInquire" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

@@ -1,25 +1,123 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="User Status Automation Change">
-  
+
   <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
     <suite-file path="user_status/UserStatusNew.xml"/>
-    <suite-file path="user_status/UserStatusNewActive1.xml"/>
-    <suite-file path="user_status/UserStatusNewActive2.xml"/>
-    <suite-file path="user_status/UserStatusNewProspect1.xml"/>
-    <suite-file path="user_status/UserStatusNewProspect2.xml"/>
-    <suite-file path="user_status/UserStatusProspect1Prospect2.xml"/>
-    <suite-file path="user_status/UserStatusProspect1Active1.xml"/>
-    <suite-file path="user_status/UserStatusProspect1Active2.xml"/>
-    <suite-file path="user_status/UserStatusClientProspect1.xml"/>
-    <suite-file path="user_status/UserStatusClientInactive.xml"/>
-    <suite-file path="user_status/UserStatusClientActive1.xml"/>
-    <suite-file path="user_status/UserStatusClientActive2.xml"/>
-    <suite-file path="user_status/UserStatusActive1Prospect1.xml"/>
-    <suite-file path="user_status/UserStatusActive1Active2.xml"/>
-    <suite-file path="user_status/UserStatusActive2Prospect1.xml"/>
-    <suite-file path="user_status/UserStatusActive2Active1.xml"/>
-    <suite-file path="user_status/UserStatusProspect2Prospect1.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
   </suite-files>
-  
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="../zurple/Actions/Login.xml"/>
+    <suite-file path="user_status/UserStatusNewActive1.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="../zengtest1/Actions/Inquire Agent.xml"/>
+    <suite-file path="../zurple/Actions/Login.xml"/>
+    <suite-file path="user_status/UserStatusNewActive2.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="../zurple/Actions/Login.xml"/>
+    <suite-file path="user_status/UserStatusNewProspect1.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="user_status/UserStatusNewProspect2.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="user_status/UserStatusProspect1Prospect2.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="user_status/UserStatusProspect1Active1.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="../zengtest1/Actions/Inquire Agent.xml"/>
+    <suite-file path="../zurple/Actions/Login.xml"/>
+    <suite-file path="user_status/UserStatusProspect1Active2.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="../zurple/Actions/Login.xml"/>
+    <suite-file path="user_status/UserStatusClientProspect1.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="../zurple/Actions/Login.xml"/>
+    <suite-file path="user_status/UserStatusClientInactive.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="../zurple/Actions/Login.xml"/>
+    <suite-file path="user_status/UserStatusClientActive1.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="../zengtest1/Actions/Inquire Agent.xml"/>
+    <suite-file path="../zurple/Actions/Login.xml"/>
+    <suite-file path="user_status/UserStatusClientActive2.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="../zurple/Actions/Login.xml"/>
+    <suite-file path="user_status/UserStatusActive1Prospect1.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="../zengtest1/Actions/Inquire Agent.xml"/>
+    <suite-file path="../zurple/Actions/Login.xml"/>
+    <suite-file path="user_status/UserStatusActive1Active2.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="../zurple/Actions/Login.xml"/>
+    <suite-file path="user_status/UserStatusActive2Prospect1.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="user_status/UserStatusActive2Active1.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../zengtest1/Actions/Register new lead.xml"/>
+    <suite-file path="../zurple/Actions/Login.xml"/>
+    <suite-file path="user_status/UserStatusProspect2Prospect1.xml"/>
+    <suite-file path="../Common/Close Browser.xml"/>
+  </suite-files>
+
 </suite>

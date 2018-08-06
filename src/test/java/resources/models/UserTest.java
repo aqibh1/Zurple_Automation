@@ -30,12 +30,12 @@ public class UserTest extends AbstractTest
     @Test
     @Parameters({"status_expected","ignore_automation"})
     public void testLastUserStatus(@Optional("") String status_expected,@Optional("0") Integer ignore_automation){
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
-        assertEquals(lastRegisteredUser.getUserStatus(),status_expected);
+        User user = getEnvironment().getUserToCheck();
+        assertEquals(user.getUserStatus(),status_expected);
 
         if (ignore_automation != 0)
         {
-            assertEquals(lastRegisteredUser.getUserStatusChanges().get(0).getIgnoreAutomation(),ignore_automation);
+            assertEquals(user.getUserStatusChanges().get(0).getIgnoreAutomation(),ignore_automation);
         }
 
     }
@@ -70,21 +70,21 @@ public class UserTest extends AbstractTest
     @Test
     @Parameters({"status_initial"})
     public void testPrepareUserBecomesProspect1(@Optional("") String status_initial){
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
+        User user = getEnvironment().getUserToCheck();
         
         Date d = new Date();
         d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
-        lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.setUserStatus(status_initial);
-        lastRegisteredUser.save();
+        user.setCreateDatetime(d);
+        user.setUserStatus(status_initial);
+        user.save();
 
-        List<SessionUser> sessions = getEnvironment().getUserSessions(lastRegisteredUser);
+        List<SessionUser> sessions = getEnvironment().getUserSessions(user);
         for (SessionUser session: sessions) {
             session.setSessionEnd(d);
             session.save();
         }
         
-        Set<UserAlert> alerts = lastRegisteredUser.getUserAlerts();
+        Set<UserAlert> alerts = user.getUserAlerts();
         for (UserAlert alert: alerts) {
             alert.setUserAlertTriggered(d);
             alert.save();
@@ -115,13 +115,13 @@ public class UserTest extends AbstractTest
         @Test
     @Parameters({"status_initial"})
     public void testPrepareUserBecomesProspect2(@Optional("") String status_initial){
-        
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
-        
-        lastRegisteredUser.setUserStatus(status_initial);
-        lastRegisteredUser.save();
 
-        String res = SSHConnector.runRemoteScript("cd /workroot/platform/trunk && cd php/src/main/php/application/scripts && echo '{\"adminId\":"+lastRegisteredUser.getAdminId().getId()+",\"userId\":"+lastRegisteredUser.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e dev");
+        User user = getEnvironment().getUserToCheck();
+        
+        user.setUserStatus(status_initial);
+        user.save();
+
+        String res = SSHConnector.runRemoteScript("cd /workroot/platform/trunk && cd php/src/main/php/application/scripts && echo '{\"adminId\":"+user.getAdminId().getId()+",\"userId\":"+user.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e dev");
 
         assertEquals(res,"OK");// Check SSH server is running and accessible
 
@@ -130,28 +130,28 @@ public class UserTest extends AbstractTest
     @Test
     @Parameters({"status_initial"})
     public void testPrepareUserBecomesActive1(@Optional("") String status_initial){
-        
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
+
+        User user = getEnvironment().getUserToCheck();
 
         Date d = new Date();
         d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
-        lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.setUserStatus(status_initial);
-        lastRegisteredUser.save();
+        user.setCreateDatetime(d);
+        user.setUserStatus(status_initial);
+        user.save();
                         
     }
         
     @Test
     @Parameters({"status_initial"})
     public void testPrepareUserBecomesActive2(@Optional("") String status_initial){
-        
-        User lastRegisteredUser = getEnvironment().getLastRegisteredUser();
+
+        User user = getEnvironment().getUserToCheck();
 
         Date d = new Date();
         d.setTime(d.getTime() - 31L * 24 * 60 * 60 * 1000);
-        lastRegisteredUser.setCreateDatetime(d);
-        lastRegisteredUser.setUserStatus(status_initial);
-        lastRegisteredUser.save();
+        user.setCreateDatetime(d);
+        user.setUserStatus(status_initial);
+        user.save();
                         
     }
 }
