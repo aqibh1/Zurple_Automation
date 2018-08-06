@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Setting lead email validation status correct">
+
+  <test name="Set ead email validation status correct">
+    <parameter name="email_validation_status" value="1"/>
+    <classes>
+      <class name="resources.models.LeadTest" >
+        <methods>
+          <include name="setUserEmailValidationValue" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

@@ -42,6 +42,7 @@ public class User extends Abstract
 
     private Set<UserAlert> user_alerts;
     private List<UserStatusChanges> user_status_changes;
+    private Set<Email> emails;
 
     public User() {
     }
@@ -185,5 +186,14 @@ public class User extends Abstract
         this.user_lead_score = user_lead_score;
     }
 
+    @OneToMany(fetch=FetchType.EAGER, mappedBy="user")
+    public Set<Email> getEmails() {
+        return this.emails;
+    }
+
+    public void setEmails(Set<Email> emails)
+    {
+        this.emails = emails;
+    }
 
 }

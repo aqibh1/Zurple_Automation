@@ -4,6 +4,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -11,9 +14,7 @@ import org.testng.annotations.Test;
 import resources.AbstractTest;
 import resources.SSHConnector;
 import resources.orm.hibernate.dao.ManageUser;
-import resources.orm.hibernate.models.SessionUser;
-import resources.orm.hibernate.models.User;
-import resources.orm.hibernate.models.UserAlert;
+import resources.orm.hibernate.models.*;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -37,6 +38,22 @@ public class UserTest extends AbstractTest
             assertEquals(lastRegisteredUser.getUserStatusChanges().get(0).getIgnoreAutomation(),ignore_automation);
         }
 
+    }
+
+    @Test
+    public void testWelcomeEmailSignOff(){
+        User user = getEnvironment().getUserToCheck();
+        Email lastEmail = user.getEmails().iterator().next();
+        assertEquals(lastEmail.getEmailType(),"auto_responder");
+        assertEquals(lastEmail.getSubject(),"Quick Question");
+
+        Pattern p = Pattern.compile("Some unique sign off");
+        Matcher m = p.matcher(lastEmail.getBody());
+        assertTrue(m.find());
+
+        p = Pattern.compile("John Doe");
+        m = p.matcher(lastEmail.getBody());
+        assertTrue(m.find());
     }
 
     @Test

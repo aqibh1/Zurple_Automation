@@ -261,6 +261,9 @@ public class TestEnvironment
     }
 
     public User getUserToCheck() {
+        if(userToCheck!=null){
+            getSession().refresh(userToCheck);
+        }
         return userToCheck;
     }
 

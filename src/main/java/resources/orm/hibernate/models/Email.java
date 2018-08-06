@@ -2,28 +2,14 @@ package resources.orm.hibernate.models;
 
 import java.util.Date;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "emails", catalog = "zurple_platform", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email_id")})
-public class Email
+public class Email extends Abstract
         implements java.io.Serializable {
 
     private Integer email_id;
@@ -31,7 +17,7 @@ public class Email
     private String subject;
     private String title;
     private String body;
-    private User user_id;
+    private User user;
     private Integer order_number;
     private String dlnk;
     
@@ -97,14 +83,14 @@ public class Email
         this.dlnk = dlnk;
     }
     
-    @OneToOne(fetch= FetchType.EAGER)
+    @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    public User getUserId() {
-        return this.user_id;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setUserId(User user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 

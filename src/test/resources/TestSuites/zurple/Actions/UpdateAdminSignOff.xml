@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Setting Asdmin Sign Off">
+
+  <test name="Set Admin Sign Off">
+    <parameter name="sign_off" value="Some unique sign off"/>
+    <parameter name="display_name" value="John Doe"/>
+    <classes>
+      <class name="resources.models.AdminTest" >
+        <methods>
+          <include name="setAdminSignOffAndDisplayName" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

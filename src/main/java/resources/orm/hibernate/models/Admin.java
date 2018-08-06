@@ -21,7 +21,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "admins", catalog = "zurple_platform", uniqueConstraints = {
         @UniqueConstraint(columnNames = "admin_id")})
-public class Admin
+public class Admin extends Abstract
         implements java.io.Serializable {
 
     private Integer admin_id;
@@ -36,6 +36,8 @@ public class Admin
     private Boolean billing_access_flag;
     private Boolean lead_flag;
     private Boolean property_flag;
+    private String email_unique_sing_off;
+    private String email_display_name;
     private Set<Site> sites;
     private Set<Import> imports;
 
@@ -171,5 +173,23 @@ public class Admin
     public void setImports(Set<Import> imports)
     {
         this.imports = imports;
+    }
+
+    @Column(name = "email_unique_sing_off", unique = false, nullable = true, length = 255)
+    public String getEmailUniqueSignOff() {
+        return email_unique_sing_off;
+    }
+
+    public void setEmailUniqueSignOff(String email_unique_sing_off) {
+        this.email_unique_sing_off = email_unique_sing_off;
+    }
+
+    @Column(name = "email_display_name", unique = false, nullable = true, length = 255)
+    public String getEmailDisplayName() {
+        return email_display_name;
+    }
+
+    public void setEmailDisplayName(String email_display_name) {
+        this.email_display_name = email_display_name;
     }
 }

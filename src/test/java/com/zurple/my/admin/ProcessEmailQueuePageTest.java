@@ -28,4 +28,10 @@ public class ProcessEmailQueuePageTest
     {
         assertTrue(getPage().runLeadAlertsQueueProcessing());
     }
+
+    @Test
+    public void testIRQueueProcessing()
+    {
+        assertTrue(getPage().runIRQueueProcessing());
+    }
 }

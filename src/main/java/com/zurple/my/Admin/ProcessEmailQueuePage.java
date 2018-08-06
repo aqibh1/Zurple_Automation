@@ -51,6 +51,26 @@ public class ProcessEmailQueuePage
         return leadsAlertsQueueProcessButton;
     }
 
+    public Button getIRQueueFetchButton(){
+        if (leadsAlertsQueueFetchButton == null)
+        {
+            leadsAlertsQueueFetchButton = new Button();
+            leadsAlertsQueueFetchButton.setElement(
+                    driver.findElement(By.xpath("//*[contains(concat(\" \",normalize-space(@class),\" \"),\" irq-fetch \")]")));
+        }
+        return leadsAlertsQueueFetchButton;
+    }
+
+    public Button getIRQueueProcessingButton(){
+        if (leadsAlertsQueueProcessButton == null)
+        {
+            leadsAlertsQueueProcessButton = new Button();
+            leadsAlertsQueueProcessButton.setElement(
+                    driver.findElement(By.xpath("//*[contains(concat(\" \",normalize-space(@class),\" \"),\" irq-process \")]")));
+        }
+        return leadsAlertsQueueProcessButton;
+    }
+
     public Boolean runLeadAlertsQueueProcessing(){
 
         Button fetchButton = getLeadsAlertsQueueFetchButton();
@@ -78,4 +98,33 @@ public class ProcessEmailQueuePage
 
         return true;
     }
+
+    public Boolean runIRQueueProcessing(){
+
+        Button fetchButton = getIRQueueFetchButton();
+        fetchButton.click();
+
+        try
+        {
+            Wait<WebDriver> wait = new WebDriverWait(driver, 60, 1000);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@class='blockUI blockMsg blockPage']")));
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(
+                    By.xpath("//div[@class='blockUI blockMsg blockPage']")));
+
+            Button processButton = getIRQueueProcessingButton();
+            processButton.click();
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@class='blockUI blockMsg blockPage']")));
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(
+                    By.xpath("//div[@class='blockUI blockMsg blockPage']")));
+
+        }catch(TimeoutException e ) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

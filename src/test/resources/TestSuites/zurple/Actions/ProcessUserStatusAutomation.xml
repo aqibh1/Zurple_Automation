@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Processing User Status Automation">
+
+  <test name="Processing leads status automation">
+    <classes>
+      <class name="com.zurple.my.admin.LeadStatusAutomationPageTest" >
+        <methods>
+          <include name="testLeadStatusAutomationProcessing" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

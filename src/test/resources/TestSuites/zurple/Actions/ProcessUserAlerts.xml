@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Processing User Alerts">
+
+  <test name="Generating leads alerts">
+    <classes>
+      <class name="com.zurple.my.admin.ProcessEmailQueuePageTest" >
+        <methods>
+          <include name="testLeadAlertsQueueProcessing" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

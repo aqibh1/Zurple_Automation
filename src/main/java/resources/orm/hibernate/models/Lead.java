@@ -14,11 +14,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
 @Table(name = "leads", catalog = "zurple_platform", uniqueConstraints = {
         @UniqueConstraint(columnNames = "lead_id")})
-public class Lead
+public class Lead extends Abstract
         implements java.io.Serializable {
 
     private Integer lead_id;
@@ -31,6 +32,8 @@ public class Lead
     private Admin owner_id;
     private Date create_datetime;
     private Date update_datetime;
+    private Integer email_validation_id;
+    private Integer email_validation_status;
 
     public Lead() {
     }
@@ -146,6 +149,24 @@ public class Lead
 
     public void setUpdateDatetime(Date update_datetime) {
         this.update_datetime = update_datetime;
+    }
+
+    @Column(name = "email_validation_id", unique = false, nullable = true)
+    public Integer getEmailValidationId() {
+        return this.email_validation_id;
+    }
+
+    public void setEmailValidationId(Integer email_validation_id) {
+        this.email_validation_id = email_validation_id;
+    }
+
+    @Column(name = "email_validation_status", unique = false, nullable = true)
+    public Integer getEmailValidationStatus() {
+        return this.email_validation_status;
+    }
+
+    public void setEmailValidationStatus(Integer email_validation_status) {
+        this.email_validation_status = email_validation_status;
     }
 
 }
