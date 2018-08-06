@@ -36,7 +36,7 @@ public class Admin extends Abstract
     private Boolean billing_access_flag;
     private Boolean lead_flag;
     private Boolean property_flag;
-    private String email_unique_sing_off;
+    private String email_unique_sign_off;
     private String email_display_name;
     private Set<Site> sites;
     private Set<Import> imports;
@@ -175,13 +175,13 @@ public class Admin extends Abstract
         this.imports = imports;
     }
 
-    @Column(name = "email_unique_sing_off", unique = false, nullable = true, length = 255)
+    @Column(name = "email_unique_sign_off", unique = false, nullable = true, length = 255)
     public String getEmailUniqueSignOff() {
-        return email_unique_sing_off;
+        return email_unique_sign_off;
     }
 
-    public void setEmailUniqueSignOff(String email_unique_sing_off) {
-        this.email_unique_sing_off = email_unique_sing_off;
+    public void setEmailUniqueSignOff(String email_unique_sign_off) {
+        this.email_unique_sign_off = email_unique_sign_off;
     }
 
     @Column(name = "email_display_name", unique = false, nullable = true, length = 255)
