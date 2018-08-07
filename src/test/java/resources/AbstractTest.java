@@ -19,9 +19,10 @@ public abstract class AbstractTest
     
     public static TestEnvironment getEnvironment(){
         if(environment == null){
+            ConfigReader configReader = ConfigReader.load();
             environment = new TestEnvironment();
-            environment.setAgentToCheck(4);
-            environment.setCurrentAgentId(4);
+            environment.setAgentToCheck(Integer.parseInt(configReader.getPropertyByName("bo_default_agent_id")));
+            environment.setCurrentAgentId(Integer.parseInt(configReader.getPropertyByName("bo_default_agent_id")));
         }
         return environment;
     }

@@ -18,7 +18,7 @@ import org.hibernate.Transaction;
 import resources.orm.hibernate.HibernateUtil;
 
 @Entity
-@Table(name = "user_alert", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "user_alert",uniqueConstraints = {
         @UniqueConstraint(columnNames = "user_alert_id")})
 public class UserAlert extends Abstract
         implements java.io.Serializable {
@@ -51,7 +51,7 @@ public class UserAlert extends Abstract
         this.user_alert_id = user_alert_id;
     }
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "user_activity_id")
     public UserActivity getUserActivity()
     {
@@ -63,7 +63,7 @@ public class UserAlert extends Abstract
         this.user_activity = user_activity_id;
     }
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public User getUser()
     {
@@ -77,7 +77,7 @@ public class UserAlert extends Abstract
     
     
     
-    @OneToOne(fetch= FetchType.EAGER)
+    @OneToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "email_id")
     public Email getEmailId() {
         return this.email;
@@ -87,7 +87,7 @@ public class UserAlert extends Abstract
         this.email = email_id;
     }
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "alert_rule_id")
     public AlertRule getAlertRule()
     {

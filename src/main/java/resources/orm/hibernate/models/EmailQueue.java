@@ -10,7 +10,7 @@ import javax.persistence.UniqueConstraint;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "email_queue", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "email_queue", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email_queue_id")})
 public class EmailQueue
         implements java.io.Serializable {

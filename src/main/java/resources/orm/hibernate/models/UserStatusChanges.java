@@ -7,7 +7,7 @@ import java.util.Date;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "user_status_changes", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "user_status_changes", uniqueConstraints = {
         @UniqueConstraint(columnNames = "id")})
 public class UserStatusChanges extends Abstract
         implements java.io.Serializable  {
@@ -36,7 +36,7 @@ public class UserStatusChanges extends Abstract
         this.id = id;
     }
 
-    @ManyToOne(fetch= FetchType.EAGER)
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public User getUser() {
         return this.user;
@@ -46,7 +46,7 @@ public class UserStatusChanges extends Abstract
         this.user = user;
     }
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "status_changed_by")
     public Admin getStatusChangedBy() {
         return this.status_changed_by;

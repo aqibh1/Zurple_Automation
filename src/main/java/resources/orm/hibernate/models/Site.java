@@ -21,7 +21,7 @@ import javax.persistence.UniqueConstraint;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "sites", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "sites",uniqueConstraints = {
         @UniqueConstraint(columnNames = "site_id")})
 public class Site
         implements java.io.Serializable {
@@ -59,7 +59,7 @@ public class Site
         this.domain_name = domain_name;
     }
 
-    @OneToMany(fetch=FetchType.EAGER, mappedBy="site",cascade=CascadeType.ALL)
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="site",cascade=CascadeType.ALL)
     public Set<Import> getImports()
     {
         return imports;
@@ -69,7 +69,7 @@ public class Site
         this.imports = imports;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="site_admins", joinColumns=@JoinColumn(name="site_id"), inverseJoinColumns=@JoinColumn(name="admin_id"))
     public Set<Admin> getAdmins() {
         return this.admins;
@@ -108,7 +108,7 @@ public class Site
         this.phone_flag = phone_flag;
     }
 
-    @OneToMany(fetch=FetchType.EAGER, mappedBy="site",cascade=CascadeType.ALL)
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="site",cascade=CascadeType.ALL)
     public Set<AlertRule> getAlertRules() {
         return this.alert_rules;
     }

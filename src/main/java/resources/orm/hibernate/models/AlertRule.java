@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "alert_rules", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "alert_rules", uniqueConstraints = {
         @UniqueConstraint(columnNames = "arule_id")})
 public class AlertRule
         implements java.io.Serializable {
@@ -45,7 +45,7 @@ public class AlertRule
         this.alert_rule_id = alert_rule_id;
     }
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "site_id")
     public Site getSite() {
         return this.site;
@@ -167,7 +167,7 @@ public class AlertRule
         this.nextday_dispatch = nextday_dispatch;
     }
 
-    @OneToMany(fetch=FetchType.EAGER, mappedBy="alertRule")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="alertRule")
     public Set<UserAlert> getUserAlerts() {
         return this.user_alerts;
     }

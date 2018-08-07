@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "packages", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "packages", uniqueConstraints = {
         @UniqueConstraint(columnNames = "package_id")})
 public class Package
         implements java.io.Serializable {
@@ -43,7 +43,7 @@ public class Package
         this.netsuite_id = netsuite_id;
     }
 
-    @OneToMany(fetch=FetchType.EAGER, mappedBy="package")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="package")
     public Set<Admin> getAdmins() {
         return this.admins;
     }

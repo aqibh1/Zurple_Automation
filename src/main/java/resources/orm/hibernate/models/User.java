@@ -22,7 +22,7 @@ import resources.orm.hibernate.HibernateUtil;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "users", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "users",uniqueConstraints = {
         @UniqueConstraint(columnNames = "user_id")})
 public class User extends Abstract
         implements java.io.Serializable {
@@ -64,7 +64,7 @@ public class User extends Abstract
         this.user_id = user_id;
     }
 
-    @OneToOne(fetch= FetchType.EAGER)
+    @OneToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "lead_id")
     public Lead getLeadId() {
         return this.lead_id;
@@ -74,7 +74,7 @@ public class User extends Abstract
         this.lead_id = lead_id;
     }
 
-    @OneToOne(fetch=FetchType.EAGER)
+    @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "admin_id")
     public Admin getAdminId() {
         return this.admin_id;
@@ -84,7 +84,7 @@ public class User extends Abstract
         this.admin_id = admin_id;
     }
 
-    @OneToOne(fetch=FetchType.EAGER)
+    @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "site_id")
     public Site getSiteId() {
         return this.site_id;
@@ -150,7 +150,7 @@ public class User extends Abstract
         this.update_datetime = update_datetime;
     }
 
-    @OneToMany(fetch=FetchType.EAGER, mappedBy="user")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="user")
     public Set<UserAlert> getUserAlerts() {
         return this.user_alerts;
     }
@@ -160,7 +160,7 @@ public class User extends Abstract
         this.user_alerts = user_alerts;
     }
 
-    @OneToMany(fetch=FetchType.EAGER, mappedBy="user")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="user")
     public List<UserStatusChanges> getUserStatusChanges() {
         Collections.sort(this.user_status_changes, new Comparator<UserStatusChanges>() {
             public int compare(UserStatusChanges o1, UserStatusChanges o2) {
@@ -186,7 +186,7 @@ public class User extends Abstract
         this.user_lead_score = user_lead_score;
     }
 
-    @OneToMany(fetch=FetchType.EAGER, mappedBy="user")
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="user")
     public Set<Email> getEmails() {
         return this.emails;
     }

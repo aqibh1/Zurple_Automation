@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ns_transactions", catalog = "zurple_platform", uniqueConstraints = {})
+@Table(name = "ns_transactions", uniqueConstraints = {})
 public class Transaction
         implements java.io.Serializable {
 

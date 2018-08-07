@@ -16,7 +16,7 @@ import javax.persistence.UniqueConstraint;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "session_user", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "session_user", uniqueConstraints = {
         @UniqueConstraint(columnNames = "session_user_id")})
 public class SessionUser extends Abstract
         implements java.io.Serializable {
@@ -50,7 +50,7 @@ public class SessionUser extends Abstract
         this.session_user_id = session_user_id;
     }
         
-    @OneToOne(fetch= FetchType.EAGER)
+    @OneToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public User getUserId() {
         return this.user_id;
@@ -60,7 +60,7 @@ public class SessionUser extends Abstract
         this.user_id = user_id;
     }
 
-    @OneToOne(fetch= FetchType.EAGER)
+    @OneToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "site_id")
     public Site getSiteId() {
         return this.site_id;

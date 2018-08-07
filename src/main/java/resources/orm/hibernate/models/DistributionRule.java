@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "lead_distribution_rules", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "lead_distribution_rules", uniqueConstraints = {
         @UniqueConstraint(columnNames = "rule_id")})
 public class DistributionRule
         implements java.io.Serializable {
@@ -34,7 +34,7 @@ public class DistributionRule
         this.rule_id = rule_id;
     }
 
-    @OneToOne(fetch=FetchType.EAGER)
+    @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "admin_id")
     public Admin getAdmin() {
         return this.admin;
@@ -44,7 +44,7 @@ public class DistributionRule
         this.admin = admin;
     }
 
-    @OneToOne(fetch=FetchType.EAGER)
+    @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "site_id")
     public Site getSite() {
         return this.site;

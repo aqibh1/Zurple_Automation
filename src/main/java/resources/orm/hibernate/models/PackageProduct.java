@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.CascadeType;
 
 @Entity
-@Table(name = "ns_package_products", catalog = "zurple_platform", uniqueConstraints = {})
+@Table(name = "ns_package_products",uniqueConstraints = {})
 public class PackageProduct
         implements java.io.Serializable {
 
@@ -21,7 +21,7 @@ public class PackageProduct
     @Column(name="package_id")
     private Integer package_id;
 
-    @OneToOne(fetch= FetchType.EAGER)
+    @OneToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product_id;
 

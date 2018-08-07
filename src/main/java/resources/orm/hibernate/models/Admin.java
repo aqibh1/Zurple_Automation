@@ -19,7 +19,7 @@ import javax.persistence.UniqueConstraint;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "admins", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "admins", uniqueConstraints = {
         @UniqueConstraint(columnNames = "admin_id")})
 public class Admin extends Abstract
         implements java.io.Serializable {
@@ -136,7 +136,7 @@ public class Admin extends Abstract
         this.bio = bio;
     }
 
-    @ManyToMany(fetch=FetchType.EAGER, mappedBy="admins")
+    @ManyToMany(fetch=FetchType.LAZY, mappedBy="admins")
     public Set<Site> getSites() {
         return this.sites;
     }
@@ -154,7 +154,7 @@ public class Admin extends Abstract
         this.billing_access_flag = billing_access_flag;
     }
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "package_id")
     public Package getPackage() {
         return this.pkg;
@@ -164,7 +164,7 @@ public class Admin extends Abstract
         this.pkg = pkg;
     }
 
-    @OneToMany(fetch=FetchType.EAGER, mappedBy="admin",cascade=CascadeType.ALL)
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="admin",cascade=CascadeType.ALL)
     public Set<Import> getImports()
     {
         return imports;

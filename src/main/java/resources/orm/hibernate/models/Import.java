@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "imports", catalog = "zurple_platform", uniqueConstraints = {})
+@Table(name = "imports", uniqueConstraints = {})
 public class Import
         implements java.io.Serializable {
 
@@ -19,15 +19,15 @@ public class Import
     @Column(name="import_id")
     private Integer import_id;
 
-    @ManyToOne(fetch= FetchType.EAGER,cascade= CascadeType.ALL)
+    @ManyToOne(fetch= FetchType.LAZY,cascade= CascadeType.ALL)
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    @ManyToOne(fetch= FetchType.EAGER,cascade= CascadeType.ALL)
+    @ManyToOne(fetch= FetchType.LAZY,cascade= CascadeType.ALL)
     @JoinColumn(name = "site_id")
     private Site site;
 
-    @ManyToOne(fetch=FetchType.EAGER,cascade= CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.LAZY,cascade= CascadeType.ALL)
     @JoinColumn(name = "importer_admin_id")
     private Admin importer_admin;
 

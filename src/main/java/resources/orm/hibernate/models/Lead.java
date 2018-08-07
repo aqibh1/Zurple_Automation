@@ -17,7 +17,7 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
-@Table(name = "leads", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "leads", uniqueConstraints = {
         @UniqueConstraint(columnNames = "lead_id")})
 public class Lead extends Abstract
         implements java.io.Serializable {
@@ -121,7 +121,7 @@ public class Lead extends Abstract
         this.memo = memo;
     }
 
-    @OneToOne(fetch= FetchType.EAGER)
+    @OneToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     public Admin getOwnerId() {
         return this.owner_id;

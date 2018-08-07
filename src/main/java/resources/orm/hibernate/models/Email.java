@@ -7,7 +7,7 @@ import javax.persistence.*;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "emails", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "emails", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email_id")})
 public class Email extends Abstract
         implements java.io.Serializable {
@@ -83,7 +83,7 @@ public class Email extends Abstract
         this.dlnk = dlnk;
     }
     
-    @ManyToOne(fetch= FetchType.EAGER)
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public User getUser() {
         return this.user;

@@ -10,7 +10,7 @@ import javax.persistence.UniqueConstraint;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "ns_products", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "ns_products", uniqueConstraints = {
         @UniqueConstraint(columnNames = "product_id")})
 public class Product
         implements java.io.Serializable {

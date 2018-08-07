@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "cities", catalog = "zurple_platform", uniqueConstraints = {
+@Table(name = "cities", uniqueConstraints = {
         @UniqueConstraint(columnNames = "city_id")})
 public class City
         implements java.io.Serializable {
