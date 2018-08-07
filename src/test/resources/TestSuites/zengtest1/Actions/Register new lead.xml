@@ -4,7 +4,6 @@
 
   <test name="Register new user">
     <classes>
-      <class name="us.zengtest1.HomePageTest" />
       <class name="us.zengtest1.RegisterPageTest" >
         <methods>
           <include name="testRegisterNewRegularLead" />
