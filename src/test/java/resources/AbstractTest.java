@@ -12,6 +12,8 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import resources.classes.Asset;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 public abstract class AbstractTest
 {
     
