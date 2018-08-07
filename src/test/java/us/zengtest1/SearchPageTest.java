@@ -48,7 +48,7 @@ public class SearchPageTest
         getPage().getSearchForm().submit();
         // We must be redirected
         // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
-        Pattern pattern = Pattern.compile("http://dev\\.zengtest1\\.us/search/page/1");
+        Pattern pattern = Pattern.compile("/search/page/1");
         Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
         assertTrue(matcher.find());
 
@@ -70,7 +70,7 @@ public class SearchPageTest
         form.submit();
         // We must be redirected
         // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
-        Pattern pattern = Pattern.compile("http://dev\\.zengtest1\\.us/search/page/1");
+        Pattern pattern = Pattern.compile("/search/page/1");
         Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
         assertTrue(matcher.find());
 

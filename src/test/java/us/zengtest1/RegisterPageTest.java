@@ -73,7 +73,7 @@ public class RegisterPageTest
         getPage().getRegisterForm().submit();
         // We must be redirected
         // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
-        Pattern pattern = Pattern.compile("http://dev\\.zengtest1\\.us/thankyou\\?lead_id=(\\d+)");
+        Pattern pattern = Pattern.compile("/thankyou\\?lead_id=(\\d+)");
         Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
         assertTrue(matcher.find());
 
@@ -100,7 +100,7 @@ public class RegisterPageTest
         getPage().getRegisterForm().submit();
         // We must be redirected
         // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
-        Pattern pattern = Pattern.compile("http://dev\\.zengtest1\\.us/thankyou\\?lead_id=(\\d+)");
+        Pattern pattern = Pattern.compile("/thankyou\\?lead_id=(\\d+)");
         Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
         assertTrue(matcher.find());
         Integer lead_id = Integer.parseInt(matcher.group(1));
@@ -131,7 +131,7 @@ public class RegisterPageTest
         getPage().getRegisterForm().submit();
         // We must be redirected
         // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
-        Pattern pattern = Pattern.compile("http://dev\\.zengtest1\\.us/thankyou\\?lead_id=(\\d+)");
+        Pattern pattern = Pattern.compile("/thankyou\\?lead_id=(\\d+)");
         Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
         assertTrue(matcher.find());
         Integer lead_id = Integer.parseInt(matcher.group(1));
@@ -172,7 +172,7 @@ public class RegisterPageTest
             getPage().getRegisterForm().submit();
             // We must be redirected
             // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
-            Pattern pattern = Pattern.compile("http://dev\\.zengtest1\\.us/thankyou\\?lead_id=(\\d+)");
+            Pattern pattern = Pattern.compile("/thankyou\\?lead_id=(\\d+)");
             Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
             assertTrue(matcher.find());
             Integer lead_id = Integer.parseInt(matcher.group(1));
