@@ -78,7 +78,7 @@ public class ProcessEmailQueuePage
                 
         try
         {
-            Wait<WebDriver> wait = new WebDriverWait(driver, 60, 1000);
+            Wait<WebDriver> wait = new WebDriverWait(driver, 180, 1000);
             wait.until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//div[@class='blockUI blockMsg blockPage']")));
             wait.until(ExpectedConditions.invisibilityOfElementLocated(
@@ -106,7 +106,7 @@ public class ProcessEmailQueuePage
 
         try
         {
-            Wait<WebDriver> wait = new WebDriverWait(driver, 60, 1000);
+            Wait<WebDriver> wait = new WebDriverWait(driver, 180, 1000);
             wait.until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//div[@class='blockUI blockMsg blockPage']")));
             wait.until(ExpectedConditions.invisibilityOfElementLocated(

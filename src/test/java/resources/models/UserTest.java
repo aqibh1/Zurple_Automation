@@ -53,18 +53,15 @@ public class UserTest extends AbstractTest
         }else{
             pattern = user.getAdminId().getEmailUniqueSignOff();
         }
-        Pattern p = Pattern.compile(pattern);
-        Matcher m = p.matcher(lastEmail.getBody());
-        assertTrue(m.find());
+        assertTrue(lastEmail.getBody().contains(pattern));
 
         if(user.getAdminId().getEmailDisplayName().isEmpty()){
             pattern = user.getAdminId().getFirstName();
         }else{
             pattern = user.getAdminId().getEmailDisplayName();
         }
-        p = Pattern.compile(pattern);
-        m = p.matcher(lastEmail.getBody());
-        assertTrue(m.find());
+        assertTrue(lastEmail.getBody().contains(pattern));
+
     }
 
     @Test

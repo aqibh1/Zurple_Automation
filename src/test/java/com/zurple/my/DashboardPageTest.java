@@ -24,9 +24,10 @@ public class DashboardPageTest
 
     public DashboardPage getPage(){
         if(page == null){
+            ConfigReader configReader = ConfigReader.load();
             page = new DashboardPage();
             page.setDriver(getDriver());
-            getEnvironment().setAgentToCheck(4);
+            getEnvironment().setAgentToCheck(Integer.parseInt(configReader.getPropertyByName("bo_default_agent_id")));
         }
         return page;
     }

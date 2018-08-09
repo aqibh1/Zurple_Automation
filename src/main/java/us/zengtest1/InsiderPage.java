@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import resources.ConfigReader;
 import resources.elements.Button;
 import resources.forms.ContactAgentForm;
 import us.zengtest1.resources.forms.InquireContactForm;
@@ -20,7 +21,8 @@ public class InsiderPage
     private InquireContactForm inquireContactForm;
     
     public InsiderPage(){
-        url = "/insider/4";
+        ConfigReader configReader = ConfigReader.load();
+        url = "/insider/" + configReader.getPropertyByName("bo_default_agent_id");
     }
 
     public WebElement getHeader(){

@@ -5,8 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
-public abstract class AbstractAlert
-{
+public abstract class AbstractAlert {
 
     public static String alertXpath = "//div[contains(@class,\"sweet-alert\")]";
 
@@ -15,55 +14,45 @@ public abstract class AbstractAlert
     protected WebElement cancelButton;
     protected String message;
 
-    public void setAlert(WebElement object){
+    public void setAlert(WebElement object) {
         alert = object;
-        try{
+        try {
             okButton = alert.findElement(By.xpath("./descendant::button[contains(@class,\"confirm\")]"));
             cancelButton = alert.findElement(By.xpath("./descendant::button[contains(@class,\"cancel\")]"));
             message = alert.findElement(By.xpath("./descendant::h2")).getText();
-        }catch(NoSuchElementException e){}
+        } catch (NoSuchElementException e) {
+        }
     }
 
-    public WebElement getAlert()
-    {
+    public WebElement getAlert() {
         return alert;
     }
 
-    public String getMessage()
-    {
+    public String getMessage() {
         return message;
     }
 
-    public void setOkButton(WebElement object)
-    {
+    public void setOkButton(WebElement object) {
         okButton = object;
     }
 
-    public void clickOkButton()
-    {
+    public void clickOkButton() {
         okButton.click();
     }
 
-    public void setCancelButton(WebElement object)
-    {
+    public void setCancelButton(WebElement object) {
         cancelButton = object;
     }
 
-    public void clickCancelButton()
-    {
+    public void clickCancelButton() {
         cancelButton.click();
     }
 
-    public boolean isVisible(){
+    public boolean isVisible() {
         return alert.isDisplayed();
     }
 
-    public void close()
-    {
+    public void close() {
         alert.sendKeys(Keys.ESCAPE);
     }
-
-
-
-
 }
