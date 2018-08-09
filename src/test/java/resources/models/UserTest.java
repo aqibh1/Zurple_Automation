@@ -49,7 +49,7 @@ public class UserTest extends AbstractTest
 
         String pattern = "";
         if(user.getAdminId().getEmailUniqueSignOff().isEmpty()){
-            pattern = "Respectfuly";
+            pattern = "Respectfully";
         }else{
             pattern = user.getAdminId().getEmailUniqueSignOff();
         }
