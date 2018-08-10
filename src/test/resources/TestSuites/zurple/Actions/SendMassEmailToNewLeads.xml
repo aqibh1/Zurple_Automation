@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Sending Mass Email To New Leads">
+
+  <test name="Sending Mass Email To New Leads">
+    <parameter name="status" value="New"/>
+    <classes>
+      <class name="com.zurple.my.MarketingMassemailPageTest" >
+        <methods>
+          <include name="testSendingMassEmailToLeadsWithStatus" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

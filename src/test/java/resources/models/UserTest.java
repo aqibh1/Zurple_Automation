@@ -65,6 +65,13 @@ public class UserTest extends AbstractTest
     }
 
     @Test
+    @Parameters({"received"})
+    public void testUserReceivedMassEmail(@Optional("") String received){
+        User user = getEnvironment().getUserToCheck();
+        assertEquals(user.getEmails().size() > 0,Boolean.parseBoolean(received));
+    }
+
+    @Test
     @Parameters({"status_initial"})
     public void testPrepareUserBecomesProspect1(@Optional("") String status_initial){
         User user = getEnvironment().getUserToCheck();

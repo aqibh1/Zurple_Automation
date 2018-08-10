@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="User Received Mass Email">
+
+  <test name="User Received Mass Email">
+    <parameter name="received" value="true"/>
+    <classes>
+      <class name="resources.models.UserTest">
+        <methods>
+          <include name="testUserReceivedMassEmail" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

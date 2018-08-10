@@ -3,6 +3,9 @@ package com.zurple.my;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.orm.hibernate.models.EmailQueue;
 
@@ -15,7 +18,7 @@ import static org.testng.Assert.assertFalse;
  *
  * @author Vladimir
  */
-public class MarketingMessemailPageTest  extends PageTest
+public class MarketingMassemailPageTest extends PageTest
 {
     private static MarketingMessemailPage page;
 
@@ -64,5 +67,27 @@ public class MarketingMessemailPageTest  extends PageTest
         Pattern pattern = Pattern.compile("&nbsp;");
         Matcher matcher = pattern.matcher(lastEmailQueueEntry.getBodyHtml());
         assertFalse(matcher.find());
+    }
+
+    @Test
+    @Parameters({"status"})
+    public void testSendingMassEmailToLeadsWithStatus(@Optional("") String status){
+        assertTrue(getPage().checkMassEmailFormExists());
+        try
+        {
+            getPage().getMassEmailForm().getRecipientByLabel("All Leads with Status of Prospect - " + status).getElement().click();
+        }
+        catch (Exception e)
+        {
+            assertTrue(false);
+        }
+        String uuid = UUID.randomUUID().toString();
+        String subject = "  double    spaces  "+uuid;
+        String body = "  double    spaces  "+uuid;
+        getPage().getMassEmailForm().setInputValue("subject",subject);
+        getPage().getMassEmailForm().setTextareaValue("body",body);
+        getPage().getMassEmailForm().submit();
+        assertTrue(getPage().getMassEmailForm().waitWhileSubmitting());
+        assertTrue(getPage().checkMassEmailSuccessfullySentAlertBlockExists());
     }
 }

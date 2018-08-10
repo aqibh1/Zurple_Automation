@@ -20,11 +20,6 @@
           <include name="testLeadStatusAutomationProcessing" />
         </methods>
       </class>
-      <class name="resources.CurrentPageTest">
-        <methods>
-          <include name="closeBrowser" />
-        </methods>
-      </class>
     </classes>
   </test>
 

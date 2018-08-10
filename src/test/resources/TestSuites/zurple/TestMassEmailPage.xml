@@ -4,7 +4,7 @@
 
   <test name="my.zurple.com">
     <classes>
-      <class name="com.zurple.my.MarketingMessemailPageTest" />
+      <class name="com.zurple.my.MarketingMassemailPageTest" />
     </classes>
   </test>
 
