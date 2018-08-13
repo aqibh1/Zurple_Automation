@@ -12,12 +12,14 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.AbstractTest;
+import resources.ConfigReader;
 import resources.SSHConnector;
 import resources.orm.hibernate.dao.ManageUser;
 import resources.orm.hibernate.models.*;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertFalse;
 
 /**
  * todo
@@ -109,6 +111,19 @@ public class UserTest extends AbstractTest
     }
 
     @Test
+    public void setUserLastStatusChangeDate30DaysAgo() {
+
+        Date d = new Date();
+        d.setTime(d.getTime() - 30L * 24 * 60 * 60 * 1000);
+
+        User user = getEnvironment().getUserToCheck();
+        assertFalse(user.getUserStatusChanges().isEmpty());
+        user.getUserStatusChanges().get(0).setStatusChangeDatetime(d);
+        user.getUserStatusChanges().get(0).save();
+
+    }
+
+    @Test
     @Parameters({"score"})
     public void testChangeUserLeadScore(@Optional("0") Integer score) {
         User user = getEnvironment().getUserToCheck();
@@ -116,16 +131,28 @@ public class UserTest extends AbstractTest
         user.save();
     }
 
-        @Test
+    @Test
     @Parameters({"status_initial"})
     public void testPrepareUserBecomesProspect2(@Optional("") String status_initial){
 
+        ConfigReader configReader = ConfigReader.load();
         User user = getEnvironment().getUserToCheck();
         
         user.setUserStatus(status_initial);
         user.save();
 
-        String res = SSHConnector.runRemoteScript("cd /workroot/platform/trunk && cd php/src/main/php/application/scripts && echo '{\"adminId\":"+user.getAdminId().getId()+",\"userId\":"+user.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e dev");
+        String res = SSHConnector.runRemoteScript("cd /workroot/platform/trunk && cd php/src/main/php/application/scripts && echo '{\"adminId\":"+user.getAdminId().getId()+",\"userId\":"+user.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e "+configReader.getPropertyByName("jobs_server_name"));
+
+        assertEquals(res,"OK");// Check SSH server is running and accessible
+
+    }
+
+    @Test
+    public void testUserStatusAutomationIconCacheRebuild(){
+
+        ConfigReader configReader = ConfigReader.load();
+
+        String res = SSHConnector.runRemoteScript("sudo -u www-data bash -c \"export SERVER_NAME="+configReader.getPropertyByName("jobs_server_name")+"; export ZURPLE_ENVIRONMENT="+configReader.getPropertyByName("jobs_environment_title")+"; php /var/www/zurple.com/current/webapp/index.php --zfc=job_userstatus  --zfa=userstatusautomationiconcacherebuild --zfp=packages:57\"");
 
         assertEquals(res,"OK");// Check SSH server is running and accessible
 

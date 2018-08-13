@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Refresh page">
+
+  <test name="Refresh page">
+    <classes>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="refreshPage" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>
