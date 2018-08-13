@@ -153,7 +153,11 @@ public class LeadDetailPageTest
     @Parameters({"status", "ignore_automation"})
     @Test
     public void testLeadStatusBlock(@Optional("") String status,@Optional("0") Integer ignore_automation) {
-        assertEquals(getPage().getLeadStatusForm().getStatus().getValue(),status);
+        if ( !"".equals(status) )
+        {
+            assertEquals(getPage().getLeadStatusForm().getStatus().getValue(),status);
+        }
+
         if (ignore_automation == 0)
         {
             assertEquals(getPage().getLeadStatusForm().getStatusAutomationIcon(),null);

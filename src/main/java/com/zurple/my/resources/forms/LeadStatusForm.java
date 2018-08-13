@@ -57,6 +57,7 @@ public class LeadStatusForm
         }
         catch (StaleElementReferenceException e) {}
         catch( NoSuchElementException e ) {}
+        catch( IndexOutOfBoundsException e ) {}
 
         return icon;
     }
