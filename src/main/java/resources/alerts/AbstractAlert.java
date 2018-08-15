@@ -7,8 +7,6 @@ import org.openqa.selenium.WebElement;
 
 public abstract class AbstractAlert {
 
-    public static String alertXpath = "//div[contains(@class,\"sweet-alert\")]";
-
     protected WebElement alert;
     protected WebElement okButton;
     protected WebElement cancelButton;
@@ -16,12 +14,6 @@ public abstract class AbstractAlert {
 
     public void setAlert(WebElement object) {
         alert = object;
-        try {
-            okButton = alert.findElement(By.xpath("./descendant::button[contains(@class,\"confirm\")]"));
-            cancelButton = alert.findElement(By.xpath("./descendant::button[contains(@class,\"cancel\")]"));
-            message = alert.findElement(By.xpath("./descendant::h2")).getText();
-        } catch (NoSuchElementException e) {
-        }
     }
 
     public WebElement getAlert() {

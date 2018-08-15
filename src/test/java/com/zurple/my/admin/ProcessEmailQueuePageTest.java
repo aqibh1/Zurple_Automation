@@ -34,4 +34,10 @@ public class ProcessEmailQueuePageTest
     {
         assertTrue(getPage().runIRQueueProcessing());
     }
+
+    @Test
+    public void testMassEmailQueueProcessing()
+    {
+        assertTrue(getPage().runMassEmailQueueProcessing());
+    }
 }

@@ -153,14 +153,18 @@ public class LeadDetailPageTest
     @Parameters({"status", "ignore_automation"})
     @Test
     public void testLeadStatusBlock(@Optional("") String status,@Optional("0") Integer ignore_automation) {
-        assertEquals(getPage().getLeadStatusForm().getStatus().getValue(),status);
+        if ( !"".equals(status) )
+        {
+            assertEquals(getPage().getLeadStatusForm().getStatus().getValue(),status);
+        }
+
         if (ignore_automation == 0)
         {
             assertEquals(getPage().getLeadStatusForm().getStatusAutomationIcon(),null);
         }else if(ignore_automation == 1)
         {
             assertEquals(getPage().getLeadStatusForm().getStatusAutomationIcon().getAttribute("title"),"30 days until lead automation is re-enabled");
-            assertEquals(getPage().getLeadStatusForm().getStatusAutomationIcon().getAttribute("class"),"z-lead-automation-marker z-lead-automation-paused");
+            assertEquals(getPage().getLeadStatusForm().getStatusAutomationIcon().findElement(By.tagName("img")).getAttribute("class"),"z-lead-automation-paused");
         }else
         {
             assertEquals(getPage().getLeadStatusForm().getStatusAutomationIcon().getAttribute("title"),"Lead status is paused from automation. To allow for automation to occur again, please update the status and select Temporary change.");

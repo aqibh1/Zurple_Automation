@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Sending Mass Email To Unresponsive Leads">
+
+  <test name="Sending Mass Email To Unresponsive Leads">
+    <parameter name="status" value="Unresponsive"/>
+    <classes>
+      <class name="com.zurple.my.MarketingMassemailPageTest" >
+        <methods>
+          <include name="testSendingMassEmailToLeadsWithStatus" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>
