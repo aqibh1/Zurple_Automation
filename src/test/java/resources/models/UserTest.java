@@ -141,7 +141,7 @@ public class UserTest extends AbstractTest
         user.setUserStatus(status_initial);
         user.save();
 
-        String res = SSHConnector.runRemoteScript("cd /workroot/platform/trunk && cd php/src/main/php/application/scripts && echo '{\"adminId\":"+user.getAdminId().getId()+",\"userId\":"+user.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e "+configReader.getPropertyByName("jobs_server_name"));
+        String res = SSHConnector.runRemoteScript("cd /var/www/zurple.com/current/php/application/scripts && echo '{\"adminId\":"+user.getAdminId().getId()+",\"userId\":"+user.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e "+configReader.getPropertyByName("jobs_environment_title"));
 
         assertEquals(res,"OK");// Check SSH server is running and accessible
 

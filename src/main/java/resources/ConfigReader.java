@@ -24,6 +24,10 @@ public class ConfigReader {
             // load a properties file
             prop.load(input);
 
+            prop.setProperty("ssh_user",System.getProperty("ssh_user"));
+            prop.setProperty("ssh_key",System.getProperty("ssh_key"));
+            prop.setProperty("ssh_pass",System.getProperty("ssh_pass"));
+
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
