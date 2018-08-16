@@ -3,29 +3,9 @@ package resources;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import resources.orm.hibernate.dao.ManageAdmin;
-import resources.orm.hibernate.dao.ManageDistributionRules;
-import resources.orm.hibernate.dao.ManageEmailQueue;
-import resources.orm.hibernate.dao.ManageImports;
-import resources.orm.hibernate.dao.ManageSessionUser;
-import resources.orm.hibernate.dao.ManageSite;
-import resources.orm.hibernate.dao.ManageTransactionGoals;
-import resources.orm.hibernate.dao.ManageTransactions;
-import resources.orm.hibernate.dao.ManageUser;
-import resources.orm.hibernate.models.Admin;
+import resources.orm.hibernate.dao.*;
+import resources.orm.hibernate.models.*;
 import resources.orm.hibernate.HibernateUtil;
-import resources.orm.hibernate.dao.ManagePackageProducts;
-import resources.orm.hibernate.models.DistributionRule;
-import resources.orm.hibernate.models.Import;
-import resources.orm.hibernate.models.PackageProduct;
-import resources.orm.hibernate.models.EmailQueue;
-import resources.orm.hibernate.models.Lead;
-import resources.orm.hibernate.dao.ManageLead;
-import resources.orm.hibernate.models.SessionUser;
-import resources.orm.hibernate.models.Site;
-import resources.orm.hibernate.models.Transaction;
-import resources.orm.hibernate.models.TransactionGoal;
-import resources.orm.hibernate.models.User;
 
 public class TestEnvironment
 {
@@ -105,6 +85,14 @@ public class TestEnvironment
         ManageLead ml = new ManageLead(getSession());
 
         return ml.getLead(lead_id);
+    }
+
+    public Property getDetailedProperty(Integer prop_id)
+    {
+
+        ManageViewDetailedProperty mp = new ManageViewDetailedProperty(getSession());
+
+        return mp.getDetailedProperty(prop_id);
     }
 
     public User getUserById(Integer user_id)

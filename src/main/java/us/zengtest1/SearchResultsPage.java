@@ -5,6 +5,9 @@ import org.openqa.selenium.WebElement;
 import us.zengtest1.resources.blocks.SearchResultsBlock;
 import us.zengtest1.resources.forms.SearchForm;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SearchResultsPage
         extends Page
 {
@@ -20,7 +23,7 @@ public class SearchResultsPage
     }
 
     public SearchResultsPage(){
-        url = "/search/page";
+        url = "/search/page/1";
     }
 
     public SearchResultsPage(String url){
@@ -40,4 +43,17 @@ public class SearchResultsPage
         return driver.findElement(By.xpath("//*[@id=\"wrap\"]/nav/div/div[2]/ul"));
     }
 
+    public Integer getNumberOfResults(){
+        String numberString = driver.findElement(By.xpath("//*[@id=\"search-result\"]/div[3]/div")).getText();
+        Pattern p = Pattern.compile("(\\d+)");
+        Matcher m = p.matcher(numberString);
+
+        if(m.find())
+        {
+            return Integer.parseInt(m.group(1));
+        }else
+        {
+            return 0;
+        }
+    }
 }

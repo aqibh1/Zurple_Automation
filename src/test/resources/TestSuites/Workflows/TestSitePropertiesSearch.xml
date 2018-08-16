@@ -1,0 +1,26 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="performing property search">
+
+    <parameter name="search_by" value="city"/>
+    <parameter name="search_criteria" value="San Diego, CA"/>
+    <parameter name="min_price" value="425000"/>
+    <parameter name="max_price" value="1500000"/>
+    <parameter name="bedrooms" value="2"/>
+    <parameter name="bathrooms" value="2"/>
+    <parameter name="square_feet" value="1000"/>
+    <parameter name="year_built" value="2005"/>
+    <parameter name="lot_sqft" value="2000"/>
+    <parameter name="types" value="home,condo,land"/>
+    <parameter name="features" value="Air Conditioning"/>
+    <parameter name="styles" value=""/>
+    <parameter name="views" value=""/>
+    <parameter name="results_expected" value="30"/>
+
+    <suite-files>
+        <suite-file path="../zengtest1/Actions/Perform search.xml"/>
+        <suite-file path="../zengtest1/TestSearchResults.xml"/>
+        <suite-file path="../Common/Close Browser.xml"/>
+    </suite-files>
+
+</suite>
