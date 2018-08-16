@@ -104,7 +104,7 @@ public abstract class AbstractForm implements UsesDriver
         form.findElement(By.xpath("./descendant::input[@id=\""+inputName+"\"]")).sendKeys(value);
     }
 
-    public void setSelectValue(String inputName, Integer index)
+    public void setSelectValueByIndex(String inputName, Integer index)
     {
         Select dropdown = new Select(form.findElement(By.xpath("./descendant::select[@id=\""+inputName+"\"]")));
         dropdown.selectByIndex(index);

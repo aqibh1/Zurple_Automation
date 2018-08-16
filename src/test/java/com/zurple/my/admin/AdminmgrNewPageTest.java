@@ -53,7 +53,7 @@ public class AdminmgrNewPageTest
         getPage().getAdminCreateForm().setInputValue("alt_email",adminAltEmail);
         getPage().getAdminCreateForm().setInputValue("password",adminPassword);
         getPage().getAdminCreateForm().setInputValue("password_confirm",adminPassword);
-        getPage().getAdminCreateForm().setSelectValue("package_id",1);
+        getPage().getAdminCreateForm().setSelectValueByIndex("package_id",1);
         getPage().getAdminCreateForm().toggleCheckboxValue("owner_flag");
 
         getPage().getAdminCreateForm().submit();

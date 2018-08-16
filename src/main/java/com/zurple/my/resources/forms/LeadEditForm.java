@@ -16,7 +16,7 @@ public class LeadEditForm
     public Select2Dropdown getCityInput() {
 
         if (cityInput == null){
-            WebElement element = form.findElement(By.xpath("//descendant::div[@id=\"form-element-city_id_0\"]"));
+            WebElement element = form.findElement(By.xpath("//descendant::select[@id=\"city_id_0\"]/following-sibling::span"));
             cityInput = new Select2Dropdown();
             cityInput.setDriver(getDriver());
             cityInput.setElement(element);

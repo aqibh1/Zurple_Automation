@@ -17,21 +17,13 @@ public class Select2Dropdown
 {
     private WebElement element;
     private WebDriver driver;
-    private WebElement input;
     private WebElement variants_container;
 
-    public WebElement getInput(){
-        if (input == null){
-            input = element.findElement(By.xpath("./descendant::input[@type=\"search\"]"));
-        }
-        return input;
-    }
-
     public void openVariantsContainer(){
-        getInput().click();
+        element.click();
 
         Wait<WebDriver> wait = new WebDriverWait(driver, 10, 1000);
-        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath("//body/span//ul/li"),10));
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath("//body/span//ul/li"),1));
 
         this.variants_container = driver.findElement(By.xpath("//body/span//ul"));
 
@@ -53,10 +45,6 @@ public class Select2Dropdown
 
     public void setDriver(WebDriver driver) {
         this.driver = driver;
-    }
-
-    public void setInput(WebElement input) {
-        this.input = input;
     }
 
     public void selectValue(String value) {

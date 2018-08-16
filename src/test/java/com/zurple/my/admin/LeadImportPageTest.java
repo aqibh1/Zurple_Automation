@@ -89,7 +89,7 @@ public class LeadImportPageTest
 
         waitLoad();
 
-        getPage().getLeadsImportForm().setSelectValue("cities",2);
+        getPage().getLeadsImportForm().setSelectValueByIndex("cities",2);
 
         List<Lead> leads = new ArrayList<Lead>();
 
