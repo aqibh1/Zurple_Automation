@@ -95,6 +95,14 @@ public class TestEnvironment
         return mp.getDetailedProperty(prop_id);
     }
 
+    public SessionAnonymous getSessionAnonymous(String session_id)
+    {
+
+        ManageSessionAnonymous msa = new ManageSessionAnonymous(getSession());
+
+        return msa.getSessionAnonymous(session_id);
+    }
+
     public User getUserById(Integer user_id)
     {
 

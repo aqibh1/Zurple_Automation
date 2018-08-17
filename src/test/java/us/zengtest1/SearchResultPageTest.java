@@ -3,12 +3,17 @@ package us.zengtest1;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.openqa.selenium.Cookie;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.classes.SearchResult;
 import resources.orm.hibernate.models.Property;
+import resources.orm.hibernate.models.SessionAnonymous;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -80,6 +85,51 @@ public class SearchResultPageTest
             @Optional("") String views,
             @Optional("") Integer results_expected
     ){
+
+        Cookie cks = driver.manage().getCookieNamed("PHPSESSID");
+        SessionAnonymous sessionAnonymous = getEnvironment().getSessionAnonymous(cks.getValue());
+        JSONObject expected = new JSONArray("[  \n" +
+                "   {  \n" +
+                "      \"site_id\":\"1\",\n" +
+                "      \"user_activity_type\":\"search\",\n" +
+                "      \"user_activity_target\":\"\",\n" +
+                "      \"user_activity_search\":{  \n" +
+                "         \"user_activity_search_price_minimum\":"+min_price+",\n" +
+                "         \"user_activity_search_price_maximum\":"+max_price+",\n" +
+                "         \"user_activity_search_bedrooms_minimum\":"+bedrooms+",\n" +
+                "         \"user_activity_search_bathrooms_minimum\":"+bathrooms+",\n" +
+                "         \"user_activity_search_square_feet_minimum\":"+square_feet+",\n" +
+                "         \"user_activity_search_lot_square_feet_minimum\":"+lot_sqft+",\n" +
+                "         \"user_activity_search_cities\":[  \n" +
+                "            \"25158\"\n" +
+                "         ],\n" +
+                "         \"user_activity_search_communities\":[  \n" +
+                "\n" +
+                "         ],\n" +
+                "         \"user_activity_search_areas\":\"\",\n" +
+                "         \"user_activity_search_property_types\":[  \n" +
+                "            \"home\",\n" +
+                "            \"condo\",\n" +
+                "            \"land\"\n" +
+                "         ],\n" +
+                "         \"user_activity_search_extra\":[  \n" +
+                "\n" +
+                "         ],\n" +
+                "         \"user_activity_search_fsv\":[  \n" +
+                "\n" +
+                "         ]\n" +
+                "      },\n" +
+                "      \"user_activity_time\":\"2017-08-09 00:07:53\"\n" +
+                "   }\n" +
+                "]").getJSONObject(0).getJSONObject("user_activity_search");
+
+        JSONObject real = new JSONArray(sessionAnonymous.getSessionAnonymousData()).getJSONObject(0).getJSONObject("user_activity_search");
+        assertEquals(expected.get("user_activity_search_price_minimum"),real.get("user_activity_search_price_minimum"));
+        assertEquals(expected.get("user_activity_search_price_maximum"),real.get("user_activity_search_price_maximum"));
+        assertEquals(expected.get("user_activity_search_bedrooms_minimum"),real.get("user_activity_search_bedrooms_minimum"));
+        assertEquals(expected.get("user_activity_search_bathrooms_minimum"),real.get("user_activity_search_bathrooms_minimum"));
+        assertEquals(expected.get("user_activity_search_square_feet_minimum"),real.get("user_activity_search_square_feet_minimum"));
+        assertEquals(expected.get("user_activity_search_lot_square_feet_minimum"),real.get("user_activity_search_lot_square_feet_minimum"));
 
         do {
             assertTrue(results_expected <= getPage().getNumberOfResults());

@@ -21,6 +21,7 @@
     <mapping class="resources.orm.hibernate.models.Site"></mapping>
     <mapping class="resources.orm.hibernate.models.Email"></mapping>
     <mapping class="resources.orm.hibernate.models.Property"></mapping>
+    <mapping class="resources.orm.hibernate.models.SessionAnonymous"></mapping>
     <mapping class="resources.orm.hibernate.models.UserActivity"></mapping>
     <mapping class="resources.orm.hibernate.models.PackageProduct"></mapping>
     <mapping class="resources.orm.hibernate.models.Transaction"></mapping>
