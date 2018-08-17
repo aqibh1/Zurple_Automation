@@ -2,6 +2,9 @@ package resources.orm.hibernate.models;
 
 import javax.persistence.*;
 
+import java.lang.reflect.Field;
+import java.util.*;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -50,9 +53,63 @@ public class Property
     private Boolean reo_yn;
     private Boolean short_sale_yn;
     private Boolean storage_yn;
-    private Boolean view_yn;
+
+    private Map<String,String> features_field_map = new HashMap<String, String>();
 
     public Property() {
+        features_field_map.put("air_conditioning_yn" , "Air Conditioning");
+        features_field_map.put("balcony_yn" , "Balcony");
+        features_field_map.put("basement_yn" , "Basement");
+        features_field_map.put("elevator_yn" , "Elevator");
+        features_field_map.put("forced_air_yn" , "Forced Air");
+        features_field_map.put("foreclosure_yn" , "Foreclosure");
+        features_field_map.put("furnished_yn" , "Furnished");
+        features_field_map.put("garage_yn" , "Garage");
+        features_field_map.put("garden_yn" , "Garden");
+        features_field_map.put("gated_community_yn" , "Gated Community");
+        features_field_map.put("golf_course_yn" , "Golf Course");
+        features_field_map.put("horse_property_yn" , "Horse Property");
+        features_field_map.put("multilevel_yn" , "Multi-level");
+        features_field_map.put("new_construction_yn" , "New Construction");
+        features_field_map.put("pets_yn" , "Pets");
+        features_field_map.put("pool_yn" , "Pool");
+        features_field_map.put("reo_yn" , "Real Estate Owned");
+        features_field_map.put("short_sale_yn" , "Short Sale");
+        features_field_map.put("storage_yn" , "Storage");
+    }
+
+    public List<String> buildFeaturesList(){
+
+        List<String> featureList = new ArrayList<String>();
+
+        Iterator it = features_field_map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            if (getPropertyValue(pair.getKey().toString()).toString().equals("true")){
+                featureList.add(pair.getValue().toString());
+            }
+            it.remove();
+        }
+
+        return  featureList;
+    }
+
+    private Object getPropertyValue(String property){
+        Object value = null;
+        try {
+            for (Field field : this.getClass().getDeclaredFields()) {
+                if (field.getName().equals(property)){
+                    field.setAccessible(true);
+                    value = field.get(this);
+                    if (value != null) {
+                        return value;
+                    }
+                }
+            }
+        } catch (IllegalAccessException e) {
+
+        }
+        return value;
     }
 
     @Id
@@ -391,14 +448,6 @@ public class Property
         this.storage_yn = storage_yn;
     }
 
-    @Column(name = "view_yn", unique = false, nullable = false)
-    public Boolean getView_yn() {
-        return this.view_yn;
-    }
-
-    public void setView_yn(Boolean view_yn) {
-        this.view_yn = view_yn;
-    }
 
 
 

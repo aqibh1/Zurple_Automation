@@ -1,6 +1,7 @@
 package us.zengtest1;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import us.zengtest1.resources.blocks.SearchResultsBlock;
 import us.zengtest1.resources.forms.SearchForm;
@@ -17,6 +18,7 @@ public class SearchResultsPage
     public SearchResultsBlock getSearchResultsBlock(){
         if(null == searchResultsBlock){
             searchResultsBlock = new SearchResultsBlock();
+            searchResultsBlock.setDriver(driver);
             searchResultsBlock.setBlock(driver.findElement(By.xpath("//*[@id=\"search-result\"]")));
         }
         return searchResultsBlock;
@@ -55,5 +57,12 @@ public class SearchResultsPage
         {
             return 0;
         }
+    }
+
+    public void goNextPage(){
+
+        searchResultsBlock = null;
+
+        driver.findElement(By.xpath("//a[@title=\"next page\"]")).click();
     }
 }

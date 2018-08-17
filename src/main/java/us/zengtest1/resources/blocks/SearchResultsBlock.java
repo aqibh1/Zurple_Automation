@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import resources.classes.AdminProduct;
+import resources.classes.Helper;
 import resources.classes.SearchResult;
 
 public class SearchResultsBlock
@@ -27,6 +28,9 @@ public class SearchResultsBlock
 
         try{
 
+
+            Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(Helper.generateXPATH(block,"") + "/div[contains(concat(\" \",normalize-space(@class),\" \"),\" property-photo-grid \")]/div")));
             List<WebElement> allSearchResultsRows = block.findElements(By.xpath("./div[contains(concat(\" \",normalize-space(@class),\" \"),\" property-photo-grid \")]/div"));
 
             for (WebElement row: allSearchResultsRows) {

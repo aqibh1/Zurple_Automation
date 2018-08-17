@@ -80,47 +80,62 @@ public class SearchResultPageTest
             @Optional("") String views,
             @Optional("") Integer results_expected
     ){
-        assertTrue(results_expected <= getPage().getNumberOfResults());
-        ArrayList<SearchResult> searchResultsList = getPage().getSearchResultsBlock().getSearchResultsList();
-        assertFalse(searchResultsList.isEmpty());
 
-        List<String> typeList = null;
-        if( types.isEmpty() == false)
-        {
-            typeList = Arrays.asList(types.split(","));
-        }
+        do {
+            assertTrue(results_expected <= getPage().getNumberOfResults());
+            ArrayList<SearchResult> searchResultsList = getPage().getSearchResultsBlock().getSearchResultsList();
+            assertFalse(searchResultsList.isEmpty());
 
-        List<String> featureList = null;
-        if( features.isEmpty() == false)
-        {
-            featureList = Arrays.asList(features.split(","));
-        }
-
-        List<String> viewList = null;
-        if( views.isEmpty() == false)
-        {
-            viewList = Arrays.asList(views.split(","));
-        }
-
-        for(SearchResult result:searchResultsList)
-        {
-            Property property = getEnvironment().getDetailedProperty(result.getId());
-            assertEquals(property.getStatus(),"Active");
-            assertTrue(typeList.contains(property.getPropType()));
-
-            if("city".equals(search_by))
+            List<String> typeList = null;
+            if( types.isEmpty() == false)
             {
-
-                assertTrue(search_criteria.toLowerCase().contains(property.getCity().toLowerCase()));
+                typeList = Arrays.asList(types.split(","));
             }
 
-            assertTrue(property.getBedrooms() >= bedrooms);
-            assertTrue(property.getBathrooms() >= bathrooms);
-            assertTrue(property.getPrice() >= min_price && property.getPrice() <= max_price);
-            assertTrue(property.getYearBuilt() >= year_built);
-            assertTrue(property.getSquareFeet() >= square_feet);
-            assertTrue(property.getLotSqft() >= lot_sqft);
-        }
+            List<String> featureList = null;
+            if( features.isEmpty() == false)
+            {
+                featureList = Arrays.asList(features.split(","));
+            }
+
+            List<String> viewList = null;
+            if( views.isEmpty() == false)
+            {
+                viewList = Arrays.asList(views.split(","));
+            }
+
+            for(SearchResult result:searchResultsList)
+            {
+                Property property = getEnvironment().getDetailedProperty(result.getId());
+                assertEquals(property.getStatus(),"Active");
+                assertTrue(typeList.contains(property.getPropType()));
+
+                if("city".equals(search_by))
+                {
+                    assertTrue(search_criteria.toLowerCase().contains(property.getCity().toLowerCase()));
+                }
+
+                assertTrue(property.getBedrooms() >= bedrooms);
+                assertTrue(property.getBathrooms() >= bathrooms);
+                assertTrue(property.getPrice() >= min_price && property.getPrice() <= max_price);
+                assertTrue(property.getYearBuilt() >= year_built);
+                assertTrue(property.getSquareFeet() >= square_feet);
+                assertTrue(property.getLotSqft() >= lot_sqft);
+
+                List<String> propertiesFeatures = property.buildFeaturesList();
+                for(String feature:featureList){
+                    assertTrue(propertiesFeatures.contains(feature));
+                }
+
+            }
+
+            try{
+                getPage().goNextPage();
+            }catch(Exception e){
+                break;
+            }
+
+        } while (true);
     }
 
 }
