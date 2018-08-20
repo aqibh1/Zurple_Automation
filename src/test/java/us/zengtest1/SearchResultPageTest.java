@@ -72,19 +72,21 @@ public class SearchResultPageTest
     public void testSearchResultsList(
             @Optional("") String search_by,
             @Optional("") String search_criteria,
-            @Optional("") Integer min_price,
-            @Optional("") Integer max_price,
-            @Optional("") Integer bedrooms,
-            @Optional("") Integer bathrooms,
-            @Optional("") Integer square_feet,
-            @Optional("") Integer year_built,
-            @Optional("") Integer lot_sqft,
+            @Optional("0") String min_price,
+            @Optional("0") String max_price,
+            @Optional("0") String bedrooms,
+            @Optional("0") String bathrooms,
+            @Optional("0") String square_feet,
+            @Optional("0") String year_built,
+            @Optional("0") String lot_sqft,
             @Optional("") String types,
             @Optional("") String features,
             @Optional("") String styles,
             @Optional("") String views,
             @Optional("") Integer results_expected
     ){
+
+        assertTrue(results_expected <= getPage().getNumberOfResults());
 
         Cookie cks = driver.manage().getCookieNamed("PHPSESSID");
         SessionAnonymous sessionAnonymous = getEnvironment().getSessionAnonymous(cks.getValue());
@@ -132,7 +134,6 @@ public class SearchResultPageTest
         assertEquals(expected.get("user_activity_search_lot_square_feet_minimum"),real.get("user_activity_search_lot_square_feet_minimum"));
 
         do {
-            assertTrue(results_expected <= getPage().getNumberOfResults());
             ArrayList<SearchResult> searchResultsList = getPage().getSearchResultsBlock().getSearchResultsList();
             assertFalse(searchResultsList.isEmpty());
 
@@ -165,12 +166,12 @@ public class SearchResultPageTest
                     assertTrue(search_criteria.toLowerCase().contains(property.getCity().toLowerCase()));
                 }
 
-                assertTrue(property.getBedrooms() >= bedrooms);
-                assertTrue(property.getBathrooms() >= bathrooms);
-                assertTrue(property.getPrice() >= min_price && property.getPrice() <= max_price);
-                assertTrue(property.getYearBuilt() >= year_built);
-                assertTrue(property.getSquareFeet() >= square_feet);
-                assertTrue(property.getLotSqft() >= lot_sqft);
+                assertTrue(property.getBedrooms() >= Integer.parseInt(bedrooms));
+                assertTrue(property.getBathrooms() >= Integer.parseInt(bathrooms));
+                assertTrue(property.getPrice() >= Integer.parseInt(min_price) && property.getPrice() <= Integer.parseInt(max_price));
+                assertTrue(property.getYearBuilt() >= Integer.parseInt(year_built));
+                assertTrue(property.getSquareFeet() >= Integer.parseInt(square_feet));
+                assertTrue(property.getLotSqft() >= Integer.parseInt(lot_sqft));
 
                 List<String> propertiesFeatures = property.buildFeaturesList();
                 for(String feature:featureList){

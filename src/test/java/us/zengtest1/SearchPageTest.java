@@ -102,29 +102,42 @@ public class SearchPageTest
         assertTrue(form.getElementById("by_" + search_by).isDisplayed());
         form.getElementById("by_" + search_by).click();
 
-        assertTrue(form.getElementById(search_by).isDisplayed());
-        form.setInputValue(search_by,search_criteria);
+        assertTrue(form.getElementById("city").isDisplayed());
+        form.setInputValue("city",search_criteria);
 
         assertTrue(form.getElementById("min_price").isDisplayed());
-        form.setSelectValueByValue("min_price",min_price);
+        if ( !"".equals(min_price)) {
+            form.setSelectValueByValue("min_price", min_price);
+        }
 
         assertTrue(form.getElementById("max_price").isDisplayed());
-        form.setSelectValueByValue("max_price",max_price);
+        if ( !"".equals(max_price)) {
+            form.setSelectValueByValue("max_price", max_price);
+        }
 
         assertTrue(form.getElementById("bedrooms").isDisplayed());
-        form.setSelectValueByValue("bedrooms",bedrooms);
-
+        if ( !"".equals(bedrooms)) {
+            form.setSelectValueByValue("bedrooms", bedrooms);
+        }
         assertTrue(form.getElementById("bathrooms").isDisplayed());
-        form.setSelectValueByValue("bathrooms",bathrooms);
+        if ( !"".equals(bathrooms)) {
+            form.setSelectValueByValue("bathrooms", bathrooms);
+        }
 
         assertTrue(form.getElementById("square_feet").isDisplayed());
-        form.setSelectValueByValue("square_feet",square_feet);
-
+        if ( !"".equals(square_feet)) {
+            form.setSelectValueByValue("square_feet", square_feet);
+        }
         assertTrue(form.getElementById("year_built").isDisplayed());
-        form.setSelectValueByValue("year_built",year_built);
+        if ( !"".equals(year_built)){
+            assertTrue(form.getElementById("year_built").isDisplayed());
+            form.setSelectValueByValue("year_built",year_built);
+        }
 
         assertTrue(form.getElementById("lot_sqft").isDisplayed());
-        form.setSelectValueByValue("lot_sqft",lot_sqft);
+        if ( !"".equals(lot_sqft)) {
+            form.setSelectValueByValue("lot_sqft", lot_sqft);
+        }
 
         for(String type:types.split(",")){
             assertTrue(form.getElementById("type_" + type).isDisplayed());
