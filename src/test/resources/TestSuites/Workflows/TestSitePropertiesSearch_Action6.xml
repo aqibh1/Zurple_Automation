@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="performing property search Action 3">
+<suite name="performing property search Action 6">
 
     <parameter name="search_by" value="neighborhood"/>
-    <parameter name="search_criteria" value="San Diego"/>
+    <parameter name="search_criteria" value="Carmel Valley"/>
     <parameter name="bedrooms" value="1"/>
     <parameter name="bathrooms" value="1"/>
     <parameter name="square_feet" value="500"/>
