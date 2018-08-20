@@ -1,7 +1,12 @@
 package us.zengtest1.resources.forms;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import resources.classes.Helper;
 import resources.elements.Select2Dropdown;
 
 public class SearchForm
@@ -15,6 +20,9 @@ public class SearchForm
     public void expand()
     {
         form.findElement(By.xpath("./descendant::*[@id=\"expand-search-fields\"]")).click();
+        Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(concat(\" \",normalize-space(@class),\" \"),\" hideShow \")]")));
+
     }
 
     public Select2Dropdown getFeaturesInput() {

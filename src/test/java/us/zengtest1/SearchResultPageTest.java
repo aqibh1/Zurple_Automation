@@ -126,8 +126,15 @@ public class SearchResultPageTest
                 "]").getJSONObject(0).getJSONObject("user_activity_search");
 
         JSONObject real = new JSONArray(sessionAnonymous.getSessionAnonymousData()).getJSONObject(0).getJSONObject("user_activity_search");
-        assertEquals(expected.get("user_activity_search_price_minimum"),real.get("user_activity_search_price_minimum"));
-        assertEquals(expected.get("user_activity_search_price_maximum"),real.get("user_activity_search_price_maximum"));
+
+        if ( !"0".equals(min_price) ){
+            assertEquals(expected.get("user_activity_search_price_minimum"),real.get("user_activity_search_price_minimum"));
+        }
+
+        if ( !"0".equals(max_price) ){
+            assertEquals(expected.get("user_activity_search_price_maximum"),real.get("user_activity_search_price_maximum"));
+        }
+
         assertEquals(expected.get("user_activity_search_bedrooms_minimum"),real.get("user_activity_search_bedrooms_minimum"));
         assertEquals(expected.get("user_activity_search_bathrooms_minimum"),real.get("user_activity_search_bathrooms_minimum"));
         assertEquals(expected.get("user_activity_search_square_feet_minimum"),real.get("user_activity_search_square_feet_minimum"));
@@ -168,7 +175,11 @@ public class SearchResultPageTest
 
                 assertTrue(property.getBedrooms() >= Integer.parseInt(bedrooms));
                 assertTrue(property.getBathrooms() >= Integer.parseInt(bathrooms));
-                assertTrue(property.getPrice() >= Integer.parseInt(min_price) && property.getPrice() <= Integer.parseInt(max_price));
+
+                if ( !"0".equals(min_price) && !"0".equals(max_price) ){
+                    assertTrue(property.getPrice() >= Integer.parseInt(min_price) && property.getPrice() <= Integer.parseInt(max_price));
+                }
+
                 assertTrue(property.getYearBuilt() >= Integer.parseInt(year_built));
                 assertTrue(property.getSquareFeet() >= Integer.parseInt(square_feet));
                 assertTrue(property.getLotSqft() >= Integer.parseInt(lot_sqft));
