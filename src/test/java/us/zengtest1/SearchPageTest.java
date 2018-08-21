@@ -139,11 +139,12 @@ public class SearchPageTest
             form.setSelectValueByValue("lot_sqft", lot_sqft);
         }
 
-        for(String type:types.split(",")){
-            assertTrue(form.getElementById("type_" + type).isDisplayed());
-            if ( form.getElementById("type_" + type).isEnabled() == false)
-            {
-                form.getElementById("type_" + type).click();
+        if ( !"".equals(types)) {
+            for (String type : types.split(",")) {
+                assertTrue(form.getElementById("type_" + type).isDisplayed());
+                if (form.getElementById("type_" + type).isEnabled() == false) {
+                    form.getElementById("type_" + type).click();
+                }
             }
         }
 

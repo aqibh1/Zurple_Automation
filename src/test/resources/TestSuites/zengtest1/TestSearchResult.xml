@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Go through search results and verify they fit search criteria">
+
+  <test name="Go through search results and verify they fit search criteria">
+    <classes>
+      <class name="us.zengtest1.PropertyDetailsPageTest" >
+        <methods>
+          <include name="testSearchResult" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

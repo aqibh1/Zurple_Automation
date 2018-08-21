@@ -8,15 +8,33 @@ import resources.alerts.SweetAlertNotification;
 import resources.forms.ContactAgentForm;
 import resources.forms.LoginForm;
 
+import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class PropertyDetailsPage
         extends Page
 {
 
     private ContactAgentForm contactAgentForm;
     private JssorSlider jssorSlider;
+    private Integer propertyId;
 
-    public PropertyDetailsPage(){
-        url = "/CA/San_Diego/101217";
+    public PropertyDetailsPage(String prop_id){
+        url = "/CA/San_Diego/"+prop_id;
+        propertyId = Integer.parseInt(prop_id);
+    }
+
+    public Integer getPropertyId(){
+        if ( propertyId == null){
+
+            Pattern p = Pattern.compile("(\\d{2,})");
+            Matcher m = p.matcher(driver.getCurrentUrl());
+            while (m.find()) {
+                propertyId = Integer.parseInt(m.group(0));
+            }
+        }
+        return propertyId;
     }
 
     public ContactAgentForm getContactAgentForm(){
@@ -49,6 +67,14 @@ public class PropertyDetailsPage
 
     public WebElement getFavoriteButton(){
         return driver.findElement(By.xpath("//*[@id=\"add_fav\"]/button"));
+    }
+
+    public Integer getPrice(){
+        String price_text = driver.findElement(By.xpath("//div[contains(concat(\" \",normalize-space(@class),\" \"),\" price \")]/h2")).getText();
+
+        String price = price_text.replace("$","");
+        Integer sPrice = new Integer(price);
+        return sPrice;
     }
 
 }

@@ -26,6 +26,7 @@ public class Property
     private Integer zip_code;
     private Integer bedrooms;
     private Integer bathrooms;
+    private Integer mls_number;
     private Integer price;
     private String status;
     private Integer year_built;
@@ -139,6 +140,15 @@ public class Property
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    @Column(name = "mls_number", unique = false, nullable = false)
+    public Integer getMlsNumber() {
+        return this.mls_number;
+    }
+
+    public void setMlsNumber(Integer mls_number) {
+        this.mls_number = mls_number;
     }
 
     @Column(name = "country", unique = false, nullable = false)
