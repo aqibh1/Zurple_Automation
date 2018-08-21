@@ -1,8 +1,11 @@
 package us.zengtest1;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import resources.AbstractPage;
 import resources.ConfigReader;
+import resources.alerts.BootstrapModal;
 import resources.alerts.SweetAlertNotification;
 import resources.interfaces.HasHeader;
 
@@ -25,7 +28,7 @@ public abstract class Page extends AbstractPage implements HasHeader
     }
 
     private SweetAlertNotification sweetAlertNotification;
-    
+
     public SweetAlertNotification getSweetAlertNotification(){
         if(null == sweetAlertNotification){
             sweetAlertNotification = new SweetAlertNotification();
@@ -33,6 +36,29 @@ public abstract class Page extends AbstractPage implements HasHeader
                     By.xpath(SweetAlertNotification.alertXpath)));
         }
         return sweetAlertNotification;
+    }
+
+    protected BootstrapModal bootstrapModal;
+
+    public BootstrapModal getBootstrapModal(){
+        if(null == bootstrapModal){
+            bootstrapModal = new BootstrapModal();
+            bootstrapModal.setAlert(driver.findElement(
+                    By.xpath(BootstrapModal.alertXpath)));
+            bootstrapModal.setDriver(driver);
+        }
+        return bootstrapModal;
+    }
+
+    public boolean checkBootsrapModalIsShown(){
+        try{
+            getBootstrapModal();
+            return bootstrapModal.isVisible();
+        }catch(StaleElementReferenceException e){
+            return false;
+        }catch(NoSuchElementException e){
+            return false;
+        }
     }
     
 }

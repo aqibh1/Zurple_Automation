@@ -61,6 +61,11 @@ public class SearchResultsPage
 
     public void goNextPage(){
 
+        if(checkBootsrapModalIsShown()){
+            getBootstrapModal().close();
+        }
+
+        bootstrapModal = null;
         searchResultsBlock = null;
 
         driver.findElement(By.xpath("//a[@title=\"next page\"]")).click();

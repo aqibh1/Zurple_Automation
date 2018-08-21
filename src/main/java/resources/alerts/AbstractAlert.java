@@ -1,9 +1,6 @@
 package resources.alerts;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 
 public abstract class AbstractAlert {
 
@@ -11,6 +8,7 @@ public abstract class AbstractAlert {
     protected WebElement okButton;
     protected WebElement cancelButton;
     protected String message;
+    protected WebDriver driver;
 
     public void setAlert(WebElement object) {
         alert = object;
@@ -46,5 +44,9 @@ public abstract class AbstractAlert {
 
     public void close() {
         alert.sendKeys(Keys.ESCAPE);
+    }
+
+    public void setDriver(WebDriver driver) {
+        this.driver = driver;
     }
 }
