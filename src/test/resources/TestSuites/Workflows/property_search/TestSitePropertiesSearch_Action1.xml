@@ -18,9 +18,9 @@
     <parameter name="results_expected" value="30"/>
 
     <suite-files>
-        <suite-file path="../zengtest1/Actions/Perform search.xml"/>
-        <suite-file path="../zengtest1/TestSearchResults.xml"/>
-        <suite-file path="../Common/Close Browser.xml"/>
+        <suite-file path="../../zengtest1/Actions/Perform search.xml"/>
+        <suite-file path="../../zengtest1/TestSearchResults.xml"/>
+        <suite-file path="../../Common/Close Browser.xml"/>
     </suite-files>
 
 </suite>

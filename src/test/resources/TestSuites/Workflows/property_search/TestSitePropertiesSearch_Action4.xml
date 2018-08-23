@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="performing property search Action 4">
+
+    <parameter name="search_by" value="address"/>
+    <parameter name="search_criteria" value="1 Avenue"/>
+
+    <suite-files>
+        <suite-file path="../../zengtest1/Actions/Perform search.xml"/>
+        <suite-file path="../../zengtest1/TestSearchResult.xml"/>
+        <suite-file path="../../Common/Close Browser.xml"/>
+    </suite-files>
+
+</suite>

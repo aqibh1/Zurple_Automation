@@ -182,55 +182,21 @@ public class PropertyDetailsPageTest
 
         Cookie cks = driver.manage().getCookieNamed("PHPSESSID");
         SessionAnonymous sessionAnonymous = getEnvironment().getSessionAnonymous(cks.getValue());
-        JSONObject expected = new JSONArray("[  \n" +
-                "   {  \n" +
-                "      \"site_id\":\"1\",\n" +
-                "      \"user_activity_type\":\"search\",\n" +
-                "      \"user_activity_target\":\"\",\n" +
-                "      \"user_activity_search\":{  \n" +
-                "         \"user_activity_search_price_minimum\":"+min_price+",\n" +
-                "         \"user_activity_search_price_maximum\":"+max_price+",\n" +
-                "         \"user_activity_search_bedrooms_minimum\":"+bedrooms+",\n" +
-                "         \"user_activity_search_bathrooms_minimum\":"+bathrooms+",\n" +
-                "         \"user_activity_search_square_feet_minimum\":"+square_feet+",\n" +
-                "         \"user_activity_search_lot_square_feet_minimum\":"+lot_sqft+",\n" +
-                "         \"user_activity_search_cities\":[  \n" +
-                "            \"25158\"\n" +
-                "         ],\n" +
-                "         \"user_activity_search_communities\":[  \n" +
-                "\n" +
-                "         ],\n" +
-                "         \"user_activity_search_areas\":\"\",\n" +
-                "         \"user_activity_search_property_types\":[  \n" +
-                "            \"home\",\n" +
-                "            \"condo\",\n" +
-                "            \"land\"\n" +
-                "         ],\n" +
-                "         \"user_activity_search_extra\":[  \n" +
-                "\n" +
-                "         ],\n" +
-                "         \"user_activity_search_fsv\":[  \n" +
-                "\n" +
-                "         ]\n" +
-                "      },\n" +
-                "      \"user_activity_time\":\"2017-08-09 00:07:53\"\n" +
-                "   }\n" +
-                "]").getJSONObject(0).getJSONObject("user_activity_search");
 
         JSONObject real = new JSONArray(sessionAnonymous.getSessionAnonymousData()).getJSONObject(0).getJSONObject("user_activity_search");
 
         if ( !"0".equals(min_price) ){
-            assertEquals(expected.get("user_activity_search_price_minimum"),real.get("user_activity_search_price_minimum"));
+            assertEquals(Integer.parseInt(min_price),real.get("user_activity_search_price_minimum"));
         }
 
         if ( !"0".equals(max_price) ){
-            assertEquals(expected.get("user_activity_search_price_maximum"),real.get("user_activity_search_price_maximum"));
+            assertEquals(Integer.parseInt(max_price),real.get("user_activity_search_price_maximum"));
         }
 
-        assertEquals(expected.get("user_activity_search_bedrooms_minimum"),real.get("user_activity_search_bedrooms_minimum"));
-        assertEquals(expected.get("user_activity_search_bathrooms_minimum"),real.get("user_activity_search_bathrooms_minimum"));
-        assertEquals(expected.get("user_activity_search_square_feet_minimum"),real.get("user_activity_search_square_feet_minimum"));
-        assertEquals(expected.get("user_activity_search_lot_square_feet_minimum"),real.get("user_activity_search_lot_square_feet_minimum"));
+        assertEquals(Integer.parseInt(bedrooms),real.get("user_activity_search_bedrooms_minimum"));
+        assertEquals(Integer.parseInt(bathrooms),real.get("user_activity_search_bathrooms_minimum"));
+        assertEquals(Integer.parseInt(square_feet),real.get("user_activity_search_square_feet_minimum"));
+        assertEquals(Integer.parseInt(lot_sqft),real.get("user_activity_search_lot_square_feet_minimum"));
 
 
         List<String> typeList = null;
