@@ -31,6 +31,11 @@
       <version>1.6.1</version>
     </dependency>
     <dependency>
+      <groupId>org.jdom</groupId>
+      <artifactId>jdom2</artifactId>
+      <version>2.0.6</version>
+    </dependency>
+    <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate</artifactId>
       <version>3.2.1.ga</version>
@@ -87,21 +92,7 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.7.0</version>
         </plugin>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.20.1</version>
-          <configuration>
-            <systemPropertyVariables>
-              <environment>${environment}</environment>
-              <ssh_user>${ssh_user}</ssh_user>
-              <ssh_key>${ssh_key}</ssh_key>
-              <ssh_pass>${ssh_pass}</ssh_pass>
-            </systemPropertyVariables>
-            <suiteXmlFiles>
-              <suiteXmlFile>src/test/resources/TestSuites/${suite}</suiteXmlFile>
-            </suiteXmlFiles>
-          </configuration>
-        </plugin>
+
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
@@ -113,6 +104,42 @@
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>2.8.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.5.0</version>
+          <executions>
+            <execution>
+              <phase>test</phase>
+              <goals>
+                <goal>java</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <classpathScope>test</classpathScope>
+            <systemProperties>
+              <systemProperty>
+                <key>environment</key>
+                <value>${environment}</value>
+              </systemProperty>
+              <systemProperty>
+                <key>ssh_user</key>
+                <value>${ssh_user}</value>
+              </systemProperty>
+              <systemProperty>
+                <key>ssh_key</key>
+                <value>${ssh_key}</value>
+              </systemProperty>
+              <systemProperty>
+                <key>ssh_pass</key>
+                <value>${ssh_pass}</value>
+              </systemProperty>
+            </systemProperties>
+            <cleanupDaemonThreads>false</cleanupDaemonThreads>
+            <mainClass>com.zurple.my.TestRunner</mainClass>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
