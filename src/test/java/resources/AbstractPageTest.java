@@ -26,16 +26,16 @@ import static org.testng.Assert.assertTrue;
 public abstract class AbstractPageTest extends AbstractTest
 {
 
-    protected static WebDriver driver;
+    protected WebDriver driver;
     protected AbstractPage page;
-    protected static String source_in_url="";
-    protected static Boolean incognito=false;
+    protected String source_in_url="";
+    protected Boolean incognito=false;
 
     public abstract AbstractPage getPage();
 
     public abstract void clearPage();
 
-    public static WebDriver getDriver(){
+    public WebDriver getDriver(){
 
         if(driver == null){
 

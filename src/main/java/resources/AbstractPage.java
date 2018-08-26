@@ -15,7 +15,7 @@ import resources.classes.Asset;
 public abstract class AbstractPage
 {
     protected WebDriver driver;
-    protected static String url;
+    protected String url;
 
     public void setDriver(WebDriver driver){
         this.driver=driver;

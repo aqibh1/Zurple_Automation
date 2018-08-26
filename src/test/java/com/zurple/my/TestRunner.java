@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 
@@ -41,21 +42,58 @@ public class TestRunner
 
         System.setProperty("environment","dev");
 
-        List<String> suites = Lists.newArrayList();
-        suites.add("src/test/resources/TestSuites/zengtest1/Actions/Register new lead.xml");
-        suites.add("src/test/resources/TestSuites/zurple/Actions/SetLeadValidationStatusCorrect.xml");
-        suites.add("src/test/resources/TestSuites/zurple/Actions/Login.xml");
-        suites.add("src/test/resources/TestSuites/zurple/Actions/SendMassEmailToNewLeads.xml");
-        suites.add("src/test/resources/TestSuites/zurple/Actions/ProcessMassEmailQueue.xml");
-        suites.add("src/test/resources/TestSuites/Workflows/email_alerts/UserReceivedMassEmail.xml");
-        suites.add("src/test/resources/TestSuites/Common/Close Browser.xml");
 
-        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+        List<String> suites = Lists.newArrayList();
+
+        suites.add("C:/Users/vzotov/IdeaProjects/zurple_selenium/src/test/resources/TestSuites/zengtest1/Actions/Register new lead.xml");
+        suites.add("C:/Users/vzotov/IdeaProjects/zurple_selenium/src/test/resources/TestSuites/zurple/Actions/SetLeadValidationStatusCorrect.xml");
+        suites.add("C:/Users/vzotov/IdeaProjects/zurple_selenium/src/test/resources/TestSuites/zurple/Actions/Login.xml");
+        suites.add("C:/Users/vzotov/IdeaProjects/zurple_selenium/src/test/resources/TestSuites/zurple/Actions/SendMassEmailToNewLeads.xml");
+        suites.add("C:/Users/vzotov/IdeaProjects/zurple_selenium/src/test/resources/TestSuites/zurple/Actions/ProcessMassEmailQueue.xml");
+        suites.add("C:/Users/vzotov/IdeaProjects/zurple_selenium/src/test/resources/TestSuites/Workflows/email_alerts/UserReceivedMassEmail.xml");
+        suites.add("C:/Users/vzotov/IdeaProjects/zurple_selenium/src/test/resources/TestSuites/Common/Close Browser.xml");
+
 
         TestNG testng = new TestNG();
         testng.setTestSuites(suites);
-        testng.run();
-        suites.clear();
+
+        List<TestNG> testList = new ArrayList<>();
+        testList.add(testng);
+
+        List<String> suites1 = Lists.newArrayList();
+        suites1.add("C:/Users/vzotov/IdeaProjects/zurple_selenium/src/test/resources/TestSuites/zengtest1/Actions/Register new lead.xml");
+        suites1.add("C:/Users/vzotov/IdeaProjects/zurple_selenium/src/test/resources/TestSuites/zurple/Actions/Login.xml");
+        suites1.add("C:/Users/vzotov/IdeaProjects/zurple_selenium/src/test/resources/TestSuites/zurple/Actions/SendMassEmailToNewLeads.xml");
+        suites1.add("C:/Users/vzotov/IdeaProjects/zurple_selenium/src/test/resources/TestSuites/zurple/Actions/ProcessMassEmailQueue.xml");
+        suites1.add("C:/Users/vzotov/IdeaProjects/zurple_selenium/src/test/resources/TestSuites/Workflows/email_alerts/UserNotReceivedMassEmail.xml");
+        suites1.add("C:/Users/vzotov/IdeaProjects/zurple_selenium/src/test/resources/TestSuites/Common/Close Browser.xml");
+
+
+        TestNG testng1 = new TestNG();
+        testng1.setTestSuites(suites1);
+
+        testList.add(testng1);
+
+
+        // Fixed thread number
+        ExecutorService service = Executors.newFixedThreadPool(10);
+
+        // Or un fixed thread number
+        // The number of threads will increase with tasks
+        // ExecutorService service = Executors.newCachedThreadPool(10);
+
+        for (TestNG o : testList) {
+            service.execute(new MyTask(o));
+        }
+
+        // shutdown
+        // this will get blocked until all task finish
+        service.shutdown();
+        try {
+            service.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -103,5 +141,18 @@ public class TestRunner
     }
 
     //private List<String> getlistOfSuites
+
+    public static class MyTask implements Runnable {
+        TestNG target;
+
+        public MyTask(TestNG target) {
+            this.target = target;
+        }
+
+        @Override
+        public void run() {
+            target.run();
+        }
+    }
 
 }
