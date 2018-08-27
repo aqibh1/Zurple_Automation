@@ -38,7 +38,7 @@ public class PropertyDetailsPageTest
         if(page == null){
 
             Pattern p = Pattern.compile("(\\d{2,})");
-            Matcher m = p.matcher(driver.getCurrentUrl());
+            Matcher m = p.matcher(getDriver().getCurrentUrl());
             while (m.find()) {
                 page = new PropertyDetailsPage(m.group(0));
                 page.setDriver(getDriver());
@@ -180,7 +180,7 @@ public class PropertyDetailsPageTest
         Property property = getEnvironment().getDetailedProperty(getPage().getPropertyId());
         assertEquals(property.getStatus(),"Active");
 
-        Cookie cks = driver.manage().getCookieNamed("PHPSESSID");
+        Cookie cks = getDriver().manage().getCookieNamed("PHPSESSID");
         SessionAnonymous sessionAnonymous = getEnvironment().getSessionAnonymous(cks.getValue());
 
         JSONObject real = new JSONArray(sessionAnonymous.getSessionAnonymousData()).getJSONObject(0).getJSONObject("user_activity_search");

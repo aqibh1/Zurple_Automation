@@ -20,13 +20,12 @@ public class CurrentPageTest
 
     @Test
     public void closeBrowser(){
-        driver.close();
-        driver=null;
+        getEnvironment().closeDriver();
     }
 
     @Test
     public void refreshPage(){
-        driver.navigate().refresh();
+        getDriver().navigate().refresh();
     }
 
     public void clearPage(){

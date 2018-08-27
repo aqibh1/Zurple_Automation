@@ -88,7 +88,7 @@ public class SearchResultPageTest
 
         assertTrue(results_expected <= getPage().getNumberOfResults());
 
-        Cookie cks = driver.manage().getCookieNamed("PHPSESSID");
+        Cookie cks = getDriver().manage().getCookieNamed("PHPSESSID");
         SessionAnonymous sessionAnonymous = getEnvironment().getSessionAnonymous(cks.getValue());
 
         JSONObject real = new JSONArray(sessionAnonymous.getSessionAnonymousData()).getJSONObject(0).getJSONObject("user_activity_search");

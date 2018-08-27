@@ -33,12 +33,12 @@ import javax.xml.parsers.ParserConfigurationException;
  *
  * @author Vladimir
  */
-public class TestRunner
-{
+    public class TestRunner
+    {
 
-    String high_level_suites_path = "TestSuites/Workflows";
+        String high_level_suites_path = "TestSuites/Workflows";
 
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 
         System.setProperty("environment","dev");
 
@@ -71,6 +71,11 @@ public class TestRunner
 
         TestNG testng1 = new TestNG();
         testng1.setTestSuites(suites1);
+
+        XmlSuite suite = new XmlSuite();
+        suite.setName("Programmatic XmlSuite");
+        suite.setObjectFactory();
+
 
         testList.add(testng1);
 

@@ -3,12 +3,17 @@ package resources;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import resources.orm.hibernate.dao.*;
 import resources.orm.hibernate.models.*;
 import resources.orm.hibernate.HibernateUtil;
 
 public class TestEnvironment
 {
+
+    private WebDriver driver;
 
     private Integer leadToCheck;
     private Integer currentAgentId;
@@ -29,6 +34,19 @@ public class TestEnvironment
 
 
     private static SessionFactory factory;
+
+    public WebDriver getDriver(){
+
+        if(driver == null){
+            driver = new ChromeDriver(new ChromeDriverService.Builder().withSilent(true).build());
+        }
+        return driver;
+    }
+
+    public void closeDriver(){
+        driver.close();
+        driver = null;
+    }
 
     public Integer getLeadToCheck()
     {

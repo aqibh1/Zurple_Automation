@@ -17,9 +17,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 public abstract class AbstractTest
 {
     
-    protected static TestEnvironment environment;
+    protected TestEnvironment environment;
     
-    public static TestEnvironment getEnvironment(){
+    public TestEnvironment getEnvironment(){
         if(environment == null){
             ConfigReader configReader = ConfigReader.load();
             environment = new TestEnvironment();
@@ -27,10 +27,6 @@ public abstract class AbstractTest
             environment.setCurrentAgentId(Integer.parseInt(configReader.getPropertyByName("bo_default_agent_id")));
         }
         return environment;
-    }
-
-    public static void setEnvironment( TestEnvironment object){
-        environment = object;
     }
     
 }

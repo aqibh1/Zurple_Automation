@@ -48,7 +48,7 @@ public class DashboardPageTest
         assertTrue(getPage().checkAdminMenuBlock());
         assertFalse(getPage().getAdminMenuBlock().getItemsList().isEmpty());
         //Hover
-        Actions builder = new Actions(driver);
+        Actions builder = new Actions(getDriver());
         String adminName = getEnvironment().getAdmin().getFirstName()+" "+getEnvironment().getAdmin().getLastName();
         try
         {

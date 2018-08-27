@@ -26,7 +26,7 @@ import static org.testng.Assert.assertTrue;
 public abstract class AbstractPageTest extends AbstractTest
 {
 
-    protected WebDriver driver;
+    protected TestEnvironment environment;
     protected AbstractPage page;
     protected String source_in_url="";
     protected Boolean incognito=false;
@@ -36,13 +36,7 @@ public abstract class AbstractPageTest extends AbstractTest
     public abstract void clearPage();
 
     public WebDriver getDriver(){
-
-        if(driver == null){
-
-            driver = new ChromeDriver(new ChromeDriverService.Builder().withSilent(true).build());
-
-        }
-        return driver;
+        return getEnvironment().getDriver();
     }
 
     @Parameters({"source_in_url","incognito"})
