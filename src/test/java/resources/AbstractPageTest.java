@@ -36,7 +36,9 @@ public abstract class AbstractPageTest extends AbstractTest
     public abstract void clearPage();
 
     public WebDriver getDriver(){
-        return getEnvironment().getDriver();
+        Long thread_id = Thread.currentThread().getId();
+        WebDriver driver = WebDriverFactory.getDriver(thread_id);
+        return driver;
     }
 
     @Parameters({"source_in_url","incognito"})

@@ -25,6 +25,8 @@ public class RegisterPageTest
         extends PageTest
 {
 
+
+
     private RegisterPage page;
 
     public RegisterPage getPage(){

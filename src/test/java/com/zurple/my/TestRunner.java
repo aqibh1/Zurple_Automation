@@ -74,7 +74,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
         XmlSuite suite = new XmlSuite();
         suite.setName("Programmatic XmlSuite");
-        suite.setObjectFactory();
 
 
         testList.add(testng1);

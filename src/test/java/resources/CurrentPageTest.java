@@ -20,7 +20,8 @@ public class CurrentPageTest
 
     @Test
     public void closeBrowser(){
-        getEnvironment().closeDriver();
+        Long thread_id = Thread.currentThread().getId();
+        WebDriverFactory.closeDriver(thread_id);
     }
 
     @Test
