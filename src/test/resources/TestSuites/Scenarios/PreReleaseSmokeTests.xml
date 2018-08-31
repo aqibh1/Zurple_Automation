@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Pre Release Smoke Tests">
+
+  <suite-files>
+    <suite-file path="../Workflows/TestUserEmailValidationConsideredInWelcomeEmail.xml"/>
+  </suite-files>
+
+</suite>

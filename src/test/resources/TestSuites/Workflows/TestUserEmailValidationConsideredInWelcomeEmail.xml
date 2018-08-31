@@ -5,14 +5,14 @@
     <suite-files>
         <suite-file path="../zurple/Actions/Login.xml"/>
         <suite-file path="../zurple/Actions/CreateLeadTestEmailDomain.xml"/>
-        <suite-file path="email_alerts/UserNotReceivedMassEmail.xml"/>
+        <suite-file path="../Workflows/email_alerts/UserNotReceivedMassEmail.xml"/>
         <suite-file path="../Common/Close Browser.xml"/>
     </suite-files>
 
     <suite-files>
         <suite-file path="../zurple/Actions/Login.xml"/>
         <suite-file path="../zurple/Actions/CreateLeadMailinatorEmailDomain.xml"/>
-        <suite-file path="email_alerts/UserReceivedMassEmail.xml"/>
+        <suite-file path="../Workflows/email_alerts/UserReceivedMassEmail.xml"/>
         <suite-file path="../Common/Close Browser.xml"/>
     </suite-files>
 
