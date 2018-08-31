@@ -7,9 +7,10 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WebDriverFactory {
+public class EnvironmentFactory {
 
     static Map<Long,WebDriver> webDrivers = new HashMap<Long,WebDriver>();
+    static Map<Long,TestEnvironment> environments = new HashMap<Long,TestEnvironment>();
 
     public static WebDriver getDriver(long thread_id)
     {
@@ -35,6 +36,25 @@ public class WebDriverFactory {
             driver.close();
             webDrivers.remove(thread_id);
         }
+    }
+
+    public static TestEnvironment getEnvironment(long thread_id){
+
+        TestEnvironment environment;
+
+        if(  environments.containsKey(thread_id) )
+        {
+            environment = environments.get(thread_id);
+        }
+        else
+        {
+            ConfigReader configReader = ConfigReader.load();
+            environment = new TestEnvironment();
+            environment.setAgentToCheck(Integer.parseInt(configReader.getPropertyByName("bo_default_agent_id")));
+            environment.setCurrentAgentId(Integer.parseInt(configReader.getPropertyByName("bo_default_agent_id")));
+            environments.put(thread_id, environment);
+        }
+        return environment;
     }
 
 }

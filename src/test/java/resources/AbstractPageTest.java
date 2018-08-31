@@ -1,24 +1,13 @@
 package resources;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.logging.LogManager;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
 import resources.classes.Asset;
 
 import static org.testng.Assert.assertTrue;
@@ -37,7 +26,7 @@ public abstract class AbstractPageTest extends AbstractTest
 
     public WebDriver getDriver(){
         Long thread_id = Thread.currentThread().getId();
-        WebDriver driver = WebDriverFactory.getDriver(thread_id);
+        WebDriver driver = EnvironmentFactory.getDriver(thread_id);
         return driver;
     }
 

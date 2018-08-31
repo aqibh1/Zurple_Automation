@@ -16,16 +16,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 
 public abstract class AbstractTest
 {
-    
-    protected TestEnvironment environment;
-    
-    public TestEnvironment getEnvironment(){
-        if(environment == null){
-            ConfigReader configReader = ConfigReader.load();
-            environment = new TestEnvironment();
-            environment.setAgentToCheck(Integer.parseInt(configReader.getPropertyByName("bo_default_agent_id")));
-            environment.setCurrentAgentId(Integer.parseInt(configReader.getPropertyByName("bo_default_agent_id")));
-        }
+
+    public TestEnvironment getEnvironment()
+    {
+        Long thread_id = Thread.currentThread().getId();
+        TestEnvironment environment = EnvironmentFactory.getEnvironment(thread_id);
         return environment;
     }
     

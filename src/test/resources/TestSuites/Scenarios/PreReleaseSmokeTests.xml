@@ -3,6 +3,7 @@
 <suite name="Pre Release Smoke Tests">
 
   <suite-files>
+    <suite-file path="../Workflows/TestUserEmailValidationConsideredInMassemail.xml"/>
     <suite-file path="../Workflows/TestUserEmailValidationConsideredInWelcomeEmail.xml"/>
   </suite-files>
 

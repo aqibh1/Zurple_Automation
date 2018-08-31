@@ -1,11 +1,6 @@
 package resources;
 
-import java.util.regex.Pattern;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
-import resources.classes.Asset;
 
 import static org.testng.Assert.assertTrue;
 
@@ -21,7 +16,7 @@ public class CurrentPageTest
     @Test
     public void closeBrowser(){
         Long thread_id = Thread.currentThread().getId();
-        WebDriverFactory.closeDriver(thread_id);
+        EnvironmentFactory.closeDriver(thread_id);
     }
 
     @Test
