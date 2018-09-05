@@ -156,6 +156,10 @@
                 <key>threads</key>
                 <value>${threads}</value>
               </systemProperty>
+              <systemProperty>
+                <key>suite</key>
+                <value>${suite}</value>
+              </systemProperty>
             </systemProperties>
             <cleanupDaemonThreads>false</cleanupDaemonThreads>
             <mainClass>com.zurple.my.TestRunner</mainClass>

@@ -28,8 +28,8 @@ import javax.xml.parsers.ParserConfigurationException;
         public static void main(String[] args) {
 
             System.setProperty("environment","dev");
-
-            List<TestNG> testList = getTestsList(System.getProperty("user.dir") + high_level_suites_path + "PreReleaseSmokeTests.xml");
+            String suitePath = System.getProperty("suite");
+            List<TestNG> testList = getTestsList(System.getProperty("user.dir")+ "/" + suitePath);
 
             ExecutorService service = Executors.newFixedThreadPool(Integer.parseInt(System.getProperty("threads")));
 
