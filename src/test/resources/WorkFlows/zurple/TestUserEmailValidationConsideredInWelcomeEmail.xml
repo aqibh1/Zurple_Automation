@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Sending welcome email to new lead different validation statuses">
+
+    <suite-files>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/CreateLeadTestEmailDomain.xml"/>
+        <suite-file path="../../Actions/zurple/email_alerts/UserNotReceivedMassEmail.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/CreateLeadMailinatorEmailDomain.xml"/>
+        <suite-file path="../../Actions/zurple/email_alerts/UserReceivedMassEmail.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+</suite>

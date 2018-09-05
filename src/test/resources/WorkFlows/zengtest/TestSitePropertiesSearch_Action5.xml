@@ -6,9 +6,9 @@
     <parameter name="search_criteria" value="160040634"/>
 
     <suite-files>
-        <suite-file path="../../zengtest1/Actions/Perform search.xml"/>
-        <suite-file path="../../zengtest1/TestSearchResult.xml"/>
-        <suite-file path="../../Common/Close Browser.xml"/>
+        <suite-file path="../../Actions/zengtest/Perform search.xml"/>
+        <suite-file path="../../Actions/zengtest/TestSearchResult.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
     </suite-files>
 
 </suite>

@@ -1,0 +1,27 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="User Immediate Responder">
+
+  <suite-files>
+    <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+    <suite-file path="../../Actions/zurple/UpdateAdminSignOff.xml"/>
+    <suite-file path="../../Actions/zurple/SetLeadValidationStatusCorrect.xml"/>
+    <suite-file path="../../Actions/zurple/Login.xml"/>
+    <suite-file path="../../Actions/zurple/ProcessUserAlerts.xml"/>
+    <suite-file path="../../Actions/zurple/ProcessImmediateResponderQueue.xml"/>
+    <suite-file path="../../Actions/zurple/email_alerts/UserRegistrationImmediateResponderEmail.xml"/>
+    <suite-file path="../../Actions/Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+    <suite-file path="../../Actions/zurple/ClearAdminSignOff.xml"/>
+    <suite-file path="../../Actions/zurple/SetLeadValidationStatusCorrect.xml"/>
+    <suite-file path="../../Actions/zurple/Login.xml"/>
+    <suite-file path="../../Actions/zurple/ProcessUserAlerts.xml"/>
+    <suite-file path="../../Actions/zurple/ProcessImmediateResponderQueue.xml"/>
+    <suite-file path="../../Actions/zurple/email_alerts/UserRegistrationImmediateResponderEmail.xml"/>
+    <suite-file path="../../Actions/Common/Close Browser.xml"/>
+  </suite-files>
+  
+</suite>

@@ -1,0 +1,221 @@
+<suite name="User Status Automation Change">
+
+
+   <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestDisabledLeadProspect1List.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestPausedLeadProspect1List.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+         <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+         <suite-file path="../../Actions/zurple/Login.xml"/>
+         <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestEnabledLeadProspect1List.xml"/>
+         <suite-file path="../../Actions/Common/Close Browser.xml"/>
+     </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestEnabledLeadNewList.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestDisabledLeadNewList.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestPausedLeadNewList.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zengtest/Mark property as favorite.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/user_status/UserStatusNewActive2_Favorite.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestDisabledLeadHotBehaviorList.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zengtest/Mark property as favorite.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/user_status/UserStatusNewActive2_Favorite.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestEnabledLeadHotBehaviorList.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zengtest/Mark property as favorite.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/user_status/UserStatusNewActive2_Favorite.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestPausedLeadHotBehaviorList.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestDisabledLeadPriorityList.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestEnabledLeadPriorityList.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestPausedLeadPriorityList.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+     <suite-files>
+         <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+         <suite-file path="../../Actions/zurple/Login.xml"/>
+         <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestEnabledLeadFullList.xml"/>
+         <suite-file path="../../Actions/Common/Close Browser.xml"/>
+     </suite-files>
+
+     <suite-files>
+         <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+         <suite-file path="../../Actions/zurple/Login.xml"/>
+         <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestPausedLeadFullList.xml"/>
+         <suite-file path="../../Actions/Common/Close Browser.xml"/>
+     </suite-files>
+
+     <suite-files>
+         <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+         <suite-file path="../../Actions/zurple/Login.xml"/>
+         <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestDisabledLeadFullList.xml"/>
+         <suite-file path="../../Actions/Common/Close Browser.xml"/>
+     </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestPausedLeadActive1List.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestDisabledLeadActive1List.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestEnabledLeadActive1List.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+      <suite-files>
+          <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+          <suite-file path="../../Actions/zurple/Login.xml"/>
+          <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestPausedLeadProspect2List.xml"/>
+          <suite-file path="../../Actions/Common/Close Browser.xml"/>
+      </suite-files>
+
+     <suite-files>
+         <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+         <suite-file path="../../Actions/zurple/Login.xml"/>
+         <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestDisabledLeadProspect2List.xml"/>
+         <suite-file path="../../Actions/Common/Close Browser.xml"/>
+     </suite-files>
+
+     <suite-files>
+         <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+         <suite-file path="../../Actions/zurple/Login.xml"/>
+         <suite-file path="../../Actions/zurple/user_status/UserStatusNewProspect2.xml"/>
+         <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestEnabledLeadProspect2List.xml"/>
+         <suite-file path="../../Actions/Common/Close Browser.xml"/>
+     </suite-files>
+
+     <suite-files>
+         <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+         <suite-file path="../../Actions/zurple/Login.xml"/>
+         <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestPausedLeadClientList.xml"/>
+         <suite-file path="../../Actions/Common/Close Browser.xml"/>
+     </suite-files>
+
+     <suite-files>
+         <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+         <suite-file path="../../Actions/zurple/Login.xml"/>
+         <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestDisabledLeadClientList.xml"/>
+         <suite-file path="../../Actions/Common/Close Browser.xml"/>
+     </suite-files>
+
+     <suite-files>
+         <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+         <suite-file path="../../Actions/zurple/Login.xml"/>
+         <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestEnabledLeadClientList.xml"/>
+         <suite-file path="../../Actions/Common/Close Browser.xml"/>
+     </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestPausedLeadClient2List.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestDisabledLeadClient2List.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestEnabledLeadClient2List.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestPausedLeadInactiveList.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestDisabledLeadInactiveList.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestEnabledLeadInactiveList.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    </suite>

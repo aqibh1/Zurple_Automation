@@ -1,0 +1,66 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="User Status Automation Icon Cache rebuild">
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestPausedLeadActive1List.xml"/>
+        <suite-file path="../../Actions/zurple/ChangeUserStatusChangeDate30DaysAgo.xml"/>
+        <suite-file path="../../Actions/zurple/UserStatusAutomationIconCacheRebuild.xml"/>
+        <suite-file path="../../Actions/zurple/LeadDetailsPage/TestLeadAutomationIconIsEnabled.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestPausedLeadActive1List.xml"/>
+        <suite-file path="../../Actions/zurple/UserStatusAutomationIconCacheRebuild.xml"/>
+        <suite-file path="../../Actions/zurple/LeadDetailsPage/TestLeadAutomationIconIsPaused.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestDisabledLeadActive1List.xml"/>
+        <suite-file path="../../Actions/zurple/ChangeUserStatusChangeDate30DaysAgo.xml"/>
+        <suite-file path="../../Actions/zurple/UserStatusAutomationIconCacheRebuild.xml"/>
+        <suite-file path="../../Actions/zurple/LeadDetailsPage/TestLeadAutomationIconIsDisabled.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestDisabledLeadActive1List.xml"/>
+        <suite-file path="../../Actions/zurple/UserStatusAutomationIconCacheRebuild.xml"/>
+        <suite-file path="../../Actions/zurple/LeadDetailsPage/TestLeadAutomationIconIsDisabled.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zengtest/Mark property as favorite.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/user_status/UserStatusNewActive2_Favorite.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestEnabledLeadHotBehaviorList.xml"/>
+        <suite-file path="../../Actions/zurple/ChangeUserStatusChangeDate30DaysAgo.xml"/>
+        <suite-file path="../../Actions/zurple/UserStatusAutomationIconCacheRebuild.xml"/>
+        <suite-file path="../../Actions/zurple/LeadDetailsPage/TestLeadAutomationIconIsEnabled.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+        <suite-file path="../../Actions/zengtest/Mark property as favorite.xml"/>
+        <suite-file path="../../Actions/zurple/Login.xml"/>
+        <suite-file path="../../Actions/zurple/user_status/UserStatusNewActive2_Favorite.xml"/>
+        <suite-file path="../../Actions/zurple/LeadStatusAutomationIconTests/TestEnabledLeadHotBehaviorList.xml"/>
+        <suite-file path="../../Actions/zurple/UserStatusAutomationIconCacheRebuild.xml"/>
+        <suite-file path="../../Actions/zurple/LeadDetailsPage/TestLeadAutomationIconIsEnabled.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+
+</suite>

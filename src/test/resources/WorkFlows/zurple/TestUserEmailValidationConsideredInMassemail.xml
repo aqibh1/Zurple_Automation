@@ -1,0 +1,66 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Sending mass email to leads with different statuses and verify leads with invalid validation dont receive emails">
+
+  <suite-files>
+    <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+    <suite-file path="../../Actions/zurple/SetLeadValidationStatusCorrect.xml"/>
+    <suite-file path="../../Actions/zurple/Login.xml"/>
+    <suite-file path="../../Actions/zurple/SendMassEmailToNewLeads.xml"/>
+    <suite-file path="../../Actions/zurple/ProcessMassEmailQueue.xml"/>
+    <suite-file path="../../Actions/zurple/email_alerts/UserReceivedMassEmail.xml"/>
+    <suite-file path="../../Actions/Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+    <suite-file path="../../Actions/zurple/Login.xml"/>
+    <suite-file path="../../Actions/zurple/SendMassEmailToNewLeads.xml"/>
+    <suite-file path="../../Actions/zurple/ProcessMassEmailQueue.xml"/>
+    <suite-file path="../../Actions/zurple/email_alerts/UserNotReceivedMassEmail.xml"/>
+    <suite-file path="../../Actions/Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+    <suite-file path="../../Actions/zurple/SetLeadValidationStatusCorrect.xml"/>
+    <suite-file path="../../Actions/zurple/Login.xml"/>
+    <suite-file path="../../Actions/zurple/user_status/UserStatusNewProspect1.xml"/>
+    <suite-file path="../../Actions/zurple/SendMassEmailToUnresponsiveLeads.xml"/>
+    <suite-file path="../../Actions/zurple/ProcessMassEmailQueue.xml"/>
+    <suite-file path="../../Actions/zurple/email_alerts/UserReceivedMassEmail.xml"/>
+    <suite-file path="../../Actions/Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+    <suite-file path="../../Actions/zurple/Login.xml"/>
+    <suite-file path="../../Actions/zurple/user_status/UserStatusNewProspect1.xml"/>
+    <suite-file path="../../Actions/zurple/SendMassEmailToUnresponsiveLeads.xml"/>
+    <suite-file path="../../Actions/zurple/ProcessMassEmailQueue.xml"/>
+    <suite-file path="../../Actions/zurple/email_alerts/UserNotReceivedMassEmail.xml"/>
+    <suite-file path="../../Actions/Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+    <suite-file path="../../Actions/zurple/SetLeadValidationStatusCorrect.xml"/>
+    <suite-file path="../../Actions/zurple/Login.xml"/>
+    <suite-file path="../../Actions/zurple/user_status/UserStatusNewActive1.xml"/>
+    <suite-file path="../../Actions/zurple/SendMassEmailToActiveLeads.xml"/>
+    <suite-file path="../../Actions/zurple/ProcessMassEmailQueue.xml"/>
+    <suite-file path="../../Actions/zurple/email_alerts/UserReceivedMassEmail.xml"/>
+    <suite-file path="../../Actions/Common/Close Browser.xml"/>
+  </suite-files>
+
+  <suite-files>
+    <suite-file path="../../Actions/zengtest/Register new lead.xml"/>
+    <suite-file path="../../Actions/zurple/Login.xml"/>
+    <suite-file path="../../Actions/zurple/user_status/UserStatusNewActive1.xml"/>
+    <suite-file path="../../Actions/zurple/SendMassEmailToActiveLeads.xml"/>
+    <suite-file path="../../Actions/zurple/ProcessMassEmailQueue.xml"/>
+    <suite-file path="../../Actions/zurple/email_alerts/UserNotReceivedMassEmail.xml"/>
+    <suite-file path="../../Actions/Common/Close Browser.xml"/>
+  </suite-files>
+  
+</suite>
