@@ -17,6 +17,7 @@
     <ssh_user>${env.SSH_USER}</ssh_user>
     <ssh_key>${env.SSH_KEY}</ssh_key>
     <ssh_pass>${env.SSH_PASS}</ssh_pass>
+    <skipTests>false</skipTests>
   </properties>
 
   <dependencies>
@@ -96,7 +97,16 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.20.1</version>
           <configuration>
-            <skipTests>true</skipTests>
+            <skipTests>${skipTests}</skipTests>
+            <systemPropertyVariables>
+              <environment>${environment}</environment>
+              <ssh_user>${ssh_user}</ssh_user>
+              <ssh_key>${ssh_key}</ssh_key>
+              <ssh_pass>${ssh_pass}</ssh_pass>
+            </systemPropertyVariables>
+            <suiteXmlFiles>
+              <suiteXmlFile>src/test/resources/TestSuites/${suite}</suiteXmlFile>
+            </suiteXmlFiles>
           </configuration>
         </plugin>
         <plugin>
