@@ -31,7 +31,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
             List<TestNG> testList = getTestsList(System.getProperty("user.dir") + high_level_suites_path + "PreReleaseSmokeTests.xml");
 
-            ExecutorService service = Executors.newFixedThreadPool(3);
+            ExecutorService service = Executors.newFixedThreadPool(Integer.parseInt(System.getProperty("threads")));
 
             for (TestNG o : testList) {
                 service.execute(new MyTask(o));

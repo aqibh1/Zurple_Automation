@@ -142,6 +142,10 @@
                 <key>ssh_pass</key>
                 <value>${ssh_pass}</value>
               </systemProperty>
+              <systemProperty>
+                <key>threads</key>
+                <value>${threads}</value>
+              </systemProperty>
             </systemProperties>
             <cleanupDaemonThreads>false</cleanupDaemonThreads>
             <mainClass>com.zurple.my.TestRunner</mainClass>
