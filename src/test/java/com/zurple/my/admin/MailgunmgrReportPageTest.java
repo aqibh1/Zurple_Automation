@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class MailgunmgrReportPageTest
         extends PageTest
 {
-    private static MailgunmgrReportPage page;
+    private MailgunmgrReportPage page;
 
     public MailgunmgrReportPage getPage(){
         if(page == null){

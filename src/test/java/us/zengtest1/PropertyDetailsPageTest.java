@@ -28,7 +28,7 @@ public class PropertyDetailsPageTest
         extends PageTest
 {
 
-    private static PropertyDetailsPage page;
+    private PropertyDetailsPage page;
 
     public void clearPage(){
         page=null;

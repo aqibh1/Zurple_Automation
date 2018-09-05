@@ -8,7 +8,7 @@ public class ThankyouPageTest
         extends PageTest
 {
 
-    private static ThankyouPage page;
+    private ThankyouPage page;
 
     public ThankyouPage getPage(){
         if(page == null){

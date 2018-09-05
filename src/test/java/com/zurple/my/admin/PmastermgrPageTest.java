@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class PmastermgrPageTest
         extends PageTest
 {
-    private static PmastermgrPage page;
+    private PmastermgrPage page;
 
     public PmastermgrPage getPage(){
         if(page == null){

@@ -8,7 +8,7 @@ import static org.testng.Assert.assertTrue;
 public class SimplecontentmanagerPageTest
         extends PageTest
 {
-    private static SimplecontentmanagerPage page;
+    private SimplecontentmanagerPage page;
 
     public SimplecontentmanagerPage getPage(){
         if(page == null){

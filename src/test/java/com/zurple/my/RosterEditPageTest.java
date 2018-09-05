@@ -7,7 +7,7 @@ public class RosterEditPageTest
         extends PageTest
 {
 
-    private static RosterEditPage page;
+    private RosterEditPage page;
 
     public RosterEditPage getPage(){
         if(page == null){

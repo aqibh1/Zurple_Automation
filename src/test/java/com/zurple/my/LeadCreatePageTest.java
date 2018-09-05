@@ -25,7 +25,7 @@ import static org.testng.AssertJUnit.assertFalse;
  */
 public class LeadCreatePageTest extends PageTest
 {
-    private static LeadCreatePage page;
+    private LeadCreatePage page;
 
     public LeadCreatePage getPage(){
         if(page == null){

@@ -9,7 +9,7 @@ public class CraigslistPageTest
         extends PageTest
 {
 
-    private static CraigslistPage page;
+    private CraigslistPage page;
 
     public CraigslistPage getPage(){
         if(page == null){

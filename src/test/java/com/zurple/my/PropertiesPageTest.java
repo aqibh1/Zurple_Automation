@@ -9,7 +9,7 @@ public class PropertiesPageTest
         extends PageTest
 {
 
-    private static PropertiesPage page;
+    private PropertiesPage page;
 
     public PropertiesPage getPage(){
         if(page == null){

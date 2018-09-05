@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class SitemgrPageTest
         extends PageTest
 {
-    private static SitemgrPage page;
+    private SitemgrPage page;
 
     public SitemgrPage getPage(){
         if(page == null){

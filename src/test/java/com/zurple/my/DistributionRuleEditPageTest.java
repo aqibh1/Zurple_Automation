@@ -12,7 +12,7 @@ public class DistributionRuleEditPageTest
         extends PageTest
 {
 
-    private static DistributionRuleEditPage page;
+    private DistributionRuleEditPage page;
 
     public DistributionRuleEditPage getPage(){
         if(page == null){

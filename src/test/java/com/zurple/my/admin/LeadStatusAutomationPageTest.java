@@ -25,7 +25,7 @@ import static org.testng.Assert.assertTrue;
 public class LeadStatusAutomationPageTest
         extends PageTest
 {
-    private static LeadStatusAutomationPage page;
+    private LeadStatusAutomationPage page;
 
     public LeadStatusAutomationPage getPage(){
         if(page == null){

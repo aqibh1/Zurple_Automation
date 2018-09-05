@@ -7,7 +7,7 @@ package com.zurple.my;
  */
 public class SupportPageTest  extends PageTest
 {
-    private static SupportPage page;
+    private SupportPage page;
 
     public SupportPage getPage(){
         if(page == null){

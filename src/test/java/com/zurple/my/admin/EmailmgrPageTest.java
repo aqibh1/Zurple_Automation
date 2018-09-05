@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class EmailmgrPageTest
         extends PageTest
 {
-    private static EmailmgrPage page;
+    private EmailmgrPage page;
 
     public EmailmgrPage getPage(){
         if(page == null){

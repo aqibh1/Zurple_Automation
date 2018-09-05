@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class CreateActivityAlertPageTest
         extends PageTest
 {
-    private static CreateActivityAlertPage page;
+    private CreateActivityAlertPage page;
 
     public CreateActivityAlertPage getPage(){
         if(page == null){

@@ -20,7 +20,7 @@ import static org.testng.Assert.assertTrue;
  */
 public class LeadListPageTest  extends PageTest
 {
-    private static LeadListPage page;
+    private LeadListPage page;
 
     public LeadListPage getPage(String url){
         page = new LeadListPage();

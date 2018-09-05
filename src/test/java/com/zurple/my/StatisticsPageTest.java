@@ -7,7 +7,7 @@ package com.zurple.my;
  */
 public class StatisticsPageTest  extends PageTest
 {
-    private static StatisticsPage page;
+    private StatisticsPage page;
 
     public StatisticsPage getPage(){
         if(page == null){

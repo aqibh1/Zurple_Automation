@@ -16,7 +16,7 @@ import static org.testng.Assert.assertTrue;
 public class AgentCreatePageTest
         extends PageTest
 {
-    private static AgentCreatePage page;
+    private AgentCreatePage page;
 
     public AgentCreatePage getPage(){
         if(page == null){

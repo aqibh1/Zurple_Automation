@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class AliasCityManagerEditPageTest
         extends PageTest
 {
-    private static AliasCityManagerEditPage page;
+    private AliasCityManagerEditPage page;
 
     public AliasCityManagerEditPage getPage(){
         if(page == null){

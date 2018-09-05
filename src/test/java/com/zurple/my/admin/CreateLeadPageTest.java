@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class CreateLeadPageTest
         extends PageTest
 {
-    private static CreateLeadPage page;
+    private CreateLeadPage page;
 
     public CreateLeadPage getPage(){
         if(page == null){

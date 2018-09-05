@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class PackagemgrPageTest
         extends PageTest
 {
-    private static PackagemgrPage page;
+    private PackagemgrPage page;
 
     public PackagemgrPage getPage(){
         if(page == null){

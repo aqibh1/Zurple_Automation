@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class AgentmgrPageTest
         extends PageTest
 {
-    private static AgentmgrPage page;
+    private AgentmgrPage page;
 
     public AgentmgrPage getPage(){
         if(page == null){

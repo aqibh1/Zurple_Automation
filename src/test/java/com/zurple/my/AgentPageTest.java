@@ -12,7 +12,7 @@ import static org.testng.Assert.assertTrue;
  */
 public class AgentPageTest  extends PageTest
 {
-    private static AgentPage page;
+    private AgentPage page;
 
     public AgentPage getPage(){
         if(page == null){

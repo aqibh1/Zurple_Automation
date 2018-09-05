@@ -20,7 +20,7 @@ public class DashboardPageTest
         extends PageTest
 {
 
-    private static DashboardPage page;
+    private DashboardPage page;
 
     public DashboardPage getPage(){
         if(page == null){

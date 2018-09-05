@@ -8,7 +8,7 @@ public class LoginPageTest
         extends PageTest
 {
 
-    private static LoginPage page;
+    private LoginPage page;
 
     public void clearPage(){
         page=null;

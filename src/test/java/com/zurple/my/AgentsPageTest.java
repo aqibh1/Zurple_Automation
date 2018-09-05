@@ -7,7 +7,7 @@ package com.zurple.my;
  */
 public class AgentsPageTest  extends PageTest
 {
-    private static AgentsPage page;
+    private AgentsPage page;
 
     public AgentsPage getPage(){
         if(page == null){

@@ -10,7 +10,7 @@ public class ForgotPageTest
         extends PageTest
 {
 
-    private static ForgotPage page;
+    private ForgotPage page;
 
     public ForgotPage getPage(){
         if(page == null){

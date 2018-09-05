@@ -7,7 +7,7 @@ package com.zurple.my;
  */
 public class LeadEditPageTest  extends PageTest
 {
-    private static LeadEditPage page;
+    private LeadEditPage page;
 
     public LeadEditPage getPage(){
         if(page == null){

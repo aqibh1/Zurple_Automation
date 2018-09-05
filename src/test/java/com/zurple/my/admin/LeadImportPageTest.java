@@ -27,7 +27,7 @@ import static org.testng.Assert.assertTrue;
 public class LeadImportPageTest
         extends PageTest
 {
-    private static LeadImportPage page;
+    private LeadImportPage page;
 
     public LeadImportPage getPage(){
         if(page == null){

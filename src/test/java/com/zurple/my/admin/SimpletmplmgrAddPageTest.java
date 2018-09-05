@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class SimpletmplmgrAddPageTest
         extends PageTest
 {
-    private static SimpletmplmgrAddPage page;
+    private SimpletmplmgrAddPage page;
 
     public SimpletmplmgrAddPage getPage(){
         if(page == null){

@@ -10,7 +10,7 @@ import static org.testng.Assert.assertTrue;
 public class SimpletmplmgrPageTest
         extends PageTest
 {
-    private static SimpletmplmgrPage page;
+    private SimpletmplmgrPage page;
 
     public SimpletmplmgrPage getPage(){
         if(page == null){

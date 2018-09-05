@@ -13,7 +13,7 @@ import static org.testng.Assert.assertTrue;
 public class AdminmgrNewPageTest
         extends PageTest
 {
-    private static AdminmgrNewPage page;
+    private AdminmgrNewPage page;
 
     public AdminmgrNewPage getPage(){
         if(page == null){

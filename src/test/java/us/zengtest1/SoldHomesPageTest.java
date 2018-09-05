@@ -11,7 +11,7 @@ public class SoldHomesPageTest
         extends PageTest
 {
 
-    private static SoldHomesPage page;
+    private SoldHomesPage page;
 
     public SoldHomesPage getPage(){
         if(page == null){

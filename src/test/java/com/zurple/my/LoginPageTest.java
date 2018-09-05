@@ -1,5 +1,9 @@
 package com.zurple.my;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -13,7 +17,7 @@ public class LoginPageTest
         extends PageTest
 {
 
-    private static LoginPage page;
+    private LoginPage page;
 
     public LoginPage getPage(){
         if(page == null){
@@ -60,6 +64,10 @@ public class LoginPageTest
         getPage().getLoginForm().setInputValue("username",configReader.getPropertyByName("bo_user"));
         getPage().getLoginForm().setInputValue("passwd",configReader.getPropertyByName("bo_pass"));
         getPage().getLoginForm().submit();
+
+        Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
+        wait.until(ExpectedConditions.titleIs("Zurple Backoffice"));// Wait for Dashboard is loaded
+
         assertEquals(configReader.getPropertyByName("bo_base_url")+"/dashboard",getDriver().getCurrentUrl());
     }
 

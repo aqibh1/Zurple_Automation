@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class LeadScoreConfigPageTest
         extends PageTest
 {
-    private static LeadScoreConfigPage page;
+    private LeadScoreConfigPage page;
 
     public LeadScoreConfigPage getPage(){
         if(page == null){

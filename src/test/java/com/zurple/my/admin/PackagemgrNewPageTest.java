@@ -14,7 +14,7 @@ import static org.testng.Assert.assertTrue;
 public class PackagemgrNewPageTest
         extends PageTest
 {
-    private static PackagemgrNewPage page;
+    private PackagemgrNewPage page;
 
     public PackagemgrNewPage getPage(){
         if(page == null){

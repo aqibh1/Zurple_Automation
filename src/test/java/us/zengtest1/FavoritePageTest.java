@@ -8,7 +8,7 @@ public class FavoritePageTest
         extends PageTest
 {
 
-    private static FavoritePage page;
+    private FavoritePage page;
 
     public FavoritePage getPage(){
         if(page == null){

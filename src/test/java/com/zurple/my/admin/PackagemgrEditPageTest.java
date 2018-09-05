@@ -11,7 +11,7 @@ import static org.testng.Assert.assertTrue;
 public class PackagemgrEditPageTest
         extends PageTest
 {
-    private static PackagemgrEditPage page;
+    private PackagemgrEditPage page;
 
     public PackagemgrEditPage getPage(){
         if(page == null){

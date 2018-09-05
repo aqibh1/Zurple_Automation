@@ -23,7 +23,7 @@ public class SearchResultPageTest
         extends PageTest
 {
 
-    private static SearchResultsPage page;
+    private SearchResultsPage page;
 
     public SearchResultsPage getPage(){
         if(page == null){

@@ -9,7 +9,7 @@ import static org.testng.Assert.assertTrue;
 public class ProcessEmailQueuePageTest
         extends PageTest
 {
-    private static ProcessEmailQueuePage page;
+    private ProcessEmailQueuePage page;
 
     public ProcessEmailQueuePage getPage(){
         if(page == null){

@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class ViewARAlertsPageTest
         extends PageTest
 {
-    private static ViewARAlertsPage page;
+    private ViewARAlertsPage page;
 
     public ViewARAlertsPage getPage(){
         if(page == null){

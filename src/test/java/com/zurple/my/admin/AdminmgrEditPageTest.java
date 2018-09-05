@@ -20,7 +20,7 @@ public class AdminmgrEditPageTest
         extends PageTest
 {
 
-    private static AdminmgrEditPage page;
+    private AdminmgrEditPage page;
 
     public AdminmgrEditPage getPage()
     {

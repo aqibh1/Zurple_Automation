@@ -29,7 +29,7 @@ public class LeadDetailPageTest
         extends PageTest
 {
 
-    private static LeadDetailPage page;
+    private LeadDetailPage page;
 
     public LeadDetailPage getPage(){
         if(page == null){

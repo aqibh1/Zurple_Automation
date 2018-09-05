@@ -20,7 +20,7 @@ import static org.testng.Assert.assertFalse;
  */
 public class MarketingMassemailPageTest extends PageTest
 {
-    private static MarketingMessemailPage page;
+    private MarketingMessemailPage page;
 
     public MarketingMessemailPage getPage(){
         if(page == null){

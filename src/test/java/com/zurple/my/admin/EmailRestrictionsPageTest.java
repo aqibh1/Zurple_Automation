@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class EmailRestrictionsPageTest
         extends PageTest
 {
-    private static EmailRestrictionsPage page;
+    private EmailRestrictionsPage page;
 
     public EmailRestrictionsPage getPage(){
         if(page == null){

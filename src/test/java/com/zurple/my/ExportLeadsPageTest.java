@@ -7,7 +7,7 @@ public class ExportLeadsPageTest
         extends PageTest
 {
 
-    private static ExportLeadsPage page;
+    private ExportLeadsPage page;
 
     public ExportLeadsPage getPage(){
         if(page == null){

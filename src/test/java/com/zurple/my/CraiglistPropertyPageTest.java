@@ -8,7 +8,7 @@ package com.zurple.my;
 public class CraiglistPropertyPageTest
         extends PageTest
 {
-    private static CraiglistPropertyPage page;
+    private CraiglistPropertyPage page;
 
     public CraiglistPropertyPage getPage(){
         if(page == null){

@@ -14,7 +14,7 @@ import static org.testng.Assert.assertTrue;
 public class BillingPageTest
         extends PageTest
 {
-    private static BillingPage page;
+    private BillingPage page;
 
     public BillingPage getPage(){
         if(page == null){

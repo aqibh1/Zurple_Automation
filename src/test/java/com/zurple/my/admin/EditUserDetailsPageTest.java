@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class EditUserDetailsPageTest
         extends PageTest
 {
-    private static EditUserDetailsPage page;
+    private EditUserDetailsPage page;
 
     public EditUserDetailsPage getPage(){
         if(page == null){

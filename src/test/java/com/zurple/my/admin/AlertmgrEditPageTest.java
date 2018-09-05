@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class AlertmgrEditPageTest
         extends PageTest
 {
-    private static AlertmgrEditPage page;
+    private AlertmgrEditPage page;
 
     public AlertmgrEditPage getPage(){
         if(page == null){

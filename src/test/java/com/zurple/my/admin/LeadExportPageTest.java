@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class LeadExportPageTest
         extends PageTest
 {
-    private static LeadExportPage page;
+    private LeadExportPage page;
 
     public LeadExportPage getPage(){
         if(page == null){

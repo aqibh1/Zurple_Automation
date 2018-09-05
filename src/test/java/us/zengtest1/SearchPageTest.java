@@ -21,7 +21,7 @@ public class SearchPageTest
         extends PageTest
 {
 
-    private static SearchPage page;
+    private SearchPage page;
 
     public SearchPage getPage(){
         if(page == null){

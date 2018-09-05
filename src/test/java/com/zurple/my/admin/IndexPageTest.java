@@ -6,7 +6,7 @@ import com.zurple.my.PageTest;
 public class IndexPageTest
         extends PageTest
 {
-    private static IndexPage page;
+    private IndexPage page;
 
     public IndexPage getPage(){
         if(page == null){

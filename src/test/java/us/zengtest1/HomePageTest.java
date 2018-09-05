@@ -11,7 +11,7 @@ import static org.testng.Assert.assertTrue;
 public class HomePageTest extends PageTest
 {
 
-    private static HomePage page;
+    private HomePage page;
 
     public void clearPage(){
         page=null;

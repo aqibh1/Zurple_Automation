@@ -7,7 +7,7 @@ package com.zurple.my;
  */
 public class MarketingTextmessagePageTest  extends PageTest
 {
-    private static MarketingTextmessagePage page;
+    private MarketingTextmessagePage page;
 
     public MarketingTextmessagePage getPage(){
         if(page == null){

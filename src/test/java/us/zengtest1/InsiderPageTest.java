@@ -20,7 +20,7 @@ public class InsiderPageTest
         extends PageTest
 {
 
-    private static InsiderPage page;
+    private InsiderPage page;
 
     public InsiderPage getPage(){
         if(page == null){
