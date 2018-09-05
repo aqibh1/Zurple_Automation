@@ -112,11 +112,11 @@ public class LeadListPageTest  extends PageTest
         }else if(ignore_automation == 1)
         {
             assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()).getAttribute("title"),"30 days until lead automation is re-enabled");
-            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()).getAttribute("class"),"z-lead-automation-marker z-lead-automation-paused");
+            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()).getAttribute("class"),"z-lead-automation-marker z-lead-automation-clock");
         }else
         {
             assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()).getAttribute("title"),"Lead status is paused from automation. To allow for automation to occur again, please update the status and select Temporary change.");
-            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()).getAttribute("class"),"z-lead-automation-marker z-lead-automation-disabled");
+            assertEquals(getPage().getLeadsListBlock().getUserStatusAutomationIcon(user.getId()).getAttribute("class"),"z-lead-automation-marker z-lead-automation-pause");
         }
     }
 
