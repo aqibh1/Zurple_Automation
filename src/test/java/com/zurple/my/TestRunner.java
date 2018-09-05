@@ -23,7 +23,7 @@ import javax.xml.parsers.ParserConfigurationException;
     public class TestRunner
     {
 
-        static String high_level_suites_path = "/src/test/resources/TestSuites/Scenarios/";
+        static String high_level_suites_path = "/src/test/resources/TestTasks/";
 
         public static void main(String[] args) {
 
@@ -105,7 +105,7 @@ import javax.xml.parsers.ParserConfigurationException;
                             Node child = nList.item(i).getChildNodes().item(j);
                             if (child.getNodeType() == Node.ELEMENT_NODE)
                             {
-                                children.add(System.getProperty("user.dir") + high_level_suites_path + child.getAttributes().item(0).getNodeValue());
+                                children.add(file.getParentFile().getAbsolutePath() + "/" + child.getAttributes().item(0).getNodeValue());
                             }
                         }
                         res.add(children);
