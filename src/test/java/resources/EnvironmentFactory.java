@@ -3,6 +3,7 @@ package resources;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,16 @@ public class EnvironmentFactory {
             driver = webDrivers.get(thread_id);
         }else
         {
-            driver = new ChromeDriver(new ChromeDriverService.Builder().withSilent(true).build());
+
+            ChromeOptions options = new ChromeOptions();
+
+            if (Boolean.parseBoolean(System.getProperty("headless")))
+            {
+                options.addArguments("headless");
+                options.addArguments("window-size=1200x600");
+            }
+
+            driver = new ChromeDriver(options);
             webDrivers.put(thread_id,  driver);
         }
 

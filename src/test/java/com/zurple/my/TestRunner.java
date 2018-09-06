@@ -23,8 +23,6 @@ import javax.xml.parsers.ParserConfigurationException;
     public class TestRunner
     {
 
-        static String high_level_suites_path = "/src/test/resources/TestTasks/";
-
         public static void main(String[] args) {
 
             System.setProperty("environment","dev");
