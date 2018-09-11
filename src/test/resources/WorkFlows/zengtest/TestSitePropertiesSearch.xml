@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="performing property search Action 1">
+<suite name="Performing property search tests">
     <!--
     Action 1
  -->
