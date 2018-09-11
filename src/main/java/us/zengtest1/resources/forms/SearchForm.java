@@ -23,6 +23,13 @@ public class SearchForm
         Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(concat(\" \",normalize-space(@class),\" \"),\" hideShow \")]")));
 
+        //Workaround
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException qq) {
+            qq.printStackTrace();
+        }
+
     }
 
     public Select2Dropdown getFeaturesInput() {

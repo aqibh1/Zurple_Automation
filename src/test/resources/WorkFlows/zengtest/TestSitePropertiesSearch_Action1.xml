@@ -1,22 +1,57 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="performing property search Action 1" parallel="true">
-
-    <parameter name="search_by" value="city"/>
-    <parameter name="search_criteria" value="San Diego, CA"/>
-    <parameter name="min_price" value="425000"/>
-    <parameter name="max_price" value="1500000"/>
-    <parameter name="bedrooms" value="2"/>
-    <parameter name="bathrooms" value="2"/>
-    <parameter name="square_feet" value="1000"/>
-    <parameter name="year_built" value="2005"/>
-    <parameter name="lot_sqft" value="2000"/>
-    <parameter name="types" value="home,condo,land"/>
-    <parameter name="features" value="Air Conditioning"/>
-    <parameter name="styles" value=""/>
-    <parameter name="views" value=""/>
-    <parameter name="results_expected" value="30"/>
-
+<suite name="performing property search Action 1">
+    <!--
+    Action 1
+ -->
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Perform search.xml"/>
+        <suite-file path="../../Actions/zengtest/TestSearchResults.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+    <!--
+    Action 2
+ -->
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Perform search.xml"/>
+        <suite-file path="../../Actions/zengtest/TestSearchResults.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+    <!--
+    Action 3
+ -->
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Perform search.xml"/>
+        <suite-file path="../../Actions/zengtest/TestSearchResults.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+    <!--
+    Action 4
+     -->
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Perform search.xml"/>
+        <suite-file path="../../Actions/zengtest/TestSearchResult.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+    <!--
+    Action 5
+    -->
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Perform search.xml"/>
+        <suite-file path="../../Actions/zengtest/TestSearchResult.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+    <!--
+    Action 6
+    -->
+    <suite-files>
+        <suite-file path="../../Actions/zengtest/Perform search.xml"/>
+        <suite-file path="../../Actions/zengtest/TestSearchResults.xml"/>
+        <suite-file path="../../Actions/Common/Close Browser.xml"/>
+    </suite-files>
+    <!--
+    Action 7
+    -->
     <suite-files>
         <suite-file path="../../Actions/zengtest/Perform search.xml"/>
         <suite-file path="../../Actions/zengtest/TestSearchResults.xml"/>

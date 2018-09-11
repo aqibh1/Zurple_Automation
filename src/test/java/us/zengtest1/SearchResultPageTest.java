@@ -1,9 +1,6 @@
 package us.zengtest1;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,6 +8,7 @@ import org.openqa.selenium.Cookie;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import resources.ParametersFactory;
 import resources.classes.SearchResult;
 import resources.orm.hibernate.models.Property;
 import resources.orm.hibernate.models.SessionAnonymous;
@@ -53,40 +51,37 @@ public class SearchResultPageTest
     }
 
     @Test(priority=30)
-    @Parameters({
-            "search_by",
-            "search_criteria",
-            "min_price",
-            "max_price",
-            "bedrooms",
-            "bathrooms",
-            "square_feet",
-            "year_built",
-            "lot_sqft",
-            "types",
-            "features",
-            "styles",
-            "views",
-            "results_expected"
-    })
-    public void testSearchResultsList(
-            @Optional("") String search_by,
-            @Optional("") String search_criteria,
-            @Optional("0") String min_price,
-            @Optional("0") String max_price,
-            @Optional("0") String bedrooms,
-            @Optional("0") String bathrooms,
-            @Optional("0") String square_feet,
-            @Optional("0") String year_built,
-            @Optional("0") String lot_sqft,
-            @Optional("") String types,
-            @Optional("") String features,
-            @Optional("") String styles,
-            @Optional("") String views,
-            @Optional("") Integer results_expected
-    ){
+    public void testSearchResultsList(){
 
-        assertTrue(results_expected <= getPage().getNumberOfResults());
+        Long thread_id = Thread.currentThread().getId();
+        HashMap<String,String> params = ParametersFactory.getSearchParameters(thread_id);
+
+        if ( params == null)
+        {
+            return;
+        }
+
+        String search_by = params.get("search_by");
+        String search_criteria = params.get("search_criteria");
+        String min_price = ((params.get("min_price") == null) ? "0" : params.get("min_price"));
+        String max_price = ((params.get("max_price") == null) ? "0" : params.get("max_price"));
+        String bedrooms = ((params.get("bedrooms") == null) ? "0" : params.get("bedrooms"));
+        String bathrooms = ((params.get("bathrooms") == null) ? "0" : params.get("bathrooms"));
+        String square_feet = ((params.get("square_feet") == null) ? "0" : params.get("square_feet"));
+        String lot_sqft = ((params.get("lot_sqft") == null) ? "0" : params.get("lot_sqft"));
+        String year_built = ((params.get("year_built") == null) ? "0" : params.get("year_built"));
+        String types = ((params.get("types") == null) ? "" : params.get("types"));
+        String features = ((params.get("features") == null) ? "" : params.get("features"));
+        String styles = ((params.get("styles") == null) ? "" : params.get("styles"));
+        String views = ((params.get("views") == null) ? "" : params.get("views"));
+
+        if ( params.get("results_expected") != null )
+        {
+            Integer results_expected = Integer.parseInt(params.get("results_expected"));
+            assertTrue(results_expected <= getPage().getNumberOfResults());
+        }
+
+        ParametersFactory.removeSearchParameters(thread_id);
 
         Cookie cks = getDriver().manage().getCookieNamed("PHPSESSID");
         SessionAnonymous sessionAnonymous = getEnvironment().getSessionAnonymous(cks.getValue());
@@ -111,19 +106,19 @@ public class SearchResultPageTest
             assertFalse(searchResultsList.isEmpty());
 
             List<String> typeList = null;
-            if( types.isEmpty() == false)
+            if( !"".equals(types) )
             {
                 typeList = Arrays.asList(types.split(","));
             }
 
             List<String> featureList = null;
-            if( features.isEmpty() == false)
+            if( !"".equals(features) )
             {
                 featureList = Arrays.asList(features.split(","));
             }
 
             List<String> viewList = null;
-            if( views.isEmpty() == false)
+            if( !"".equals(views) )
             {
                 viewList = Arrays.asList(views.split(","));
             }

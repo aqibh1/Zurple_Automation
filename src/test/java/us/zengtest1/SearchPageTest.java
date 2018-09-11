@@ -1,5 +1,6 @@
 package us.zengtest1;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,6 +11,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.AbstractPageTest;
+import resources.ParametersFactory;
 import resources.elements.Select2Dropdown;
 import us.zengtest1.resources.forms.SearchForm;
 
@@ -62,36 +64,29 @@ public class SearchPageTest
     }
 
     @Test
-    @Parameters({
-            "search_by",
-            "search_criteria",
-            "min_price",
-            "max_price",
-            "bedrooms",
-            "bathrooms",
-            "square_feet",
-            "year_built",
-            "lot_sqft",
-            "types",
-            "features",
-            "styles",
-            "views"
-    })
-    public void testSearch(
-            @Optional("") String search_by,
-            @Optional("") String search_criteria,
-            @Optional("") String min_price,
-            @Optional("") String max_price,
-            @Optional("") String bedrooms,
-            @Optional("") String bathrooms,
-            @Optional("") String square_feet,
-            @Optional("") String year_built,
-            @Optional("") String lot_sqft,
-            @Optional("") String types,
-            @Optional("") String features,
-            @Optional("") String styles,
-            @Optional("") String views
-    ){
+    public void testSearch(){
+
+        Long thread_id = Thread.currentThread().getId();
+        HashMap<String,String> params = ParametersFactory.getSearchParameters(thread_id);
+
+        if ( params == null)
+        {
+            return;
+        }
+
+        String search_by = params.get("search_by");
+        String search_criteria = params.get("search_criteria");
+        String min_price = params.get("min_price");
+        String max_price = params.get("max_price");
+        String bedrooms = params.get("bedrooms");
+        String bathrooms = params.get("bathrooms");
+        String square_feet = params.get("square_feet");
+        String lot_sqft = params.get("lot_sqft");
+        String year_built = params.get("year_built");
+        String types = params.get("types");
+        String features = params.get("features");
+        String styles = params.get("styles");
+        String views = params.get("views");
 
         SearchForm form = getPage().getSearchForm();
         form.setDriver(getDriver());
@@ -106,40 +101,40 @@ public class SearchPageTest
         form.setInputValue("city",search_criteria);
 
         assertTrue(form.getElementById("min_price").isDisplayed());
-        if ( !"".equals(min_price)) {
+        if ( min_price != null) {
             form.setSelectValueByValue("min_price", min_price);
         }
 
         assertTrue(form.getElementById("max_price").isDisplayed());
-        if ( !"".equals(max_price)) {
+        if ( max_price != null ) {
             form.setSelectValueByValue("max_price", max_price);
         }
 
         assertTrue(form.getElementById("bedrooms").isDisplayed());
-        if ( !"".equals(bedrooms)) {
+        if ( bedrooms != null) {
             form.setSelectValueByValue("bedrooms", bedrooms);
         }
         assertTrue(form.getElementById("bathrooms").isDisplayed());
-        if ( !"".equals(bathrooms)) {
+        if ( bathrooms  != null ) {
             form.setSelectValueByValue("bathrooms", bathrooms);
         }
 
         assertTrue(form.getElementById("square_feet").isDisplayed());
-        if ( !"".equals(square_feet)) {
+        if ( square_feet != null) {
             form.setSelectValueByValue("square_feet", square_feet);
         }
         assertTrue(form.getElementById("year_built").isDisplayed());
-        if ( !"".equals(year_built)){
+        if ( year_built != null){
             assertTrue(form.getElementById("year_built").isDisplayed());
             form.setSelectValueByValue("year_built",year_built);
         }
 
         assertTrue(form.getElementById("lot_sqft").isDisplayed());
-        if ( !"".equals(lot_sqft)) {
+        if ( lot_sqft != null) {
             form.setSelectValueByValue("lot_sqft", lot_sqft);
         }
 
-        if ( !"".equals(types)) {
+        if ( types != null) {
             for (String type : types.split(",")) {
                 assertTrue(form.getElementById("type_" + type).isDisplayed());
                 if (form.getElementById("type_" + type).isEnabled() == false) {
@@ -151,7 +146,7 @@ public class SearchPageTest
         Select2Dropdown featuresInput = form.getFeaturesInput();
         List<String> featuresList = featuresInput.getVariants();
         assertFalse(featuresList.isEmpty());
-        if (features.isEmpty() == false)
+        if (features != null )
         {
             for(String feature:features.split(",")){
                 featuresInput.selectValue(feature);
@@ -162,7 +157,7 @@ public class SearchPageTest
         Select2Dropdown stylesInput = form.getStylesInput();
         List<String> stylesList = stylesInput.getVariants();
         assertFalse(stylesList.isEmpty());
-        if ( styles.isEmpty() == false)
+        if ( styles != null )
         {
             for( String style:styles.split(",")){
                 stylesInput.selectValue(style);
@@ -173,7 +168,7 @@ public class SearchPageTest
         Select2Dropdown viewsInput = form.getViewsInput();
         List<String> viewsList = viewsInput.getVariants();
         assertFalse(viewsList.isEmpty());
-        if (views.isEmpty() == false)
+        if (views != null )
         {
             for(String view:views.split(",")){
                 featuresInput.selectValue(view);

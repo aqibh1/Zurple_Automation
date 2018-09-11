@@ -19,7 +19,9 @@ public class ManageSessionAnonymous
     public SessionAnonymous getSessionAnonymous( String session_id ){
 
         SessionAnonymous session_anonymous = null;
+        Transaction tx = null;
         try {
+            tx = session.beginTransaction();
             Query q = session.createQuery("FROM "+SessionAnonymous.class.getName()+" WHERE session_id='"+session_id+"'");
             List sessions = q.list();
             for (Iterator iterator =
@@ -28,7 +30,9 @@ public class ManageSessionAnonymous
             }
 
             Hibernate.initialize(session_anonymous);
+            tx.commit();
         } catch (Exception e) {
+            if (tx!=null) tx.rollback();
             e.printStackTrace();
         } finally {
             if (session != null && session.isOpen()) {

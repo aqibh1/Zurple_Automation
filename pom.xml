@@ -106,7 +106,7 @@
               <ssh_pass>${ssh_pass}</ssh_pass>
             </systemPropertyVariables>
             <suiteXmlFiles>
-              <suiteXmlFile>src/test/resources/TestSuites/${suite}</suiteXmlFile>
+              <suiteXmlFile>src/test/resources/${suite}</suiteXmlFile>
             </suiteXmlFiles>
           </configuration>
         </plugin>

@@ -20,6 +20,11 @@ public class PropertyDetailsPage
     private JssorSlider jssorSlider;
     private Integer propertyId;
 
+    public PropertyDetailsPage(String state, String city, String prop_id){
+        url = "/" + state + "/" + city + "/"+prop_id;
+        propertyId = Integer.parseInt(prop_id);
+    }
+
     public PropertyDetailsPage(String prop_id){
         url = "/CA/San_Diego/"+prop_id;
         propertyId = Integer.parseInt(prop_id);
