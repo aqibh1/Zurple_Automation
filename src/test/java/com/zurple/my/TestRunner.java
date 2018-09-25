@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
+import org.testng.ITestNGListener;
 import org.testng.TestNG;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import resources.ZurpleReporter.ReportWriter;
+import resources.ZurpleReporter.ZurpleReporter;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,11 +39,14 @@ import javax.xml.parsers.ParserConfigurationException;
             }
 
             service.shutdown();
+
             try {
                 service.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            ReportWriter.close_file();
 
         }
 
@@ -49,6 +55,9 @@ import javax.xml.parsers.ParserConfigurationException;
             List<List<String>> high_level_suites_list = SuiteParser.getSuiteFiles(scenario);
 
             List<TestNG> testng_list = new ArrayList<TestNG>();
+            List<Class<? extends ITestNGListener>> listeners = new ArrayList<Class<? extends ITestNGListener>>();
+            listeners.add(ZurpleReporter.class);
+
             for (Integer i = 0; i < high_level_suites_list.get(0).size(); i++)
             {
                 List<List<String>> second_level_suites_list = SuiteParser.getSuiteFiles(high_level_suites_list.get(0).get(i));
@@ -56,6 +65,7 @@ import javax.xml.parsers.ParserConfigurationException;
                 {
                     TestNG testng = new TestNG();
                     testng.setTestSuites(second_level_suites_list.get(j));
+                    testng.setListenerClasses(listeners);
                     testng_list.add(testng);
                 }
             }
