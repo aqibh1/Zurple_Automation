@@ -6,7 +6,7 @@
     <listener class-name="resources.ZurpleReporter.ZurpleReporter" />
   </listeners>
   <suite-files>
-    <suite-file path="../WorkFlows/zurple/TestUserEmailValidationConsideredInMassemail.xml"/>
+    <suite-file path="../WorkFlows/zurple/TestUserEmailValidationConsideredInWelcomeEmail.xml"/>
   </suite-files>
 
 </suite>

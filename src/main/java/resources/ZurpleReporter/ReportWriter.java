@@ -4,13 +4,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ReportWriter {
 
     private static FileWriter fileWriter;
     private String outputDirectory;
-    private List<String> reportsList = new ArrayList();
+    private Map<String,List<String>> reportsList = new HashMap<>();
+    private static final String HEADER_TEMPLATE = "<h3>%s</h3>";
 
     private static final String REPORT_FILE_NAME = "custom-emailable-report";
 
@@ -33,10 +36,19 @@ public class ReportWriter {
         this.outputDirectory = outputDirectory;
     }
 
-    public void add(String customReportTemplateStr)
+    public void add(String caseTitle, String customReportTemplateStr)
     {
 
-        reportsList.add(customReportTemplateStr);
+        if ( reportsList.containsKey(caseTitle) )
+        {
+            reportsList.get(caseTitle).add(customReportTemplateStr);
+        }
+        else
+        {
+            List<String> new_list = new ArrayList();
+            new_list.add(customReportTemplateStr);
+            reportsList.put(caseTitle,new_list);
+        }
 
     }
 
@@ -45,26 +57,37 @@ public class ReportWriter {
 
         FileWriter fw = get_file_writer();
 
-        for (String report: reportsList)
-        {
+        for(Map.Entry<String, List<String>> entry : reportsList.entrySet()) {
+            String title = entry.getKey();
 
+            String caseHeader = String.format(HEADER_TEMPLATE, title);
             try {
-                fw.write(report);
+                fw.write(caseHeader);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            List<String> lst = entry.getValue();
+
+            for (String report: lst)
+            {
+
+                try {
+                    fw.write(report);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
 
-    }
-
-    public static void close_file()
-    {
         try {
-            fileWriter.flush();
-            fileWriter.close();
+            fw.flush();
+            fw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 }

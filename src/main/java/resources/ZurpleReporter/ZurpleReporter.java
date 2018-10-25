@@ -12,11 +12,7 @@ import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testng.IReporter;
-import org.testng.ISuite;
-import org.testng.ISuiteResult;
-import org.testng.ITestContext;
-import org.testng.ITestResult;
+import org.testng.*;
 import org.testng.xml.XmlSuite;
 
 import java.io.*;
@@ -27,12 +23,9 @@ import static java.util.stream.Collectors.toList;
 
 public class ZurpleReporter implements IReporter {
 
-    private static ReportWriter reportWriter;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(ZurpleReporter.class);
 
     private static final String ROW_TEMPLATE = "<tr class=\"%s\"><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>";
-    private static final String OUTPUT_DIRECTORY = "zurple-test-reports";
 
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
 
@@ -43,21 +36,8 @@ public class ZurpleReporter implements IReporter {
                 .flatMap(suiteToResults())
                 .collect(Collectors.joining());
 
-        try {
-            getReportWriter().add(reportTemplate.replaceFirst("</tbody>", String.format("%s</tbody>", body)));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ReportWriterContainer.getReportWriter().add(TestSuiteTitleContainer.getTestSuiteTitle(), reportTemplate.replaceFirst("</tbody>", String.format("%s</tbody>", body)));
 
-    }
-
-    private static ReportWriter getReportWriter() throws FileNotFoundException, IOException{
-
-        if(reportWriter == null){
-            reportWriter = new ReportWriter(OUTPUT_DIRECTORY);
-        }
-
-        return reportWriter;
     }
 
     private Function<ISuite, Stream<? extends String>> suiteToResults() {
@@ -123,19 +103,5 @@ public class ZurpleReporter implements IReporter {
         }
         return template;
     }
-
-    private void saveReportTemplate(String outputDirectory, String reportTemplate) {
-        new File(outputDirectory).mkdirs();
-        try {
-            PrintWriter reportWriter = new PrintWriter(new BufferedWriter(new FileWriter(new File(outputDirectory, "my-report.html"))));
-            reportWriter.println(reportTemplate);
-            reportWriter.flush();
-            reportWriter.close();
-        } catch (IOException e) {
-            LOGGER.error("Problem saving template", e);
-        }
-    }
-
-
 
 }
