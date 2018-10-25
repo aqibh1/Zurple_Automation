@@ -3,11 +3,14 @@ package resources.ZurpleReporter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReportWriter {
 
     private static FileWriter fileWriter;
     private String outputDirectory;
+    private List<String> reportsList = new ArrayList();
 
     private static final String REPORT_FILE_NAME = "custom-emailable-report";
 
@@ -32,12 +35,24 @@ public class ReportWriter {
 
     public void add(String customReportTemplateStr)
     {
+
+        reportsList.add(customReportTemplateStr);
+
+    }
+
+    public void writeReport()
+    {
+
         FileWriter fw = get_file_writer();
 
-        try {
-            fw.write(customReportTemplateStr);
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (String report: reportsList)
+        {
+
+            try {
+                fw.write(report);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
     }

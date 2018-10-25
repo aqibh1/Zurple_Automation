@@ -5,3 +5,4 @@ node_modules/*
 src/main/config/config.dev.properties
 debug.log
 test-output/*
+zurple-test-reports/*

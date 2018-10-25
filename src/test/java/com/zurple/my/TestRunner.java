@@ -46,8 +46,6 @@ import javax.xml.parsers.ParserConfigurationException;
                 e.printStackTrace();
             }
 
-            ReportWriter.close_file();
-
         }
 
         private static List<TestNG> getTestsList(String scenario){

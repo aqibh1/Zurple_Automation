@@ -1,43 +1,33 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="content-type" content="application/xhtml+xml; charset=gbk" />
-    <title>TestNG Report</title>
-    <style type="text/css">table {margin-bottom:10px;border-collapse:collapse;empty-cells:show}th,td {border:1px solid #009;padding:.25em .5em}th {vertical-align:bottom}td {vertical-align:top}table a {font-weight:bold}.stripe td {background-color: #E6EBF9}.num {text-align:right}.passedodd td {background-color: #3F3}.passedeven td {background-color: #0A0}.skippedodd td {background-color: #DDD}.skippedeven td {background-color: #CCC}.failedodd td,.attn {background-color: #F33}.failedeven td,.stripe .attn {background-color: #D00}.stacktrace {white-space:pre;font-family:monospace}.totop {font-size:85%;text-align:center;border-bottom:2px solid #000}</style>
-  </head>
-  <body>
-    <table>
-      <tr><center><b>$TestNG_Custom_Report_Title$</b></center></tr>
-      <thead>
-        <tr>
-          <th>Test Name</th>
-          <th># Total Method</th>
-          <th># Passed</th>
-          <th># Skipped</th>
-          <th># Failed</th>
-          <th>Browser</th>
-          <th>Start Time</th>
-          <th>End Time</th>
-          <th>Execute Time (mm:hh:ss:ms)</th>
-          <th>Included Groups</th>
-          <th>Excluded Groups</th>
-        </tr>
-       </thead> 
-       $Test_Case_Summary$
-    </table>
-    <table id="summary">
-      <thead>
-        <tr>
-          <th>Class</th>
-          <th>Method</th>
-          <th>Start Time</th>
-          <th>Execution Time (mm:hh:ss:ms)</th>
-          <th>Parameter</th>
-          <th>Reporter Message</th>
-          <th>Exception Message</th>
-        </tr>
-      </thead> 
-      $Test_Case_Detail$
-    </table>
-  </body>
+<html>
+<head><title>My Custom Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Suite</th>
+      <th>Test</th>
+      <th>Method</th>
+      <th>Status</th>
+      <th>Execution Time(ms)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="success">
+      <td>My test suite</td>
+      <td>numbersXML</td>
+      <td>givenNumberObjectFromDataProvider_ifEvenCheckOK_thenCorrect</td>
+      <td>PASSED</td>
+      <td>0</td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+</body>
 </html>
