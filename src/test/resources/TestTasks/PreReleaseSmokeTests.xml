@@ -4,8 +4,6 @@
 
   <suite-files>
     <suite-file path="../WorkFlows/zurple/TestUserEmailValidationConsideredInMassemail.xml"/>
-    <suite-file path="../WorkFlows/zurple/TestUserEmailValidationConsideredInWelcomeEmail.xml"/>
-    <suite-file path="../WorkFlows/zengtest/TestSitePropertiesSearch.xml"/>
   </suite-files>
 
 </suite>
