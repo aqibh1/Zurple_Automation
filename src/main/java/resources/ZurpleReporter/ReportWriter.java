@@ -1,8 +1,15 @@
 package resources.ZurpleReporter;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateExceptionHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import freemarker.template.Configuration;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +19,7 @@ public class ReportWriter {
 
     private static FileWriter fileWriter;
     private String outputDirectory;
-    private Map<String,List<String>> reportsList = new HashMap<>();
-    private static final String HEADER_TEMPLATE = "<h3>%s</h3>";
+    private Map<String,List<List<HashMap>>> reportsList = new HashMap<>();
 
     private static final String REPORT_FILE_NAME = "custom-emailable-report";
 
@@ -36,18 +42,18 @@ public class ReportWriter {
         this.outputDirectory = outputDirectory;
     }
 
-    public void add(String caseTitle, String customReportTemplateStr)
+    public void add(String caseTitle, List<HashMap> results)
     {
 
         if ( reportsList.containsKey(caseTitle) )
         {
-            reportsList.get(caseTitle).add(customReportTemplateStr);
+            reportsList.get(caseTitle).add(results);
         }
         else
         {
-            List<String> new_list = new ArrayList();
-            new_list.add(customReportTemplateStr);
-            reportsList.put(caseTitle,new_list);
+            List<List<HashMap>> l = new ArrayList<>();
+            l.add(results);
+            reportsList.put(caseTitle,l);
         }
 
     }
@@ -57,37 +63,43 @@ public class ReportWriter {
 
         FileWriter fw = get_file_writer();
 
-        for(Map.Entry<String, List<String>> entry : reportsList.entrySet()) {
-            String title = entry.getKey();
-
-            String caseHeader = String.format(HEADER_TEMPLATE, title);
-            try {
-                fw.write(caseHeader);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            List<String> lst = entry.getValue();
-
-            for (String report: lst)
-            {
-
-                try {
-                    fw.write(report);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }
-
         try {
+            fw.write(render());
             fw.flush();
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public String render(){
+
+        String result = "";
+
+        try {
+            Configuration cfg = new Configuration();
+            cfg.setDirectoryForTemplateLoading(new File("src/main/java/resources/ZurpleReporter/template/"));
+            cfg.setDefaultEncoding("UTF-8");
+            cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
+
+            Template temp = cfg.getTemplate("reportTemplate.ftlh");
+
+            Writer out = new StringWriter();
+            try {
+                HashMap<String, Map> m = new HashMap<>();
+                m.put("cases",reportsList);
+                temp.process(m, out);
+                result = out.toString();
+            } catch (TemplateException e) {
+                e.printStackTrace();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
 }

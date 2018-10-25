@@ -3,9 +3,7 @@ package resources.ZurpleReporter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -29,24 +27,22 @@ public class ZurpleReporter implements IReporter {
 
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
 
-        String reportTemplate = initReportTemplate();
-
-        final String body = suites
+        List<HashMap> results = suites
                 .stream()
                 .flatMap(suiteToResults())
-                .collect(Collectors.joining());
+                .collect(Collectors.toList());
 
-        ReportWriterContainer.getReportWriter().add(TestSuiteTitleContainer.getTestSuiteTitle(), reportTemplate.replaceFirst("</tbody>", String.format("%s</tbody>", body)));
+        ReportWriterContainer.getReportWriter().add(TestSuiteTitleContainer.getTestSuiteTitle(), results);
 
     }
 
-    private Function<ISuite, Stream<? extends String>> suiteToResults() {
+    private Function<ISuite, Stream<? extends HashMap>> suiteToResults() {
         return suite -> suite.getResults().entrySet()
                 .stream()
                 .flatMap(resultsToRows(suite));
     }
 
-    private Function<Map.Entry<String, ISuiteResult>, Stream<? extends String>> resultsToRows(ISuite suite) {
+    private Function<Map.Entry<String, ISuiteResult>, Stream<? extends HashMap>> resultsToRows(ISuite suite) {
         return e -> {
             ITestContext testContext = e.getValue().getTestContext();
 
@@ -68,40 +64,45 @@ public class ZurpleReporter implements IReporter {
         };
     }
 
-    private List<String> generateReportRows(String testName, String suiteName, Set<ITestResult> allTestResults) {
+    private List<HashMap> generateReportRows(String testName, String suiteName, Set<ITestResult> allTestResults) {
         return allTestResults.stream()
                 .map(testResultToResultRow(testName, suiteName))
                 .collect(toList());
     }
 
-    private Function<ITestResult, String> testResultToResultRow(String testName, String suiteName) {
+    private Function<ITestResult, HashMap<String,String>> testResultToResultRow(String testName, String suiteName) {
+
+        HashMap<String,String> m = new HashMap<String,String>();
+
         return testResult -> {
             switch (testResult.getStatus()) {
                 case ITestResult.FAILURE:
-                    return String.format(ROW_TEMPLATE, "danger", suiteName, testName, testResult.getName(), "FAILED", "NA");
+                    m.put("suiteName",suiteName);
+                    m.put("testName",testName);
+                    m.put("methodName",testResult.getName());
+                    m.put("testResultCode","FAILED");
+                    m.put("time","NA");
+                    return m;
 
                 case ITestResult.SUCCESS:
-                    return String.format(ROW_TEMPLATE, "success", suiteName, testName, testResult.getName(), "PASSED", String.valueOf(testResult.getEndMillis() - testResult.getStartMillis()));
+                    m.put("suiteName",suiteName);
+                    m.put("testName",testName);
+                    m.put("methodName",testResult.getName());
+                    m.put("testResultCode","PASSED");
+                    m.put("time",String.valueOf(testResult.getEndMillis() - testResult.getStartMillis()));
+                    return m;
 
                 case ITestResult.SKIP:
-                    return String.format(ROW_TEMPLATE, "warning", suiteName, testName, testResult.getName(), "SKIPPED", "NA");
-
+                    m.put("suiteName",suiteName);
+                    m.put("testName",testName);
+                    m.put("methodName",testResult.getName());
+                    m.put("testResultCode","SKIPPED");
+                    m.put("time","NA");
+                    return m;
                 default:
-                    return "";
+                    return m;
             }
         };
-    }
-
-    private String initReportTemplate() {
-        String template = null;
-        byte[] reportTemplate;
-        try {
-            reportTemplate = Files.readAllBytes(Paths.get("src/main/java/resources/ZurpleReporter/template/customize-emailable-report-template.html"));
-            template = new String(reportTemplate, "UTF-8");
-        } catch (IOException e) {
-            LOGGER.error("Problem initializing template", e);
-        }
-        return template;
     }
 
 }
