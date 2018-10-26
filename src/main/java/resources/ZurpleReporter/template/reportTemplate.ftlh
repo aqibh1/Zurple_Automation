@@ -16,7 +16,7 @@
                         <thead>
                         <tr>
                             <th>Suite</th>
-                            <th>Test</th>
+                            <th>Action</th>
                             <th>Method</th>
                             <th>Status</th>
                             <th>Execution Time(ms)</th>
@@ -24,7 +24,7 @@
                         </thead>
                         <tbody>
                         <#list workflow as test>
-                            <tr>
+                            <tr class="<#if test.testResultCode == 'PASSED'>success</#if><#if test.testResultCode == 'SKIPPED'>warning</#if><#if test.testResultCode == 'FAILED'>danger</#if>">
                                 <td>${test.suiteName}</td>
                                 <td>${test.testName}</td>
                                 <td>${test.methodName}</td>
