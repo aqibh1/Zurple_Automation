@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 import org.testng.ITestNGListener;
-import org.testng.TestNG;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -34,18 +33,17 @@ import javax.xml.parsers.ParserConfigurationException;
 
             System.setProperty("environment","dev");
             String suitePath = System.getProperty("suite");
-            Map<String,List<TestNG>> testTree = getTestsList(System.getProperty("user.dir")+ "/" + suitePath);
+            Map<String,List<ZurpleTestNG>> testTree = getTestsList(System.getProperty("user.dir")+ "/" + suitePath);
 
             ExecutorService service = Executors.newFixedThreadPool(Integer.parseInt(System.getProperty("threads")));
 
             ReportWriter reportWriter = new ReportWriter("zurple-test-reports");
 
-            for(Map.Entry<String, List<TestNG>> entry : testTree.entrySet()) {
-                String secondLevelTestTitle = entry.getKey();
-                List<TestNG> testList = entry.getValue();
+            for(Map.Entry<String, List<ZurpleTestNG>> entry : testTree.entrySet()) {
+                List<ZurpleTestNG> testList = entry.getValue();
 
-                for (TestNG o : testList) {
-                    service.execute(new TestTask(o, secondLevelTestTitle, reportWriter));
+                for (ZurpleTestNG o : testList) {
+                    service.execute(new TestTask(o, reportWriter));
                 }
 
             }
@@ -62,11 +60,11 @@ import javax.xml.parsers.ParserConfigurationException;
 
         }
 
-        private static Map<String,List<TestNG>> getTestsList(String scenario){
+        private static Map<String,List<ZurpleTestNG>> getTestsList(String scenario){
 
             List<List<String>> high_level_suites_list = SuiteParser.getSuiteFiles(scenario);
 
-            HashMap<String,List<TestNG>> testng_list = new HashMap<>();
+            HashMap<String,List<ZurpleTestNG>> testng_list = new HashMap<>();
             List<Class<? extends ITestNGListener>> listeners = new ArrayList<Class<? extends ITestNGListener>>();
             listeners.add(ZurpleReporter.class);
 
@@ -78,13 +76,14 @@ import javax.xml.parsers.ParserConfigurationException;
 
                 List<List<String>> second_level_suites_list = SuiteParser.getSuiteFiles(high_level_suites_list.get(0).get(i));
 
-                List<TestNG> lst = new ArrayList<>();
+                List<ZurpleTestNG> lst = new ArrayList<>();
 
                 for (Integer j = 0; j < second_level_suites_list.size(); j++)
                 {
-                    TestNG testng = new TestNG();
+                    ZurpleTestNG testng = new ZurpleTestNG();
                     testng.setTestSuites(second_level_suites_list.get(j));
                     testng.setListenerClasses(listeners);
+                    ((ZurpleTestNG) testng).setSecondLevelTestTitle(second_level_suite_title);
                     lst.add(testng);
                 }
 
@@ -97,17 +96,17 @@ import javax.xml.parsers.ParserConfigurationException;
 
         public static class TestTask implements Runnable {
 
-            TestNG target;
+            ZurpleTestNG target;
 
-            public TestTask(TestNG target, String title, ReportWriter reportWriter) {
+            public TestTask(ZurpleTestNG target, ReportWriter reportWriter) {
                 this.target = target;
                 //Per-thread test suite title handling
-                TestSuiteTitleContainer.setTestSuiteTitle(title);
                 ReportWriterContainer.setReportWriter(reportWriter);
             }
 
             @Override
             public void run() {
+                TestSuiteTitleContainer.setTestSuiteTitle(target.getSecondLevelTestTitle());
                 target.run();
             }
         }
