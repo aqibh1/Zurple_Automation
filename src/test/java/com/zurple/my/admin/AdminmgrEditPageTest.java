@@ -1,15 +1,7 @@
 package com.zurple.my.admin;
 
 import com.zurple.my.Admin.AdminmgrEditPage;
-import com.zurple.my.BillingPage;
-import com.zurple.my.BillingPageTest;
 import com.zurple.my.PageTest;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Arrays;
-import org.apache.commons.io.IOUtils;
-import org.testng.Assert;
-import org.testng.TestNG;
 import org.testng.annotations.Test;
 import resources.ConfigReader;
 

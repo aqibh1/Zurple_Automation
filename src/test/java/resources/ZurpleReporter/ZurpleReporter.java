@@ -21,10 +21,6 @@ import static java.util.stream.Collectors.toList;
 
 public class ZurpleReporter implements IReporter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ZurpleReporter.class);
-
-    private static final String ROW_TEMPLATE = "<tr class=\"%s\"><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>";
-
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
 
         List<HashMap> results = suites
@@ -82,6 +78,7 @@ public class ZurpleReporter implements IReporter {
                     m.put("methodName",testResult.getName());
                     m.put("testResultCode","FAILED");
                     m.put("time","NA");
+                    m.put("screenshot",ScreenshotTaker.getScreenshotName(testResult));
                     return m;
 
                 case ITestResult.SUCCESS:
@@ -90,6 +87,7 @@ public class ZurpleReporter implements IReporter {
                     m.put("methodName",testResult.getName());
                     m.put("testResultCode","PASSED");
                     m.put("time",String.valueOf(testResult.getEndMillis() - testResult.getStartMillis()));
+                    m.put("screenshot","");
                     return m;
 
                 case ITestResult.SKIP:
@@ -98,6 +96,7 @@ public class ZurpleReporter implements IReporter {
                     m.put("methodName",testResult.getName());
                     m.put("testResultCode","SKIPPED");
                     m.put("time","NA");
+                    m.put("screenshot","");
                     return m;
                 default:
                     return m;

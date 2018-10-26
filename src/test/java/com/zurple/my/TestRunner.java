@@ -13,6 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import resources.ConfigReader;
 import resources.ZurpleReporter.*;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -29,13 +30,15 @@ import javax.xml.parsers.ParserConfigurationException;
 
         public static void main(String[] args) {
 
+            ConfigReader configReader = ConfigReader.load();
+
             System.setProperty("environment","dev");
             String suitePath = System.getProperty("suite");
             Map<String,List<TestNG>> testTree = getTestsList(System.getProperty("user.dir")+ "/" + suitePath);
 
             ExecutorService service = Executors.newFixedThreadPool(Integer.parseInt(System.getProperty("threads")));
 
-            ReportWriter reportWriter = new ReportWriter("zurple-test-reports");
+            ReportWriter reportWriter = new ReportWriter(configReader.getPropertyByName("reporter_output_dir"));
             ReportWriterContainer.setReportWriter(reportWriter);
 
             for(Map.Entry<String, List<TestNG>> entry : testTree.entrySet()) {

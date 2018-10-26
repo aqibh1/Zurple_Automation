@@ -19,6 +19,7 @@
                             <th>Action</th>
                             <th>Method</th>
                             <th>Status</th>
+                            <th>Screenshot</th>
                             <th>Execution Time(ms)</th>
                         </tr>
                         </thead>
@@ -29,6 +30,10 @@
                                 <td>${test.testName}</td>
                                 <td>${test.methodName}</td>
                                 <td>${test.testResultCode}</td>
+                                <td>
+                                    <#if test.screenshot != ''>
+                                        <img height="100" width="100" src="${test.screenshot}"></td>
+                                    </#if>
                                 <td>${test.time}</td>
                             </tr>
                         </#list>

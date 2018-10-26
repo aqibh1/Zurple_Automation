@@ -6,6 +6,7 @@ import freemarker.template.TemplateExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import freemarker.template.Configuration;
+import resources.ConfigReader;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -75,11 +76,12 @@ public class ReportWriter {
 
     public String render(){
 
+        ConfigReader configReader = ConfigReader.load();
         String result = "";
 
         try {
             Configuration cfg = new Configuration();
-            cfg.setDirectoryForTemplateLoading(new File("src/main/java/resources/ZurpleReporter/template/"));
+            cfg.setDirectoryForTemplateLoading(new File(configReader.getPropertyByName("reporter_templates_dir")));
             cfg.setDefaultEncoding("UTF-8");
             cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 
