@@ -13,10 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import resources.ZurpleReporter.ReportWriter;
-import resources.ZurpleReporter.ReportWriterContainer;
-import resources.ZurpleReporter.TestSuiteTitleContainer;
-import resources.ZurpleReporter.ZurpleReporter;
+import resources.ZurpleReporter.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -70,6 +67,7 @@ import javax.xml.parsers.ParserConfigurationException;
             HashMap<String,List<TestNG>> testng_list = new HashMap<>();
             List<Class<? extends ITestNGListener>> listeners = new ArrayList<Class<? extends ITestNGListener>>();
             listeners.add(ZurpleReporter.class);
+            listeners.add(ScreenshotTaker.class);
 
             for (Integer i = 0; i < high_level_suites_list.get(0).size(); i++)
             {
