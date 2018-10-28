@@ -27,7 +27,7 @@ public class EnvironmentFactory {
             driver = webDrivers.get(thread_id);
         }else
         {
-            if (configReader.getPropertyByName("base_browser") == "firefox")
+            if ( configReader.getPropertyByName("base_browser").equals("firefox") )
             {
                 FirefoxOptions options = new FirefoxOptions();
 
