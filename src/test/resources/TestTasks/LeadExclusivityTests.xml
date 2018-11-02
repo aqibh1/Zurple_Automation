@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Lead Exclusivity Tests">
+
+  <suite-files>
+    <suite-file path="../WorkFlows/zurple/TestExistingExclusiveLeadIsNotCreated.xml"/>
+  </suite-files>
+
+</suite>

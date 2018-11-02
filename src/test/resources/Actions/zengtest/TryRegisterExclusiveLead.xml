@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Register new lead">
+
+  <test name="Register new user">
+    <parameter name="source_in_url" value="mlg"/>
+    <classes>
+      <class name="us.zengtest1.HomePageTest" />
+      <class name="us.zengtest1.RegisterPageTest" >
+        <methods>
+          <include name="testTryRegisterNewExclusiveLead" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

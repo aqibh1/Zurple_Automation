@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Registration of existing lead">
+
+  <suite-files>
+    <suite-file path="../../Actions/Common/CreateZillowLead.xml"/>
+    <suite-file path="../../Actions/zengtest/TryRegisterExclusiveLead.xml"/>
+    <suite-file path="../../Actions/Common/Close Browser.xml"/>
+  </suite-files>
+
+</suite>

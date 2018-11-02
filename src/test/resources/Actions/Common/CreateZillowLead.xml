@@ -1,0 +1,19 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Load zillow lead to DB from fixture">
+
+  <test name="Load zillow lead to DB from fixture">
+    <parameter name="admin_id" value="8"/>
+    <parameter name="source" value="zillow"/>
+    <parameter name="status" value="new"/>
+    <parameter name="site_id" value="3"/>
+    <classes>
+      <class name="resources.models.UserTest">
+        <methods>
+          <include name="testCreateUserInDB" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

@@ -25,19 +25,17 @@ public class HomePageTest extends PageTest
         return page;
     }
 
-    @Test
     public void testTitle() {
         assertEquals("San Diego Homes for Sale | zengtest1.us", getPage().getTitle());
     }
 
-    @Test
     public void testHeader() {
         Pattern pattern = Pattern.compile("\\d,\\d{3} HOMES FOR SALE IN SAN DIEGO, CA AND NEARBY");
         Matcher matcher = pattern.matcher(getPage().getHeader().getText());
         assertTrue(matcher.find());
     }
 
-    @Test
+
     public void testBrand() {        assertEquals("ZENG TEST PROPERTIES", getPage().getBrand().getText());    }
 
 }

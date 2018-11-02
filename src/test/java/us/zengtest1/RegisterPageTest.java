@@ -10,16 +10,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Factory;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 import resources.orm.hibernate.dao.ManageSite;
 import resources.orm.hibernate.models.DistributionRule;
 import resources.orm.hibernate.models.Site;
 import resources.orm.hibernate.models.User;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 public class RegisterPageTest
         extends PageTest
@@ -89,6 +88,24 @@ public class RegisterPageTest
         //Checking DB record body
         User newUser = getEnvironment().getUserById(user_id);
         getEnvironment().setUserToCheck(newUser);
+    }
+
+    @Test
+    public void testTryRegisterNewExclusiveLead(){
+
+        String username = getEnvironment().getUserToCheck().getLeadId().getFirstName() + "_exclusive_attempt";
+        String email = getEnvironment().getUserToCheck().getLeadId().getEmail();
+
+        getPage().getRegisterForm().setInputValue("first_name",username);
+        getPage().getRegisterForm().setInputValue("email",email);
+
+        getPage().getRegisterForm().submit();
+        // We must be redirected
+        // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
+        Pattern pattern = Pattern.compile("/thankyou\\?lead_id=(\\d+)");
+        Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
+        assertFalse(matcher.find());
+
     }
 
     @Test(priority=50)

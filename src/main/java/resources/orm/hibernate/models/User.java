@@ -34,8 +34,14 @@ public class User extends Abstract
     private Site site_id;
     private String user_name;
     private String user_first_name;
+    private String user_last_name;
+    private String user_phone;
+    private String user_cell;
     private String user_status;
+    private String user_memo;
     private String traffic_source;
+    private String password_seed;
+    private String hashed_password;
     private Integer user_lead_score;
     private Date create_datetime;
     private Date update_datetime;
@@ -112,6 +118,42 @@ public class User extends Abstract
         this.user_first_name = user_first_name;
     }
 
+    @Column(name = "user_last_name", unique = false, nullable = false, length = 255)
+    public String getUserLastName() {
+        return this.user_last_name;
+    }
+
+    public void setUserLastName(String user_last_name) {
+        this.user_last_name = user_last_name;
+    }
+
+    @Column(name = "user_phone", unique = false, nullable = false, length = 255)
+    public String getUserPhone() {
+        return this.user_phone;
+    }
+
+    public void setUserPhone(String user_phone) {
+        this.user_phone = user_phone;
+    }
+
+    @Column(name = "user_cell", unique = false, nullable = false, length = 255)
+    public String getUserCell() {
+        return this.user_cell;
+    }
+
+    public void setUserCell(String user_cell) {
+        this.user_cell = user_cell;
+    }
+
+    @Column(name = "user_memo", unique = false, nullable = false, length = 255)
+    public String getUserMemo() {
+        return this.user_memo;
+    }
+
+    public void setUserMemo(String user_memo) {
+        this.user_memo = user_memo;
+    }
+
     @Column(name = "user_status", unique = true, nullable = false, length = 255)
     public String getUserStatus() {
         return this.user_status;
@@ -128,6 +170,24 @@ public class User extends Abstract
 
     public void setTrafficSource(String traffic_source) {
         this.traffic_source = traffic_source;
+    }
+
+    @Column(name = "password_seed", unique = false, nullable = false, length = 2)
+    public String getPasswordSeed() {
+        return this.password_seed;
+    }
+
+    public void setPasswordSeed(String password_seed) {
+        this.password_seed = password_seed;
+    }
+
+    @Column(name = "hashed_password", unique = false, nullable = false, length = 255)
+    public String getHashedPassword() {
+        return this.hashed_password;
+    }
+
+    public void setHashedPassword(String hashed_password) {
+        this.hashed_password = hashed_password;
     }
 
     @Column(name = "create_datetime", columnDefinition="DATETIME")

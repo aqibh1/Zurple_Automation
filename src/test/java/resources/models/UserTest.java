@@ -1,9 +1,7 @@
 package resources.models;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.nio.file.Files;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +12,7 @@ import org.testng.annotations.Test;
 import resources.AbstractTest;
 import resources.ConfigReader;
 import resources.SSHConnector;
+import resources.orm.hibernate.dao.ManageLead;
 import resources.orm.hibernate.dao.ManageUser;
 import resources.orm.hibernate.models.*;
 
@@ -39,6 +38,77 @@ public class UserTest extends AbstractTest
         {
             assertEquals(user.getUserStatusChanges().get(0).getIgnoreAutomation(),ignore_automation);
         }
+
+    }
+
+    @Test
+    @Parameters({
+        "admin_id",
+        "source",
+        "status",
+        "site_id"
+    })
+    public void testCreateUserInDB(
+            @Optional("0") Integer admin_id,
+            @Optional("unknown") String source,
+            @Optional("new") String status,
+            @Optional("0") Integer site_id
+    ){
+
+        Admin admin = getEnvironment().getAdmin(admin_id);
+        Site site = getEnvironment().getSiteById(site_id);
+
+        Lead lead = new Lead();
+
+        String username = "test_regular_lead_" + UUID.randomUUID().toString();
+
+        String email = "";
+        if (
+            System.getProperty("environment").equals("dev") ||
+            System.getProperty("environment").equals("stage")
+        )
+        {
+            email = username + "_zurpleqa@test.com";
+        }
+        else
+        {
+            email = username + "@test.com";
+        }
+
+        lead.setEmail(email);
+        lead.setFirstName(username);
+        lead.setLastName("Test");
+        lead.setOwnerId(admin);
+        lead.setPhone("");
+        lead.setCell("");
+        lead.setMemo("");
+        lead.setCreateDatetime(new Date());
+        lead.setUpdateDatetime(new Date());
+
+        lead.create();
+
+        User user = new User();
+        user.setUserName(username);
+        user.setUserFirstName("Test");
+        user.setUserLastName("Test");
+        user.setPasswordSeed("gh");
+        user.setHashedPassword("ec9cbcbeaf6327c7d0b9f89df3df9423");
+        user.setUserPhone("");
+        user.setUserCell("");
+        user.setUserMemo("");
+        user.setLeadId(lead);
+        user.setAdminId(admin);
+        user.setUserStatus(status);
+        user.setTrafficSource(source);
+        user.setSiteId(site);
+
+        user.setUserStatusChanges(new ArrayList<>());
+        user.setCreateDatetime(new Date());
+        user.setUpdateDatetime(new Date());
+
+        user.create();
+
+        getEnvironment().setUserToCheck(user);
 
     }
 
