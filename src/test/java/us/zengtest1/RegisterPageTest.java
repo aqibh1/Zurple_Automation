@@ -104,7 +104,18 @@ public class RegisterPageTest
         // Checking URL, should be like this http://dev.zengtest1.us/thankyou?lead_id=102758
         Pattern pattern = Pattern.compile("/thankyou\\?lead_id=(\\d+)");
         Matcher matcher = pattern.matcher(getDriver().getCurrentUrl());
-        assertFalse(matcher.find());
+        assertTrue(matcher.find());
+
+        Integer user_id = Integer.parseInt(matcher.group(1));
+
+        //Waiting for redirect to search page
+        WebDriverWait wait = new WebDriverWait(getDriver(), 10); //seconds
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@value=\"SEARCH\"]")));
+
+        //Checking created lead source
+        //Checking DB record body
+        User newUser = getEnvironment().getUserById(user_id);
+        assertEquals(newUser.getAdminId().getId(),getEnvironment().getUserToCheck().getAdminId().getId());
 
     }
 
