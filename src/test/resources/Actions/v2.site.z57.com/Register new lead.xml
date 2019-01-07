@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Register new lead">
+
+  <test name="Register new user">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testRegisterNewRegularLead" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

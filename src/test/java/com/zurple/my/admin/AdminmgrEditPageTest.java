@@ -33,7 +33,7 @@ public class AdminmgrEditPageTest
         if (page == null)
         {
             page = new AdminmgrEditPage();
-            page.setUrl(configReader.getPropertyByName("bo_base_url")+"/adminmgr/edit/admin_id/" + admin_id);
+            page.setUrl(configReader.getPropertyByName("zurple_bo_base_url")+"/adminmgr/edit/admin_id/" + admin_id);
             page.setDriver(getDriver());
         }
         return page;

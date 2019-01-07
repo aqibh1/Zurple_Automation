@@ -1,15 +1,8 @@
 package us.zengtest1;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import resources.ConfigReader;
-import resources.elements.Button;
-import resources.forms.ContactAgentForm;
 import us.zengtest1.resources.forms.InquireContactForm;
 import us.zengtest1.resources.forms.InquireForm;
 
@@ -22,7 +15,7 @@ public class InsiderPage
     
     public InsiderPage(){
         ConfigReader configReader = ConfigReader.load();
-        url = "/insider/" + configReader.getPropertyByName("bo_default_agent_id");
+        url = "/insider/" + configReader.getPropertyByName("zurple_bo_default_agent_id");
     }
 
     public WebElement getHeader(){

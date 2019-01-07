@@ -61,14 +61,14 @@ public class LoginPageTest
     @Test(priority=40,groups = { "login" })
     public void testSubmittingValidLoginForm(@Optional("testsiteowner@zurple.com") String login, @Optional("test") String password){
         ConfigReader configReader = ConfigReader.load();
-        getPage().getLoginForm().setInputValue("username",configReader.getPropertyByName("bo_user"));
-        getPage().getLoginForm().setInputValue("passwd",configReader.getPropertyByName("bo_pass"));
+        getPage().getLoginForm().setInputValue("username",configReader.getPropertyByName("zurple_bo_user"));
+        getPage().getLoginForm().setInputValue("passwd",configReader.getPropertyByName("zurple_bo_pass"));
         getPage().getLoginForm().submit();
 
         Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
         wait.until(ExpectedConditions.titleIs("Zurple Backoffice"));// Wait for Dashboard is loaded
 
-        assertEquals(configReader.getPropertyByName("bo_base_url")+"/dashboard",getDriver().getCurrentUrl());
+        assertEquals(configReader.getPropertyByName("zurple_bo_base_url")+"/dashboard",getDriver().getCurrentUrl());
     }
 
 }

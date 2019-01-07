@@ -38,7 +38,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
             ExecutorService service = Executors.newFixedThreadPool(Integer.parseInt(System.getProperty("threads")));
 
-            ReportWriter reportWriter = new ReportWriter(configReader.getPropertyByName("reporter_output_dir"));
+            ReportWriter reportWriter = new ReportWriter(configReader.getPropertyByName("zurple_reporter_output_dir"));
             ReportWriterContainer.setReportWriter(reportWriter);
 
             for(Map.Entry<String, List<TestNG>> entry : testTree.entrySet()) {

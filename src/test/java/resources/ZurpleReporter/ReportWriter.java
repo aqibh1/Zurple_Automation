@@ -3,14 +3,10 @@ package resources.ZurpleReporter;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import freemarker.template.Configuration;
 import resources.ConfigReader;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,7 +77,7 @@ public class ReportWriter {
 
         try {
             Configuration cfg = new Configuration();
-            cfg.setDirectoryForTemplateLoading(new File(configReader.getPropertyByName("reporter_templates_dir")));
+            cfg.setDirectoryForTemplateLoading(new File(configReader.getPropertyByName("zurple_reporter_templates_dir")));
             cfg.setDefaultEncoding("UTF-8");
             cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 

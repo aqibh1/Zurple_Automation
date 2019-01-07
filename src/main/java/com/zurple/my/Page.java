@@ -16,7 +16,7 @@ public abstract class Page
     protected String getBaseUrl(){
         if (baseUrl == null){
             ConfigReader configReader = ConfigReader.load();
-            baseUrl = configReader.getPropertyByName("bo_base_url");
+            baseUrl = configReader.getPropertyByName("zurple_bo_base_url");
         }
         return baseUrl;
     }

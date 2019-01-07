@@ -1,8 +1,9 @@
-package us.zengtest1;
+package com.z57.site.v2;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
 import resources.AbstractPage;
 import resources.ConfigReader;
 import resources.alerts.BootstrapModal;
@@ -22,7 +23,7 @@ public abstract class Page extends AbstractPage implements HasHeader
     protected String getBaseUrl(){
         if (baseUrl == null){
             ConfigReader configReader = ConfigReader.load();
-            baseUrl = configReader.getPropertyByName("zurple_site_base_url");
+            baseUrl = configReader.getPropertyByName("z57_site_v2_base_url");
         }
         return baseUrl;
     }
@@ -59,6 +60,14 @@ public abstract class Page extends AbstractPage implements HasHeader
         }catch(NoSuchElementException e){
             return false;
         }
+    }
+
+    public WebElement getTopMenu(){
+        return driver.findElement(By.xpath("//*[@id=\"menu-top-navigation\"]"));
+    }
+
+    public WebElement getUserMenu(){
+        return driver.findElement(By.xpath("//div[contains(concat(\" \",normalize-space(@class),\" \"),\" user_menu \")]"));
     }
     
 }

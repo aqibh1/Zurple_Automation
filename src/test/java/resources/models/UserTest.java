@@ -1,19 +1,13 @@
 package resources.models;
 
-import java.nio.file.Files;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.AbstractTest;
 import resources.ConfigReader;
 import resources.SSHConnector;
-import resources.orm.hibernate.dao.ManageLead;
-import resources.orm.hibernate.dao.ManageUser;
 import resources.orm.hibernate.models.*;
 
 import static org.testng.Assert.assertEquals;
@@ -211,7 +205,7 @@ public class UserTest extends AbstractTest
         user.setUserStatus(status_initial);
         user.save();
 
-        String res = SSHConnector.runRemoteScript("cd /var/www/zurple.com/current/php/application/scripts && echo '{\"adminId\":"+user.getAdminId().getId()+",\"userId\":"+user.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e "+configReader.getPropertyByName("jobs_environment_title"));
+        String res = SSHConnector.runRemoteScript("cd /var/www/zurple.com/current/php/application/scripts && echo '{\"adminId\":"+user.getAdminId().getId()+",\"userId\":"+user.getId()+",\"status\":\"prospect2\"}' | sudo -u www-data php ChangeUserStatus.php -e "+configReader.getPropertyByName("zurple_jobs_environment_title"));
 
         assertEquals(res,"OK");// Check SSH server is running and accessible
 
@@ -222,7 +216,7 @@ public class UserTest extends AbstractTest
 
         ConfigReader configReader = ConfigReader.load();
 
-        String res = SSHConnector.runRemoteScript("sudo -u www-data bash -c \"export SERVER_NAME="+configReader.getPropertyByName("jobs_server_name")+"; export ZURPLE_ENVIRONMENT="+configReader.getPropertyByName("jobs_environment_title")+"; php /var/www/zurple.com/current/webapp/index.php --zfc=job_userstatus  --zfa=userstatusautomationiconcacherebuild --zfp=packages:57\"");
+        String res = SSHConnector.runRemoteScript("sudo -u www-data bash -c \"export SERVER_NAME="+configReader.getPropertyByName("zurple_jobs_server_name")+"; export ZURPLE_ENVIRONMENT="+configReader.getPropertyByName("zurple_jobs_environment_title")+"; php /var/www/zurple.com/current/webapp/index.php --zfc=job_userstatus  --zfa=userstatusautomationiconcacherebuild --zfp=packages:57\"");
 
         assertEquals(res,"OK");// Check SSH server is running and accessible
 

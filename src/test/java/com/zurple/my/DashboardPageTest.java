@@ -27,7 +27,7 @@ public class DashboardPageTest
             ConfigReader configReader = ConfigReader.load();
             page = new DashboardPage();
             page.setDriver(getDriver());
-            getEnvironment().setAgentToCheck(Integer.parseInt(configReader.getPropertyByName("bo_default_agent_id")));
+            getEnvironment().setAgentToCheck(Integer.parseInt(configReader.getPropertyByName("zurple_bo_default_agent_id")));
         }
         return page;
     }
@@ -80,7 +80,7 @@ public class DashboardPageTest
         assertTrue(getPage().checkNewLeadsBlock());
         Integer n = getPage().getNewLeadsBlock().getLeadIds().get(0);
         getEnvironment().setLeadToCheck(n);
-        Assert.assertEquals(configReader.getPropertyByName("bo_base_url")+"/lead/"+n+"?from=new", getPage().getNewLeadsBlock().getNewLeadLink(1).getAttribute("href"));
+        Assert.assertEquals(configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+n+"?from=new", getPage().getNewLeadsBlock().getNewLeadLink(1).getAttribute("href"));
     }
 
     @Test
@@ -91,7 +91,7 @@ public class DashboardPageTest
         assertTrue(getPage().checkHotBehaviorBlock());
         assertTrue(getPage().getHotBehaviorBlock().getHotBehaviorList().size()>0);
         for (Alert alert: getPage().getHotBehaviorBlock().getHotBehaviorList()) {
-            Pattern pattern = Pattern.compile(configReader.getPropertyByName("bo_base_url")+ "/lead/(\\d+)\\?from=hotlead");
+            Pattern pattern = Pattern.compile(configReader.getPropertyByName("zurple_bo_base_url")+ "/lead/(\\d+)\\?from=hotlead");
             Matcher matcher = pattern.matcher(alert.getLeadLink());
             assertTrue(matcher.find());
             Integer lead_id = Integer.parseInt(matcher.group(1));

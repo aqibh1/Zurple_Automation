@@ -58,7 +58,7 @@ public class AdminmgrNewPageTest
 
         getPage().getAdminCreateForm().submit();
 
-        assertEquals(configReader.getPropertyByName("bo_base_url")+ "/adminmgr",getDriver().getCurrentUrl());
+        assertEquals(configReader.getPropertyByName("zurple_bo_base_url")+ "/adminmgr",getDriver().getCurrentUrl());
 
         assertTrue(getEnvironment().getAdminByEmail(adminEmail).getBillingAccessFlag());
     }

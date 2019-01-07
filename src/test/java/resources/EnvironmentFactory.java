@@ -2,11 +2,9 @@ package resources;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.WebDriver.Options;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -80,8 +78,8 @@ public class EnvironmentFactory {
         else
         {
             environment = new TestEnvironment();
-            environment.setAgentToCheck(Integer.parseInt(configReader.getPropertyByName("bo_default_agent_id")));
-            environment.setCurrentAgentId(Integer.parseInt(configReader.getPropertyByName("bo_default_agent_id")));
+            environment.setAgentToCheck(Integer.parseInt(configReader.getPropertyByName("zurple_bo_default_agent_id")));
+            environment.setCurrentAgentId(Integer.parseInt(configReader.getPropertyByName("zurple_bo_default_agent_id")));
             environments.put(thread_id, environment);
         }
         return environment;

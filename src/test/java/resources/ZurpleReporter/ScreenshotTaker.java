@@ -17,7 +17,7 @@ public class ScreenshotTaker  extends TestListenerAdapter {
 
     public static String getScreenshotName(ITestResult result){
 
-        String screenshotName = configReader.getPropertyByName("reporter_screenshot_dir") + configReader.getPropertyByName("base_browser") + "_" + result.getName() + "_" + result.hashCode() + ".png";
+        String screenshotName = configReader.getPropertyByName("zurple_reporter_screenshot_dir") + configReader.getPropertyByName("base_browser") + "_" + result.getName() + "_" + result.hashCode() + ".png";
         return  screenshotName;
 
     }
@@ -38,7 +38,7 @@ public class ScreenshotTaker  extends TestListenerAdapter {
         {
             TakesScreenshot ts = (TakesScreenshot) webDriver;
             File source = ts.getScreenshotAs(OutputType.FILE);
-            String dest = configReader.getPropertyByName("reporter_output_dir") + getScreenshotName(result);
+            String dest = configReader.getPropertyByName("zurple_reporter_output_dir") + getScreenshotName(result);
             File destination = new File(dest);
             try {
                 FileUtils.copyFile(source, destination);

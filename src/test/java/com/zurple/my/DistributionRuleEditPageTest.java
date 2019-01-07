@@ -1,9 +1,7 @@
 package com.zurple.my;
 
-import java.util.ArrayList;
 import org.testng.annotations.Test;
 import resources.ConfigReader;
-import resources.orm.hibernate.models.Site;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -39,7 +37,7 @@ public class DistributionRuleEditPageTest
         assertTrue(getPage().getDistributionRulesForm().checkDistributionRulesUpdateWarningExists());
         assertTrue(getPage().getDistributionRulesForm().checkDistributionRulesUpdateWarningVisible());
         getPage().getDistributionRulesForm().getDistributionRulesUpdateWarning().clickOkButton();
-        assertEquals(getPage().getCurrentUrl(),configReader.getPropertyByName("bo_base_url")+ "/agents");
+        assertEquals(getPage().getCurrentUrl(),configReader.getPropertyByName("zurple_bo_base_url")+ "/agents");
     }
 
 }

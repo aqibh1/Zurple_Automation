@@ -16,9 +16,9 @@ public class HibernateUtil {
 
             Configuration cfg = new AnnotationConfiguration().configure();
             cfg.setProperties(System.getProperties());
-            cfg.getProperties().setProperty("hibernate.connection.url","jdbc:mysql://"+configReader.getPropertyByName("mysql_host")+":"+configReader.getPropertyByName("mysql_port")+"/"+configReader.getPropertyByName("mysql_db")+"?zeroDateTimeBehavior=convertToNull");
-            cfg.getProperties().setProperty("hibernate.connection.username",configReader.getPropertyByName("mysql_user"));
-            cfg.getProperties().setProperty("hibernate.connection.password",configReader.getPropertyByName("mysql_pass"));
+            cfg.getProperties().setProperty("hibernate.connection.url","jdbc:mysql://"+configReader.getPropertyByName("zurple_mysql_host")+":"+configReader.getPropertyByName("zurple_mysql_port")+"/"+configReader.getPropertyByName("zurple_mysql_db")+"?zeroDateTimeBehavior=convertToNull");
+            cfg.getProperties().setProperty("hibernate.connection.username",configReader.getPropertyByName("zurple_mysql_user"));
+            cfg.getProperties().setProperty("hibernate.connection.password",configReader.getPropertyByName("zurple_mysql_pass"));
             cfg.addResource("hibernate.cfg.xml");
             SessionFactory sessionFactory = cfg.buildSessionFactory();
             return sessionFactory;
