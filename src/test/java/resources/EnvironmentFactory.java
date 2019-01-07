@@ -34,6 +34,10 @@ public class EnvironmentFactory {
                     options.addArguments("headless");
                     options.addArguments("window-size=1200x600");
                 }
+                else
+                {
+                    options.addArguments("--start-maximized");
+                }
 
                 driver = new FirefoxDriver(options);
 
@@ -46,6 +50,10 @@ public class EnvironmentFactory {
                 {
                     options.addArguments("headless");
                     options.addArguments("window-size=1200x600");
+                }
+                else
+                {
+                    options.addArguments("--start-maximized");
                 }
 
                 driver = new ChromeDriver(options);
