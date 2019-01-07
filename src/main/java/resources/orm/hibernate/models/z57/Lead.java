@@ -1,7 +1,6 @@
 package resources.orm.hibernate.models.z57;
 
-import resources.orm.hibernate.models.Abstract;
-import resources.orm.hibernate.models.zurple.Admin;
+import resources.orm.hibernate.models.AbstractLead;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,7 +10,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "leads", uniqueConstraints = {
         @UniqueConstraint(columnNames = "lead_id")})
-public class Lead extends Abstract
+public class Lead extends AbstractLead
         implements java.io.Serializable {
 
     private Integer lead_id;

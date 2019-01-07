@@ -4,7 +4,9 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import resources.orm.hibernate.dao.zurple.*;
+import resources.orm.hibernate.dao.z57.*;
 import resources.orm.hibernate.HibernateUtil;
+import resources.orm.hibernate.models.AbstractLead;
 import resources.orm.hibernate.models.zurple.*;
 
 public class TestEnvironment
@@ -79,12 +81,22 @@ public class TestEnvironment
         return transactions;
     }
 
-    public Lead getLeadObject(Integer lead_id)
+    public AbstractLead getLeadObject(Integer lead_id)
     {
 
-        ManageLead ml = new ManageLead(getSession());
+        String project = System.getProperty("project");
 
-        return ml.getLead(lead_id);
+        if (project.equals("z57"))
+        {
+            resources.orm.hibernate.dao.z57.ManageLead ml = new resources.orm.hibernate.dao.z57.ManageLead(getSession());
+            return ml.getLead(lead_id);
+        }
+        else
+        {
+            resources.orm.hibernate.dao.zurple.ManageLead ml = new resources.orm.hibernate.dao.zurple.ManageLead(getSession());
+            return ml.getLead(lead_id);
+        }
+
     }
 
     public Property getDetailedProperty(Integer prop_id)
@@ -222,7 +234,7 @@ public class TestEnvironment
 
     public List<String> getLeadFlags(Integer lead_id)
     {
-        ManageLead ml = new ManageLead(getSession());
+        resources.orm.hibernate.dao.zurple.ManageLead ml = new resources.orm.hibernate.dao.zurple.ManageLead(getSession());
         return ml.getFlags(lead_id);
     }
 

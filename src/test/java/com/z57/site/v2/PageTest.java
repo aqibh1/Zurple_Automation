@@ -10,7 +10,8 @@ import org.testng.annotations.Test;
 import resources.AbstractPageTest;
 import resources.interfaces.TestHavingHeader;
 import resources.interfaces.UsingPage;
-import resources.orm.hibernate.models.zurple.User;
+import resources.orm.hibernate.models.AbstractLead;
+import resources.orm.hibernate.models.z57.Lead;
 
 import java.util.UUID;
 
@@ -58,12 +59,12 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"user_menu_u\"]/div[contains(concat(\" \",normalize-space(@class),\" \"),\" menu_user_picture \")]")));
 
         Cookie cks = getDriver().manage().getCookieNamed("zfs_lead_id");
-        Integer user_id = Integer.parseInt(cks.getValue());
+        Integer lead_id = Integer.parseInt(cks.getValue());
 
         //Checking created lead source
         //Checking DB record body
-        User newUser = getEnvironment().getUserById(user_id);
-        getEnvironment().setUserToCheck(newUser);
+        AbstractLead newLead = getEnvironment().getLeadObject(lead_id);
+        assertEquals(email,newLead.getEmail());
 
     }
 
