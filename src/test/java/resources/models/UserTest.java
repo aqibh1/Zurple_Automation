@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import resources.AbstractTest;
 import resources.ConfigReader;
 import resources.SSHConnector;
-import resources.orm.hibernate.models.*;
+import resources.orm.hibernate.models.zurple.*;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;

@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import resources.alerts.BootstrapModal;
+import resources.alerts.SweetAlertNotification;
 import resources.classes.Asset;
 
 public abstract class AbstractPage
@@ -92,6 +95,33 @@ public abstract class AbstractPage
             Thread.sleep(timeout);
         } catch (InterruptedException qq) {
             qq.printStackTrace();
+        }
+    }
+
+    protected BootstrapModal bootstrapModal;
+
+    public BootstrapModal getBootstrapModal(){
+        if(null == bootstrapModal){
+            bootstrapModal = new BootstrapModal();
+
+            Wait<WebDriver> wait = new WebDriverWait(driver, 10, 1000);
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(BootstrapModal.alertXpath)));
+
+            bootstrapModal.setAlert(driver.findElement(
+                    By.xpath(BootstrapModal.alertXpath)));
+            bootstrapModal.setDriver(driver);
+        }
+        return bootstrapModal;
+    }
+
+    public boolean checkBootsrapModalIsShown(){
+        try{
+            getBootstrapModal();
+            return bootstrapModal.isVisible();
+        }catch(StaleElementReferenceException e){
+            return false;
+        }catch(NoSuchElementException e){
+            return false;
         }
     }
 }

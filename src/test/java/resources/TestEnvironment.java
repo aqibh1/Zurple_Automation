@@ -3,12 +3,9 @@ package resources;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
-import resources.orm.hibernate.dao.*;
-import resources.orm.hibernate.models.*;
+import resources.orm.hibernate.dao.zurple.*;
 import resources.orm.hibernate.HibernateUtil;
+import resources.orm.hibernate.models.zurple.*;
 
 public class TestEnvironment
 {

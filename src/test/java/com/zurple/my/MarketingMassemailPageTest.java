@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import resources.orm.hibernate.models.EmailQueue;
+import resources.orm.hibernate.models.zurple.EmailQueue;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;

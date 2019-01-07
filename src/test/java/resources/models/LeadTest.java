@@ -4,9 +4,8 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.AbstractTest;
-import resources.orm.hibernate.models.Admin;
-import resources.orm.hibernate.models.Lead;
-import resources.orm.hibernate.models.User;
+import resources.orm.hibernate.models.zurple.Lead;
+import resources.orm.hibernate.models.zurple.User;
 
 /**
  * todo

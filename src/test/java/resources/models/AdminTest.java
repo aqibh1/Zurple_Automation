@@ -4,14 +4,8 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.AbstractTest;
-import resources.SSHConnector;
-import resources.orm.hibernate.models.*;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import resources.orm.hibernate.models.zurple.Admin;
+import resources.orm.hibernate.models.zurple.User;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;

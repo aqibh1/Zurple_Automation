@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import resources.ConfigReader;
 import resources.classes.MenuItem;
 import resources.classes.Alert;
-import resources.orm.hibernate.models.User;
+import resources.orm.hibernate.models.zurple.User;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;

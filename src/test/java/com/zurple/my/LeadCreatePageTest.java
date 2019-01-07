@@ -7,10 +7,9 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.elements.Select2Dropdown;
-import resources.orm.hibernate.models.User;
+import resources.orm.hibernate.models.zurple.User;
 
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

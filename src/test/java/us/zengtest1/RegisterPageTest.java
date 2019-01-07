@@ -9,14 +9,11 @@ import java.util.regex.Pattern;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Factory;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import resources.orm.hibernate.dao.ManageSite;
-import resources.orm.hibernate.models.DistributionRule;
-import resources.orm.hibernate.models.Site;
-import resources.orm.hibernate.models.User;
+import resources.orm.hibernate.models.zurple.DistributionRule;
+import resources.orm.hibernate.models.zurple.Site;
+import resources.orm.hibernate.models.zurple.User;
 
 import static org.testng.Assert.*;
 

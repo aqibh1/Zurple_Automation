@@ -1,8 +1,5 @@
 package com.zurple.my;
 
-import java.util.ArrayList;
-import resources.orm.hibernate.models.Site;
-
 public class RosterEditPageTest
         extends PageTest
 {

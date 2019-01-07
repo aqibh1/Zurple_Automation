@@ -9,15 +9,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import resources.AbstractPageTest;
 import resources.ParametersFactory;
 import resources.alerts.SweetAlertNotification;
-import resources.classes.SearchResult;
-import resources.orm.hibernate.models.Property;
-import resources.orm.hibernate.models.SessionAnonymous;
+import resources.orm.hibernate.models.zurple.Property;
+import resources.orm.hibernate.models.zurple.SessionAnonymous;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;

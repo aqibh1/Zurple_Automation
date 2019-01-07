@@ -1,14 +1,15 @@
 package com.z57.site.v2;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import resources.AbstractPage;
 import resources.ConfigReader;
 import resources.alerts.BootstrapModal;
 import resources.alerts.SweetAlertNotification;
 import resources.interfaces.HasHeader;
+import us.zengtest1.resources.forms.RegisterForm;
 
 /**
  * todo
@@ -19,6 +20,7 @@ public abstract class Page extends AbstractPage implements HasHeader
 {
 
     private String baseUrl = null;
+    private RegisterForm registerForm;
 
     protected String getBaseUrl(){
         if (baseUrl == null){
@@ -39,35 +41,21 @@ public abstract class Page extends AbstractPage implements HasHeader
         return sweetAlertNotification;
     }
 
-    protected BootstrapModal bootstrapModal;
-
-    public BootstrapModal getBootstrapModal(){
-        if(null == bootstrapModal){
-            bootstrapModal = new BootstrapModal();
-            bootstrapModal.setAlert(driver.findElement(
-                    By.xpath(BootstrapModal.alertXpath)));
-            bootstrapModal.setDriver(driver);
-        }
-        return bootstrapModal;
-    }
-
-    public boolean checkBootsrapModalIsShown(){
-        try{
-            getBootstrapModal();
-            return bootstrapModal.isVisible();
-        }catch(StaleElementReferenceException e){
-            return false;
-        }catch(NoSuchElementException e){
-            return false;
-        }
-    }
-
     public WebElement getTopMenu(){
         return driver.findElement(By.xpath("//*[@id=\"menu-top-navigation\"]"));
     }
 
     public WebElement getUserMenu(){
         return driver.findElement(By.xpath("//div[contains(concat(\" \",normalize-space(@class),\" \"),\" user_menu \")]"));
+    }
+
+    public RegisterForm getRegisterForm(){
+        if(null == registerForm){
+            registerForm = new RegisterForm();
+            registerForm.setForm(driver.findElement(By.xpath("//*[@id=\"zfs_idx_lead_reg_form\"]")));
+            registerForm.setSubmitButton(driver.findElement(By.xpath("//*[@id=\"wp-submit-register_topbar\"]")));
+        }
+        return registerForm;
     }
     
 }

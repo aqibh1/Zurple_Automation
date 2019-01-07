@@ -2,24 +2,14 @@ package com.zurple.my;
 
 import com.zurple.my.resources.forms.LeadStatusForm;
 import java.util.Date;
-import org.apache.commons.lang3.ObjectUtils.Null;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import resources.classes.Helper;
-import resources.orm.hibernate.dao.ManageUser;
-import resources.orm.hibernate.dao.ManageUserActivity;
-import resources.orm.hibernate.models.Lead;
-import resources.orm.hibernate.models.SessionUser;
-import resources.orm.hibernate.models.User;
-import us.zengtest1.RegisterPageTest;
+import resources.orm.hibernate.dao.zurple.ManageUser;
+import resources.orm.hibernate.models.zurple.SessionUser;
+import resources.orm.hibernate.models.zurple.User;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;

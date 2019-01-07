@@ -5,13 +5,11 @@ import java.util.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.Cookie;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import resources.ParametersFactory;
 import resources.classes.SearchResult;
-import resources.orm.hibernate.models.Property;
-import resources.orm.hibernate.models.SessionAnonymous;
+import resources.orm.hibernate.models.zurple.Property;
+import resources.orm.hibernate.models.zurple.SessionAnonymous;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
