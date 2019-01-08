@@ -40,6 +40,12 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
 
     @Test
     public void testRegisterNewRegularLead() {
+
+        if(getPage().checkBootsrapModalIsShown()){
+            getPage().getBootstrapModal().close();
+            getPage().clearBootstrapModal();
+        }
+
         assertEquals("Sign In",getPage().getUserMenu().getText());
 
         getPage().getUserMenu().click();

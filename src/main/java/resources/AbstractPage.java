@@ -114,6 +114,11 @@ public abstract class AbstractPage
         return bootstrapModal;
     }
 
+    public void clearBootstrapModal()
+    {
+        bootstrapModal = null;
+    }
+
     public boolean checkBootsrapModalIsShown(){
         try{
             getBootstrapModal();
