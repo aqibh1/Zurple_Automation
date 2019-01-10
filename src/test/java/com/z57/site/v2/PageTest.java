@@ -3,6 +3,7 @@ package com.z57.site.v2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -40,8 +41,15 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
 
     @Test
     public void testRegisterNewRegularLead() {
+    	//TODO
+    	//If bootstrap model doesn't exist than it should be handled properly
+    	
+//        if(getPage().checkBootsrapModalIsShown()){
+//            getPage().getBootstrapModal().close();
+//            getPage().clearBootstrapModal();
+//        }
 
-        if(getPage().checkBootsrapModalIsShown()){
+        if(getPage().isBootStrapModelxist()){
             getPage().getBootstrapModal().close();
             getPage().clearBootstrapModal();
         }
@@ -73,5 +81,6 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
         assertEquals(email,newLead.getEmail());
 
     }
-
+    
+   
 }

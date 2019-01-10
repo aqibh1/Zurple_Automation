@@ -3,9 +3,9 @@ package com.z57.site.v2;
 import com.z57.site.v2.HomePage;
 import com.z57.site.v2.Page;
 import com.z57.site.v2.PageTest;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -38,6 +38,42 @@ public class HomePageTest extends PageTest
     }
 
 
-    public void testBrand() {        assertEquals("ZENG TEST PROPERTIES", getPage().getBrand().getText());    }
+    public void testBrand() {
+    	assertEquals("ZENG TEST PROPERTIES", getPage().getBrand().getText());    
+    	}
+   
+    @Test
+    public boolean signInWithValidEmail() {
+    	boolean isLoginSuccessful = false;
+    	if(getPage().isBootStrapModelxist()){
+    		getPage().getBootstrapModal().close();
+    		getPage().clearBootstrapModal();
+    	}
+    	
+    	LoginForm loginFormObj = new LoginForm(getPage().getWebDriver());
+    	clickOnSignInButton();
+    	//Clicks on Already Registerd
+    	clicksOnAlreadyRegistered();
+
+    	loginFormObj.setEmail("z57testuser@gmail.com");
+    	loginFormObj.clickLoginButton();
+    	
+    	isLoginSuccessful = loginFormObj.isLoginSuccessful();
+
+    	return isLoginSuccessful;
+
+    }
+
+	//Helper methods
+    private void clickOnSignInButton() {
+    	assertEquals("Sign In",getPage().getUserMenu().getText());
+        getPage().getUserMenu().click();
+    }
+    
+    private void clicksOnAlreadyRegistered() {
+    	getPage().getRegisterForm().getElementById("widget_login_topbar").click();
+    }
+    
+
 
 }

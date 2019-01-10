@@ -27,7 +27,9 @@ public abstract class AbstractPage
         }
         focusOnPage();
     }
-
+    public WebDriver getWebDriver() {
+    	return driver;
+    }
     protected abstract String getBaseUrl();
 
     public String getCurrentUrl(){
@@ -114,15 +116,44 @@ public abstract class AbstractPage
         return bootstrapModal;
     }
 
+    public boolean isBootStrapModelxist(){
+    	try {
+        if(null == bootstrapModal){
+           if(!driver.findElement(By.xpath(BootstrapModal.alertXpath)).isDisplayed()){
+        	   return false;
+           }
+        }
+    	}catch(Exception ex) {
+    		return false;
+    	}
+		return true;
+    }
+    
     public void clearBootstrapModal()
     {
         bootstrapModal = null;
     }
 
+//    public boolean checkBootsrapModalIsShown(){
+//        try{
+//        	boolean isBootstrapModalVisible = false;
+//            getBootstrapModal();
+//            isBootstrapModalVisible = bootstrapModal.isVisible();
+//            return bootstrapModal.isVisible();
+//        }catch(StaleElementReferenceException e){
+//            return false;
+//        }catch(NoSuchElementException e){
+//            return false;
+//        }
+//    }
     public boolean checkBootsrapModalIsShown(){
         try{
-            getBootstrapModal();
+        	if(isBootStrapModelxist()) {
+        	getBootstrapModal();
             return bootstrapModal.isVisible();
+        	}else {
+        		return false;
+        	}
         }catch(StaleElementReferenceException e){
             return false;
         }catch(NoSuchElementException e){

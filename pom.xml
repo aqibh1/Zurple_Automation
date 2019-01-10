@@ -12,12 +12,16 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
-    <environment>${environment}</environment>
+    <environment>dev</environment>
+    <!-- 
+   <environment>${environment}</environment>
     <suite>${suite}</suite>
+     -->
     <headless>true</headless>
     <ssh_user>${env.SSH_USER}</ssh_user>
     <ssh_key>${env.SSH_KEY}</ssh_key>
     <ssh_pass>${env.SSH_PASS}</ssh_pass>
+     
     <skipTests>false</skipTests>
   </properties>
 
@@ -85,8 +89,15 @@
           <groupId>org.testng</groupId>
           <artifactId>testng</artifactId>
           <version>6.14.3</version>
-          <scope>compile</scope>
+          <scope>test</scope>
       </dependency>
+      <!-- https://mvnrepository.com/artifact/javax.transaction/jta -->
+<dependency>
+    <groupId>javax.transaction</groupId>
+    <artifactId>jta</artifactId>
+    <version>1.1</version>
+</dependency>
+      
   </dependencies>
 
   <build>

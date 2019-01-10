@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="WP Home Search Signin">
+
+  <test name="Home Search Signin">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="signInWithValidEmail" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>
