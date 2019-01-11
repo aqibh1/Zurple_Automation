@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="WP Home Search Signin">
+
+  <test name="Search homes by city">
+    <classes>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>

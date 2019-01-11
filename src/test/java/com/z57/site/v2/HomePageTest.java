@@ -43,7 +43,7 @@ public class HomePageTest extends PageTest
     	}
    
     @Test
-    public boolean signInWithValidEmail() {
+    public void signInWithValidEmail() {
     	boolean isLoginSuccessful = false;
     	if(getPage().isBootStrapModelxist()){
     		getPage().getBootstrapModal().close();
@@ -59,8 +59,7 @@ public class HomePageTest extends PageTest
     	loginFormObj.clickLoginButton();
     	
     	isLoginSuccessful = loginFormObj.isLoginSuccessful();
-
-    	return isLoginSuccessful;
+//    	return isLoginSuccessful;
 
     }
 
