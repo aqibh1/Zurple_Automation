@@ -11,7 +11,8 @@ import java.util.List;
 
 public class BootstrapModal extends AbstractAlert
 {
-
+	protected BootstrapModal bootstrapModal;
+	
     public static String alertXpath = "//div[contains(@class,\"modal fade in\")]";
 
     public void close() {
@@ -23,6 +24,48 @@ public class BootstrapModal extends AbstractAlert
         Wait<WebDriver> wait = new WebDriverWait(driver, 10, 1000);
         wait.until(ExpectedConditions.invisibilityOfAllElements(els));
 
+    }
+    public BootstrapModal(){
+    }
+    public BootstrapModal(WebDriver pWebDriver){
+    	driver=pWebDriver;
+    }
+    public BootstrapModal getBootstrapModal(){
+    	 
+        if(null == bootstrapModal){
+            bootstrapModal = new BootstrapModal();
+
+            Wait<WebDriver> wait = new WebDriverWait(driver, 10, 1000);
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(BootstrapModal.alertXpath)));
+
+            bootstrapModal.setAlert(driver.findElement(
+                    By.xpath(BootstrapModal.alertXpath)));
+            bootstrapModal.setDriver(driver);
+        }
+        return bootstrapModal;
+    }
+    
+    public void clearBootstrapModal()
+    {
+        bootstrapModal = null;
+    }
+
+    public boolean checkBootsrapModalIsShown(){
+    	try{
+    		if(null==bootstrapModal && !driver.findElement(By.xpath(BootstrapModal.alertXpath)).isDisplayed()) {
+
+    			return false;
+
+    		}else {
+    			getBootstrapModal();
+
+    			return bootstrapModal.isVisible();
+    		}
+    	}catch(StaleElementReferenceException e){
+    		return false;
+    	}catch(NoSuchElementException e){
+    		return false;
+    	}
     }
 
 }

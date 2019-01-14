@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import resources.AbstractPageTest;
+import resources.alerts.BootstrapModal;
 import resources.interfaces.TestHavingHeader;
 import resources.interfaces.UsingPage;
 import resources.orm.hibernate.models.AbstractLead;
@@ -48,16 +49,16 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
 //            getPage().getBootstrapModal().close();
 //            getPage().clearBootstrapModal();
 //        }
-
-        if(getPage().isBootStrapModelxist()){
-            getPage().getBootstrapModal().close();
-            getPage().clearBootstrapModal();
+    	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
+        if(bootstrapModalObj.checkBootsrapModalIsShown()){
+        	bootstrapModalObj.getBootstrapModal().close();
+        	bootstrapModalObj.clearBootstrapModal();
         }
 
         assertEquals("Sign In",getPage().getUserMenu().getText());
 
         getPage().getUserMenu().click();
-        assertTrue(getPage().checkBootsrapModalIsShown());
+        assertTrue(bootstrapModalObj.checkBootsrapModalIsShown());
 
         String username = "test_regular_lead_" + UUID.randomUUID().toString();
         String email = username + "@test.com";

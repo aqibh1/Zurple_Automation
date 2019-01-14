@@ -2,13 +2,8 @@ package com.z57.site.v2;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-
-import org.testng.ITestContext;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.z57.site.v2.pom.POMHomePage;
-import com.z57.site.v2.pom.HomeSearchPage;
 
 public class HomeSearchPageTest extends PageTest{
 
@@ -56,15 +51,15 @@ public class HomeSearchPageTest extends PageTest{
 	@Test
 	public void testSearchByDifferentDataSet() {
 		
-		POMHomePage homePageObj = new POMHomePage(getPage().getWebDriver());
+		HomePage homePageObj = new HomePage(getPage().getWebDriver());
 		homePageObj.mouseoverHomeSearch();
 		homePageObj.clickOnSearchHomes();
 		
-		assertTrue(page.clickOnSearchByOption("City"), "Could not click on Search By element as its not visible.");
+		assertTrue(page.getSearchForm().clickOnSearchByOption("City"), "Could not click on Search By element as its not visible.");
 //		assertTrue(page.clickOnInputField(), "Input field on Home Search is not visible");
-		assertTrue(page.typeInInputField("San Diego"), "Input field on Home Search is not visible");
-		assertTrue(page.clickOnSuggestedOptionsInInputField(),"Nothing was suggested in input field");
-		assertTrue(page.clickOnSearchButton(),"Search Button on Home search screen is not visible");
+		assertTrue(page.getSearchForm().typeInInputField("San Diego"), "Input field on Home Search is not visible");
+		assertTrue(page.getSearchForm().clickOnSuggestedOptionsInInputField(),"Nothing was suggested in input field");
+		assertTrue(page.getSearchForm().clickOnSearchButton(),"Search Button on Home search screen is not visible");
 		
 		
 		
@@ -72,5 +67,4 @@ public class HomeSearchPageTest extends PageTest{
 		
 	}
 	
-
 }

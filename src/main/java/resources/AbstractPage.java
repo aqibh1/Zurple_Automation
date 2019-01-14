@@ -100,64 +100,57 @@ public abstract class AbstractPage
         }
     }
 
-    protected BootstrapModal bootstrapModal;
-
-    public BootstrapModal getBootstrapModal(){
-        if(null == bootstrapModal){
-            bootstrapModal = new BootstrapModal();
-
-            Wait<WebDriver> wait = new WebDriverWait(driver, 10, 1000);
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(BootstrapModal.alertXpath)));
-
-            bootstrapModal.setAlert(driver.findElement(
-                    By.xpath(BootstrapModal.alertXpath)));
-            bootstrapModal.setDriver(driver);
-        }
-        return bootstrapModal;
-    }
-
-    public boolean isBootStrapModelxist(){
-    	try {
-        if(null == bootstrapModal){
-           if(!driver.findElement(By.xpath(BootstrapModal.alertXpath)).isDisplayed()){
-        	   return false;
-           }
-        }
-    	}catch(Exception ex) {
-    		return false;
-    	}
-		return true;
-    }
-    
-    public void clearBootstrapModal()
-    {
-        bootstrapModal = null;
-    }
-
+//    protected BootstrapModal bootstrapModal;
+//
+//    public BootstrapModal getBootstrapModal(){
+// 
+//        if(null == bootstrapModal){
+//            bootstrapModal = new BootstrapModal();
+//
+//            Wait<WebDriver> wait = new WebDriverWait(driver, 10, 1000);
+//            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(BootstrapModal.alertXpath)));
+//
+//            bootstrapModal.setAlert(driver.findElement(
+//                    By.xpath(BootstrapModal.alertXpath)));
+//            bootstrapModal.setDriver(driver);
+//        }
+//        return bootstrapModal;
+//    }
+//    
+//    public void clearBootstrapModal()
+//    {
+//        bootstrapModal = null;
+//    }
+//
+//    public boolean checkBootsrapModalIsShown(){
+//    	try{
+//    		if(null==bootstrapModal && !driver.findElement(By.xpath(BootstrapModal.alertXpath)).isDisplayed()) {
+//
+//    			return false;
+//
+//    		}else {
+//    			getBootstrapModal();
+//
+//    			return bootstrapModal.isVisible();
+//    		}
+//    	}catch(StaleElementReferenceException e){
+//    		return false;
+//    	}catch(NoSuchElementException e){
+//    		return false;
+//    	}
+//    }
 //    public boolean checkBootsrapModalIsShown(){
 //        try{
-//        	boolean isBootstrapModalVisible = false;
-//            getBootstrapModal();
-//            isBootstrapModalVisible = bootstrapModal.isVisible();
+//        	if(isBootStrapModelxist()) {
+//        	getBootstrapModal();
 //            return bootstrapModal.isVisible();
+//        	}else {
+//        		return false;
+//        	}
 //        }catch(StaleElementReferenceException e){
 //            return false;
 //        }catch(NoSuchElementException e){
 //            return false;
 //        }
 //    }
-    public boolean checkBootsrapModalIsShown(){
-        try{
-        	if(isBootStrapModelxist()) {
-        	getBootstrapModal();
-            return bootstrapModal.isVisible();
-        	}else {
-        		return false;
-        	}
-        }catch(StaleElementReferenceException e){
-            return false;
-        }catch(NoSuchElementException e){
-            return false;
-        }
-    }
 }

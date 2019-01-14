@@ -3,6 +3,11 @@ package com.z57.site.v2;
 import com.z57.site.v2.HomePage;
 import com.z57.site.v2.Page;
 import com.z57.site.v2.PageTest;
+
+import resources.alerts.BootstrapModal;
+import resources.forms.z57.LoginForm;
+import resources.forms.z57.RegisterForm;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.testng.annotations.Test;
@@ -43,36 +48,32 @@ public class HomePageTest extends PageTest
     	}
    
     @Test
-    public void signInWithValidEmail() {
-    	boolean isLoginSuccessful = false;
-    	if(getPage().isBootStrapModelxist()){
-    		getPage().getBootstrapModal().close();
-    		getPage().clearBootstrapModal();
-    	}
+    public void testSignInWithValidEmail() {
+   
+//    	if(getPage().checkBootsrapModalIsShown()){
+//    		getPage().getBootstrapModal().close();
+//    		getPage().clearBootstrapModal();
+//    	}
+    	
+    	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
+        if(bootstrapModalObj.checkBootsrapModalIsShown()){
+        	bootstrapModalObj.getBootstrapModal().close();
+        	bootstrapModalObj.clearBootstrapModal();
+        }
+
     	
     	LoginForm loginFormObj = new LoginForm(getPage().getWebDriver());
-    	clickOnSignInButton();
-    	//Clicks on Already Registerd
-    	clicksOnAlreadyRegistered();
-
-    	loginFormObj.setEmail("z57testuser@gmail.com");
-    	loginFormObj.clickLoginButton();
-    	
-    	isLoginSuccessful = loginFormObj.isLoginSuccessful();
-//    	return isLoginSuccessful;
-
-    }
-
-	//Helper methods
-    private void clickOnSignInButton() {
     	assertEquals("Sign In",getPage().getUserMenu().getText());
-        getPage().getUserMenu().click();
-    }
-    
-    private void clicksOnAlreadyRegistered() {
-    	getPage().getRegisterForm().getElementById("widget_login_topbar").click();
-    }
-    
+    	assertTrue(loginFormObj.clickOnSignInButton(),"Sign In button not visible on Home Page");
+    	
+    	RegisterForm registerFormObj = new RegisterForm(getPage().getWebDriver());
+    	//Clicks on Already Registered
+    	assertTrue(registerFormObj.clickOnAlreadyRegistered(),"Already registered link is not visible");
 
-
+    	assertTrue(loginFormObj.setEmail("z57testuser@gmail.com"),"Unable to type email address");
+    	assertTrue(loginFormObj.clickLoginButton(),"Unable to click on Login button");
+    	
+    	assertTrue(loginFormObj.isLoginSuccessful(),"Unable to logon with givern credentials");
+    
+    }
 }

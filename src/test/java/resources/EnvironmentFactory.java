@@ -15,6 +15,9 @@ public class EnvironmentFactory {
     static Map<Long,TestEnvironment> environments = new HashMap<Long,TestEnvironment>();
     static ConfigReader configReader = ConfigReader.load();
 
+    //TODO
+    //Add more coverage for the Microsoft Edge and Safari
+    
     public static WebDriver getDriver(long thread_id)
     {
 
