@@ -56,7 +56,8 @@ public class HomePageTest extends PageTest
 //    	}
     	
     	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
-        if(bootstrapModalObj.checkBootsrapModalIsShown()){
+        
+    	if(bootstrapModalObj.checkBootsrapModalIsShown()){
         	bootstrapModalObj.getBootstrapModal().close();
         	bootstrapModalObj.clearBootstrapModal();
         }

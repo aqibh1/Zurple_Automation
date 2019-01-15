@@ -8,8 +8,8 @@ import resources.forms.z57.SearchForm;
 
 public class HomeSearchPage extends Page{
 
-	WebDriver localWebDriver;
-	SearchForm searchForm;
+	private WebDriver localWebDriver;
+	private SearchForm searchForm;
 
 	public HomeSearchPage(WebDriver pWebDriver) {
 		localWebDriver=pWebDriver;
@@ -21,12 +21,14 @@ public class HomeSearchPage extends Page{
 		if(searchForm!=null) {
 			return searchForm;
 		}else {
-			return new SearchForm(localWebDriver);
+			searchForm=new SearchForm(localWebDriver);
+			return searchForm;
 		}
 	}
 
 	public HomeSearchPage(WebDriver pWebDriver, String pSourceUrl) {
 		url=pSourceUrl;
+		searchForm=new SearchForm(pWebDriver);
 		localWebDriver=pWebDriver;
 		PageFactory.initElements(localWebDriver, this);
 	}
