@@ -3,6 +3,8 @@ package us.zengtest1;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
+
+import resources.alerts.BootstrapModal;
 import us.zengtest1.resources.blocks.SearchResultsBlock;
 import us.zengtest1.resources.forms.SearchForm;
 
@@ -60,12 +62,13 @@ public class SearchResultsPage
     }
 
     public void goNextPage(){
-
-        if(checkBootsrapModalIsShown()){
-            getBootstrapModal().close();
+    	BootstrapModal bootstrapModalObj = new BootstrapModal(getWebDriver());
+        if(bootstrapModalObj.checkBootsrapModalIsShown()){
+        	bootstrapModalObj.getBootstrapModal().close();
         }
-
-        bootstrapModal = null;
+        //TODO
+        //No need to set the object to null as we are already instantiation the new object
+        bootstrapModalObj = null;
         searchResultsBlock = null;
 
         driver.findElement(By.xpath("//a[@title=\"next page\"]")).click();

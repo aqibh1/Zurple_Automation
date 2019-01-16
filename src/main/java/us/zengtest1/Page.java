@@ -38,27 +38,27 @@ public abstract class Page extends AbstractPage implements HasHeader
         return sweetAlertNotification;
     }
 
-    protected BootstrapModal bootstrapModal;
-
-    public BootstrapModal getBootstrapModal(){
-        if(null == bootstrapModal){
-            bootstrapModal = new BootstrapModal();
-            bootstrapModal.setAlert(driver.findElement(
-                    By.xpath(BootstrapModal.alertXpath)));
-            bootstrapModal.setDriver(driver);
-        }
-        return bootstrapModal;
-    }
-
-    public boolean checkBootsrapModalIsShown(){
-        try{
-            getBootstrapModal();
-            return bootstrapModal.isVisible();
-        }catch(StaleElementReferenceException e){
-            return false;
-        }catch(NoSuchElementException e){
-            return false;
-        }
-    }
+//    protected BootstrapModal bootstrapModal;
+//
+//    public BootstrapModal getBootstrapModal(){
+//        if(null == bootstrapModal){
+//            bootstrapModal = new BootstrapModal();
+//            bootstrapModal.setAlert(driver.findElement(
+//                    By.xpath(BootstrapModal.alertXpath)));
+//            bootstrapModal.setDriver(driver);
+//        }
+//        return bootstrapModal;
+//    }
+//
+//    public boolean checkBootsrapModalIsShown(){
+//        try{
+//            getBootstrapModal();
+//            return bootstrapModal.isVisible();
+//        }catch(StaleElementReferenceException e){
+//            return false;
+//        }catch(NoSuchElementException e){
+//            return false;
+//        }
+//    }
     
 }
