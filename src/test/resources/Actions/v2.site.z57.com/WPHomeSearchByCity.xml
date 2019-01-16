@@ -3,6 +3,7 @@
 <suite name="WP Home Search Signin">
 
   <test name="Search homes by city">
+  <parameter name="search-form-data-file-01" value="/resources/data/home-search-data-1.json" />
     <classes>
       <class name="com.z57.site.v2.HomeSearchPageTest" >
         <methods>

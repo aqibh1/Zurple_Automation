@@ -2,15 +2,56 @@ package com.z57.site.v2;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
-
-import org.testng.ITestContext;
+import java.io.IOException;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import resources.data.z57.SearchFormData;
 
 public class HomeSearchPageTest extends PageTest{
 
 	private HomeSearchPage page;
+	private SearchFormData searchFormData;
+//	private static SearchFormData searchFormData;
+	/*
+	 * Adding this hardcoded data. Will modify this code to get this data from XML
+	 * parameters. Will initialize these variables in constructor with data object
+	 * from JSON.  
+	 */
+//	String lInputSearch="Chicago Heights, IL";
+//	String lSearchByOption="City";
+//	String lMinimumValue="25000";
+//	String lMaximumValue="10000000";
+//	String lNumberOfBeds="2";
+//	String lNumberOfBaths="2";
+//	String lPropertyType="";
+//	String lFeaturesAnyOrAll="any";
+//	String lFeatures="Air Conditioning";
+//	String lSquareFootage="500+";
+//	String lView="";
+//	String lLotSize="2,000+ sq ft";
+//	String lStyle="";
+//	String lStatus="ACTIVE";
+//	String lYearBuilt="1950+";
+	
+	String lInputSearch="";
+	String lSearchByOption="";
+	String lMinimumValue="";
+	String lMaximumValue="";
+	String lNumberOfBeds="";
+	String lNumberOfBaths="";
+	String lPropertyType="";
+	String lFeaturesAnyOrAll="";
+	String lFeatures="";
+	String lSquareFootage="";
+	String lView="";
+	String lLotSize="";
+	String lStyle="";
+	String lStatus="";
+	String lYearBuilt="";
+	
 	@Override
 	public void testTitle() {
 		assertEquals("Search Local Properties for Sale | zengtest1.us", getPage().getTitle());
@@ -34,42 +75,44 @@ public class HomeSearchPageTest extends PageTest{
 		if(page == null){
 			page = new HomeSearchPage(getDriver(),this.source_in_url);
 			page.setDriver(getDriver());
+
 		}
+		lInputSearch=searchFormData.getSearchFormDataObject().getInputSearch();
+		lSearchByOption=searchFormData.getSearchFormDataObject().getSearchBy();
+		lMinimumValue=searchFormData.getSearchFormDataObject().getMinimumValue();
+		lMaximumValue=searchFormData.getSearchFormDataObject().getMaximumValue();
+		lNumberOfBeds=searchFormData.getSearchFormDataObject().getNumberOfBeds();
+		lNumberOfBaths=searchFormData.getSearchFormDataObject().getNumberOfBaths();
+		lPropertyType=searchFormData.getSearchFormDataObject().getPropertyType();
+		lFeaturesAnyOrAll=searchFormData.getSearchFormDataObject().getFeatureAnyAll();
+		lFeatures=searchFormData.getSearchFormDataObject().getFeatures();
+		lSquareFootage=searchFormData.getSearchFormDataObject().getSquareFotage();
+		lView=searchFormData.getSearchFormDataObject().getView();
+		lLotSize=searchFormData.getSearchFormDataObject().getLotSize();
+		lStyle=searchFormData.getSearchFormDataObject().getStyle();
+		lStatus=searchFormData.getSearchFormDataObject().getStatus();
+		lYearBuilt=searchFormData.getSearchFormDataObject().getYearBuilt();
+
 		return page;
 	}
-
+	
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	@BeforeClass
-	  public void beforeClass(ITestContext context) {
-	    String value = context.getCurrentXmlTest().getParameter("1");
-	    System.err.println("webdriver.deviceName.iPhone = " + value);
+	@Parameters({"dataFile"})
+	  public void beforeClass(String pFileLocation) throws JsonParseException, JsonMappingException, IOException {
+		searchFormData= new SearchFormData();
+		searchFormData.setSearchFormData(pFileLocation);
 	 }
-	//TODO
-	//Will add the logic for multiple search fields
+	
 	@Test
 	public void testSearchByDifferentDataSet() {
-		//Adding this hardcoded data. Wil modify this code to get this data from
-		//XML parameters.
-		String lInputSearch="Chicago Heights, IL";
-		String lSearchByOption="City";
-		String lMinimumValue="25000";
-		String lMaximumValue="375000";
-		String lNumberOfBeds="2";
-		String lNumberOfBaths="2";
-		String lPropertyType="Rental";
-		String lFeaturesAnyOrAll="any";
-		String lFeatures="Air Conditioning";
-		String lSquareFootage="500+";
-		String lView="Golf course view";
-		String lLotSize="2,000+ sq ft";
-		String lStyle="Cape Cod";
-		String lStatus="ACTIVE";
-		String lYearBuilt="1950+";
+		
+		System.out.println(lInputSearch);
+		System.out.println(lSearchByOption);
 		
 		HomePage homePageObj = new HomePage(getPage().getWebDriver());
 		homePageObj.mouseoverHomeSearch();
@@ -102,9 +145,11 @@ public class HomeSearchPageTest extends PageTest{
 			
 			//Clicks and Selects Property Types
 			//Multiple Property Types will be comma separated
-			String[] lPropertyTypeArray = lPropertyType.split(",");
-			for(String propertyType: lPropertyTypeArray) {
-				assertTrue(page.getSearchForm().typeAndSelectPropertyType(propertyType), "Unable to select property type");
+			if(!lPropertyType.isEmpty()) {
+				String[] lPropertyTypeArray = lPropertyType.split(",");
+				for(String propertyType: lPropertyTypeArray) {
+					assertTrue(page.getSearchForm().typeAndSelectPropertyType(propertyType), "Unable to select property type");
+				}
 			}
 			
 			//Selects any/all feature option from drop down
@@ -117,20 +162,22 @@ public class HomeSearchPageTest extends PageTest{
 			assertTrue(page.getSearchForm().clickAndSelecctSquareFootage(lSquareFootage), "Unable to select square footage from drop down");
 		
 			//Selects the view
-			String [] lViewsArray =lView.split(",");
-			for (String view: lViewsArray) {
-				assertTrue(page.getSearchForm().clickAndSelectView(view), "Unable to select view from drop down "+view);
+			if(!lView.isEmpty()) {
+				String [] lViewsArray =lView.split(",");
+				for (String view: lViewsArray) {
+					assertTrue(page.getSearchForm().clickAndSelectView(view), "Unable to select view from drop down "+view);
+				}
 			}
-			
 			//Selects the Lot size
 			assertTrue(page.getSearchForm().clickAndSelectLotSize(lLotSize), "Unable to select Lot size from drop down");
 			
 			//Selects the Style from dropdown
-			String [] lStyleArray =lStyle.split(",");
-			for (String style: lStyleArray) {
-				assertTrue(page.getSearchForm().clickAndSelectStyle(style), "Unable to select style from drop down");
+			if(!lStyle.isEmpty()) {
+				String [] lStyleArray =lStyle.split(",");
+				for (String style: lStyleArray) {
+					assertTrue(page.getSearchForm().clickAndSelectStyle(style), "Unable to select style from drop down");
+				}
 			}
-			
 			//Selects the status from dropdown
 			String [] lStatusArray =lStatus.split(",");
 			for (String status: lStatusArray) {
@@ -141,16 +188,64 @@ public class HomeSearchPageTest extends PageTest{
 			assertTrue(page.getSearchForm().clickAndSelectYear(lYearBuilt), "Unable to select Year built from drop down");
 
 		
-		}
-	
+		}	
 		
-		
-		assertTrue(page.getSearchForm().clickOnSearchButton(),"Search Button on Home search screen is not visible");
-		
-		
-		
+		assertTrue(page.getSearchForm().clickOnSearchButton(),"Search Button on Home search screen is not visible");		
+		//page.getSearchForm().submit();
+		//assertTrue(doDataValidation(),"Data Validation was not successfull");
 //		return isSearchSuccessful;
 		
 	}
 	
+	/*
+	 * private boolean doDataValidation() { boolean isValidationSuccessful=true;
+	 * SearchResultsPage searchResultObj = new SearchResultsPage(); do {
+	 * ArrayList<SearchResult> searchResultsList =
+	 * searchResultObj.getSearchResultsBlock(page.getWebDriver()).
+	 * getSearchResultsList(); assertFalse(searchResultsList.isEmpty());
+	 * 
+	 * List<String> typeList = null; if( !"".equals(lPropertyType) ) { typeList =
+	 * Arrays.asList(lPropertyType.split(",")); }
+	 * 
+	 * List<String> featureList = null; if( !"".equals(lFeatures) ) { featureList =
+	 * Arrays.asList(lFeatures.split(",")); }
+	 * 
+	 * List<String> viewList = null; if( !"".equals(lView) ) { viewList =
+	 * Arrays.asList(lView.split(",")); }
+	 * 
+	 * for(SearchResult result:searchResultsList) { Property property =
+	 * getEnvironment().getDetailedProperty(result.getId());
+	 * assertEquals(property.getStatus(),lStatus);
+	 * assertTrue(typeList.contains(property.getPropType()));
+	 * 
+	 * // if("city".equals(search_by)) // { //
+	 * assertTrue(search_criteria.toLowerCase().contains(property.getCity().
+	 * toLowerCase())); // }
+	 * 
+	 * assertTrue(lSearchByOption.toLowerCase().contains(property.getCity().
+	 * toLowerCase()));
+	 * 
+	 * assertTrue(property.getBedrooms() >= Integer.parseInt(lNumberOfBeds));
+	 * assertTrue(property.getBathrooms() >= Integer.parseInt(lNumberOfBaths));
+	 * 
+	 * if ( !"".equals(lMinimumValue) && !"".equals(lMaximumValue) ){
+	 * assertTrue(property.getPrice() >= Integer.parseInt(lMinimumValue) &&
+	 * property.getPrice() <= Integer.parseInt(lMaximumValue)); }
+	 * 
+	 * assertTrue(property.getYearBuilt() >= Integer.parseInt(lYearBuilt));
+	 * assertTrue(property.getSquareFeet() >= Integer.parseInt(lSquareFootage));
+	 * assertTrue(property.getLotSqft() >= Integer.parseInt(lLotSize));
+	 * 
+	 * List<String> propertiesFeatures = property.buildFeaturesList(); for(String
+	 * feature:featureList){ assertTrue(propertiesFeatures.contains(feature)); }
+	 * 
+	 * }
+	 * 
+	 * try{
+	 * 
+	 * searchResultObj.goNextPage(); }catch(Exception e){
+	 * isValidationSuccessful=false; break; }
+	 * 
+	 * } while (true); return isValidationSuccessful; }
+	 */
 }

@@ -1,0 +1,18 @@
+{
+	"input_search":"San Diego, CA",
+	"search_by":"City",
+	"minimum_price":"25000",
+	"maximum_value":"10000000",
+	"number_of_beds":"2",
+	"number_of_baths":"2",
+	"property_type":"",
+	"feature_any_all":"any",
+	"features":"Air Conditioning",
+	"square_footage":"500+",
+	"view":"",
+	"lot_size":"",
+	"style":"",
+	"status":"Active",
+	"year_built":"1950+"
+
+}

@@ -3,6 +3,8 @@
  */
 package resources.forms.z57;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.openqa.selenium.By;
@@ -164,6 +166,7 @@ public class SearchForm extends AbstractForm{
 	}
 
 	public boolean typeInputAndSelect(String pStringToType) {
+		pStringToType="San Diego, CA";
 		boolean isTypeSuccessful=false;
 		try {
 
@@ -172,8 +175,18 @@ public class SearchForm extends AbstractForm{
 				searchField_input.sendKeys(pStringToType);
 			//	selectOption_dropDownList=getDynamicElement(searchInputDropdown_xpath, pStringToType);
 //				selectOption_dropDownList.click();
-				searchField_input.sendKeys(Keys.ENTER);
-				isTypeSuccessful= true;
+				List<WebElement> listOfWebElements = driver.findElements(By.xpath("//div[@id='select2-drop']/descendant::div"));
+				for (WebElement singleElement: listOfWebElements){
+					System.out.println(singleElement.getText());
+					if(singleElement.getText().equalsIgnoreCase(pStringToType)) {
+						singleElement.click();
+						isTypeSuccessful= true;
+						break;
+					}
+					
+				}
+//				searchField_input.sendKeys(Keys.ENTER);
+				
 			}
 		}
 		catch(Exception ex) {
@@ -299,7 +312,7 @@ public class SearchForm extends AbstractForm{
 	
 	public boolean clickAndSelectView(String pView) {
 		boolean isSuccessful=false;
-		if(clickAndSelect(view_input, pView, viewInput_xpath)) {
+		if(clickAndSelectOneClick(view_input, pView, viewInput_xpath)) {
 			focusOut();
 			isSuccessful=true;
 		}

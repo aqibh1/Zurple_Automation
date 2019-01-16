@@ -12,21 +12,22 @@ public class HomeSearchPage extends Page{
 	private SearchForm searchForm;
 
 	public HomeSearchPage(WebDriver pWebDriver) {
-		localWebDriver=pWebDriver;
+		driver=pWebDriver;
 		searchForm = new SearchForm(pWebDriver);
-		PageFactory.initElements(localWebDriver, this);
+		PageFactory.initElements(driver, this);
 	}
 	
 	public SearchForm getSearchForm() {
 		if(searchForm!=null) {
 			return searchForm;
 		}else {
-			searchForm=new SearchForm(localWebDriver);
+			searchForm=new SearchForm(driver);
 			return searchForm;
 		}
 	}
 
 	public HomeSearchPage(WebDriver pWebDriver, String pSourceUrl) {
+		driver=pWebDriver;
 		url=pSourceUrl;
 		searchForm=new SearchForm(pWebDriver);
 		localWebDriver=pWebDriver;
