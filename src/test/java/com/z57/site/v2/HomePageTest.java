@@ -63,15 +63,15 @@ public class HomePageTest extends PageTest
         }
 
     	
-    	LoginForm loginFormObj = new LoginForm(getPage().getWebDriver());
+    	LoginForm loginFormObj = new LoginForm(page.getWebDriver());
     	assertEquals("Sign In",getPage().getUserMenu().getText());
     	assertTrue(loginFormObj.clickOnSignInButton(),"Sign In button not visible on Home Page");
     	
-    	RegisterForm registerFormObj = new RegisterForm(getPage().getWebDriver());
+    	RegisterForm registerFormObj = new RegisterForm(page.getWebDriver());
     	//Clicks on Already Registered
     	assertTrue(registerFormObj.clickOnAlreadyRegistered(),"Already registered link is not visible");
 
-    	assertTrue(loginFormObj.setEmail("z57testuser@gmail.com"),"Unable to type email address");
+    	assertTrue(loginFormObj.setEmail("adar@gmail.com"),"Unable to type email address");
     	assertTrue(loginFormObj.clickLoginButton(),"Unable to click on Login button");
     	
     	assertTrue(loginFormObj.isLoginSuccessful(),"Unable to logon with givern credentials");

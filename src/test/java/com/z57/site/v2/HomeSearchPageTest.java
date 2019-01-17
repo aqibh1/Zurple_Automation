@@ -3,17 +3,23 @@ package com.z57.site.v2;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+
+import resources.classes.SearchResult;
 import resources.data.z57.SearchFormData;
 
 public class HomeSearchPageTest extends PageTest{
 
 	private HomeSearchPage page;
 	private SearchFormData searchFormData;
+
 //	private static SearchFormData searchFormData;
 	/*
 	 * Adding this hardcoded data. Will modify this code to get this data from XML
@@ -111,6 +117,7 @@ public class HomeSearchPageTest extends PageTest{
 	@Test
 	public void testSearchByDifferentDataSet() {
 		
+		
 		System.out.println(lInputSearch);
 		System.out.println(lSearchByOption);
 		
@@ -190,11 +197,18 @@ public class HomeSearchPageTest extends PageTest{
 		
 		}	
 		
-		assertTrue(page.getSearchForm().clickOnSearchButton(),"Search Button on Home search screen is not visible");		
-		//page.getSearchForm().submit();
-		//assertTrue(doDataValidation(),"Data Validation was not successfull");
-//		return isSearchSuccessful;
+		assertTrue(page.getSearchForm().clickOnSearchButton(),"Search Button on Home search screen is not visible");
 		
+		SearchResultsPage searchResultObj = new SearchResultsPage();
+		ArrayList<SearchResult> searchResultsList =searchResultObj.getSearchResultsBlock(page.getWebDriver()).getSearchResultsList();
+		
+		String goToListing = searchResultsList.get(5).getUrl();
+		page.getWebDriver().navigate().to(goToListing);
+		
+		PropertyListingPage propListingObj = new PropertyListingPage(page.getWebDriver());
+		
+		assertEquals(searchResultsList.get(5).getTitle(), propListingObj.getPropertyTitleFromTheHeader(),"Could not click on requested property");
+	
 	}
 	
 	/*

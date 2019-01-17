@@ -17,7 +17,8 @@ import resources.forms.AbstractForm;
  *
  */
 public class LoginForm extends AbstractForm{
-	WebDriver localWebDriver;
+
+	WebDriverWait wait;
 	//Email Login xpath 
 	@FindBy(xpath="./descendant::*[@id=\"login_user_topbar\"]")
 	WebElement email_input;
@@ -35,12 +36,14 @@ public class LoginForm extends AbstractForm{
 		
 	}
 	public LoginForm(WebDriver webDriver) {
+		driver=webDriver;
+		wait = new WebDriverWait(driver, 10);
 		PageFactory.initElements(webDriver, this);
-		localWebDriver=webDriver;
 	}
 
 	public boolean setEmail(String pEmail) {
 		try {
+			wait.until(ExpectedConditions.visibilityOf(email_input));
 			email_input.sendKeys(pEmail);
 			return true;
 		}catch(Exception ex) {
@@ -50,6 +53,8 @@ public class LoginForm extends AbstractForm{
 		
 	}
 	public boolean clickLoginButton() {
+		wait.until(ExpectedConditions.visibilityOf(login_button));
+		wait.until(ExpectedConditions.elementToBeClickable(login_button));
 		if(login_button.isDisplayed()) {
 			login_button.click();
 			return true;
@@ -59,11 +64,12 @@ public class LoginForm extends AbstractForm{
 	}
 	
 	public boolean isLoginSuccessful() {
-		WebDriverWait wait = new WebDriverWait(localWebDriver, 10);
 		return wait.until(ExpectedConditions.invisibilityOf(login_button));
 	}
 	
 	public boolean clickOnSignInButton() {
+		wait.until(ExpectedConditions.visibilityOf(signIn_button));
+		wait.until(ExpectedConditions.elementToBeClickable(signIn_button));
 		if(signIn_button.isDisplayed()) {
 			signIn_button.click();
 			return true;

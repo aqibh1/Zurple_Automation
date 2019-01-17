@@ -30,21 +30,26 @@ public class SearchResultsBlock
 
 
             Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(Helper.generateXPATH(block,"") + "/div[contains(concat(\" \",normalize-space(@class),\" \"),\" property-photo-grid \")]/div")));
-            List<WebElement> allSearchResultsRows = block.findElements(By.xpath("./div[contains(concat(\" \",normalize-space(@class),\" \"),\" property-photo-grid \")]/div"));
+//            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(Helper.generateXPATH(block,"") + "/div[contains(concat(\" \",normalize-space(@class),\" \"),\" property-photo-grid \")]/div")));
+//            List<WebElement> allSearchResultsRows = block.findElements(By.xpath("./div[contains(concat(\" \",normalize-space(@class),\" \"),\" property-photo-grid \")]/div"));
+            List<WebElement> allSearchResultsRows = driver.findElements(By.xpath("//div[@id='google_map_prop_list_sidebar']/descendant::div[@class='single-content listing-content zfs-sortable-listings-list']/descendant::div[@class='property_listing']"));
 
             for (WebElement row: allSearchResultsRows) {
                 SearchResult searchResult = new SearchResult();
-                searchResult.setImgLink(row.findElement(By.xpath("./a/img")).getAttribute("src"));
-                searchResult.setTitle(row.findElement(By.xpath("./a")).getText());
-                searchResult.setUrl(row.findElement(By.xpath("./a")).getAttribute("href"));
+                searchResult.setImgLink(row.findElement(By.xpath("//div[@class='listing-unit-img-wrapper']/descendant::div[@class='carousel-inner']/div/a")).getAttribute("href"));
+                searchResult.setTitle(row.findElement(By.xpath("//h4[@class='listing-title']/a")).getText());
+                searchResult.setUrl(row.findElement(By.xpath("//div[@class='listing-unit-img-wrapper']/descendant::div[@class='carousel-inner']/div/a")).getAttribute("href"));
                 searchResult.setElement(row);
 
                 list.add(searchResult);
             }
 
-        }catch (StaleElementReferenceException e) {}
-        catch( TimeoutException e ) {}
+        }catch (StaleElementReferenceException e) {
+        	
+        }
+        catch( TimeoutException e ) {
+        	
+        }
 
         return list;
     }
