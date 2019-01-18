@@ -80,7 +80,7 @@ public class HomeSearchPageTest extends PageTest{
 	public Page getPage() {
 		if(page == null){
 			page = new HomeSearchPage(getDriver(),this.source_in_url);
-			page.setDriver(getDriver());
+//			page.setDriver(getDriver());
 
 		}
 		lInputSearch=searchFormData.getSearchFormDataObject().getInputSearch();

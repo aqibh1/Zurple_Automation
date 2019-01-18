@@ -94,7 +94,7 @@ public class PropertyListingPageTest extends PageTest{
 	 }
 	
 	@Test
-	public void testVerificationOfPropertyListing() {
+	public void testVerificationOfPropertyListing() throws InterruptedException {
 		PropertyListingPage propertyListingObj = new PropertyListingPage(getPage().getWebDriver());
 		
 //		page.getWebDriver().navigate().to("http://robinsoldwisch-13878.sites.z57.com/idx/listings/cws/1098/170017412/5326-grand-del-mar-place-place-san-diego-san-diego-county-ca-92130");
@@ -136,6 +136,28 @@ public class PropertyListingPageTest extends PageTest{
 		if(!lStatus.isEmpty()) {
 			assertTrue(page.getPropertyStatusFromHeader().equalsIgnoreCase(lStatus),"Status is mismatched");
 		}
+		
+		assertTrue(page.isFeatureTabExpanded(),"Features tab is not expanded");
+		
+		assertTrue(page.clickOnMapBar(),"Map button on Navigation bar is not visible");
+		
+		Thread.sleep(3000);
+		assertTrue(page.isGoogleMapDisplayed(),"Google map is not displayed");
+		
+		assertTrue(page.clickOnCommunityStats(),"Community Stats on Navigation bar is not visible");
+		
+		Thread.sleep(3000);
+		assertTrue(page.isCommunityStatsDisplayed(),"Community Stats is not displayed");
+		
+		assertTrue(page.clickOnSchools(),"Schools on Navigation bar is not visible");
+		
+		Thread.sleep(3000);
+		assertTrue(page.isSchoolMapsDisplayed(),"Schools map and information is not displayed");
+		
+		assertTrue(page.clickOnWhatsNearBy(),"Whats near by on Navigation bar is not visible");
+		
+		Thread.sleep(3000);
+		assertTrue(page.isWhatsNearbyDisplayed(),"Whats near by is not displayed");
 	}
 
 }

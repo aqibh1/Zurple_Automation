@@ -3,12 +3,16 @@ package com.z57.site.v2;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PropertyListingPage extends Page{
+	WebDriverWait wait;
 
 	@FindBy(xpath="//div[@class=' col-md-9 rightmargin ']/descendant::h2[@class='entry-title entry-prop']")
 	WebElement lPropertyTitleInHeader;
@@ -33,8 +37,42 @@ public class PropertyListingPage extends Page{
 	
 	String lPropertyInterior_xpath ="//table[@class='table table-condensed table-striped']/descendant::tr";
 	
+	@FindBy(xpath="//div[@id='tab_prpg']/descendant::a[text()='Map']")
+	WebElement mapNavigationBarLink;
+	
+	@FindBy(xpath="//div[@id='listing-map']")
+	WebElement googleMaps;
+	
+	@FindBy(xpath="//div[@id='tab_prpg']/descendant::a[text()='Community Stats']")
+	WebElement communityStatsBarLink;
+	
+	@FindBy(xpath="//div[@id='z57_population_demographic_chart']/descendant::caption[text()='Population Demographic']")
+	WebElement communityStats;
+	
+	@FindBy(xpath="//div[@id='tab_prpg']/descendant::a[text()='Schools']")
+	WebElement schoolsBarLink;
+	
+	@FindBy(xpath="//div[@id='z57_schools_map_canvas']")
+	WebElement schoolMap;
+	
+	@FindBy(xpath="//div[@id='tab_prpg']/descendant::a[text()=\"What's Nearby\"]")
+	WebElement whatsNearbyBarLink;
+	
+	@FindBy(xpath="//div[@id='z57_poi_map_canvas']")
+	WebElement whatsNearByMap;
+	
+	@FindBy(xpath="//table[@id='z57_schools_table']/descendant::label[text()='Schools Nearby']")
+	WebElement schoolsNearbyLabel;
+	
+	@FindBy(xpath="//table[@id='z57_poi_table']/descendant::label[text()='Points of Interest']")
+	WebElement pointsOfIntrestLabel;
+	
+	@FindBy(xpath="//div[@id='tab_prpg']/descendant::li[@class='active']/a[text()='Features']")
+	WebElement featuresBarLink;
+	
 	public PropertyListingPage(WebDriver pWebDriver){
 		driver=pWebDriver;
+		wait=new WebDriverWait(driver, 10);
 		PageFactory.initElements(driver, this);
 	}
 	public PropertyListingPage(WebDriver pWebDriver,String pSourceUrl){
@@ -106,6 +144,40 @@ public class PropertyListingPage extends Page{
 		}
 		return doesFeatureExist;
 	}
+	public boolean clickOnMapBar() {
+		pageScrollDown(mapNavigationBarLink);
+		return clickOnElement(mapNavigationBarLink);
+	}
+	public boolean isGoogleMapDisplayed() throws InterruptedException {
+		return isElementDisplayed(googleMaps);
+	}
+	public boolean clickOnCommunityStats() {
+		return clickOnElement(communityStatsBarLink);
+	}
+	public boolean isCommunityStatsDisplayed() {
+		
+		return isElementDisplayed(communityStats);
+	}
+	public boolean clickOnSchools() {
+		return clickOnElement(schoolsBarLink);
+	}
+	public boolean isSchoolMapsDisplayed() {
+		return isElementDisplayed(schoolMap) && isElementDisplayed(schoolsNearbyLabel);
+	}
+	public boolean clickOnWhatsNearBy() {
+		return clickOnElement(whatsNearbyBarLink);
+	}
+	public boolean isWhatsNearbyDisplayed() {
+		return isElementDisplayed(whatsNearByMap) && isElementDisplayed(pointsOfIntrestLabel);
+	}
+	public boolean isFeatureTabExpanded() {
+		return isElementDisplayed(featuresBarLink);
+	}
+	public void pageScrollDown(WebElement pScrollDownToElement) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;  
+		js.executeScript("window.scrollBy(0,1200)");
+	}
+	
 	@Override
 	public WebElement getHeader() {
 		// TODO Auto-generated method stub
@@ -117,5 +189,25 @@ public class PropertyListingPage extends Page{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	private boolean clickOnElement(WebElement pElementToBeClicked) {
 
+		boolean isClickSuccessful=false;
+		if(wait.until(ExpectedConditions.visibilityOf(pElementToBeClicked))!=null) {
+			pElementToBeClicked.click();
+			isClickSuccessful=true;
+			
+		}
+		return isClickSuccessful;
+	
+	}
+	
+	private boolean isElementDisplayed(WebElement pElement) {
+		boolean result=false;
+		if(wait.until(ExpectedConditions.visibilityOf(pElement))!=null) {
+			result=true;	
+		}
+		return result;
+		
+	}
 }
