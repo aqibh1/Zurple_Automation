@@ -1,6 +1,8 @@
 package com.z57.site.v2;
 
+import java.net.URL;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -69,6 +71,48 @@ public class PropertyListingPage extends Page{
 	
 	@FindBy(xpath="//div[@id='tab_prpg']/descendant::li[@class='active']/a[text()='Features']")
 	WebElement featuresBarLink;
+	
+	@FindBy(xpath="//div[@id='z57_listing_map_canvas']/descendant::map/parent::div/img")
+	WebElement googleMapPin;
+	
+	@FindBy(xpath="//div[@id='z57_listing_map_canvas']/descendant::div")
+	WebElement schoolPins;
+	String schoolPins_xpath="//div[@id='z57_listing_map_canvas']/descendant::div";
+	
+	@FindBy(xpath="//div[@id='z57_schools_table_info']")
+	WebElement totalSchoolCount;
+	
+	@FindBy(xpath="//div[@id='z57_poi_table_info']")
+	WebElement totalPoiCount;
+	
+	String totalPoiPins_xpath="//div[@id='z57_poi_map_canvas']/descendant::div[@title]";
+	
+	@FindBy(xpath="//div[@id='z57_population_demographic_chart']")
+	WebElement communityStatsdemograpgicChart;
+	
+	@FindBy(xpath="//div[@id='z57_housing_chart']")
+	WebElement communityStatsHousingChart;
+	
+	@FindBy(xpath="//div[@id='z57_population_age_range_chart']")
+	WebElement communityStatsPopulationRangeChart;
+	
+	@FindBy(xpath="//div[@id='z57_households_chart']")
+	WebElement communityStatsHouseHoldChart;
+	
+	@FindBy(xpath="//div[@id='z57_education_level_chart']")
+	WebElement communityStatsEducationLevelStats;
+	
+	@FindBy(xpath="//div[@id='z57_employment_chart']")
+	WebElement communityStatsEmploymentChart;
+	
+	@FindBy(xpath="//div[@id='z57_crime_chart']")
+	WebElement communityStatsCrimeChart;
+	
+	@FindBy(xpath="//div[@id='z57_climate_chart']")
+	WebElement communityStatsClimateChart;
+	
+	@FindBy(xpath="//div[@id='z57_area_ranking_chart']")
+	WebElement communityStatsAreaRankingChart;
 	
 	public PropertyListingPage(WebDriver pWebDriver){
 		driver=pWebDriver;
@@ -148,7 +192,7 @@ public class PropertyListingPage extends Page{
 		pageScrollDown(mapNavigationBarLink);
 		return clickOnElement(mapNavigationBarLink);
 	}
-	public boolean isGoogleMapDisplayed() throws InterruptedException {
+	public boolean isGoogleMapDisplayed(){
 		return isElementDisplayed(googleMaps);
 	}
 	public boolean clickOnCommunityStats() {
@@ -177,6 +221,71 @@ public class PropertyListingPage extends Page{
 		JavascriptExecutor js = (JavascriptExecutor) driver;  
 		js.executeScript("window.scrollBy(0,1200)");
 	}
+	public boolean isPinDsiplayedOnGoogleMaps() {
+		if(googleMapPin.getAttribute("src").endsWith(".png")){
+			return true;
+		}
+		return false;
+	}
+	public boolean verifySchoolPins() {
+		int counter=0;
+		List<WebElement> schoolPins = driver.findElements(By.xpath("//div[@id='z57_schools_map_canvas']/descendant::div[@title]/img"));
+		for(WebElement element: schoolPins) {
+			System.out.println(element.getAttribute("src"));
+			if(element.getAttribute("src")!=null && !element.getAttribute("src").isEmpty()) {
+				if(element.getAttribute("src").endsWith("school-2.png")) {
+					counter++;
+				}
+				
+			}
+		}
+		String schoolCount=totalSchoolCount.getText().split("of")[1].split("enteries")[0].trim();
+		int schoolCountint=Integer.parseInt(schoolCount.split(" ")[0].trim());
+		return counter==schoolCountint;
+		
+	}
+	
+	public boolean verifyPOIPins() {
+		int counter=0;
+		List<WebElement> poiPins = driver.findElements(By.xpath("//div[@id='z57_poi_map_canvas']/descendant::div[@title]/img"));
+		for(WebElement element: poiPins) {
+			if(element.getAttribute("src")!=null && !element.getAttribute("src").isEmpty()) {
+				if(element.getAttribute("src").endsWith(".png")) {
+					counter++;
+				}
+				
+			}
+		}
+		String poiCount=totalPoiCount.getText().split("of")[1].split("enteries")[0].trim();
+		int poiCountint=Integer.parseInt(poiCount.split(" ")[0].trim());
+		return counter==poiCountint;
+		
+	}
+	
+	public boolean isPopulationDemographicChartVisible() {
+		return isElementDisplayed(communityStatsdemograpgicChart);
+	}
+	public boolean isPopulationRangeChartVisible() {
+		return isElementDisplayed(communityStatsPopulationRangeChart);
+	}
+	public boolean isHouseholdsChartVisible() {
+		return isElementDisplayed(communityStatsHouseHoldChart);
+	}
+	public boolean isEducationLevelChartVisible() {
+		return isElementDisplayed(communityStatsEducationLevelStats);
+	}
+	public boolean isEmploymentChartVisible() {
+		return isElementDisplayed(communityStatsEmploymentChart);
+	}
+	public boolean isCrimeChartVisible() {
+		return isElementDisplayed(communityStatsCrimeChart);
+	}
+	public boolean isClimateChartVisible() {
+		return isElementDisplayed(communityStatsClimateChart);
+	}	
+	public boolean isAreaRankingChartVisible() {
+		return isElementDisplayed(communityStatsAreaRankingChart);
+	}	
 	
 	@Override
 	public WebElement getHeader() {

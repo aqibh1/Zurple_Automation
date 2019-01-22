@@ -93,11 +93,12 @@ public class PropertyListingPageTest extends PageTest{
 		searchFormData.setSearchFormData(pFileLocation);
 	 }
 	
+
 	@Test
-	public void testVerificationOfPropertyListing() throws InterruptedException {
+	public void testVerificationOfPropertyListing(){
 		PropertyListingPage propertyListingObj = new PropertyListingPage(getPage().getWebDriver());
 		
-//		page.getWebDriver().navigate().to("http://robinsoldwisch-13878.sites.z57.com/idx/listings/cws/1098/170017412/5326-grand-del-mar-place-place-san-diego-san-diego-county-ca-92130");
+		page.getWebDriver().navigate().to("http://robinsoldwisch-13878.sites.z57.com/idx/listings/cws/1098/170017412/5326-grand-del-mar-place-place-san-diego-san-diego-county-ca-92130");
 		
 		assertTrue(lInputSearch.contains(page.getAddress(lSearchByOption)), "Input Search criteria does not meets the address results");
 		
@@ -139,25 +140,32 @@ public class PropertyListingPageTest extends PageTest{
 		
 		assertTrue(page.isFeatureTabExpanded(),"Features tab is not expanded");
 		
+		//All the validations and actions on map tab.
 		assertTrue(page.clickOnMapBar(),"Map button on Navigation bar is not visible");
-		
-		Thread.sleep(3000);
 		assertTrue(page.isGoogleMapDisplayed(),"Google map is not displayed");
+		assertTrue(page.isPinDsiplayedOnGoogleMaps(), "Property PIN is not visible on the Google Maps");
 		
+		//All the validations on Community stats
 		assertTrue(page.clickOnCommunityStats(),"Community Stats on Navigation bar is not visible");
-		
-		Thread.sleep(3000);
 		assertTrue(page.isCommunityStatsDisplayed(),"Community Stats is not displayed");
-		
+		assertTrue(page.isPopulationDemographicChartVisible(), "Community Stats | Population Demographic chart is not displayed");
+		assertTrue(page.isPopulationRangeChartVisible(), "Community Stats | Population Range chart is not displayed");
+		assertTrue(page.isHouseholdsChartVisible(), "Community Stats | Households chart is not displayed");
+		assertTrue(page.isEducationLevelChartVisible(), "Community Stats | Education Level chart is not displayed");
+		assertTrue(page.isEmploymentChartVisible(), "Community Stats | Employment chart is not displayed");
+		assertTrue(page.isCrimeChartVisible(), "Community Stats | Crime chart is not displayed");
+		assertTrue(page.isClimateChartVisible(), "Community Stats | Climate chart is not displayed");
+		assertTrue(page.isAreaRankingChartVisible(), "Community Stats | Area Ranking chart is not displayed");
+	
+		//All the validations on School Maps
 		assertTrue(page.clickOnSchools(),"Schools on Navigation bar is not visible");
-		
-		Thread.sleep(3000);
 		assertTrue(page.isSchoolMapsDisplayed(),"Schools map and information is not displayed");
+		assertTrue(page.verifySchoolPins(), "Number of schools and pins on map count mismatched");
 		
+		//All the validations on POI
 		assertTrue(page.clickOnWhatsNearBy(),"Whats near by on Navigation bar is not visible");
-		
-		Thread.sleep(3000);
 		assertTrue(page.isWhatsNearbyDisplayed(),"Whats near by is not displayed");
+		assertTrue(page.verifyPOIPins(),"Number of POI and pins on map count mismatched");
 	}
 
 }
