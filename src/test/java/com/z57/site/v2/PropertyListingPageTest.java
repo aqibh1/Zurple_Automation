@@ -2,6 +2,7 @@ package com.z57.site.v2;
 
 import static org.testng.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.testng.annotations.BeforeClass;
@@ -11,6 +12,7 @@ import org.testng.annotations.Test;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import resources.ParametersFactory;
 import resources.data.z57.SearchFormData;
 
 public class PropertyListingPageTest extends PageTest{
@@ -86,19 +88,28 @@ public class PropertyListingPageTest extends PageTest{
 		lYearBuilt=searchFormData.getSearchFormDataObject().getYearBuilt();
 	}
 	
+//	@BeforeClass
+////	@Parameters({"dataFile"})
+//	  public void beforeClass() throws JsonParseException, JsonMappingException, IOException {
+//		Long thread_id = Thread.currentThread().getId();
+//		File params = ParametersFactory.getSearchFormData(thread_id, System.getProperty("user.dir")+"\\resources\\data\\home_search_data");
+//		searchFormData= new SearchFormData();
+//		searchFormData.setSearchFormData(params.getAbsolutePath());
+//		ParametersFactory.removeDataFiles(thread_id);
+//	 }
 	@BeforeClass
 	@Parameters({"dataFile"})
 	  public void beforeClass(String pFileLocation) throws JsonParseException, JsonMappingException, IOException {
 		searchFormData= new SearchFormData();
 		searchFormData.setSearchFormData(pFileLocation);
-	 }
 	
+	 }
 
 	@Test
 	public void testVerificationOfPropertyListing(){
 		PropertyListingPage propertyListingObj = new PropertyListingPage(getPage().getWebDriver());
 		
-		page.getWebDriver().navigate().to("http://robinsoldwisch-13878.sites.z57.com/idx/listings/cws/1098/170017412/5326-grand-del-mar-place-place-san-diego-san-diego-county-ca-92130");
+//		page.getWebDriver().navigate().to("http://robinsoldwisch-13878.sites.z57.com/idx/listings/cws/1098/170017412/5326-grand-del-mar-place-place-san-diego-san-diego-county-ca-92130");
 		
 		assertTrue(lInputSearch.contains(page.getAddress(lSearchByOption)), "Input Search criteria does not meets the address results");
 		

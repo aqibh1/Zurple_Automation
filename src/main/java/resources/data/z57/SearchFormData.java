@@ -161,9 +161,14 @@ public class SearchFormData {
 		YearBuilt = yearBuilt;
 	}
 	
+//	public SearchFormData setSearchFormData(String filename) throws JsonParseException, JsonMappingException, IOException{
+//        ObjectMapper mapper = new ObjectMapper();
+//		searchFormData = mapper.readValue(new File(/* System.getProperty("user.dir")+ */filename), SearchFormData.class);
+//        return searchFormData;
+//    }
 	public SearchFormData setSearchFormData(String filename) throws JsonParseException, JsonMappingException, IOException{
         ObjectMapper mapper = new ObjectMapper();
-        searchFormData = mapper.readValue(new File(System.getProperty("user.dir")+filename), SearchFormData.class);
+		searchFormData = mapper.readValue(new File(System.getProperty("user.dir")+ filename), SearchFormData.class);
         return searchFormData;
     }
 	public SearchFormData getSearchFormDataObject() {

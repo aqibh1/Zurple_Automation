@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Search Property by">  
+  <test name="Search Property by different values">
+    <classes>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+</suite>

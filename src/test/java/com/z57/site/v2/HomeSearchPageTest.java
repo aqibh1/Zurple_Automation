@@ -2,8 +2,11 @@ package com.z57.site.v2;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
@@ -12,36 +15,14 @@ import org.testng.annotations.Test;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import resources.ParametersFactory;
 import resources.classes.SearchResult;
 import resources.data.z57.SearchFormData;
 
 public class HomeSearchPageTest extends PageTest{
 
 	private HomeSearchPage page;
-	private SearchFormData searchFormData;
-
-//	private static SearchFormData searchFormData;
-	/*
-	 * Adding this hardcoded data. Will modify this code to get this data from XML
-	 * parameters. Will initialize these variables in constructor with data object
-	 * from JSON.  
-	 */
-//	String lInputSearch="Chicago Heights, IL";
-//	String lSearchByOption="City";
-//	String lMinimumValue="25000";
-//	String lMaximumValue="10000000";
-//	String lNumberOfBeds="2";
-//	String lNumberOfBaths="2";
-//	String lPropertyType="";
-//	String lFeaturesAnyOrAll="any";
-//	String lFeatures="Air Conditioning";
-//	String lSquareFootage="500+";
-//	String lView="";
-//	String lLotSize="2,000+ sq ft";
-//	String lStyle="";
-//	String lStatus="ACTIVE";
-//	String lYearBuilt="1950+";
-	
+	private SearchFormData searchFormData;	
 	String lInputSearch="";
 	String lSearchByOption="";
 	String lMinimumValue="";
@@ -57,30 +38,30 @@ public class HomeSearchPageTest extends PageTest{
 	String lStyle="";
 	String lStatus="";
 	String lYearBuilt="";
-	
+
 	@Override
 	public void testTitle() {
 		assertEquals("Search Local Properties for Sale | zengtest1.us", getPage().getTitle());
-		
+
 	}
 
 	@Override
 	public void testHeader() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void testBrand() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public Page getPage() {
 		if(page == null){
 			page = new HomeSearchPage(getDriver(),this.source_in_url);
-//			page.setDriver(getDriver());
+			//			page.setDriver(getDriver());
 
 		}
 		lInputSearch=searchFormData.getSearchFormDataObject().getInputSearch();
@@ -101,55 +82,68 @@ public class HomeSearchPageTest extends PageTest{
 
 		return page;
 	}
-	
+
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
 	}
-	
+
+//	@BeforeClass
+//	public void beforeClass() throws JsonParseException, JsonMappingException, IOException {
+//		Long thread_id = Thread.currentThread().getId();
+//		File params = ParametersFactory.getSearchFormData(thread_id, System.getProperty("user.dir")+"\\resources\\data\\home_search_data");
+//		searchFormData= new SearchFormData();
+//		searchFormData.setSearchFormData(params.getAbsolutePath());
+//	}
 	@BeforeClass
 	@Parameters({"dataFile"})
-	  public void beforeClass(String pFileLocation) throws JsonParseException, JsonMappingException, IOException {
+	public void beforeClass(String pFolderLocation) throws JsonParseException, JsonMappingException, IOException {
 		searchFormData= new SearchFormData();
-		searchFormData.setSearchFormData(pFileLocation);
-	 }
-	
+		searchFormData.setSearchFormData(pFolderLocation);
+	}
+
 	@Test
 	public void testSearchByDifferentDataSet() {
-		
-		
+
+
 		System.out.println(lInputSearch);
 		System.out.println(lSearchByOption);
-		
+
 		HomePage homePageObj = new HomePage(getPage().getWebDriver());
 		homePageObj.mouseoverHomeSearch();
 		homePageObj.clickOnSearchHomes();
-		
+
 		//Select the search by option from dropdown
 		assertTrue(page.getSearchForm().clickOnSearchByOption(lSearchByOption), "Could not click on Search By element as its not visible.");
-		
+
 		//Enters the data in input field and selects from drop down list
 		assertTrue(page.getSearchForm().typeInputAndSelect(lInputSearch), "Input field on Home Search is not visible");
-		
+
 		//Clicks and select from Minimum price
-		assertTrue(page.getSearchForm().clickOnPriceLowOption(lMinimumValue), "Unable to select minimum price from drop down");
+		if(!lMinimumValue.isEmpty()) {
+			assertTrue(page.getSearchForm().clickOnPriceLowOption(lMinimumValue), "Unable to select minimum price from drop down");
+		}
 		
 		//Clicks and selects from Maximum price
-		assertTrue(page.getSearchForm().clickOnPriceMaxOption(lMaximumValue), "Unable to select maximum price from drop down");
+		if(!lMaximumValue.isEmpty()) {
+			assertTrue(page.getSearchForm().clickOnPriceMaxOption(lMaximumValue), "Unable to select maximum price from drop down");
+		}
 		
 		//Clicks and selects number of beds option
-		assertTrue(page.getSearchForm().clickOnBedsOption(lNumberOfBeds), "Unable to select number of beds from drop down");
-		
+		if(!lNumberOfBeds.isEmpty()) {
+			assertTrue(page.getSearchForm().clickOnBedsOption(lNumberOfBeds), "Unable to select number of beds from drop down");
+		}
 		//Clicks and select number of baths option
-		assertTrue(page.getSearchForm().clickOnBathsOption(lNumberOfBaths), "Unable to select number of baths from drop down");
-		
+		if(!lNumberOfBaths.isEmpty()) {
+			assertTrue(page.getSearchForm().clickOnBathsOption(lNumberOfBaths), "Unable to select number of baths from drop down");
+		}
 		//If any of the advance filter is not empty than it will click expand button and clicks and selects other filters
 		if(!lPropertyType.isEmpty() || !lFeaturesAnyOrAll.isEmpty() || !lFeatures.isEmpty() || !lSquareFootage.isEmpty() ||
 				!lView.isEmpty() || !lLotSize.isEmpty() || !lStyle.isEmpty() || !lStatus.isEmpty() || !lYearBuilt.isEmpty()) {
-			
+
 			//Clicks on advance search filter button
 			assertTrue(page.getSearchForm().clickOnExpandSearchButton(), "Unable to click on expand search button");
-			
+
 			//Clicks and Selects Property Types
 			//Multiple Property Types will be comma separated
 			if(!lPropertyType.isEmpty()) {
@@ -158,16 +152,19 @@ public class HomeSearchPageTest extends PageTest{
 					assertTrue(page.getSearchForm().typeAndSelectPropertyType(propertyType), "Unable to select property type");
 				}
 			}
-			
+
 			//Selects any/all feature option from drop down
-//			assertTrue(page.getSearchForm().selectFeature(lFeaturesAnyOrAll), "Unable to select any or all feature type");
-			
+			//			assertTrue(page.getSearchForm().selectFeature(lFeaturesAnyOrAll), "Unable to select any or all feature type");
+
 			//Selects features
-			assertTrue(page.getSearchForm().clickAndSelectFeature(lFeatures), "Unable to select any or all feature type");
+			if(!lFeatures.isEmpty()) {
+				assertTrue(page.getSearchForm().clickAndSelectFeature(lFeatures), "Unable to select any or all feature type");
+			}
 			
 			//Selects square footage from drop down
-			assertTrue(page.getSearchForm().clickAndSelecctSquareFootage(lSquareFootage), "Unable to select square footage from drop down");
-		
+			if(!lSquareFootage.isEmpty()) {
+				assertTrue(page.getSearchForm().clickAndSelecctSquareFootage(lSquareFootage), "Unable to select square footage from drop down");
+			}
 			//Selects the view
 			if(!lView.isEmpty()) {
 				String [] lViewsArray =lView.split(",");
@@ -176,8 +173,9 @@ public class HomeSearchPageTest extends PageTest{
 				}
 			}
 			//Selects the Lot size
-			assertTrue(page.getSearchForm().clickAndSelectLotSize(lLotSize), "Unable to select Lot size from drop down");
-			
+			if(!lLotSize.isEmpty()) {
+				assertTrue(page.getSearchForm().clickAndSelectLotSize(lLotSize), "Unable to select Lot size from drop down");
+			}
 			//Selects the Style from dropdown
 			if(!lStyle.isEmpty()) {
 				String [] lStyleArray =lStyle.split(",");
@@ -190,27 +188,28 @@ public class HomeSearchPageTest extends PageTest{
 			for (String status: lStatusArray) {
 				assertTrue(page.getSearchForm().clickAndSelectStatus(status), "Unable to select Status from drop down");
 			}
-			
-			//Selects the year built
-			assertTrue(page.getSearchForm().clickAndSelectYear(lYearBuilt), "Unable to select Year built from drop down");
 
-		
+			//Selects the year built
+			if(!lYearBuilt.isEmpty()) {
+				assertTrue(page.getSearchForm().clickAndSelectYear(lYearBuilt), "Unable to select Year built from drop down");
+			}
+
 		}	
-		
+
 		assertTrue(page.getSearchForm().clickOnSearchButton(),"Search Button on Home search screen is not visible");
-		
+
 		SearchResultsPage searchResultObj = new SearchResultsPage();
 		ArrayList<SearchResult> searchResultsList =searchResultObj.getSearchResultsBlock(page.getWebDriver()).getSearchResultsList();
-		
-		String goToListing = searchResultsList.get(5).getUrl();
+		int random = (int)(Math.random() * 19 + 0);
+		String goToListing = searchResultsList.get(random).getUrl();
 		page.getWebDriver().navigate().to(goToListing);
-		
+
 		PropertyListingPage propListingObj = new PropertyListingPage(page.getWebDriver());
-		
-		assertEquals(searchResultsList.get(5).getTitle(), propListingObj.getPropertyTitleFromTheHeader(),"Could not click on requested property");
-	
+
+		assertEquals(searchResultsList.get(random).getTitle(), propListingObj.getPropertyTitleFromTheHeader(),"Could not click on requested property");
+
 	}
-	
+
 	/*
 	 * private boolean doDataValidation() { boolean isValidationSuccessful=true;
 	 * SearchResultsPage searchResultObj = new SearchResultsPage(); do {

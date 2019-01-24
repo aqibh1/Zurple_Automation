@@ -75,9 +75,9 @@ public class PropertyListingPage extends Page{
 	@FindBy(xpath="//div[@id='z57_listing_map_canvas']/descendant::map/parent::div/img")
 	WebElement googleMapPin;
 	
-	@FindBy(xpath="//div[@id='z57_listing_map_canvas']/descendant::div")
+	@FindBy(xpath="//div[@id='z57_schools_map_canvas']/descendant::div[@title]/img")
 	WebElement schoolPins;
-	String schoolPins_xpath="//div[@id='z57_listing_map_canvas']/descendant::div";
+	String schoolPins_xpath="//div[@id='z57_schools_map_canvas']/descendant::div[@title]/img";
 	
 	@FindBy(xpath="//div[@id='z57_schools_table_info']")
 	WebElement totalSchoolCount;
@@ -222,6 +222,7 @@ public class PropertyListingPage extends Page{
 		js.executeScript("window.scrollBy(0,1200)");
 	}
 	public boolean isPinDsiplayedOnGoogleMaps() {
+//		wait.until(ExpectedConditions.visibilityOf(googleMapPin));
 		if(googleMapPin.getAttribute("src").endsWith(".png")){
 			return true;
 		}
@@ -229,7 +230,8 @@ public class PropertyListingPage extends Page{
 	}
 	public boolean verifySchoolPins() {
 		int counter=0;
-		List<WebElement> schoolPins = driver.findElements(By.xpath("//div[@id='z57_schools_map_canvas']/descendant::div[@title]/img"));
+		wait.until(ExpectedConditions.visibilityOf(schoolPins));
+		List<WebElement> schoolPins = driver.findElements(By.xpath(schoolPins_xpath));
 		for(WebElement element: schoolPins) {
 			System.out.println(element.getAttribute("src"));
 			if(element.getAttribute("src")!=null && !element.getAttribute("src").isEmpty()) {

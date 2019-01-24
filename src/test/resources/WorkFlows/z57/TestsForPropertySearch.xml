@@ -1,0 +1,35 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="SmokeTestForWebsite">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
+	<suite-files>
+		<suite-file path="../../Actions/v2.site.z57.com/SignInWithValidEmail.xml" />
+		<suite-file path="../../Actions/v2.site.z57.com/SearchProperty.xml" />
+		<suite-file path="../../Actions/v2.site.z57.com/VerifyProperty.xml" />
+		<suite-file path="../../Actions/Common/Close Browser.xml" />
+	</suite-files>
+	</parameter>
+	
+	<!--  
+	<suite-files>
+		<suite-file path="../../Actions/v2.site.z57.com/SignInWithValidEmail.xml" />
+		<suite-file path="../../Actions/v2.site.z57.com/SearchProperty.xml" />
+		<suite-file path="../../Actions/v2.site.z57.com/VerifyProperty.xml" />
+		<suite-file path="../../Actions/Common/Close Browser.xml" />
+	</suite-files>
+	
+	<suite-files>
+		<suite-file path="../../Actions/v2.site.z57.com/SignInWithValidEmail.xml" />
+		<suite-file path="../../Actions/v2.site.z57.com/SearchProperty.xml" />
+		<suite-file path="../../Actions/v2.site.z57.com/VerifyProperty.xml" />
+		<suite-file path="../../Actions/Common/Close Browser.xml" />
+	</suite-files>
+	
+	<suite-files>
+		<suite-file path="../../Actions/v2.site.z57.com/SignInWithValidEmail.xml" />
+		<suite-file path="../../Actions/v2.site.z57.com/SearchProperty.xml" />
+		<suite-file path="../../Actions/v2.site.z57.com/VerifyProperty.xml" />
+		<suite-file path="../../Actions/Common/Close Browser.xml" />
+	</suite-files>
+	-->
+</suite>

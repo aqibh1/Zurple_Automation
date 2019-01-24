@@ -4,6 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import resources.data.z57.SearchFormData;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -13,6 +16,8 @@ public class ParametersFactory {
 
     static Iterator searchParamsList = null;
     static Map<Long,HashMap<String,String>> searchParamsForThread = new HashMap<Long,HashMap<String,String>>();
+    static Map<Long,File> searchDataForThread = new HashMap<Long,File>();
+    static Iterator dataIteratorList = null;
 
     private static Iterator getSearchParamsList(){
 
@@ -135,5 +140,45 @@ public class ParametersFactory {
             searchParamsForThread.remove(thread_id);
         }
     }
+    
+    public static File getSearchFormData(long thread_id,String pFolder) {
+    	if(searchDataForThread.containsKey(thread_id)) {
+    		return searchDataForThread.get(thread_id);
+    	}else {
+    		if(getDataFilesList(pFolder).hasNext()) {
+    			File data_files= (File)getDataFilesList(pFolder).next();
+    			searchDataForThread.put(thread_id, data_files);
+    			return data_files;
+    		}else {
+    			return null;
+    		} 		
+    	}
+    }
+    
+    public static void removeDataFiles(long thread_id)
+    {
+        if(  searchDataForThread.containsKey(thread_id) )
+        {
+        	searchDataForThread.remove(thread_id);
+        }
+    }
+    
+    private static Iterator getDataFilesList(String pFolder) {
+    	
+    	if(dataIteratorList==null) {
+    		ArrayList<File> list_of_File = new ArrayList<File>();
+    		File data_folder = new File(pFolder);
+    		File[] listOfFiles = data_folder.listFiles();
 
+    		for (File file : listOfFiles) {
+    		    if (file.isFile()) {
+    		        System.out.println(file.getName());
+    		        list_of_File.add(file);
+    		    }
+    		}
+    		dataIteratorList=list_of_File.iterator();
+    	}
+    	
+    	return dataIteratorList;
+    }
 }
