@@ -144,7 +144,7 @@ public class PropertyListingPage extends Page{
 		lPropertyAddress_xpath="//div[@id='collapse_prop_addr']/descendant::div[@class='panel-body']/div";
 		List<WebElement> list_of_address = driver.findElements(By.xpath(lPropertyAddress_xpath));
 		for(WebElement element:list_of_address) {
-			if(element.getText().startsWith(pTarget+":")) {
+			if(element.getText().contains(pTarget+":")) {
 				return element.getText().split(pTarget+":")[1].trim();
 			}
 		}
@@ -222,15 +222,11 @@ public class PropertyListingPage extends Page{
 		js.executeScript("window.scrollBy(0,1200)");
 	}
 	public boolean isPinDsiplayedOnGoogleMaps() {
-//		wait.until(ExpectedConditions.visibilityOf(googleMapPin));
-		if(googleMapPin.getAttribute("src").endsWith(".png")){
-			return true;
-		}
-		return false;
+		return wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
 	}
 	public boolean verifySchoolPins() {
 		int counter=0;
-		wait.until(ExpectedConditions.visibilityOf(schoolPins));
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("z57_schools_map_canvas")));
 		List<WebElement> schoolPins = driver.findElements(By.xpath(schoolPins_xpath));
 		for(WebElement element: schoolPins) {
 			System.out.println(element.getAttribute("src"));
@@ -249,6 +245,7 @@ public class PropertyListingPage extends Page{
 	
 	public boolean verifyPOIPins() {
 		int counter=0;
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("z57_poi_map_canvas")));
 		List<WebElement> poiPins = driver.findElements(By.xpath("//div[@id='z57_poi_map_canvas']/descendant::div[@title]/img"));
 		for(WebElement element: poiPins) {
 			if(element.getAttribute("src")!=null && !element.getAttribute("src").isEmpty()) {

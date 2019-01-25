@@ -8,6 +8,7 @@ import java.io.IOException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -108,10 +109,11 @@ public class PropertyListingPageTest extends PageTest{
 	@Test
 	public void testVerificationOfPropertyListing(){
 		PropertyListingPage propertyListingObj = new PropertyListingPage(getPage().getWebDriver());
+		SoftAssert softAssert = new SoftAssert();
 		
 //		page.getWebDriver().navigate().to("http://robinsoldwisch-13878.sites.z57.com/idx/listings/cws/1098/170017412/5326-grand-del-mar-place-place-san-diego-san-diego-county-ca-92130");
 		
-		assertTrue(lInputSearch.contains(page.getAddress(lSearchByOption)), "Input Search criteria does not meets the address results");
+		softAssert.assertTrue(page.getPropertyTitleFromTheHeader().contains(lInputSearch), "Input Search criteria does not meets the address results");
 		
 		if(!lMinimumValue.isEmpty()) {
 			int propertyPriceFromPage=page.getPropertValueFromHeader();
@@ -154,7 +156,7 @@ public class PropertyListingPageTest extends PageTest{
 		//All the validations and actions on map tab.
 		assertTrue(page.clickOnMapBar(),"Map button on Navigation bar is not visible");
 		assertTrue(page.isGoogleMapDisplayed(),"Google map is not displayed");
-		assertTrue(page.isPinDsiplayedOnGoogleMaps(), "Property PIN is not visible on the Google Maps");
+		softAssert.assertTrue(page.isPinDsiplayedOnGoogleMaps(), "Property PIN is not visible on the Google Maps");
 		
 		//All the validations on Community stats
 		assertTrue(page.clickOnCommunityStats(),"Community Stats on Navigation bar is not visible");
@@ -171,12 +173,12 @@ public class PropertyListingPageTest extends PageTest{
 		//All the validations on School Maps
 		assertTrue(page.clickOnSchools(),"Schools on Navigation bar is not visible");
 		assertTrue(page.isSchoolMapsDisplayed(),"Schools map and information is not displayed");
-		assertTrue(page.verifySchoolPins(), "Number of schools and pins on map count mismatched");
+		softAssert.assertTrue(page.verifySchoolPins(), "Number of schools and pins on map count mismatched");
 		
 		//All the validations on POI
 		assertTrue(page.clickOnWhatsNearBy(),"Whats near by on Navigation bar is not visible");
 		assertTrue(page.isWhatsNearbyDisplayed(),"Whats near by is not displayed");
-		assertTrue(page.verifyPOIPins(),"Number of POI and pins on map count mismatched");
+		softAssert.assertTrue(page.verifyPOIPins(),"Number of POI and pins on map count mismatched");
 	}
 
 }

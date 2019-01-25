@@ -35,18 +35,8 @@ public class SearchResultsBlock
 //            List<WebElement> allSearchResultsRows = driver.findElements(By.xpath("//div[@id='google_map_prop_list_sidebar']/descendant::div[@class='single-content listing-content zfs-sortable-listings-list']/descendant::div[@class='property_listing']"));
             List<WebElement> allSearchResultsRows= driver.findElements(By.xpath("//div[@class='single-content listing-content zfs-sortable-listings-list']/div"));
             for (WebElement row: allSearchResultsRows) {
-                
-//                searchResult.setImgLink(row.findElement(By.xpath("//div[@class='listing-unit-img-wrapper']/descendant::div[@class='carousel-inner']/div/a")).getAttribute("href"));
-//                searchResult.setTitle(row.findElement(By.xpath("//h4[@class='listing-title']/a")).getText());
-//                searchResult.setUrl(row.findElement(By.xpath("//div[@class='listing-unit-img-wrapper']/descendant::div[@class='carousel-inner']/div/a")).getAttribute("href"));
-//                searchResult.setElement(row);
-//                System.out.println(row.findElement(By.xpath("//div[@class='listing-unit-img-wrapper']/descendant::div[@class='carousel-inner']/div/a")).getAttribute("href"));
-//                System.out.println(row.findElements(By.xpath("//div[@id='listing-unit-img-wrapper']/descendant::a")));
-                System.out.println(row.findElement(By.xpath("//div[@class='property_listing']/descendant::h4[@class='listing-title']/a")).getText());
-                List<WebElement> url = row.findElements(By.xpath("//div[@class='property_listing']/descendant::h4[@class='listing-title']/a"));
+                                List<WebElement> url = row.findElements(By.xpath("//div[@class='property_listing']/descendant::h4[@class='listing-title']/a"));
                for(WebElement element: url) {
-                System.out.println(element.getAttribute("href"));
-                System.out.println(element.getText());
                 set_of_urls.add(element.getAttribute("href")+regix+element.getText());
                }
                break;

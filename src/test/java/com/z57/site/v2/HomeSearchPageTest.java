@@ -112,13 +112,22 @@ public class HomeSearchPageTest extends PageTest{
 		HomePage homePageObj = new HomePage(getPage().getWebDriver());
 		homePageObj.mouseoverHomeSearch();
 		homePageObj.clickOnSearchHomes();
-
+		
 		//Select the search by option from dropdown
 		assertTrue(page.getSearchForm().clickOnSearchByOption(lSearchByOption), "Could not click on Search By element as its not visible.");
-
+		
+		if(lSearchByOption.equalsIgnoreCase("zip") || lSearchByOption.equalsIgnoreCase("city")) {
 		//Enters the data in input field and selects from drop down list
 		assertTrue(page.getSearchForm().typeInputAndSelect(lInputSearch), "Input field on Home Search is not visible");
+		}else if(lSearchByOption.equalsIgnoreCase("address")) {
+			assertTrue(page.getSearchForm().typeAddress(lInputSearch), "Input field on Home Search is not visible");
+		}else if(lSearchByOption.equalsIgnoreCase("neighborhood")) {
+			assertTrue(page.getSearchForm().typeAndSelectNeighborhood(lInputSearch), "Input field on Home Search is not visible");
 
+		}
+		else {
+			assertTrue(page.getSearchForm().typeMLS(lInputSearch), "Input field on Home Search is not visible");
+		}
 		//Clicks and select from Minimum price
 		if(!lMinimumValue.isEmpty()) {
 			assertTrue(page.getSearchForm().clickOnPriceLowOption(lMinimumValue), "Unable to select minimum price from drop down");
@@ -200,8 +209,9 @@ public class HomeSearchPageTest extends PageTest{
 
 		SearchResultsPage searchResultObj = new SearchResultsPage();
 		ArrayList<SearchResult> searchResultsList =searchResultObj.getSearchResultsBlock(page.getWebDriver()).getSearchResultsList();
-		int random = (int)(Math.random() * 19 + 0);
+		int random = (int)(Math.random() * (searchResultsList.size()-1) + 0);
 		String goToListing = searchResultsList.get(random).getUrl();
+		System.out.println(goToListing);
 		page.getWebDriver().navigate().to(goToListing);
 
 		PropertyListingPage propListingObj = new PropertyListingPage(page.getWebDriver());

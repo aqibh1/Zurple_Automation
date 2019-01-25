@@ -1,6 +1,6 @@
 {
-	"input_search":"Alta Vista",
-	"search_by":"Neighborhood",
+	"input_search":"92130, CA",
+	"search_by":"Zip",
 	"minimum_price":"",
 	"maximum_value":"",
 	"number_of_beds":"",
@@ -9,10 +9,10 @@
 	"feature_any_all":"",
 	"features":"",
 	"square_footage":"",
-	"view":"",
+	"view":"Golf course view",
 	"lot_size":"",
 	"style":"",
-	"status":"",
+	"status":"Active",
 	"year_built":""
 
 }

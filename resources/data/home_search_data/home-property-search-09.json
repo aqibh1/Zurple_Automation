@@ -1,6 +1,6 @@
 {
-	"input_search":"Alta Vista",
-	"search_by":"Neighborhood",
+	"input_search":"San Diego, CA",
+	"search_by":"City",
 	"minimum_price":"",
 	"maximum_value":"",
 	"number_of_beds":"",
@@ -8,11 +8,11 @@
 	"property_type":"",
 	"feature_any_all":"",
 	"features":"",
-	"square_footage":"",
+	"square_footage":"1000+",
 	"view":"",
 	"lot_size":"",
 	"style":"",
-	"status":"",
+	"status":"Active",
 	"year_built":""
 
 }

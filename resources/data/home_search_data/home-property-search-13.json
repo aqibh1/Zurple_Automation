@@ -1,6 +1,6 @@
 {
-	"input_search":"Alta Vista",
-	"search_by":"Neighborhood",
+	"input_search":"92130, CA",
+	"search_by":"Zip",
 	"minimum_price":"",
 	"maximum_value":"",
 	"number_of_beds":"",
@@ -11,8 +11,8 @@
 	"square_footage":"",
 	"view":"",
 	"lot_size":"",
-	"style":"",
-	"status":"",
+	"style":"Cape Cod",
+	"status":"Active",
 	"year_built":""
 
 }

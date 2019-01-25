@@ -1,11 +1,15 @@
 package com.z57.site.v2;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -26,6 +30,9 @@ public class HomePage extends Page
 	//Sub Menu under Home Search, Local Home Values
 	@FindBy(xpath="//div[@class=\"menu-top-navigation-container\"]/descendant::*[text()=\"Local Home Values\"]")
 	WebElement localHomeValues_submenu;
+	
+	@FindBy(xpath="//h1[@class='entry-title title_prop']")
+	WebElement homeSearch_title;
 	
     public HomePage(){
         url = "";
@@ -66,8 +73,19 @@ public class HomePage extends Page
 		if(isElementPresent) {
 			searchHomes_submenu.click();
 		}
-		return wait.until(ExpectedConditions.invisibilityOf(searchHomes_submenu));
+		wait.until(ExpectedConditions.visibilityOf(homeSearch_title));
+		
+		return homeSearch_title.getText().startsWith("Home Search");
 	}
 
-
+	private void waitForLoadingOfPage() {
+        ExpectedCondition<Boolean> pageLoadCondition = new
+                ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver driver) {
+                        return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+                    }
+                };
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(pageLoadCondition);
+    }
 }

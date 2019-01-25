@@ -4,10 +4,12 @@
 package resources.forms.z57;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +17,10 @@ import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import resources.forms.AbstractForm;
 
 /**
@@ -27,7 +33,7 @@ public class SearchForm extends AbstractForm{
 	private static String DYNAMIC_VARIABLE="[--Dynamic Variable--]";
 //	WebDriver localWebDriver;
 	SearchForm searchForm;
-
+	WebDriverWait wait;
 	//Search Input Field
 	@FindBy(xpath="//div[@class='input-group']/descendant::ul[@class='select2-choices']/descendant::input[@type='text']")
 	WebElement searchField_input;
@@ -139,10 +145,23 @@ public class SearchForm extends AbstractForm{
 	@FindBy(xpath="//div[@id='s2id_min_year_built_select']/descendant::span[@id='select2-chosen-7']")
 	WebElement yearBuild_dropdown;
 	
+	@FindBy(xpath="//input[@id='address_input']")
+	WebElement address_input;
+	
+	@FindBy(xpath="//input[@id='mlsid_input']")
+	WebElement mls_input;
+	
+	@FindBy(xpath="//div[@id='s2id_location_input_main']/descendant::ul[@class='select2-choices']/descendant::input")
+	WebElement neighborhood_input;
+	
+	@FindBy(xpath="//ul[@class='select2-result-sub']/descendant::span")
+	String neighborhood_dropdown="//ul[@class='select2-result-sub']/descendant::span";
+	
 	String yearBuildXpath="//div[@id='select2-drop']/descendant::div[text()='"+DYNAMIC_VARIABLE+"']";
 	
 	public SearchForm(WebDriver pWebDriver) {
 		driver=pWebDriver;
+		wait=new WebDriverWait(driver, 10);
 		setSubmitButton(search_button);
 		PageFactory.initElements(driver, this);
 	}
@@ -166,15 +185,15 @@ public class SearchForm extends AbstractForm{
 	}
 
 	public boolean typeInputAndSelect(String pStringToType) {
-		pStringToType="San Diego, CA";
+
 		boolean isTypeSuccessful=false;
 		try {
 
 			if(searchField_input.isDisplayed()) {
-				//searchField_input.clear();
+				searchField_input.sendKeys(Keys.BACK_SPACE);
+				searchField_input.sendKeys(Keys.BACK_SPACE);
 				searchField_input.sendKeys(pStringToType);
-			//	selectOption_dropDownList=getDynamicElement(searchInputDropdown_xpath, pStringToType);
-//				selectOption_dropDownList.click();
+
 				List<WebElement> listOfWebElements = driver.findElements(By.xpath("//div[@id='select2-drop']/descendant::div"));
 				for (WebElement singleElement: listOfWebElements){
 					System.out.println(singleElement.getText());
@@ -185,8 +204,6 @@ public class SearchForm extends AbstractForm{
 					}
 					
 				}
-//				searchField_input.sendKeys(Keys.ENTER);
-				
 			}
 		}
 		catch(Exception ex) {
@@ -194,7 +211,16 @@ public class SearchForm extends AbstractForm{
 		}
 		return isTypeSuccessful;
 	}
-
+	public boolean typeAddress(String pText) {
+		return typeAndDownArrowSelect(address_input, pText);
+	}
+	public boolean typeMLS(String pText) {
+		return typeAndDownArrowSelect(mls_input, pText);
+	}
+	public boolean typeAndSelectNeighborhood(String pNeighborhood) {
+		return typeAndSelect(pNeighborhood, neighborhood_input, neighborhood_dropdown);
+	}
+	
 	public boolean clickOnSearchButton() {
 		if(search_button.isDisplayed()) {
 			search_button.click();
@@ -359,7 +385,36 @@ public class SearchForm extends AbstractForm{
 	public boolean clickAndSelectYear(String pYear) {
 		return clickAndSelectOneClick(yearBuild_dropdown, pYear, yearBuildXpath);
 	}
-	
+	public void waitForLoadingOfPage() {
+        ExpectedCondition<Boolean> pageLoadCondition = new
+                ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver driver) {
+                        return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+                    }
+                };
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(pageLoadCondition);
+    }
+	private boolean typeAndDownArrowSelect(WebElement pInputField,String pStringToType) {
+		boolean isTypeSuccessful=false;
+		try {
+			if(pInputField.isDisplayed()) {
+				pInputField.sendKeys(pStringToType);
+				 Thread.sleep(3000);
+				//List<WebElement> dropDownElement = driver.findElements(By.xpath("//div[@class='pac-container pac-logo hdpi']/descendant::span[@class='pac-item-query']"));
+//				if(!dropDownElement.get(0).getAttribute("style").contains("none")) {
+					pInputField.sendKeys(Keys.ARROW_DOWN);
+					pInputField.sendKeys(Keys.ENTER);
+					isTypeSuccessful= true;
+//				}
+			}
+		}
+		catch(Exception ex) {
+			System.out.println(ex.toString());
+		}
+		return isTypeSuccessful;
+		
+	}
 	private boolean typeAndSelect(WebElement pDropDown, String pSelectValue, String pXpathOfElement) {
 		boolean isClickSuccessful=false;
 		try {
@@ -435,5 +490,29 @@ public class SearchForm extends AbstractForm{
 		Actions act = new Actions(driver);
 		act.moveToElement(searchField_input).click().perform();;
 	}
+	private boolean typeAndSelect(String pStringToType, WebElement pInputField, String pDropDown) {
 
+		boolean isTypeSuccessful=false;
+		try {
+
+			if(pInputField.isDisplayed()) {
+				pInputField.sendKeys(pStringToType);
+				Thread.sleep(4000);
+				List<WebElement> listOfWebElements = driver.findElements(By.xpath(pDropDown));
+				for (WebElement singleElement: listOfWebElements){
+					System.out.println(singleElement.getText());
+					if(singleElement.getText().equalsIgnoreCase(pStringToType)) {
+						singleElement.click();
+						isTypeSuccessful= true;
+						break;
+					}
+					
+				}
+			}
+		}
+		catch(Exception ex) {
+			System.out.println(ex.toString());
+		}
+		return isTypeSuccessful;
+	}
 }
