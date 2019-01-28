@@ -68,4 +68,9 @@ public class SearchResult
         this.element = element;
     }
 
+	public void setOnlyUrl(String pUrl) {
+		this.url = pUrl;
+		
+	}
+
 }

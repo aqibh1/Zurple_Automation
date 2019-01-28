@@ -24,7 +24,7 @@ public class LoginForm extends AbstractForm{
 	WebElement email_input;
 	
 	//Login Xpath button
-	@FindBy(xpath="./descendant::*[@id=\"login_user_topbar_button\"]")
+	@FindBy(xpath="//div[@id='login-div_topbar']/descendant::button[@id='login_user_topbar_button']")
 	WebElement login_button;
 	
 	//Signin Xpath button
@@ -37,7 +37,7 @@ public class LoginForm extends AbstractForm{
 	}
 	public LoginForm(WebDriver webDriver) {
 		driver=webDriver;
-		wait = new WebDriverWait(driver, 10);
+		wait = new WebDriverWait(driver, 20);
 		PageFactory.initElements(webDriver, this);
 	}
 
@@ -53,17 +53,23 @@ public class LoginForm extends AbstractForm{
 		
 	}
 	public boolean clickLoginButton() {
-		wait.until(ExpectedConditions.visibilityOf(login_button));
-		wait.until(ExpectedConditions.elementToBeClickable(login_button));
-		if(login_button.isDisplayed()) {
-			login_button.click();
-			return true;
-		}else {
-			return false;
-		}
+		boolean isSuccessful=false;
+		int count=0;
+		do {
+			wait.until(ExpectedConditions.visibilityOf(login_button));
+			wait.until(ExpectedConditions.elementToBeClickable(login_button));
+			if(login_button.isDisplayed()) {
+				login_button.click();
+				count++;
+				isSuccessful =isLoginSuccessful();
+			}else {
+				isSuccessful = false;
+			}
+		}while(!isSuccessful && count<5);
+		return isSuccessful;
 	}
 	
-	public boolean isLoginSuccessful() {
+	private boolean isLoginSuccessful() {
 		return wait.until(ExpectedConditions.invisibilityOf(login_button));
 	}
 	

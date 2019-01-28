@@ -11,8 +11,7 @@ import resources.alerts.BootstrapModal;
 import us.zengtest1.resources.blocks.SearchResultsBlock;
 
 public class SearchResultsPage extends Page{
-
-
+	
     private SearchResultsBlock searchResultsBlock;
 
     public SearchResultsBlock getSearchResultsBlock(WebDriver pWebDriver){
@@ -46,7 +45,9 @@ public class SearchResultsPage extends Page{
     public WebElement getTopMenu(){
         return driver.findElement(By.xpath("//*[@id=\"wrap\"]/nav/div/div[2]/ul"));
     }
-
+    public WebElement getPropertiesCount() {
+    	return driver.findElement(By.xpath("//h1[@class='entry-title title_prop']/span"));
+    }
     public Integer getNumberOfResults(){
         String numberString = driver.findElement(By.xpath("//*[@id=\"search-result\"]/div[3]/div")).getText();
         Pattern p = Pattern.compile("(\\d+)");

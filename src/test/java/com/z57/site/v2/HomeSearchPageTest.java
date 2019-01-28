@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -193,11 +194,12 @@ public class HomeSearchPageTest extends PageTest{
 				}
 			}
 			//Selects the status from dropdown
-			String [] lStatusArray =lStatus.split(",");
-			for (String status: lStatusArray) {
-				assertTrue(page.getSearchForm().clickAndSelectStatus(status), "Unable to select Status from drop down");
+			if(!lStatus.isEmpty()) {
+				String [] lStatusArray =lStatus.split(",");
+				for (String status: lStatusArray) {
+					assertTrue(page.getSearchForm().clickAndSelectStatus(status), "Unable to select Status from drop down");
+				}
 			}
-
 			//Selects the year built
 			if(!lYearBuilt.isEmpty()) {
 				assertTrue(page.getSearchForm().clickAndSelectYear(lYearBuilt), "Unable to select Year built from drop down");
@@ -209,15 +211,18 @@ public class HomeSearchPageTest extends PageTest{
 
 		SearchResultsPage searchResultObj = new SearchResultsPage();
 		ArrayList<SearchResult> searchResultsList =searchResultObj.getSearchResultsBlock(page.getWebDriver()).getSearchResultsList();
-		int random = (int)(Math.random() * (searchResultsList.size()-1) + 0);
-		String goToListing = searchResultsList.get(random).getUrl();
-		System.out.println(goToListing);
-		page.getWebDriver().navigate().to(goToListing);
+		if(searchResultsList.size()>0) {
+			int random = (int)(Math.random() * (searchResultsList.size()-1) + 0);
+			String goToListing = searchResultsList.get(random).getUrl();
+			System.out.println(goToListing);
+			page.getWebDriver().navigate().to(goToListing);
 
-		PropertyListingPage propListingObj = new PropertyListingPage(page.getWebDriver());
+			PropertyListingPage propListingObj = new PropertyListingPage(page.getWebDriver());
 
-		assertEquals(searchResultsList.get(random).getTitle(), propListingObj.getPropertyTitleFromTheHeader(),"Could not click on requested property");
-
+			assertEquals(searchResultsList.get(random).getTitle(), propListingObj.getPropertyTitleFromTheHeader(),"Could not click on requested property");
+		}else {
+			assertEquals(searchResultObj.getPropertiesCount().getText(),"Nothing Found","Expecting 'Nothing found'");
+		}
 	}
 
 	/*

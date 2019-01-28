@@ -1,18 +1,18 @@
 {
 	"input_search":"San Diego, CA",
 	"search_by":"City",
-	"minimum_price":"",
+	"minimum_price":"0",
 	"maximum_value":"",
 	"number_of_beds":"",
 	"number_of_baths":"",
 	"property_type":"",
 	"feature_any_all":"",
 	"features":"",
-	"square_footage":"1000+",
+	"square_footage":"1,000+",
 	"view":"",
 	"lot_size":"",
 	"style":"",
-	"status":"Active",
+	"status":"",
 	"year_built":""
 
 }

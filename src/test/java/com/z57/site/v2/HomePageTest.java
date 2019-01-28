@@ -49,11 +49,6 @@ public class HomePageTest extends PageTest
    
     @Test
     public void testSignInWithValidEmail() {
-   
-//    	if(getPage().checkBootsrapModalIsShown()){
-//    		getPage().getBootstrapModal().close();
-//    		getPage().clearBootstrapModal();
-//    	}
     	
     	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
         
@@ -73,8 +68,6 @@ public class HomePageTest extends PageTest
 
     	assertTrue(loginFormObj.setEmail("adar@gmail.com"),"Unable to type email address");
     	assertTrue(loginFormObj.clickLoginButton(),"Unable to click on Login button");
-    	
-    	assertTrue(loginFormObj.isLoginSuccessful(),"Unable to logon with givern credentials");
     
     }
 }

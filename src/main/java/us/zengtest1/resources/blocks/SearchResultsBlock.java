@@ -48,7 +48,7 @@ public class SearchResultsBlock
             SearchResult searchResult = new SearchResult();
               String element = (String) iterator.next();
               String urlAndTitle[] = element.split(regix);
-              searchResult.setUrl(urlAndTitle[0]);
+              searchResult.setOnlyUrl(urlAndTitle[0]);
               searchResult.setTitle(urlAndTitle[1]);
               System.out.println(urlAndTitle[0]);
               System.out.println(urlAndTitle[1]);
