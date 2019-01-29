@@ -1,6 +1,7 @@
 package com.z57.site.v2;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -56,6 +57,16 @@ public abstract class Page extends AbstractPage implements HasHeader
             registerForm.setSubmitButton(driver.findElement(By.xpath("//*[@id=\"wp-submit-register_topbar\"]")));
         }
         return registerForm;
+    }
+    public void waitForLoadingOfPage(long pWaitTimeForPageToGetLoad) {
+        ExpectedCondition<Boolean> pageLoadCondition = new
+                ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver driver) {
+                        return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
+                    }
+                };
+        WebDriverWait wait = new WebDriverWait(driver, pWaitTimeForPageToGetLoad);
+        wait.until(pageLoadCondition);
     }
     
 }

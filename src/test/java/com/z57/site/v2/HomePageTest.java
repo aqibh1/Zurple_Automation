@@ -4,6 +4,7 @@ import com.z57.site.v2.HomePage;
 import com.z57.site.v2.Page;
 import com.z57.site.v2.PageTest;
 
+import resources.ConfigReader;
 import resources.alerts.BootstrapModal;
 import resources.forms.z57.LoginForm;
 import resources.forms.z57.RegisterForm;
@@ -49,7 +50,7 @@ public class HomePageTest extends PageTest
    
     @Test
     public void testSignInWithValidEmail() {
-    	
+    	ConfigReader configReader = ConfigReader.load();
     	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
         
     	if(bootstrapModalObj.checkBootsrapModalIsShown()){
@@ -66,7 +67,7 @@ public class HomePageTest extends PageTest
     	//Clicks on Already Registered
     	assertTrue(registerFormObj.clickOnAlreadyRegistered(),"Already registered link is not visible");
 
-    	assertTrue(loginFormObj.setEmail("adar@gmail.com"),"Unable to type email address");
+    	assertTrue(loginFormObj.setEmail(configReader.getPropertyByName("z57_user_v2")),"Unable to type email address");
     	assertTrue(loginFormObj.clickLoginButton(),"Unable to click on Login button");
     
     }
