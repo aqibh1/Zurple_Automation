@@ -175,7 +175,7 @@ public class PropertyListingPage extends Page{
 		double lotSizeInSqFeet=0;
 		//Logic for in Acres and in Sq feet
 		if(driver.findElement(By.xpath(lLotSizeInAcres_xpath))!=null) {
-			lotSizeInSqFeet = Double.parseDouble(driver.findElement(By.xpath(lLotSizeInAcres_xpath+"/following::td[1]")).getText())*43560;
+			lotSizeInSqFeet = Double.parseDouble(driver.findElement(By.xpath(lLotSizeInAcres_xpath)).getText())*43560;
 		}else if(driver.findElement(By.xpath(lLotSizeInSqFeet_xpath))!=null) {
 			lotSizeInSqFeet=Double.parseDouble(driver.findElement(By.xpath(lLotSizeInSqFeet_xpath)).getText());
 		}else {
