@@ -33,6 +33,8 @@ public class PropertyListingPage extends Page{
 	
 	@FindBy(xpath="//div[@class='property_location']/span[@class='infosize']")
 	WebElement lLotSize;
+	String lLotSizeInAcres_xpath="//div[@id='listing-features']/descendant::strong[text()='Lot Size in Acres:']/following::td[1]";
+	String lLotSizeInSqFeet_xpath="//div[@id='listing-features']/descendant::strong[text()='Total Square Footage:']/following::td[1]";
 	
 //	@FindBy(xpath="//div[@id='collapse_prop_addr']/descendant::div[@class='panel-body']")
 	String lPropertyAddress_xpath="//div[@id='collapse_prop_addr']/descendant::div[@class='panel-body']";
@@ -114,6 +116,9 @@ public class PropertyListingPage extends Page{
 	@FindBy(xpath="//div[@id='z57_area_ranking_chart']")
 	WebElement communityStatsAreaRankingChart;
 	
+	@FindBy(xpath="//div[@id='collapse_prop_details']/descendant::div")
+	WebElement lisOfPropertydetails;
+	
 	public PropertyListingPage(WebDriver pWebDriver){
 		driver=pWebDriver;
 		wait=new WebDriverWait(driver, 10);
@@ -161,17 +166,27 @@ public class PropertyListingPage extends Page{
 	
 	public int getNumberOfBaths() {
 		if(!lNumberOfBaths.getText().isEmpty()) {
-			return Integer.parseInt(lNumberOfBeds.getText());
+			return Integer.parseInt(lNumberOfBaths.getText());
 		}else {
 			return 0;
 		}
 	}
-	public int getLotSize() {
-		if(!lLotSize.getText().isEmpty()) {
-			return Integer.parseInt(lNumberOfBeds.getText());
+	public double getLotSize() {
+		double lotSizeInSqFeet=0;
+		//Logic for in Acres and in Sq feet
+		if(driver.findElement(By.xpath(lLotSizeInAcres_xpath))!=null) {
+			lotSizeInSqFeet = Double.parseDouble(driver.findElement(By.xpath(lLotSizeInAcres_xpath+"/following::td[1]")).getText())*43560;
+		}else if(driver.findElement(By.xpath(lLotSizeInSqFeet_xpath))!=null) {
+			lotSizeInSqFeet=Double.parseDouble(driver.findElement(By.xpath(lLotSizeInSqFeet_xpath)).getText());
 		}else {
-			return 0;
+			return lotSizeInSqFeet;
 		}
+//		if(!lLotSize.getText().isEmpty()) {
+//			return Integer.parseInt(lLotSize.getText());
+//		}else {
+//			return 0;
+//		}
+		return lotSizeInSqFeet;
 	}
 	public boolean propertyInteriorVerification(String pFeatureType) {
 		boolean doesFeatureExist=false;
@@ -180,7 +195,7 @@ public class PropertyListingPage extends Page{
 			System.out.println(element.getText());
 			if(element.getText().contains(pFeatureType)) {
 				String feat=element.getText().split(pFeatureType+":")[1].trim();
-				if(feat.startsWith("Yes")) {
+				if(feat.startsWith("Yes") || !feat.isEmpty()) {
 					doesFeatureExist=true;
 					break;
 				}
@@ -222,7 +237,14 @@ public class PropertyListingPage extends Page{
 		js.executeScript("window.scrollBy(0,1200)");
 	}
 	public boolean isPinDsiplayedOnGoogleMaps() {
-		return wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
+		boolean isPinDisplayed=false;
+		try {
+			isPinDisplayed = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
+		}catch(Exception ex) {
+			System.out.println("No Pin is displayed on Google MAPS");
+			return isPinDisplayed;
+		}
+		return isPinDisplayed;
 	}
 	public boolean verifySchoolPins() {
 		int counter=0;
@@ -285,7 +307,34 @@ public class PropertyListingPage extends Page{
 	public boolean isAreaRankingChartVisible() {
 		return isElementDisplayed(communityStatsAreaRankingChart);
 	}	
+	public String getCurrentUrl() {
+		return driver.getCurrentUrl();
+	}
 	
+	public boolean verifyPropertyType(String pPropertyType) {
+		boolean isFound=false;
+		String xpath="//div[@id='collapse_prop_details']/descendant::div";
+		List<WebElement> list_of_prop_details = driver.findElements(By.xpath(xpath));
+		for(WebElement element:list_of_prop_details) {
+			if(element.getText().contains(pPropertyType)) {
+				isFound=true;
+				break;
+			}
+		}
+		return isFound;
+	}
+	public boolean verifyPropertyStyle(String pPropertyStyle) {
+		boolean isFound=false;
+		String xpath="//div[@id='listing-features']/descendant::strong[text()='Building Style:']/following::td[1]";
+		List<WebElement> list_of_prop_details = driver.findElements(By.xpath(xpath));
+		for(WebElement element:list_of_prop_details) {
+			if(element.getText().contains(pPropertyStyle)) {
+				isFound=true;
+				break;
+			}
+		}
+		return isFound;
+	}
 	@Override
 	public WebElement getHeader() {
 		// TODO Auto-generated method stub
