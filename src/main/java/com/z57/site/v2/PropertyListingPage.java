@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -121,7 +122,7 @@ public class PropertyListingPage extends Page{
 	
 	public PropertyListingPage(WebDriver pWebDriver){
 		driver=pWebDriver;
-		wait=new WebDriverWait(driver, 10);
+		wait=new WebDriverWait(driver, 20);
 		PageFactory.initElements(driver, this);
 	}
 	public PropertyListingPage(WebDriver pWebDriver,String pSourceUrl){
@@ -156,17 +157,17 @@ public class PropertyListingPage extends Page{
 		return "";
 	}
 	
-	public int getNumberOfBeds() {
+	public double getNumberOfBeds() {
 		if(!lNumberOfBeds.getText().isEmpty()) {
-			return Integer.parseInt(lNumberOfBeds.getText());
+			return Double.parseDouble(lNumberOfBeds.getText());
 		}else {
 			return 0;
 		}
 	}
 	
-	public int getNumberOfBaths() {
-		if(!lNumberOfBaths.getText().isEmpty()) {
-			return Integer.parseInt(lNumberOfBaths.getText());
+	public double getNumberOfBaths() {
+		if(!lNumberOfBaths.getText().isEmpty()) {	
+			return Double.parseDouble(lNumberOfBaths.getText());
 		}else {
 			return 0;
 		}
@@ -361,10 +362,14 @@ public class PropertyListingPage extends Page{
 	
 	private boolean isElementDisplayed(WebElement pElement) {
 		boolean result=false;
-		if(wait.until(ExpectedConditions.visibilityOf(pElement))!=null) {
-			result=true;	
+		try {
+			if(wait.until(ExpectedConditions.visibilityOf(pElement))!=null) {
+				result=true;	
+			}
+		}catch(Exception ex) {
+			System.out.println(pElement.getAttribute("xpath")+" is not visible. Waited for 20 seconds"+pElement.getScreenshotAs(OutputType.FILE));
 		}
 		return result;
-		
+
 	}
 }

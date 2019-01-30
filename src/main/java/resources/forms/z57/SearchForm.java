@@ -328,12 +328,18 @@ public class SearchForm extends AbstractForm{
 	
 	public boolean clickAndSelecctSquareFootage(String pSquareFootValue) {
 		boolean isSuccessfull=false;
-		squareFootage_dropdown.click();
-		if(typeInputAndSelectTheOption(squareFootage_input,pSquareFootValue)) {
-			isSuccessfull=true;
+		try {
+			if(wait.until(ExpectedConditions.visibilityOf(squareFootage_dropdown))!=null) {
+				squareFootage_dropdown.click();
+				if(typeInputAndSelectTheOption(squareFootage_input,pSquareFootValue)) {
+					isSuccessfull=true;
+				}
+			}
+		}catch(Exception ex) {
+			System.out.println("Unable to click on Square Footage drop down");
 		}
 		return isSuccessfull;
-		
+
 	}
 	
 	public boolean clickAndSelectView(String pView) {
@@ -371,7 +377,7 @@ public class SearchForm extends AbstractForm{
 			status_dropdown.sendKeys(Keys.BACK_SPACE);
 			status_dropdown.sendKeys(Keys.BACK_SPACE);
 			dropDownOptions=getDynamicElement(status_xpath, WordUtils.capitalizeFully(pStatus));
-			if(dropDownOptions.isDisplayed()) {
+			if(wait.until(ExpectedConditions.visibilityOf(dropDownOptions))!=null) {
 				dropDownOptions.click();
 				focusOut();
 				isClickSuccessful=true;
@@ -452,11 +458,13 @@ public class SearchForm extends AbstractForm{
 	private boolean clickAndSelectOneClick(WebElement pDropDown, String pSelectValue, String pXpathOfElement) {
 		boolean isClickSuccessful=false;
 		try {
-			pDropDown.click();
-			dropDownOptions=getDynamicElement(pXpathOfElement, pSelectValue);
-			if(dropDownOptions.isDisplayed()) {
-				dropDownOptions.click();
-				isClickSuccessful=true;
+			if(wait.until(ExpectedConditions.visibilityOf(pDropDown))!=null) {
+				pDropDown.click();
+				dropDownOptions=getDynamicElement(pXpathOfElement, pSelectValue);
+				if(wait.until(ExpectedConditions.visibilityOf(dropDownOptions))!=null) {
+					dropDownOptions.click();
+					isClickSuccessful=true;
+				}
 			}
 		}catch(Exception ex) {
 			System.out.println(ex.toString());
@@ -467,7 +475,7 @@ public class SearchForm extends AbstractForm{
 	private boolean typeInputAndSelectTheOption(WebElement pInputField,String pStringToType) {
 		boolean isTypeSuccessful=false;
 		try {
-			if(pInputField.isDisplayed()) {
+			if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
 				pInputField.sendKeys(pStringToType);
 				pInputField.sendKeys(Keys.ENTER);
 				isTypeSuccessful= true;
@@ -475,6 +483,7 @@ public class SearchForm extends AbstractForm{
 		}
 		catch(Exception ex) {
 			System.out.println(ex.toString());
+			return isTypeSuccessful;
 		}
 		return isTypeSuccessful;
 	}
