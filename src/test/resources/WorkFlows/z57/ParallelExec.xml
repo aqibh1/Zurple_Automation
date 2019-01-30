@@ -1,7 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="SmokeTestForWebsite" preserve-order="true" verbose="2" parallel="tests" thread-count="5">
-	 
+<suite name="SmokeTestForWebsite" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	 <listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+    </listeners>
+     
 	<test name="Home Seacrh Test 01" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
 	<classes>
@@ -163,7 +166,7 @@
      </classes>
      </parameter>
     </test>
-    
+     
     <test name="Home Seacrh Test 07" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-07.json">
 	<classes>
@@ -190,7 +193,7 @@
      </classes>
      </parameter>
     </test>
-    
+   
     <test name="Home Seacrh Test 08" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-08.json">
 	<classes>
@@ -217,7 +220,7 @@
      </classes>
      </parameter>
     </test>
-    
+     
     <test name="Home Seacrh Test 09" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-09.json">
 	<classes>
@@ -244,7 +247,7 @@
      </classes>
      </parameter>
     </test>
-    
+    <!-- 
     <test name="Home Seacrh Test 10" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-10.json">
 	<classes>
@@ -298,7 +301,7 @@
      </classes>
      </parameter>
     </test>
-    
+     -->
     <test name="Home Seacrh Test 12" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-12.json">
 	<classes>
@@ -325,7 +328,7 @@
      </classes>
      </parameter>
     </test>
-    
+    <!--  
     <test name="Home Seacrh Test 13" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-13.json">
 	<classes>
@@ -433,5 +436,5 @@
      </classes>
      </parameter>
     </test>
-   
+   -->
 </suite>
