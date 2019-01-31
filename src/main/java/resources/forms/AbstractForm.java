@@ -15,16 +15,21 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import resources.classes.Alert;
 import resources.classes.FormErrorMessage;
 import resources.interfaces.UsesDriver;
+import resources.utility.AutomationLogger;
 
 public abstract class AbstractForm implements UsesDriver
 {
     protected WebElement form;
     protected WebElement submitButton;
     protected WebDriver driver;
+    protected WebDriverWait wait;
 
     public void setForm(WebElement object){
         form = object;
@@ -133,6 +138,7 @@ public abstract class AbstractForm implements UsesDriver
 
     public void setDriver(WebDriver object){
         driver = object;
+        wait = new WebDriverWait(driver, 10);
     }
 
     public WebDriver getDriver(){
@@ -176,5 +182,38 @@ public abstract class AbstractForm implements UsesDriver
     public WebElement getElementById(String id){
         return form.findElement(By.xpath("./descendant::*[@id=\""+id+"\"]"));
     }
-
+    
+    protected boolean type(WebElement pInputField, String pStringToType) {
+		boolean isSuccessfull=false;
+		try {
+			if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
+				pInputField.sendKeys(pStringToType);
+				isSuccessfull=true;
+			}
+			
+		}catch(Exception ex) {
+			AutomationLogger.info("Unable to type in input field "+pInputField.getAttribute("xpath"));
+			AutomationLogger.info("String to type : "+pStringToType);
+		}
+		return isSuccessfull;
+	}
+	
+    protected boolean click(WebElement pElementToBeClicked) {
+		boolean isSuccessfull=false;
+		try {
+			if(wait.until(ExpectedConditions.visibilityOf(pElementToBeClicked))!=null) {
+				pElementToBeClicked.click();
+				isSuccessfull=true;
+			}
+			
+		}catch(Exception ex) {
+			AutomationLogger.info("Unable to Click on "+pElementToBeClicked.getAttribute("xpath"));
+		}
+		return isSuccessfull;
+	}
+	
+    protected boolean waitForElementToBeDisappeared(WebElement pElementToBeDisappeared) {
+		return wait.until(ExpectedConditions.invisibilityOf(pElementToBeDisappeared));
+		
+	}
 }

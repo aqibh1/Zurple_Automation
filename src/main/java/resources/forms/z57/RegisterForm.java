@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.forms.AbstractForm;
+import resources.utility.AutomationLogger;
 
 /**
  * @author adar
@@ -18,18 +19,28 @@ import resources.forms.AbstractForm;
  */
 public class RegisterForm extends AbstractForm{
 
-	WebDriverWait wait;
 
 	@FindBy(xpath="//div[@class='login-links']/a[@id='widget_login_topbar']")
 	WebElement alreadyregistered_link;
+	
+	@FindBy(xpath="//input[@id='top_bar_lead_reg_name']")
+	WebElement name_input;
+	
+	@FindBy(xpath="//input[@id='top_bar_lead_reg_email']")
+	WebElement email_input;
+	
+	@FindBy(xpath="//input[@id='top_bar_lead_reg_phone']")
+	WebElement phone_input;
+	
+	@FindBy(xpath="//button[@id='wp-submit-register_topbar']")
+	WebElement register_button;
 
 	public RegisterForm() {
 		
 	}
 	
 	public RegisterForm(WebDriver webDriver) {
-		driver=webDriver;
-		wait = new WebDriverWait(driver, 10);
+		setDriver(webDriver);
 		PageFactory.initElements(driver, this);
 		
 	}
@@ -44,4 +55,21 @@ public class RegisterForm extends AbstractForm{
 		}
 
 	}
+	public boolean setName(String pName) {
+		return type(name_input, pName);
+	}
+	public boolean setEmail(String pEmail) {
+		return type(email_input, pEmail);
+	}
+	public boolean setPhoneNumber(String pPhoneNumber) {
+		return type(phone_input,pPhoneNumber);
+	}
+	public boolean clickOnRegisterButton() {
+		return click(register_button);
+	}
+	public boolean isUserSuccessfullyRegistered() {
+		return waitForElementToBeDisappeared(register_button);
+	}
+	
+	
 }
