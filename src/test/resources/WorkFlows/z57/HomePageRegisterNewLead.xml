@@ -1,0 +1,28 @@
+<suite name="Home Search Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<!--   
+	<test name="Home Page Register New Lead" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-1.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+      <methods>
+      	<include name="testRegisterNewUser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	-->
+	
+	<test name="Sold Listings Register New Lead" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-2.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+      <methods>
+      	<include name="testCaptureLead" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+</suite>

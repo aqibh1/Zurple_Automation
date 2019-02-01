@@ -23,6 +23,7 @@ import resources.classes.Alert;
 import resources.classes.FormErrorMessage;
 import resources.interfaces.UsesDriver;
 import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 
 public abstract class AbstractForm implements UsesDriver
 {
@@ -215,5 +216,13 @@ public abstract class AbstractForm implements UsesDriver
     protected boolean waitForElementToBeDisappeared(WebElement pElementToBeDisappeared) {
 		return wait.until(ExpectedConditions.invisibilityOf(pElementToBeDisappeared));
 		
+	}
+    protected WebElement getDynamicElement(String pXpath,String pDynamicVariable) {
+		try {
+		return driver.findElement(By.xpath(pXpath.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable)));
+		}catch(Exception ex) {
+			AutomationLogger.error("Unable to get dynamic webelement for xpath "+pXpath);
+			return null;
+		}
 	}
 }

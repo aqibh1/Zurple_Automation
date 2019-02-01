@@ -20,6 +20,14 @@ public class RegisterUserData {
 	
 	@JsonProperty("user_phone_number")
 	String userPhoneNumber;
+	
+	@JsonProperty("capture_lead_from")
+	String captureLeadFrom;
+	
+	@JsonProperty("comments")
+	String comments;
+
+
 
 	public RegisterUserData getRegisterUserData() {
 		return registerUserData;
@@ -59,5 +67,19 @@ public class RegisterUserData {
 	public void setUserPhoneNumber(String userPhoneNumber) {
 		this.userPhoneNumber = userPhoneNumber;
 	}
+	public String getCaptureLeadFrom() {
+		return captureLeadFrom;
+	}
 
+	public void setCaptureLeadFrom(String captureLeadFrom) {
+		this.captureLeadFrom = captureLeadFrom;
+	}
+	
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
 }

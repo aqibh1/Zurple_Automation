@@ -10,6 +10,8 @@ import resources.ConfigReader;
 import resources.alerts.BootstrapModal;
 import resources.alerts.SweetAlertNotification;
 import resources.interfaces.HasHeader;
+import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 import us.zengtest1.resources.forms.RegisterForm;
 
 /**
@@ -22,7 +24,9 @@ public abstract class Page extends AbstractPage implements HasHeader
 
     private String baseUrl = null;
     private RegisterForm registerForm;
-
+    protected static String DYNAMIC_VARIABLE="[--Dynamic Variable--]";
+    protected WebDriverWait wait;
+    
     protected String getBaseUrl(){
         if (baseUrl == null){
             ConfigReader configReader = ConfigReader.load();
@@ -68,5 +72,47 @@ public abstract class Page extends AbstractPage implements HasHeader
         WebDriverWait wait = new WebDriverWait(driver, pWaitTimeForPageToGetLoad);
         wait.until(pageLoadCondition);
     }
-    
+   
+   
+    protected boolean type(WebElement pInputField, String pStringToType) {
+		boolean isSuccessfull=false;
+		try {
+			if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
+				pInputField.sendKeys(pStringToType);
+				isSuccessfull=true;
+			}
+			
+		}catch(Exception ex) {
+			AutomationLogger.info("Unable to type in input field "+pInputField.getAttribute("xpath"));
+			AutomationLogger.info("String to type : "+pStringToType);
+		}
+		return isSuccessfull;
+	}
+	
+    protected boolean click(WebElement pElementToBeClicked) {
+		boolean isSuccessfull=false;
+		try {
+			if(wait.until(ExpectedConditions.visibilityOf(pElementToBeClicked))!=null) {
+				pElementToBeClicked.click();
+				isSuccessfull=true;
+			}
+			
+		}catch(Exception ex) {
+			AutomationLogger.info("Unable to Click on "+pElementToBeClicked.getAttribute("xpath"));
+		}
+		return isSuccessfull;
+	}
+	
+    protected boolean waitForElementToBeDisappeared(WebElement pElementToBeDisappeared) {
+		return wait.until(ExpectedConditions.invisibilityOf(pElementToBeDisappeared));
+		
+	}
+    protected WebElement getDynamicElement(String pXpath,String pDynamicVariable) {
+  		try {
+  		return driver.findElement(By.xpath(pXpath.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable)));
+  		}catch(Exception ex) {
+  			AutomationLogger.error("Unable to get dynamic webelement for xpath "+pXpath);
+  			return null;
+  		}
+  	}
 }

@@ -487,14 +487,14 @@ public class SearchForm extends AbstractForm{
 		}
 		return isTypeSuccessful;
 	}
-	//Helper Methods
-	private WebElement getDynamicElement(String pXpath,String pDynamicVariable) {
-		try {
-		return driver.findElement(By.xpath(pXpath.replace(DYNAMIC_VARIABLE, pDynamicVariable)));
-		}catch(Exception ex) {
-			return null;
-		}
-	}
+//	//Helper Methods
+//	private WebElement getDynamicElement(String pXpath,String pDynamicVariable) {
+//		try {
+//		return driver.findElement(By.xpath(pXpath.replace(DYNAMIC_VARIABLE, pDynamicVariable)));
+//		}catch(Exception ex) {
+//			return null;
+//		}
+//	}
 	private void focusOut() {
 		Actions act = new Actions(driver);
 		act.moveToElement(searchField_input).click().perform();;

@@ -1,11 +1,14 @@
 package resources.utility;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 public class AutomationLogger {
 	
 	private static Logger AutomationLogger = Logger.getLogger(AutomationLogger.class.getName());
 	 // This is to print log for the beginning of the test case, as we usually run so many test cases as a test suite
-	 
+	 public static void setLog4jPopFile() {
+		 PropertyConfigurator.configure("log4j.properties");
+	 }
 	 public static void startTestCase(String pTestCaseName){
 	 
 		 AutomationLogger.info("****************************************************************************************");
@@ -63,7 +66,7 @@ public class AutomationLogger {
 	 }
 	 
 	 public static void debug(String message) {
-	 
+		
 		 AutomationLogger.debug(message);
 	 
 	 }

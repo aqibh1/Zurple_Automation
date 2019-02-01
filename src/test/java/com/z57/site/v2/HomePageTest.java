@@ -10,6 +10,7 @@ import resources.ConfigReader;
 import resources.alerts.BootstrapModal;
 import resources.data.z57.RegisterUserData;
 import resources.data.z57.SearchFormData;
+import resources.forms.z57.LeadCaptureForm;
 import resources.forms.z57.LoginForm;
 import resources.forms.z57.RegisterForm;
 import resources.orm.hibernate.models.AbstractLead;
@@ -27,6 +28,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public class HomePageTest extends PageTest
@@ -109,20 +111,115 @@ public class HomePageTest extends PageTest
     	assertEquals("Sign In",getPage().getUserMenu().getText());
     	assertTrue(loginFormObj.clickOnSignInButton(),"Sign In button not visible on Home Page");
     	
-    	RegisterForm registerFormObj = new RegisterForm(page.getWebDriver());
-    	if(!registerUserData.getUserName().isEmpty()) {
-    		assertTrue(registerFormObj.setName(registerUserData.getUserName()),"Unable to type Name in input field");
-    	}
-    	if(!registerUserData.getUserEmail().isEmpty()) {
-    		assertTrue(registerFormObj.setEmail(registerUserData.getUserEmail()),"Unable to type Email in input field");
-    	}
-    	if(!registerUserData.getUserPhoneNumber().isEmpty()) {
-    		assertTrue(registerFormObj.setPhoneNumber(registerUserData.getUserPhoneNumber()),"Unable to type Phone Number in input field");
-    	}
-    	assertTrue(registerFormObj.clickOnRegisterButton(),"Unable to click on Register button");
-    	assertTrue(registerFormObj.isUserSuccessfullyRegistered(),"Register dialog is not closed after Register button is clicked");
+    	assertTrue(registerLead(registerUserData.getUserName(),registerUserData.getUserEmail(),registerUserData.getUserPhoneNumber()), "The dialog didn't disappear after clicking Register button");
     	assertTrue(verifyLeadInDB(),"Lead not verified in DB");
       
+    }
+    @Parameters({"dataFile"})
+    @Test
+    public void testCaptureLead(String pFolderLocation) {
+    	registerUserData = new RegisterUserData();
+    	registerUserData = registerUserData.setRegisterUserData(pFolderLocation);
+    	String captureLeadFrom = registerUserData.getCaptureLeadFrom();
+    	String lName=registerUserData.getUserName();
+    	String lEmail=registerUserData.getUserEmail();
+    	String lPhone=registerUserData.getUserPhoneNumber();
+    	String lComments=registerUserData.getComments();
+    	
+    	closeBootStrapModal();
+    	
+    	PageHeader pageHeader = new PageHeader(getDriver());
+    	
+    	assertFalse(pageHeader.isLeadLoggedIn(), "Lead is already logged in.");
+    	
+    	switch(captureLeadFrom){
+
+    	case "Featured Properties":
+    		assertTrue(pageHeader.clickOnFeaturedProperties(), "Unable to click on Feature Properties");
+    		break;
+    		
+    	case "Sold Listings":
+    		assertTrue(pageHeader.clickOnSoldListings(), "Unable to click on Sold Listings");
+    		break;
+    		
+    	case "Search Homes":
+    		assertTrue(pageHeader.clickOnSearchHomes(), "Unable to click on Search Homes");
+    		break;
+    		
+    	case "Local Home Values":
+    		assertTrue(pageHeader.clickOnLocalHomeValues(), "Unable to click on Local Home Values");
+    		break;
+    		
+    	case "Community Reports":
+    		assertTrue(pageHeader.clickOnCommunityReports(), "Unable to click on Community Reports");
+    		break;
+    		
+    	case "School Reports":
+    		assertTrue(pageHeader.clickOnSchoolReports(), "Unable to click on School Reports");
+    		break;
+    		
+    	case "Whats Nearby":
+    		assertTrue(pageHeader.clickOnWhatsNearby(), "Unable to click on What's Nearyby");
+    		break;
+    		
+    	case "Real Estate Updates":
+    		assertTrue(pageHeader.clickOnRealEstateUpdates(), "Unable to click on Real Estate updates");
+    		break;
+    		
+    	case "Contact":
+    		assertTrue(pageHeader.clickOnContact(), "Unable to click on Contact");
+    		break;
+    		
+    	case "About":
+    		assertTrue(pageHeader.clickOnAbout(), "Unable to click on About");
+    		break;
+    		
+    	case "Buyers":
+    		assertTrue(pageHeader.clickOnBuyers(), "Unable to click on Buyers");
+    		break;
+    		
+    	case "Sellers":
+    		assertTrue(pageHeader.clickOnSellers(), "Unable to click on Sellers");
+    		break;
+    		
+    	default:
+    		assertTrue(pageHeader.clickOnRealEstateUpdates(), "Unable to click on Real Estate updates");
+    		break;
+    	}
+    	
+    	LeadCaptureForm leadCaptureForm = new LeadCaptureForm(getDriver());
+    	assertTrue(leadCaptureForm.isLeadCaptureFormVisible(), "Lead Capture Form was not visible for "+captureLeadFrom);
+    	
+    	assertTrue(leadCaptureForm.typeName(lName), "Name input field not visible. Unable to type");
+    	assertTrue(leadCaptureForm.typeEmail(lEmail), "Email input field not visible. Unable to type");
+    	
+    	if(!lPhone.isEmpty()) {
+    		assertTrue(leadCaptureForm.typePhoneNumber(lPhone), "Phone input field not visible. Unable to type");
+    	}
+    	if(!lComments.isEmpty()) {
+    		assertTrue(leadCaptureForm.typeComments(lComments), "Comments input field not visible. Unable to type");
+    	}
+    	
+    	assertTrue(leadCaptureForm.clickOnSendButton(),"Unable to click on Send button.");
+    	
+    	assertTrue(pageHeader.isLeadLoggedIn(), "Lead is not logged in.");
+    }
+    
+    
+    //All the leads register related test cases will use this method.
+    private boolean registerLead(String pName, String pUserEmail, String pPUserPhoneNumber) {
+    	RegisterForm registerFormObj = new RegisterForm(page.getWebDriver());
+    	if(!pName.isEmpty()) {
+    		assertTrue(registerFormObj.setName(pName),"Unable to type Name in input field");
+    	}
+    	if(!pUserEmail.isEmpty()) {
+    		assertTrue(registerFormObj.setEmail(pUserEmail),"Unable to type Email in input field");
+    	}
+    	if(!pPUserPhoneNumber.isEmpty()) {
+    		assertTrue(registerFormObj.setPhoneNumber(pPUserPhoneNumber),"Unable to type Phone Number in input field");
+    	}
+    	assertTrue(registerFormObj.clickOnRegisterButton(),"Unable to click on Register button");
+    	return registerFormObj.isUserSuccessfullyRegistered();
     }
     
     private boolean verifyLeadInDB() {
@@ -133,5 +230,14 @@ public class HomePageTest extends PageTest
           //Checking DB record body
           AbstractLead newLead = getEnvironment().getLeadObject(lead_id);
           return registerUserData.getUserEmail().equalsIgnoreCase(newLead.getEmail());
+    }
+    
+    private void closeBootStrapModal() {
+    	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
+
+    	if(bootstrapModalObj.checkBootsrapModalIsShown()){
+        	bootstrapModalObj.getBootstrapModal().close();
+        	bootstrapModalObj.clearBootstrapModal();
+        }
     }
 }
