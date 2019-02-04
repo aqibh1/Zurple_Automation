@@ -7,6 +7,9 @@ import resources.orm.hibernate.dao.zurple.*;
 import resources.orm.hibernate.dao.z57.*;
 import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.models.AbstractLead;
+import resources.orm.hibernate.models.z57.NotificationEmails;
+import resources.orm.hibernate.models.z57.NotificationMailgun;
+import resources.orm.hibernate.models.z57.Notifications;
 import resources.orm.hibernate.models.zurple.*;
 
 public class TestEnvironment
@@ -277,5 +280,44 @@ public class TestEnvironment
 
     public void setUserToCheck(User userToCheck) {
         this.userToCheck = userToCheck;
+    }
+    
+    //////////////////
+    public NotificationEmails getNotificationEmailsObject(String pEmail)
+    {
+        String project = System.getProperty("project");
+
+        if (project.equals("z57"))
+        {
+        	ManageNotificationEmails notification_emails_object = new ManageNotificationEmails(getSession());
+            return notification_emails_object.getNotificationId(pEmail);
+        }else {
+        	return null;
+        }
+    }
+    
+    public NotificationMailgun getNotificationMailgunObject(Integer pNotificationId)
+    {
+        String project = System.getProperty("project");
+
+        if (project.equals("z57"))
+        {
+        	ManageNotificationMailgun notification_mailgun_object = new ManageNotificationMailgun(getSession());
+            return notification_mailgun_object.getMailgunStatus(pNotificationId);
+        }else {
+        	return null;
+        }
+    }
+    
+    public Notifications getNotificationObject(Integer pNotificationId)
+    {
+        String project = System.getProperty("project");
+        if (project.equals("z57"))
+        {
+        	ManageNotifications notification_object = new ManageNotifications(getSession());
+            return notification_object.getAllNotifications(pNotificationId);
+        }else {
+        	return null;
+        }
     }
 }

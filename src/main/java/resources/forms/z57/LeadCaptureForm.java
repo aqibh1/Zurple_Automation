@@ -11,12 +11,16 @@ import resources.utility.FrameworkConstants;
 
 public class LeadCaptureForm extends AbstractForm{
 	String input_fileds_xpath="//form[@id='anypage_lead_capture_form']/descendant::input[@name='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
-	
-	@FindBy(id="anypage_lead_capture_send")
+	String textarea_xpath="//form[@id='anypage_lead_capture_form']/descendant::textarea[@name='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+
+	@FindBy(xpath="//button[@id='anypage_lead_capture_send']")
 	WebElement send_button;
 	
-	@FindBy(id="login_with_fb_button")
+	@FindBy(xpath="//div[@id='login_with_fb_button']/a[@id='login_with_fb']")
 	WebElement login_with_fb_button;
+	
+	@FindBy(xpath="//div[@class='modal-header']/h3[@id='anypage_lead_capture_modal_title']")
+	WebElement modal_header_title;
 	
 	public LeadCaptureForm(WebDriver pWebDriver){
 		driver=pWebDriver;
@@ -33,7 +37,7 @@ public class LeadCaptureForm extends AbstractForm{
 		return ActionHelper.Type(driver, getDynamicElement(input_fileds_xpath, "anypage_lead_capture_form[phone]"),pPhoneNumber);
 	}
 	public boolean typeComments(String pComments) {
-		return ActionHelper.Type(driver, getDynamicElement(input_fileds_xpath, "anypage_lead_capture_form[comments]"),pComments);
+		return ActionHelper.Type(driver, getDynamicElement(textarea_xpath, "anypage_lead_capture_form[comments]"),pComments);
 	}
 	public boolean clickOnSendButton() {
 		return ActionHelper.Click(driver, send_button);
@@ -44,7 +48,7 @@ public class LeadCaptureForm extends AbstractForm{
 	}
 	
 	public boolean isLeadCaptureFormVisible() {
-		return ActionHelper.isElementVisible(driver, login_with_fb_button);
+		return ActionHelper.waitForElementToBeVisible(driver, modal_header_title,20);
 	}
 	
 }

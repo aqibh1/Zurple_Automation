@@ -17,6 +17,8 @@ public class Lead extends AbstractLead
     private String name_full;
     private String email;
     private String phone;
+    private String account_id;
+    private String date_added;
 
     public Lead() {
     }
@@ -30,8 +32,26 @@ public class Lead extends AbstractLead
         this.email = email;
         this.phone = phone;
     }
+    
+    @Column(name = "account_id", unique = false, nullable = false, length = 255)
+    public String getAccount_id() {
+		return account_id;
+	}
 
-    @Id
+	public void setAccount_id(String account_id) {
+		this.account_id = account_id;
+	}
+	
+	@Column(name = "date_added", unique = false, nullable = false, length = 255)
+	public String getDate_added() {
+		return date_added;
+	}
+
+	public void setDate_added(String date_added) {
+		this.date_added = date_added;
+	}
+
+	@Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "lead_id", unique = true, nullable = false)
     public Integer getId() {

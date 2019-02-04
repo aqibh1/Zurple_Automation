@@ -1,5 +1,6 @@
 package resources.utility;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -63,9 +64,23 @@ public class ActionHelper {
 		   wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
 		   boolean isElementVisible = false;
 		   try {
+			   pElement.isDisplayed();
 			   isElementVisible=wait.until(ExpectedConditions.visibilityOf(pElement))!=null;
 		   }catch(Exception ex) {
-			   AutomationLogger.error("Element is not visible.  Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
+			   AutomationLogger.error("Element is not visible.  -> "+pElement);
+			   AutomationLogger.error("Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
+		   }
+		   return isElementVisible;
+	   }
+	   
+	   public static boolean waitForElementToBeVisible(WebDriver pWebDriver,WebElement pElement,long pWaitInSecnds) {
+		   wait=new WebDriverWait(pWebDriver, pWaitInSecnds);
+		   boolean isElementVisible = false;
+		   try {
+			   isElementVisible=wait.until(ExpectedConditions.visibilityOf(pElement))!=null;
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Element is not visible.  -> "+pElement);
+			   AutomationLogger.error("Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
 		   }
 		   return isElementVisible;
 	   }

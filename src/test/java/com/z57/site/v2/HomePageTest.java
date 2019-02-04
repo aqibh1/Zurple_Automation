@@ -14,6 +14,9 @@ import resources.forms.z57.LeadCaptureForm;
 import resources.forms.z57.LoginForm;
 import resources.forms.z57.RegisterForm;
 import resources.orm.hibernate.models.AbstractLead;
+import resources.orm.hibernate.models.z57.NotificationEmails;
+import resources.orm.hibernate.models.z57.NotificationMailgun;
+import resources.orm.hibernate.models.z57.Notifications;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -186,23 +189,34 @@ public class HomePageTest extends PageTest
     		assertTrue(pageHeader.clickOnRealEstateUpdates(), "Unable to click on Real Estate updates");
     		break;
     	}
-    	
     	LeadCaptureForm leadCaptureForm = new LeadCaptureForm(getDriver());
-    	assertTrue(leadCaptureForm.isLeadCaptureFormVisible(), "Lead Capture Form was not visible for "+captureLeadFrom);
     	
-    	assertTrue(leadCaptureForm.typeName(lName), "Name input field not visible. Unable to type");
-    	assertTrue(leadCaptureForm.typeEmail(lEmail), "Email input field not visible. Unable to type");
-    	
-    	if(!lPhone.isEmpty()) {
-    		assertTrue(leadCaptureForm.typePhoneNumber(lPhone), "Phone input field not visible. Unable to type");
+    	if(captureLeadFrom.equalsIgnoreCase("Search Homes") || captureLeadFrom.equalsIgnoreCase("Real Estate Updates") || captureLeadFrom.equalsIgnoreCase("Contact")
+    			|| captureLeadFrom.equalsIgnoreCase("About") || captureLeadFrom.equalsIgnoreCase("Buyers") || captureLeadFrom.equalsIgnoreCase("Sellers")) {
+    		
+    		assertFalse(leadCaptureForm.isLeadCaptureFormVisible(), "Lead Capture Form is visible for "+captureLeadFrom);
+    	}else {
+    		assertTrue(leadCaptureForm.isLeadCaptureFormVisible(), "Lead Capture Form was not visible for "+captureLeadFrom);
+        	
+        	assertTrue(leadCaptureForm.typeName(lName), "Name input field not visible. Unable to type");
+        	assertTrue(leadCaptureForm.typeEmail(lEmail), "Email input field not visible. Unable to type");
+        	
+        	if(!lPhone.isEmpty()) {
+        		assertTrue(leadCaptureForm.typePhoneNumber(lPhone), "Phone input field not visible. Unable to type");
+        	}
+        	if(!lComments.isEmpty()) {
+        		assertTrue(leadCaptureForm.typeComments(lComments), "Comments input field not visible. Unable to type");
+        	}
+        	
+        	assertTrue(leadCaptureForm.clickOnSendButton(),"Unable to click on Send button.");
+        	
+        	assertTrue(pageHeader.isLeadLoggedIn(), "Lead is not logged in.");	
+    		Integer notificationId=getNotificationId(lEmail);
+    		getMailgunStatus(notificationId);
+    		getNotifications(notificationId);
+    		assertTrue(verifyLeadInDB(),"Unable to verify Lead in DB");
+        	
     	}
-    	if(!lComments.isEmpty()) {
-    		assertTrue(leadCaptureForm.typeComments(lComments), "Comments input field not visible. Unable to type");
-    	}
-    	
-    	assertTrue(leadCaptureForm.clickOnSendButton(),"Unable to click on Send button.");
-    	
-    	assertTrue(pageHeader.isLeadLoggedIn(), "Lead is not logged in.");
     }
     
     
@@ -232,6 +246,20 @@ public class HomePageTest extends PageTest
           return registerUserData.getUserEmail().equalsIgnoreCase(newLead.getEmail());
     }
     
+    private void getNotifications(Integer pNotificationId) {
+    	Notifications notification_object = getEnvironment().getNotificationObject(pNotificationId);
+    	System.out.println(notification_object.getEmail_subject()+"  "+notification_object.getSentDate());
+    }
+    
+    private void getMailgunStatus(Integer pNotificationId) {
+    	NotificationMailgun notification_mailgun_object = getEnvironment().getNotificationMailgunObject(pNotificationId);
+    	System.out.println(notification_mailgun_object.getStatus());
+    }
+    private Integer getNotificationId(String pEmail) {
+    	NotificationEmails not_email_obj = getEnvironment().getNotificationEmailsObject(pEmail);
+    	System.out.println(not_email_obj.getNotificationId());
+    	return not_email_obj.getNotificationId();
+    }
     private void closeBootStrapModal() {
     	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
 
