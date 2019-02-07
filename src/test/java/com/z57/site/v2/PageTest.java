@@ -17,6 +17,7 @@ import resources.interfaces.TestHavingHeader;
 import resources.interfaces.UsingPage;
 import resources.orm.hibernate.models.AbstractLead;
 import resources.orm.hibernate.models.z57.Lead;
+import resources.utility.FrameworkConstants;
 
 import java.util.Date;
 import java.util.UUID;
@@ -118,9 +119,9 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
              
         	assertTrue(dbHelperObject.verifyLeadInDB(pEmail,lead_id),"Unable to verify Lead in DB");
         	
-//        	assertTrue(dbHelperObject.verifyEmailIsSent(pEmail, "You have a new lead from PropertyPulse!"), "Unable to sent email to Lead");
+        	assertTrue(dbHelperObject.verifyEmailIsSent(pEmail, FrameworkConstants.ThanksForConnecting), "Unable to sent email to Lead");
 
-        	assertTrue(dbHelperObject.verifyEmailIsSent(EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email"), "You have a new lead from PropertyPulse!"), "Unable to sent email to Agent");
+        	assertTrue(dbHelperObject.verifyEmailIsSent(EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email"), FrameworkConstants.YouHaveANewLead), "Unable to sent email to Agent");
         	        	
     }
     

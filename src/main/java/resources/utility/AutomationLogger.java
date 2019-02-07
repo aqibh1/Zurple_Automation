@@ -43,7 +43,7 @@ public class AutomationLogger {
 	 
 	 public static void info(String message) {
 	 
-		 AutomationLogger.info("***************" +message+ "***************");
+		 AutomationLogger.info("-----=====" +message+ "=====-----");
 	 
 	 }
 	 
@@ -55,7 +55,7 @@ public class AutomationLogger {
 	 
 	 public static void error(String message) {
 	 
-		 AutomationLogger.error(message);
+		 AutomationLogger.error("-----ERROR=====" +message+ "=====ERROR-----");
 	 
 	 }
 	 

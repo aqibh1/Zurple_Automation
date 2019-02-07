@@ -97,5 +97,32 @@ public class ActionHelper {
 		   }
 		   return ltext;
 	   }
+	   
+	   public static boolean clickAndSelect(WebDriver pWebDriver, WebElement pDropdown,WebElement pElementToSelect) {
+		   boolean result=false;
+		   if(waitForElementToBeVisible(pWebDriver,pDropdown,GLOBAL_WAIT_COUNT)) {
+			   result= Click(pWebDriver, pElementToSelect);
+		   }
+		   return result;
+	   }
 	    
+	   public static boolean ClearAndType(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
+			boolean isSuccessfull=false;
+			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			try {
+				AutomationLogger.info("Waiting for the visibility of element ->"+pInputField);
+				if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
+					pInputField.clear();
+					pInputField.sendKeys(pStringToType);
+					AutomationLogger.info("String typed ->"+pStringToType);
+					isSuccessfull=true;
+				}
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to type in input field "+pInputField.getAttribute("xpath"));
+				AutomationLogger.error("String to type : "+pStringToType);
+				AutomationLogger.error(ex.toString());
+			}
+			return isSuccessfull;
+		}
 }
