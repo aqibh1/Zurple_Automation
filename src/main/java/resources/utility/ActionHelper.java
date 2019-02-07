@@ -1,11 +1,10 @@
 package resources.utility;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ActionHelper {
 	protected static WebDriverWait wait;
@@ -15,14 +14,17 @@ public class ActionHelper {
 			boolean isSuccessfull=false;
 			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
 			try {
+				AutomationLogger.info("Waiting for the visibility of element ->"+pInputField);
 				if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
 					pInputField.sendKeys(pStringToType);
+					AutomationLogger.info("String typed ->"+pStringToType);
 					isSuccessfull=true;
 				}
 				
 			}catch(Exception ex) {
-				AutomationLogger.info("Unable to type in input field "+pInputField.getAttribute("xpath"));
-				AutomationLogger.info("String to type : "+pStringToType);
+				AutomationLogger.error("Unable to type in input field "+pInputField.getAttribute("xpath"));
+				AutomationLogger.error("String to type : "+pStringToType);
+				AutomationLogger.error(ex.toString());
 			}
 			return isSuccessfull;
 		}
@@ -37,7 +39,8 @@ public class ActionHelper {
 				}
 				
 			}catch(Exception ex) {
-				AutomationLogger.info("Unable to Click on "+pElementToBeClicked.getAttribute("xpath"));
+				AutomationLogger.error("Unable to Click on "+pElementToBeClicked.getAttribute("xpath"));
+				AutomationLogger.error(ex.toString());
 			}
 			return isSuccessfull;
 		}
@@ -55,6 +58,7 @@ public class ActionHelper {
 			   isElementVisible=wait.until(ExpectedConditions.invisibilityOf(pElementToBeDisappeared));
 		   }catch(Exception ex) {
 			   AutomationLogger.error("Element is not visible.  Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
+			   AutomationLogger.error(ex.toString());
 		   }
 		   return isElementVisible;
 
@@ -64,11 +68,11 @@ public class ActionHelper {
 		   wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
 		   boolean isElementVisible = false;
 		   try {
-			   pElement.isDisplayed();
 			   isElementVisible=wait.until(ExpectedConditions.visibilityOf(pElement))!=null;
 		   }catch(Exception ex) {
 			   AutomationLogger.error("Element is not visible.  -> "+pElement);
 			   AutomationLogger.error("Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
+			   AutomationLogger.error(ex.toString());
 		   }
 		   return isElementVisible;
 	   }
@@ -81,10 +85,17 @@ public class ActionHelper {
 		   }catch(Exception ex) {
 			   AutomationLogger.error("Element is not visible.  -> "+pElement);
 			   AutomationLogger.error("Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
+			   AutomationLogger.error(ex.toString());
 		   }
 		   return isElementVisible;
 	   }
+	   
+	   public static String getText(WebDriver pWebDriver,WebElement pElement) {
+		   String ltext="";
+		   if(isElementVisible(pWebDriver, pElement)) {
+			   ltext=pElement.getText();
+		   }
+		   return ltext;
+	   }
 	    
-	    
-
 }

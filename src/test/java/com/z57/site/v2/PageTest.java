@@ -9,15 +9,20 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import resources.AbstractPageTest;
+import resources.DBHelperMethods;
+import resources.EnvironmentFactory;
 import resources.alerts.BootstrapModal;
+import resources.forms.z57.LeadCaptureForm;
 import resources.interfaces.TestHavingHeader;
 import resources.interfaces.UsingPage;
 import resources.orm.hibernate.models.AbstractLead;
 import resources.orm.hibernate.models.z57.Lead;
 
+import java.util.Date;
 import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public abstract class PageTest extends AbstractPageTest  implements UsingPage, TestHavingHeader
@@ -83,5 +88,58 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
 
     }
     
+    public void captureLead(String pName,String pEmail, String pPhone, String pComments) {
+    		PageHeader pageHeader = new PageHeader(getDriver());
+    		LeadCaptureForm leadCaptureForm = new LeadCaptureForm(getDriver());
+    
+    		
+    		assertTrue(leadCaptureForm.isLeadCaptureFormVisible(), "Lead Capture Form was not visible for ");
+        	
+        	assertTrue(leadCaptureForm.typeName(pName), "Name input field not visible. Unable to type");
+        	pEmail=updateEmail(pEmail);
+        	assertTrue(leadCaptureForm.typeEmail(pEmail), "Email input field not visible. Unable to type");
+        	
+        	if(!pPhone.isEmpty()) {
+        		assertTrue(leadCaptureForm.typePhoneNumber(pPhone), "Phone input field not visible. Unable to type");
+        	}
+        	if(!pComments.isEmpty()) {
+        		assertTrue(leadCaptureForm.typeComments(pComments), "Comments input field not visible. Unable to type");
+        	}
+        	
+        	assertTrue(leadCaptureForm.clickOnSendButton(),"Unable to click on Send button.");
+        	
+        	assertTrue(pageHeader.isLeadLoggedIn(), "Lead is not logged in.");	
+        	
+        	
+        	DBHelperMethods dbHelperObject = new DBHelperMethods(getEnvironment());
+        	//Email Verification
+        	 Cookie cks = getDriver().manage().getCookieNamed("zfs_lead_id");
+             Integer lead_id = Integer.parseInt(cks.getValue());
+             
+        	assertTrue(dbHelperObject.verifyLeadInDB(pEmail,lead_id),"Unable to verify Lead in DB");
+        	
+//        	assertTrue(dbHelperObject.verifyEmailIsSent(pEmail, "You have a new lead from PropertyPulse!"), "Unable to sent email to Lead");
+
+        	assertTrue(dbHelperObject.verifyEmailIsSent(EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email"), "You have a new lead from PropertyPulse!"), "Unable to sent email to Agent");
+        	        	
+    }
+    
+    public void closeBootStrapModal() {
+    	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
+
+    	if(bootstrapModalObj.checkBootsrapModalIsShown()){
+        	bootstrapModalObj.getBootstrapModal().close();
+        	bootstrapModalObj.clearBootstrapModal();
+        }
+    }
+    private String updateEmail(String pEmail) {
+    	Date dateObj = new Date();
+		long date_to_append=dateObj.getTime()/3600;
+		int at = pEmail.indexOf('@');
+		String firstPart = pEmail.substring(0, at);
+		String lastPart = pEmail.substring(at);
+		pEmail=firstPart+"_"+Long.toString(date_to_append)+lastPart;
+		return pEmail;
+    }
    
 }

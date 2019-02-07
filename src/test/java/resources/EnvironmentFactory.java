@@ -13,7 +13,7 @@ public class EnvironmentFactory {
 
     static Map<Long,WebDriver> webDrivers = new HashMap<Long,WebDriver>();
     static Map<Long,TestEnvironment> environments = new HashMap<Long,TestEnvironment>();
-    static ConfigReader configReader = ConfigReader.load();
+    public static ConfigReader configReader = ConfigReader.load();
 
     //TODO
     //Add more coverage for the Microsoft Edge and Safari
