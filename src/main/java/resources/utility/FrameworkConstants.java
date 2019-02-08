@@ -8,5 +8,6 @@ public class FrameworkConstants {
 	public static final String ThanksForConnecting="Thanks for connecting with me";
 	public static final String RecentHomeSalesPageTitle="Recent Home Sales";
 	public static final String CommunityReportsPageTitle="Community Reports";
+	public static final String SchoolReportsPageTitle="School Reports";
 
 }
