@@ -260,12 +260,5 @@ public class HomePageTest extends PageTest
     	System.out.println(not_email_obj.getNotificationId());
     	return not_email_obj.getNotificationId();
     }
-    private void closeBootStrapModal() {
-    	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
-
-    	if(bootstrapModalObj.checkBootsrapModalIsShown()){
-        	bootstrapModalObj.getBootstrapModal().close();
-        	bootstrapModalObj.clearBootstrapModal();
-        }
-    }
+    
 }
