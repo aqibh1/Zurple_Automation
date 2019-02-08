@@ -9,5 +9,6 @@ public class FrameworkConstants {
 	public static final String RecentHomeSalesPageTitle="Recent Home Sales";
 	public static final String CommunityReportsPageTitle="Community Reports";
 	public static final String SchoolReportsPageTitle="School Reports";
+	public static final String PointOfIntrestsPageTitle ="Points of Interest";
 
 }
