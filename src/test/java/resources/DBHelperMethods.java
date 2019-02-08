@@ -57,11 +57,6 @@ public class DBHelperMethods {
 		boolean status=false;
 		Integer notificationId=getNotificationId(pAgentEmail);
 		if(notificationId>0) {
-//			//Mail is sent to agent of status is 1
-//			
-//			if(getMailgunStatus(notificationId)==1 || getMailgunStatus(notificationId)==3) {
-//				mailGunStatus=true;	
-//			}
 			Notifications notificationsObj = getNotifications(notificationId);
 			status=notificationsObj.getEmail_subject().equalsIgnoreCase(pEmailSubjectToVerify)?true:false;
 			

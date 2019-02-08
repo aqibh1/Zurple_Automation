@@ -1,0 +1,23 @@
+<suite name="Capture Lead From Community Reports Page" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+    </listeners>
+   
+    <test name="Capture Lead From Community Reports" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-6.json">
+	<classes>
+      <class name="com.z57.site.v2.CommunityReportsPageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromCommunityReportsPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+</suite>
