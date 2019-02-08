@@ -33,6 +33,7 @@ public class ListingPageTest extends PageTest{
 	public Page getPage() {
 		if(page == null){
 			page = new ListingPage(getDriver());
+			page.setUrl("");
 			page.setDriver(getDriver());
 			driver=getDriver();
 		}

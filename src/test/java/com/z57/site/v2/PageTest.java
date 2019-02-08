@@ -95,7 +95,7 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
     
     		
     		assertTrue(leadCaptureForm.isLeadCaptureFormVisible(), "Lead Capture Form was not visible for ");
-        	
+        	pName=updateName(pName);
         	assertTrue(leadCaptureForm.typeName(pName), "Name input field not visible. Unable to type");
         	pEmail=updateEmail(pEmail);
         	assertTrue(leadCaptureForm.typeEmail(pEmail), "Email input field not visible. Unable to type");
@@ -141,6 +141,13 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
 		String lastPart = pEmail.substring(at);
 		pEmail=firstPart+"_"+Long.toString(date_to_append)+lastPart;
 		return pEmail;
+    }
+    
+    private String updateName(String pName) {
+    	Date dateObj = new Date();
+		long date_to_append=dateObj.getTime()/3600;
+		pName=pName+" "+Long.toString(date_to_append);
+		return pName;
     }
    
 }
