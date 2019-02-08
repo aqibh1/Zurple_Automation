@@ -1,0 +1,1387 @@
+-----=====Mouse hover is successfull=====-----
+-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on XP (89881655acf77f8b51e5a1c1f7e54548)] -> xpath: //input[@id='ic_zip']]=====-----
+-----=====String typed ->93216=====-----
+-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on XP (89881655acf77f8b51e5a1c1f7e54548)] -> xpath: //form[@id='anypage_lead_capture_form']/descendant::input[@name='anypage_lead_capture_form[name]']]=====-----
+-----=====String typed ->Jason Holder=====-----
+-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on XP (89881655acf77f8b51e5a1c1f7e54548)] -> xpath: //form[@id='anypage_lead_capture_form']/descendant::input[@name='anypage_lead_capture_form[email]']]=====-----
+-----=====String typed ->holder_430447429@mailinator.com=====-----
+-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on XP (89881655acf77f8b51e5a1c1f7e54548)] -> xpath: //form[@id='anypage_lead_capture_form']/descendant::input[@name='anypage_lead_capture_form[phone]']]=====-----
+-----=====String typed ->9265658923=====-----
+-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on XP (89881655acf77f8b51e5a1c1f7e54548)] -> xpath: //form[@id='anypage_lead_capture_form']/descendant::textarea[@name='anypage_lead_capture_form[comments]']]=====-----
+-----=====String typed ->More details required ##$$$=====-----
+Hibernate Annotations 3.2.1.GA
+Hibernate 3.2.1
+hibernate.properties not found
+Bytecode provider name : cglib
+using JDK 1.4 java.sql.Timestamp handling
+configuring from resource: /z57.hibernate.cfg.xml
+Configuration resource: /z57.hibernate.cfg.xml
+trying to resolve system-id [http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd]
+hibernate.connection.driver_class=com.mysql.jdbc.Driver
+hibernate.dialect=org.hibernate.dialect.MySQLDialect
+show_sql=false
+generate_statistics=false
+use_sql_comments=false
+null<-org.dom4j.tree.DefaultAttribute@1a98414d [Attribute: name class value "resources.orm.hibernate.models.z57.Lead"]
+null<-org.dom4j.tree.DefaultAttribute@774bce98 [Attribute: name class value "resources.orm.hibernate.models.z57.NotificationEmails"]
+null<-org.dom4j.tree.DefaultAttribute@2a6a00a6 [Attribute: name class value "resources.orm.hibernate.models.z57.NotificationMailgun"]
+null<-org.dom4j.tree.DefaultAttribute@3b262d49 [Attribute: name class value "resources.orm.hibernate.models.z57.Notifications"]
+Configured SessionFactory: null
+properties: {project=z57, hibernate.connection.password=aqdevda@#412, java.runtime.name=Java(TM) SE Runtime Environment, sun.boot.library.path=C:\Program Files\Java\jre1.8.0_191\bin, java.vm.version=25.191-b12, hibernate.connection.username=adar_dev, java.vm.vendor=Oracle Corporation, java.vendor.url=http://java.oracle.com/, path.separator=;, threads=1, java.vm.name=Java HotSpot(TM) 64-Bit Server VM, file.encoding.pkg=sun.io, user.country=US, user.script=, sun.java.launcher=SUN_STANDARD, sun.os.patch.level=, java.vm.specification.name=Java Virtual Machine Specification, user.dir=D:\selenium-automation-project\z57_selenium, java.runtime.version=1.8.0_191-b12, java.awt.graphicsenv=sun.awt.Win32GraphicsEnvironment, java.endorsed.dirs=C:\Program Files\Java\jre1.8.0_191\lib\endorsed, os.arch=amd64, java.io.tmpdir=C:\Users\adar\AppData\Local\Temp\, line.separator=
+, java.vm.specification.vendor=Oracle Corporation, user.variant=, os.name=Windows 10, use_sql_comments=false, sun.jnu.encoding=Cp1252, java.library.path=C:\Program Files\Java\jre1.8.0_191\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_191/bin/server;C:/Program Files/Java/jre1.8.0_191/bin;C:/Program Files/Java/jre1.8.0_191/lib/amd64;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\PuTTY\;C:\Program Files\Git\cmd;D:\selenium-automation-project\z57_selenium;C:\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin;C:\Program Files\TortoiseSVN\bin;C:\curl-7.63.0\curl-7.63.0;C:\Users\adar\AppData\Local\Microsoft\WindowsApps;C:\curl-7.63.0\curl-7.63.0;;C:\Windows\System32;;., hibernate.generate_statistics=false, java.specification.name=Java Platform API Specification, java.class.version=52.0, sun.management.compiler=HotSpot 64-Bit Tiered Compilers, ssh_user=adar, os.version=10.0, user.home=C:\Users\adar, user.timezone=Asia/Karachi, java.awt.printerjob=sun.awt.windows.WPrinterJob, file.encoding=Cp1252, java.specification.version=1.8, hibernate.connection.driver_class=com.mysql.jdbc.Driver, show_sql=false, java.class.path=C:\Users\adar\eclipse\jee-2018-12\eclipse\configuration\org.eclipse.osgi\956\0\.cp\lib\testng-remote.jar;D:\selenium-automation-project\z57_selenium\target\test-classes;D:\selenium-automation-project\z57_selenium\target\classes;C:\Users\adar\.p2\pool\plugins\org.testng_6.14.2.r201802161450.jar;C:\Users\adar\.p2\pool\plugins\com.beust.jcommander_1.72.0.jar;C:\Users\adar\.p2\pool\plugins\org.apache-extras.beanshell.bsh_2.0.0.b6.jar;C:\Users\adar\.p2\pool\plugins\org.yaml.snakeyaml_1.17.0.jar;C:\Users\adar\.m2\repository\org\hibernate\hibernate-annotations\3.2.1.ga\hibernate-annotations-3.2.1.ga.jar;C:\Users\adar\.m2\repository\javax\persistence\persistence-api\1.0\persistence-api-1.0.jar;C:\Users\adar\.m2\repository\com\jcabi\jcabi-ssh\1.6.1\jcabi-ssh-1.6.1.jar;C:\Users\adar\.m2\repository\com\jcabi\jcabi-aspects\0.22.5\jcabi-aspects-0.22.5.jar;C:\Users\adar\.m2\repository\org\aspectj\aspectjrt\1.8.7\aspectjrt-1.8.7.jar;C:\Users\adar\.m2\repository\javax\validation\validation-api\1.1.0.Final\validation-api-1.1.0.Final.jar;C:\Users\adar\.m2\repository\com\jcabi\jcabi-log\0.17.2\jcabi-log-0.17.2.jar;C:\Users\adar\.m2\repository\org\slf4j\slf4j-api\1.7.5\slf4j-api-1.7.5.jar;C:\Users\adar\.m2\repository\org\apache\commons\commons-lang3\3.5\commons-lang3-3.5.jar;C:\Users\adar\.m2\repository\org\cactoos\cactoos\0.16\cactoos-0.16.jar;C:\Users\adar\.m2\repository\com\jcraft\jsch\0.1.54\jsch-0.1.54.jar;C:\Users\adar\.m2\repository\org\jdom\jdom2\2.0.6\jdom2-2.0.6.jar;C:\Users\adar\.m2\repository\org\hibernate\hibernate\3.2.1.ga\hibernate-3.2.1.ga.jar;C:\Users\adar\.m2\repository\net\sf\ehcache\ehcache\1.2.3\ehcache-1.2.3.jar;C:\Users\adar\.m2\repository\commons-logging\commons-logging\1.0.4\commons-logging-1.0.4.jar;C:\Users\adar\.m2\repository\asm\asm-attrs\1.5.3\asm-attrs-1.5.3.jar;C:\Users\adar\.m2\repository\dom4j\dom4j\1.6.1\dom4j-1.6.1.jar;C:\Users\adar\.m2\repository\antlr\antlr\2.7.6\antlr-2.7.6.jar;C:\Users\adar\.m2\repository\cglib\cglib\2.1_3\cglib-2.1_3.jar;C:\Users\adar\.m2\repository\asm\asm\1.5.3\asm-1.5.3.jar;C:\Users\adar\.m2\repository\commons-collections\commons-collections\2.1.1\commons-collections-2.1.1.jar;C:\Users\adar\.m2\repository\net\sf\opencsv\opencsv\2.3\opencsv-2.3.jar;C:\Users\adar\.m2\repository\org\json\json\20180130\json-20180130.jar;C:\Users\adar\.m2\repository\org\hibernate\hibernate-core\4.1.9.Final\hibernate-core-4.1.9.Final.jar;C:\Users\adar\.m2\repository\org\jboss\logging\jboss-logging\3.1.0.GA\jboss-logging-3.1.0.GA.jar;C:\Users\adar\.m2\repository\org\javassist\javassist\3.17.1-GA\javassist-3.17.1-GA.jar;C:\Users\adar\.m2\repository\org\jboss\spec\javax\transaction\jboss-transaction-api_1.1_spec\1.0.0.Final\jboss-transaction-api_1.1_spec-1.0.0.Final.jar;C:\Users\adar\.m2\repository\org\hibernate\javax\persistence\hibernate-jpa-2.0-api\1.0.1.Final\hibernate-jpa-2.0-api-1.0.1.Final.jar;C:\Users\adar\.m2\repository\org\hibernate\common\hibernate-commons-annotations\4.0.1.Final\hibernate-commons-annotations-4.0.1.Final.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-java\3.14.0\selenium-java-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-api\3.14.0\selenium-api-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\3.14.0\selenium-chrome-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\3.14.0\selenium-edge-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\3.14.0\selenium-firefox-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\3.14.0\selenium-ie-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-opera-driver\3.14.0\selenium-opera-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\3.14.0\selenium-remote-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\3.14.0\selenium-safari-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-support\3.14.0\selenium-support-3.14.0.jar;C:\Users\adar\.m2\repository\net\bytebuddy\byte-buddy\1.8.15\byte-buddy-1.8.15.jar;C:\Users\adar\.m2\repository\org\apache\commons\commons-exec\1.3\commons-exec-1.3.jar;C:\Users\adar\.m2\repository\commons-codec\commons-codec\1.10\commons-codec-1.10.jar;C:\Users\adar\.m2\repository\com\google\guava\guava\25.0-jre\guava-25.0-jre.jar;C:\Users\adar\.m2\repository\com\google\code\findbugs\jsr305\1.3.9\jsr305-1.3.9.jar;C:\Users\adar\.m2\repository\org\checkerframework\checker-compat-qual\2.0.0\checker-compat-qual-2.0.0.jar;C:\Users\adar\.m2\repository\com\google\errorprone\error_prone_annotations\2.1.3\error_prone_annotations-2.1.3.jar;C:\Users\adar\.m2\repository\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;C:\Users\adar\.m2\repository\org\codehaus\mojo\animal-sniffer-annotations\1.14\animal-sniffer-annotations-1.14.jar;C:\Users\adar\.m2\repository\org\apache\httpcomponents\httpclient\4.5.5\httpclient-4.5.5.jar;C:\Users\adar\.m2\repository\org\apache\httpcomponents\httpcore\4.4.9\httpcore-4.4.9.jar;C:\Users\adar\.m2\repository\com\squareup\okhttp3\okhttp\3.10.0\okhttp-3.10.0.jar;C:\Users\adar\.m2\repository\com\squareup\okio\okio\1.14.1\okio-1.14.1.jar;C:\Users\adar\.m2\repository\commons-io\commons-io\2.4\commons-io-2.4.jar;C:\Users\adar\.m2\repository\mysql\mysql-connector-java\5.1.9\mysql-connector-java-5.1.9.jar;C:\Users\adar\.m2\repository\org\freemarker\freemarker\2.3.20\freemarker-2.3.20.jar;C:\Users\adar\.m2\repository\org\testng\testng\6.14.3\testng-6.14.3.jar;C:\Users\adar\.m2\repository\com\beust\jcommander\1.72\jcommander-1.72.jar;C:\Users\adar\.m2\repository\org\apache-extras\beanshell\bsh\2.0b6\bsh-2.0b6.jar;C:\Users\adar\.m2\repository\javax\transaction\jta\1.1\jta-1.1.jar;C:\Users\adar\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.9.0\jackson-annotations-2.9.0.jar;C:\Users\adar\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.9.0\jackson-databind-2.9.0.jar;C:\Users\adar\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.9.0\jackson-core-2.9.0.jar;C:\Users\adar\.m2\repository\log4j\log4j\1.2.17\log4j-1.2.17.jar, user.name=adar, hibernate.use_sql_comments=false, hibernate.show_sql=false, java.vm.specification.version=1.8, sun.java.command=org.testng.remote.RemoteTestNG -serport 53031 -protocol json -d D:\selenium-automation-project\z57_selenium\test-output D:\selenium-automation-project\z57_selenium\src\test\resources\Actions\v2.site.z57.com\CaptureLeadFromLocalHomeValuesPage.xml, java.home=C:\Program Files\Java\jre1.8.0_191, sun.arch.data.model=64, hibernate.dialect=org.hibernate.dialect.MySQLDialect, hibernate.connection.url=jdbc:mysql://192.168.14.122:3306/property_pulse?zeroDateTimeBehavior=convertToNull, user.language=en, java.specification.vendor=Oracle Corporation, awt.toolkit=sun.awt.windows.WToolkit, java.vm.info=mixed mode, java.version=1.8.0_191, java.ext.dirs=C:\Program Files\Java\jre1.8.0_191\lib\ext;C:\Windows\Sun\Java\lib\ext, sun.boot.class.path=C:\Program Files\Java\jre1.8.0_191\lib\resources.jar;C:\Program Files\Java\jre1.8.0_191\lib\rt.jar;C:\Program Files\Java\jre1.8.0_191\lib\sunrsasign.jar;C:\Program Files\Java\jre1.8.0_191\lib\jsse.jar;C:\Program Files\Java\jre1.8.0_191\lib\jce.jar;C:\Program Files\Java\jre1.8.0_191\lib\charsets.jar;C:\Program Files\Java\jre1.8.0_191\lib\jfr.jar;C:\Program Files\Java\jre1.8.0_191\classes, environment=stage01, java.vendor=Oracle Corporation, file.separator=\, java.vendor.url.bug=http://bugreport.sun.com/bugreport/, sun.io.unicode.encoding=UnicodeLittle, sun.cpu.endian=little, generate_statistics=false, ssh_pass=bYbuAn3bP8VM, sun.desktop=windows, sun.cpu.isalist=amd64}
+Preparing to build session factory with filters : {}
+Execute first pass mapping processing
+Process hbm files
+Process annotated classes
+Binding entity from annotated class: resources.orm.hibernate.models.z57.Lead
+Binding column DTYPE unique false
+Import with entity name=Lead
+Bind entity resources.orm.hibernate.models.z57.Lead on table leads
+Processing resources.orm.hibernate.models.z57.Lead property annotation
+Processing annotations of resources.orm.hibernate.models.z57.Lead.id
+Binding column lead_id unique true
+id is an id
+building SimpleValue for id
+Building property id
+Cascading id with null
+Bind @Id on id
+Processing annotations of resources.orm.hibernate.models.z57.Lead.phone
+Binding column phone unique false
+binding property phone with lazy=false
+building SimpleValue for phone
+Building property phone
+Cascading phone with null
+Processing annotations of resources.orm.hibernate.models.z57.Lead.date_added
+Binding column date_added unique false
+binding property date_added with lazy=false
+building SimpleValue for date_added
+Building property date_added
+Cascading date_added with null
+Processing annotations of resources.orm.hibernate.models.z57.Lead.account_id
+Binding column account_id unique false
+binding property account_id with lazy=false
+building SimpleValue for account_id
+Building property account_id
+Cascading account_id with null
+Processing annotations of resources.orm.hibernate.models.z57.Lead.nameFull
+Binding column name_full unique false
+binding property nameFull with lazy=false
+building SimpleValue for nameFull
+Building property nameFull
+Cascading nameFull with null
+Processing annotations of resources.orm.hibernate.models.z57.Lead.email
+Binding column email unique true
+binding property email with lazy=false
+building SimpleValue for email
+Building property email
+Cascading email with null
+Binding entity from annotated class: resources.orm.hibernate.models.z57.NotificationEmails
+Binding column DTYPE unique false
+Import with entity name=NotificationEmails
+Bind entity resources.orm.hibernate.models.z57.NotificationEmails on table notification_emails
+Processing resources.orm.hibernate.models.z57.NotificationEmails property annotation
+Processing annotations of resources.orm.hibernate.models.z57.NotificationEmails.notificationEmailId
+Binding column notification_email_id unique true
+notificationEmailId is an id
+building SimpleValue for notificationEmailId
+Building property notificationEmailId
+Cascading notificationEmailId with null
+Bind @Id on notificationEmailId
+Processing annotations of resources.orm.hibernate.models.z57.NotificationEmails.name
+Binding column name unique false
+binding property name with lazy=false
+building SimpleValue for name
+Building property name
+Cascading name with null
+Processing annotations of resources.orm.hibernate.models.z57.NotificationEmails.email
+Binding column email unique true
+binding property email with lazy=false
+building SimpleValue for email
+Building property email
+Cascading email with null
+Processing annotations of resources.orm.hibernate.models.z57.NotificationEmails.notificationId
+Binding column notification_id unique true
+binding property notificationId with lazy=false
+building SimpleValue for notificationId
+Building property notificationId
+Cascading notificationId with null
+Binding entity from annotated class: resources.orm.hibernate.models.z57.NotificationMailgun
+Binding column DTYPE unique false
+Import with entity name=NotificationMailgun
+Bind entity resources.orm.hibernate.models.z57.NotificationMailgun on table notification_mailgun
+Processing resources.orm.hibernate.models.z57.NotificationMailgun property annotation
+Processing annotations of resources.orm.hibernate.models.z57.NotificationMailgun.notificationMailgunId
+Binding column notitication_mailgun_id unique true
+notificationMailgunId is an id
+building SimpleValue for notificationMailgunId
+Building property notificationMailgunId
+Cascading notificationMailgunId with null
+Bind @Id on notificationMailgunId
+Processing annotations of resources.orm.hibernate.models.z57.NotificationMailgun.notficationId
+Binding column notification_id unique true
+binding property notficationId with lazy=false
+building SimpleValue for notficationId
+Building property notficationId
+Cascading notficationId with null
+Processing annotations of resources.orm.hibernate.models.z57.NotificationMailgun.accountId
+Binding column account_id unique true
+binding property accountId with lazy=false
+building SimpleValue for accountId
+Building property accountId
+Cascading accountId with null
+Processing annotations of resources.orm.hibernate.models.z57.NotificationMailgun.status
+Binding column status unique true
+binding property status with lazy=false
+building SimpleValue for status
+Building property status
+Cascading status with null
+Processing annotations of resources.orm.hibernate.models.z57.NotificationMailgun.notficationEmailId
+Binding column notification_email_id unique true
+binding property notficationEmailId with lazy=false
+building SimpleValue for notficationEmailId
+Building property notficationEmailId
+Cascading notficationEmailId with null
+Binding entity from annotated class: resources.orm.hibernate.models.z57.Notifications
+Binding column DTYPE unique false
+Import with entity name=Notifications
+Bind entity resources.orm.hibernate.models.z57.Notifications on table notifications
+Processing resources.orm.hibernate.models.z57.Notifications property annotation
+Processing annotations of resources.orm.hibernate.models.z57.Notifications.notificationId
+Binding column notification_id unique false
+notificationId is an id
+building SimpleValue for notificationId
+Building property notificationId
+Cascading notificationId with null
+Bind @Id on notificationId
+Processing annotations of resources.orm.hibernate.models.z57.Notifications.email_from
+Binding column email_from unique false
+binding property email_from with lazy=false
+building SimpleValue for email_from
+Building property email_from
+Cascading email_from with null
+Processing annotations of resources.orm.hibernate.models.z57.Notifications.email_body
+Binding column email_body unique false
+binding property email_body with lazy=false
+building SimpleValue for email_body
+Building property email_body
+Cascading email_body with null
+Processing annotations of resources.orm.hibernate.models.z57.Notifications.email_subject
+Binding column email_subject unique false
+binding property email_subject with lazy=false
+building SimpleValue for email_subject
+Building property email_subject
+Cascading email_subject with null
+Processing annotations of resources.orm.hibernate.models.z57.Notifications.sentDate
+Binding column date_sent unique false
+binding property sentDate with lazy=false
+building SimpleValue for sentDate
+Building property sentDate
+Cascading sentDate with null
+Processing annotations of resources.orm.hibernate.models.z57.Notifications.account_id
+Binding column account_id unique false
+binding property account_id with lazy=false
+building SimpleValue for account_id
+Building property account_id
+Cascading account_id with null
+processing manytoone fk mappings
+processing extends queue
+processing collection mappings
+processing native query and ResultSetMapping mappings
+processing association property references
+processing foreign key constraints
+ResourceBundle ValidatorMessages not found in thread context classloader
+ResourceBundle ValidatorMessages not found in Validator classloader. Delegate to org.hibernate.validator.resources.DefaultValidatorMessages
+ResourceBundle ValidatorMessages not found in thread context classloader
+ResourceBundle ValidatorMessages not found in Validator classloader. Delegate to org.hibernate.validator.resources.DefaultValidatorMessages
+ResourceBundle ValidatorMessages not found in thread context classloader
+ResourceBundle ValidatorMessages not found in Validator classloader. Delegate to org.hibernate.validator.resources.DefaultValidatorMessages
+ResourceBundle ValidatorMessages not found in thread context classloader
+ResourceBundle ValidatorMessages not found in Validator classloader. Delegate to org.hibernate.validator.resources.DefaultValidatorMessages
+Using Hibernate built-in connection pool (not for production use!)
+Hibernate connection pool size: 20
+autocommit mode: false
+using driver: com.mysql.jdbc.Driver at URL: jdbc:mysql://192.168.14.122:3306/property_pulse?zeroDateTimeBehavior=convertToNull
+connection properties: {user=adar_dev, password=aqdevda@#412}
+total checked-out connections: 0
+opening new JDBC connection
+created connection to: jdbc:mysql://192.168.14.122:3306/property_pulse?zeroDateTimeBehavior=convertToNull, Isolation Level: 4
+RDBMS: MySQL, version: 5.6.39
+JDBC driver: MySQL-AB JDBC Driver, version: mysql-connector-java-5.1.9 ( Revision: ${svn.Revision} )
+returning connection to pool, pool size: 1
+Using dialect: org.hibernate.dialect.MySQLDialect
+Using default transaction strategy (direct JDBC transactions)
+No TransactionManagerLookup configured (in JTA environment, use of read-write or transactional second-level cache is not recommended)
+Automatic flush during beforeCompletion(): disabled
+Automatic session close at end of transaction: disabled
+JDBC batch size: 15
+JDBC batch updates for versioned data: disabled
+Scrollable result sets: enabled
+Wrap result sets: disabled
+JDBC3 getGeneratedKeys(): enabled
+Connection release mode: auto
+Maximum outer join fetch depth: 2
+Default batch fetch size: 1
+Generate SQL with comments: disabled
+Order SQL updates by primary key: disabled
+Query translator: org.hibernate.hql.ast.ASTQueryTranslatorFactory
+Using ASTQueryTranslatorFactory
+Query language substitutions: {}
+JPA-QL strict compliance: disabled
+Second-level cache: enabled
+Query cache: disabled
+Cache provider: org.hibernate.cache.NoCacheProvider
+Optimize cache for minimal puts: disabled
+Structured second-level cache entries: disabled
+Using dialect defined converter
+Statistics: disabled
+Deleted entity synthetic identifier rollback: disabled
+Default entity-mode: pojo
+building session factory
+Session factory constructed with filter configurations : {}
+instantiating session factory with properties: {project=z57, java.runtime.name=Java(TM) SE Runtime Environment, hibernate.connection.password=aqdevda@#412, sun.boot.library.path=C:\Program Files\Java\jre1.8.0_191\bin, java.vm.version=25.191-b12, hibernate.connection.username=adar_dev, java.vm.vendor=Oracle Corporation, java.vendor.url=http://java.oracle.com/, path.separator=;, java.vm.name=Java HotSpot(TM) 64-Bit Server VM, threads=1, file.encoding.pkg=sun.io, user.script=, user.country=US, sun.java.launcher=SUN_STANDARD, sun.os.patch.level=, java.vm.specification.name=Java Virtual Machine Specification, user.dir=D:\selenium-automation-project\z57_selenium, java.runtime.version=1.8.0_191-b12, java.awt.graphicsenv=sun.awt.Win32GraphicsEnvironment, java.endorsed.dirs=C:\Program Files\Java\jre1.8.0_191\lib\endorsed, os.arch=amd64, java.io.tmpdir=C:\Users\adar\AppData\Local\Temp\, line.separator=
+, java.vm.specification.vendor=Oracle Corporation, user.variant=, os.name=Windows 10, use_sql_comments=false, sun.jnu.encoding=Cp1252, java.library.path=C:\Program Files\Java\jre1.8.0_191\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_191/bin/server;C:/Program Files/Java/jre1.8.0_191/bin;C:/Program Files/Java/jre1.8.0_191/lib/amd64;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\PuTTY\;C:\Program Files\Git\cmd;D:\selenium-automation-project\z57_selenium;C:\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin;C:\Program Files\TortoiseSVN\bin;C:\curl-7.63.0\curl-7.63.0;C:\Users\adar\AppData\Local\Microsoft\WindowsApps;C:\curl-7.63.0\curl-7.63.0;;C:\Windows\System32;;., hibernate.generate_statistics=false, java.specification.name=Java Platform API Specification, java.class.version=52.0, sun.management.compiler=HotSpot 64-Bit Tiered Compilers, ssh_user=adar, os.version=10.0, user.home=C:\Users\adar, user.timezone=Asia/Karachi, java.awt.printerjob=sun.awt.windows.WPrinterJob, java.specification.version=1.8, file.encoding=Cp1252, hibernate.connection.driver_class=com.mysql.jdbc.Driver, show_sql=false, user.name=adar, java.class.path=C:\Users\adar\eclipse\jee-2018-12\eclipse\configuration\org.eclipse.osgi\956\0\.cp\lib\testng-remote.jar;D:\selenium-automation-project\z57_selenium\target\test-classes;D:\selenium-automation-project\z57_selenium\target\classes;C:\Users\adar\.p2\pool\plugins\org.testng_6.14.2.r201802161450.jar;C:\Users\adar\.p2\pool\plugins\com.beust.jcommander_1.72.0.jar;C:\Users\adar\.p2\pool\plugins\org.apache-extras.beanshell.bsh_2.0.0.b6.jar;C:\Users\adar\.p2\pool\plugins\org.yaml.snakeyaml_1.17.0.jar;C:\Users\adar\.m2\repository\org\hibernate\hibernate-annotations\3.2.1.ga\hibernate-annotations-3.2.1.ga.jar;C:\Users\adar\.m2\repository\javax\persistence\persistence-api\1.0\persistence-api-1.0.jar;C:\Users\adar\.m2\repository\com\jcabi\jcabi-ssh\1.6.1\jcabi-ssh-1.6.1.jar;C:\Users\adar\.m2\repository\com\jcabi\jcabi-aspects\0.22.5\jcabi-aspects-0.22.5.jar;C:\Users\adar\.m2\repository\org\aspectj\aspectjrt\1.8.7\aspectjrt-1.8.7.jar;C:\Users\adar\.m2\repository\javax\validation\validation-api\1.1.0.Final\validation-api-1.1.0.Final.jar;C:\Users\adar\.m2\repository\com\jcabi\jcabi-log\0.17.2\jcabi-log-0.17.2.jar;C:\Users\adar\.m2\repository\org\slf4j\slf4j-api\1.7.5\slf4j-api-1.7.5.jar;C:\Users\adar\.m2\repository\org\apache\commons\commons-lang3\3.5\commons-lang3-3.5.jar;C:\Users\adar\.m2\repository\org\cactoos\cactoos\0.16\cactoos-0.16.jar;C:\Users\adar\.m2\repository\com\jcraft\jsch\0.1.54\jsch-0.1.54.jar;C:\Users\adar\.m2\repository\org\jdom\jdom2\2.0.6\jdom2-2.0.6.jar;C:\Users\adar\.m2\repository\org\hibernate\hibernate\3.2.1.ga\hibernate-3.2.1.ga.jar;C:\Users\adar\.m2\repository\net\sf\ehcache\ehcache\1.2.3\ehcache-1.2.3.jar;C:\Users\adar\.m2\repository\commons-logging\commons-logging\1.0.4\commons-logging-1.0.4.jar;C:\Users\adar\.m2\repository\asm\asm-attrs\1.5.3\asm-attrs-1.5.3.jar;C:\Users\adar\.m2\repository\dom4j\dom4j\1.6.1\dom4j-1.6.1.jar;C:\Users\adar\.m2\repository\antlr\antlr\2.7.6\antlr-2.7.6.jar;C:\Users\adar\.m2\repository\cglib\cglib\2.1_3\cglib-2.1_3.jar;C:\Users\adar\.m2\repository\asm\asm\1.5.3\asm-1.5.3.jar;C:\Users\adar\.m2\repository\commons-collections\commons-collections\2.1.1\commons-collections-2.1.1.jar;C:\Users\adar\.m2\repository\net\sf\opencsv\opencsv\2.3\opencsv-2.3.jar;C:\Users\adar\.m2\repository\org\json\json\20180130\json-20180130.jar;C:\Users\adar\.m2\repository\org\hibernate\hibernate-core\4.1.9.Final\hibernate-core-4.1.9.Final.jar;C:\Users\adar\.m2\repository\org\jboss\logging\jboss-logging\3.1.0.GA\jboss-logging-3.1.0.GA.jar;C:\Users\adar\.m2\repository\org\javassist\javassist\3.17.1-GA\javassist-3.17.1-GA.jar;C:\Users\adar\.m2\repository\org\jboss\spec\javax\transaction\jboss-transaction-api_1.1_spec\1.0.0.Final\jboss-transaction-api_1.1_spec-1.0.0.Final.jar;C:\Users\adar\.m2\repository\org\hibernate\javax\persistence\hibernate-jpa-2.0-api\1.0.1.Final\hibernate-jpa-2.0-api-1.0.1.Final.jar;C:\Users\adar\.m2\repository\org\hibernate\common\hibernate-commons-annotations\4.0.1.Final\hibernate-commons-annotations-4.0.1.Final.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-java\3.14.0\selenium-java-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-api\3.14.0\selenium-api-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\3.14.0\selenium-chrome-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\3.14.0\selenium-edge-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\3.14.0\selenium-firefox-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\3.14.0\selenium-ie-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-opera-driver\3.14.0\selenium-opera-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\3.14.0\selenium-remote-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\3.14.0\selenium-safari-driver-3.14.0.jar;C:\Users\adar\.m2\repository\org\seleniumhq\selenium\selenium-support\3.14.0\selenium-support-3.14.0.jar;C:\Users\adar\.m2\repository\net\bytebuddy\byte-buddy\1.8.15\byte-buddy-1.8.15.jar;C:\Users\adar\.m2\repository\org\apache\commons\commons-exec\1.3\commons-exec-1.3.jar;C:\Users\adar\.m2\repository\commons-codec\commons-codec\1.10\commons-codec-1.10.jar;C:\Users\adar\.m2\repository\com\google\guava\guava\25.0-jre\guava-25.0-jre.jar;C:\Users\adar\.m2\repository\com\google\code\findbugs\jsr305\1.3.9\jsr305-1.3.9.jar;C:\Users\adar\.m2\repository\org\checkerframework\checker-compat-qual\2.0.0\checker-compat-qual-2.0.0.jar;C:\Users\adar\.m2\repository\com\google\errorprone\error_prone_annotations\2.1.3\error_prone_annotations-2.1.3.jar;C:\Users\adar\.m2\repository\com\google\j2objc\j2objc-annotations\1.1\j2objc-annotations-1.1.jar;C:\Users\adar\.m2\repository\org\codehaus\mojo\animal-sniffer-annotations\1.14\animal-sniffer-annotations-1.14.jar;C:\Users\adar\.m2\repository\org\apache\httpcomponents\httpclient\4.5.5\httpclient-4.5.5.jar;C:\Users\adar\.m2\repository\org\apache\httpcomponents\httpcore\4.4.9\httpcore-4.4.9.jar;C:\Users\adar\.m2\repository\com\squareup\okhttp3\okhttp\3.10.0\okhttp-3.10.0.jar;C:\Users\adar\.m2\repository\com\squareup\okio\okio\1.14.1\okio-1.14.1.jar;C:\Users\adar\.m2\repository\commons-io\commons-io\2.4\commons-io-2.4.jar;C:\Users\adar\.m2\repository\mysql\mysql-connector-java\5.1.9\mysql-connector-java-5.1.9.jar;C:\Users\adar\.m2\repository\org\freemarker\freemarker\2.3.20\freemarker-2.3.20.jar;C:\Users\adar\.m2\repository\org\testng\testng\6.14.3\testng-6.14.3.jar;C:\Users\adar\.m2\repository\com\beust\jcommander\1.72\jcommander-1.72.jar;C:\Users\adar\.m2\repository\org\apache-extras\beanshell\bsh\2.0b6\bsh-2.0b6.jar;C:\Users\adar\.m2\repository\javax\transaction\jta\1.1\jta-1.1.jar;C:\Users\adar\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.9.0\jackson-annotations-2.9.0.jar;C:\Users\adar\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.9.0\jackson-databind-2.9.0.jar;C:\Users\adar\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.9.0\jackson-core-2.9.0.jar;C:\Users\adar\.m2\repository\log4j\log4j\1.2.17\log4j-1.2.17.jar, hibernate.show_sql=false, hibernate.use_sql_comments=false, java.vm.specification.version=1.8, sun.arch.data.model=64, java.home=C:\Program Files\Java\jre1.8.0_191, sun.java.command=org.testng.remote.RemoteTestNG -serport 53031 -protocol json -d D:\selenium-automation-project\z57_selenium\test-output D:\selenium-automation-project\z57_selenium\src\test\resources\Actions\v2.site.z57.com\CaptureLeadFromLocalHomeValuesPage.xml, hibernate.connection.url=jdbc:mysql://192.168.14.122:3306/property_pulse?zeroDateTimeBehavior=convertToNull, hibernate.dialect=org.hibernate.dialect.MySQLDialect, java.specification.vendor=Oracle Corporation, user.language=en, awt.toolkit=sun.awt.windows.WToolkit, java.vm.info=mixed mode, java.version=1.8.0_191, java.ext.dirs=C:\Program Files\Java\jre1.8.0_191\lib\ext;C:\Windows\Sun\Java\lib\ext, sun.boot.class.path=C:\Program Files\Java\jre1.8.0_191\lib\resources.jar;C:\Program Files\Java\jre1.8.0_191\lib\rt.jar;C:\Program Files\Java\jre1.8.0_191\lib\sunrsasign.jar;C:\Program Files\Java\jre1.8.0_191\lib\jsse.jar;C:\Program Files\Java\jre1.8.0_191\lib\jce.jar;C:\Program Files\Java\jre1.8.0_191\lib\charsets.jar;C:\Program Files\Java\jre1.8.0_191\lib\jfr.jar;C:\Program Files\Java\jre1.8.0_191\classes, java.vendor=Oracle Corporation, environment=stage01, file.separator=\, java.vendor.url.bug=http://bugreport.sun.com/bugreport/, sun.cpu.endian=little, sun.io.unicode.encoding=UnicodeLittle, generate_statistics=false, sun.desktop=windows, ssh_pass=bYbuAn3bP8VM, sun.cpu.isalist=amd64}
+Static SQL for entity: resources.orm.hibernate.models.z57.NotificationEmails
+ Version select: select notification_email_id from notification_emails where notification_email_id =?
+ Snapshot select: select notificati_.notification_email_id, notificati_.name as name1_, notificati_.email as email1_, notificati_.notification_id as notifica4_1_ from notification_emails notificati_ where notificati_.notification_email_id=?
+ Insert 0: insert into notification_emails (name, email, notification_id, notification_email_id) values (?, ?, ?, ?)
+ Update 0: update notification_emails set name=?, email=?, notification_id=? where notification_email_id=?
+ Delete 0: delete from notification_emails where notification_email_id=?
+ Identity insert: insert into notification_emails (name, email, notification_id) values (?, ?, ?)
+Static SQL for entity: resources.orm.hibernate.models.z57.NotificationMailgun
+ Version select: select notitication_mailgun_id from notification_mailgun where notitication_mailgun_id =?
+ Snapshot select: select notificati_.notitication_mailgun_id, notificati_.notification_id as notifica2_2_, notificati_.account_id as account3_2_, notificati_.status as status2_, notificati_.notification_email_id as notifica5_2_ from notification_mailgun notificati_ where notificati_.notitication_mailgun_id=?
+ Insert 0: insert into notification_mailgun (notification_id, account_id, status, notification_email_id, notitication_mailgun_id) values (?, ?, ?, ?, ?)
+ Update 0: update notification_mailgun set notification_id=?, account_id=?, status=?, notification_email_id=? where notitication_mailgun_id=?
+ Delete 0: delete from notification_mailgun where notitication_mailgun_id=?
+ Identity insert: insert into notification_mailgun (notification_id, account_id, status, notification_email_id) values (?, ?, ?, ?)
+Static SQL for entity: resources.orm.hibernate.models.z57.Notifications
+ Version select: select notification_id from notifications where notification_id =?
+ Snapshot select: select notificati_.notification_id, notificati_.email_from as email2_3_, notificati_.email_body as email3_3_, notificati_.email_subject as email4_3_, notificati_.date_sent as date5_3_, notificati_.account_id as account6_3_ from notifications notificati_ where notificati_.notification_id=?
+ Insert 0: insert into notifications (email_from, email_body, email_subject, date_sent, account_id, notification_id) values (?, ?, ?, ?, ?, ?)
+ Update 0: update notifications set email_from=?, email_body=?, email_subject=?, date_sent=?, account_id=? where notification_id=?
+ Delete 0: delete from notifications where notification_id=?
+ Identity insert: insert into notifications (email_from, email_body, email_subject, date_sent, account_id) values (?, ?, ?, ?, ?)
+Static SQL for entity: resources.orm.hibernate.models.z57.Lead
+ Version select: select lead_id from leads where lead_id =?
+ Snapshot select: select lead_.lead_id, lead_.phone as phone0_, lead_.date_added as date3_0_, lead_.account_id as account4_0_, lead_.name_full as name5_0_, lead_.email as email0_ from leads lead_ where lead_.lead_id=?
+ Insert 0: insert into leads (phone, date_added, account_id, name_full, email, lead_id) values (?, ?, ?, ?, ?, ?)
+ Update 0: update leads set phone=?, date_added=?, account_id=?, name_full=?, email=? where lead_id=?
+ Delete 0: delete from leads where lead_id=?
+ Identity insert: insert into leads (phone, date_added, account_id, name_full, email) values (?, ?, ?, ?, ?)
+Static select for entity resources.orm.hibernate.models.z57.NotificationEmails: select notificati0_.notification_email_id as notifica1_1_0_, notificati0_.name as name1_0_, notificati0_.email as email1_0_, notificati0_.notification_id as notifica4_1_0_ from notification_emails notificati0_ where notificati0_.notification_email_id=?
+Static select for entity resources.orm.hibernate.models.z57.NotificationEmails: select notificati0_.notification_email_id as notifica1_1_0_, notificati0_.name as name1_0_, notificati0_.email as email1_0_, notificati0_.notification_id as notifica4_1_0_ from notification_emails notificati0_ where notificati0_.notification_email_id=?
+Static select for entity resources.orm.hibernate.models.z57.NotificationEmails: select notificati0_.notification_email_id as notifica1_1_0_, notificati0_.name as name1_0_, notificati0_.email as email1_0_, notificati0_.notification_id as notifica4_1_0_ from notification_emails notificati0_ where notificati0_.notification_email_id=? for update
+Static select for entity resources.orm.hibernate.models.z57.NotificationEmails: select notificati0_.notification_email_id as notifica1_1_0_, notificati0_.name as name1_0_, notificati0_.email as email1_0_, notificati0_.notification_id as notifica4_1_0_ from notification_emails notificati0_ where notificati0_.notification_email_id=? for update
+Static select for entity resources.orm.hibernate.models.z57.NotificationEmails: select notificati0_.notification_email_id as notifica1_1_0_, notificati0_.name as name1_0_, notificati0_.email as email1_0_, notificati0_.notification_id as notifica4_1_0_ from notification_emails notificati0_ where notificati0_.notification_email_id=? for update
+Static select for action ACTION_MERGE on entity resources.orm.hibernate.models.z57.NotificationEmails: select notificati0_.notification_email_id as notifica1_1_0_, notificati0_.name as name1_0_, notificati0_.email as email1_0_, notificati0_.notification_id as notifica4_1_0_ from notification_emails notificati0_ where notificati0_.notification_email_id=?
+Static select for action ACTION_REFRESH on entity resources.orm.hibernate.models.z57.NotificationEmails: select notificati0_.notification_email_id as notifica1_1_0_, notificati0_.name as name1_0_, notificati0_.email as email1_0_, notificati0_.notification_id as notifica4_1_0_ from notification_emails notificati0_ where notificati0_.notification_email_id=?
+Static select for entity resources.orm.hibernate.models.z57.NotificationMailgun: select notificati0_.notitication_mailgun_id as notitica1_2_0_, notificati0_.notification_id as notifica2_2_0_, notificati0_.account_id as account3_2_0_, notificati0_.status as status2_0_, notificati0_.notification_email_id as notifica5_2_0_ from notification_mailgun notificati0_ where notificati0_.notitication_mailgun_id=?
+Static select for entity resources.orm.hibernate.models.z57.NotificationMailgun: select notificati0_.notitication_mailgun_id as notitica1_2_0_, notificati0_.notification_id as notifica2_2_0_, notificati0_.account_id as account3_2_0_, notificati0_.status as status2_0_, notificati0_.notification_email_id as notifica5_2_0_ from notification_mailgun notificati0_ where notificati0_.notitication_mailgun_id=?
+Static select for entity resources.orm.hibernate.models.z57.NotificationMailgun: select notificati0_.notitication_mailgun_id as notitica1_2_0_, notificati0_.notification_id as notifica2_2_0_, notificati0_.account_id as account3_2_0_, notificati0_.status as status2_0_, notificati0_.notification_email_id as notifica5_2_0_ from notification_mailgun notificati0_ where notificati0_.notitication_mailgun_id=? for update
+Static select for entity resources.orm.hibernate.models.z57.NotificationMailgun: select notificati0_.notitication_mailgun_id as notitica1_2_0_, notificati0_.notification_id as notifica2_2_0_, notificati0_.account_id as account3_2_0_, notificati0_.status as status2_0_, notificati0_.notification_email_id as notifica5_2_0_ from notification_mailgun notificati0_ where notificati0_.notitication_mailgun_id=? for update
+Static select for entity resources.orm.hibernate.models.z57.NotificationMailgun: select notificati0_.notitication_mailgun_id as notitica1_2_0_, notificati0_.notification_id as notifica2_2_0_, notificati0_.account_id as account3_2_0_, notificati0_.status as status2_0_, notificati0_.notification_email_id as notifica5_2_0_ from notification_mailgun notificati0_ where notificati0_.notitication_mailgun_id=? for update
+Static select for action ACTION_MERGE on entity resources.orm.hibernate.models.z57.NotificationMailgun: select notificati0_.notitication_mailgun_id as notitica1_2_0_, notificati0_.notification_id as notifica2_2_0_, notificati0_.account_id as account3_2_0_, notificati0_.status as status2_0_, notificati0_.notification_email_id as notifica5_2_0_ from notification_mailgun notificati0_ where notificati0_.notitication_mailgun_id=?
+Static select for action ACTION_REFRESH on entity resources.orm.hibernate.models.z57.NotificationMailgun: select notificati0_.notitication_mailgun_id as notitica1_2_0_, notificati0_.notification_id as notifica2_2_0_, notificati0_.account_id as account3_2_0_, notificati0_.status as status2_0_, notificati0_.notification_email_id as notifica5_2_0_ from notification_mailgun notificati0_ where notificati0_.notitication_mailgun_id=?
+Static select for entity resources.orm.hibernate.models.z57.Notifications: select notificati0_.notification_id as notifica1_3_0_, notificati0_.email_from as email2_3_0_, notificati0_.email_body as email3_3_0_, notificati0_.email_subject as email4_3_0_, notificati0_.date_sent as date5_3_0_, notificati0_.account_id as account6_3_0_ from notifications notificati0_ where notificati0_.notification_id=?
+Static select for entity resources.orm.hibernate.models.z57.Notifications: select notificati0_.notification_id as notifica1_3_0_, notificati0_.email_from as email2_3_0_, notificati0_.email_body as email3_3_0_, notificati0_.email_subject as email4_3_0_, notificati0_.date_sent as date5_3_0_, notificati0_.account_id as account6_3_0_ from notifications notificati0_ where notificati0_.notification_id=?
+Static select for entity resources.orm.hibernate.models.z57.Notifications: select notificati0_.notification_id as notifica1_3_0_, notificati0_.email_from as email2_3_0_, notificati0_.email_body as email3_3_0_, notificati0_.email_subject as email4_3_0_, notificati0_.date_sent as date5_3_0_, notificati0_.account_id as account6_3_0_ from notifications notificati0_ where notificati0_.notification_id=? for update
+Static select for entity resources.orm.hibernate.models.z57.Notifications: select notificati0_.notification_id as notifica1_3_0_, notificati0_.email_from as email2_3_0_, notificati0_.email_body as email3_3_0_, notificati0_.email_subject as email4_3_0_, notificati0_.date_sent as date5_3_0_, notificati0_.account_id as account6_3_0_ from notifications notificati0_ where notificati0_.notification_id=? for update
+Static select for entity resources.orm.hibernate.models.z57.Notifications: select notificati0_.notification_id as notifica1_3_0_, notificati0_.email_from as email2_3_0_, notificati0_.email_body as email3_3_0_, notificati0_.email_subject as email4_3_0_, notificati0_.date_sent as date5_3_0_, notificati0_.account_id as account6_3_0_ from notifications notificati0_ where notificati0_.notification_id=? for update
+Static select for action ACTION_MERGE on entity resources.orm.hibernate.models.z57.Notifications: select notificati0_.notification_id as notifica1_3_0_, notificati0_.email_from as email2_3_0_, notificati0_.email_body as email3_3_0_, notificati0_.email_subject as email4_3_0_, notificati0_.date_sent as date5_3_0_, notificati0_.account_id as account6_3_0_ from notifications notificati0_ where notificati0_.notification_id=?
+Static select for action ACTION_REFRESH on entity resources.orm.hibernate.models.z57.Notifications: select notificati0_.notification_id as notifica1_3_0_, notificati0_.email_from as email2_3_0_, notificati0_.email_body as email3_3_0_, notificati0_.email_subject as email4_3_0_, notificati0_.date_sent as date5_3_0_, notificati0_.account_id as account6_3_0_ from notifications notificati0_ where notificati0_.notification_id=?
+Static select for entity resources.orm.hibernate.models.z57.Lead: select lead0_.lead_id as lead1_0_0_, lead0_.phone as phone0_0_, lead0_.date_added as date3_0_0_, lead0_.account_id as account4_0_0_, lead0_.name_full as name5_0_0_, lead0_.email as email0_0_ from leads lead0_ where lead0_.lead_id=?
+Static select for entity resources.orm.hibernate.models.z57.Lead: select lead0_.lead_id as lead1_0_0_, lead0_.phone as phone0_0_, lead0_.date_added as date3_0_0_, lead0_.account_id as account4_0_0_, lead0_.name_full as name5_0_0_, lead0_.email as email0_0_ from leads lead0_ where lead0_.lead_id=?
+Static select for entity resources.orm.hibernate.models.z57.Lead: select lead0_.lead_id as lead1_0_0_, lead0_.phone as phone0_0_, lead0_.date_added as date3_0_0_, lead0_.account_id as account4_0_0_, lead0_.name_full as name5_0_0_, lead0_.email as email0_0_ from leads lead0_ where lead0_.lead_id=? for update
+Static select for entity resources.orm.hibernate.models.z57.Lead: select lead0_.lead_id as lead1_0_0_, lead0_.phone as phone0_0_, lead0_.date_added as date3_0_0_, lead0_.account_id as account4_0_0_, lead0_.name_full as name5_0_0_, lead0_.email as email0_0_ from leads lead0_ where lead0_.lead_id=? for update
+Static select for entity resources.orm.hibernate.models.z57.Lead: select lead0_.lead_id as lead1_0_0_, lead0_.phone as phone0_0_, lead0_.date_added as date3_0_0_, lead0_.account_id as account4_0_0_, lead0_.name_full as name5_0_0_, lead0_.email as email0_0_ from leads lead0_ where lead0_.lead_id=? for update
+Static select for action ACTION_MERGE on entity resources.orm.hibernate.models.z57.Lead: select lead0_.lead_id as lead1_0_0_, lead0_.phone as phone0_0_, lead0_.date_added as date3_0_0_, lead0_.account_id as account4_0_0_, lead0_.name_full as name5_0_0_, lead0_.email as email0_0_ from leads lead0_ where lead0_.lead_id=?
+Static select for action ACTION_REFRESH on entity resources.orm.hibernate.models.z57.Lead: select lead0_.lead_id as lead1_0_0_, lead0_.phone as phone0_0_, lead0_.date_added as date3_0_0_, lead0_.account_id as account4_0_0_, lead0_.name_full as name5_0_0_, lead0_.email as email0_0_ from leads lead0_ where lead0_.lead_id=?
+initializing class SessionFactoryObjectFactory
+registered: 4028908168cbffb20168cbffb3780000 (unnamed)
+Not binding factory to JNDI, no JNDI name configured
+instantiated session factory
+Checking 0 named HQL queries
+Checking 0 named SQL queries
+opened session at timestamp: 15496107590
+loading entity: [resources.orm.hibernate.models.z57.Lead#412519]
+attempting to resolve: [resources.orm.hibernate.models.z57.Lead#412519]
+object not resolved in any cache: [resources.orm.hibernate.models.z57.Lead#412519]
+Fetching entity: [resources.orm.hibernate.models.z57.Lead#412519]
+loading entity: [resources.orm.hibernate.models.z57.Lead#412519]
+about to open PreparedStatement (open PreparedStatements: 0, globally: 0)
+opening JDBC connection
+total checked-out connections: 0
+using pooled JDBC connection, pool size: 0
+select lead0_.lead_id as lead1_0_0_, lead0_.phone as phone0_0_, lead0_.date_added as date3_0_0_, lead0_.account_id as account4_0_0_, lead0_.name_full as name5_0_0_, lead0_.email as email0_0_ from leads lead0_ where lead0_.lead_id=?
+preparing statement
+binding '412519' to parameter: 1
+about to open ResultSet (open ResultSets: 0, globally: 0)
+processing result set
+result set row: 0
+result row: EntityKey[resources.orm.hibernate.models.z57.Lead#412519]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.Lead#412519]
+Hydrating entity: [resources.orm.hibernate.models.z57.Lead#412519]
+returning '9265658923' as column: phone0_0_
+returning '2019-02-07 23:25:51.0' as column: date3_0_0_
+returning '11675' as column: account4_0_0_
+returning 'Jason Holder' as column: name5_0_0_
+returning 'holder_430447429@mailinator.com' as column: email0_0_
+done processing result set (1 rows)
+about to close ResultSet (open ResultSets: 1, globally: 1)
+about to close PreparedStatement (open PreparedStatements: 1, globally: 1)
+closing statement
+total objects hydrated: 1
+resolving associations for [resources.orm.hibernate.models.z57.Lead#412519]
+done materializing entity [resources.orm.hibernate.models.z57.Lead#412519]
+initializing non-lazy collections
+done entity load
+after autocommit
+aggressively releasing JDBC connection
+releasing JDBC connection [ (open PreparedStatements: 0, globally: 0) (open ResultSets: 0, globally: 0)]
+returning connection to pool, pool size: 1
+closing session
+connection already null in cleanup : no action
+-----=====Getting Notification ID from DB for the email -> holder_430447429@mailinator.com=====-----
+opened session at timestamp: 15496107594
+unable to locate HQL query plan in cache; generating (FROM NotificationEmails WHERE email='holder_430447429@mailinator.com')
+parse() - HQL: FROM resources.orm.hibernate.models.z57.NotificationEmails WHERE email='holder_430447429@mailinator.com'
+--- HQL AST ---
+ \-[QUERY] 'query'
+    +-[SELECT_FROM] 'SELECT_FROM'
+    |  \-[FROM] 'FROM'
+    |     \-[RANGE] 'RANGE'
+    |        \-[DOT] '.'
+    |           +-[DOT] '.'
+    |           |  +-[DOT] '.'
+    |           |  |  +-[DOT] '.'
+    |           |  |  |  +-[DOT] '.'
+    |           |  |  |  |  +-[IDENT] 'resources'
+    |           |  |  |  |  \-[IDENT] 'orm'
+    |           |  |  |  \-[IDENT] 'hibernate'
+    |           |  |  \-[IDENT] 'models'
+    |           |  \-[IDENT] 'z57'
+    |           \-[IDENT] 'NotificationEmails'
+    \-[WHERE] 'WHERE'
+       \-[EQ] '='
+          +-[IDENT] 'email'
+          \-[QUOTED_STRING] ''holder_430447429@mailinator.com''
+
+throwQueryException() : no errors
+select << begin [level=1, statement=select]
+FromClause{level=1} :  resources.orm.hibernate.models.z57.NotificationEmails (no alias) -> notificati0_
+attempting to resolve property [email] as a non-qualified ref
+Resolved :  {synthetic-alias} -> {synthetic-alias}
+handling property dereference [resources.orm.hibernate.models.z57.NotificationEmails (null) -> email (class)]
+getDataType() : email -> org.hibernate.type.StringType@5b2765e1
+Resolved :  {synthetic-alias}.email -> notificati0_.email
+select : finishing up [level=1, statement=select]
+processQuery() :  ( SELECT ( FromClause{level=1} notification_emails notificati0_ ) ( WHERE ( = ( notificati0_.email {synthetic-alias} email ) 'holder_430447429@mailinator.com' ) ) )
+Derived SELECT clause created.
+Using FROM fragment [notification_emails notificati0_]
+select >> end [level=1, statement=select]
+--- SQL AST ---
+ \-[SELECT] QueryNode: 'SELECT'  querySpaces (notification_emails)
+    +-[SELECT_CLAUSE] SelectClause: '{derived select clause}'
+    |  +-[SELECT_EXPR] SelectExpressionImpl: 'notificati0_.notification_email_id as notifica1_1_' {FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=null,role=null,tableName=notification_emails,tableAlias=notificati0_,origin=null,colums={,className=resources.orm.hibernate.models.z57.NotificationEmails}}}
+    |  \-[SQL_TOKEN] SqlFragment: 'notificati0_.name as name1_, notificati0_.email as email1_, notificati0_.notification_id as notifica4_1_'
+    +-[FROM] FromClause: 'FROM' FromClause{level=1, fromElementCounter=1, fromElements=1, fromElementByClassAlias=[], fromElementByTableAlias=[notificati0_], fromElementsByPath=[], collectionJoinFromElementsByPath=[], impliedElements=[]}
+    |  \-[FROM_FRAGMENT] FromElement: 'notification_emails notificati0_' FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=null,role=null,tableName=notification_emails,tableAlias=notificati0_,origin=null,colums={,className=resources.orm.hibernate.models.z57.NotificationEmails}}
+    \-[WHERE] SqlNode: 'WHERE'
+       \-[EQ] BinaryLogicOperatorNode: '='
+          +-[DOT] DotNode: 'notificati0_.email' {propertyName=email,dereferenceType=4,propertyPath=email,path={synthetic-alias}.email,tableAlias=notificati0_,className=resources.orm.hibernate.models.z57.NotificationEmails,classAlias=null}
+          |  +-[IDENT] IdentNode: '{synthetic-alias}' {originalText={synthetic-alias}}
+          |  \-[IDENT] IdentNode: 'email' {originalText=email}
+          \-[QUOTED_STRING] LiteralNode: ''holder_430447429@mailinator.com''
+
+throwQueryException() : no errors
+HQL: FROM resources.orm.hibernate.models.z57.NotificationEmails WHERE email='holder_430447429@mailinator.com'
+SQL: select notificati0_.notification_email_id as notifica1_1_, notificati0_.name as name1_, notificati0_.email as email1_, notificati0_.notification_id as notifica4_1_ from notification_emails notificati0_ where notificati0_.email='holder_430447429@mailinator.com'
+throwQueryException() : no errors
+HQL param location recognition took 2 mills (FROM NotificationEmails WHERE email='holder_430447429@mailinator.com')
+located HQL query plan in cache (FROM NotificationEmails WHERE email='holder_430447429@mailinator.com')
+find: FROM NotificationEmails WHERE email='holder_430447429@mailinator.com'
+named parameters: {}
+about to open PreparedStatement (open PreparedStatements: 0, globally: 0)
+opening JDBC connection
+total checked-out connections: 0
+using pooled JDBC connection, pool size: 0
+select notificati0_.notification_email_id as notifica1_1_, notificati0_.name as name1_, notificati0_.email as email1_, notificati0_.notification_id as notifica4_1_ from notification_emails notificati0_ where notificati0_.email='holder_430447429@mailinator.com'
+preparing statement
+about to open ResultSet (open ResultSets: 0, globally: 0)
+processing result set
+result set row: 0
+returning '65603' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65603]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65603]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65603]
+returning 'Jason Holder' as column: name1_
+returning 'holder_430447429@mailinator.com' as column: email1_
+returning '11673' as column: notifica4_1_
+done processing result set (1 rows)
+about to close ResultSet (open ResultSets: 1, globally: 1)
+about to close PreparedStatement (open PreparedStatements: 1, globally: 1)
+closing statement
+total objects hydrated: 1
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65603]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65603]
+initializing non-lazy collections
+after autocommit
+aggressively releasing JDBC connection
+releasing JDBC connection [ (open PreparedStatements: 0, globally: 0) (open ResultSets: 0, globally: 0)]
+returning connection to pool, pool size: 1
+closing session
+connection already null in cleanup : no action
+-----=====Notification ID from DB for the email -> holder_430447429@mailinator.com is11673=====-----
+opened session at timestamp: 15496107599
+loading entity: [resources.orm.hibernate.models.z57.Notifications#11673]
+attempting to resolve: [resources.orm.hibernate.models.z57.Notifications#11673]
+object not resolved in any cache: [resources.orm.hibernate.models.z57.Notifications#11673]
+Fetching entity: [resources.orm.hibernate.models.z57.Notifications#11673]
+loading entity: [resources.orm.hibernate.models.z57.Notifications#11673]
+about to open PreparedStatement (open PreparedStatements: 0, globally: 0)
+opening JDBC connection
+total checked-out connections: 0
+using pooled JDBC connection, pool size: 0
+select notificati0_.notification_id as notifica1_3_0_, notificati0_.email_from as email2_3_0_, notificati0_.email_body as email3_3_0_, notificati0_.email_subject as email4_3_0_, notificati0_.date_sent as date5_3_0_, notificati0_.account_id as account6_3_0_ from notifications notificati0_ where notificati0_.notification_id=?
+preparing statement
+binding '11673' to parameter: 1
+about to open ResultSet (open ResultSets: 0, globally: 0)
+processing result set
+result set row: 0
+result row: EntityKey[resources.orm.hibernate.models.z57.Notifications#11673]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.Notifications#11673]
+Hydrating entity: [resources.orm.hibernate.models.z57.Notifications#11673]
+returning 'Aqib Dar <hit-reply@realestate-updates.com>' as column: email2_3_0_
+returning '<div style="font-size: 14px; font-family: Helvetica;">Hi Jason Holder, <br>
+<br>
+Thank you for your interest in my website tools.  I'm excited to help with all of your real estate needs and will be in touch soon.<br>
+<br>
+Thanks again,<br>
+<br>
+Aqib Dar<br>
+Tester Extraordinaire<br>
+<br>
+<br>
+92656898742<br>
+aqib.dar@z57.com<br>
+<br>
+<br>
+This message was intended for ${email} |
+<a href="https://propertypulse.z57.com/mailer/unsubscribe/${notification_email_id}/${notification_token}">Unsubscribe</a>
+<br>
+Powered by Z57 Internet Solutions</div>' as column: email3_3_0_
+returning 'Thanks for connecting with me' as column: email4_3_0_
+returning null as column: date5_3_0_
+returning '11675' as column: account6_3_0_
+done processing result set (1 rows)
+about to close ResultSet (open ResultSets: 1, globally: 1)
+about to close PreparedStatement (open PreparedStatements: 1, globally: 1)
+closing statement
+total objects hydrated: 1
+resolving associations for [resources.orm.hibernate.models.z57.Notifications#11673]
+done materializing entity [resources.orm.hibernate.models.z57.Notifications#11673]
+initializing non-lazy collections
+done entity load
+after autocommit
+aggressively releasing JDBC connection
+releasing JDBC connection [ (open PreparedStatements: 0, globally: 0) (open ResultSets: 0, globally: 0)]
+returning connection to pool, pool size: 1
+closing session
+connection already null in cleanup : no action
+-----=====Getting Notification ID from DB for the email -> aqib.dar@z57.com=====-----
+opened session at timestamp: 15496107602
+unable to locate HQL query plan in cache; generating (FROM NotificationEmails WHERE email='aqib.dar@z57.com')
+parse() - HQL: FROM resources.orm.hibernate.models.z57.NotificationEmails WHERE email='aqib.dar@z57.com'
+--- HQL AST ---
+ \-[QUERY] 'query'
+    +-[SELECT_FROM] 'SELECT_FROM'
+    |  \-[FROM] 'FROM'
+    |     \-[RANGE] 'RANGE'
+    |        \-[DOT] '.'
+    |           +-[DOT] '.'
+    |           |  +-[DOT] '.'
+    |           |  |  +-[DOT] '.'
+    |           |  |  |  +-[DOT] '.'
+    |           |  |  |  |  +-[IDENT] 'resources'
+    |           |  |  |  |  \-[IDENT] 'orm'
+    |           |  |  |  \-[IDENT] 'hibernate'
+    |           |  |  \-[IDENT] 'models'
+    |           |  \-[IDENT] 'z57'
+    |           \-[IDENT] 'NotificationEmails'
+    \-[WHERE] 'WHERE'
+       \-[EQ] '='
+          +-[IDENT] 'email'
+          \-[QUOTED_STRING] ''aqib.dar@z57.com''
+
+throwQueryException() : no errors
+select << begin [level=1, statement=select]
+FromClause{level=1} :  resources.orm.hibernate.models.z57.NotificationEmails (no alias) -> notificati0_
+attempting to resolve property [email] as a non-qualified ref
+Resolved :  {synthetic-alias} -> {synthetic-alias}
+handling property dereference [resources.orm.hibernate.models.z57.NotificationEmails (null) -> email (class)]
+getDataType() : email -> org.hibernate.type.StringType@5b2765e1
+Resolved :  {synthetic-alias}.email -> notificati0_.email
+select : finishing up [level=1, statement=select]
+processQuery() :  ( SELECT ( FromClause{level=1} notification_emails notificati0_ ) ( WHERE ( = ( notificati0_.email {synthetic-alias} email ) 'aqib.dar@z57.com' ) ) )
+Derived SELECT clause created.
+Using FROM fragment [notification_emails notificati0_]
+select >> end [level=1, statement=select]
+--- SQL AST ---
+ \-[SELECT] QueryNode: 'SELECT'  querySpaces (notification_emails)
+    +-[SELECT_CLAUSE] SelectClause: '{derived select clause}'
+    |  +-[SELECT_EXPR] SelectExpressionImpl: 'notificati0_.notification_email_id as notifica1_1_' {FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=null,role=null,tableName=notification_emails,tableAlias=notificati0_,origin=null,colums={,className=resources.orm.hibernate.models.z57.NotificationEmails}}}
+    |  \-[SQL_TOKEN] SqlFragment: 'notificati0_.name as name1_, notificati0_.email as email1_, notificati0_.notification_id as notifica4_1_'
+    +-[FROM] FromClause: 'FROM' FromClause{level=1, fromElementCounter=1, fromElements=1, fromElementByClassAlias=[], fromElementByTableAlias=[notificati0_], fromElementsByPath=[], collectionJoinFromElementsByPath=[], impliedElements=[]}
+    |  \-[FROM_FRAGMENT] FromElement: 'notification_emails notificati0_' FromElement{explicit,not a collection join,not a fetch join,fetch non-lazy properties,classAlias=null,role=null,tableName=notification_emails,tableAlias=notificati0_,origin=null,colums={,className=resources.orm.hibernate.models.z57.NotificationEmails}}
+    \-[WHERE] SqlNode: 'WHERE'
+       \-[EQ] BinaryLogicOperatorNode: '='
+          +-[DOT] DotNode: 'notificati0_.email' {propertyName=email,dereferenceType=4,propertyPath=email,path={synthetic-alias}.email,tableAlias=notificati0_,className=resources.orm.hibernate.models.z57.NotificationEmails,classAlias=null}
+          |  +-[IDENT] IdentNode: '{synthetic-alias}' {originalText={synthetic-alias}}
+          |  \-[IDENT] IdentNode: 'email' {originalText=email}
+          \-[QUOTED_STRING] LiteralNode: ''aqib.dar@z57.com''
+
+throwQueryException() : no errors
+HQL: FROM resources.orm.hibernate.models.z57.NotificationEmails WHERE email='aqib.dar@z57.com'
+SQL: select notificati0_.notification_email_id as notifica1_1_, notificati0_.name as name1_, notificati0_.email as email1_, notificati0_.notification_id as notifica4_1_ from notification_emails notificati0_ where notificati0_.email='aqib.dar@z57.com'
+throwQueryException() : no errors
+HQL param location recognition took 0 mills (FROM NotificationEmails WHERE email='aqib.dar@z57.com')
+located HQL query plan in cache (FROM NotificationEmails WHERE email='aqib.dar@z57.com')
+find: FROM NotificationEmails WHERE email='aqib.dar@z57.com'
+named parameters: {}
+about to open PreparedStatement (open PreparedStatements: 0, globally: 0)
+opening JDBC connection
+total checked-out connections: 0
+using pooled JDBC connection, pool size: 0
+select notificati0_.notification_email_id as notifica1_1_, notificati0_.name as name1_, notificati0_.email as email1_, notificati0_.notification_id as notifica4_1_ from notification_emails notificati0_ where notificati0_.email='aqib.dar@z57.com'
+preparing statement
+about to open ResultSet (open ResultSets: 0, globally: 0)
+processing result set
+result set row: 0
+returning '46411' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#46411]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#46411]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#46411]
+returning null as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11240' as column: notifica4_1_
+result set row: 1
+returning '46477' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#46477]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#46477]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#46477]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11329' as column: notifica4_1_
+result set row: 2
+returning '46478' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#46478]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#46478]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#46478]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11330' as column: notifica4_1_
+result set row: 3
+returning '48100' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#48100]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#48100]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#48100]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11338' as column: notifica4_1_
+result set row: 4
+returning '48108' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#48108]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#48108]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#48108]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11348' as column: notifica4_1_
+result set row: 5
+returning '48109' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#48109]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#48109]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#48109]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11349' as column: notifica4_1_
+result set row: 6
+returning '48112' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#48112]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#48112]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#48112]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11352' as column: notifica4_1_
+result set row: 7
+returning '48129' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#48129]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#48129]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#48129]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11363' as column: notifica4_1_
+result set row: 8
+returning '59680' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#59680]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#59680]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#59680]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11486' as column: notifica4_1_
+result set row: 9
+returning '60503' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#60503]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#60503]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#60503]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11500' as column: notifica4_1_
+result set row: 10
+returning '63838' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#63838]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#63838]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#63838]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11549' as column: notifica4_1_
+result set row: 11
+returning '63841' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#63841]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#63841]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#63841]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11552' as column: notifica4_1_
+result set row: 12
+returning '63852' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#63852]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#63852]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#63852]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11564' as column: notifica4_1_
+result set row: 13
+returning '63854' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#63854]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#63854]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#63854]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11567' as column: notifica4_1_
+result set row: 14
+returning '63856' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#63856]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#63856]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#63856]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11570' as column: notifica4_1_
+result set row: 15
+returning '63858' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#63858]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#63858]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#63858]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11573' as column: notifica4_1_
+result set row: 16
+returning '63860' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#63860]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#63860]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#63860]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11576' as column: notifica4_1_
+result set row: 17
+returning '63863' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#63863]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#63863]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#63863]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11580' as column: notifica4_1_
+result set row: 18
+returning '63865' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#63865]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#63865]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#63865]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11583' as column: notifica4_1_
+result set row: 19
+returning '63868' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#63868]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#63868]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#63868]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11587' as column: notifica4_1_
+result set row: 20
+returning '63870' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#63870]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#63870]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#63870]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11590' as column: notifica4_1_
+result set row: 21
+returning '65500' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65500]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65500]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65500]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11596' as column: notifica4_1_
+result set row: 22
+returning '65518' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65518]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65518]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65518]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11603' as column: notifica4_1_
+result set row: 23
+returning '65528' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65528]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65528]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65528]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11609' as column: notifica4_1_
+result set row: 24
+returning '65531' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65531]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65531]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65531]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11613' as column: notifica4_1_
+result set row: 25
+returning '65533' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65533]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65533]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65533]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11616' as column: notifica4_1_
+result set row: 26
+returning '65535' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65535]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65535]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65535]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11619' as column: notifica4_1_
+result set row: 27
+returning '65538' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65538]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65538]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65538]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11622' as column: notifica4_1_
+result set row: 28
+returning '65544' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65544]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65544]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65544]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11628' as column: notifica4_1_
+result set row: 29
+returning '65551' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65551]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65551]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65551]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11632' as column: notifica4_1_
+result set row: 30
+returning '65553' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65553]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65553]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65553]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11635' as column: notifica4_1_
+result set row: 31
+returning '65555' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65555]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65555]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65555]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11638' as column: notifica4_1_
+result set row: 32
+returning '65558' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65558]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65558]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65558]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11641' as column: notifica4_1_
+result set row: 33
+returning '65561' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65561]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65561]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65561]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11644' as column: notifica4_1_
+result set row: 34
+returning '65583' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65583]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65583]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65583]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11653' as column: notifica4_1_
+result set row: 35
+returning '65586' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65586]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65586]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65586]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11656' as column: notifica4_1_
+result set row: 36
+returning '65589' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65589]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65589]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65589]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11659' as column: notifica4_1_
+result set row: 37
+returning '65592' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65592]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65592]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65592]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11662' as column: notifica4_1_
+result set row: 38
+returning '65595' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65595]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65595]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65595]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11665' as column: notifica4_1_
+result set row: 39
+returning '65598' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65598]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65598]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65598]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11668' as column: notifica4_1_
+result set row: 40
+returning '65601' as column: notifica1_1_
+result row: EntityKey[resources.orm.hibernate.models.z57.NotificationEmails#65601]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.NotificationEmails#65601]
+Hydrating entity: [resources.orm.hibernate.models.z57.NotificationEmails#65601]
+returning 'Aqib Dar' as column: name1_
+returning 'aqib.dar@z57.com' as column: email1_
+returning '11671' as column: notifica4_1_
+done processing result set (41 rows)
+about to close ResultSet (open ResultSets: 1, globally: 1)
+about to close PreparedStatement (open PreparedStatements: 1, globally: 1)
+closing statement
+total objects hydrated: 41
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#46411]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#46411]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#46477]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#46477]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#46478]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#46478]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#48100]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#48100]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#48108]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#48108]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#48109]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#48109]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#48112]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#48112]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#48129]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#48129]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#59680]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#59680]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#60503]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#60503]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#63838]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#63838]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#63841]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#63841]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#63852]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#63852]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#63854]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#63854]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#63856]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#63856]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#63858]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#63858]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#63860]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#63860]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#63863]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#63863]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#63865]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#63865]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#63868]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#63868]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#63870]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#63870]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65500]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65500]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65518]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65518]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65528]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65528]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65531]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65531]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65533]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65533]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65535]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65535]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65538]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65538]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65544]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65544]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65551]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65551]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65553]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65553]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65555]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65555]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65558]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65558]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65561]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65561]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65583]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65583]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65586]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65586]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65589]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65589]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65592]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65592]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65595]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65595]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65598]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65598]
+resolving associations for [resources.orm.hibernate.models.z57.NotificationEmails#65601]
+done materializing entity [resources.orm.hibernate.models.z57.NotificationEmails#65601]
+initializing non-lazy collections
+after autocommit
+aggressively releasing JDBC connection
+releasing JDBC connection [ (open PreparedStatements: 0, globally: 0) (open ResultSets: 0, globally: 0)]
+returning connection to pool, pool size: 1
+closing session
+connection already null in cleanup : no action
+-----=====Notification ID from DB for the email -> aqib.dar@z57.com is11671=====-----
+opened session at timestamp: 15496107605
+loading entity: [resources.orm.hibernate.models.z57.Notifications#11671]
+attempting to resolve: [resources.orm.hibernate.models.z57.Notifications#11671]
+object not resolved in any cache: [resources.orm.hibernate.models.z57.Notifications#11671]
+Fetching entity: [resources.orm.hibernate.models.z57.Notifications#11671]
+loading entity: [resources.orm.hibernate.models.z57.Notifications#11671]
+about to open PreparedStatement (open PreparedStatements: 0, globally: 0)
+opening JDBC connection
+total checked-out connections: 0
+using pooled JDBC connection, pool size: 0
+select notificati0_.notification_id as notifica1_3_0_, notificati0_.email_from as email2_3_0_, notificati0_.email_body as email3_3_0_, notificati0_.email_subject as email4_3_0_, notificati0_.date_sent as date5_3_0_, notificati0_.account_id as account6_3_0_ from notifications notificati0_ where notificati0_.notification_id=?
+preparing statement
+binding '11671' to parameter: 1
+about to open ResultSet (open ResultSets: 0, globally: 0)
+processing result set
+result set row: 0
+result row: EntityKey[resources.orm.hibernate.models.z57.Notifications#11671]
+Initializing object from ResultSet: [resources.orm.hibernate.models.z57.Notifications#11671]
+Hydrating entity: [resources.orm.hibernate.models.z57.Notifications#11671]
+returning 'Z57 Notifications <notifications@z57.com>' as column: email2_3_0_
+returning '<div style="font-size: 14px; font-family: Helvetica;"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>PropertyPulse</title>
+        
+        
+        
+         <style type="text/css" id="hs-inline-css">
+        /*<![CDATA[*/
+            /* everything in this node will be inlined */
+
+            /* ==== Page Styles ==== */
+            
+            body, #backgroundTable {background-color: #f2f2f2; /* Use body to determine background color */
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;}
+            
+            #templateTable {width: 600px;
+                background-color: #ffffff;
+                -webkit-font-smoothing: antialiased;}
+
+            h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {color:#444444;
+                display:block;
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-weight:bold;
+                line-height:100%;
+                margin-top:0;
+                margin-right:0;
+                margin-bottom:10px;
+                margin-left:0;
+                text-align:left;}
+
+            h1, .h1 {font-size:26px;}
+
+            h2, .h2 {font-size:20px;}
+
+            h3, .h3 {font-size:15px;}
+
+            h4, .h4 {font-size:13px;}
+
+            h5, .h5 {font-size:11px;}
+
+            h6, .h6 {font-size:10px;}
+
+            /* ==== Header Styles ==== */
+
+            #headerTable {background-color: #f2f2f2;
+                color:#444444;
+                font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size:10px;
+                line-height:120%;
+                text-align:right;
+                border-collapse: separate !important;
+                padding-right: 30px;}
+            
+            #headerTable a:link, #headerTable a:visited, /* Yahoo! Mail Override */ #headerTable a .yshortcuts /* Yahoo! Mail Override */{font-weight:normal;
+                text-decoration:underline;}
+            
+            /* ==== Template Wrapper Styles ==== */
+
+            #contentCell {padding: 10px 20px;
+                background-color: #f2f2f2;}
+             
+            #contentTableOuter {border-collapse: separate !important;
+                
+                background-color: #ffffff;
+                
+                box-shadow: 0px 1px rgba(0, 0, 0, 0.1);
+                
+
+                padding: 30px;}
+
+            #contentTableInner {width: 600px;}
+            
+            /* ==== Body Styles ==== */
+            
+            .bodyContent {color:#444444;
+                font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size: 15px;
+                line-height:150%;
+                text-align:left;}
+            
+            /* ==== Column Styles ==== */
+
+            table.columnContentTable {border-collapse:separate !important;
+                border-spacing:0;
+                
+                background-color: #ffffff;}
+            
+            td[class~="columnContent"] {color:#444444;
+                font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size:15px;
+                line-height:120%;
+                padding-top:20px;
+                padding-right:20px;
+                padding-bottom:20px;
+                padding-left:20px;}
+
+            /* ==== Footer Styles ==== */
+            
+            #footerTable {background-color: #f2f2f2;}
+
+            #footerTable a {color: #999999;}
+            
+            #footerTable {color:#999999;
+                font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size:12px;
+                line-height:120%;
+                padding-top:20px;
+                padding-right:20px;
+                padding-bottom:20px;
+                padding-left:20px;
+                text-align:center;}
+            
+            #footerTable a:link, #footerTable a:visited, /* Yahoo! Mail Override */ #footerTable a .yshortcuts /* Yahoo! Mail Override */{font-weight:normal;
+                text-decoration:underline;}
+
+            .hs-image-social-sharing-24 {max-width: 24px;
+                max-height: 24px;}
+
+            /* ==== Standard Resets ==== */
+            .ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
+            .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;} /* Force Hotmail to display normal line spacing */
+            body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:100%;
+                -ms-text-size-adjust:100%;} /* Prevent WebKit and Windows mobile changing default text sizes */
+            table, td {mso-table-lspace:0pt;
+                mso-table-rspace:0pt;} /* Remove spacing between tables in Outlook 2007 and up */
+            img {vertical-align: bottom;
+                -ms-interpolation-mode:bicubic;} /* Allow smoother rendering of resized image in Internet Explorer */
+    
+            /* Reset Styles */
+            body {margin:0;
+                padding:0;}
+            table {border-collapse:collapse !important;}
+            body, #backgroundTable, #bodyCell{height:100% !important;
+                margin:0;
+                padding:0;
+                width:100% !important;}
+            a:link, a:visited {border-bottom: none;}
+            
+            /* iOS automatically adds a link to addresses */
+            /* Style the footer with the same color as the footer text */
+            #footer a {color: #999999;;
+                -webkit-text-size-adjust: none;
+                text-decoration: underline;
+                font-weight: normal}
+    
+            /* Hide preview text on rendering */
+            #preview_text {display: none;}
+        /*]]>*/
+    </style>
+         <style type="text/css">
+        /*<![CDATA[*/
+            /* ==== Mobile Styles ==== */
+            
+            /* Constrain email width for small screens */
+            @media screen and (max-width: 650px) {table[id="backgroundTable"] {width: 95% !important;}
+                
+                table[id="templateTable"] {max-width:600px !important;
+                    width:100% !important;}
+
+                table[id="contentTableInner"] {max-width:600px !important;
+                    width:100% !important;}
+            
+                /* Makes image expand to take 100% of width*/
+                img {width: 100% !important;}
+
+                #contentCell {padding: 10px 10px !important;}
+
+                #headerTable {padding-right: 15.0px !important;}
+
+                #contentTableOuter {padding: 15.0px !important;}}
+
+            @media only screen and (max-width: 480px) {/* ==== Client-Specific Mobile Styles ==== */
+                body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:none !important;} /* Prevent Webkit platforms from changing default text sizes */
+                body{width:100% !important;
+                    min-width:100% !important;} /* Prevent iOS Mail from adding padding to the body */
+
+                /* ==== Mobile Reset Styles ==== */
+                td[id="bodyCell"] {padding:10px !important;}
+
+                /* ==== Mobile Template Styles ==== */
+    
+                table[id="templateTable"] {max-width:600px !important;
+                    width:100% !important;}
+
+                table[id="contentTableInner"] {max-width:600px !important;
+                    width:100% !important;}
+                
+                /* ==== Image Alignment Styles ==== */
+
+                h1, .h1 {font-size:26px !important;
+                    line-height:125% !important;}
+
+                h2, .h2 {font-size:20px !important;
+                    line-height:125% !important;}
+
+                h3, .h3 {font-size:15px !important;
+                    line-height:125% !important;}
+
+                h4, .h4 {font-size:13px !important;
+                    line-height:125% !important;}
+
+                h5, .h5 {font-size:11px !important;
+                    line-height:125% !important;}
+
+                h6, .h6 {font-size:10px !important;
+                    line-height:125% !important;}
+                
+                .hide {display:none !important;} /* Hide to save space */
+
+                /* ==== Body Styles ==== */
+                
+                td[class="bodyContent"] {font-size:16px !important;
+                    line-height:145% !important;}
+                
+                /* ==== Footer Styles ==== */
+
+                td[id="footerTable"]{padding-left: 0px !important;
+                    padding-right: 0px !important;
+                    font-size:12px !important;
+                    line-height:145% !important;}
+                
+                /* ==== Image Alignment Styles ==== */
+                
+                table[class="alignImageTable"] {width: 100% !important;}
+                
+                td[class="imageTableTop"] {display: none !important;
+                    /*padding-top: 10px !important;*/}
+                td[class="imageTableRight"] {display: none !important;}
+                td[class="imageTableBottom"] {padding-bottom: 10px !important;}
+                td[class="imageTableLeft"] {display: none !important;}
+                
+                /* ==== Column Styles ==== */
+
+                td[class~="column"] {display: block !important;
+                    width: 100% !important;
+                    padding-top: 0 !important;
+                    padding-right: 0 !important;
+                    padding-bottom: 0 !important;
+                    padding-left: 0 !important;}
+
+                td[class~=columnContent] {font-size:14px !important;
+                    line-height:145% !important;
+                
+                    padding-top: 10px !important;
+                    padding-right: 10px !important;
+                    padding-bottom: 10px !important;
+                    padding-left: 10px !important;}
+
+                #contentCell {padding: 10px 0px !important;}
+
+                #headerTable {padding-right: 15.0px !important;}
+
+                #contentTableOuter {padding: 15.0px !important;}}
+
+            #preview_text {display: none;}
+        /*]]>*/
+    </style>
+        <!-- http://www.emailon@cid.com/blog/details/C13/ensure_that_your_entire_email_is_rendered_by_default_in_the_iphone_ipad -->
+        <!--                                                                                                                     -->
+        <!--                                                                                                                     -->
+        <!--                            _/    _/            _/          _/_/_/                        _/                         -->
+        <!--                           _/    _/  _/    _/  _/_/_/    _/        _/_/_/      _/_/    _/_/_/_/                      -->
+        <!--                          _/_/_/_/  _/    _/  _/    _/    _/_/    _/    _/  _/    _/    _/                           -->
+        <!--                         _/    _/  _/    _/  _/    _/        _/  _/    _/  _/    _/    _/                            -->
+        <!--                        _/    _/    _/_/_/  _/_/_/    _/_/_/    _/_/_/      _/_/        _/_/                         -->
+        <!--                                                               _/                                                    -->
+        <!--                                                              _/                                                     -->
+        <!--                                                                                                                     -->
+        <!--                                                 Extra White Space!                                                  -->
+        <!--                                                                                                                     -->
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    
+    
+        <!-- Preview text (text which appears right after subject) -->
+        <div id="preview_text" style="display:none!important">You have a new lead! Name Jason Holder -  Email: holder_430447429@mailinator.com </div>
+
+        <!--  The  backgroundTable table manages the color of the background and then the templateTable maintains the body of 
+        the email template, including preheader & footer. This is the only table you set the width of to, everything else is set to 
+        100% and in the CSS above. Having the width here within the table is just a small win for Lotus Notes. -->
+
+        <!-- Begin backgroundTable -->  
+        <table align="center" bgcolor="#f2f2f2" border="0" cellpadding="0" cellspacing="0" height="100% !important" width="100% !important" id="backgroundTable" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:collapse !important; background-color:#f2f2f2; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; height:100% !important; margin:0; padding:0; width:100% !important">
+            <tbody><tr>
+                <td align="center" valign="top" id="bodyCell" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; height:100% !important; margin:0; padding:0; width:100% !important" height="100% !important" width="100% !important"> <!-- When nesting tables within a TD, align center keeps it well, centered. -->
+                    <!-- Begin Template Container -->
+                    <!-- This holds everything together in a nice container -->
+                    <table border="0" cellpadding="0" cellspacing="0" id="templateTable" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:collapse !important; width:600px; background-color:#ffffff; -webkit-font-smoothing:antialiased" width="600" bgcolor="#ffffff">
+                        <tbody><tr>
+                            <td align="center" valign="top" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt">
+                                <!-- Begin Template Preheader -->
+                                <div class="header-container-wrapper">
+        </div><table border="0" cellpadding="0" cellspacing="0" width="100%" id="headerTable" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; background-color:#f2f2f2; color:#444444; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:10px; line-height:120%; text-align:right; border-collapse:separate !important; padding-right:30px" bgcolor="#f2f2f2" align="right">
+                                    <tbody><tr>
+            <td align="left" valign="top" class="bodyContent" width="100%" colspan="12" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; color:#444444; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:150%; text-align:left">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" class="templateColumnWrapper" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:collapse !important">
+                    <tbody><tr>
+                        <td align="left" valign="top" colspan="12" width="100.0%" class="column" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; text-align:left; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:1.5em; color:#444444">
+                            <div class="widget-span widget-type-email_view_as_web_page " style="" data-widget-type="email_view_as_web_page">
+
+
+                            </div><!--end widget-span -->
+                        </td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+<!--end header wrapper -->
+                                </tbody></table>
+                                <!-- End Template Preheader -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="top" id="contentCell" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; padding:10px 20px; background-color:#f2f2f2" bgcolor="#f2f2f2">
+                                <!-- Begin Template Wrapper -->
+                                <!-- This separates the preheader which usually contains the "open in browser, etc" content
+                                from the actual body of the email. Can alternatively contain the footer too, but I choose not
+                                to so that it stays outside of the border. -->
+                                <table border="0" cellpadding="0" cellspacing="0" width="100%" id="contentTableOuter" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:separate !important; background-color:#ffffff; box-shadow:0px 1px rgba(0, 0, 0, 0.1); padding:30px; border:1px solid #cccccc; border-bottom:1px solid #acacac" bgcolor="#ffffff">
+                                    <tbody><tr>
+                                        <td align="center" valign="top" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt">
+                                            <div class="body-container-wrapper">
+        </div><table border="0" cellpadding="0" cellspacing="0" id="contentTableInner" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:collapse !important; width:600px" width="600">
+                                                <tbody><tr>
+            <td align="left" valign="top" class="bodyContent" width="100%" colspan="12" style="color: rgb(68, 68, 68); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 150%; text-align: left;">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" class="templateColumnWrapper" style="font-size: 15px; text-align: center; border-collapse: collapse !important;">
+                    <tbody><tr>
+                        <td align="left" valign="top" colspan="12" width="100.0%" class="column" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; text-align:left; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:1.5em; color:#444444">
+                            <div class="widget-span widget-type-logo " style="" data-widget-type="logo">
+                                <div class="layout-widget-wrapper">
+                                <div id="hs_cos_wrapper_logo_image" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" style="color: inherit; font-size: inherit; line-height: inherit; margin: inherit; padding: inherit" data-hs-cos-general-type="widget" data-hs-cos-type="logo"><span style="border-style: initial; border-color: initial;"><a href="propertypulse.z57.com"><img src="http://www.z57.com/wp-content/uploads/2015/04/PropertyPulseLogo.png?t=1451522451671&amp;width=150" class="hs-image-widget " style="vertical-align:bottom; -ms-interpolation-mode:bicubic; max-height:107px; max-width:150px; border-width:0px; border:0px" width="150" alt="PropertyPulseLogo_300x250.png" title="PropertyPulseLogo_300x250.png"></a></span></div><div id="hs_cos_wrapper_logo_image" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_logo" style="color: inherit; font-size: inherit; line-height: inherit; margin: inherit; padding: inherit" data-hs-cos-general-type="widget" data-hs-cos-type="logo"></div></div></div></td></tr></tbody></table>
+<p style="font-size: 15px; color: rgb(0, 0, 0); font-family: Arial, Verdana; line-height: normal;">You have a new lead from PropertyPulse! Check out their Social Profile directly inside of their lead deatils!&nbsp;</p>
+<p style="color: rgb(0, 0, 0); font-family: Arial, Verdana; line-height: normal;"><span style="font-size: 14px; line-height:20px"><b>Name:</b>&nbsp; &nbsp; Jason Holder<br><b>Email:</b>&nbsp; &nbsp; holder_430447429@mailinator.com&nbsp;<br><b>Phone:</b>&nbsp; 9265658923&nbsp;<br><b>Source:</b>	<a href="http://aqibdar-1584.sites.z57.com/recent-home-sales?ic_a=IykA4Q&fb=0&search[lat]=35.77&search[lon]=-119.25&search[address]=&search[city]=&search[state]=&search[zip]=93216&search[radius]=2&search[min_price]=50000&search[max_price]=10000000&search[beds]=0&search[baths]=0&search[sold_date]=12&search[property_types]=1&search[sq_feet_min]=0&search[sq_feet_max]=0&ts_zfs=uSkRPw" class="preventSelection wp_anypage">Website: Selling Your Home? Search Recent Home Sales | Aqib Dar | Tester Extraordinaire</a><br><b>Comment:</b> <br><b>Comments:</b><br/>More details required ##$$$<br/></span><br></p><p style="font-size: 12px; color: rgb(0, 0, 0); font-family: Arial, Verdana; line-height: normal;"><span style="font-size: 12px;">Because it's critical to reach out to your new lead right away, we've already sent a quick message to your new lead telling them that you'll be reaching out to them in a few minutes.</span></p><p style="font-size: 13.3333px; color: rgb(0, 0, 0); font-family: Arial, Verdana; line-height: normal;"><span style="font-weight: bold;"><a href="http://propertypulse.z57.com/" style="font-size: 13.3333px;">LOGIN</a>&nbsp;</span>to learn more about your new lead.</p><p style="font-size: 13.3333px; color: rgb(0, 0, 0); font-family: Arial, Verdana; line-height: normal;"><br><span style="font-size: 13.3333px;">Thank you for choosing Z57 - your path to online marketing success!</span></p></td></tr><tr><td align="left" valign="top" class="bodyContent" width="100%" colspan="12" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; color:#444444; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:150%; text-align:left"><table cellpadding="0" cellspacing="0" border="0" width="100%" class="templateColumnWrapper" style="text-align: center; border-collapse: collapse !important;"><tbody><tr><td align="left" valign="top" colspan="12" width="100.0%" class="column" style="text-align: left;"><div class="widget-span widget-type-email_body " data-widget-type="email_body"><div id="hs_cos_wrapper_hs_email_body" class="hs_cos_wrapper hs_cos_wrapper_widget hs_cos_wrapper_type_rich_text" style="margin: inherit; padding: inherit;" data-hs-cos-general-type="widget" data-hs-cos-type="rich_text"><p style="color: inherit; line-height: inherit; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; margin-bottom: 1em;"><span style="font-size: small; line-height: 150%; color: inherit;">-------------------------------------------------------------</span></p><p style="margin-bottom: 1em;"><span style="font-size: small;"><span style="color: inherit; font-family: Arial; line-height: inherit;">Have Questions? Need help? Lost Your Password?</span><br>- Visit the <a href="http://www.z57.com/pro-help-center">Help Center</a>&nbsp;&nbsp;- &nbsp;<a href="http://www.z57.com/zpro-recorded-webcasts">Watch Webinars</a><a href="http://www.z57.com/zpro-recorded-webcasts/" data-hs-link-id="0"><br></a>- Email us at customerservice@Z57.com<br>- Call us at 800.899.8148 x5</span></p></div></div></td></tr></tbody></table></td></tr><tr><td align="left" valign="top" class="bodyContent" width="100%" colspan="12" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; color:#444444; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:150%; text-align:left"><br></td></tr></tbody></table>
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                                <!-- End Template Wrapper -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" valign="top" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt">
+                                <!-- Begin Template Footer -->
+                                <div class="footer-container-wrapper">
+        </div><table border="0" cellpadding="0" cellspacing="0" width="100%" id="footerTable" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:collapse !important; background-color:#f2f2f2; color:#999999; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:12px; line-height:120%; padding-top:20px; padding-right:20px; padding-bottom:20px; padding-left:20px; text-align:center" bgcolor="#f2f2f2" align="center">
+                                    <tbody><tr>
+            <td align="left" valign="top" class="bodyContent" width="100%" colspan="12" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; color:#444444; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:150%; text-align:left">
+                <table cellpadding="0" cellspacing="0" border="0" width="100%" class="templateColumnWrapper" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; border-collapse:collapse !important">
+                    <tbody><tr>
+                        <td align="left" valign="top" colspan="12" width="100.0%" class="column" style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt; text-align:left; font-family:'Helvetica Neue', Helvetica, Arial, sans-serif; font-size:15px; line-height:1.5em; color:#444444">
+                            <div class="widget-span widget-type-email_can_spam " style="" data-widget-type="email_can_spam">
+                                <p id="footer" style="margin-bottom: 1em; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; font-family:Geneva, Verdana, Arial, Helvetica, sans-serif; text-align:center; font-size:12px; line-height:1.34em; color:#999999; display:block" align="center"><span style="line-height: 1.34em;">This message was intended for ${email}<br>Powered by Z57 Internet Solutions</span></p>
+
+                            </div><!--end widget-span -->
+                        </td>
+                    </tr>
+                </tbody></table>
+            </td>
+        </tr>
+<!--end footer wrapper -->
+                                    <tr>
+                                        <td style="-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; mso-table-lspace:0pt; mso-table-rspace:0pt"></td>
+                                    </tr>
+                                </tbody></table>
+                                <!-- End Template Footer -->
+                            </td>
+                        </tr>
+                    </tbody></table>
+                    <!-- End Template Container -->
+                </td>
+            </tr>
+        </tbody></table></div>' as column: email3_3_0_
+returning 'You Have A New Lead From PropertyPulse!' as column: email4_3_0_
+returning null as column: date5_3_0_
+returning '11675' as column: account6_3_0_
+done processing result set (1 rows)
+about to close ResultSet (open ResultSets: 1, globally: 1)
+about to close PreparedStatement (open PreparedStatements: 1, globally: 1)
+closing statement
+total objects hydrated: 1
+resolving associations for [resources.orm.hibernate.models.z57.Notifications#11671]
+done materializing entity [resources.orm.hibernate.models.z57.Notifications#11671]
+initializing non-lazy collections
+done entity load
+after autocommit
+aggressively releasing JDBC connection
+releasing JDBC connection [ (open PreparedStatements: 0, globally: 0) (open ResultSets: 0, globally: 0)]
+returning connection to pool, pool size: 1
+closing session
+connection already null in cleanup : no action
