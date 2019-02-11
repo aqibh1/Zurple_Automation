@@ -92,7 +92,7 @@ public class PageHeader extends Page{
 	}
 	public boolean clickOnAbout() {
 		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Services"));
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "About"));
+		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "About Me"));
 	}
 	public boolean clickOnBuyers() {
 		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Services"));
