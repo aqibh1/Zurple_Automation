@@ -1,9 +1,9 @@
-<suite name="Capture Lead From Community Reports Page" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+<suite name="Search and Verify Results on Community Reports Page" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	<listeners>
         <listener class-name="resources.ThreadCountChanger"/>
     </listeners>
    
-    <test name="Capture Lead From Community Reports" preserve-order="true">
+    <test name="Search and Verify Results on Community Reports" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/our_community/our-community-data-01.json">
 	<classes>
       <class name="com.z57.site.v2.CommunityReportsPageTest" >
