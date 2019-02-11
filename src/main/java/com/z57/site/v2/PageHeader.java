@@ -88,7 +88,7 @@ public class PageHeader extends Page{
 	}
 	public boolean clickOnContact() {
 		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Services"));
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "Contact"));
+		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "Contact Me"));
 	}
 	public boolean clickOnAbout() {
 		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Services"));
@@ -125,5 +125,8 @@ public class PageHeader extends Page{
 	}
 	public boolean isLeadLoggedIn() {
 		return ActionHelper.waitForElementToBeVisible(driver, user_image_icon,20);
+	}
+	public void refreshPage() {
+		 ActionHelper.RefreshPage(driver);
 	}
 }

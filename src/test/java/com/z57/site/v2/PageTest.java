@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
 import resources.AbstractPageTest;
 import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
@@ -92,11 +94,12 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
     public void captureLead(String pName,String pEmail, String pPhone, String pComments) {
     		PageHeader pageHeader = new PageHeader(getDriver());
     		LeadCaptureForm leadCaptureForm = new LeadCaptureForm(getDriver());
-    
     		
     		assertTrue(leadCaptureForm.isLeadCaptureFormVisible(), "Lead Capture Form was not visible for ");
-        	pName=updateName(pName);
+        	
+    		pName=updateName(pName);
         	assertTrue(leadCaptureForm.typeName(pName), "Name input field not visible. Unable to type");
+        	
         	pEmail=updateEmail(pEmail);
         	assertTrue(leadCaptureForm.typeEmail(pEmail), "Email input field not visible. Unable to type");
         	
@@ -133,7 +136,7 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
         	bootstrapModalObj.clearBootstrapModal();
         }
     }
-    private String updateEmail(String pEmail) {
+    protected String updateEmail(String pEmail) {
     	Date dateObj = new Date();
 		long date_to_append=dateObj.getTime()/3600;
 		int at = pEmail.indexOf('@');
@@ -143,7 +146,7 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
 		return pEmail;
     }
     
-    private String updateName(String pName) {
+    protected String updateName(String pName) {
     	Date dateObj = new Date();
 		long date_to_append=dateObj.getTime()/3600;
 		pName=pName+" "+Long.toString(date_to_append);

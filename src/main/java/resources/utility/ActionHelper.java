@@ -45,10 +45,16 @@ public class ActionHelper {
 			return isSuccessfull;
 		}
 	   
-	   public static void MouseHoverOnElement(WebDriver pWebDriver, WebElement pElementToBeHoveredOn) {
-			Actions action = new Actions(pWebDriver);
-			action.moveToElement(pElementToBeHoveredOn).build().perform();
-			AutomationLogger.info("Mouse hover is successfull");
+	   public static boolean MouseHoverOnElement(WebDriver pWebDriver, WebElement pElementToBeHoveredOn) {
+		   boolean status = false;
+		   if(isElementVisible(pWebDriver, pElementToBeHoveredOn)) {
+			   Actions action = new Actions(pWebDriver);
+			   action.moveToElement(pElementToBeHoveredOn).build().perform();
+			   AutomationLogger.info("Mouse hover is successfull");
+		   }else {
+			   AutomationLogger.error("Mouse hover is unsuccessful over element ->"+pElementToBeHoveredOn.getAttribute("xpath"));
+		   }
+		   return status;
 		}
 	   
 	   public static boolean waitForElementToBeDisappeared(WebDriver pWebDriver,WebElement pElementToBeDisappeared) {			
@@ -125,4 +131,15 @@ public class ActionHelper {
 			}
 			return isSuccessfull;
 		}
+	   
+	   public static void RefreshPage(WebDriver pWebDriver) {
+		   AutomationLogger.info("Refreshing the page");
+		   pWebDriver.navigate().to(pWebDriver.getCurrentUrl()); 
+	   }
+	   
+	   public static void waitForTime(WebDriver pWebDriver,long pWaitInSecnds) throws InterruptedException {
+		   wait=new WebDriverWait(pWebDriver, pWaitInSecnds);
+		   wait.wait(pWaitInSecnds);
+		   
+	   }
 }
