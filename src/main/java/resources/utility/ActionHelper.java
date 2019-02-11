@@ -74,6 +74,7 @@ public class ActionHelper {
 		   wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
 		   boolean isElementVisible = false;
 		   try {
+			   AutomationLogger.info("Waiting for the visibility of element ->"+pElement);
 			   isElementVisible=wait.until(ExpectedConditions.visibilityOf(pElement))!=null;
 		   }catch(Exception ex) {
 			   AutomationLogger.error("Element is not visible.  -> "+pElement);
@@ -112,7 +113,14 @@ public class ActionHelper {
 		   return result;
 	   }
 	    
-	   public static boolean ClearAndType(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
+	   /**
+	 * @param pWebDriver
+	 * @param pInputField
+	 * @param pStringToType
+	 * @return boolean
+	 * Clear the field and type the string
+	 */
+	public static boolean ClearAndType(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
 			boolean isSuccessfull=false;
 			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
 			try {
@@ -131,6 +139,22 @@ public class ActionHelper {
 			}
 			return isSuccessfull;
 		}
+	
+	public static boolean waitForElementToBeClickAble(WebDriver pWebDriver,WebElement pElement) {
+		boolean isSuccessful =false;
+		wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+		try {
+			AutomationLogger.info("Waiting for the element to be clickable"+pElement);
+			if(wait.until(ExpectedConditions.elementToBeClickable(pElement))!=null) {
+				isSuccessful=true;
+			}
+			
+		}catch(Exception ex) {
+			AutomationLogger.error("Element is not clickable -> "+pElement);
+			AutomationLogger.error(ex.toString());
+		}
+		return isSuccessful;
+	}
 	   
 	   public static void RefreshPage(WebDriver pWebDriver) {
 		   AutomationLogger.info("Refreshing the page");

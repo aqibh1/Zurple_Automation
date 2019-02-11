@@ -14,6 +14,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import resources.utility.ActionHelper;
+
 public class PropertyListingPage extends Page{
 	WebDriverWait wait;
 
@@ -182,11 +184,6 @@ public class PropertyListingPage extends Page{
 		}else {
 			return lotSizeInSqFeet;
 		}
-//		if(!lLotSize.getText().isEmpty()) {
-//			return Integer.parseInt(lLotSize.getText());
-//		}else {
-//			return 0;
-//		}
 		return lotSizeInSqFeet;
 	}
 	public boolean propertyInteriorVerification(String pFeatureType) {
@@ -350,26 +347,28 @@ public class PropertyListingPage extends Page{
 	
 	private boolean clickOnElement(WebElement pElementToBeClicked) {
 
-		boolean isClickSuccessful=false;
-		if(wait.until(ExpectedConditions.visibilityOf(pElementToBeClicked))!=null) {
-			pElementToBeClicked.click();
-			isClickSuccessful=true;
-			
-		}
-		return isClickSuccessful;
+		/*
+		 * boolean isClickSuccessful=false;
+		 * if(wait.until(ExpectedConditions.visibilityOf(pElementToBeClicked))!=null) {
+		 * pElementToBeClicked.click(); isClickSuccessful=true;
+		 * 
+		 * } return isClickSuccessful;
+		 */
+		return ActionHelper.Click(driver, pElementToBeClicked);
 	
 	}
 	
 	private boolean isElementDisplayed(WebElement pElement) {
-		boolean result=false;
-		try {
-			if(wait.until(ExpectedConditions.visibilityOf(pElement))!=null) {
-				result=true;	
-			}
-		}catch(Exception ex) {
-			System.out.println(pElement.getAttribute("xpath")+" is not visible. Waited for 20 seconds"+pElement.getScreenshotAs(OutputType.FILE));
-		}
-		return result;
+//		boolean result=false;
+//		try {
+//			if(wait.until(ExpectedConditions.visibilityOf(pElement))!=null) {
+//				result=true;	
+//			}
+//		}catch(Exception ex) {
+//			System.out.println(pElement.getAttribute("xpath")+" is not visible. Waited for 20 seconds"+pElement.getScreenshotAs(OutputType.FILE));
+//		}
+//		return result;
+		return ActionHelper.isElementVisible(driver, pElement);
 
 	}
 }
