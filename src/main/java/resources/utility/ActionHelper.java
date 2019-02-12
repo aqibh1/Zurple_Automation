@@ -1,5 +1,8 @@
 package resources.utility;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -154,6 +157,18 @@ public class ActionHelper {
 			AutomationLogger.error(ex.toString());
 		}
 		return isSuccessful;
+	}
+	
+	public static List<WebElement> getListOfElementByXpath(WebDriver pWebDriver,String pElementXpath){
+		List<WebElement> lList_of_Elements = null;
+		try {
+			lList_of_Elements = pWebDriver.findElements(By.xpath(pElementXpath));
+		}catch(Exception ex) {
+			AutomationLogger.error("Element list not found -> "+pElementXpath);
+			AutomationLogger.error(ex.toString());
+		}
+		return lList_of_Elements;
+		
 	}
 	   
 	   public static void RefreshPage(WebDriver pWebDriver) {

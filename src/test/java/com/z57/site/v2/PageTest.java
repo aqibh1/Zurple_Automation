@@ -16,6 +16,7 @@ import resources.EnvironmentFactory;
 import resources.alerts.BootstrapModal;
 import resources.forms.z57.ContactMeForm;
 import resources.forms.z57.LeadCaptureForm;
+import resources.forms.z57.OurCommunitySearchForm;
 import resources.interfaces.TestHavingHeader;
 import resources.interfaces.UsingPage;
 import resources.orm.hibernate.models.AbstractLead;
@@ -167,6 +168,26 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
     	assertTrue(pageHeader.isLeadLoggedIn(),"Lead is not logged in");
 	}
     
+    public void searchResultsFromCommunityPages(String pAddress, String pCity, String pState,String pZip) {
+    	
+    	OurCommunitySearchForm ourCommunitySearchForm = new OurCommunitySearchForm(getDriver());
+		
+		if(!pAddress.isEmpty()) {
+			assertTrue(ourCommunitySearchForm.typeAddress(pAddress), "Unable to type address.");
+		}
+		if(!pCity.isEmpty()) {
+			assertTrue(ourCommunitySearchForm.typeCity(pCity), "Unable to type City.");
+		}
+		if(!pZip.isEmpty()) {
+			assertTrue(ourCommunitySearchForm.typeZip(pZip), "Unable to type Zip.");
+		}
+		if(!pState.isEmpty()) {
+			assertTrue(ourCommunitySearchForm.selectState(pState), "Unable to select state.");
+		}
+		
+		assertTrue(ourCommunitySearchForm.clickSubmitButton(),"Unable to Click on submit button");
+		assertTrue(ourCommunitySearchForm.isSearchSuccessful(),"Search is not successful");
+    }
     public void closeBootStrapModal() {
     	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
 

@@ -39,7 +39,7 @@ public class OurCommunitySearchForm extends AbstractForm{
 	}
 	
 	public boolean typeCity(String pCity) {
-		return ActionHelper.Type(driver, city_input, pCity);
+		return ActionHelper.ClearAndType(driver, city_input, pCity);
 	}
 	
 	public boolean selectState(String pState) {
