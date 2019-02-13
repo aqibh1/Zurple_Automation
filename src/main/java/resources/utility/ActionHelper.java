@@ -3,6 +3,8 @@ package resources.utility;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -183,5 +185,34 @@ public class ActionHelper {
 		   wait=new WebDriverWait(pWebDriver, pWaitInSecnds);
 		   wait.wait(pWaitInSecnds);
 		   
+	   }
+	   
+	   public static boolean Type(WebDriver pWebDriver,WebElement pInputField, Keys pStringToType) {
+			boolean isSuccessfull=false;
+			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			try {
+				AutomationLogger.info("Waiting for the visibility of element ->"+pInputField);
+				if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
+					pInputField.sendKeys(pStringToType);
+					AutomationLogger.info("String typed ->"+pStringToType);
+					isSuccessfull=true;
+				}
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to type in input field "+pInputField.getAttribute("xpath"));
+				AutomationLogger.error("String to type : "+pStringToType);
+				AutomationLogger.error(ex.toString());
+			}
+			return isSuccessfull;
+		}
+	   public static void ScrollToElement(WebDriver pWebDriver,WebElement pScrollToElement) {
+		   JavascriptExecutor js = (JavascriptExecutor) pWebDriver;
+		   AutomationLogger.info("Scrolling to element ->"+pScrollToElement);		
+	        js.executeScript("arguments[0].scrollIntoView();", pScrollToElement);
+		   
+	   }
+	   public static void BackPage(WebDriver pWebDriver) {
+		   AutomationLogger.info("Going Back");
+		   pWebDriver.navigate().back(); 
 	   }
 }

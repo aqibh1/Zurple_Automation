@@ -196,6 +196,13 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
         	bootstrapModalObj.clearBootstrapModal();
         }
     }
+    
+    public int getLeadId() {
+  	  Cookie cks = getDriver().manage().getCookieNamed("zfs_lead_id");
+        Integer lead_id = Integer.parseInt(cks.getValue());
+
+        return lead_id;
+  }
     protected String updateEmail(String pEmail) {
     	Date dateObj = new Date();
 		long date_to_append=dateObj.getTime()/3600;
