@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import resources.data.z57.OurCommunityData;
 import resources.data.z57.RegisterUserData;
 
 /**
@@ -72,6 +73,36 @@ public class WhatsNearbyPageTest extends PageTest{
 		captureLead(lName, lEmail, lPhone, lComments);
 		
 		assertTrue(page.isPointOfIntrestsPage(), "Page Title not found");
+		
+	}
+	
+	@Parameters({"dataFile"})
+	@Test
+	public void testSearchAndVerifyStatsOnPOIPage(String pFolderLocation) {
+		getPage();
+		OurCommunityData ourCommunityData = new OurCommunityData();
+		ourCommunityData=ourCommunityData.setOurCommunityData(pFolderLocation);
+		
+		String lAddress=ourCommunityData.getAddress();
+		String lCity = ourCommunityData.getCity();
+		String lState = ourCommunityData.getState();
+		String lZip = ourCommunityData.getZip();
+    	
+		closeBootStrapModal();
+		
+		PageHeader pageHeader = new PageHeader(driver);
+		assertTrue(pageHeader.clickOnWhatsNearby(), "Unable to click on Whats Nearby");
+		
+		closeBootStrapModal();
+		
+		assertTrue(page.isPointOfIntrestsPage(), "Page Title not found");
+		searchResultsFromCommunityPages(lAddress, lCity, lState, lZip);
+		
+		PropertyListingPage propertyListing = new PropertyListingPage(driver);
+		assertTrue(propertyListing.isWhatsNearbyDisplayed(),"Google Map is not displayed");
+		assertTrue(page.isResultsCorrect(lState), "POI inrests are not correct");
+		assertTrue(page.verifyPagination(), "Pagination is not working for POI Page");
+		
 		
 	}
 

@@ -111,7 +111,10 @@ public class ActionHelper {
 	   public static boolean clickAndSelect(WebDriver pWebDriver, WebElement pDropdown,WebElement pElementToSelect) {
 		   boolean result=false;
 		   if(waitForElementToBeVisible(pWebDriver,pDropdown,GLOBAL_WAIT_COUNT)) {
-			   result= Click(pWebDriver, pElementToSelect);
+			   Click(pWebDriver, pDropdown);
+			   if(waitForElementToBeVisible(pWebDriver, pElementToSelect, 5)) {
+				   result= Click(pWebDriver, pElementToSelect);
+			   }
 		   }
 		   return result;
 	   }

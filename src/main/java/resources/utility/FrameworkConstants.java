@@ -12,5 +12,6 @@ public class FrameworkConstants {
 	public static final String PointOfIntrestsPageTitle ="Points of Interest";
 	public static final String ContactMe = "Contact Me";
 	public static final String AboutMe = "About Me";
+	public static final String NoSearchResult = "No Search Results. Please Try Again";
 
 }
