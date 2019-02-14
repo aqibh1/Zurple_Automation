@@ -7,6 +7,7 @@ import resources.orm.hibernate.dao.zurple.*;
 import resources.orm.hibernate.dao.z57.*;
 import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.models.AbstractLead;
+import resources.orm.hibernate.models.z57.ListingImages;
 import resources.orm.hibernate.models.z57.NotificationEmails;
 import resources.orm.hibernate.models.z57.NotificationMailgun;
 import resources.orm.hibernate.models.z57.Notifications;
@@ -316,6 +317,19 @@ public class TestEnvironment
         {
         	ManageNotifications notification_object = new ManageNotifications(getSession());
             return notification_object.getAllNotifications(pNotificationId);
+        }else {
+        	return null;
+        }
+    }
+    
+    public List<ListingImages> getListOfListingImages(Integer pListingId)
+    {
+        String project = System.getProperty("project");
+
+        if (project.equals("z57"))
+        {
+        	ManageListingImages listing_images_object = new ManageListingImages(getSession());
+            return listing_images_object.getListingImages(pListingId);
         }else {
         	return null;
         }

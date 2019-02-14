@@ -1,16 +1,25 @@
 package com.z57.site.v2;
 import com.z57.site.v2.Page;
 import resources.ConfigReader;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.z57.site.v2.PageTest;
 import com.z57.site.v2.HomePage;
 import resources.DBHelperMethods;
 import org.testng.annotations.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 import resources.forms.z57.LoginForm;
 import resources.alerts.BootstrapModal;
 import resources.forms.z57.RegisterForm;
+import resources.orm.hibernate.models.z57.ListingImages;
+import resources.utility.AutomationLogger;
+
 import org.testng.annotations.Parameters;
 import static org.testng.Assert.assertTrue;
 import resources.data.z57.RegisterUserData;
@@ -111,19 +120,26 @@ public class HomePageTest extends PageTest
     public void testVerifyHomePage() {
     	getPage();
     	assertTrue(page.isFindMyLocationButtonWorking(), "Find My Location button not working on Home Page"); 
-    	assertTrue(page.typeInputAndSelect("SAN DIEGO","SAN DIEGO,CA"), "Unable to type in input field");
-    	assertTrue(page.clickSearchButton(), "Unable to click search button");
+//    	assertTrue(page.typeInputAndSelect("SAN DIEGO","SAN DIEGO, CA"), "Unable to type in input field");
+//    	assertTrue(page.clickSearchButton(), "Unable to click search button");
+//    	
+//    	HomeSearchPage homeSearchPage = new HomeSearchPage(driver);
+//    	assertTrue(homeSearchPage.isHomeSearchPage(), "Page is not redirected to Home Search Page");
+//    	homeSearchPage.goBack();
+//    	
+        assertTrue(page.isSellBuyContactImagesAreDisplayed(), "Correct Images are not displayed for Contact/Buy/Sell on home page");
     	
-    	HomeSearchPage homeSearchPage = new HomeSearchPage(driver);
-    	assertTrue(homeSearchPage.isHomeSearchPage(), "Page is not redirected to Home Search Page");
-    	homeSearchPage.goBack();
+    	assertTrue(page.isBackgroundImageSlidersAreDisplayed(), "Correct Images are not displayed for Background Slider");
     	
-    	assertTrue(page.isSellBuyContactImagesAreDisplayed(), "Correct Images are not displayed for Contact/Buy/Sell on home page");
+    	List<String> list_of_listing_ids_with_no_img = new ArrayList<String>();
+    	list_of_listing_ids_with_no_img=page.isFeaturePropertyImagesAreDisplayed();
+    	assertTrue(verifyImagesFromDB(list_of_listing_ids_with_no_img), "Correct Images are not displayed for Featured Properties");
+    	
     	assertTrue(page.clickOnSliderArrows(),"Slider arrows button not working");
-    	assertTrue(page.isFeaturePropertyImagesAreDisplayed(), "Feature Property images are not displayed correctly on Home Page");
-    	
-    	assertTrue(page.isAgentProfilePicDisplayed(), "Agent profile picture is not displayed correctly on Home Page");
 
+    	List<String> list_of_agent_with_no_img = new ArrayList<String>();
+    	list_of_agent_with_no_img=page.isAgentProfilePicDisplayed();
+    	assertTrue(verifyImagesFromDB(list_of_agent_with_no_img), "Agent profile picture is not displayed correctly on Home Page");
     	
     }
     
@@ -143,7 +159,7 @@ public class HomePageTest extends PageTest
     	return registerFormObj.isUserSuccessfullyRegistered();
     }
     
-   
+    
     
  
     

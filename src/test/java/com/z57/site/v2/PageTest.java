@@ -21,9 +21,12 @@ import resources.interfaces.TestHavingHeader;
 import resources.interfaces.UsingPage;
 import resources.orm.hibernate.models.AbstractLead;
 import resources.orm.hibernate.models.z57.Lead;
+import resources.orm.hibernate.models.z57.ListingImages;
+import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import static org.testng.Assert.assertEquals;
@@ -203,6 +206,22 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
 
         return lead_id;
   }
+    public boolean verifyImagesFromDB(List<String> pListOfListingIds) {
+    	boolean lIsSuccessful=true;
+    	if(!pListOfListingIds.isEmpty()) {
+    		for(String listingId: pListOfListingIds) {
+    			DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
+    			List<ListingImages> list_of_listing_images = dbHelperMethods.getListingImages(Integer.parseInt(listingId));
+    			if(list_of_listing_images!=null && !list_of_listing_images.isEmpty()) {
+    				AutomationLogger.error("Images found in Listing_Images table for Listing Id -> "+listingId);
+    				lIsSuccessful = false;
+    				break;
+    			}
+    		}
+    	}
+    	return lIsSuccessful;
+    }
+    
     protected String updateEmail(String pEmail) {
     	Date dateObj = new Date();
 		long date_to_append=dateObj.getTime()/3600;

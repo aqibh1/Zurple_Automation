@@ -1,5 +1,6 @@
 package com.z57.site.v2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -147,13 +148,13 @@ public class HomePage extends Page
 		List<WebElement> list_of_elemenets = ActionHelper.getListOfElementByXpath(driver, background_slider_image_xpath);
 		return isImageDisplayedCorrectly(list_of_elemenets);
 	}
-	public boolean isFeaturePropertyImagesAreDisplayed() {
+	public List<String> isFeaturePropertyImagesAreDisplayed() {
 		List<WebElement> list_of_elemenets = ActionHelper.getListOfElementByXpath(driver, feature_listings_slider_image_xpath);
-		return isImageDisplayedCorrectly(list_of_elemenets);
+		return isListingImageDisplayedCorrectly(list_of_elemenets);
 	}
-	public boolean isAgentProfilePicDisplayed() {
+	public List<String> isAgentProfilePicDisplayed() {
 		List<WebElement> list_of_elemenets = ActionHelper.getListOfElementByXpath(driver, agent_image_xpath);
-		return isImageDisplayedCorrectly(list_of_elemenets);
+		return isAgentImageDisplayedCorrectly(list_of_elemenets);
 	}
 	public boolean clickOnSliderArrows() {
 		boolean lRight_button = false, lLeft_button=false;
@@ -166,26 +167,73 @@ public class HomePage extends Page
 		return (lRight_button && lLeft_button);
 	}
 	
-	private boolean isImageDisplayedCorrectly(List<WebElement> pListOfElements) {
-		boolean lIsSuccessful=true;
+	private List<String> isListingImageDisplayedCorrectly(List<WebElement> pListOfElements) {
+		List<String> listing_ids_list = new ArrayList<String>();
+		
 		for(WebElement element: pListOfElements) {
 			String lSourceImg_url = element.getAttribute("src");
 			String onErrorImg_url = element.getAttribute("onerror");
 			String lSourceImg = lSourceImg_url.split("/")[lSourceImg_url.split("/").length-1];
 			String lOnErrorImg = onErrorImg_url.split("/")[onErrorImg_url.split("/").length-1].replace("'", "");
 			if(lSourceImg.equalsIgnoreCase(lOnErrorImg)) {
-				lIsSuccessful = false;
 				WebElement listing_url=element.findElement(By.xpath(".."));
 				String listing_url_str=listing_url.getAttribute("href");
-				String listing_id = listing_url_str.split("listing/")[1].split("/")[0];
+				String[] listing_id_array = listing_url_str.split("listings/");
+				String listing_id = listing_id_array[1].split("/")[0];
+				listing_ids_list.add(listing_id);
+				AutomationLogger.info("SOURCE IMAGE & ON ERROR IMAGE ARE SAME");
+				AutomationLogger.info("SOURCE IMAGE URL :: "+lSourceImg_url);
+				AutomationLogger.info("ON ERROR IMAGE URL :: "+onErrorImg_url);
+				AutomationLogger.info("VERIFYING THE IMAGES IN DB");
+			}	
+		}
+		return listing_ids_list;
+	}
+	
+	private List<String> isAgentImageDisplayedCorrectly(List<WebElement> pListOfElements) {
+		List<String> listing_ids_list = new ArrayList<String>();
+		
+		for(WebElement element: pListOfElements) {
+			String lSourceImg_url = element.getAttribute("src");
+			String onErrorImg_url = element.getAttribute("onerror");
+			String lSourceImg = lSourceImg_url.split("/")[lSourceImg_url.split("/").length-1];
+			String lOnErrorImg = onErrorImg_url.split("/")[onErrorImg_url.split("/").length-1].replace("'", "");
+			if(lSourceImg.equalsIgnoreCase(lOnErrorImg)) {
+//				WebElement listing_url=element.findElement(By.xpath(".."));
+//				String listing_url_str=listing_url.getAttribute("href");
+				String[] listing_id_array = lSourceImg.split("user/1/11");
+				String listing_id = listing_id_array[1].split("/")[0];
+				listing_ids_list.add(listing_id);
+
+				AutomationLogger.info("SOURCE IMAGE & ON ERROR IMAGE ARE SAME");
+				AutomationLogger.info("SOURCE IMAGE URL :: "+lSourceImg_url);
+				AutomationLogger.info("ON ERROR IMAGE URL :: "+onErrorImg_url);
+				AutomationLogger.info("VERIFYING THE IMAGES IN DB");
+			}	
+		}
+		return listing_ids_list;
+	}
+	
+	//Verifies that image is not equals to image provided in onerror method
+	private boolean isImageDisplayedCorrectly(List<WebElement> pListOfElements) {
+		boolean isSuccessful = true;
+		
+		for(WebElement element: pListOfElements) {
+			String lSourceImg_url = element.getAttribute("src");
+			String onErrorImg_url = element.getAttribute("onerror");
+			String lSourceImg = lSourceImg_url.split("/")[lSourceImg_url.split("/").length-1];
+			String lOnErrorImg = onErrorImg_url.split("/")[onErrorImg_url.split("/").length-1].replace("'", "");
+			if(lSourceImg.equalsIgnoreCase(lOnErrorImg)) {
 				AutomationLogger.error("SOURCE IMAGE & ON ERROR IMAGE ARE SAME");
 				AutomationLogger.error("SOURCE IMAGE URL :: "+lSourceImg_url);
 				AutomationLogger.error("ON ERROR IMAGE URL :: "+onErrorImg_url);
+				isSuccessful = false;
 				break;
 			}	
 		}
-		return lIsSuccessful;
+		return isSuccessful;
 	}
+	
 	public boolean typeInputAndSelect(String pStringToType,String pStringToFind) {
 		boolean isTypeSuccessful=false;
 		try {

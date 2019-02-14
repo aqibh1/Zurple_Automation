@@ -1,11 +1,8 @@
 package resources;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-
-import org.openqa.selenium.Cookie;
-
+import java.util.List;
 import resources.orm.hibernate.models.AbstractLead;
+import resources.orm.hibernate.models.z57.ListingImages;
 import resources.orm.hibernate.models.z57.NotificationEmails;
 import resources.orm.hibernate.models.z57.NotificationMailgun;
 import resources.orm.hibernate.models.z57.Notifications;
@@ -71,4 +68,17 @@ public class DBHelperMethods {
          AbstractLead newLead = testEnvironment.getLeadObject(pLeadId);
          return pEmailToVeirfy.equalsIgnoreCase(newLead.getEmail());
    }
+	
+	public List<ListingImages> getListingImages(Integer pListingId){
+		try {
+			AutomationLogger.info("Getting images for the listing id -> "+pListingId);
+			List<ListingImages> listOfListingImages= testEnvironment.getListOfListingImages(pListingId);
+			return listOfListingImages;
+		}catch(Exception ex) {
+			AutomationLogger.error("No Images exist for the Listing Id -> "+pListingId);
+			AutomationLogger.error(ex.toString());
+			return null;
+
+		}
+	}
 }
