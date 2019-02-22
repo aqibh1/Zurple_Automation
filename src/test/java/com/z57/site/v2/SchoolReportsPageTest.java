@@ -71,9 +71,7 @@ public class SchoolReportsPageTest extends PageTest{
 		closeBootStrapModal();
 		PageHeader pageHeader = new PageHeader(driver);
 		assertTrue(pageHeader.clickOnSchoolReports(), "Unable to click on School Reports");
-		
-		page.isResultsCorrectForAllPages("91910");
-		
+	
 		captureLead(lName, lEmail, lPhone, lComments);
 		
 		assertTrue(page.isSchoolReportsPage(), "Page Title not found");

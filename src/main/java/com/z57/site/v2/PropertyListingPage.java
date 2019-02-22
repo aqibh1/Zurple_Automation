@@ -14,10 +14,12 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import resources.forms.z57.EmailListingForm;
 import resources.utility.ActionHelper;
 
 public class PropertyListingPage extends Page{
 	WebDriverWait wait;
+	EmailListingForm emailListingForm;
 
 	@FindBy(xpath="//div[@class=' col-md-9 rightmargin ']/descendant::h2[@class='entry-title entry-prop']")
 	WebElement lPropertyTitleInHeader;
@@ -122,9 +124,13 @@ public class PropertyListingPage extends Page{
 	@FindBy(xpath="//div[@id='collapse_prop_details']/descendant::div")
 	WebElement lisOfPropertydetails;
 	
+	@FindBy(xpath="//button[@class='wpb_button wpb_btn-info wpb_btn-large email-listing-start']")
+	WebElement emailListing_button;
+	
 	public PropertyListingPage(WebDriver pWebDriver){
 		driver=pWebDriver;
 		wait=new WebDriverWait(driver, 20);
+		setEmailListingForm(driver);
 		PageFactory.initElements(driver, this);
 	}
 	public PropertyListingPage(WebDriver pWebDriver,String pSourceUrl){
@@ -133,6 +139,12 @@ public class PropertyListingPage extends Page{
 		PageFactory.initElements(driver, this);
 	}
 	
+	public EmailListingForm getEmailListingForm() {
+		return emailListingForm;
+	}
+	public void setEmailListingForm(WebDriver pWebDriver) {
+		emailListingForm = new EmailListingForm(pWebDriver);
+	}
 	public String getPropertyTitleFromTheHeader() {
 		return lPropertyTitleInHeader.getText();
 	}
@@ -333,6 +345,15 @@ public class PropertyListingPage extends Page{
 		}
 		return isFound;
 	}
+	
+	public boolean clickOnEmailListing() {
+		ActionHelper.ScrollPixels(driver);
+		ActionHelper.MoveToElement(driver, emailListing_button);
+		return ActionHelper.Click(driver, emailListing_button);
+	}
+	public boolean isPropertyTitleVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, lPropertyTitleInHeader, 15);
+	}
 	@Override
 	public WebElement getHeader() {
 		// TODO Auto-generated method stub
@@ -347,27 +368,11 @@ public class PropertyListingPage extends Page{
 	
 	private boolean clickOnElement(WebElement pElementToBeClicked) {
 
-		/*
-		 * boolean isClickSuccessful=false;
-		 * if(wait.until(ExpectedConditions.visibilityOf(pElementToBeClicked))!=null) {
-		 * pElementToBeClicked.click(); isClickSuccessful=true;
-		 * 
-		 * } return isClickSuccessful;
-		 */
 		return ActionHelper.Click(driver, pElementToBeClicked);
 	
 	}
 	
 	private boolean isElementDisplayed(WebElement pElement) {
-//		boolean result=false;
-//		try {
-//			if(wait.until(ExpectedConditions.visibilityOf(pElement))!=null) {
-//				result=true;	
-//			}
-//		}catch(Exception ex) {
-//			System.out.println(pElement.getAttribute("xpath")+" is not visible. Waited for 20 seconds"+pElement.getScreenshotAs(OutputType.FILE));
-//		}
-//		return result;
 		return ActionHelper.isElementVisible(driver, pElement);
 
 	}

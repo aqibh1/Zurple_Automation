@@ -111,4 +111,20 @@ public class ManageLead {
             session.close();
         }
     }
+    public Lead getLead(String pLeadEmail){
+
+        List<Lead> lead_list = new ArrayList<Lead>();
+        try {
+        	Query q = session.createQuery("FROM Lead WHERE email='"+pLeadEmail+"'");
+        	lead_list = q.list();
+            Hibernate.initialize(lead_list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return lead_list.get(0);
+    }
 }

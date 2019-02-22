@@ -73,6 +73,8 @@ public class RecentHomeSalesPageTest extends PageTest{
 		PageHeader pageHeader = new PageHeader(driver);
 		assertTrue(pageHeader.clickOnLocalHomeValues(), "Unable to click on Local Home Values");
 		
+		closeBootStrapModal();
+		
 		assertTrue(page.isGoogleMapDisplayed(), "The Google Map is not displayed on Listing Page");
 		
 		assertTrue(page.isRecentHomeSalesPage(), "Page Title not found");

@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ActionHelper {
 	protected static WebDriverWait wait;
-	private static long GLOBAL_WAIT_COUNT=10;
+	private static long GLOBAL_WAIT_COUNT=30;
 	
 	public static boolean Type(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
 			boolean isSuccessfull=false;
@@ -68,7 +68,7 @@ public class ActionHelper {
 		   try {
 			   isElementVisible=wait.until(ExpectedConditions.invisibilityOf(pElementToBeDisappeared));
 		   }catch(Exception ex) {
-			   AutomationLogger.error("Element is not visible.  Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
+			   AutomationLogger.error("Element did not disappear.  Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
 			   AutomationLogger.error(ex.toString());
 		   }
 		   return isElementVisible;
@@ -206,13 +206,30 @@ public class ActionHelper {
 			return isSuccessfull;
 		}
 	   public static void ScrollToElement(WebDriver pWebDriver,WebElement pScrollToElement) {
-		   JavascriptExecutor js = (JavascriptExecutor) pWebDriver;
-		   AutomationLogger.info("Scrolling to element ->"+pScrollToElement);		
-	        js.executeScript("arguments[0].scrollIntoView();", pScrollToElement);
+		   try {
+			   JavascriptExecutor js = (JavascriptExecutor) pWebDriver;
+			   AutomationLogger.info("Scrolling to element ->"+pScrollToElement);		
+			   js.executeScript("arguments[0].scrollIntoView();", pScrollToElement);
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Error in Scrolling to element"+pScrollToElement);
+		   }
+		   
+	   }
+	   public static void ScrollPixels(WebDriver pWebDriver) {
+		   try {
+			   JavascriptExecutor js = (JavascriptExecutor) pWebDriver;
+			   AutomationLogger.info("Scrolling down");		
+			   js.executeScript("window.scrollBy(0,700)");
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Error in Scrolling down");
+		   }
 		   
 	   }
 	   public static void BackPage(WebDriver pWebDriver) {
 		   AutomationLogger.info("Going Back");
 		   pWebDriver.navigate().back(); 
+	   }
+	   public static void MoveToElement(WebDriver pWebDriver, WebElement pElement) {
+		   new Actions(pWebDriver).moveToElement(pElement).perform();
 	   }
 }

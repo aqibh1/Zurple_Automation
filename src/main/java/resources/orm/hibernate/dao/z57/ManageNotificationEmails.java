@@ -3,6 +3,7 @@
  */
 package resources.orm.hibernate.dao.z57;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,6 +36,23 @@ public class ManageNotificationEmails {
 	            	   notification_emails = (NotificationEmails) iterator.next();
 	               }
 	            Hibernate.initialize(notification_emails);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	            if (session != null && session.isOpen()) {
+	                session.close();
+	            }
+	        }
+	        return notification_emails;
+	    }
+	    
+	    public List<NotificationEmails> getNotificationIdList(String pEmail,Integer pNumOfRecords){
+
+	    	List<NotificationEmails> notification_emails = new ArrayList<NotificationEmails>();
+	        try {
+	        	 Query q = session.createQuery("FROM NotificationEmails WHERE email='"+pEmail+"' ORDER BY DATE(dateAdded) DESC").setMaxResults(pNumOfRecords);
+	        	 notification_emails = q.list();
+	               
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        } finally {

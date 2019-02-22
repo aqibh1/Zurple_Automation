@@ -66,7 +66,7 @@ public class Notifications extends Abstract{
 		this.email_subject = email_subject;
 	}
 	
-	@Column(name = "email_body", unique = false, nullable = false, length = 255)
+	@Column(name = "email_body", unique = false, nullable = false)
 	public String getEmail_body() {
 		return email_body;
 	}

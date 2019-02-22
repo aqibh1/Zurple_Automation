@@ -334,4 +334,35 @@ public class TestEnvironment
         	return null;
         }
     }
+    
+    public AbstractLead getLeadObject(String pLeadEmail)
+    {
+
+        String project = System.getProperty("project");
+
+        if (project.equals("z57"))
+        {
+            resources.orm.hibernate.dao.z57.ManageLead ml = new resources.orm.hibernate.dao.z57.ManageLead(getSession());
+            return ml.getLead(pLeadEmail);
+        }
+//        else
+//        {
+//            resources.orm.hibernate.dao.zurple.ManageLead ml = new resources.orm.hibernate.dao.zurple.ManageLead(getSession());
+//            return ml.getLead(lead_id);
+//        }
+        return null;
+
+    }
+    public List<NotificationEmails> getNotificationEmailsObject(String pEmail,Integer pMaxRows)
+    {
+        String project = System.getProperty("project");
+
+        if (project.equals("z57"))
+        {
+        	ManageNotificationEmails notification_emails_object = new ManageNotificationEmails(getSession());
+            return notification_emails_object.getNotificationIdList(pEmail, pMaxRows);
+        }else {
+        	return null;
+        }
+    }
 }

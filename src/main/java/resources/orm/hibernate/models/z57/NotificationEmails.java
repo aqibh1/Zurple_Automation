@@ -2,6 +2,9 @@ package resources.orm.hibernate.models.z57;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +23,7 @@ public class NotificationEmails extends Abstract{
 	private String email;
 	private String name;
 	private Integer notificationEmailId;
+	private Timestamp dateAdded;
 	
 	@Id
     @GeneratedValue(strategy = IDENTITY)
@@ -55,6 +59,13 @@ public class NotificationEmails extends Abstract{
 		this.name = name;
 	}
 	
+	@Column(name = "date_added", unique = false, nullable = true)
+	public Timestamp getDateAdded() {
+		return dateAdded;
+	}
+	public void setDateAdded(Timestamp dateAdded) {
+		this.dateAdded = dateAdded;
+	}
 	
 
 }

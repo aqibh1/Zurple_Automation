@@ -1,5 +1,6 @@
 package resources;
 
+import java.util.ArrayList;
 import java.util.List;
 import resources.orm.hibernate.models.AbstractLead;
 import resources.orm.hibernate.models.z57.ListingImages;
@@ -80,5 +81,42 @@ public class DBHelperMethods {
 			return null;
 
 		}
+	}
+	
+	public boolean verifyLeadByEmailInDB(String pEmailToVeirfy) {
+
+		//Checking created lead source
+		//Checking DB record body
+		try {
+			AbstractLead newLead = testEnvironment.getLeadObject(pEmailToVeirfy);
+			return pEmailToVeirfy.equalsIgnoreCase(newLead.getEmail());
+		}
+		catch(Exception ex) {
+			AutomationLogger.error("No Lead found in Lead Table for email ->"+pEmailToVeirfy);
+			return false;
+		}
+	}
+	
+	public boolean verifyEmailIsSentToAgent(String pAgentEmail,String pLeadEmail) {
+		boolean result = false;
+		try {
+			List<NotificationEmails> notificationEmailsList = new ArrayList<NotificationEmails>();
+			notificationEmailsList = testEnvironment.getNotificationEmailsObject(pAgentEmail, 100);
+			for(NotificationEmails notficationEmails: notificationEmailsList) {
+				int notification_id = notficationEmails.getNotificationId();
+				Notifications notification = getNotifications(notification_id);
+				String lEmail_Body = notification.getEmail_body();
+//				System.out.println(lEmail_Body);
+				if(lEmail_Body.contains(pLeadEmail)) {
+					result = true;
+					break;
+				}
+			}
+		}catch (Exception ex) {
+			result = false;
+			AutomationLogger.error("Notification Emails List not found for Agent Email");
+			AutomationLogger.error(ex.toString());
+		}
+		return result;
 	}
 }

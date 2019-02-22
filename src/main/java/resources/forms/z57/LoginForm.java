@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.forms.AbstractForm;
+import resources.utility.ActionHelper;
 
 /**
  * @author adar
@@ -74,14 +75,7 @@ public class LoginForm extends AbstractForm{
 	}
 	
 	public boolean clickOnSignInButton() {
-		wait.until(ExpectedConditions.visibilityOf(signIn_button));
-		wait.until(ExpectedConditions.elementToBeClickable(signIn_button));
-		if(signIn_button.isDisplayed()) {
-			signIn_button.click();
-			return true;
-		}else {
-			return false;
-		}
-	}   
+		return ActionHelper.Click(driver, signIn_button);
+	}
 
 }
