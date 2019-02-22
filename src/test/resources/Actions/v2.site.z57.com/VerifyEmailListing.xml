@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Verify Listing">
-<!--  
+  
   <test name="Verify Email Listing">
   <parameter name="dataFile" value="/resources/data/email-listing-data.json">
     <classes>
@@ -18,7 +18,7 @@
     </classes>
     </parameter>
   </test>
-  -->
+  
   <test name="Verify Email Listing with User logged in">
     <parameter name="dataFile" value="/resources/data/email-listing-data.json">
     <classes>
