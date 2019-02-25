@@ -119,4 +119,56 @@ public class DBHelperMethods {
 		}
 		return result;
 	}
+	
+	public boolean verifyEmailIsSentToAgent(String pAgentEmail,String pLeadEmail, String pSubjectToVerify) {
+		boolean result = false;
+		try {
+			List<NotificationEmails> notificationEmailsList = new ArrayList<NotificationEmails>();
+			notificationEmailsList = testEnvironment.getNotificationEmailsObject(pAgentEmail, 100);
+			for(NotificationEmails notficationEmails: notificationEmailsList) {
+				int notification_id = notficationEmails.getNotificationId();
+				Notifications notification = getNotifications(notification_id);
+				String lEmail_Subject =notification.getEmail_subject();
+				String lEmail_Body = notification.getEmail_body();
+				if(lEmail_Subject.equalsIgnoreCase(pSubjectToVerify)) {
+					//				System.out.println(lEmail_Body);
+					if(lEmail_Body.contains(pLeadEmail)) {
+						result = true;
+						break;
+					}
+				}
+			}
+		}catch (Exception ex) {
+			result = false;
+			AutomationLogger.error("Notification Emails List not found for Agent Email");
+			AutomationLogger.error(ex.toString());
+		}
+		return result;
+	}
+	
+	public boolean verifyEmailIsSentToLead(String pLeadEmail, String pSubjectToVerify) {
+		boolean result = false;
+		try {
+			List<NotificationEmails> notificationEmailsList = new ArrayList<NotificationEmails>();
+			notificationEmailsList = testEnvironment.getNotificationEmailsObject(pLeadEmail, 100);
+			for(NotificationEmails notficationEmails: notificationEmailsList) {
+				int notification_id = notficationEmails.getNotificationId();
+				Notifications notification = getNotifications(notification_id);
+				String lEmail_Subject =notification.getEmail_subject();
+//				String lEmail_Body = notification.getEmail_body();
+				if(lEmail_Subject.equalsIgnoreCase(pSubjectToVerify)) {
+					//				System.out.println(lEmail_Body);
+					//					if(lEmail_Body.contains(pLeadEmail)) {
+					result = true;
+					break;
+					//					}
+				}
+			}
+		}catch (Exception ex) {
+			result = false;
+			AutomationLogger.error("Notification Emails List not found for Agent Email");
+			AutomationLogger.error(ex.toString());
+		}
+		return result;
+	}
 }

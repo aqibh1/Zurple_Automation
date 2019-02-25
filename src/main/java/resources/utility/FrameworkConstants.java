@@ -15,4 +15,6 @@ public class FrameworkConstants {
 	public static final String NoSearchResult = "No Search Results. Please Try Again";
 	public static final String HomeSearchPageTitle = "Home Search";
 	public static final String CheckoutThisListing = "Check Out this listing!";
+	public static final String InquiredAboutListing = "Has Inquired About A Listing";
+	public static final String InformationIsOnTheWay = "Information is on the way!";
 }

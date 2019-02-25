@@ -15,11 +15,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.forms.z57.EmailListingForm;
+import resources.forms.z57.RequestInfoForm;
 import resources.utility.ActionHelper;
 
 public class PropertyListingPage extends Page{
 	WebDriverWait wait;
 	EmailListingForm emailListingForm;
+	RequestInfoForm requestInfoForm;
+
 
 	@FindBy(xpath="//div[@class=' col-md-9 rightmargin ']/descendant::h2[@class='entry-title entry-prop']")
 	WebElement lPropertyTitleInHeader;
@@ -127,10 +130,14 @@ public class PropertyListingPage extends Page{
 	@FindBy(xpath="//button[@class='wpb_button wpb_btn-info wpb_btn-large email-listing-start']")
 	WebElement emailListing_button;
 	
+	@FindBy(xpath="//button[@id='rq_info_listing_start']")
+	WebElement reqInfo_button;
+	
 	public PropertyListingPage(WebDriver pWebDriver){
 		driver=pWebDriver;
 		wait=new WebDriverWait(driver, 20);
 		setEmailListingForm(driver);
+		setRequestInfoForm(driver);
 		PageFactory.initElements(driver, this);
 	}
 	public PropertyListingPage(WebDriver pWebDriver,String pSourceUrl){
@@ -145,6 +152,14 @@ public class PropertyListingPage extends Page{
 	public void setEmailListingForm(WebDriver pWebDriver) {
 		emailListingForm = new EmailListingForm(pWebDriver);
 	}
+	
+	public RequestInfoForm getRequestInfoForm() {
+		return requestInfoForm;
+	}
+	public void setRequestInfoForm(WebDriver pWebDriver) {
+		requestInfoForm = new RequestInfoForm(pWebDriver);
+	}
+	
 	public String getPropertyTitleFromTheHeader() {
 		return lPropertyTitleInHeader.getText();
 	}
@@ -350,6 +365,9 @@ public class PropertyListingPage extends Page{
 		ActionHelper.ScrollPixels(driver);
 		ActionHelper.MoveToElement(driver, emailListing_button);
 		return ActionHelper.Click(driver, emailListing_button);
+	}
+	public boolean clickOnRequestInfo() {
+		return ActionHelper.Click(driver, reqInfo_button);
 	}
 	public boolean isPropertyTitleVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, lPropertyTitleInHeader, 15);

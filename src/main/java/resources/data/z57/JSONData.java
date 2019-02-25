@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JSONData<T> {
 
-	private Object classObject;
 	protected Object setDataMapper(String pFileName,Class<T> pClass) {
 		T t = null;
 		ObjectMapper mapper = new ObjectMapper();
