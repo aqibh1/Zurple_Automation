@@ -16,12 +16,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.forms.z57.EmailListingForm;
 import resources.forms.z57.RequestInfoForm;
+import resources.forms.z57.ScheduleListingForm;
 import resources.utility.ActionHelper;
 
 public class PropertyListingPage extends Page{
 	WebDriverWait wait;
 	EmailListingForm emailListingForm;
 	RequestInfoForm requestInfoForm;
+	ScheduleListingForm scheduleListingForm;
 
 
 	@FindBy(xpath="//div[@class=' col-md-9 rightmargin ']/descendant::h2[@class='entry-title entry-prop']")
@@ -133,11 +135,15 @@ public class PropertyListingPage extends Page{
 	@FindBy(xpath="//button[@id='rq_info_listing_start']")
 	WebElement reqInfo_button;
 	
+	@FindBy(xpath="//button[@id='schedule_showing_listing_start']")
+	WebElement scheduleShowing_button;
+	
 	public PropertyListingPage(WebDriver pWebDriver){
 		driver=pWebDriver;
 		wait=new WebDriverWait(driver, 20);
 		setEmailListingForm(driver);
 		setRequestInfoForm(driver);
+		setScheduleListingForm(driver);
 		PageFactory.initElements(driver, this);
 	}
 	public PropertyListingPage(WebDriver pWebDriver,String pSourceUrl){
@@ -160,6 +166,12 @@ public class PropertyListingPage extends Page{
 		requestInfoForm = new RequestInfoForm(pWebDriver);
 	}
 	
+	public ScheduleListingForm getScheduleListingForm() {
+		return scheduleListingForm;
+	}
+	public void setScheduleListingForm(WebDriver pWebDriver) {
+		scheduleListingForm = new ScheduleListingForm(pWebDriver);
+	}
 	public String getPropertyTitleFromTheHeader() {
 		return lPropertyTitleInHeader.getText();
 	}
@@ -371,6 +383,9 @@ public class PropertyListingPage extends Page{
 	}
 	public boolean isPropertyTitleVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, lPropertyTitleInHeader, 15);
+	}
+	public boolean clickOnSheduleShowing() {
+		return ActionHelper.Click(driver, scheduleShowing_button);
 	}
 	@Override
 	public WebElement getHeader() {

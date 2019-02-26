@@ -130,7 +130,7 @@ public class DBHelperMethods {
 				Notifications notification = getNotifications(notification_id);
 				String lEmail_Subject =notification.getEmail_subject();
 				String lEmail_Body = notification.getEmail_body();
-				if(lEmail_Subject.equalsIgnoreCase(pSubjectToVerify)) {
+				if(lEmail_Subject!=null && lEmail_Subject.equalsIgnoreCase(pSubjectToVerify)) {
 					//				System.out.println(lEmail_Body);
 					if(lEmail_Body.contains(pLeadEmail)) {
 						result = true;

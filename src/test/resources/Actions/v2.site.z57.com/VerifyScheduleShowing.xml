@@ -1,0 +1,44 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Verify Listing Schedule Showing">
+   
+  <test name="Verify Schedule Showing">
+  <parameter name="dataFile" value="/resources/data/request-info-data.json">
+    <classes>
+      <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testScheduleShowing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+  </test>
+  
+  <test name="Verify Schedule Showing with User logged in">
+    <parameter name="dataFile" value="/resources/data/request-info-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testScheduleShowing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+  </test>
+  
+</suite>

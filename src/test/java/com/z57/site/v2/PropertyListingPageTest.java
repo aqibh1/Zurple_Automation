@@ -17,6 +17,7 @@ import resources.EnvironmentFactory;
 import resources.TestEnvironment;
 import resources.data.z57.EmailListingFormData;
 import resources.data.z57.RequestInfoFormData;
+import resources.data.z57.ScheduleListingFormData;
 import resources.data.z57.SearchFormData;
 import resources.forms.z57.RequestInfoForm;
 import resources.utility.FrameworkConstants;
@@ -324,7 +325,7 @@ public class PropertyListingPageTest extends PageTest {
 		if(isLeadLoggedIn) { 
 			//Verify the name of the lead is in respective fields 
 			lLeadEmail = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
-			lLeadName = "Auto Admin";
+			lLeadName = EnvironmentFactory.configReader.getPropertyByName("z57_user_name_v2");
 			assertTrue(page.getRequestInfoForm().getLeadName().isEmpty(), "Lead is logged in but No Name in Request Info form" );
 			assertTrue(page.getRequestInfoForm().getLeadEmail().isEmpty(), "Lead is logged in but No Name in Request Info form" );
 
@@ -354,6 +355,73 @@ public class PropertyListingPageTest extends PageTest {
 		}	
 		//Verifies Agent has received the email with subject 'Inquired about Listing'
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email,lLeadEmail,lLeadName+" "+FrameworkConstants.InquiredAboutListing),"Unable to sent email [Inquired About Listing] to Agent");
+
+		// Verifies the email has been sent to lead with subject 'Information is on the way!'.
+		assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail,FrameworkConstants.InformationIsOnTheWay),"Unable to sent email to Lead");
+		
+	}
+	
+	@Parameters({ "dataFile" })
+	@Test
+	public void testScheduleShowing(String pFileName) {
+		//Initiliazing data 
+		ScheduleListingFormData scheduleListingFormData = new ScheduleListingFormData(pFileName).getScheduleListingFormData();
+				
+		String lLeadName = updateName(scheduleListingFormData.getLeadName());
+		String lLeadEmail =updateEmail(scheduleListingFormData.getLeadEmail());
+		String lLeadPhoneNumber =scheduleListingFormData.getLeadPhoneNumber();
+		String lComments = scheduleListingFormData.getComments();
+		String lListingUrl = scheduleListingFormData.getListingUrl();//"/idx/listings/cws/1098/46062964/821-portsmouth-ct-ct-san-diego-san-diego-county-ca-92109";
+		
+		if(!lListingUrl.isEmpty()) {
+			getPage(lListingUrl);
+		}else {
+			getPage();
+		}
+		
+		closeBootStrapModal();
+		
+		assertTrue(page.isPropertyTitleVisible(), "Property Title is not visible");
+		
+		PageHeader pageHeader = new PageHeader(driver);
+		
+		boolean isLeadLoggedIn=pageHeader.isLeadLoggedIn();
+		
+		assertTrue(page.clickOnSheduleShowing(), "Unable to click on Schedule a showing button.");
+		
+		if(isLeadLoggedIn) { 
+			//Verify the name of the lead is in respective fields 
+			lLeadEmail = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
+			lLeadName = EnvironmentFactory.configReader.getPropertyByName("z57_user_name_v2");
+			assertTrue(page.getRequestInfoForm().getLeadName().isEmpty(), "Lead is logged in but No Name in Request Info form" );
+			assertTrue(page.getRequestInfoForm().getLeadEmail().isEmpty(), "Lead is logged in but No Name in Request Info form" );
+
+		}else {
+			assertTrue(page.getScheduleListingForm().typeLeadName(lLeadName),"Unable to type name in Lead Name field");
+			assertTrue(page.getScheduleListingForm().typeLeadEmail(lLeadEmail),"Unable to type email in Lead email field"); 
+			if(!lLeadPhoneNumber.isEmpty()) {
+				assertTrue(page.getScheduleListingForm().typeLeadPhoneNumber(lLeadPhoneNumber),"Unable to type phone in Lead phone number field"); 
+			} 
+			if(!lComments.isEmpty()) {
+				assertTrue(page.getScheduleListingForm().typeComments(lComments),"Unable to type comments in the field"); 
+			} 
+		}
+		
+		assertTrue(page.getScheduleListingForm().clickOnSaveButton(),"Unable to click on Save button");
+		assertTrue(page.getScheduleListingForm().isScheduleShowingRequestSent(),"After clicking Save button 'Schedule Showing' modal is still visible");
+		
+		String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
+
+		DBHelperMethods dbHelper = new DBHelperMethods(getEnvironment());
+		//Verifies if Lead is added in the DB
+		assertTrue(dbHelper.verifyLeadByEmailInDB(lLeadEmail), "User is not added as Lead in PP ->" + lLeadEmail);
+		
+		//Verifies Agent has received a email with subject 'You have a new lead'
+		if(!isLeadLoggedIn) {
+			assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a new lead' to Agent for ->" + lLeadEmail);
+		}	
+		//Verifies Agent has received the email with subject 'Inquired about Listing'
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email,lLeadEmail,lLeadName+" "+FrameworkConstants.InquiredAboutShowing),"Unable to sent email [Inquired About Listing] to Agent");
 
 		// Verifies the email has been sent to lead with subject 'Information is on the way!'.
 		assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail,FrameworkConstants.InformationIsOnTheWay),"Unable to sent email to Lead");
