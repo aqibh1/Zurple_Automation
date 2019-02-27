@@ -58,7 +58,7 @@ public class EnvironmentFactory {
                 {
                     options.addArguments("--start-maximized");
                 }
-
+                options.addArguments("webdriver.chrome.driver="+System.getProperty("driver"));
                 driver = new ChromeDriver(options);
                 driver.manage().window().maximize();
 
