@@ -1,0 +1,643 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Pre Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	 <listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+    </listeners>
+      
+	<test name="Home Seacrh Test 01" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+	</test>
+	
+	<test name="Home Seacrh Test 02" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-02.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+    
+    <test name="Home Seacrh Test 03" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-03.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+    
+    <test name="Home Seacrh Test 04" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-04.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+    
+    <test name="Home Seacrh Test 05" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-05.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+    
+    <test name="Home Seacrh Test 06" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-06.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+     
+    <test name="Home Seacrh Test 07" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-07.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+   
+    <test name="Home Seacrh Test 08" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-08.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+     
+    <test name="Home Seacrh Test 09" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-09.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+    
+    <test name="Home Seacrh Test 10" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-10.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+    
+    <test name="Home Seacrh Test 11" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-11.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+     
+    <test name="Home Seacrh Test 12" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-12.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+      
+    <test name="Home Seacrh Test 13" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-13.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+    
+    <test name="Home Seacrh Test 14" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-14.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+    
+    <test name="Home Seacrh Test 15" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-15.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+    
+    <test name="Home Seacrh Test 16" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-16.json">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testSearchByDifferentDataSet" />
+        </methods>
+       </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testVerificationOfPropertyListing" />
+        </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+     </classes>
+     </parameter>
+    </test>
+  
+   <test name="Capture Lead From About Me" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-11.json">
+	<classes>
+      <class name="com.z57.site.v2.AboutMePageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromAboutMePage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Capture Lead From Community Reports" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-6.json">
+	<classes>
+      <class name="com.z57.site.v2.CommunityReportsPageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromCommunityReportsPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Capture Lead From Contact Me" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-10.json">
+	<classes>
+      <class name="com.z57.site.v2.ContactMePageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromContactMePage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+    <test name="Capture Lead From Featured Properties" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-3.json">
+	<classes>
+      <class name="com.z57.site.v2.ListingPageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromListingPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Capture Lead From Local Home Values" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-5.json">
+	<classes>
+      <class name="com.z57.site.v2.RecentHomeSalesPageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromRecentHomeSalesPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Capture Lead From School Reports" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-7.json">
+	<classes>
+      <class name="com.z57.site.v2.SchoolReportsPageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromSchoolReportsPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Capture Lead From Sold Listings" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-2.json">
+	<classes>
+      <class name="com.z57.site.v2.SoldListingsPageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromSoldListingPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Capture Lead From Whats Nearby" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-8.json">
+	<classes>
+      <class name="com.z57.site.v2.WhatsNearbyPageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromWhatsNearbyPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	
+    <test name="Search and Verify Results on Community Reports" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/our_community/our-community-data-01.json">
+	<classes>
+      <class name="com.z57.site.v2.CommunityReportsPageTest" >
+      <methods>
+      	<include name="testSearchAndVerifyCommunityReportsPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Search and Verify Results on POI" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/our_community/our-community-data-02.json">
+	<classes>
+      <class name="com.z57.site.v2.WhatsNearbyPageTest" >
+      <methods>
+      	<include name="testSearchAndVerifyStatsOnPOIPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Search and Verify Results on School Reports" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/our_community/our-community-data-01.json">
+	<classes>
+      <class name="com.z57.site.v2.SchoolReportsPageTest" >
+      <methods>
+      	<include name="testSearchAndVerifyStatsOnSchoolReportsPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Verify Home Page" preserve-order="true">
+	<classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+      <methods>
+      	<include name="testVerifyHomePage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+	</test>
+		
+</suite>
