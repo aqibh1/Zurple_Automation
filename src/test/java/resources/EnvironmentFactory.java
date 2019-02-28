@@ -53,12 +53,17 @@ public class EnvironmentFactory {
                 {
                     options.addArguments("headless");
                     options.addArguments("window-size=1200x600");
+                    options.addArguments("--no-sandbox");
+                    options.addArguments("start-maximized");
+                    options.addArguments("disable-notifications");
+                    options.addArguments("allow-running-insecure-content");
                 }
                 else
                 {
                     options.addArguments("--start-maximized");
                 }
                 System.setProperty("webdriver.chrome.driver", System.getProperty("driver"));
+                
                 driver = new ChromeDriver(options);
                 driver.manage().window().maximize();
 
