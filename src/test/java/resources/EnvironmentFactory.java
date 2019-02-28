@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
+import java.lang.ref.PhantomReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,15 +49,16 @@ public class EnvironmentFactory {
             else
             {
                 ChromeOptions options = new ChromeOptions();
-
+                
                 if (Boolean.parseBoolean(System.getProperty("headless")))
                 {
-                    options.addArguments("headless");
-                    options.addArguments("window-size=1200x600");
+//                    options.addArguments("headless");
+//                    options.addArguments("window-size=1200x600");
+                    options.addArguments("--headless");
                     options.addArguments("--no-sandbox");
                     options.addArguments("start-maximized");
-                    options.addArguments("disable-notifications");
-                    options.addArguments("allow-running-insecure-content");
+                    options.addArguments("disable-infobars");
+                    options.addArguments("--disable-extensions");
                 }
                 else
                 {
