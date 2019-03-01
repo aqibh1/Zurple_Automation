@@ -32,6 +32,9 @@ public class LoginForm extends AbstractForm{
 	@FindBy(xpath="//div[@class='user_menu']/a[text()='Sign In']")
 	WebElement signIn_button;
 	
+	//Sign up with Facebook
+	@FindBy(xpath="//div[@id='login_with_fb_button']")
+	WebElement signupFacebook_button;
 	
 	public LoginForm() {
 		
@@ -69,7 +72,9 @@ public class LoginForm extends AbstractForm{
 		}while(!isSuccessful && count<5);
 		return isSuccessful;
 	}
-	
+	public boolean clickOnSignUpWithFacebookButton() {
+		return ActionHelper.Click(driver, signupFacebook_button);
+	}
 	private boolean isLoginSuccessful() {
 		return wait.until(ExpectedConditions.invisibilityOf(login_button));
 	}

@@ -17,12 +17,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.z57.site.v2.Page;
 
+import resources.forms.z57.LoginForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 public class HomePage extends Page
 {
 	WebDriver localWebDriver;
+	private LoginForm loginForm;
 	
 	//Header Menu Home Search
 	@FindBy(xpath="//div[@class=\"menu-top-navigation-container\"]/descendant::*[text()=\"Home Search\"]")
@@ -100,13 +102,23 @@ public class HomePage extends Page
 
 	
 	
+	public LoginForm getLoginForm() {
+		return loginForm;
+	}
+
+	public void setLoginForm(WebDriver pWebDriver) {
+		loginForm = new LoginForm(pWebDriver);
+	}
+
 	public HomePage(WebDriver pWebDriver){
 		localWebDriver=pWebDriver;
+		setLoginForm(pWebDriver);
 		PageFactory.initElements(localWebDriver, this);
 	}
 	public HomePage(WebDriver pWebDriver,String pSourceUrl){
 		url=pSourceUrl;
 		localWebDriver=pWebDriver;
+		setLoginForm(pWebDriver);
 		PageFactory.initElements(localWebDriver, this);
 	}
 
