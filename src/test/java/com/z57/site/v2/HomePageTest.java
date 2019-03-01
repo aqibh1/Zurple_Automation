@@ -43,8 +43,8 @@ public class HomePageTest extends PageTest
             page.setUrl("");
             page.setDriver(getDriver());
             driver = getDriver();
-            System.out.print(driver.getTitle());
-            System.out.print(driver.getCurrentUrl());
+            System.out.println(driver.getTitle());
+            System.out.println(driver.getCurrentUrl());
             
         }
         return page;
