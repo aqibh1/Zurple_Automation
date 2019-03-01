@@ -52,14 +52,14 @@ public class EnvironmentFactory {
                 System.setProperty("webdriver.chrome.driver", System.getProperty("driver"));
                 if (Boolean.parseBoolean(System.getProperty("headless")))
                 {
-//                    options.addArguments("headless");
-//                    options.addArguments("window-size=1200x600");
-                    options.addArguments("--headless");
-                    options.addArguments("--no-sandbox");
-                    options.addArguments("start-maximized");
-                    options.addArguments("disable-infobars");
-                    options.addArguments("--disable-extensions");
-                    options.setBinary("/usr/bin/google-chrome");
+                    options.addArguments("headless");
+                    options.addArguments("window-size=1200x600");
+//                    options.addArguments("--headless");
+//                    options.addArguments("--no-sandbox");
+//                    options.addArguments("start-maximized");
+//                    options.addArguments("disable-infobars");
+//                    options.addArguments("--disable-extensions");
+        
                 }
                 else
                 {
