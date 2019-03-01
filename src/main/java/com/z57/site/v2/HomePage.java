@@ -25,6 +25,7 @@ public class HomePage extends Page
 {
 	WebDriver localWebDriver;
 	private LoginForm loginForm;
+	private PageHeader pageHeader;
 	
 	//Header Menu Home Search
 	@FindBy(xpath="//div[@class=\"menu-top-navigation-container\"]/descendant::*[text()=\"Home Search\"]")
@@ -112,7 +113,8 @@ public class HomePage extends Page
 
 	public HomePage(WebDriver pWebDriver){
 		localWebDriver=pWebDriver;
-		setLoginForm(pWebDriver);
+		setLoginForm(localWebDriver);
+		setPageHeader(localWebDriver);
 		PageFactory.initElements(localWebDriver, this);
 	}
 	public HomePage(WebDriver pWebDriver,String pSourceUrl){
@@ -120,6 +122,14 @@ public class HomePage extends Page
 		localWebDriver=pWebDriver;
 		setLoginForm(pWebDriver);
 		PageFactory.initElements(localWebDriver, this);
+	}
+
+	public PageHeader getPageHeader() {
+		return pageHeader;
+	}
+
+	public void setPageHeader(WebDriver pWebDriver) {
+		pageHeader = new PageHeader(pWebDriver);
 	}
 
 	public void mouseoverHomeSearch() {

@@ -33,8 +33,20 @@ public class LoginForm extends AbstractForm{
 	WebElement signIn_button;
 	
 	//Sign up with Facebook
-	@FindBy(xpath="//div[@id='login_with_fb_button']")
+	@FindBy(xpath="//a[@id='login_with_fb']")
 	WebElement signupFacebook_button;
+	
+	@FindBy(xpath="//input[@id='email']")
+	WebElement FACEBOOK_EMAIL;
+	
+	@FindBy(xpath="//input[@id='pass']")
+	WebElement FACEBOOK_PASSWORD;
+	
+	@FindBy(xpath="//input[@id='u_0_0' and @type='submit']")
+	WebElement FACEBOOK_LOGIN;
+	
+	@FindBy(xpath="//div[@id='registerModal']/descendant::iframe[@class='login_with_fb_frame']")
+	WebElement signupWithFb_frame;
 	
 	public LoginForm() {
 		
@@ -73,7 +85,12 @@ public class LoginForm extends AbstractForm{
 		return isSuccessful;
 	}
 	public boolean clickOnSignUpWithFacebookButton() {
-		return ActionHelper.Click(driver, signupFacebook_button);
+		boolean status = false;
+		driver.switchTo().frame(signupWithFb_frame);
+		if(ActionHelper.waitForElementToBeVisible(driver, signupFacebook_button,30)) {
+			status = ActionHelper.Click(driver, signupFacebook_button);
+		}
+		return status;
 	}
 	private boolean isLoginSuccessful() {
 		return wait.until(ExpectedConditions.invisibilityOf(login_button));
@@ -81,6 +98,24 @@ public class LoginForm extends AbstractForm{
 	
 	public boolean clickOnSignInButton() {
 		return ActionHelper.Click(driver, signIn_button);
+	}
+	public boolean typeFacebookEmail(String pEmail) {
+		ActionHelper.Click(driver, FACEBOOK_EMAIL);
+		return ActionHelper.Type(driver, FACEBOOK_EMAIL, pEmail);
+	}
+	public boolean typeFacebookPassword(String pPassword) {
+		ActionHelper.Click(driver, FACEBOOK_PASSWORD);
+		return ActionHelper.Type(driver, FACEBOOK_PASSWORD, pPassword);
+	}
+	public boolean clickOnFacbookLoginButton() {
+		return ActionHelper.Click(driver, FACEBOOK_LOGIN);
+	}
+	public boolean waitForLoginFormToDisappear() {
+		return ActionHelper.waitForElementToBeDisappeared(driver, email_input);
+	}
+	
+	public void switchToFrame() {
+		
 	}
 
 }

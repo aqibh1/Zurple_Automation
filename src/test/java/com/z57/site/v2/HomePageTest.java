@@ -144,22 +144,32 @@ public class HomePageTest extends PageTest
     	assertTrue(verifyImagesFromDB(list_of_agent_with_no_img), "Agent profile picture is not displayed correctly on Home Page");
     	
     }
-    
+
     @Test
-    public void testSignUpWithFacebook() {
+    public void testSignUpWithFacebook(String pFolderLocation) {
+    	String lFacebookEmail="propertypulsetest7@gmail.com";
+    	String lFacebookPassword="Mesarim10045";
+    	
     	closeBootStrapModal();
     	getPage();
     	assertEquals("Sign In",getPage().getUserMenu().getText());
     	assertTrue(page.getLoginForm().clickOnSignInButton(),"Sign In button not visible on Home Page");
+    	String parentWindowHandle = driver.getWindowHandle();
+    
     	assertTrue(page.getLoginForm().clickOnSignUpWithFacebookButton(), "Unable to click on Sign Up with facebook button");
     	
-    	RegisterForm registerFormObj = new RegisterForm(page.getWebDriver());
-    	//Clicks on Already Registered
-    	assertTrue(registerFormObj.clickOnAlreadyRegistered(),"Already registered link is not visible");
+    	for(String windowHandle: driver.getWindowHandles()) {
+    		if(!windowHandle.equalsIgnoreCase(parentWindowHandle)) {
+    			driver.switchTo().window(windowHandle);
+    			assertTrue(page.getLoginForm().typeFacebookEmail(lFacebookEmail), "Unable to type Email on facebook login page.");
+    			assertTrue(page.getLoginForm().typeFacebookPassword(lFacebookPassword), "Unable to type Password on facebook login page.");
+    			assertTrue(page.getLoginForm().clickOnFacbookLoginButton(), "Unable to click on facebook login button.");
+    			driver.switchTo().window(parentWindowHandle);
+    		}
+    	}
+    	assertTrue(page.getLoginForm().waitForLoginFormToDisappear(),"Login form didn't disappear");
+    	assertTrue(page.getPageHeader().isLeadLoggedIn(), "Lead is not logged in trough Facebook");
 
-//    	assertTrue(loginFormObj.setEmail(configReader.getPropertyByName("z57_user_v2")),"Unable to type email address");
-//    	assertTrue(loginFormObj.clickLoginButton(),"Unable to click on Login button");
-//    
     }
     
     //All the leads register related test cases will use this method.

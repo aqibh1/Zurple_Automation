@@ -49,7 +49,9 @@ public class EnvironmentFactory {
             else
             {
                 ChromeOptions options = new ChromeOptions();
-                System.setProperty("webdriver.chrome.driver", System.getProperty("driver"));
+                if(System.getProperty("driver")!=null && System.getProperty("driver").isEmpty()) {
+                	System.setProperty("webdriver.chrome.driver", System.getProperty("driver"));
+                }
                 if (Boolean.parseBoolean(System.getProperty("headless")))
                 {
                     options.addArguments("headless");
