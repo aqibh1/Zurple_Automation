@@ -43,6 +43,8 @@ public class HomePageTest extends PageTest
             page.setUrl("");
             page.setDriver(getDriver());
             driver = getDriver();
+            System.out.print(driver.getTitle());
+            System.out.print(driver.getCurrentUrl());
             
         }
         return page;
@@ -141,6 +143,23 @@ public class HomePageTest extends PageTest
     	list_of_agent_with_no_img=page.isAgentProfilePicDisplayed();
     	assertTrue(verifyImagesFromDB(list_of_agent_with_no_img), "Agent profile picture is not displayed correctly on Home Page");
     	
+    }
+    
+    @Test
+    public void testSignUpWithFacebook() {
+    	closeBootStrapModal();
+    	getPage();
+    	assertEquals("Sign In",getPage().getUserMenu().getText());
+    	assertTrue(page.getLoginForm().clickOnSignInButton(),"Sign In button not visible on Home Page");
+    	assertTrue(page.getLoginForm().clickOnSignUpWithFacebookButton(), "Unable to click on Sign Up with facebook button");
+    	
+    	RegisterForm registerFormObj = new RegisterForm(page.getWebDriver());
+    	//Clicks on Already Registered
+    	assertTrue(registerFormObj.clickOnAlreadyRegistered(),"Already registered link is not visible");
+
+//    	assertTrue(loginFormObj.setEmail(configReader.getPropertyByName("z57_user_v2")),"Unable to type email address");
+//    	assertTrue(loginFormObj.clickLoginButton(),"Unable to click on Login button");
+//    
     }
     
     //All the leads register related test cases will use this method.
