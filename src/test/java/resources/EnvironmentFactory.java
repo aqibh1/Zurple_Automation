@@ -49,7 +49,7 @@ public class EnvironmentFactory {
             else
             {
                 ChromeOptions options = new ChromeOptions();
-                
+                System.setProperty("webdriver.chrome.driver", System.getProperty("driver"));
                 if (Boolean.parseBoolean(System.getProperty("headless")))
                 {
 //                    options.addArguments("headless");
@@ -64,7 +64,7 @@ public class EnvironmentFactory {
                 {
                     options.addArguments("--start-maximized");
                 }
-                System.setProperty("webdriver.chrome.driver", System.getProperty("driver"));
+                
                 
                 driver = new ChromeDriver(options);
                 driver.manage().window().maximize();
