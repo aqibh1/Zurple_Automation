@@ -59,6 +59,7 @@ public class EnvironmentFactory {
                     options.addArguments("start-maximized");
                     options.addArguments("disable-infobars");
                     options.addArguments("--disable-extensions");
+                    options.setBinary("/usr/bin/google-chrome");
                 }
                 else
                 {
