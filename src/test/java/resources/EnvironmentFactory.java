@@ -55,7 +55,7 @@ public class EnvironmentFactory {
                 if (Boolean.parseBoolean(System.getProperty("headless")))
                 {
                     options.addArguments("headless");
-                    options.addArguments("window-size=1200x600");
+                    options.addArguments("window-size=1920x1080");
 //                    options.addArguments("--headless");
 //                    options.addArguments("--no-sandbox");
 //                    options.addArguments("start-maximized");
