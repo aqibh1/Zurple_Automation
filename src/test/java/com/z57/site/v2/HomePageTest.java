@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 import com.z57.site.v2.PageTest;
 import com.z57.site.v2.HomePage;
 import resources.DBHelperMethods;
+import resources.EnvironmentFactory;
+
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,6 +21,7 @@ import resources.alerts.BootstrapModal;
 import resources.forms.z57.RegisterForm;
 import resources.orm.hibernate.models.z57.ListingImages;
 import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 
 import org.testng.annotations.Parameters;
 import static org.testng.Assert.assertTrue;
@@ -144,18 +147,29 @@ public class HomePageTest extends PageTest
     	assertTrue(verifyImagesFromDB(list_of_agent_with_no_img), "Agent profile picture is not displayed correctly on Home Page");
     	
     }
-
+    @Parameters({"page"})
     @Test
-    public void testSignUpWithFacebook(String pFolderLocation) {
+    public void testSignUpWithFacebook(String pSignUpPage) {
     	String lFacebookEmail="propertypulsetest7@gmail.com";
     	String lFacebookPassword="Mesarim10045";
+    	String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
     	
     	closeBootStrapModal();
     	getPage();
-    	assertEquals("Sign In",getPage().getUserMenu().getText());
-    	assertTrue(page.getLoginForm().clickOnSignInButton(),"Sign In button not visible on Home Page");
+    	switch(pSignUpPage) {
+    	case "Home":
+    		assertEquals("Sign In",getPage().getUserMenu().getText());
+    		assertTrue(page.getLoginForm().clickOnSignInButton(),"Sign In button not visible on Home Page");
+    		break;
+    	case "Home Search":
+    		assertTrue(page.getPageHeader().clickOnSearchHomes(),"Unable to click on Home Search menu");
+    		break;
+    	case "Listing":
+    		assertTrue(page.getPageHeader().clickOnFeaturedProperties(),"Unable to click on Featured Properties page.");
+    	}
+    	
     	String parentWindowHandle = driver.getWindowHandle();
-    
+    	assertTrue(page.getRegisterFormNew().isRegisterFormDisplayed(), "Register form is not displayed");
     	assertTrue(page.getLoginForm().clickOnSignUpWithFacebookButton(), "Unable to click on Sign Up with facebook button");
     	
     	for(String windowHandle: driver.getWindowHandles()) {
@@ -169,7 +183,15 @@ public class HomePageTest extends PageTest
     	}
     	assertTrue(page.getLoginForm().waitForLoginFormToDisappear(),"Login form didn't disappear");
     	assertTrue(page.getPageHeader().isLeadLoggedIn(), "Lead is not logged in trough Facebook");
+    	
 
+		DBHelperMethods dbHelper = new DBHelperMethods(getEnvironment());
+		
+		//Verifies if Lead is added in the DB
+		assertTrue(dbHelper.verifyLeadByEmailInDB(lFacebookEmail), "User is not added as Lead in PP ->" + lFacebookEmail);
+		
+		//Verifies Agent has received a email with subject 'You have a new lead'
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lFacebookEmail),"Unable to sent email 'You have a new lead' to Agent for ->" + lAgent_email);
     }
     
     //All the leads register related test cases will use this method.

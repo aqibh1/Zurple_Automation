@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.forms.AbstractForm;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 /**
@@ -69,6 +70,9 @@ public class RegisterForm extends AbstractForm{
 	}
 	public boolean isUserSuccessfullyRegistered() {
 		return waitForElementToBeDisappeared(register_button);
+	}
+	public boolean isRegisterFormDisplayed() {
+		return ActionHelper.isElementVisible(driver, alreadyregistered_link);
 	}
 	
 	

@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import com.z57.site.v2.Page;
 
 import resources.forms.z57.LoginForm;
+import resources.forms.z57.RegisterForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
@@ -26,6 +27,7 @@ public class HomePage extends Page
 	WebDriver localWebDriver;
 	private LoginForm loginForm;
 	private PageHeader pageHeader;
+	private RegisterForm registerForm;
 	
 	//Header Menu Home Search
 	@FindBy(xpath="//div[@class=\"menu-top-navigation-container\"]/descendant::*[text()=\"Home Search\"]")
@@ -110,11 +112,20 @@ public class HomePage extends Page
 	public void setLoginForm(WebDriver pWebDriver) {
 		loginForm = new LoginForm(pWebDriver);
 	}
+	
+	public RegisterForm getRegisterFormNew() {
+		return registerForm;
+	}
+
+	public void setRegisterForm(WebDriver pWebDriver) {
+		registerForm = new RegisterForm(pWebDriver);
+	}
 
 	public HomePage(WebDriver pWebDriver){
 		localWebDriver=pWebDriver;
 		setLoginForm(localWebDriver);
 		setPageHeader(localWebDriver);
+		setRegisterForm(localWebDriver);
 		PageFactory.initElements(localWebDriver, this);
 	}
 	public HomePage(WebDriver pWebDriver,String pSourceUrl){
