@@ -18,4 +18,5 @@ public class FrameworkConstants {
 	public static final String InquiredAboutListing = "Has Inquired About A Listing";
 	public static final String InformationIsOnTheWay = "Information is on the way!";
 	public static final String InquiredAboutShowing = "Has Inquired About A Showing";
+	public static final String BrandingOptions = "Branding Options";
 }
