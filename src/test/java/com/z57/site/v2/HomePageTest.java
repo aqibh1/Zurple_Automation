@@ -48,7 +48,7 @@ public class HomePageTest extends PageTest
             driver = getDriver();
             System.out.println(driver.getTitle());
             System.out.println(driver.getCurrentUrl());
-            
+            System.out.println(driver.manage().window().getSize());
         }
         return page;
     }

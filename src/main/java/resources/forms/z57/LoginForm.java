@@ -95,7 +95,7 @@ public class LoginForm extends AbstractForm{
 		return status;
 	}
 	private boolean isLoginSuccessful() {
-		return wait.until(ExpectedConditions.invisibilityOf(login_button));
+		return wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(loging_button_xpath)));
 	}
 	
 	public boolean clickOnSignInButton() {
