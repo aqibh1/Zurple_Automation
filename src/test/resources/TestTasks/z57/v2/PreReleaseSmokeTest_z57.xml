@@ -112,7 +112,7 @@
      </classes>
      </parameter>
     </test>
-    
+    <!--  
     <test name="Home Seacrh Test 05" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-05.json">
 	<classes>
@@ -639,4 +639,5 @@
       </class>
     </classes>
 	</test>
+	-->
 </suite>

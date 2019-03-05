@@ -3,6 +3,7 @@
  */
 package resources.forms.z57;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,6 +28,7 @@ public class LoginForm extends AbstractForm{
 	//Login Xpath button
 	@FindBy(xpath="//div[@id='login-div_topbar']/descendant::button[@id='login_user_topbar_button']")
 	WebElement login_button;
+	String loging_button_xpath="//div[@id='login-div_topbar']/descendant::button[@id='login_user_topbar_button']";
 	
 	//Signin Xpath button
 	@FindBy(xpath="//div[@class='user_menu']/a[text()='Sign In']")
@@ -72,7 +74,7 @@ public class LoginForm extends AbstractForm{
 		boolean isSuccessful=false;
 		int count=0;
 		do {
-			wait.until(ExpectedConditions.visibilityOf(login_button));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(loging_button_xpath)));
 			wait.until(ExpectedConditions.elementToBeClickable(login_button));
 			if(login_button.isDisplayed()) {
 				login_button.click();
