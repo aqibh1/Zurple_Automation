@@ -22,6 +22,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.forms.AbstractForm;
+import resources.utility.ActionHelper;
 
 /**
  * @author adar
@@ -60,38 +61,53 @@ public class SearchForm extends AbstractForm{
 	//Price Low drop down
 	@FindBy(xpath="//div[@id='zfs_idx_search_options_container']/select[@id='price_low']")
 	WebElement priceLow_dropDown;
+	
+	@FindBy(xpath="//select[@id='price_low']")
+	WebElement priceLow_dropDown_idx;
 
 	//Price Low option
 	//@FindBy(xpath="//div[@id='zfs_idx_search_options_container']/select[@id='price_low']/option[@value='[--Dynamic Variable--]']")
 	WebElement priceLow_options;
 	String priceLowOptions_xpath="//div[@id='zfs_idx_search_options_container']/select[@id='price_low']/option[@value='[--Dynamic Variable--]']";
+	String priceLowOptions_xpath_idx="//select[@id='price_low']/option[@value='[--Dynamic Variable--]']";
 
 	//Price Max drop down
 	@FindBy(xpath="//div[@id='zfs_idx_search_options_container']/select[@id='price_max']")
 	WebElement priceMax_dropDown;
-
+	
+	@FindBy(xpath="//select[@id='price_max']")
+	WebElement priceMax_dropDown_idx;
+	
 	//Price Max option
 	//@FindBy(xpath="//div[@id='zfs_idx_search_options_container']/select[@id='price_max']/option[@value='[--Dynamic Variable--]']")
 	WebElement priceMax_options;
 	String priceMaxOptions_xpath="//div[@id='zfs_idx_search_options_container']/select[@id='price_max']/option[@value='[--Dynamic Variable--]']";
-
+	String priceMaxOptions_xpath_idx="//select[@id='price_max']/option[@value='[--Dynamic Variable--]']";
+	
 	//Beds drop down
 	@FindBy(xpath="//div[@id='zfs_idx_search_options_container']/select[@name='bedrooms']")
 	WebElement beds_dropDown;
-
+	
+	@FindBy(xpath="//select[@name='bedrooms']")
+	WebElement beds_dropDown_idx;
 	//Beds option
 	//		@FindBy(xpath="//div[@id='zfs_idx_search_options_container']/select[@name='bedrooms']/option[@value='[--Dynamic Variable--]']")
 	WebElement beds_options;
 	String bedsOptions_xpath="//div[@id='zfs_idx_search_options_container']/select[@name='bedrooms']/option[@value='[--Dynamic Variable--]']";
+	String bedsOptions_xpath_idx="//select[@name='bedrooms']/option[@value='[--Dynamic Variable--]']";
 
 	//Baths drop down
 	@FindBy(xpath="//div[@id='zfs_idx_search_options_container']/select[@name='bathrooms']")
 	WebElement bathrooms_dropDown;
-
+	
+	@FindBy(xpath="//select[@name='bathrooms']")
+	WebElement bathrooms_dropDown_idx;
+	
 	//Baths option
 	//		@FindBy(xpath="//div[@id='zfs_idx_search_options_container']/select[@name='bathrooms']/option[@value='[--Dynamic Variable--]']")
 	WebElement bathrooms_options;
 	String bathroomsOptions_xpath="//div[@id='zfs_idx_search_options_container']/select[@name='bathrooms']/option[@value='[--Dynamic Variable--]']";
+	String bathroomsOptions_xpath_idx="//select[@name='bathrooms']/option[@value='[--Dynamic Variable--]']";
 
 	@FindBy(xpath="//div[@id='zfs_idx_search_options_container']/descendant::button[@id='zfs_idx_form_more_options_button']")
 	WebElement advanceSearchExpand_button;
@@ -158,6 +174,9 @@ public class SearchForm extends AbstractForm{
 	String neighborhood_dropdown="//ul[@class='select2-result-sub']/descendant::span";
 	
 	String yearBuildXpath="//div[@id='select2-drop']/descendant::div[text()='"+DYNAMIC_VARIABLE+"']";
+	
+	@FindBy(xpath="//div[@id='s2id_location_input_main']/descendant::input[@type='text']")
+	WebElement city_input_idx;
 	
 	public SearchForm(WebDriver pWebDriver) {
 		driver=pWebDriver;
@@ -523,5 +542,35 @@ public class SearchForm extends AbstractForm{
 			System.out.println(ex.toString());
 		}
 		return isTypeSuccessful;
+	}
+	public boolean typeAndSelectZipCity(String pStringToType) {
+		boolean isTypeSuccessful=false;
+		if(ActionHelper.isElementVisible(driver, city_input_idx)) {
+			ActionHelper.Type(driver, city_input_idx, Keys.BACK_SPACE);
+			ActionHelper.Type(driver, city_input_idx, Keys.BACK_SPACE);
+			ActionHelper.Type(driver, city_input_idx, pStringToType);
+			List<WebElement> listOfWebElements = driver.findElements(By.xpath("//div[@id='select2-drop']/descendant::div"));
+			for (WebElement singleElement: listOfWebElements){
+				System.out.println(singleElement.getText());
+				if(singleElement.getText().equalsIgnoreCase(pStringToType)) {
+					singleElement.click();
+					isTypeSuccessful= true;
+					break;
+				}				
+			}
+		}
+		return isTypeSuccessful;
+	}
+	public boolean clickOnPriceLowOptionIdx(String pPrice) {
+		return clickAndSelect(priceLow_dropDown_idx, pPrice, priceLowOptions_xpath_idx);
+	}
+	public boolean clickOnPriceMaxOptionIdx(String pPrice) {
+		return clickAndSelect(priceMax_dropDown_idx, pPrice, priceMaxOptions_xpath_idx);
+	}
+	public boolean clickOnBedsOptionIdx(String pBeds) {
+		return clickAndSelect(beds_dropDown_idx, pBeds, bedsOptions_xpath_idx);
+	}
+	public boolean clickOnBathsOptionIdx(String pBathrooms) {
+		return clickAndSelect(bathrooms_dropDown_idx, pBathrooms, bathroomsOptions_xpath_idx);
 	}
 }

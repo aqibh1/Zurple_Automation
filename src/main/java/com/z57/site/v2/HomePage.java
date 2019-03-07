@@ -132,6 +132,8 @@ public class HomePage extends Page
 		url=pSourceUrl;
 		localWebDriver=pWebDriver;
 		setLoginForm(pWebDriver);
+		setPageHeader(localWebDriver);
+		setRegisterForm(localWebDriver);
 		PageFactory.initElements(localWebDriver, this);
 	}
 

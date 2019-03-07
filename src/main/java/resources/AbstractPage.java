@@ -27,6 +27,11 @@ public abstract class AbstractPage
         }
         focusOnPage();
     }
+    public void setDriver(WebDriver driver, String pIdxUrl){
+        this.driver=driver;
+        driver.get(pIdxUrl);
+        focusOnPage();
+    }
     public WebDriver getWebDriver() {
     	return driver;
     }
@@ -99,58 +104,4 @@ public abstract class AbstractPage
             qq.printStackTrace();
         }
     }
-
-//    protected BootstrapModal bootstrapModal;
-//
-//    public BootstrapModal getBootstrapModal(){
-// 
-//        if(null == bootstrapModal){
-//            bootstrapModal = new BootstrapModal();
-//
-//            Wait<WebDriver> wait = new WebDriverWait(driver, 10, 1000);
-//            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(BootstrapModal.alertXpath)));
-//
-//            bootstrapModal.setAlert(driver.findElement(
-//                    By.xpath(BootstrapModal.alertXpath)));
-//            bootstrapModal.setDriver(driver);
-//        }
-//        return bootstrapModal;
-//    }
-//    
-//    public void clearBootstrapModal()
-//    {
-//        bootstrapModal = null;
-//    }
-//
-//    public boolean checkBootsrapModalIsShown(){
-//    	try{
-//    		if(null==bootstrapModal && !driver.findElement(By.xpath(BootstrapModal.alertXpath)).isDisplayed()) {
-//
-//    			return false;
-//
-//    		}else {
-//    			getBootstrapModal();
-//
-//    			return bootstrapModal.isVisible();
-//    		}
-//    	}catch(StaleElementReferenceException e){
-//    		return false;
-//    	}catch(NoSuchElementException e){
-//    		return false;
-//    	}
-//    }
-//    public boolean checkBootsrapModalIsShown(){
-//        try{
-//        	if(isBootStrapModelxist()) {
-//        	getBootstrapModal();
-//            return bootstrapModal.isVisible();
-//        	}else {
-//        		return false;
-//        	}
-//        }catch(StaleElementReferenceException e){
-//            return false;
-//        }catch(NoSuchElementException e){
-//            return false;
-//        }
-//    }
 }

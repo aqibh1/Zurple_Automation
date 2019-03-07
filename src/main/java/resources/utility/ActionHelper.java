@@ -105,7 +105,7 @@ public class ActionHelper {
 	   public static String getText(WebDriver pWebDriver,WebElement pElement) {
 		   String ltext="";
 		   if(isElementVisible(pWebDriver, pElement)) {
-			   ltext=pElement.getText();
+			   ltext=pElement.getText().trim();
 		   }
 		   return ltext;
 	   }
@@ -231,5 +231,10 @@ public class ActionHelper {
 	   }
 	   public static void MoveToElement(WebDriver pWebDriver, WebElement pElement) {
 		   new Actions(pWebDriver).moveToElement(pElement).perform();
+	   }
+	   public static String getAttribute(WebElement pElement,String pAttributeName) {
+		   AutomationLogger.info("Fetching attribute: "+pAttributeName);
+		   return pElement.getAttribute(pAttributeName);
+		   
 	   }
 }

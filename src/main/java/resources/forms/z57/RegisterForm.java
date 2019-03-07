@@ -35,6 +35,9 @@ public class RegisterForm extends AbstractForm{
 	
 	@FindBy(xpath="//button[@id='wp-submit-register_topbar']")
 	WebElement register_button;
+	
+	@FindBy(xpath="//div[@class='controls']/descendant::a[@id='login-modal-register-button']")
+	WebElement alreadyregistered_link_idx;
 
 	public RegisterForm() {
 		
@@ -73,6 +76,9 @@ public class RegisterForm extends AbstractForm{
 	}
 	public boolean isRegisterFormDisplayed() {
 		return ActionHelper.isElementVisible(driver, alreadyregistered_link);
+	}
+	public boolean clickOnAlreadyRegisterIdx() {
+		return ActionHelper.Click(driver, alreadyregistered_link_idx);
 	}
 	
 	

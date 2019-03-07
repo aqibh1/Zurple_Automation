@@ -61,5 +61,17 @@ public class SearchResultsBlock
       
         return list;
     }
+    
+   public ArrayList<SearchResult> getIdxSearchResults(){
+	   ArrayList<SearchResult> list_of_search_results = new ArrayList<SearchResult>();
+	   List<WebElement> list_of_Search_properties = driver.findElements(By.xpath("//div[@class='resultbox listing-properties']/descendant::a[text()='View']"));
+	   for(WebElement single_property: list_of_Search_properties) {
+		   SearchResult searchResult = new SearchResult();
+		   searchResult.setUrl(single_property.getAttribute("href"));
+		   list_of_search_results.add(searchResult);
+	   }
+	   return list_of_search_results;
+	   
+   }
 
 }

@@ -50,6 +50,15 @@ public class LoginForm extends AbstractForm{
 	@FindBy(xpath="//div[@id='registerModal']/descendant::iframe[@class='login_with_fb_frame']")
 	WebElement signupWithFb_frame;
 	
+	@FindBy(xpath="//div[@id='login-register-buttons']/a[@id='register-modal-button']")
+	WebElement signin_button_idx;
+	
+	@FindBy(xpath="//input[@id='idx_login_lead_email']")
+	WebElement email_input_idx;
+	
+	@FindBy(xpath="//button[@id='lead_login_send']")
+	WebElement login_button_idx;
+	
 	public LoginForm() {
 		
 	}
@@ -114,6 +123,21 @@ public class LoginForm extends AbstractForm{
 	}
 	public boolean waitForLoginFormToDisappear() {
 		return ActionHelper.waitForElementToBeDisappeared(driver, email_input);
+	}
+	public boolean clickOnIdxSigninButton() {
+		return ActionHelper.Click(driver, signin_button_idx);
+	}
+	
+	public boolean typeEmailIdx(String pEmail) {
+		return ActionHelper.Type(driver, email_input_idx, pEmail);
+	}
+	
+	public boolean clickOnIdxLoginButton() {
+		return ActionHelper.Click(driver, login_button_idx);
+	}
+	
+	public boolean isIdxLoginSuccessful() {
+		return ActionHelper.waitForElementToBeDisappeared(driver, login_button_idx);
 	}
 	
 	public void switchToFrame() {

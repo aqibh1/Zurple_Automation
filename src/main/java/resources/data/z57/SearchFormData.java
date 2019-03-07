@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * This class will handle all the data related to search form
  *
  */
-public class SearchFormData {
+public class SearchFormData extends JSONData<SearchFormData>{
 	
 	SearchFormData searchFormData;
 	
@@ -166,11 +166,18 @@ public class SearchFormData {
 //		searchFormData = mapper.readValue(new File(/* System.getProperty("user.dir")+ */filename), SearchFormData.class);
 //        return searchFormData;
 //    }
-	public SearchFormData setSearchFormData(String filename) throws JsonParseException, JsonMappingException, IOException{
-        ObjectMapper mapper = new ObjectMapper();
-		searchFormData = mapper.readValue(new File(System.getProperty("user.dir")+ filename), SearchFormData.class);
-        return searchFormData;
-    }
+	public SearchFormData() {
+		
+	}
+	public SearchFormData(String pFileName) {
+		searchFormData = (SearchFormData)setDataMapper(pFileName, SearchFormData.class);
+	}
+	
+//	public SearchFormData setSearchFormData(String filename) throws JsonParseException, JsonMappingException, IOException{
+//        ObjectMapper mapper = new ObjectMapper();
+//		searchFormData = mapper.readValue(new File(System.getProperty("user.dir")+ filename), SearchFormData.class);
+//        return searchFormData;
+//    }
 	public SearchFormData getSearchFormDataObject() {
 		return searchFormData;
 	}

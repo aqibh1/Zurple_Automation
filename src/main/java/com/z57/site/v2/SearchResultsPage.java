@@ -24,7 +24,15 @@ public class SearchResultsPage extends Page{
         }
         return searchResultsBlock;
     }
-
+    public SearchResultsBlock getIDXSearchResultsBlock(WebDriver pWebDriver){
+    	driver=pWebDriver;
+        if(null == searchResultsBlock){
+            searchResultsBlock = new SearchResultsBlock();
+            searchResultsBlock.setDriver(driver);
+        }
+        return searchResultsBlock;
+    }
+    
     public SearchResultsPage(){
         url = "/search/page/1";
     }

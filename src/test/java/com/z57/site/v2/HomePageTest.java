@@ -52,6 +52,17 @@ public class HomePageTest extends PageTest
         }
         return page;
     }
+    public Page getPage(String pUrl){
+        if(page == null){
+        	driver=getDriver();
+            page = new HomePage(driver);
+			page.setDriver(driver,pUrl);
+            System.out.println("Browser Windows Title: "+driver.getTitle());
+            System.out.println("Current URL: "+driver.getCurrentUrl());
+            System.out.println("Browser Dimesnions: "+driver.manage().window().getSize());
+        }
+        return page;
+    }
 
     public void testTitle() {
         assertEquals("San Diego Homes for Sale | zengtest1.us", getPage().getTitle());
@@ -67,13 +78,6 @@ public class HomePageTest extends PageTest
     public void testBrand() {
     	assertEquals("ZENG TEST PROPERTIES", getPage().getBrand().getText());    
     	}
-    
-//    @BeforeClass(groups="RegisterUser")
-//	@Parameters({"dataFile"})
-//	public void beforeClass(String pFolderLocation) throws JsonParseException, JsonMappingException, IOException {
-//    	registerUserData = new RegisterUserData();
-//    	registerUserData = registerUserData.setRegisterUserData(pFolderLocation);
-//	}
    
     @Test
     public void testSignInWithValidEmail() {
@@ -125,13 +129,7 @@ public class HomePageTest extends PageTest
     public void testVerifyHomePage() {
     	getPage();
     	assertTrue(page.isFindMyLocationButtonWorking(), "Find My Location button not working on Home Page"); 
-//    	assertTrue(page.typeInputAndSelect("SAN DIEGO","SAN DIEGO, CA"), "Unable to type in input field");
-//    	assertTrue(page.clickSearchButton(), "Unable to click search button");
-//    	
-//    	HomeSearchPage homeSearchPage = new HomeSearchPage(driver);
-//    	assertTrue(homeSearchPage.isHomeSearchPage(), "Page is not redirected to Home Search Page");
-//    	homeSearchPage.goBack();
-//    	
+  	
         assertTrue(page.isSellBuyContactImagesAreDisplayed(), "Correct Images are not displayed for Contact/Buy/Sell on home page");
     	
     	assertTrue(page.isBackgroundImageSlidersAreDisplayed(), "Correct Images are not displayed for Background Slider");
@@ -147,6 +145,7 @@ public class HomePageTest extends PageTest
     	assertTrue(verifyImagesFromDB(list_of_agent_with_no_img), "Agent profile picture is not displayed correctly on Home Page");
     	
     }
+    
     @Parameters({"page"})
     @Test
     public void testSignUpWithFacebook(String pSignUpPage) {
@@ -192,6 +191,23 @@ public class HomePageTest extends PageTest
 		
 		//Verifies Agent has received a email with subject 'You have a new lead'
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lFacebookEmail),"Unable to sent email 'You have a new lead' to Agent for ->" + lAgent_email);
+    }
+    
+    @Test
+    public void testSignInWithValidEmailOnIdx() {
+    	//Get the IDX url from 
+    	String idxUrl = EnvironmentFactory.configReader.getPropertyByName("z57_standalone_idx");
+    	String lZ57_user_v2 = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
+    	getPage(idxUrl);
+
+    	assertTrue(page.getLoginForm().clickOnIdxSigninButton(),"Sign In button not visible on IDX Page");
+    	
+    	//Clicks on Already Registered
+    	assertTrue(page.getRegisterFormNew().clickOnAlreadyRegisterIdx(),"Already registered link is not visible on IDX Register form");
+
+    	assertTrue(page.getLoginForm().typeEmailIdx(lZ57_user_v2),"Unable to type email address");
+    	assertTrue(page.getLoginForm().clickOnIdxLoginButton(),"Unable to click on Login button");
+    	assertTrue(page.getLoginForm().isIdxLoginSuccessful(), "Unable to login with credentials: "+lZ57_user_v2);
     }
     
     //All the leads register related test cases will use this method.

@@ -89,74 +89,52 @@ public class PropertyListingPageTest extends PageTest {
 	}
 
 	private void setSearchParams() {
-		lInputSearch = searchFormData.getSearchFormDataObject().getInputSearch();
-		lSearchByOption = searchFormData.getSearchFormDataObject().getSearchBy();
-		lMinimumValue = searchFormData.getSearchFormDataObject().getMinimumValue();
-		lMaximumValue = searchFormData.getSearchFormDataObject().getMaximumValue();
-		lNumberOfBeds = searchFormData.getSearchFormDataObject().getNumberOfBeds();
-		lNumberOfBaths = searchFormData.getSearchFormDataObject().getNumberOfBaths();
-		lPropertyType = searchFormData.getSearchFormDataObject().getPropertyType();
-		lFeaturesAnyOrAll = searchFormData.getSearchFormDataObject().getFeatureAnyAll();
-		lFeatures = searchFormData.getSearchFormDataObject().getFeatures();
-		lSquareFootage = searchFormData.getSearchFormDataObject().getSquareFotage();
-		lView = searchFormData.getSearchFormDataObject().getView();
-		lLotSize = searchFormData.getSearchFormDataObject().getLotSize();
-		lStyle = searchFormData.getSearchFormDataObject().getStyle();
-		lStatus = searchFormData.getSearchFormDataObject().getStatus();
-		lYearBuilt = searchFormData.getSearchFormDataObject().getYearBuilt();
+		lInputSearch = searchFormData.getInputSearch();
+		lSearchByOption = searchFormData.getSearchBy();
+		lMinimumValue = searchFormData.getMinimumValue();
+		lMaximumValue = searchFormData.getMaximumValue();
+		lNumberOfBeds = searchFormData.getNumberOfBeds();
+		lNumberOfBaths = searchFormData.getNumberOfBaths();
+		lPropertyType = searchFormData.getPropertyType();
+		lFeaturesAnyOrAll = searchFormData.getFeatureAnyAll();
+		lFeatures = searchFormData.getFeatures();
+		lSquareFootage = searchFormData.getSquareFotage();
+		lView = searchFormData.getView();
+		lLotSize = searchFormData.getLotSize();
+		lStyle = searchFormData.getStyle();
+		lStatus = searchFormData.getStatus();
+		lYearBuilt = searchFormData.getYearBuilt();
 	}
 
-//	@BeforeClass
-////	@Parameters({"dataFile"})
-//	  public void beforeClass() throws JsonParseException, JsonMappingException, IOException {
-//		Long thread_id = Thread.currentThread().getId();
-//		File params = ParametersFactory.getSearchFormData(thread_id, System.getProperty("user.dir")+"\\resources\\data\\home_search_data");
-//		searchFormData= new SearchFormData();
-//		searchFormData.setSearchFormData(params.getAbsolutePath());
-//		ParametersFactory.removeDataFiles(thread_id);
-//	 }
-//	@BeforeClass
-//	@Parameters({"dataFile"})
-//	  public void beforeClass(String pFileLocation) throws JsonParseException, JsonMappingException, IOException {
-//		searchFormData= new SearchFormData();
-//		searchFormData.setSearchFormData(pFileLocation);
-//	
-//	 }
 	@Parameters({ "dataFile" })
 	@Test
-	public void testVerificationOfPropertyListing(String pFileLocation)
-			throws JsonParseException, JsonMappingException, IOException {
-		searchFormData = new SearchFormData();
-		searchFormData.setSearchFormData(pFileLocation);
+	public void testVerificationOfPropertyListing(String pFileLocation) {
+		searchFormData = new SearchFormData(pFileLocation).getSearchFormData();
+//		searchFormData.setSearchFormData(pFileLocation);
 		setSearchParams();
 		PropertyListingPage propertyListingObj = new PropertyListingPage(getPage().getWebDriver());
 		SoftAssert softAssert = new SoftAssert();
 		if (page.getCurrentUrl().contains("/listings/")) {
 			// page.getWebDriver().navigate().to("http://robinsoldwisch-13878.sites.z57.com/idx/listings/cws/1098/170017412/5326-grand-del-mar-place-place-san-diego-san-diego-county-ca-92130");
 
-			softAssert.assertTrue(page.getPropertyTitleFromTheHeader().contains(lInputSearch),
-					"Input Search criteria does not meets the address results");
+			softAssert.assertTrue(page.getPropertyTitleFromTheHeader().contains(lInputSearch),"Input Search criteria does not meets the address results");
 
 			if (!lMinimumValue.isEmpty()) {
 				int propertyPriceFromPage = page.getPropertValueFromHeader();
 				int minimum_value = Integer.parseInt(lMinimumValue);
-				assertTrue(propertyPriceFromPage >= minimum_value,
-						"Property Value doesn't matches the minimum value set");
+				assertTrue(propertyPriceFromPage >= minimum_value,"Property Value doesn't matches the minimum value set");
 			}
 
 			if (!lMaximumValue.isEmpty()) {
-				assertTrue(page.getPropertValueFromHeader() <= Integer.parseInt(lMaximumValue),
-						"Property Value doesn't matches the minimum value set");
+				assertTrue(page.getPropertValueFromHeader() <= Integer.parseInt(lMaximumValue),"Property Value doesn't matches the minimum value set");
 			}
 
 			if (!lNumberOfBeds.isEmpty()) {
-				assertTrue(page.getNumberOfBeds() >= Integer.parseInt(lNumberOfBeds),
-						"Number of BEDS doesn't matches the value set");
+				assertTrue(page.getNumberOfBeds() >= Integer.parseInt(lNumberOfBeds),"Number of BEDS doesn't matches the value set");
 			}
 
 			if (!lNumberOfBaths.isEmpty()) {
-				assertTrue(page.getNumberOfBaths() >= Integer.parseInt(lNumberOfBaths),
-						"Number of BATHS doesn't matches the value set");
+				assertTrue(page.getNumberOfBaths() >= Integer.parseInt(lNumberOfBaths),"Number of BATHS doesn't matches the value set");
 
 			}
 
@@ -197,10 +175,8 @@ public class PropertyListingPageTest extends PageTest {
 			// All the validations on Community stats
 			assertTrue(page.clickOnCommunityStats(), "Community Stats on Navigation bar is not visible");
 			assertTrue(page.isCommunityStatsDisplayed(), "Community Stats is not displayed");
-			assertTrue(page.isPopulationDemographicChartVisible(),
-					"Community Stats | Population Demographic chart is not displayed");
-			assertTrue(page.isPopulationRangeChartVisible(),
-					"Community Stats | Population Range chart is not displayed");
+			assertTrue(page.isPopulationDemographicChartVisible(),"Community Stats | Population Demographic chart is not displayed");
+			assertTrue(page.isPopulationRangeChartVisible(),"Community Stats | Population Range chart is not displayed");
 			assertTrue(page.isHouseholdsChartVisible(), "Community Stats | Households chart is not displayed");
 			assertTrue(page.isEducationLevelChartVisible(), "Community Stats | Education Level chart is not displayed");
 			assertTrue(page.isEmploymentChartVisible(), "Community Stats | Employment chart is not displayed");
@@ -218,7 +194,7 @@ public class PropertyListingPageTest extends PageTest {
 			assertTrue(page.isWhatsNearbyDisplayed(), "Whats near by is not displayed");
 			softAssert.assertTrue(page.verifyPOIPins(), "Number of POI and pins on map count mismatched");
 		} else {
-			throw new SkipException("No propert found on search criteria.");
+			throw new SkipException("No property found on search criteria.");
 		}
 	}
 	@Parameters({ "dataFile" })
