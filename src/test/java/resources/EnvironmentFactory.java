@@ -1,10 +1,12 @@
 package resources;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import java.lang.ref.PhantomReference;
 import java.util.HashMap;
@@ -45,11 +47,17 @@ public class EnvironmentFactory {
 
                 driver = new FirefoxDriver(options);
 
+            }else  if (configReader.getPropertyByName("base_browser").equals("phantomjs") ) {
+            	if(System.getProperty("driver")!=null && !System.getProperty("driver").isEmpty()) {
+                	System.setProperty("phantomjs.binary.path", System.getProperty("driver"));
+                }
+            	driver = new PhantomJSDriver();
+            	driver.manage().window().setSize(new Dimension(1920, 1080));
             }
             else
             {
                 ChromeOptions options = new ChromeOptions();
-                if(System.getProperty("driver")!=null && System.getProperty("driver").isEmpty()) {
+                if(System.getProperty("driver")!=null && !System.getProperty("driver").isEmpty()) {
                 	System.setProperty("webdriver.chrome.driver", System.getProperty("driver"));
                 }
                 if (Boolean.parseBoolean(System.getProperty("headless")))
