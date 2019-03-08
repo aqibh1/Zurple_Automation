@@ -54,6 +54,7 @@ public class HomePageTest extends PageTest
     }
     public Page getPage(String pUrl){
         if(page == null){
+        	System.out.println("Expected URL: "+pUrl);
         	driver=getDriver();
             page = new HomePage(driver);
 			page.setDriver(driver,pUrl);
