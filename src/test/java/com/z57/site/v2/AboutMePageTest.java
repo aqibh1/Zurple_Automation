@@ -40,7 +40,15 @@ public class AboutMePageTest extends PageTest{
 		}
 		return page;
 	}
-
+	public Page getPage(String pUrl) {
+		if(page == null){
+			page = new AboutMePage(getDriver());
+			page.setUrl(pUrl);
+			page.setDriver(getDriver());
+			driver=getDriver();
+		}
+		return page;
+	}
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
@@ -50,7 +58,7 @@ public class AboutMePageTest extends PageTest{
 	@Parameters({"dataFile"})
 	@Test
 	public void testCaptureLeadFromAboutMePage(String pFolderLocation) throws InterruptedException {
-		getPage();
+		getPage("/about-me");
 		RegisterUserData registerUserData = new RegisterUserData();
     	registerUserData = registerUserData.setRegisterUserData(pFolderLocation);
 
@@ -60,10 +68,10 @@ public class AboutMePageTest extends PageTest{
     	String lComments=registerUserData.getComments();
     	
 		closeBootStrapModal();
-		
-		PageHeader pageHeader = new PageHeader(driver);
-		
-		assertTrue(pageHeader.clickOnAbout(),"Unable to click on About Me under services menu.");
+//		
+//		PageHeader pageHeader = new PageHeader(driver);
+//		
+//		assertTrue(pageHeader.clickOnAbout(),"Unable to click on About Me under services menu.");
 		
 		contactMeCaptureLeadForm(lName, lEmail, lPhone, lComments);
 		

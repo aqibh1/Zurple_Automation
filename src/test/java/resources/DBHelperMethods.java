@@ -63,12 +63,12 @@ public class DBHelperMethods {
 	}
 	
 	public boolean verifyLeadInDB(String pEmailToVeirfy,Integer pLeadId) {
-		
-         //Checking created lead source
-         //Checking DB record body
-         AbstractLead newLead = testEnvironment.getLeadObject(pLeadId);
-         return pEmailToVeirfy.equalsIgnoreCase(newLead.getEmail());
-   }
+		//Checking created lead source
+		//Checking DB record body
+		AutomationLogger.info("Lead ID: "+pLeadId);
+		AbstractLead newLead = testEnvironment.getLeadObject(pLeadId);
+		return pEmailToVeirfy.equalsIgnoreCase(newLead.getEmail());
+	}
 	
 	public List<ListingImages> getListingImages(Integer pListingId){
 		try {
