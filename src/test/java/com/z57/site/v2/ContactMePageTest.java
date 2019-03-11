@@ -53,7 +53,16 @@ public class ContactMePageTest extends PageTest{
 		}
 		return page;
 	}
-
+	
+	public Page getPage(String pUrl) {
+		if(page == null){
+			page = new ContactMePage(getDriver());
+			page.setUrl(pUrl);
+			page.setDriver(getDriver());
+			driver=getDriver();
+		}
+		return page;
+	}
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
@@ -63,7 +72,7 @@ public class ContactMePageTest extends PageTest{
 	@Parameters({"dataFile"})
 	@Test
 	public void testCaptureLeadFromContactMePage(String pFolderLocation) throws InterruptedException {
-		getPage();
+		getPage("/contact-me");
 		RegisterUserData registerUserData = new RegisterUserData();
     	registerUserData = registerUserData.setRegisterUserData(pFolderLocation);
 
@@ -73,8 +82,8 @@ public class ContactMePageTest extends PageTest{
     	String lComments=registerUserData.getComments();
     	
 		closeBootStrapModal();
-		PageHeader pageHeader = new PageHeader(driver);
-		assertTrue(pageHeader.clickOnContact(),"Unable to click on Contact Me under services menu.");
+//		PageHeader pageHeader = new PageHeader(driver);
+//		assertTrue(pageHeader.clickOnContact(),"Unable to click on Contact Me under services menu.");
 		contactMeCaptureLeadForm(lName, lEmail, lPhone, lComments);
 		
 		assertTrue(page.isContactMePage(), "Page Title not found");
