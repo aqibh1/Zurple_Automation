@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import resources.forms.z57.EmailSearchForm;
 import resources.forms.z57.SearchForm;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
@@ -13,13 +15,19 @@ public class HomeSearchPage extends Page{
 
 	private WebDriver localWebDriver;
 	private SearchForm searchForm;
+	private EmailSearchForm emailSearchForm;
+
 	
 	@FindBy(xpath="//h1[@class='entry-title title_prop']")
 	WebElement page_title;
 	
+	@FindBy(xpath="//div[@id='google_map_prop_list_sidebar']/descendant::button[@data-target='#email_search_modal']")
+	WebElement email_search_button;
+	
 	public HomeSearchPage(WebDriver pWebDriver) {
 		driver=pWebDriver;
 		searchForm = new SearchForm(pWebDriver);
+		setEmailSearchForm();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -35,11 +43,19 @@ public class HomeSearchPage extends Page{
 	public HomeSearchPage(WebDriver pWebDriver, String pSourceUrl) {
 		driver=pWebDriver;
 		url=pSourceUrl;
-		searchForm=new SearchForm(pWebDriver);
+		setEmailSearchForm();
 		localWebDriver=pWebDriver;
 		PageFactory.initElements(localWebDriver, this);
 	}
 	
+	public EmailSearchForm getEmailSearchForm() {
+		return emailSearchForm;
+	}
+
+	public void setEmailSearchForm() {
+		emailSearchForm = new EmailSearchForm(driver);
+	}
+
 	public boolean isHomeSearchPage() {
 		return ActionHelper.getText(driver, page_title).contains(FrameworkConstants.HomeSearchPageTitle);
 	}
@@ -47,7 +63,9 @@ public class HomeSearchPage extends Page{
 	public void goBack() {
 		ActionHelper.BackPage(driver);
 	}
-
+	public boolean clickOnEmailSeaarchButton() {
+		return ActionHelper.Click(driver, email_search_button);
+	}
 	@Override
 	public WebElement getHeader() {
 		// TODO Auto-generated method stub

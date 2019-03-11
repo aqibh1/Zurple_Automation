@@ -16,10 +16,13 @@ import org.testng.annotations.Test;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
 import resources.ParametersFactory;
 import resources.classes.SearchResult;
+import resources.data.z57.EmailListingFormData;
 import resources.data.z57.SearchFormData;
+import resources.utility.FrameworkConstants;
 
 public class HomeSearchPageTest extends PageTest{
 
@@ -55,13 +58,11 @@ public class HomeSearchPageTest extends PageTest{
 		return page;
 	}
 	public Page getPage(String pUrl) {
-		if(page == null){
+		if(page == null) {	
 			page = new HomeSearchPage(getDriver());
-			page.setDriver(getDriver());
 			page.setUrl(pUrl);
+			page.setDriver(getDriver());
 			driver=getDriver();
-			page.setDriver(driver);
-
 		}
 		return page;
 	}
@@ -283,4 +284,79 @@ public class HomeSearchPageTest extends PageTest{
 		
 	}
 	
+	@Test
+	@Parameters({"dataFile","dataFile2"})
+	public void testEmailSearch(String pDataFile1, String pDataFile2) {
+		getPage("/idx");
+		
+		searchFormData = new SearchFormData(pDataFile1).getSearchFormData();
+		EmailListingFormData emailListingFormData = new EmailListingFormData(pDataFile2).getEmailListingData();
+		
+		String lLeadName = updateName(emailListingFormData.getLeadName());
+		String lLeadEmail = updateEmail(emailListingFormData.getLeadEmail());
+		String lLeadPhone = emailListingFormData.getLeadPhoneNumber();
+		String lR1Name = updateName(emailListingFormData.getRecipientOneName());
+		String lR1Email = updateEmail(emailListingFormData.getRecipientOneEmail());
+		String lR2Name = updateName(emailListingFormData.getRecipientTwoName());
+		String lR2Email = updateEmail(emailListingFormData.getRecipientTwoEmail());
+		
+		assertTrue(page.isHomeSearchPage(), "Home Search page is not visible");
+		
+		PageHeader pageHeader = new PageHeader(driver);
+		
+		boolean isLeadLoggedIn=pageHeader.isLeadLoggedIn();
+		
+		searchHomes();
+		
+		assertTrue(page.clickOnEmailSeaarchButton(), "Unable to click on email search button");
+		
+		assertTrue(page.getEmailSearchForm().isEmailSearchModalVisible(),"Email Listing Modal is not visible");		
+
+		if(isLeadLoggedIn) { 
+			//Verify the name of the lead is in respective fields 
+			lLeadEmail = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
+			assertTrue(page.getEmailSearchForm().getLeadName().isEmpty(), "Lead is logged in but No Name in Email Listing form" );
+			assertTrue(page.getEmailSearchForm().getLeadEmail().isEmpty(), "Lead is logged in but No Name in Email Listing form" );
+
+		}else {
+			assertTrue(page.getEmailSearchForm().typeLeadName(lLeadName),"Unable to type name in Lead Name field");
+			assertTrue(page.getEmailSearchForm().typeEmailAddress(lLeadEmail),"Unable to type email in Lead email field"); 
+			if(!lLeadPhone.isEmpty()) {
+				assertTrue(page.getEmailSearchForm().typePhoneNumber(lLeadPhone),"Unable to type phone in Lead phone number field"); 
+			} 
+		}
+
+		assertTrue(page.getEmailSearchForm().typeR1Name(lR1Name),"Unable to write the name oof Recipient 1");
+		assertTrue(page.getEmailSearchForm().typeR1Email(lR1Email),"Unable to write the email of Recepient 1");
+
+		assertTrue(page.getEmailSearchForm().typeR2Name(lR2Name),"Unable to write the name oof Recipient 2");
+		assertTrue(page.getEmailSearchForm().typeR2Email(lR2Email),"Unable to write the email of Recepient 2");
+
+		assertTrue(page.getEmailSearchForm().clickOnSendButton(),"Unable to click on Send button");
+		assertTrue(page.getEmailSearchForm().isEmailSent(),"After clicking Send button 'Email this Listing' modal is still visible");
+
+		DBHelperMethods dbHelper = new DBHelperMethods(getEnvironment());
+		
+		assertTrue(dbHelper.verifyLeadByEmailInDB(lLeadEmail), "User is not added as Lead in PP ->" + lLeadEmail);
+		assertTrue(dbHelper.verifyLeadByEmailInDB(lR1Email), "Recipient1 is not added as Lead in PP ->" + lR1Email);
+		assertTrue(dbHelper.verifyLeadByEmailInDB(lR2Email), "Recipient2 is not added as Lead in PP ->" + lR2Email);
+
+		// Verifies the email has been sent on respective email addresses.
+		if(!isLeadLoggedIn) {
+		assertTrue(dbHelper.verifyEmailIsSent(lLeadEmail, FrameworkConstants.CheckOutThisPropertySearch),"Unable to sent email to Lead");
+		}
+		assertTrue(dbHelper.verifyEmailIsSent(lR1Email, FrameworkConstants.CheckOutThisPropertySearch),"Unable to sent email to Recipient1");
+		assertTrue(dbHelper.verifyEmailIsSent(lR2Email, FrameworkConstants.CheckOutThisPropertySearch),"Unable to sent email to Recipient2");
+
+		String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
+
+		// Verifies the agent have received the email for all the leads
+		if(!isLeadLoggedIn) {
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email to Agent for ->" + lLeadEmail);
+		}
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR1Email),"Unable to sent email to Agent for ->" + lR1Email);
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR2Email),"Unable to sent email to Agent for ->" + lR2Email);
+
+		
+	}
 }

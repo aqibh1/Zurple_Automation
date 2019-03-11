@@ -203,7 +203,7 @@ public class PropertyListingPageTest extends PageTest {
 		//Initiliazing data 
 		EmailListingFormData emailListingFormData = new EmailListingFormData(pFileName).getEmailListingData();
 		
-		String lLeadName = updateName(emailListingFormData.getLeadEmail());
+		String lLeadName = updateName(emailListingFormData.getLeadName());
 		String lLeadEmail = updateEmail(emailListingFormData.getLeadEmail());
 		String lLeadPhone = emailListingFormData.getLeadPhoneNumber();
 		String lR1Name = updateName(emailListingFormData.getRecipientOneName());

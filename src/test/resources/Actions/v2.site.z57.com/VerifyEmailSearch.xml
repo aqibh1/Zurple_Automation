@@ -1,0 +1,48 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Verify Email Search Results">
+  <!--  
+  <test name="Verify Email Search">
+  <parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
+   <parameter name="dataFile2" value="/resources/data/email-listing-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testEmailSearch" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+    </parameter>
+  </test>
+  -->
+  <test name="Verify Email Listing with User logged in">
+    <parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
+    <parameter name="dataFile2" value="/resources/data/email-listing-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+       <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testEmailSearch" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+    </parameter>
+  </test>
+  
+</suite>
