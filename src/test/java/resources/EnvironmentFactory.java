@@ -64,8 +64,9 @@ public class EnvironmentFactory {
                 {
                     options.addArguments("headless");
                     options.addArguments("window-size=1920x1080");
-                    options.addArguments("--proxy-server='direct://'");
-                    options.addArguments("--proxy-bypass-list=*");
+//                    options.addArguments("--proxy-server='direct://'");
+//                    options.addArguments("--proxy-bypass-list=*");
+                    options.addArguments("--no-sandbox");
                 }
                 else
                 {
