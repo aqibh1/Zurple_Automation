@@ -237,4 +237,13 @@ public class ActionHelper {
 		   return pElement.getAttribute(pAttributeName);
 		   
 	   }
+	   
+	   public static WebElement getDynamicElement(WebDriver pWebDriver,String pXpath,String pDynamicVariable) {
+	  		try {
+	  		return pWebDriver.findElement(By.xpath(pXpath.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable)));
+	  		}catch(Exception ex) {
+	  			AutomationLogger.error("Unable to get dynamic webelement for xpath "+pXpath);
+	  			return null;
+	  		}
+	  	}
 }

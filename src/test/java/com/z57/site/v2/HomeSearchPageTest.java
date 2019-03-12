@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
 import resources.ParametersFactory;
+import resources.blocks.z57.Pagination;
 import resources.classes.SearchResult;
 import resources.data.z57.EmailListingFormData;
 import resources.data.z57.SearchFormData;
@@ -357,6 +358,16 @@ public class HomeSearchPageTest extends PageTest{
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR1Email),"Unable to sent email to Agent for ->" + lR1Email);
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR2Email),"Unable to sent email to Agent for ->" + lR2Email);
 
+		
+	}
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPaginationOnHomeSearch(String pDataFile) {
+		searchFormData = new SearchFormData(pDataFile).getSearchFormData();
+		getPage("/idx");
+		searchHomes();
+		Pagination pagination = new Pagination(driver);
+		assertTrue(pagination.verifyAllPaginationButtonsWorking(),"Pagination buttons not working on Listing Page");
 		
 	}
 }

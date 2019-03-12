@@ -2,11 +2,14 @@ package resources;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import resources.orm.hibernate.models.AbstractLead;
 import resources.orm.hibernate.models.z57.ListingImages;
 import resources.orm.hibernate.models.z57.NotificationEmails;
 import resources.orm.hibernate.models.z57.NotificationMailgun;
 import resources.orm.hibernate.models.z57.Notifications;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 public class DBHelperMethods {
@@ -65,9 +68,16 @@ public class DBHelperMethods {
 	public boolean verifyLeadInDB(String pEmailToVeirfy,Integer pLeadId) {
 		//Checking created lead source
 		//Checking DB record body
-		AutomationLogger.info("Lead ID: "+pLeadId);
-		AbstractLead newLead = testEnvironment.getLeadObject(pLeadId);
-		return pEmailToVeirfy.equalsIgnoreCase(newLead.getEmail());
+		try {
+			AutomationLogger.info("Lead ID: "+pLeadId);
+			AbstractLead newLead = testEnvironment.getLeadObject(pLeadId);
+			return pEmailToVeirfy.equalsIgnoreCase(newLead.getEmail());
+		}
+		catch(NullPointerException ex) {
+
+			AutomationLogger.error("Lead Object is null for Lead ID: "+pLeadId);
+			return false;
+		}
 	}
 	
 	public List<ListingImages> getListingImages(Integer pListingId){
@@ -124,7 +134,7 @@ public class DBHelperMethods {
 		boolean result = false;
 		try {
 			List<NotificationEmails> notificationEmailsList = new ArrayList<NotificationEmails>();
-			notificationEmailsList = testEnvironment.getNotificationEmailsObject(pAgentEmail, 100);
+			notificationEmailsList = testEnvironment.getNotificationEmailsObject(pAgentEmail, 150);
 			for(NotificationEmails notficationEmails: notificationEmailsList) {
 				int notification_id = notficationEmails.getNotificationId();
 				Notifications notification = getNotifications(notification_id);
