@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="SignUp with Facebook Suite">
   
-  <test name="Signup with Facebook">
-  
+  <test name="Signup with Facebook from Home Page">
+  <parameter name="page" value="Home">
     <classes>
       <class name="com.z57.site.v2.HomePageTest" >
         <methods>
@@ -15,6 +15,6 @@
         </methods>
       </class>
     </classes>
-
+</parameter>
   </test>
   </suite>

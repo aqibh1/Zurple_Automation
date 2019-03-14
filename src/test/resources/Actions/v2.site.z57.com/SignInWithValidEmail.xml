@@ -3,9 +3,9 @@
 <suite name="Sign in with valid email id">
   <test name="Home Search Signin">
     <classes>
-      <class name="com.z57.site.v2.HomePageTest" >
+      <class name="com.z57.site.v2.PropertyListingPageTest" >
         <methods>
-          <include name="testSignInWithValidEmail" />
+          <include name="testEmailListing" />
         </methods>
       </class>
     </classes>
