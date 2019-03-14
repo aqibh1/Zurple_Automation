@@ -125,12 +125,14 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
         	 Cookie cks = getDriver().manage().getCookieNamed("zfs_lead_id");
              Integer lead_id = Integer.parseInt(cks.getValue());
              
-        	assertTrue(dbHelperObject.verifyLeadInDB(pEmail,lead_id),"Unable to verify Lead in DB");
+        	assertTrue(dbHelperObject.verifyLeadInDB(pEmail,lead_id),"Unable to verify Lead in DB. Lead ID: "+lead_id+"\n Lead Email: "+pEmail);
         	
-        	assertTrue(dbHelperObject.verifyEmailIsSent(pEmail, FrameworkConstants.ThanksForConnecting), "Unable to sent email to Lead");
+//        	assertTrue(dbHelperObject.verifyEmailIsSent(pEmail, FrameworkConstants.ThanksForConnecting), "Unable to sent email to Lead with subject "+FrameworkConstants.ThanksForConnecting);
+        	assertTrue(dbHelperObject.verifyEmailIsSentToLead(pEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent email to Lead with subject "+FrameworkConstants.ThanksForConnecting+"\n Lead Email: "+pEmail);
+//        	assertTrue(dbHelperObject.verifyEmailIsSent(EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email"), FrameworkConstants.YouHaveANewLead), "Unable to sent email to Agent with subject "+FrameworkConstants.YouHaveANewLead);
+        	assertTrue(dbHelperObject.verifyEmailIsSentToAgent(EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email"), pEmail, FrameworkConstants.YouHaveANewLead), "Unable to sent email to Agent with subject "+FrameworkConstants.YouHaveANewLead);
 
-        	assertTrue(dbHelperObject.verifyEmailIsSent(EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email"), FrameworkConstants.YouHaveANewLead), "Unable to sent email to Agent");
-        	        	
+        	    	
     }
     
     public void contactMeCaptureLeadForm(String pName,String pEmail, String pPhone, String pComments) throws InterruptedException {
@@ -162,11 +164,12 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
     	 Cookie cks = getDriver().manage().getCookieNamed("zfs_lead_id");
          Integer lead_id = Integer.parseInt(cks.getValue());
          
-    	assertTrue(dbHelperObject.verifyLeadInDB(pEmail,lead_id),"Unable to verify Lead in DB");
+     	assertTrue(dbHelperObject.verifyLeadInDB(pEmail,lead_id),"Unable to verify Lead in DB. Lead ID: "+lead_id+"\n Lead Email: "+pEmail);
     	
-    	assertTrue(dbHelperObject.verifyEmailIsSent(pEmail, FrameworkConstants.ThanksForConnecting), "Unable to sent email to Lead");
-
-    	assertTrue(dbHelperObject.verifyEmailIsSent(EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email"), FrameworkConstants.YouHaveANewLead), "Unable to sent email to Agent");
+//    	assertTrue(dbHelperObject.verifyEmailIsSent(pEmail, FrameworkConstants.ThanksForConnecting), "Unable to sent email to Lead with subject "+FrameworkConstants.ThanksForConnecting);
+    	assertTrue(dbHelperObject.verifyEmailIsSentToLead(pEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent email to Lead with subject "+FrameworkConstants.ThanksForConnecting+"\n Lead Email: "+pEmail);
+//    	assertTrue(dbHelperObject.verifyEmailIsSent(EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email"), FrameworkConstants.YouHaveANewLead), "Unable to sent email to Agent with subject "+FrameworkConstants.YouHaveANewLead);
+    	assertTrue(dbHelperObject.verifyEmailIsSentToAgent(EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email"), pEmail, FrameworkConstants.YouHaveANewLead), "Unable to sent email to Agent with subject "+FrameworkConstants.YouHaveANewLead);
     	        	
     	assertTrue(pageHeader.isLeadLoggedIn(),"Lead is not logged in");
 	}

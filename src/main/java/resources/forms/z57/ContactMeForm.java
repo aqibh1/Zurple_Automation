@@ -38,7 +38,7 @@ public class ContactMeForm extends AbstractForm{
 		return ActionHelper.Type(driver, getDynamicElement(textarea_xpath, "contact_me[comments]"),pComments);
 	}
 	public boolean isThankyouAlertVisible() {
-		return ActionHelper.waitForElementToBeVisible(driver, thankyou_alert, 10);
+		return ActionHelper.waitForElementToBeVisible(driver, thankyou_alert, 20);
 	}
 	public boolean clickOnSendButton(){
 		return ActionHelper.Click(driver, send_button);

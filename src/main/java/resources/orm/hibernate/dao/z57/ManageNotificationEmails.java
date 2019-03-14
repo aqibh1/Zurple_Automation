@@ -23,7 +23,10 @@ public class ManageNotificationEmails {
 
 	  private Session session;
 
-	    public ManageNotificationEmails(Session session) {this.session = session;}
+	    public ManageNotificationEmails(Session session) {
+	    	this.session = session;
+//	    	new NotificationEmails().save();
+	    }
 	    
 	    public NotificationEmails getNotificationId(String pEmail){
 
@@ -50,7 +53,7 @@ public class ManageNotificationEmails {
 
 	    	List<NotificationEmails> notification_emails = new ArrayList<NotificationEmails>();
 	        try {
-	        	 Query q = session.createQuery("FROM NotificationEmails WHERE email='"+pEmail+"' ORDER BY DATE(dateAdded) DESC").setMaxResults(pNumOfRecords);
+	        	 Query q = session.createQuery("FROM NotificationEmails WHERE email='"+pEmail+"' ORDER BY dateAdded DESC").setMaxResults(pNumOfRecords);
 	        	 notification_emails = q.list();
 	               
 	        } catch (Exception e) {

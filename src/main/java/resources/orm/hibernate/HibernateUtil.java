@@ -55,5 +55,8 @@ public class HibernateUtil {
 
         return sessionFactory;
     }
+    public static void setSessionFactoryEmpty() {
+    	sessionFactory = null;
+    }
 
 }

@@ -13,6 +13,7 @@ public class ManageListingImages {
 
 	  public ManageListingImages(Session session) {
 		  this.session = session;
+//		  new ListingImages().save();
 	  }
 	    
 	    public List<ListingImages> getListingImages(Integer pListingId){

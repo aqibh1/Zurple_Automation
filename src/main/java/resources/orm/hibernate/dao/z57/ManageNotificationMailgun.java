@@ -20,7 +20,10 @@ public class ManageNotificationMailgun {
 	
 	  private Session session;
 
-	    public ManageNotificationMailgun(Session session) {this.session = session;}
+	    public ManageNotificationMailgun(Session session) {
+	    	this.session = session;
+//	    	new NotificationMailgun().save();
+	    	}
 	    
 	    public NotificationMailgun getMailgunStatus(Integer pNotificationId){
 

@@ -263,10 +263,10 @@ public class PropertyListingPageTest extends PageTest {
 
 		// Verifies the agent have received the email for all the leads
 		if(!isLeadLoggedIn) {
-		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email to Agent for ->" + lLeadEmail);
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a New lead' to Agent for ->" + lLeadEmail);
 		}
-		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR1Email),"Unable to sent email to Agent for ->" + lR1Email);
-		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR2Email),"Unable to sent email to Agent for ->" + lR2Email);
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR1Email),"Unable to sent email 'You have a New lead' to Agent for ->" + lR1Email);
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR2Email),"Unable to sent email 'You have a New lead' to Agent for ->" + lR2Email);
 
 	}
 	

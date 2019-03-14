@@ -252,19 +252,29 @@ public class HomePage extends Page
 	//Verifies that image is not equals to image provided in onerror method
 	private boolean isImageDisplayedCorrectly(List<WebElement> pListOfElements) {
 		boolean isSuccessful = true;
-		
-		for(WebElement element: pListOfElements) {
-			String lSourceImg_url = element.getAttribute("src");
-			String onErrorImg_url = element.getAttribute("onerror");
-			String lSourceImg = lSourceImg_url.split("/")[lSourceImg_url.split("/").length-1];
-			String lOnErrorImg = onErrorImg_url.split("/")[onErrorImg_url.split("/").length-1].replace("'", "");
-			if(lSourceImg.equalsIgnoreCase(lOnErrorImg)) {
-				AutomationLogger.error("SOURCE IMAGE & ON ERROR IMAGE ARE SAME");
-				AutomationLogger.error("SOURCE IMAGE URL :: "+lSourceImg_url);
-				AutomationLogger.error("ON ERROR IMAGE URL :: "+onErrorImg_url);
-				isSuccessful = false;
-				break;
-			}	
+		String lOnErrorImg="";
+		String onErrorImg_url="";
+		String lSourceImg_url ="";
+		try {
+			for(WebElement element: pListOfElements) {
+				lSourceImg_url = element.getAttribute("src");
+				onErrorImg_url = element.getAttribute("onerror");
+				if(lSourceImg_url!=null && onErrorImg_url!=null) {
+					String lSourceImg = lSourceImg_url.split("/")[lSourceImg_url.split("/").length-1];
+					lOnErrorImg = onErrorImg_url.split("/")[onErrorImg_url.split("/").length-1].replace("'", "");
+					if(lSourceImg.equalsIgnoreCase(lOnErrorImg)) {
+						AutomationLogger.error("SOURCE IMAGE & ON ERROR IMAGE ARE SAME");
+						AutomationLogger.error("SOURCE IMAGE URL :: "+lSourceImg_url);
+						AutomationLogger.error("ON ERROR IMAGE URL :: "+onErrorImg_url);
+						isSuccessful = false;
+						break;
+					}
+				}
+			}
+		}catch(Exception ex) {
+			AutomationLogger.info("On Error Image URL: "+onErrorImg_url);
+			AutomationLogger.info("Source Image URL: "+lSourceImg_url);
+			return false;
 		}
 		return isSuccessful;
 	}

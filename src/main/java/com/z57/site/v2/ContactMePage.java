@@ -19,7 +19,7 @@ public class ContactMePage extends Page{
 	}
 	
 	public boolean isContactMePage() {
-		boolean result = ActionHelper.getText(driver, pageTitle).equalsIgnoreCase(FrameworkConstants.ContactMe)?true:false;
+		boolean result = FrameworkConstants.ContactMe.contains(ActionHelper.getText(driver, pageTitle))?true:false;//ActionHelper.getText(driver, pageTitle).equalsIgnoreCase(FrameworkConstants.ContactMe)?true:false;
 		return result;
 	}
 

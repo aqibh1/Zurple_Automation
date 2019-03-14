@@ -12,7 +12,10 @@ public class ManageNotifications {
 	
 	   private Session session;
 
-	    public ManageNotifications(Session session) {this.session = session;}
+	   public ManageNotifications(Session session) {
+		   this.session = session;
+//		   new Notifications().save();
+	   }
 	    
 	/* Method to  READ all the leads */
     public Notifications getAllNotifications(Integer pNotificationId ){

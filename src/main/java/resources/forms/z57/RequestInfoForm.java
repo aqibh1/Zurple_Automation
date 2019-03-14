@@ -50,9 +50,9 @@ public class RequestInfoForm extends AbstractForm{
 		return ActionHelper.Click(driver, save_button);
 	}
 	public boolean isRequestInfoSent() {
-		boolean status =  ActionHelper.waitForElementToBeDisappeared(driver, modal_header);
+		boolean status = ActionHelper.isElementVisible(driver, success_notification);
 		if(!status) {
-			status = ActionHelper.isElementVisible(driver, success_notification);
+			status =  ActionHelper.waitForElementToBeDisappeared(driver, modal_header);
 		}
 		return status;
 	}

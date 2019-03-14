@@ -66,7 +66,11 @@ public class EmailListingForm extends AbstractForm{
 		return ActionHelper.waitForElementToBeDisappeared(driver, modal_header);
 	}
 	public boolean isEmailSent() {
-		return ActionHelper.waitForElementToBeVisible(driver, email_sent_shortly_notification, 20);
+		boolean status =  ActionHelper.waitForElementToBeDisappeared(driver, modal_header);
+		if(!status) {
+			status = ActionHelper.isElementVisible(driver, email_sent_shortly_notification);
+		}
+		return status;
 	}
 	public String getLeadName() {
 		return ActionHelper.getText(driver,getDynamicElement(input_fields_xpath, "email_listing_form[name]"));
