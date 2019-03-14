@@ -44,8 +44,16 @@ public class SoldListingsPageTest extends PageTest{
 			page.setUrl("");
 			driver=getDriver();
 			page.setDriver(driver);
-			
-			
+		}
+		return page;
+	}
+	
+	public Page getPage(String pURL) {
+		if(page == null){
+			page = new SoldListingsPage(getDriver());
+			page.setUrl(pURL);
+			page.setDriver(getDriver());
+			driver=getDriver();
 		}
 		return page;
 	}
@@ -77,6 +85,16 @@ public class SoldListingsPageTest extends PageTest{
 		
 		assertTrue(page.isSoldListingPage(), "Page Title not found");
 		
+	}
+	@Test
+	public void testVerifyPaginationOnSoldListingPage() {
+		getPage("/listings/sold-listings");
+		if(page.getPagination().isPaginationAvailable()) {
+			assertTrue(page.getPagination().verifyAllPaginationButtonsWorking(),"Pagination buttons not working on Listing Page");
+			
+		}else {
+			assertTrue(true,"Pagination actions are not applicable on current page.");
+		}
 	}
 
 }

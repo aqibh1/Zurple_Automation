@@ -26,6 +26,9 @@ public class Pagination {
 	WebElement list_of_all_buttons;
 	String pagination_buttons_xpath="//ul[@class='pagination']/descendant::li/a";
 	
+	@FindBy(xpath="//ul[@class='pagination']/descendant::li[@class='disabled']/a[text()='Next']")
+	WebElement next_disabled_button;
+	
 	public Pagination(WebDriver pWebDriver){
 		driver=pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -73,7 +76,9 @@ public class Pagination {
 
 		return (clickOnNum && clickOnPrev && clickOnNext);
 	}
-	
+	public boolean isPaginationAvailable() {
+		return !ActionHelper.isElementVisible(driver, next_disabled_button);
+	}
 	private String getCurrentPage(List<WebElement> pElementList) {
 		String lCurrentPage="";
 		for(WebElement element: pElementList) {

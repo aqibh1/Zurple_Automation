@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import resources.blocks.z57.Pagination;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
@@ -15,6 +17,7 @@ import resources.utility.FrameworkConstants;
  *
  */
 public class SoldListingsPage extends Page{
+	Pagination pagination;
 	
 	@FindBy(xpath="//div[@id='googleMap']")
 	WebElement googleMap;
@@ -24,9 +27,21 @@ public class SoldListingsPage extends Page{
 	
 	public SoldListingsPage(WebDriver pWebDriver) {
 		driver=pWebDriver;
+		setPagination();
 		PageFactory.initElements(driver, this);
 	}
 	
+	
+	public Pagination getPagination() {
+		return pagination;
+	}
+
+
+	public void setPagination() {
+		pagination = new Pagination(driver);
+	}
+
+
 	public boolean isGoogleMapDisplayed() {
 		return ActionHelper.waitForElementToBeVisible(driver, googleMap, 20);
 	}
