@@ -31,17 +31,12 @@ public class SoldListingsPage extends Page{
 		PageFactory.initElements(driver, this);
 	}
 	
-	
 	public Pagination getPagination() {
 		return pagination;
 	}
-
-
 	public void setPagination() {
 		pagination = new Pagination(driver);
 	}
-
-
 	public boolean isGoogleMapDisplayed() {
 		return ActionHelper.waitForElementToBeVisible(driver, googleMap, 20);
 	}

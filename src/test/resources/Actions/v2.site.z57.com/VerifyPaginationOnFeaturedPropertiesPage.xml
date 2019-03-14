@@ -2,16 +2,16 @@
 
 <suite name="Verify Pagination Listing">
   
-  <test name="Verify Pagination on Sold Listings Page">
+  <test name="Verify Pagination on Featured Properties Page">
     <classes>
       <class name="com.z57.site.v2.HomePageTest" >
         <methods>
           <include name="testSignInWithValidEmail" />
         </methods>
       </class>
-       <class name="com.z57.site.v2.SoldListingsPageTest" >
+       <class name="com.z57.site.v2.ListingPageTest" >
         <methods>
-          <include name="testVerifyPaginationOnSoldListingPage" />
+          <include name="testPaginationOnListingsPage" />
         </methods>
       </class>
        <class name="resources.CurrentPageTest">

@@ -39,6 +39,15 @@ public class ListingPageTest extends PageTest{
 		}
 		return page;
 	}
+	public Page getPage(String pURL) {
+		if(page == null){
+			page = new ListingPage(getDriver());
+			page.setUrl(pURL);
+			page.setDriver(getDriver());
+			driver=getDriver();
+		}
+		return page;
+	}
 
 	@Override
 	public void clearPage() {
@@ -66,6 +75,16 @@ public class ListingPageTest extends PageTest{
 		
 		assertTrue(page.isListingPage(), "Page Title not found");
 		
+	}
+	@Test
+	public void testPaginationOnListingsPage() {
+		getPage("/listings");
+		if(page.getPagination().isPaginationAvailable()) {
+			assertTrue(page.getPagination().verifyAllPaginationButtonsWorking(),"Pagination buttons not working on Listing Page");
+			
+		}else {
+			assertTrue(true,"Pagination actions are not applicable on current page.");
+		}
 	}
 
 }
