@@ -1,7 +1,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Searchlistings">
-
+<suite name="Searchlistings" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+</listeners>
   <test name="Home Search Signin">
     <classes>
       <class name="com.z57.site.v2.HomePageTest" >
