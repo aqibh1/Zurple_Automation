@@ -29,7 +29,7 @@ public class ActionHelper {
 			}catch(Exception ex) {
 				AutomationLogger.error("Unable to type in input field "+pInputField.getAttribute("xpath"));
 				AutomationLogger.error("String to type : "+pStringToType);
-				AutomationLogger.error(ex.toString());
+				AutomationLogger.error(ex.getMessage());
 			}
 			return isSuccessfull;
 		}
@@ -45,7 +45,7 @@ public class ActionHelper {
 				
 			}catch(Exception ex) {
 				AutomationLogger.error("Unable to Click on "+pElementToBeClicked.getAttribute("xpath"));
-				AutomationLogger.error(ex.toString());
+				AutomationLogger.error(ex.getMessage());
 			}
 			return isSuccessfull;
 		}
@@ -69,7 +69,7 @@ public class ActionHelper {
 			   isElementVisible=wait.until(ExpectedConditions.invisibilityOf(pElementToBeDisappeared));
 		   }catch(Exception ex) {
 			   AutomationLogger.error("Element did not disappear.  Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
-			   AutomationLogger.error(ex.toString());
+			   AutomationLogger.error(ex.getMessage());
 		   }
 		   return isElementVisible;
 
@@ -84,7 +84,7 @@ public class ActionHelper {
 		   }catch(Exception ex) {
 			   AutomationLogger.error("Element is not visible.  -> "+pElement);
 			   AutomationLogger.error("Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
-			   AutomationLogger.error(ex.toString());
+			   AutomationLogger.error(ex.getMessage());
 		   }
 		   return isElementVisible;
 	   }
@@ -97,7 +97,7 @@ public class ActionHelper {
 		   }catch(Exception ex) {
 			   AutomationLogger.error("Element is not visible.  -> "+pElement);
 			   AutomationLogger.error("Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
-			   AutomationLogger.error(ex.toString());
+			   AutomationLogger.error(ex.getMessage());
 		   }
 		   return isElementVisible;
 	   }
@@ -143,7 +143,7 @@ public class ActionHelper {
 			}catch(Exception ex) {
 				AutomationLogger.error("Unable to type in input field "+pInputField.getAttribute("xpath"));
 				AutomationLogger.error("String to type : "+pStringToType);
-				AutomationLogger.error(ex.toString());
+				AutomationLogger.error(ex.getMessage());
 			}
 			return isSuccessfull;
 		}
@@ -159,7 +159,7 @@ public class ActionHelper {
 			
 		}catch(Exception ex) {
 			AutomationLogger.error("Element is not clickable -> "+pElement);
-			AutomationLogger.error(ex.toString());
+			AutomationLogger.error(ex.getMessage());
 		}
 		return isSuccessful;
 	}
@@ -170,7 +170,7 @@ public class ActionHelper {
 			lList_of_Elements = pWebDriver.findElements(By.xpath(pElementXpath));
 		}catch(Exception ex) {
 			AutomationLogger.error("Element list not found -> "+pElementXpath);
-			AutomationLogger.error(ex.toString());
+			AutomationLogger.error(ex.getMessage());
 		}
 		return lList_of_Elements;
 		
@@ -201,7 +201,7 @@ public class ActionHelper {
 			}catch(Exception ex) {
 				AutomationLogger.error("Unable to type in input field "+pInputField.getAttribute("xpath"));
 				AutomationLogger.error("String to type : "+pStringToType);
-				AutomationLogger.error(ex.toString());
+				AutomationLogger.error(ex.getMessage());
 			}
 			return isSuccessfull;
 		}
@@ -243,6 +243,7 @@ public class ActionHelper {
 	  		return pWebDriver.findElement(By.xpath(pXpath.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable)));
 	  		}catch(Exception ex) {
 	  			AutomationLogger.error("Unable to get dynamic webelement for xpath "+pXpath);
+	  			AutomationLogger.error(ex.getMessage());
 	  			return null;
 	  		}
 	  	}

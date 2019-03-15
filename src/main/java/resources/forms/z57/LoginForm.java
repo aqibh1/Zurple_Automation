@@ -112,11 +112,11 @@ public class LoginForm extends AbstractForm{
 	}
 	public boolean typeFacebookEmail(String pEmail) {
 		ActionHelper.Click(driver, FACEBOOK_EMAIL);
-		return ActionHelper.Type(driver, FACEBOOK_EMAIL, pEmail);
+		return ActionHelper.ClearAndType(driver, FACEBOOK_EMAIL, pEmail);
 	}
 	public boolean typeFacebookPassword(String pPassword) {
 		ActionHelper.Click(driver, FACEBOOK_PASSWORD);
-		return ActionHelper.Type(driver, FACEBOOK_PASSWORD, pPassword);
+		return ActionHelper.ClearAndType(driver, FACEBOOK_PASSWORD, pPassword);
 	}
 	public boolean clickOnFacbookLoginButton() {
 		return ActionHelper.Click(driver, FACEBOOK_LOGIN);

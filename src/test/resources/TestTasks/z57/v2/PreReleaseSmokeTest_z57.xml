@@ -4,6 +4,7 @@
 	 <listeners>
         <listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.TestListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
     
    
@@ -874,5 +875,64 @@
     </parameter>
   </test>
   
+  <test name="Verify Pagination on Featured Properties Page">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+       <class name="com.z57.site.v2.ListingPageTest" >
+        <methods>
+          <include name="testPaginationOnListingsPage" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+  
+   <test name="Verify Pagination on Recent Home Sales Page">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+       <class name="com.z57.site.v2.RecentHomeSalesPageTest" >
+        <methods>
+          <include name="testVerifyPaginationOnSoldListingPage" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+  
+   <test name="Verify Pagination on Sold Listings Page">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+       <class name="com.z57.site.v2.SoldListingsPageTest" >
+        <methods>
+          <include name="testVerifyPaginationOnSoldListingPage" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </test>
  
 </suite>

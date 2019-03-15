@@ -124,7 +124,7 @@ public class PageHeader extends Page{
 		return isClickSuccessful;
 	}
 	public boolean isLeadLoggedIn() {
-		return ActionHelper.waitForElementToBeVisible(driver, user_image_icon,10);
+		return ActionHelper.waitForElementToBeVisible(driver, user_image_icon,20);
 	}
 	public void refreshPage() {
 		 ActionHelper.RefreshPage(driver);

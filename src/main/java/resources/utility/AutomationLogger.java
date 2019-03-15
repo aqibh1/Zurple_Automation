@@ -1,6 +1,7 @@
 package resources.utility;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.testng.Reporter;
 
 public class AutomationLogger {
 	
@@ -44,6 +45,7 @@ public class AutomationLogger {
 	 public static void info(String message) {
 	 
 		 AutomationLogger.info("-----=====" +message+ "=====-----");
+		 Reporter.log("-----=====" +message+ "=====-----");
 	 
 	 }
 	 
@@ -56,7 +58,7 @@ public class AutomationLogger {
 	 public static void error(String message) {
 	 
 		 AutomationLogger.error("-----ERROR=====" +message+ "=====ERROR-----");
-	 
+		 Reporter.log("-----ERROR=====" +message+ "=====ERROR-----");
 	 }
 	 
 	 public static void fatal(String message) {

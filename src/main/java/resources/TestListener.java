@@ -11,7 +11,7 @@ public class TestListener implements ITestListener{
 
 	@Override
 	public void onTestStart(ITestResult result) {
-		AutomationLogger.info("IN TEST LISTENER");
+		AutomationLogger.info("Refreshing Hibernate Database Connection");
 		HibernateUtil.setSessionFactoryEmpty();
 		
 	}
