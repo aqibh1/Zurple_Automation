@@ -44,9 +44,16 @@ public class RecentHomeSalesPageTest extends PageTest{
 			page = new RecentHomeSalesPage(getDriver());
 			page.setUrl("");
 			driver=getDriver();
-			page.setDriver(driver);
-			
-			
+			page.setDriver(driver);	
+		}
+		return page;
+	}
+	public Page getPage(String pURL) {
+		if(page == null){
+			page = new RecentHomeSalesPage(getDriver());
+			page.setUrl(pURL);
+			page.setDriver(getDriver());
+			driver=getDriver();
 		}
 		return page;
 	}
@@ -89,6 +96,17 @@ public class RecentHomeSalesPageTest extends PageTest{
 		
 		assertTrue(page.isSearchSuccessful(), "The search was not successful");
 		
+	}
+	
+	@Test
+	public void testVerifyPaginationOnSoldListingPage() {
+		getPage("/recent-home-sales");
+		if(page.getPagination().isPaginationAvailable()) {
+			assertTrue(page.getPagination().verifyAllPaginationButtonsWorkingRHS(),"Pagination buttons not working on Listing Page");
+			
+		}else {
+			assertTrue(true,"Pagination actions are not applicable on current page.");
+		}
 	}
 
 }

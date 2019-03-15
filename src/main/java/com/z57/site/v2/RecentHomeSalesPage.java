@@ -5,10 +5,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.blocks.z57.Pagination;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class RecentHomeSalesPage extends Page{
+	Pagination pagination;
 	
 	@FindBy(xpath="//div[@id='googleMap']")
 	WebElement googleMap;
@@ -24,9 +26,18 @@ public class RecentHomeSalesPage extends Page{
 	
 	public RecentHomeSalesPage(WebDriver pWebDriver) {
 		driver=pWebDriver;
+		setPagination();
 		PageFactory.initElements(driver, this);
 	}
 	
+	public Pagination getPagination() {
+		return pagination;
+	}
+
+	public void setPagination() {
+		this.pagination = new Pagination(driver);
+	}
+
 	public boolean isGoogleMapDisplayed() {
 		return ActionHelper.waitForElementToBeVisible(driver, googleMap, 20);
 	}
