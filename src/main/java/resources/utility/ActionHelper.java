@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ActionHelper {
 	protected static WebDriverWait wait;
-	private static long GLOBAL_WAIT_COUNT=10;
+	private static long GLOBAL_WAIT_COUNT=20;
 	
 	public static boolean Type(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
 			boolean isSuccessfull=false;
