@@ -63,35 +63,41 @@ public class Pagination {
 		List<WebElement> list_pagination_buttons = ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath);
 		int lCurrentPage = Integer.parseInt(getCurrentPage(list_pagination_buttons));
 		int totalPages = getTotalPages(list_pagination_buttons);
-		
-		if(totalPages>1) {
-			do {
-				int gotoPage = (int)(Math.random() * (totalPages));
-				if(lCurrentPage!=gotoPage) {
-					clickOnPageNumberRHS(String.valueOf(gotoPage));
-					clickOnNum = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)))==gotoPage;
-					if(clickOnNum) {
-						currentPageOld = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
-						if(clickOnPrevious()) {
-							currentPageNew = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
-							clickOnPrev = currentPageOld!=currentPageNew;
-						}
-						currentPageOld = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
-						if(clicOnNext()) {
-							currentPageNew = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
-							clickOnNext = currentPageOld!=currentPageNew;
+		try {
+			if(totalPages>1) {
+				do {
+					int gotoPage = (int)(Math.random() * (totalPages));
+					if(lCurrentPage!=gotoPage) {
+						clickOnPageNumberRHS(String.valueOf(gotoPage));
+						clickOnNum = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)))==gotoPage;
+						if(clickOnNum) {
+							currentPageOld = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
+							if(clickOnPrevious()) {
+								currentPageNew = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
+								clickOnPrev = currentPageOld!=currentPageNew;
+							}
+							currentPageOld = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
+							if(clicOnNext()) {
+								currentPageNew = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
+								clickOnNext = currentPageOld!=currentPageNew;
+							}
 						}
 					}
-				}
-			}while(!clickOnNum);
+				}while(!clickOnNum);
 
-		}else {
-			AutomationLogger.info("Only 1 page exists for pagination.");
-			clickOnNum = true;
-			clickOnPrev = true;
-			clickOnNext = true;
+			}else {
+				AutomationLogger.info("Only 1 page exists for pagination.");
+				clickOnNum = true;
+				clickOnPrev = true;
+				clickOnNext = true;
+			}
+		}catch(Exception ex) {
+			clickOnNum = false;
+			clickOnPrev = false;
+			clickOnNext = false;
+			AutomationLogger.error(ex.getMessage());
+
 		}
-
 		return (clickOnNum && clickOnPrev && clickOnNext);
 	}
 	private boolean clickOnPageNumberRHS(String pPageNumber) {

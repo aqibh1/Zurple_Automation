@@ -44,7 +44,7 @@ public class ActionHelper {
 				}
 				
 			}catch(Exception ex) {
-				AutomationLogger.error("Unable to Click on "+pElementToBeClicked.getAttribute("xpath"));
+				AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
 				AutomationLogger.error(ex.getMessage());
 			}
 			return isSuccessfull;
@@ -57,7 +57,7 @@ public class ActionHelper {
 			   action.moveToElement(pElementToBeHoveredOn).build().perform();
 			   AutomationLogger.info("Mouse hover is successfull");
 		   }else {
-			   AutomationLogger.error("Mouse hover is unsuccessful over element ->"+pElementToBeHoveredOn.getAttribute("xpath"));
+			   AutomationLogger.error("Mouse hover is unsuccessful over element ->"+pElementToBeHoveredOn);
 		   }
 		   return status;
 		}
