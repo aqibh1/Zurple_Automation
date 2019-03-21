@@ -55,6 +55,7 @@ public class Pagination {
 	}
 	
 	public boolean verifyAllPaginationButtonsWorking() {
+		int lAttemptCount=0;
 		boolean clickOnNum = false;
 		boolean clickOnPrev = false;
 		boolean clickOnNext = false;
@@ -68,7 +69,7 @@ public class Pagination {
 				do {
 					int gotoPage = (int)(Math.random() * (totalPages));
 					if(lCurrentPage!=gotoPage) {
-						clickOnPageNumberRHS(String.valueOf(gotoPage));
+						clickOnPageNumber(String.valueOf(gotoPage));
 						clickOnNum = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)))==gotoPage;
 						if(clickOnNum) {
 							currentPageOld = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
@@ -83,7 +84,8 @@ public class Pagination {
 							}
 						}
 					}
-				}while(!clickOnNum);
+					lAttemptCount++;
+				}while(!clickOnNum && lAttemptCount<3);
 
 			}else {
 				AutomationLogger.info("Only 1 page exists for pagination.");
