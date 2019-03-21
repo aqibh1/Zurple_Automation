@@ -76,7 +76,7 @@ public class ActionHelper {
 	   }
 	   
 	   public static boolean isElementVisible(WebDriver pWebDriver,WebElement pElement) {
-		   wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+		   wait=new WebDriverWait(pWebDriver, 5);
 		   boolean isElementVisible = false;
 		   try {
 			   AutomationLogger.info("Waiting for the visibility of element ->"+pElement);
