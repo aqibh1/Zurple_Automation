@@ -1,4 +1,4 @@
-package com.z57.admin;
+package com.z57.propertypulse;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
