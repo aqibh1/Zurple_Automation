@@ -3,8 +3,10 @@ package com.z57.propertypulse;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
@@ -35,6 +37,15 @@ public class PPLeadsDetailPage extends Page{
 	@FindBy(xpath="//div[@class='alert alert-success' and text()='Lead Updated']")
 	WebElement leadUpdated_notification;
 	
+	public PPLeadsDetailPage() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public PPLeadsDetailPage(WebDriver pWebDriver) {
+		driver = pWebDriver;
+		PageFactory.initElements(driver, this);
+	}
+
 	public boolean isLeadDetailsPage() {
 		return ActionHelper.isElementVisible(driver, leadDetail_header);
 	}

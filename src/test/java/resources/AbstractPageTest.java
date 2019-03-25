@@ -1,5 +1,6 @@
 package resources;
 
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -81,6 +82,24 @@ public abstract class AbstractPageTest extends AbstractTest
             }
         }
         return true;
+    }
+    
+    
+    protected String updateEmail(String pEmail) {
+    	Date dateObj = new Date();
+		long date_to_append=dateObj.getTime()/3600;
+		int at = pEmail.indexOf('@');
+		String firstPart = pEmail.substring(0, at);
+		String lastPart = pEmail.substring(at);
+		pEmail=firstPart+"_"+Long.toString(date_to_append)+lastPart;
+		return pEmail;
+    }
+    
+    protected String updateName(String pName) {
+    	Date dateObj = new Date();
+		long date_to_append=dateObj.getTime()/3600;
+		pName=pName+" "+Long.toString(date_to_append);
+		return pName;
     }
 
 }

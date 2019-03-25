@@ -365,4 +365,23 @@ public class TestEnvironment
         	return null;
         }
     }
+    
+    public resources.orm.hibernate.models.z57.Lead getNewLeadObject(String pLeadEmail)
+    {
+
+        String project = System.getProperty("project");
+
+        if (project.equals("z57"))
+        {
+            resources.orm.hibernate.dao.z57.ManageLead ml = new resources.orm.hibernate.dao.z57.ManageLead(getSession());
+            return ml.getLead(pLeadEmail);
+        }
+//        else
+//        {
+//            resources.orm.hibernate.dao.zurple.ManageLead ml = new resources.orm.hibernate.dao.zurple.ManageLead(getSession());
+//            return ml.getLead(lead_id);
+//        }
+        return null;
+
+    }
 }

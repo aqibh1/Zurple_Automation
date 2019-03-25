@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.testng.Reporter;
+
 import resources.orm.hibernate.models.AbstractLead;
+import resources.orm.hibernate.models.z57.Lead;
 import resources.orm.hibernate.models.z57.ListingImages;
 import resources.orm.hibernate.models.z57.NotificationEmails;
 import resources.orm.hibernate.models.z57.NotificationMailgun;
@@ -180,5 +183,16 @@ public class DBHelperMethods {
 			AutomationLogger.error(ex.toString());
 		}
 		return result;
+	}
+	public Lead getLeadObject(String pEmailToVeirfy) {
+		//Fetching Lead object by Email
+		try {
+			Lead newLead = testEnvironment.getNewLeadObject(pEmailToVeirfy);
+			return newLead;
+		}
+		catch(Exception ex) {
+			AutomationLogger.error("No Lead found in Lead Table for email ->"+pEmailToVeirfy);
+			return null;
+		}
 	}
 }

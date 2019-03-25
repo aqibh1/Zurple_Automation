@@ -263,7 +263,9 @@ public class PropertyListingPageTest extends PageTest {
 
 		// Verifies the agent have received the email for all the leads
 		if(!isLeadLoggedIn) {
-		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a New lead' to Agent for ->" + lLeadEmail);
+			assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a New lead' to Agent for ->" + lLeadEmail);
+			//TODO
+			//Verify welcome email is sent to Lead
 		}
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR1Email),"Unable to sent email 'You have a New lead' to Agent for ->" + lR1Email);
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR2Email),"Unable to sent email 'You have a New lead' to Agent for ->" + lR2Email);
@@ -328,6 +330,8 @@ public class PropertyListingPageTest extends PageTest {
 		//Verifies Agent has received a email with subject 'You have a new lead'
 		if(!isLeadLoggedIn) {
 			assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a new lead' to Agent for ->" + lLeadEmail);
+			//TODO
+			//Verify welcome email is sent to Lead
 		}	
 		//Verifies Agent has received the email with subject 'Inquired about Listing'
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email,lLeadEmail,lLeadName+" "+FrameworkConstants.InquiredAboutListing),"Unable to sent email [Inquired About Listing] to Agent");
@@ -395,9 +399,11 @@ public class PropertyListingPageTest extends PageTest {
 		//Verifies Agent has received a email with subject 'You have a new lead'
 		if(!isLeadLoggedIn) {
 			assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a new lead' to Agent for ->" + lLeadEmail);
+			//TODO
+			//Verify welcome email is sent to Lead
 		}	
-		//Verifies Agent has received the email with subject 'Inquired about Listing'
-		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email,lLeadEmail,lLeadName+" "+FrameworkConstants.InquiredAboutShowing),"Unable to sent email [Inquired About Listing] to Agent");
+		//Verifies Agent has received the email with subject 'Inquired about A Showing'
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email,lLeadEmail,lLeadName+" "+FrameworkConstants.InquiredAboutShowing),"Unable to sent email to Agent. Subject [Inquired About A Showing]");
 
 		// Verifies the email has been sent to lead with subject 'Information is on the way!'.
 		assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail,FrameworkConstants.InformationIsOnTheWay),"Unable to sent email to Lead");

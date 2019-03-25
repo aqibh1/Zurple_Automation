@@ -3,6 +3,8 @@ package resources.orm.hibernate.models.z57;
 import resources.orm.hibernate.models.AbstractLead;
 
 import javax.persistence.*;
+
+import java.sql.Timestamp;
 import java.util.Date;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -19,15 +21,17 @@ public class Lead extends AbstractLead
     private String phone;
     private String account_id;
     private String date_added;
-
+    private Timestamp dob;
+    private String address;
+    private String city;
+    private String state;
+    private String zip;
+    private Integer leadStatusId;
+    
     public Lead() {
     }
 
-    public Lead(
-            String email,
-            String name_full,
-            String phone
-    ) {
+    public Lead(String email,String name_full,String phone){
         this.name_full = name_full;
         this.email = email;
         this.phone = phone;
@@ -88,5 +92,59 @@ public class Lead extends AbstractLead
     public void setNameFull(String name_full) {
         this.name_full = name_full;
     }
+    
+    @Column(name = "dob", unique = false, nullable = true, length = 255)
+	public Timestamp getDob() {
+		return dob;
+	}
+
+	public void setDob(Timestamp dob) {
+		this.dob = dob;
+	}
+
+	 @Column(name = "address", unique = false, nullable = true, length = 255)
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	 @Column(name = "city", unique = false, nullable = true, length = 255)
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	 @Column(name = "state", unique = false, nullable = true, length = 2)
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+	 @Column(name = "zip", unique = false, nullable = true, length = 11)
+	public String getZip() {
+		return zip;
+	}
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+	
+	 @Column(name = "lead_status_id", unique = true, nullable = false, length = 11)
+	public Integer getLeadStatusId() {
+		return leadStatusId;
+	}
+
+	public void setLeadStatusId(Integer leadStatusId) {
+		this.leadStatusId = leadStatusId;
+	}
+    
 
 }

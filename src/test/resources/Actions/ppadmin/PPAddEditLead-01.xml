@@ -1,0 +1,33 @@
+<suite name="Capture Lead From About Me Page" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+    </listeners>
+   
+    <test name="Add and Edit Lead on PP" preserve-order="true">
+    <parameter name="dataFile" value="/resources/data/propertypulse/lead/lead-data-01.json">
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPLeadPageTest" >
+      <methods>
+      	<include name="testAddLead" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPLeadDetailPageTest" >
+      <methods>
+      	<include name="testAddLeadDetail" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+</suite>

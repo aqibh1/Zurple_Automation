@@ -345,6 +345,8 @@ public class HomeSearchPageTest extends PageTest{
 		// Verifies the email has been sent on respective email addresses.
 		if(!isLeadLoggedIn) {
 		assertTrue(dbHelper.verifyEmailIsSent(lLeadEmail, FrameworkConstants.CheckOutThisPropertySearch),"Unable to sent email to Lead");
+		//TODO
+		//Add check for welcome email
 		}
 		assertTrue(dbHelper.verifyEmailIsSent(lR1Email, FrameworkConstants.CheckOutThisPropertySearch),"Unable to sent email to Recipient1");
 		assertTrue(dbHelper.verifyEmailIsSent(lR2Email, FrameworkConstants.CheckOutThisPropertySearch),"Unable to sent email to Recipient2");

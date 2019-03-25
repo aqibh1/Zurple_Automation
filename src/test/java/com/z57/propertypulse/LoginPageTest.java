@@ -40,7 +40,6 @@ public class LoginPageTest extends PageTest{
 	@Test
 	public void testPPLogin() {
 		getPage();
-		//TODO 
 		//Fetch this from config file
 		String lPPUserName = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
 		String lPPPassword =EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_password");
