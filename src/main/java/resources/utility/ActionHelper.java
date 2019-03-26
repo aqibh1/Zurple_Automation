@@ -247,4 +247,28 @@ public class ActionHelper {
 	  			return null;
 	  		}
 	  	}
+	   
+	   
+	   public static boolean waitForElementToBeLocated(WebDriver pWebDriver,String pElement,long pWaitInSecnds) {
+		   wait=new WebDriverWait(pWebDriver, pWaitInSecnds);
+		   boolean isElementVisible = false;
+		   try {
+			   isElementVisible=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(pElement)))!=null;
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Element is not visible.  -> "+pElement);
+			   AutomationLogger.error("Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return isElementVisible;
+	   }
+	   
+	   public static String getDynamicElementXpath(WebDriver pWebDriver,String pXpath,String pDynamicVariable) {
+	  		try {
+	  		return pXpath.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable);
+	  		}catch(Exception ex) {
+	  			AutomationLogger.error("Unable to get dynamic webelement for xpath "+pXpath);
+	  			AutomationLogger.error(ex.getMessage());
+	  			return null;
+	  		}
+	  	}
 }

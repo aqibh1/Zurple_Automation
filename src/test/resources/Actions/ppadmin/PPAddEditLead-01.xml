@@ -1,10 +1,12 @@
-<suite name="Capture Lead From About Me Page" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+<suite name="Capture Lead From About Me Page" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
 	<listeners>
         <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
    
-    <test name="Add and Edit Lead on PP" preserve-order="true">
-    <parameter name="dataFile" value="/resources/data/propertypulse/lead/lead-data-01.json">
+    <test name="Add and Edit Lead on PP">
+    <parameter name="dataFile" value="/resources/data/propertypulse/lead/lead-data-01.json" >
+    <parameter name="dataFile2" value="/resources/data/propertypulse/lead/lead-data-01.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
@@ -21,12 +23,13 @@
       	<include name="testAddLeadDetail" />
       </methods>
       </class>
-        <class name="resources.CurrentPageTest">
-        <methods>
-          <include name="closeBrowser" />
-        </methods>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
       </class>
     </classes>
+    </parameter>
     </parameter>
 	</test>
 	

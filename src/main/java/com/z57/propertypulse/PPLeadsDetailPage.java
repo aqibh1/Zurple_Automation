@@ -47,7 +47,7 @@ public class PPLeadsDetailPage extends Page{
 	}
 
 	public boolean isLeadDetailsPage() {
-		return ActionHelper.isElementVisible(driver, leadDetail_header);
+		return ActionHelper.waitForElementToBeVisible(driver, leadDetail_header,30);
 	}
 	
 	public boolean typeLeadName(String pLeadName) {

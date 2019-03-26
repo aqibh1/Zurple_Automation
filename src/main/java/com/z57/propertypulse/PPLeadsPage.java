@@ -134,14 +134,18 @@ public class PPLeadsPage extends Page{
 	}
 	
 	public boolean isLeadExistInTable(String pLead) {
-		return ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, leadExistInLeadsTable, pLead));
+		return ActionHelper.waitForElementToBeLocated(driver, ActionHelper.getDynamicElementXpath(driver, leadExistInLeadsTable, pLead),15);
 	}
 	
 	public boolean clickOnResetFilterButton() {
 		return ActionHelper.Click(driver, resetFilter_button);
 	}
 	public boolean typeInSearch(String pStringToSearch) {
-		return ActionHelper.ClearAndType(driver, search_input, pStringToSearch);
+		boolean result = ActionHelper.waitForElementToBeVisible(driver, search_input, 10);
+		if(result) {
+			result= ActionHelper.ClearAndType(driver, search_input, pStringToSearch);
+		}
+		return result;
 	}
 	public boolean clickOnEditButton() {
 		return ActionHelper.Click(driver, editLead_button);

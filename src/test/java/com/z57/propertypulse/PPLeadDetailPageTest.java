@@ -59,6 +59,7 @@ public class PPLeadDetailPageTest extends PageTest{
 		lLeadName=updateName(pLeadData.getLeadName());
 		lPhoneNum=pLeadData.getLeadPhone();
 		lEmail=updateEmail(pLeadData.getLeadEmail());
+		leadData.setLeadEmail(lEmail);
 		lDob=pLeadData.getLeadDOB();
 		lAddress=pLeadData.getLeadAddress();
 		lCity =pLeadData.getLeadCity();
@@ -75,6 +76,24 @@ public class PPLeadDetailPageTest extends PageTest{
 		ModuleCommonCache.setModuleCommonCache(leadData.getLeadEmail(), leadData);
 		//Verifies lead is successfully landed on Lead Details page
 		getPage();
+		
+		enterLeadDetails();
+		
+	}
+	
+	@Parameters({"dataFile2"})
+	@Test
+	public void testEditLeadDetail(String pDataFile) {
+		leadData = new LeadData(pDataFile).getLeadData();
+		setLeadData(leadData);
+		//Verifies lead is successfully landed on Lead Details page
+		getPage();
+		
+		enterLeadDetails();
+		
+	}
+	
+	private void enterLeadDetails() {
 		assertTrue(page.isLeadDetailsPage(), "Lead Details Page is not visible.");
 		
 		if(!lLeadName.isEmpty()) {
@@ -112,7 +131,7 @@ public class PPLeadDetailPageTest extends PageTest{
 		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
 		verifyLeadDetailsFromDatabase(dbHelperMethods.getLeadObject(lEmail));
 	}
-
+	
 	private void verifyLeadDetailsFromDatabase(Lead pLeadDBObject) {
 		assertTrue(lLeadName.equalsIgnoreCase(pLeadDBObject.getNameFull()), "Lead NAME mismatched. Expected ["+lLeadName+"] :: Actual ["+pLeadDBObject.getNameFull()+"]");
 		assertTrue(lEmail.equalsIgnoreCase(pLeadDBObject.getEmail()), "Lead EMAIL mismatched. Expected ["+lEmail+"] :: Actual ["+pLeadDBObject.getNameFull()+"]");

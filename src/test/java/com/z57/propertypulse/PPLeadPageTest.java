@@ -4,10 +4,12 @@ import static org.testng.Assert.assertTrue;
 
 import org.hibernate.validator.AssertTrueValidator;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.z57.propertypulse.PPLeadsPage;
+import com.zurple.my.LeadDetailPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
@@ -23,14 +25,14 @@ public class PPLeadPageTest extends PageTest{
 	private String lLeadName;
 	private String lPhoneNum;
 	private String lEmail;
+	private PPHeader header;
 	
 	@Override
 	public AbstractPage getPage() {
 		if(page == null){
 			driver = getDriver();
 			page = new PPLeadsPage(driver);
-			page.setUrl("");
-			page.setDriver(driver);
+			header = new PPHeader(driver);
 		}
 		return page;
 	}
@@ -39,11 +41,13 @@ public class PPLeadPageTest extends PageTest{
 		if(page == null){
 			driver = getDriver();
 			page = new PPLeadsPage(driver);
+			header = new PPHeader(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
 		}
 		return page;
 	}
+	
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
@@ -54,6 +58,7 @@ public class PPLeadPageTest extends PageTest{
 		lLeadName=updateName(pLeadData.getLeadName());
 		lPhoneNum=pLeadData.getLeadPhone();
 		lEmail=updateEmail(pLeadData.getLeadEmail());
+		leadData.setLeadEmail(lEmail);
 	}
 	
 	@Parameters({"dataFile"})
@@ -61,7 +66,7 @@ public class PPLeadPageTest extends PageTest{
 	public void testAddLead(String pDataFile) {
 		leadData = new LeadData(pDataFile).getLeadData();
 		setLeadData(leadData);
-		
+		ModuleCommonCache.setModuleCommonCache(leadData.getLeadEmail(), leadData);
 		getPage(url);
 		assertTrue(page.isLeadPage(), "Lead page is not opened");
 		assertTrue(page.clickOnManualEntryDropDown(), "Unable to click on Manual Entry drop down button");
@@ -77,25 +82,59 @@ public class PPLeadPageTest extends PageTest{
 		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
 		assertTrue(dbHelperMethods.verifyLeadByEmailInDB(lEmail), "Lead is not added. Verification from DB failed.");
 		
+		PPLeadsDetailPage leadDetailPage = new PPLeadsDetailPage(driver);
+		assertTrue(leadDetailPage.isLeadDetailsPage(), "Lead Details Page is not visible.");
+		if(!leadData.getLeadStatus().isEmpty()) {
+			assertTrue(leadDetailPage.selectLeadStatus(leadData.getLeadStatus()), "Unable to select Lead's status.");
+		}
+		assertTrue(leadDetailPage.clickOnSaveButton(), "Unable to click on Save button.");
+		assertTrue(leadDetailPage.isLeadUpdatedSuccessfully(), "Unable to update Lead.");
+		
+		assertTrue(header.clickOnLeads(), "Unable to click on Lead Tab.");
+		assertTrue(page.isLeadPage(), "Lead page is not opened");
+		
+		applyFilters();
+		assertTrue(page.isLeadExistInTable(lEmail), "The lead doesn't exist in filter search. Lead Email ["+leadData.getLeadEmail()+"]");
+		//Resets the filter
+		assertTrue(page.clickOnResetFilterButton(), "Unable to click on reset button");
+		assertTrue(page.typeInSearch(lEmail), "Unable to type in Search Field");
+		assertTrue(page.isLeadExistInTable(lEmail), "The lead doesn't exist in filter search. Lead Email ["+leadData.getLeadEmail()+"]");
+		
+		assertTrue(page.clickOnEditButton(), "Unable to click on Edit button");
 	}
-	
+	@Test(priority=1)
+	@Parameters({"dataFile"})
 	public void testSearchLead(String pDataFile) {
 		leadData = new LeadData(pDataFile).getLeadData();
 		if(ModuleCommonCache.getModuleCommonCache(leadData.getLeadEmail())!=null) {
 			leadData =(LeadData) ModuleCommonCache.getModuleCommonCache(leadData.getLeadEmail());
+			page = null;
 		}else {
 			setLeadData(leadData);
 		}
 		getPage(url);
-		
+		applyFilters();
+		assertTrue(page.isLeadExistInTable(leadData.getLeadEmail()), "The lead doesn't exist in filter search. Lead Email ["+leadData.getLeadEmail()+"]");
+		//Resets the filter
+		assertTrue(page.clickOnResetFilterButton(), "Unable to click on reset button");
+		assertTrue(page.typeInSearch(leadData.getLeadEmail()), "Unable to type in Search Field");
+		assertTrue(page.isLeadExistInTable(leadData.getLeadEmail()), "The lead doesn't exist in filter search. Lead Email ["+leadData.getLeadEmail()+"]");	
 	}
 	
 	private void applyFilters() {
 		assertTrue(page.clickOnFilterArrow(), "Filters options are not visible");
 		assertTrue(page.selectSourcesOption(), "Unable to select the Sources option");
-		assertTrue(page.selectStatus(leadData.getLeadStatus()), "Unable to select the Sources option");
-		assertTrue(page.selectStatus(leadData.getLeadStatus()), "Unable to select the status option");
+		assertTrue(page.selectStatus(leadData.getLeadStatus()), "Unable to select the Status option");
+		assertTrue(page.clickOnApplyFilterButton(), "Unable to click on Apply button");
 
+	}
+	
+	@Test(priority=2)
+	@Parameters({"dataFile"})
+	public void testEditLead(String pDataFile) {
+		getPage();
+		assertTrue(page.clickOnEditButton(), "Unable to click on Edit button");
+		
 	}
 
 }
