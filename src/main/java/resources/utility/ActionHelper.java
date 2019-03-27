@@ -1,5 +1,6 @@
 package resources.utility;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -271,4 +272,32 @@ public class ActionHelper {
 	  			return null;
 	  		}
 	  	}
+	   public static boolean clickAndSelectFromMenuButton(WebDriver pWebDriver, WebElement pElementToBeClicked,WebElement pElementToBeSelected) {
+			boolean isSuccessful=false;
+			 AutomationLogger.info("Clicking on button "+pElementToBeClicked);
+			if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+				AutomationLogger.info("Selecting a option from Dropdown "+pElementToBeSelected);
+				isSuccessful = ActionHelper.Click(pWebDriver, pElementToBeSelected);
+			}
+			return isSuccessful;
+		}
+	   public static boolean selectDropDownOption(WebDriver pWebDriver, WebElement pElementToBeClicked,String pDropdownOptionsXpath, String pOptionToSelect) {
+			boolean isSuccessful=false;
+			List<WebElement> list_of_options = new ArrayList<WebElement>();
+			 AutomationLogger.info("Clicking on button "+pElementToBeClicked);
+			if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+				if(pDropdownOptionsXpath.isEmpty()) {
+					 list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
+				}else {
+					 list_of_options = pWebDriver.findElements(By.xpath(pDropdownOptionsXpath));
+				}	
+				AutomationLogger.info("Selecting a option from Dropdown "+pDropdownOptionsXpath);
+				for(WebElement element: list_of_options) {
+					if(element.getText().equalsIgnoreCase(pOptionToSelect)) {
+						isSuccessful = ActionHelper.Click(pWebDriver, element);
+					}
+				}
+			}
+			return isSuccessful;
+		}
 }
