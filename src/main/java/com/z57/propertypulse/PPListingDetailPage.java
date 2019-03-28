@@ -2,9 +2,6 @@ package com.z57.propertypulse;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import com.zurple.my.Page;
-
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
