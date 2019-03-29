@@ -295,9 +295,38 @@ public class ActionHelper {
 				for(WebElement element: list_of_options) {
 					if(element.getText().equalsIgnoreCase(pOptionToSelect)) {
 						isSuccessful = ActionHelper.Click(pWebDriver, element);
+						Click(pWebDriver,pElementToBeClicked);
+						break;
 					}
 				}
 			}
 			return isSuccessful;
+		}
+	   public static boolean selectDropDownOptions(WebDriver pWebDriver, WebElement pElementToBeClicked,String pDropdownOptionsXpath, String[] pOptionsToSelect) {
+		   try {
+			   boolean isSuccessful=false;
+			   List<WebElement> list_of_options = new ArrayList<WebElement>();
+			   AutomationLogger.info("Clicking on button "+pElementToBeClicked);
+			   if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+				   AutomationLogger.info("Selecting a option from Dropdown "+pDropdownOptionsXpath);
+				   for(String pOptionToSelect: pOptionsToSelect) {
+					   if(pDropdownOptionsXpath.isEmpty()) {
+						   list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
+					   }else {
+						   list_of_options = pWebDriver.findElements(By.xpath(pDropdownOptionsXpath));
+					   }	
+					   for(WebElement element: list_of_options) {
+						   if(element.getText().equalsIgnoreCase(pOptionToSelect.trim())) {
+							   isSuccessful = ActionHelper.Click(pWebDriver, element);
+							   break;
+						   }
+					   }
+				   }
+			   }
+			   
+			   return Type(pWebDriver,pElementToBeClicked.findElement(By.tagName("input")),Keys.ESCAPE) && isSuccessful;
+		   }catch(Exception ex) {
+				return false;
+			}
 		}
 }

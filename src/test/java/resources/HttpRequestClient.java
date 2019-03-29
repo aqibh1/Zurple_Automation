@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.Header;
@@ -17,6 +18,8 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.HttpClientBuilder;
 
+import resources.utility.HTTPConstants;
+
 public class HttpRequestClient {
 	private String url;
 	private String requestMethod="";
@@ -27,7 +30,11 @@ public class HttpRequestClient {
 	int status=0;
 	String contentType;
 	private InputStream content;
-
+	
+	public HttpRequestClient() {
+		header = new HashMap<String,String>();
+		body = new HashMap<String, Object>();
+	}
 	public String getUrl() {
 		return url;
 	}
@@ -77,13 +84,20 @@ public class HttpRequestClient {
 		HttpClient client = HttpClientBuilder.create().build();
 		post = new HttpPost(url);
 		//setting headers
-		header.forEach((k,v)->{
-			System.out.println("Item : " + k + " Count : " + v);
-			if(k.equalsIgnoreCase("ContentType")) {
-				contentType = v;
+		for (Map.Entry<String, String> entry : header.entrySet()) {
+		    System.out.println(entry.getKey() + " = " + entry.getValue());
+		    if(entry.getKey().equalsIgnoreCase(HTTPConstants.ContentType)) {
+				contentType = entry.getValue();
 			}
-			post.setHeader(k, v);
-		});
+			post.setHeader(entry.getKey(), entry.getValue());
+		}
+//		header.forEach((k,v)->{
+//			System.out.println("Item : " + k + " Count : " + v);
+//			if(k.equalsIgnoreCase("ContentType")) {
+//				contentType = v;
+//			}
+//			post.setHeader(k, v);
+//		});
 		//check content type
 		if(contentType.equalsIgnoreCase(ContentType.MULTIPART_FORM_DATA.toString())) {
 			multipartFormData();
@@ -97,7 +111,8 @@ public class HttpRequestClient {
 	
 	private void multipartFormData() {
 		MultipartEntity entity = new MultipartEntity();
-		entity.addPart("file", new FileBody((File) body.get("file")));
+		File file = new File(body.get("file").toString());
+		entity.addPart("file", new FileBody(file));
 		post.setEntity(entity);
 	}
 	

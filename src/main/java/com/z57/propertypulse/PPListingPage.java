@@ -24,11 +24,17 @@ public class PPListingPage extends Page{
 	}
 	public PPListingPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
-		addListingForm = new PPAddListingForm(driver);
+		setAddListingForm();
 		PageFactory.initElements(driver, this);
 		
 	}
 	
+	public PPAddListingForm getAddListingForm() {
+		return addListingForm;
+	}
+	public void setAddListingForm() {
+		 addListingForm = new PPAddListingForm(driver);
+	}
 	public boolean isListingPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, listing_heading, 15);
 	}

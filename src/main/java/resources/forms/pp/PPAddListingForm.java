@@ -32,12 +32,12 @@ public class PPAddListingForm extends AbstractForm{
 	@FindBy(xpath="//select[@id='status_select']")
 	WebElement status_dropdown;
 	
-	String status_options ="//select[@id='status_select']/options";
+	String status_options ="//select[@id='status_select']/option";
 	
 	@FindBy(xpath="//select[@id='state_select']")
 	WebElement state_dropdown;
 	
-	String state_options ="//select[@id='state_select']/options";
+	String state_options ="//select[@id='state_select']/option";
 	
 	@FindBy(xpath="//button[@id='add_new_listing_confirm_button']")
 	WebElement continue_button;

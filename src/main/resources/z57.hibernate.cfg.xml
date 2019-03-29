@@ -15,5 +15,6 @@
     <mapping class="resources.orm.hibernate.models.z57.NotificationMailgun"></mapping>
     <mapping class="resources.orm.hibernate.models.z57.Notifications"></mapping>
     <mapping class="resources.orm.hibernate.models.z57.ListingImages"></mapping>
+    <mapping class="resources.orm.hibernate.models.z57.Listings"></mapping>
   </session-factory>
 </hibernate-configuration>

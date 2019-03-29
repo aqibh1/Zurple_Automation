@@ -1,7 +1,12 @@
 package com.z57.propertypulse;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
@@ -10,7 +15,7 @@ public class PPListingDetailPage extends Page{
 	String listingDetail_heading="//div[@class='tab-content']/h1[text()='Listing Details']";
 	
 	String input_fields = "//input[@name='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
-	
+	String textArea_fields = "//textarea[@name='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	@FindBy(id="nameField")
 	WebElement price_input;
 	
@@ -54,7 +59,16 @@ public class PPListingDetailPage extends Page{
 	@FindBy(id="upload_media_button")
 	WebElement upload_images_button;
 	
+	@FindBy(id="save_button")
+	WebElement save_button;
 	
+	public PPListingDetailPage() {
+		
+	}
+	public PPListingDetailPage(WebDriver pWebDriver) {
+		driver = pWebDriver;
+		PageFactory.initElements(driver, this);
+	}
 	public boolean isListingDetailPage() {
 		return ActionHelper.waitForElementToBeLocated(driver, listingDetail_heading, 15);
 	}
@@ -63,22 +77,37 @@ public class PPListingDetailPage extends Page{
 		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[title]"), pTitle);
 	}
 	public boolean typeListingDescription(String pListingDescription) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[description]"), pListingDescription);
+		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, textArea_fields, "listing[description]"), pListingDescription);
 	}
 	public boolean typeAccelatorCaption(String pAccelatorCaption) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[accelerator_caption]"), pAccelatorCaption);
+		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, textArea_fields, "listing[accelerator_caption]"), pAccelatorCaption);
 	}
 	public boolean typeListingEmbeded(String pListingEmbeded) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[embeded]"), pListingEmbeded);
+		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, textArea_fields, "listing[embeded]"), pListingEmbeded);
 	}
 	public boolean typeListingCustomLink(String pListingCustomLink) {
 		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[custom_link]"), pListingCustomLink);
 	}
+	public boolean typePrice(String pPrice) {
+		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[price]"), pPrice);
+	}
 	public boolean selectStatus(String pStatus) {
 		return ActionHelper.selectDropDownOption(driver, listing_status_dropdown, "", pStatus);
 	}
+	public boolean typeAddress(String pAddress) {
+		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[address]"), pAddress);
+	}
+	public boolean typeCounty(String pCounty) {
+		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[county]"), pCounty);
+	}
+	public boolean typeCity(String pCity) {
+		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[city]"), pCity);
+	}
 	public boolean selectState(String pState) {
 		return ActionHelper.selectDropDownOption(driver, states, "", pState);
+	}
+	public boolean typeZip(String pZip) {
+		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[zip]"), pZip);
 	}
 	public boolean typeMLS(String pMLS) {
 		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[mls]"), pMLS);
@@ -111,56 +140,56 @@ public class PPListingDetailPage extends Page{
 		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[year_built]"), pYearBuilt);
 	}
 	public boolean selectInterior(String[] pInteriorOptions) {
-		boolean isSuccessful = true;
-		for(String lInterior: pInteriorOptions) {
-			if(!ActionHelper.selectDropDownOption(driver, interior_input, interior_options_xpath, lInterior)) {
-				isSuccessful = false;
-				break;
-			}
-		}
-		ActionHelper.Click(driver, interior_input);
-		return isSuccessful;
+		return ActionHelper.selectDropDownOptions(driver, interior_input, interior_options_xpath, pInteriorOptions);
 		
 	}
 	public boolean selectExterior(String[] pExteriorOptions) {
 		boolean isSuccessful = true;
-		for(String lExterior: pExteriorOptions) {
-			if(!ActionHelper.selectDropDownOption(driver, exterior_input, interior_options_xpath, lExterior)) {
-				isSuccessful = false;
-				break;
-			}
-		}
-		ActionHelper.Click(driver, exterior_input);
-		return isSuccessful;
+//		for(String lExterior: pExteriorOptions) {
+//			if(!ActionHelper.selectDropDownOptions(driver, exterior_input, interior_options_xpath, pExteriorOptions)) {
+//				isSuccessful = false;
+//				break;
+//			}
+//		}
+//		ActionHelper.Click(driver, exterior_input);
+	
+		return ActionHelper.selectDropDownOptions(driver, exterior_input, interior_options_xpath, pExteriorOptions);
 		
 	}
 	public boolean selectLotDetails(String[] pLotDetails) {
-		boolean isSuccessful = true;
-		for(String lLotDetail: pLotDetails) {
-			if(!ActionHelper.selectDropDownOption(driver, lot_details_input, interior_options_xpath, lLotDetail)) {
-				isSuccessful = false;
-				break;
-			}
-		}
-		ActionHelper.Click(driver, lot_details_input);
-		return isSuccessful;
+//		boolean isSuccessful = true;
+//		for(String lLotDetail: pLotDetails) {
+//			if(!ActionHelper.selectDropDownOption(driver, lot_details_input, interior_options_xpath, lLotDetail)) {
+//				isSuccessful = false;
+//				break;
+//			}
+//		}
+//		ActionHelper.Click(driver, lot_details_input);
+		return ActionHelper.selectDropDownOptions(driver, lot_details_input, interior_options_xpath, pLotDetails);
 		
 	}
 	
 	public boolean selectSaleInfo(String[] pSaleInfo) {
-		boolean isSuccessful = true;
-		for(String lSaleInfo: pSaleInfo) {
-			if(!ActionHelper.selectDropDownOption(driver, sale_info_input, interior_options_xpath, lSaleInfo)) {
-				isSuccessful = false;
-				break;
-			}
-		}
-		ActionHelper.Click(driver, sale_info_input);
-		return isSuccessful;
+//		boolean isSuccessful = true;
+//		for(String lSaleInfo: pSaleInfo) {
+//			if(!ActionHelper.selectDropDownOptions(driver, sale_info_input, interior_options_xpath, lSaleInfo)) {
+//				isSuccessful = false;
+//				break;
+//			}
+//		}
+//		ActionHelper.Click(driver, sale_info_input);
+		return ActionHelper.selectDropDownOptions(driver, sale_info_input, interior_options_xpath, pSaleInfo);
 		
 	}
 	
 	public boolean clickOnUploadIamgesButton() {
 		return ActionHelper.Click(driver, upload_images_button);
+	}
+	public boolean clickOnSaveButton() {
+		return ActionHelper.Click(driver, save_button);
+	}
+	
+	public void uploadistingImages() {
+		
 	}
 }

@@ -10,6 +10,8 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.KeyManager;
@@ -23,7 +25,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class HTTPSRequestConnector {
 	private URL url;
 	private String requestType="";
-	private HashMap<String,String> header;
+	private Map<String,String> header;
 	HttpURLConnection connection = null;
 	int status=0;
 	
@@ -39,7 +41,7 @@ public class HTTPSRequestConnector {
 	public void setRequestType(String pRequestType) throws ProtocolException {
 		requestType= pRequestType;
 	}
-	public HashMap<String, String> getHeader() {
+	public Map<String, String> getHeader() {
 		return header;
 	}
 	public void setHeader(String pKey, String pValue) {
@@ -53,6 +55,25 @@ public class HTTPSRequestConnector {
 			
 			this.connection = (HttpURLConnection) getUrl().openConnection();
 			connection.setRequestMethod(getRequestType());
+			connection.connect();
+			return true;
+		}catch(Exception ex) {
+			return false;
+		}
+	}
+	
+	private void setHeadersKeyVals() {
+		header.forEach((k,v)->{
+			System.out.println("Item : " + k + " Count : " + v);
+			connection.setRequestProperty(k, v);
+		});
+	}
+	public boolean sendRequest() throws IOException, NoSuchAlgorithmException, KeyManagementException { 
+		try {
+			
+			this.connection = (HttpURLConnection) getUrl().openConnection();
+			connection.setRequestMethod(getRequestType());
+			setHeadersKeyVals();
 			connection.connect();
 			return true;
 		}catch(Exception ex) {

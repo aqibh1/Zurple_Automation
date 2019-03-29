@@ -409,4 +409,7 @@ public class PropertyListingPage extends Page{
 		return ActionHelper.isElementVisible(driver, pElement);
 
 	}
+	public boolean isListingDetailPage() {
+		return ActionHelper.waitForElementToBeLocated(driver, "//button[@id='schedule_showing_listing_start']", 15);
+	}
 }

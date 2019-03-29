@@ -8,6 +8,7 @@ import resources.orm.hibernate.dao.z57.*;
 import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.models.AbstractLead;
 import resources.orm.hibernate.models.z57.ListingImages;
+import resources.orm.hibernate.models.z57.Listings;
 import resources.orm.hibernate.models.z57.NotificationEmails;
 import resources.orm.hibernate.models.z57.NotificationMailgun;
 import resources.orm.hibernate.models.z57.Notifications;
@@ -383,5 +384,16 @@ public class TestEnvironment
 //        }
         return null;
 
+    }
+    public Listings getListingById(Integer pListingId) {
+    	 String project = System.getProperty("project");
+
+         if (project.equals("z57"))
+         {
+             ManageListings manageListings = new ManageListings(getSession());
+             return manageListings.getListing(pListingId);
+         }
+         return null;
+    	
     }
 }

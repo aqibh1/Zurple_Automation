@@ -44,7 +44,7 @@ public class PPLeadsDetailPage extends Page{
 	}
 
 	public boolean isLeadDetailsPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, leadDetail_header,30);
+		return ActionHelper.waitForElementToBeLocated(driver, "//div[@class='tab-content']/h1[text()='Lead Details']", 30);
 	}
 	
 	public boolean typeLeadName(String pLeadName) {
