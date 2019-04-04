@@ -1,16 +1,19 @@
 package com.z57.propertypulse;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.alerts.pp.GetMaximumListingExposureModal;
+import resources.forms.pp.PPUploadImagesForm;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class PPListingDetailPage extends Page{
+	PPUploadImagesForm ppUploadImagesForm;
+	GetMaximumListingExposureModal getMaxListingExposure;
+	
 	@FindBy(xpath="//div[@class='tab-content']/h1[text()='Listing Details']")
 	String listingDetail_heading="//div[@class='tab-content']/h1[text()='Listing Details']";
 	
@@ -62,12 +65,35 @@ public class PPListingDetailPage extends Page{
 	@FindBy(id="save_button")
 	WebElement save_button;
 	
+	@FindBy(id="myModalLabel")
+	WebElement uploadImages_title;
+	
+	@FindBy(xpath="//div[@class='alert alert-success' and text()='Listing Updated']")
+	WebElement listingUpdated_notification;
+	String listingUpdatedXpath="//div[@class='alert alert-success' and text()='Listing Updated']";
+	
 	public PPListingDetailPage() {
 		
 	}
 	public PPListingDetailPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		setPpUploadImagesForm();
+		setGetMaxListingExposure();
 		PageFactory.initElements(driver, this);
+	}
+	
+	public PPUploadImagesForm getPpUploadImagesForm() {
+		return ppUploadImagesForm;
+	}
+	public void setPpUploadImagesForm() {
+		ppUploadImagesForm = new PPUploadImagesForm(driver);
+	}
+	
+	public GetMaximumListingExposureModal getGetMaxListingExposure() {
+		return getMaxListingExposure;
+	}
+	public void setGetMaxListingExposure() {
+		getMaxListingExposure = new GetMaximumListingExposureModal(driver);
 	}
 	public boolean isListingDetailPage() {
 		return ActionHelper.waitForElementToBeLocated(driver, listingDetail_heading, 15);
@@ -186,10 +212,13 @@ public class PPListingDetailPage extends Page{
 		return ActionHelper.Click(driver, upload_images_button);
 	}
 	public boolean clickOnSaveButton() {
-		return ActionHelper.Click(driver, save_button);
+		if(ActionHelper.waitForElementToBeDisappeared(driver, uploadImages_title)) {
+			ActionHelper.waitForElementToBeClickAble(driver, save_button);
+			return ActionHelper.Click(driver, save_button);
+		}
+		return false;
 	}
-	
-	public void uploadistingImages() {
-		
+	public boolean isListingEditedSuccessfully() {
+		return ActionHelper.waitForElementToBeLocated(driver, listingUpdatedXpath, 15);
 	}
 }

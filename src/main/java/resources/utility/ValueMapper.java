@@ -5,10 +5,12 @@ import java.util.HashMap;
 public class ValueMapper {
 	private HashMap<String, Integer> listingStatusMapper = new HashMap<String,Integer>();
 	private HashMap<String, String> stateMapper = new HashMap<String,String>();
+	private HashMap<String, Integer> propertyTypeMapper = new HashMap<String,Integer>();
 	
 	public ValueMapper(){
 		setListingStatusMapper();
 		setStates();
+		setPropertyTypeMapper();
 	}
 	private void setListingStatusMapper() {
 		listingStatusMapper.put("Active",1);
@@ -30,6 +32,14 @@ public class ValueMapper {
 	}
 	public String getState(String pState) {
 		return stateMapper.get(pState);
+	}
+	public Integer getPropertyTypeMapper(String pType) {
+		return propertyTypeMapper.get(pType);
+	}
+	public void setPropertyTypeMapper() {
+		propertyTypeMapper.put("New Home", 1);
+		propertyTypeMapper.put("Resale", 2);
+		propertyTypeMapper.put("Rental", 3);
 	}
 
 }

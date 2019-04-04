@@ -2,25 +2,34 @@ package com.z57.propertypulse;
 
 import static org.testng.Assert.assertTrue;
 
+import java.awt.AWTException;
 import java.io.IOException;
 import java.net.ProtocolException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.xml.bind.ParseConversionEvent;
+
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.entity.ContentType;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.z57.site.v2.HomePage;
+import com.z57.site.v2.PageHeader;
 import com.z57.site.v2.PropertyListingPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
 import resources.HttpRequestClient;
 import resources.ModuleCommonCache;
+import resources.data.z57.PPListingData;
+import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.models.z57.Listings;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
@@ -31,12 +40,15 @@ public class PPListingDetailPageTest extends PageTest{
 	
 	private WebDriver driver;
 	private PPListingDetailPage page;
+	private PageHeader header;
+	private PPListingData listingData;
 	
 	@Override
 	public AbstractPage getPage() {
 		if(page == null){
 			driver = getDriver();
 			page = new PPListingDetailPage(driver);
+			header = new PageHeader(driver);
 			
 		}
 		return page;
@@ -52,6 +64,7 @@ public class PPListingDetailPageTest extends PageTest{
 		if(page == null){
 			driver = getDriver();
 			page = new PPListingDetailPage(driver);
+			header = new PageHeader(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
 		}
@@ -59,47 +72,52 @@ public class PPListingDetailPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testEditListingDetails() {
+	@Parameters({"dataFile"})
+	public void testEditListingDetails(String pDataFile) throws AWTException {
+		listingData = new PPListingData(pDataFile).getListingData();
 		//If editing existing listing
-		String lListing_ID = "351386";
-		ModuleCommonCache.setModuleCommonCache("listing_url_pp", "/listings/details?lid=351386");
-		ModuleCommonCache.setModuleCommonCache("listing_url_wp", "http://aqibdar-1584.sites.z57.com/listings/351386/221-Baker-Street-San-Diego");
-		
+		String lListing_ID = ModuleCommonCache.getModuleCommonCache("listing_id").toString();
+		String lListing_Url = ModuleCommonCache.getModuleCommonCache("listing_url_pp").toString().split(EnvironmentFactory.configReader.getPropertyByName("z57_pp_base_url"))[1];
+//		ModuleCommonCache.setModuleCommonCache("listing_url_pp", "/listings/details?lid=351386");
+//		ModuleCommonCache.setModuleCommonCache("listing_url_wp", "http://aqibdar-1584.sites.z57.com/listings/351386/221-Baker-Street-San-Diego");
+		String wp_url = ModuleCommonCache.getModuleCommonCache("listing_url_wp").toString().split(EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url"))[1];
 		if(ModuleCommonCache.getModuleCommonCache("listing_url_pp")!=null) {
-			getPage(ModuleCommonCache.getModuleCommonCache("listing_url_pp").toString());
+			getPage(lListing_Url);
 		}else {
 			getPage();
 		}
-		String lListingPrice = "750000";
-		String lListingStatus = "Just Reduced";
-		String lListingAddress = "221 Baker Street";
-		String lListingCounty = "San Diego";
-		String lListingCity= "San Diego";
-		String lListingState = "California";
-		String lListingZip = "91910";
-		String lListingMLS = "";
-		String lListingPropertyType = "Rental";
-		String lListingSaleType = "New Home";
-		String lListingAgent = "";
-		String lListingBrokerage = "";
-		String lListingTitle = "For Rent 221 Baker Street";
-		String lListingDescription= "Best place in town";
-		String lListingAccelatorCaption = "Sherlock homes, home is available for rent";
-		String lListingEmbeded = "";
-		String lListingVirtualTourLink = "https://www.youtube.com/watch?v=-e_A2xtaH0s";
-		//Features
-		String lListingFeatureBed = "4";
-		String lListingFeatureBath = "5";
-		String lListingFeatureInterior = "Air Conditioning,Basement,Dining Room,Foyer,Fireplace";
-		String lListingFeatureExterior = "Balcony,BBQ,Barn,Deck,Driveway";
-		String lListingFeatureSqFootage = "650";
-		String lListingFeatureLotSize = "650";
-		String lListingFeatureLotDetails = "Beach Front, City View, Close to Nightlife";
-		String lListingFeatureSaleInfo = "Rental,Reverse Mortgage";
-		String lListingFeatureYearBuilt = "2010";
-		String lListingImagesPath="C:\\Users\\adar\\Downloads\\Homes\\images.jpg";
 		
+		String lListingPrice = listingData.getPrice();
+		String lListingStatus = listingData.getStatus();
+		String lListingAddress = "";//updateName(listingData.getAddress());
+		String lListingCounty = listingData.getCounty();
+		String lListingCity= listingData.getCity();
+		String lListingState = listingData.getState();
+		String lListingZip = listingData.getZip();
+		String lListingMLS = listingData.getMls();
+		String lListingPropertyType = listingData.getPropertyType();
+		String lListingSaleType = listingData.getSaleType();
+		String lListingAgent = listingData.getAgent();
+		String lListingBrokerage = listingData.getBrokerage();
+		String lListingTitle = updateName(listingData.getTitle());
+		String lListingDescription= listingData.getDescription();
+		String lListingAccelatorCaption = listingData.getAcceleratorCaption();
+		String lListingEmbeded = listingData.getEmbeded();
+		String lListingVirtualTourLink = listingData.getVirtualTourLink();
+		//Features
+		String lListingFeatureBed = listingData.getBed();
+		String lListingFeatureBath = listingData.getBath();
+		String lListingFeatureInterior = listingData.getInterior();
+		String lListingFeatureExterior = listingData.getExterior();
+		String lListingFeatureSqFootage = listingData.getSqFootage();
+		String lListingFeatureLotSize = listingData.getLotSize();
+		String lListingFeatureLotDetails = listingData.getLotDetails();
+		String lListingFeatureSaleInfo = listingData.getSaleInfo();
+		String lListingFeatureYearBuilt = listingData.getYearBuilt();
+		String lListingImagesPath=listingData.getImagePath();
+
 		assertTrue(page.isListingDetailPage(), "Listing Detail Page is not visible..");
+
 		if(!lListingTitle.isEmpty()) {
 			assertTrue(page.typeTitle(lListingTitle), "Unable to type Listing Title..");
 		}
@@ -151,9 +169,9 @@ public class PPListingDetailPageTest extends PageTest{
 		if(!lListingBrokerage.isEmpty()) {
 			assertTrue(page.typeBrokarage(lListingBrokerage), "Unable to type Listing brokerage .."+lListingBrokerage);
 		}
-		
+
 		//Features
-		
+
 		if(!lListingFeatureBed.isEmpty()) {
 			assertTrue(page.typeBed(lListingFeatureBed), "Unable to type Listing bed .."+lListingFeatureBed);
 		}
@@ -181,62 +199,122 @@ public class PPListingDetailPageTest extends PageTest{
 		if(!lListingFeatureYearBuilt.isEmpty()) {
 			assertTrue(page.typeYearBuilt(lListingFeatureYearBuilt), "Unable to type Listing Year Built .."+lListingFeatureYearBuilt);
 		}
+		
 		//Uploading listing images.
 		String[] images = lListingImagesPath.split(",");
 		for(String image: images) {
-			assertTrue(uploadListingImages(lListing_ID, image), "Unable to upload image.."+image);
-		}
-		ActionHelper.RefreshPage(driver);
-		assertTrue(page.clickOnSaveButton(), "Unable to type Listing Year Built .."+lListingFeatureYearBuilt);
+			assertTrue(page.clickOnUploadIamgesButton(), "Unable to click on Upload button");
+			assertTrue(page.getPpUploadImagesForm().isUploadImagesForm(), "Upload image form is not visible.");
+			assertTrue(page.getPpUploadImagesForm().clickOnAddFilesButton(), "Unable to click on Add Files button");
+			assertTrue(page.getPpUploadImagesForm().uploadImage(System.getProperty("user.dir")+image), "Unable to upload the image.");
+		}		
+		//Clicking on Save button
+		assertTrue(page.clickOnSaveButton(), "Unable to click on Save button");
 		
+		assertTrue(page.getMaxListingExposure.closeAlert(), "Unable to close listing ad Alert");
+		assertTrue(page.isListingEditedSuccessfully(), "Listing was not updated successfully");
+		
+		//Verification from DB and on WP
 		driver.navigate().to(ModuleCommonCache.getModuleCommonCache("listing_url_wp").toString());
+		closeBootStrapModal();
+		
 		PropertyListingPage propertyListingPage = new PropertyListingPage(driver);
 		assertTrue(propertyListingPage.isListingDetailPage(), "Listing Detail Page is not visible");
-		
+		HibernateUtil.setSessionFactoryEmpty();
 		Listings listingObject = getEnvironment().getListingById(Integer.parseInt(lListing_ID));
 		ValueMapper valueMapper = new ValueMapper();
-		
+
 		//Listing Verification from UI and DB
 		if(!lListingStatus.isEmpty()) {
 			assertTrue(propertyListingPage.getPropertyStatusFromHeader().equalsIgnoreCase(lListingStatus), "Status of Listing does not match.. Expected ["+lListingStatus+"]");
 			assertTrue(listingObject.getStatusId().equals(valueMapper.getListingStatus(lListingStatus)), "DB Verification :: Status of Listing does not match.. Expected ["+lListingStatus+"]");
 		}
-		
+
 		if(!lListingAddress.isEmpty()) {
 			assertTrue(propertyListingPage.getAddress("Address").equalsIgnoreCase(lListingAddress), "ADDRESS of Listing does not match.. Expected ["+lListingAddress+"]");
 			assertTrue(listingObject.getAddress().equalsIgnoreCase(lListingAddress), "DB Verification :: ADDRESS of Listing does not match.. Expected ["+lListingAddress+"]");
 		}
-		
+
 		if(!lListingCity.isEmpty()) {
 			assertTrue(propertyListingPage.getAddress("City").equalsIgnoreCase(lListingCity), "CITY of Listing does not match.. Expected ["+lListingCity+"]");
 			assertTrue(listingObject.getCity().equalsIgnoreCase(lListingCity), "DB Verification :: CITY of Listing does not match.. Expected ["+lListingCity+"]");
 		}
-		
+
 		if(!lListingState.isEmpty()) {
 			assertTrue(propertyListingPage.getAddress("State").equalsIgnoreCase(valueMapper.getState(lListingState)), "STATE of Listing does not match.. Expected ["+lListingState+"]");
 			assertTrue(listingObject.getState().equalsIgnoreCase(valueMapper.getState(lListingState)), "DB Verification :: STATE of Listing does not match.. Expected ["+lListingState+"]");
 
 		}
-		
+
 		if(!lListingZip.isEmpty()) {
 			assertTrue(propertyListingPage.getAddress("Zip").equalsIgnoreCase(lListingZip), "ZIP of Listing does not match.. Expected ["+lListingZip+"]");
 			assertTrue(listingObject.getZip().equalsIgnoreCase(lListingZip), "DB Verification :: ZIP of Listing does not match.. Expected ["+lListingZip+"]");
 
 		}
-		
+
 		if(!lListingCounty.isEmpty()) {
 			assertTrue(propertyListingPage.getAddress("County").equalsIgnoreCase(lListingCounty), "COUNTY of Listing does not match.. Expected ["+lListingCounty+"]");
 			assertTrue(propertyListingPage.getAddress("County").equalsIgnoreCase(lListingCounty), "COUNTY of Listing does not match.. Expected ["+lListingCounty+"]");
 
 		}
 		
+		if(!lListingTitle.isEmpty()) {
+			assertTrue(propertyListingPage.getPropertyTitleFromTheHeader().equalsIgnoreCase(lListingTitle), "Title of the Listing does not match.. Expected["+lListingTitle+"]");
+			assertTrue(listingObject.getTitle().equalsIgnoreCase(lListingTitle), "Title of the Listing does not match.. Expected["+lListingTitle+"]");
+		}
 		
+		if(!lListingDescription.isEmpty()) {
+			assertTrue(propertyListingPage.getDescription().equalsIgnoreCase(lListingDescription), "Description of the Listing didn't match");
+			assertTrue(listingObject.getDesciption().equalsIgnoreCase(lListingDescription), "DB Verification :: Description of the Listing didn't match");
+		}
+		
+		if(!lListingPrice.isEmpty()) {
+			assertTrue(propertyListingPage.getPropertValueFromHeader()==Integer.parseInt(lListingPrice), "Price of the Listing didn't match");
+			assertTrue(listingObject.getPrice()==Integer.parseInt(lListingPrice), "DB Verification :: Price of the Listing didn't match");
+		}
+		if(!lListingPropertyType.isEmpty()) {
+			assertTrue(propertyListingPage.getPropertyType("Type").equalsIgnoreCase(lListingPropertyType), "Property Type of the Listing didn't match");
+			//TODO Property type mapping is unknown
+//			assertTrue(listingObject.getPropertyType().equals(valueMapper.getPropertyTypeMapper(lListingPropertyType)), "DB Verification ::Property Type of the Listing didn't match");
+		}
+		if(!lListingFeatureBed.isEmpty()) {
+			assertTrue(propertyListingPage.getPropertyType("Bedrooms").equalsIgnoreCase(lListingFeatureBed), "Bedrooms count of the Listing didn't match");
+			assertTrue(listingObject.getBed().equals(Double.parseDouble(lListingFeatureBed)), "DB Verification :: Bedrooms count of the Listing didn't match");
+		}
+		if(!lListingFeatureBath.isEmpty()) {
+			assertTrue(propertyListingPage.getPropertyType("Bathrooms").equalsIgnoreCase(lListingFeatureBath), "Bathrooms count of the Listing didn't match");
+			assertTrue(listingObject.getBath().equals(Double.parseDouble(lListingFeatureBath)), "DB Verification :: Bathrooms count of the Listing didn't match");
+		}
+
+		if(!lListingFeatureInterior.isEmpty()) {
+			assertTrue(propertyListingPage.verifyPropertyFeatures(lListingFeatureInterior.split(",")), "Unable to verify property interior features ..");
+		}
+		if(!lListingFeatureExterior.isEmpty()) {
+			assertTrue(propertyListingPage.verifyPropertyFeatures(lListingFeatureExterior.split(",")), "Unable to verify property Exterior features ..");
+		}
+		if(!lListingFeatureSqFootage.isEmpty()) {
+			assertTrue(propertyListingPage.getPropertyType("Sq. Ft.").equalsIgnoreCase(lListingFeatureSqFootage), "Square Footage of of the Listing didn't match");
+		}
+		if(!lListingFeatureLotSize.isEmpty()) {
+			assertTrue(propertyListingPage.getPropertyType("Lot Size").equalsIgnoreCase(lListingFeatureLotSize), "Lot size of the Listing didn't match");
+		}
+		if(!lListingFeatureLotDetails.isEmpty()) {
+			assertTrue(propertyListingPage.verifyPropertyFeatures(lListingFeatureLotDetails.split(",")), "Property and Lot details didn't match..");
+		}
+		if(!lListingFeatureSaleInfo.isEmpty()) {
+			assertTrue(propertyListingPage.verifyPropertyFeatures(lListingFeatureSaleInfo.split(",")), "Sale Info details didn't match..");
+		}
+		if(!lListingFeatureYearBuilt.isEmpty()) {
+			assertTrue(propertyListingPage.getPropertyType("Year Built").equalsIgnoreCase(lListingFeatureYearBuilt), "Year Built of the Listing didn't match");
+		}
+		
+		
+		//Verifying if listing is added to default slider widget or not
+		assertTrue(header.clickOnHomeButton(), "Unable to click on Home Button");
+		HomePage homePage = new HomePage(driver);
+		assertTrue(homePage.isPropertyExistsInSliderWidget(wp_url), "Listing doesn't exists in Slider Widget");
 
 	}
-	
-
-	
-	
 
 	private boolean uploadListingImages(String pListingId, String pBody){
 		boolean imagesUploadedSuccessfully= true;
@@ -262,11 +340,19 @@ public class PPListingDetailPageTest extends PageTest{
 		Set<Cookie> cookieSet = new HashSet<Cookie>();
 		cookieSet = getDriver().manage().getCookies();
 		Iterator<Cookie> it = cookieSet.iterator();
-		while(it.hasNext()) {
-			if(cookieSet.isEmpty()) {
-				cookieString=it.next().toString();
-			}else {
-				cookieString=cookieString+it.next();
+//		while(it.hasNext()) {
+//
+//			cookieString+=it.next().toString();
+//			System.out.println(cookieString);
+//
+//		}
+		int index=0;
+		for(Cookie c:cookieSet){
+			index++;
+			if(index==cookieSet.size()){
+				cookieString+=c.getName()+"="+c.getValue();
+			}else{
+				cookieString+=c.getName()+"="+c.getValue()+"; ";
 			}
 		}
 		return cookieString;

@@ -5,20 +5,18 @@
     </listeners>
    
     <test name="Add and Edit Listing on PP">
- 
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
       	<include name="testPPLogin" />
       </methods>
       </class>
-      <!--  
       <class name="com.z57.propertypulse.PPListingPageTest" >
       <methods>
       	<include name="testAddListing" />
       </methods>
       </class>
-      -->
       <class name="com.z57.propertypulse.PPListingDetailPageTest" >
       <methods>
       <include name="testEditListingDetails" />
@@ -30,6 +28,7 @@
       </methods>
       </class>
     </classes>
+    </parameter>
 	</test>
 	
 </suite>

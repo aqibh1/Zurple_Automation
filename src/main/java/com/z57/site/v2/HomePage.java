@@ -21,10 +21,11 @@ import resources.forms.z57.LoginForm;
 import resources.forms.z57.RegisterForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 
 public class HomePage extends Page
 {
-	WebDriver localWebDriver;
+	//WebDriver localWebDriver;
 	private LoginForm loginForm;
 	private PageHeader pageHeader;
 	private RegisterForm registerForm;
@@ -87,6 +88,8 @@ public class HomePage extends Page
 	@FindBy(xpath="//div[@id='select2-drop']/descendant::div[text()='Cities']")
 	WebElement search_dropdown_div;
 	
+	String propertyWidgetSlider_xpath="//div[@class='col-md-12']/descendant::h4[@class='listing-title']/a[@href='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	
     public HomePage(){
         url = "";
     }
@@ -122,19 +125,19 @@ public class HomePage extends Page
 	}
 
 	public HomePage(WebDriver pWebDriver){
-		localWebDriver=pWebDriver;
-		setLoginForm(localWebDriver);
-		setPageHeader(localWebDriver);
-		setRegisterForm(localWebDriver);
-		PageFactory.initElements(localWebDriver, this);
+		driver = pWebDriver;
+		setLoginForm(driver);
+		setPageHeader(driver);
+		setRegisterForm(driver);
+		PageFactory.initElements(driver, this);
 	}
 	public HomePage(WebDriver pWebDriver,String pSourceUrl){
 		url=pSourceUrl;
-		localWebDriver=pWebDriver;
-		setLoginForm(pWebDriver);
-		setPageHeader(localWebDriver);
-		setRegisterForm(localWebDriver);
-		PageFactory.initElements(localWebDriver, this);
+		driver=pWebDriver;
+		setLoginForm(driver);
+		setPageHeader(driver);
+		setRegisterForm(driver);
+		PageFactory.initElements(driver, this);
 	}
 
 	public PageHeader getPageHeader() {
@@ -146,12 +149,12 @@ public class HomePage extends Page
 	}
 
 	public void mouseoverHomeSearch() {
-		Actions action = new Actions(localWebDriver);
+		Actions action = new Actions(driver);
 		action.moveToElement(homeSearch_dropdown).build().perform();
 	}
 	
 	public boolean clickOnSearchHomes() {
-		WebDriverWait wait = new WebDriverWait(localWebDriver, 10);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		boolean isElementPresent = wait.until(ExpectedConditions.visibilityOf(searchHomes_submenu))!=null?true:false;
 		if(isElementPresent) {
 			searchHomes_submenu.click();
@@ -306,6 +309,19 @@ public class HomePage extends Page
 			AutomationLogger.error("Exception ->"+ex.toString());
 		}
 		return isTypeSuccessful;
+	}
+	public boolean isPropertyExistsInSliderWidget(String pListingUrl) {
+		List<WebElement> list_of_props = driver.findElements(By.xpath("//div[@class='col-md-12']/descendant::h4[@class='listing-title']/a"));
+		for(WebElement element: list_of_props) {
+			String href = element.getAttribute("href");
+			System.out.println("HREF:: "+href);
+			System.out.println("FREE:: "+pListingUrl);
+			if(href.contains(pListingUrl.toLowerCase())) {
+				return true;
+			}
+		}
+		return false;
+		//return ActionHelper.i(driver, ActionHelper.getDynamicElement(driver, propertyWidgetSlider_xpath, pListingUrl.toLowerCase()), 15);
 	}
 
 	

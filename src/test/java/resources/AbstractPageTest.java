@@ -9,6 +9,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+
+import resources.alerts.BootstrapModal;
 import resources.classes.Asset;
 
 import static org.testng.Assert.assertTrue;
@@ -101,5 +103,12 @@ public abstract class AbstractPageTest extends AbstractTest
 		pName=pName+" "+Long.toString(date_to_append);
 		return pName;
     }
+    public void closeBootStrapModal() {
+    	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
 
+    	if(bootstrapModalObj.checkBootsrapModalIsShown()){
+        	bootstrapModalObj.getBootstrapModal().close();
+        	bootstrapModalObj.clearBootstrapModal();
+        }
+    }
 }

@@ -18,6 +18,7 @@ import resources.forms.z57.EmailListingForm;
 import resources.forms.z57.RequestInfoForm;
 import resources.forms.z57.ScheduleListingForm;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 public class PropertyListingPage extends Page{
 	WebDriverWait wait;
@@ -137,6 +138,14 @@ public class PropertyListingPage extends Page{
 	
 	@FindBy(xpath="//button[@id='schedule_showing_listing_start']")
 	WebElement scheduleShowing_button;
+	
+	//////////////////////////////////////////
+	@FindBy(xpath="//div[@id='collapse_prop_desc']/descendant::div")
+	WebElement description;
+	
+	String propertyDetails_xpath="//div[@id='collapse_prop_details']/descendant::div";
+	
+	String propertyFeatures_xapth="//div[@id='listing-features']/descendant::strong";
 	
 	public PropertyListingPage(WebDriver pWebDriver){
 		driver=pWebDriver;
@@ -411,5 +420,42 @@ public class PropertyListingPage extends Page{
 	}
 	public boolean isListingDetailPage() {
 		return ActionHelper.waitForElementToBeLocated(driver, "//button[@id='schedule_showing_listing_start']", 15);
+	}
+	public String getDescription() {
+		return ActionHelper.getText(driver, description);
+	}
+	public String getPropertyType(String pTarget) {
+		return getValuesFromTabs(propertyDetails_xpath, pTarget);
+	}
+	
+	private String getValuesFromTabs(String pXpath, String pTarget) {
+		List<WebElement> list_of_options = ActionHelper.getListOfElementByXpath(driver, pXpath);
+		for(int i=1;i<=list_of_options.size();i++) {
+//		for(WebElement element:list_of_options) {
+			if(list_of_options.get(i).getText().contains(pTarget+":")) {
+				return list_of_options.get(i).getText().split(pTarget+":")[1].trim();
+			}
+//		}
+		}
+		return "";
+	}
+	
+	public boolean verifyPropertyFeatures(String[] pTarget) {
+		boolean flag=false;
+		List<WebElement> list_of_options = ActionHelper.getListOfElementByXpath(driver, propertyFeatures_xapth);
+		for(String pTargetFeature: pTarget) {
+			flag=false;
+			for(WebElement element:list_of_options) {
+				if(element.getText().trim().contains(pTargetFeature.trim()+":")) {
+					flag = true;
+					break;
+				}
+			}
+			if(!flag) {
+				AutomationLogger.error("Feature not found --> "+pTargetFeature);
+				return flag;
+			}
+		}
+		return true;
 	}
 }

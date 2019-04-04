@@ -6,6 +6,7 @@ package com.z57.propertypulse;
 import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.z57.site.v2.PropertyListingPage;
@@ -14,6 +15,7 @@ import com.zurple.my.PageTest;
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
 import resources.ModuleCommonCache;
+import resources.data.z57.PPListingData;
 import resources.orm.hibernate.models.z57.Listings;
 import resources.utility.AutomationLogger;
 import resources.utility.ValueMapper;
@@ -22,10 +24,12 @@ import resources.utility.ValueMapper;
  * @author adar
  *
  */
+
 public class PPListingPageTest extends PageTest{
 	WebDriver driver;
 	PPListingPage page;
 	PPHeader header;
+	private PPListingData listingData;
 	
 	@Override
 	public PPListingPage getPage() {
@@ -55,14 +59,18 @@ public class PPListingPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testAddListing() {
+	@Parameters({"dataFile"})
+	public void testAddListing(String pDataFile) {
+		listingData = new PPListingData(pDataFile).getListingData();
+		
+		String lAddress = updateName(listingData.getAddress());
+		String lStatus = listingData.getStatus();
+		String lCity = listingData.getCity();
+		String lState = listingData.getState();
+		String lZip = listingData.getZip();
+		String lCounty = listingData.getCounty();
+		
 		getPage("/listings");
-		String lAddress = "221 Baker Street";
-		String lStatus = "Active";
-		String lCity = "San Diego";
-		String lState = "California";
-		String lZip = "91910";
-		String lCounty = "San Diego";
 		
 		assertTrue(page.isListingPage(), "Listing Page is not visible");
 		assertTrue(page.clickOnManualEntry(), "Unable to click on Manual Entry button");
@@ -91,6 +99,7 @@ public class PPListingPageTest extends PageTest{
 		//Saving the listing urls to be used in listing editing
 		ModuleCommonCache.setModuleCommonCache("listing_url_wp", listing_url);
 		ModuleCommonCache.setModuleCommonCache("listing_url_pp", driver.getCurrentUrl());
+		ModuleCommonCache.setModuleCommonCache("listing_id", lListingId);
 		
 		//Verification of DB
 		Listings listingObject = getEnvironment().getListingById(Integer.parseInt(lListingId));
