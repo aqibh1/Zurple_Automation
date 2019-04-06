@@ -5,7 +5,7 @@
    
     <test name="Login to PP" preserve-order="true">
 	<classes>
-      <class name="com.z57.admin.LoginPageTest" >
+      <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
       	<include name="testPPLogin" />
       </methods>
