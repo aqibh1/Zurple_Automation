@@ -144,6 +144,49 @@ public class PPListingPageTest extends PageTest{
 		}
 		
 	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testAddListingForAd(String pDataFile) {
+	listingData = new PPListingData(pDataFile).getListingData();
+		
+		String lAddress = updateName(listingData.getAddress());
+		String lStatus = listingData.getStatus();
+		String lCity = listingData.getCity();
+		String lState = listingData.getState();
+		String lZip = listingData.getZip();
+		String lCounty = listingData.getCounty();
+		
+		getPage("/listings");
+		
+		assertTrue(page.isListingPage(), "Listing Page is not visible");
+		assertTrue(page.clickOnManualEntry(), "Unable to click on Manual Entry button");
+		
+		assertTrue(page.getAddListingForm().typeAddress(lAddress), "Unable to type Listing Address..");
+		assertTrue(page.getAddListingForm().selectStatus(lStatus), "Unable to select Listing status..");
+		assertTrue(page.getAddListingForm().typeCity(lCity), "Unable to type City..");
+		assertTrue(page.getAddListingForm().selectState(lState), "Unable to select state..");
+		assertTrue(page.getAddListingForm().typeZip(lZip), "Unable to type Zip..");
+		assertTrue(page.getAddListingForm().typeCounty(lCounty), "Unable to type County..");
+		assertTrue(page.getAddListingForm().clickOnContinueButton(), "Unable to click on Continue button..");
+		
+		PPListingDetailPage ppLeadDetailPage = new PPListingDetailPage(driver);
+		assertTrue(ppLeadDetailPage.isListingDetailPage(), "Listing Detail Page is not visible");
+		
+		String lListingId = driver.getCurrentUrl().split("lid=")[1];
+		ModuleCommonCache.setModuleCommonCache("listing_id_for_ad", lListingId);
+		
+		assertTrue(ppLeadDetailPage.clickOnSaveButton(), "Unable to click on Save button");
+		
+		assertTrue(page.isListingPage(), "Listing Page is not visible");
+		
+		assertTrue(page.clickOnCreateAd(lListingId), "Unable to click on Create Ad button");
+		
+		assertTrue(page.getGetMaxListingExposure().isGextMaximumListingExposureAlert(), "Feature Listing Alert is not displayed");
+		
+		assertTrue(page.getGetMaxListingExposure().clickOnFeatureListing(), "Unable to click on Feature Listing button");
+
+	}
 
 	
 
