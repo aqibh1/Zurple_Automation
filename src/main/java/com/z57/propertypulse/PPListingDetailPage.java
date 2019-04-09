@@ -1,5 +1,8 @@
 package com.z57.propertypulse;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -214,11 +217,22 @@ public class PPListingDetailPage extends Page{
 	public boolean clickOnSaveButton() {
 		if(ActionHelper.waitForElementToBeDisappeared(driver, uploadImages_title)) {
 			ActionHelper.waitForElementToBeClickAble(driver, save_button);
+			waitForSaveButtonToBeClickable();
 			return ActionHelper.Click(driver, save_button);
 		}
 		return false;
 	}
 	public boolean isListingEditedSuccessfully() {
 		return ActionHelper.waitForElementToBeLocated(driver, listingUpdatedXpath, 15);
+	}
+	private boolean waitForSaveButtonToBeClickable() {
+		List<WebElement> list_of_elements = driver.findElements(By.id("save_button"));
+		int count=0;
+		while(!list_of_elements.get(0).getText().trim().equalsIgnoreCase("Save") || count<100){
+			list_of_elements = driver.findElements(By.id("save_button"));
+			count++;
+		}
+		
+		return list_of_elements.get(0).getText().trim().equalsIgnoreCase("Save");
 	}
 }

@@ -6,11 +6,17 @@ package com.z57.propertypulse;
 import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
+import com.google.common.base.Ascii;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
+import resources.alerts.pp.AdCreatedSuccessAlert;
 
 /**
  * @author adar
@@ -36,6 +42,8 @@ public class PPCreateAdPageTest extends PageTest{
 		
 	}
 	
+	@Test
+	@Parameters({"dataFile"})
 	public void testCreateAnAd() {
 		String lAdTitle="";
 		String lAdDesc="";
@@ -66,10 +74,24 @@ public class PPCreateAdPageTest extends PageTest{
 		}else {
 			assertTrue(page.typeAdZipCode(lAdTargetedZip),"Unable to type Zip in the field");
 		}
+		
 		assertTrue(page.clickOnNextButton(), "Unable to click on Next step button");
+		
+		assertTrue(page.isStep3PlaceOrderPage(),"Step 3 page is not visible");
 		
 		assertTrue(page.clickOnPaymentCheckBox(), "Unable to click on Payment checkbox");
 		assertTrue(page.clickOnFBTestAdCheckBox(), "Unable to click on FB test ad checkkbox");
+		
+		assertTrue(page.clickOnNextButton(), "Unable to click on Place Order button");
+		
+		AdCreatedSuccessAlert acsa = new AdCreatedSuccessAlert(driver);
+		assertTrue(acsa.isAdCreatedAlert(), "Ads Created Alert is not visible");
+		assertTrue(acsa.clickOnAdsOverviewButton(), "Unable to click on Ads Overview button");
+		
+		PPAdsOverviewPage adsOverviewPage = new PPAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.isAdsOverviewPage(), "Ads Overview page is not visible");
+		assertTrue(adsOverviewPage.isAdPlacedSuccessfully(ModuleCommonCache.getModuleCommonCache(ModuleCacheConstants.ListingsAddress).toString()), "Ads Overview page is not visible");
+		
 	}
 
 }

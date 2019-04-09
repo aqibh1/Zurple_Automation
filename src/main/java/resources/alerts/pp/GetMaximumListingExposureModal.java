@@ -26,7 +26,7 @@ public class GetMaximumListingExposureModal {
 	}
 	
 	public boolean isGextMaximumListingExposureAlert() {
-		return ActionHelper.waitForElementToBeLocated(driver, alertHeadingXpath, 15);
+		return ActionHelper.waitForElementToBeLocated(driver, alertHeadingXpath, 60);
 	}
 	
 	public boolean clickOnFeatureListing() {

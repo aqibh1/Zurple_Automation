@@ -14,6 +14,7 @@ import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
+import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.data.z57.PPListingData;
 import resources.orm.hibernate.models.z57.Listings;
@@ -159,6 +160,8 @@ public class PPListingPageTest extends PageTest{
 		
 		getPage("/listings");
 		
+		ModuleCommonCache.setModuleCommonCache(ModuleCacheConstants.ListingsAddress, lAddress);
+		
 		assertTrue(page.isListingPage(), "Listing Page is not visible");
 		assertTrue(page.clickOnManualEntry(), "Unable to click on Manual Entry button");
 		
@@ -178,9 +181,9 @@ public class PPListingPageTest extends PageTest{
 		
 		assertTrue(ppLeadDetailPage.clickOnSaveButton(), "Unable to click on Save button");
 		
-		assertTrue(page.isListingPage(), "Listing Page is not visible");
-		
-		assertTrue(page.clickOnCreateAd(lListingId), "Unable to click on Create Ad button");
+//		assertTrue(page.isListingPage(), "Listing Page is not visible");
+//		
+//		assertTrue(page.clickOnCreateAd(lListingId), "Unable to click on Create Ad button");
 		
 		assertTrue(page.getGetMaxListingExposure().isGextMaximumListingExposureAlert(), "Feature Listing Alert is not displayed");
 		

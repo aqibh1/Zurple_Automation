@@ -31,6 +31,7 @@ public class PPListingPage extends Page{
 	public PPListingPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		setAddListingForm();
+		setGetMaxListingExposure();
 		PageFactory.initElements(driver, this);
 		
 	}

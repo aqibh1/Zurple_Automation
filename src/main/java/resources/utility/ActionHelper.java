@@ -110,6 +110,13 @@ public class ActionHelper {
 		   }
 		   return ltext;
 	   }
+	   public static String getTextByValue(WebDriver pWebDriver,WebElement pElement) {
+		   String ltext="";
+		   if(isElementVisible(pWebDriver, pElement)) {
+			   ltext=pElement.getAttribute("value").trim();
+		   }
+		   return ltext;
+	   }
 	   
 	   public static boolean clickAndSelect(WebDriver pWebDriver, WebElement pDropdown,WebElement pElementToSelect) {
 		   boolean result=false;
