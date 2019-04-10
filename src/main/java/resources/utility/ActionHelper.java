@@ -305,7 +305,8 @@ public class ActionHelper {
 				}	
 				AutomationLogger.info("Selecting a option from Dropdown "+pDropdownOptionsXpath);
 				for(WebElement element: list_of_options) {
-					if(element.getText().equalsIgnoreCase(pOptionToSelect)) {
+					System.out.println(element.getText().trim());
+					if(element.getText().trim().equalsIgnoreCase(pOptionToSelect)) {
 						isSuccessful = ActionHelper.Click(pWebDriver, element);
 						Click(pWebDriver,pElementToBeClicked);
 						break;

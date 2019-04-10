@@ -3,6 +3,7 @@
  */
 package com.z57.propertypulse;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
@@ -16,7 +17,9 @@ import resources.AbstractPage;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.alerts.pp.GetMaximumListingExposureModal;
 import resources.data.z57.PPListingData;
+import resources.data.z57.PPMLSListingData;
 import resources.orm.hibernate.models.z57.Listings;
 import resources.utility.AutomationLogger;
 import resources.utility.ValueMapper;
@@ -191,6 +194,57 @@ public class PPListingPageTest extends PageTest{
 
 	}
 
-	
+	@Test
+	@Parameters({"dataFile"})
+	public void testAddListingByMLS(String pDataFile) {
+		PPMLSListingData listingData = new PPMLSListingData(pDataFile).getListingData();
+		
+		String lMLS = listingData.getMls();//"190005539";
+		String lMLS_board = listingData.getMls_board(); //"San DIego - SANDICOR"
+		
+		getPage("/listings");
+		
+		assertTrue(page.isListingPage(), "Listing Page is not visible");
+		assertTrue(page.clickOnEasyImportFromMLS(), "Unable to click on Easy Import from MLS button");
+		
+		PPEasyImportListingPage easyImportListingPage = new PPEasyImportListingPage(driver);
+		
+		assertTrue(easyImportListingPage.selectIdxMLSBoard(lMLS_board), "Unable to select on MLS board");
+		assertTrue(easyImportListingPage.clickOnMLSInputRadioButton(), "Unable to click on MLS input radio button");
+		assertTrue(easyImportListingPage.typeMls(lMLS), "Unable to type MLS input field");
+		assertTrue(easyImportListingPage.clickOnGenerateListButton(), "Unable to click on Generate List button.");
+		assertTrue(easyImportListingPage.isListGeneratedSuccessfully(), "List is not generated successfully..");
+		assertTrue(easyImportListingPage.clicOnSelectAllButton(), "Unable to click on Select All button..");
+		assertTrue(easyImportListingPage.clickOnImportListingButton(), "Unable to click on Import Listing button..");
+		
+		//Performing these steps to get Listing id
+		GetMaximumListingExposureModal maximumListing = new GetMaximumListingExposureModal(driver);
+		assertTrue(maximumListing.isGextMaximumListingExposureAlert(), "Maximum listing alert is not visible");
+		assertTrue(maximumListing.clickOnFeatureListing(), "Unable to click on feature Listing");
+		
+		String lListingId = driver.getCurrentUrl().split("lsid=")[1];
+		
+		//To get listing address from the title. To compose non-idx listing URL
+		String listing_url_idx = EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url")+"idx/listings/cws/1098/"+lMLS;
+		driver.navigate().to(listing_url_idx);
+		
+		PropertyListingPage propertyListingPage = new PropertyListingPage(driver);
+		String lAddress = propertyListingPage.getAddress("Address").replace(" ","-");
+		String lCity = propertyListingPage.getAddress("City").replace(" ","-");
+		
+		String listing_url = EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url")+"/listings/"+lListingId+"/"+lAddress.toLowerCase()+lCity.toLowerCase();
+		driver.navigate().to(listing_url);
+		
+		assertTrue(propertyListingPage.isPropertyTitleVisible(), "Property Listing page is not visible..");
+		
+		driver.navigate().to(EnvironmentFactory.configReader.getPropertyByName("z57_pp_base_url")+"/listings");
+		
+		assertTrue(page.typeInpurSearch(lMLS), "Unable to type MLS input..");
+		assertTrue(page.deleteListing(lListingId), "Unable to delete the listing..");
+		
+		driver.navigate().to(listing_url);
+		assertFalse(propertyListingPage.isPropertyTitleVisible(), "Property Listing page is still visible after deleting the Listing..");
+
+	}
 
 }
