@@ -2,15 +2,20 @@ package resources.utility;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
 public class ActionHelper {
 	protected static WebDriverWait wait;
@@ -336,4 +341,18 @@ public class ActionHelper {
 				return false;
 			}
 		}
+	   
+	   public static boolean waitForElementsToBeFound(WebDriver pWebDriver, String pXpath) {
+		   boolean isFound = false;
+		   int counter = 0;
+		   while(counter<100) {
+			   System.out.println(counter);
+			   if(pWebDriver.findElements(By.xpath(pXpath))!=null) {
+				   isFound = true;
+				   break;
+			   }
+			   counter++;
+		   }
+		   return isFound;
+	   }
 }

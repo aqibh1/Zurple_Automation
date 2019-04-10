@@ -295,20 +295,22 @@ public class PropertyListingPage extends Page{
 	public boolean verifySchoolPins() {
 		int counter=0;
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("z57_schools_map_canvas")));
-		List<WebElement> schoolPins = driver.findElements(By.xpath(schoolPins_xpath));
-		for(WebElement element: schoolPins) {
-			System.out.println(element.getAttribute("src"));
-			if(element.getAttribute("src")!=null && !element.getAttribute("src").isEmpty()) {
-				if(element.getAttribute("src").endsWith("school-2.png")) {
-					counter++;
+		if(ActionHelper.waitForElementsToBeFound(driver, schoolPins_xpath)) {
+			List<WebElement> schoolPins = driver.findElements(By.xpath(schoolPins_xpath));
+			for(WebElement element: schoolPins) {
+				System.out.println(element.getAttribute("src"));
+				if(element.getAttribute("src")!=null && !element.getAttribute("src").isEmpty()) {
+					if(element.getAttribute("src").endsWith("school-2.png")) {
+						counter++;
+					}
+
 				}
-				
 			}
 		}
 		String schoolCount=totalSchoolCount.getText().split("of")[1].split("enteries")[0].trim();
 		int schoolCountint=Integer.parseInt(schoolCount.split(" ")[0].trim());
 		return counter==schoolCountint;
-		
+
 	}
 	
 	public boolean verifyPOIPins() {
