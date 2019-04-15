@@ -67,6 +67,7 @@ public class EnvironmentFactory {
 //                    options.addArguments("--proxy-server='direct://'");
 //                    options.addArguments("--proxy-bypass-list=*");
                     options.addArguments("--no-sandbox");
+                    options.addArguments("--disable-features=VizDisplayCompositor");
                 }
                 else
                 {
