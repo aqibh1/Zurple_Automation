@@ -34,6 +34,10 @@ public class EnvironmentFactory {
             if ( configReader.getPropertyByName("base_browser").equals("firefox") )
             {
                 FirefoxOptions options = new FirefoxOptions();
+                
+                if(System.getProperty("driver")!=null && !System.getProperty("driver").isEmpty()) {
+                	System.setProperty("webdriver.gecko.driver", System.getProperty("driver"));
+                }
 
                 if (Boolean.parseBoolean(System.getProperty("headless")))
                 {
@@ -64,10 +68,13 @@ public class EnvironmentFactory {
                 {
                     options.addArguments("headless");
                     options.addArguments("window-size=1920x1080");
+                    options.addArguments("--no-sandbox");
+                    options.addArguments("disable-gpu");
 //                    options.addArguments("--proxy-server='direct://'");
 //                    options.addArguments("--proxy-bypass-list=*");
-                    options.addArguments("--no-sandbox");
-                    options.addArguments("--disable-features=VizDisplayCompositor");
+                    
+//                    
+//                    options.addArguments("--disable-features=VizDisplayCompositor");
                 }
                 else
                 {
@@ -76,11 +83,12 @@ public class EnvironmentFactory {
                 
                 
                 driver = new ChromeDriver(options);
-                driver.manage().window().maximize();
+//                driver.manage().window().maximize();
 
             }
 
             webDrivers.put(thread_id,  driver);
+            
         }
 
         return driver;
