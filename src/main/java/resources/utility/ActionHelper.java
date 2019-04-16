@@ -82,7 +82,7 @@ public class ActionHelper {
 	   }
 	   
 	   public static boolean isElementVisible(WebDriver pWebDriver,WebElement pElement) {
-		   wait=new WebDriverWait(pWebDriver, 5);
+		   wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
 		   boolean isElementVisible = false;
 		   try {
 			   AutomationLogger.info("Waiting for the visibility of element ->"+pElement);
@@ -265,6 +265,7 @@ public class ActionHelper {
 	   public static boolean waitForElementToBeLocated(WebDriver pWebDriver,String pElement,long pWaitInSecnds) {
 		   wait=new WebDriverWait(pWebDriver, pWaitInSecnds);
 		   boolean isElementVisible = false;
+		   AutomationLogger.info("Waiting for element to be Located ->"+pElement);
 		   try {
 			   isElementVisible=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(pElement)))!=null;
 		   }catch(Exception ex) {
@@ -272,6 +273,7 @@ public class ActionHelper {
 			   AutomationLogger.error("Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
 			   AutomationLogger.error(ex.getMessage());
 		   }
+		   AutomationLogger.info("Element Found Successfully");
 		   return isElementVisible;
 	   }
 	   

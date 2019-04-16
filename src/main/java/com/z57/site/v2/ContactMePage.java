@@ -1,5 +1,6 @@
 package com.z57.site.v2;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +11,7 @@ import resources.utility.FrameworkConstants;
 
 public class ContactMePage extends Page{
 	
-	@FindBy(xpath="//h1[@class='entry-title title_prop']")
+	@FindBy(xpath="//h1[@class='entry-title title_prop' and contains(text(),'Contact Me')]")
 	WebElement pageTitle;
 	
 	public ContactMePage(WebDriver pWebDriver) {
@@ -19,8 +20,12 @@ public class ContactMePage extends Page{
 	}
 	
 	public boolean isContactMePage() {
-		boolean result = FrameworkConstants.ContactMe.contains(ActionHelper.getText(driver, pageTitle))?true:false;//ActionHelper.getText(driver, pageTitle).equalsIgnoreCase(FrameworkConstants.ContactMe)?true:false;
-		return result;
+//		boolean result = false;
+//		if(ActionHelper.waitForElementToBeLocated(driver, "//h1[@class='entry-title title_prop']", 10)) {
+//			result = FrameworkConstants.ContactMe.contains(driver.findElement(By.xpath("//h1[@class='entry-title title_prop']")).getText())?true:false;
+//		}
+		//ActionHelper.getText(driver, pageTitle).equalsIgnoreCase(FrameworkConstants.ContactMe)?true:false;
+		return ActionHelper.waitForElementToBeLocated(driver, "//h1[@class='entry-title title_prop' and contains(text(),'Contact Me')]", 20);
 	}
 
 	@Override
