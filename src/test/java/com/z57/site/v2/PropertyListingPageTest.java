@@ -334,7 +334,7 @@ public class PropertyListingPageTest extends PageTest {
 			//Verify welcome email is sent to Lead
 		}	
 		//Verifies Agent has received the email with subject 'Inquired about Listing'
-		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email,lLeadEmail,lLeadName+" "+FrameworkConstants.InquiredAboutListing),"Unable to sent email [Inquired About Listing] to Agent");
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email,lLeadEmail,lLeadName+" "+FrameworkConstants.InquiredAboutListing),"Unable to sent email [Information is on the Way] to Agent");
 
 		// Verifies the email has been sent to lead with subject 'Information is on the way!'.
 		assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail,FrameworkConstants.InformationIsOnTheWay),"Unable to sent email to Lead");

@@ -41,19 +41,31 @@ public class PPPostingHistoryPage extends Page{
 		boolean status_verified= false;
 		List<WebElement> list_of_rows = ActionHelper.getListOfElementByXpath(driver, pElement);
 		for(WebElement element: list_of_rows) {
-			List<WebElement> list_of_td = element.findElements(By.tagName("td"));
 			List<WebElement> list_of_small = element.findElements(By.tagName("small"));
-			for(WebElement td: list_of_td) {
-				if(td.findElement(By.tagName("small"))!=null && td.findElement(By.tagName("small")).getText().trim().equalsIgnoreCase(pPostTitle)) {
+			List<WebElement> list_of_span = element.findElements(By.tagName("span"));
+			
+			//Small tag will look for post title
+			for(WebElement smallElement: list_of_small) {
+				if(smallElement.getText().trim().equalsIgnoreCase(pPostTitle.trim())) {
 					post_found = true;
-				}
-				if(td.findElement(By.tagName("span"))!=null && td.findElement(By.tagName("span")).getText().equalsIgnoreCase(pPostStatusToVerify)) {
-					status_verified = true;
+					break;
+				}	
+			}
+			//Span tag will look for post status: Completed
+			if(post_found) {
+				for(WebElement spanElement: list_of_span) {
+					if(spanElement.getText().equalsIgnoreCase(pPostStatusToVerify)) {
+						status_verified = true;
+						break;
+					}
 				}
 			}
-			if(post_found && status_verified) {
+			if(post_found && status_verified) {//Success case
 				break;
-			}else {
+			}else if(post_found && !status_verified) {//if post is not completed
+				break;
+			}
+			else {
 				post_found = false;
 				status_verified= false;
 			}

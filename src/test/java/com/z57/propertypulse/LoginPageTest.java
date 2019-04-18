@@ -3,7 +3,6 @@
  */
 package com.z57.propertypulse;
 
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
@@ -47,7 +46,7 @@ public class LoginPageTest extends PageTest{
 		assertTrue(page.typeUsername(lPPUserName), "Unable to type username on login page");
 		assertTrue(page.typePassword(lPPPassword), "Unable to type password on login page");
 		assertTrue(page.clickOnLoginButton(), "Unable to click on Login button");
-		assertFalse(page.isLoginFailed(), "Login Failed because of Invalid Password");
+		assertTrue(page.isLoginSuccessful(lPPUserName), "Login Failed.. Incorrect username/password..");
 		
 	}
 }

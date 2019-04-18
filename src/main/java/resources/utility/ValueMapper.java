@@ -6,11 +6,13 @@ public class ValueMapper {
 	private HashMap<String, Integer> listingStatusMapper = new HashMap<String,Integer>();
 	private HashMap<String, String> stateMapper = new HashMap<String,String>();
 	private HashMap<String, Integer> propertyTypeMapper = new HashMap<String,Integer>();
+	private HashMap<String, String> repeatOnDaysMapper = new HashMap<String,String>();
 	
 	public ValueMapper(){
 		setListingStatusMapper();
 		setStates();
 		setPropertyTypeMapper();
+		setRepeatOnDaysMapper();
 	}
 	private void setListingStatusMapper() {
 		listingStatusMapper.put("Active",1);
@@ -40,6 +42,19 @@ public class ValueMapper {
 		propertyTypeMapper.put("New Home", 1);
 		propertyTypeMapper.put("Resale", 2);
 		propertyTypeMapper.put("Rental", 3);
+	}
+	
+	private void setRepeatOnDaysMapper() {
+		repeatOnDaysMapper.put("Sunday", "Sun");
+		repeatOnDaysMapper.put("Monday", "Mon");
+		repeatOnDaysMapper.put("Tuesday", "Tue");
+		repeatOnDaysMapper.put("Wednesday", "Wed");
+		repeatOnDaysMapper.put("Thursday", "Thu");
+		repeatOnDaysMapper.put("Friday", "Fri");
+		repeatOnDaysMapper.put("Saturday", "Sat");
+	}
+	public String getDays(String pDays) {
+		return repeatOnDaysMapper.get(pDays);
 	}
 
 }

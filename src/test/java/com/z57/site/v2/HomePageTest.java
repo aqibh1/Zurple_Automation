@@ -46,6 +46,9 @@ public class HomePageTest extends PageTest
             page.setUrl("");
             page.setDriver(getDriver());
             driver = getDriver();
+            AutomationLogger.info("Title : "+driver.getTitle());
+            AutomationLogger.info("Title : "+driver.getCurrentUrl());
+            AutomationLogger.info("Window Size: "+driver.manage().window().getSize());
             System.out.println(driver.getTitle());
             System.out.println(driver.getCurrentUrl());
             System.out.println(driver.manage().window().getSize());
@@ -58,6 +61,9 @@ public class HomePageTest extends PageTest
         	driver=getDriver();
             page = new HomePage(driver);
 			page.setDriver(driver,pUrl);
+			AutomationLogger.info("Title : "+driver.getTitle());
+            AutomationLogger.info("Title : "+driver.getCurrentUrl());
+            AutomationLogger.info("Window Size: "+driver.manage().window().getSize());
             System.out.println("Browser Windows Title: "+driver.getTitle());
             System.out.println("Current URL: "+driver.getCurrentUrl());
             System.out.println("Browser Dimesnions: "+driver.manage().window().getSize());
@@ -82,24 +88,21 @@ public class HomePageTest extends PageTest
    
     @Test
     public void testSignInWithValidEmail() {
-    	ConfigReader configReader = ConfigReader.load();
-    	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
-        
-    	if(bootstrapModalObj.checkBootsrapModalIsShown()){
-        	bootstrapModalObj.getBootstrapModal().close();
-        	bootstrapModalObj.clearBootstrapModal();
-        }
-
+    	getPage();
+    	AutomationLogger.info("Closing Bottstrap modal");
+    	closeBootStrapModal();
     	
     	LoginForm loginFormObj = new LoginForm(page.getWebDriver());
     	assertEquals("Sign In",getPage().getUserMenu().getText());
+    	
+    	AutomationLogger.info("Clicking On SignIn button");
     	assertTrue(loginFormObj.clickOnSignInButton(),"Sign In button not visible on Home Page");
     	
     	RegisterForm registerFormObj = new RegisterForm(page.getWebDriver());
     	//Clicks on Already Registered
     	assertTrue(registerFormObj.clickOnAlreadyRegistered(),"Already registered link is not visible");
 
-    	assertTrue(loginFormObj.setEmail(configReader.getPropertyByName("z57_user_v2")),"Unable to type email address");
+    	assertTrue(loginFormObj.setEmail(EnvironmentFactory.configReader.getPropertyByName("z57_user_v2")),"Unable to type email address");
     	assertTrue(loginFormObj.clickLoginButton(),"Unable to click on Login button");
     
     }

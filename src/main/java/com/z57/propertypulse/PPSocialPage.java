@@ -12,6 +12,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
+import resources.utility.ValueMapper;
 
 /**
  * @author adar
@@ -73,7 +75,7 @@ public class PPSocialPage extends Page{
 	
 	String upcomingPostsRow_xpath="//table[@id='scheduled_upcoming_posts']/descendant::tr";
 	
-	@FindBy(id="scheduled_upcoming_posts_length")
+	@FindBy(xpath="//div[@id='scheduled_upcoming_posts_length']/descendant::select[@name='scheduled_upcoming_posts_length']")
 	WebElement number_of_records_per_page;
 
 	@FindBy(xpath="//div[@id='scheduled_upcoming_posts_length']/descendant::select[@name='scheduled_upcoming_posts_length']/option")
@@ -106,6 +108,9 @@ public class PPSocialPage extends Page{
 	
 	@FindBy(xpath="//div[@class='marketing_submit_results' and text()='Post Completed']")
 	WebElement postCompletedSuccess_message;
+	
+	@FindBy(xpath="//div[@class='marketing_submit_results' and text()='Created Post Schedule']")
+	WebElement postScheduledSuccess_message;
 	
 	public PPSocialPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -162,8 +167,8 @@ public class PPSocialPage extends Page{
 	public boolean isPreviousPostsSuccessful(String pPostTitle, String pPostStatusToVerify) {	
 		return isPostSuccessful(previousPostsRow_xpath, pPostTitle, pPostStatusToVerify);
 	}
-	public boolean isUpcomingPostsSuccessful(String pPostTitle, String pPostStatusToVerify) {	
-		return isPostSuccessful(upcomingPostsRow_xpath, pPostTitle, pPostStatusToVerify);
+	public boolean isUpcomingPostsSuccessful(String pPostTitle, String pImage, String pDate, String pTime) {	
+		return isPostSuccessful(upcomingPostsRow_xpath, pPostTitle, pImage, pDate, pTime);
 	}
 	public boolean selectNumberOfRecords(String pNumRecords) {
 		return ActionHelper.selectDropDownOption(driver, number_of_records_per_page, number_of_records_per_page_options_xpath, pNumRecords);
@@ -181,7 +186,8 @@ public class PPSocialPage extends Page{
 		return ActionHelper.Click(driver, addPost_button);
 	}
 	public boolean isDateTimeAdded() {
-		return ActionHelper.waitForElementToBeVisible(driver, addedTime_input, 15);
+		return ActionHelper.waitForElementsToBeFound(driver, "//div[@id='multi_post_schedule_frame']/descendant::input[@name='post_multi[]']");
+//		return ActionHelper.waitForElementToBeVisible(driver, addedTime_input, 10);
 	}
 	public boolean typeEndingDate(String pEndingDate) {
 		return ActionHelper.ClearAndType(driver, dateEnd_input, pEndingDate);
@@ -210,6 +216,9 @@ public class PPSocialPage extends Page{
 	public boolean isPostCompleted() {
 		return ActionHelper.waitForElementToBeVisible(driver, postCompletedSuccess_message, 30);
 	}
+	public boolean isScheduleLaterPostCompleted() {
+		return ActionHelper.waitForElementToBeVisible(driver, postScheduledSuccess_message, 30);
+	}
 	private boolean isPostSuccessful(String pElement,String pPostTitle, String pPostStatusToVerify) {
 		boolean post_found = false;
 		boolean status_verified= false;
@@ -234,4 +243,168 @@ public class PPSocialPage extends Page{
 		return (post_found && status_verified);
 
 	}
+	
+	private boolean isPostSuccessful(String pElement,String pPostTitle, String pPlatformImage, String pDate, String pTime) {
+		boolean result = false;
+		boolean post_found = false;
+		boolean platform_image_verified= false;
+		boolean date_verified = false;
+		boolean time_verified = false;
+		ActionHelper.waitForElementsToBeFound(driver, pElement);
+		List<WebElement> list_of_rows = ActionHelper.getListOfElementByXpath(driver, pElement);
+		AutomationLogger.info("Size of element list "+list_of_rows.size());
+		int counter = 0;
+		try {
+			for(WebElement element: list_of_rows) {
+				List<WebElement> list_of_div = element.findElements(By.tagName("div"));
+				//Div tag will look for post title
+				for(WebElement divElement: list_of_div) {
+					if(divElement.getText().trim().equalsIgnoreCase(pPostTitle.trim())) {
+						AutomationLogger.info("Post title verified");
+						post_found = true;
+						break;
+					}	
+				}
+				//Img tag will look for platform icon
+				if(post_found) {
+					List<WebElement> list_of_img = element.findElements(By.tagName("img"));
+					for(WebElement imgElement: list_of_img) {
+						if(imgElement.getAttribute("src").contains(pPlatformImage)) {
+							AutomationLogger.info("Platform Image verified");
+							platform_image_verified = true;
+							break;
+						}
+					}
+					if(platform_image_verified) {
+						List<WebElement> list_of_td = element.findElements(By.tagName("td"));
+						for(WebElement tdElement: list_of_td) {
+							if(tdElement.getText().equalsIgnoreCase(pDate)) {
+								AutomationLogger.info("Post Date verified");
+								date_verified = true;
+							}
+						}
+						if(date_verified) {
+							list_of_td = element.findElements(By.tagName("td"));
+							for(WebElement tdElement: list_of_td) {
+								if(tdElement.getText().equalsIgnoreCase(pTime)) {
+									AutomationLogger.info("Post Time verified");
+									time_verified = true;
+								}
+							}
+						}
+					}
+				}
+				if(post_found && platform_image_verified && date_verified && time_verified) {//Success case
+					result = true;
+					break;
+				}else {
+					post_found = false;
+					platform_image_verified= false;
+					date_verified = false;
+					time_verified = false;
+				}
+				counter++;
+			}
+		}catch(Exception ex) {
+			if(counter<3) {
+				isPostSuccessful(pElement,pPostTitle, pPlatformImage, pDate, pTime);
+			}
+		}
+		
+		return result;
+
+	}
+	public boolean isUpcomingRecurringPostsSuccessful(String pStatus, String pImageIcon, String pDate,String pTime, String pEndingDate, String pRepeatOnDays) {
+		return isPostRecurringSuccessful(upcomingPostsRow_xpath,pStatus,pImageIcon,pDate,pTime,pEndingDate,pRepeatOnDays);
+	}
+	
+	private boolean isPostRecurringSuccessful(String pElement,String pPostTitle, String pPlatformImage, String pDate, String pTime,String pEndDate, String pRepeatDays) {
+		boolean result = false;
+		boolean post_found = false;
+		boolean platform_image_verified= false;
+		boolean date_verified = false;
+		boolean time_verified = false;
+		boolean endDate_verified = false;
+		boolean isRecurring = false;
+		boolean repeatOnDays = false;
+		
+		ActionHelper.waitForElementsToBeFound(driver, pElement);
+		List<WebElement> list_of_rows = ActionHelper.getListOfElementByXpath(driver, pElement);
+		AutomationLogger.info("Size of element list "+list_of_rows.size());
+		int counter = 0;
+		try {
+			for(WebElement element: list_of_rows) {
+				List<WebElement> list_of_div = element.findElements(By.tagName("div"));
+				//Div tag will look for post title
+				for(WebElement divElement: list_of_div) {
+					if(divElement.getText().trim().equalsIgnoreCase(pPostTitle.trim())) {
+						AutomationLogger.info("Post title verified");
+						post_found = true;
+						break;
+					}	
+				}
+				//Img tag will look for platform icon
+				if(post_found) {
+					List<WebElement> list_of_img = element.findElements(By.tagName("img"));
+					for(WebElement imgElement: list_of_img) {
+						if(imgElement.getAttribute("src").contains(pPlatformImage)) {
+							AutomationLogger.info("Platform Image verified");
+							platform_image_verified = true;
+							break;
+						}
+					}
+					if(platform_image_verified) {
+						List<WebElement> list_of_td = element.findElements(By.tagName("td"));
+						for(WebElement tdElement: list_of_td) {
+							if(tdElement.getText().equalsIgnoreCase(pDate)) {
+								AutomationLogger.info("Post Date verified");
+								date_verified = true;
+							}
+						}
+						if(date_verified) {
+							list_of_td = element.findElements(By.tagName("td"));
+							for(WebElement tdElement: list_of_td) {
+								if(tdElement.getText().equalsIgnoreCase(pTime)) {
+									AutomationLogger.info("Post Time verified");
+									time_verified = true;
+								}
+								if(tdElement.getText().equalsIgnoreCase(pEndDate)) {
+									AutomationLogger.info("Post End Date verified");
+									endDate_verified = true;
+								}
+								if(tdElement.getText().equalsIgnoreCase("Recurring")) {
+									AutomationLogger.info("Post is recurring verified");
+									isRecurring = true;
+								}
+								for(String days: pRepeatDays.split(",")) {
+									if(tdElement.getText().contains(new ValueMapper().getDays(days))){
+										AutomationLogger.info("Day verified: "+days);
+										repeatOnDays = true;
+									}
+								}
+							}
+						}
+						
+					}
+				}
+				if(post_found && platform_image_verified && date_verified && time_verified && endDate_verified && isRecurring && repeatOnDays) {//Success case
+					result = true;
+					break;
+				}else {
+					post_found = false;
+					platform_image_verified= false;
+					date_verified = false;
+					time_verified = false;
+				}
+				counter++;
+			}
+		}catch(Exception ex) {
+			AutomationLogger.error("Unable to verify recurring post..");
+			return result;
+		}
+		
+		return result;
+
+	}
+
 }

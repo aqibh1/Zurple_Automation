@@ -2,6 +2,8 @@ package resources;
 
 import org.testng.annotations.Test;
 
+import resources.utility.AutomationLogger;
+
 import static org.testng.Assert.assertTrue;
 
 public class CurrentPageTest
@@ -16,7 +18,9 @@ public class CurrentPageTest
     @Test
     public void closeBrowser(){
         Long thread_id = Thread.currentThread().getId();
+        AutomationLogger.info("Thread ID "+thread_id);
         EnvironmentFactory.closeDriver(thread_id);
+        AutomationLogger.info("Browser closed Successfully");
     }
 
     @Test

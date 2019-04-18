@@ -20,4 +20,5 @@ public class FrameworkConstants {
 	public static final String InquiredAboutShowing = "Has Inquired About A Showing";
 	public static final String BrandingOptions = "Branding Options";
 	public static final String CheckOutThisPropertySearch = "Check Out this Property Search";
+	public static final String FacebookIconImage = "icon_post_facebook_32.png";
 }

@@ -72,6 +72,20 @@ public class VerifyHttpsLinksPageTest extends PageTest{
 		}
 		return page;
 	}
+	private Page getPage(String pUrl) {
+		
+			driver = getDriver();
+			page = new HomePage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+			System.out.println(driver.getTitle());
+			System.out.println(driver.getCurrentUrl());
+			System.out.println(driver.manage().window().getSize());
+			url_list = new ArrayList<String>();
+		
+		return page;
+		
+	}
 
 	@Override
 	public void clearPage() {
@@ -92,22 +106,38 @@ public class VerifyHttpsLinksPageTest extends PageTest{
 	@Test
 	public void testVerifyHttpsLinks() throws IOException, KeyManagementException, NoSuchAlgorithmException {
 		System.setProperty("jsse.enableSNIExtension", "false");
-		getPage();
+//		getPage("");
+//		getPage("/listings");
+//		getPage("/listings/sold-listings");
+//		getPage("/idx");
+//		getPage("/recent-home-sales");
+//		getPage("/community-reports");
+//		getPage("/school-reports");
+//		getPage("/points-of-interest");
+//		getPage("/category/real-estate-news");
+//		getPage("/contact-me ");
+		getPage("/about-me");
+//		getPage("/buyers");
+//		getPage("/sellers");
+		
 		setCsvWriter(System.getProperty("user.dir")+"/http_link_report/report.csv");
-		String[] lHeader = {"Page","HTTPS","URL","Status"};
+		String[] lHeader = {"Page","HTTPS","Source","URL","Status"};
 		writeCSVFile(lHeader);
 	
 		List<WebElement> a_href_links = driver.findElements(By.tagName("a"));
-		List<WebElement> img_src_links = driver.findElements(By.tagName("img"));
-		List<WebElement> link_href_links = driver.findElements(By.tagName("link"));
-		List<WebElement> script_src_links = driver.findElements(By.tagName("script"));
 		verifyTheLinks(a_href_links,"href");
+		List<WebElement> img_src_links = driver.findElements(By.tagName("img"));
 		verifyTheLinks(img_src_links,"src");
+		List<WebElement> link_href_links = driver.findElements(By.tagName("link"));
 		verifyTheLinks(link_href_links,"href");
+		List<WebElement> script_src_links = driver.findElements(By.tagName("script"));
 		verifyTheLinks(script_src_links,"src");
+		
 		writer.close();
 
 	}
+	
+
 	private void verifyTheLinks(List<WebElement> pListOfElements, String pAttributeToFind) throws IOException, KeyManagementException, NoSuchAlgorithmException {
 		int counter=0;
 		for(WebElement element: pListOfElements) {
@@ -115,37 +145,24 @@ public class VerifyHttpsLinksPageTest extends PageTest{
 			String lUrl = element.getAttribute(pAttributeToFind);
 			if(lUrl!=null && !lUrl.isEmpty()) {
 				System.out.println("URL :: "+lUrl);
-				verifyValidLinks(lUrl);
+				verifyValidLinks(lUrl,pAttributeToFind);
 
 			}
 			counter++;
 		}
 	}
 
-	private void verifyValidLinks(String pUrl) throws IOException, KeyManagementException, NoSuchAlgorithmException {
-		
+	private void verifyValidLinks(String pUrl, String pSource) throws IOException, KeyManagementException, NoSuchAlgorithmException {
 		boolean isHttp= false;
-		boolean invalidUrl =false;
+		
+//		boolean invalidUrl =false;
 		if(!isUrlExist(pUrl)) {
 			url_list.add(pUrl);
-			if(!pUrl.startsWith("https:")) {
+			if(!pUrl.startsWith("https:") && pUrl.startsWith("http:")) {
 				isHttp = true;
-			}
-			if(pUrl.startsWith("http")) {
-				URL lUrl = new URL(pUrl);
-				HTTPSRequestConnector httpConnector = new HTTPSRequestConnector();
-				httpConnector.setUrl(lUrl);
-				httpConnector.setRequestType("GET");
-				if(httpConnector.setConnection()) {
-
-					if(httpConnector.getStatus()!=200 || isHttp) {
-						String[] dataArray = {"Home Page",String.valueOf(!isHttp),pUrl,String.valueOf(httpConnector.getStatus())};
-						writeCSVFile(dataArray);
-					}
-				}else {
-					String[] dataArray = {"Home Page",String.valueOf(!isHttp),pUrl,"0"};
-					writeCSVFile(dataArray);
-				}
+				execute(pUrl, pSource, isHttp);
+			}else if(!pUrl.startsWith("http:") && pUrl.startsWith("https:")) {
+				execute(pUrl, pSource, isHttp);
 			}
 		}
 	}
@@ -161,5 +178,22 @@ public class VerifyHttpsLinksPageTest extends PageTest{
 			}
 		}
 		return false;
+	}
+	private void execute(String pUrl,String pSource, boolean pIsHttp) throws KeyManagementException, NoSuchAlgorithmException, IOException {
+		
+		URL lUrl = new URL(pUrl);
+		HTTPSRequestConnector httpConnector = new HTTPSRequestConnector();
+		httpConnector.setUrl(lUrl);
+		httpConnector.setRequestType("GET");
+		if(httpConnector.setConnection()) {
+
+			if(httpConnector.getStatus()!=200 && httpConnector.getStatus()!=403) {
+				String[] dataArray = {"Featured Properties",String.valueOf(!pIsHttp),pSource,pUrl,String.valueOf(httpConnector.getStatus())};
+				writeCSVFile(dataArray);
+			}
+		}else {
+			String[] dataArray = {"Featured Properties",String.valueOf(!pIsHttp),pUrl,"0"};
+			writeCSVFile(dataArray);
+		}
 	}
 }

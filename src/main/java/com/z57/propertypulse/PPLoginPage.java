@@ -1,5 +1,8 @@
 package com.z57.propertypulse;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,6 +22,9 @@ public class PPLoginPage extends Page{
 	
 	@FindBy(xpath="//div[@class='login-error']/descendant::span[@class='login-error-message']")
 	WebElement invalid_password_error;
+	
+	@FindBy(xpath="//div[@id='member-nav']/descendant::a[@class='btn dropdown-toggle']")
+	WebElement settings_button;
 	
 	public PPLoginPage() {
 	}
@@ -43,5 +49,14 @@ public class PPLoginPage extends Page{
 	
 	public boolean isLoginFailed() {
 		return ActionHelper.isElementVisible(driver, invalid_password_error);
+	}
+	
+	public boolean isLoginSuccessful(String pUsername) {
+		boolean isUserLoggedIn = false;	
+
+		if(ActionHelper.waitForElementToBeVisible(driver, settings_button, 60)) {
+			isUserLoggedIn = true;
+		}
+		return isUserLoggedIn;
 	}
 }

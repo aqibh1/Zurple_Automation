@@ -13,6 +13,8 @@ import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.data.z57.PPSocialData;
+import resources.utility.ActionHelper;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author adar
@@ -67,7 +69,7 @@ public class PPSocialPageTest extends PageTest{
 	@Parameters({"dataFile"})
 	public void testPostAStatusToFacebook(String pDataFile) {
 		socialData = new PPSocialData(pDataFile).getSocialData();
-		String lStatus =socialData.getStatus();
+		String lStatus =updateName(socialData.getStatus());
 		String lPhotoPath = socialData.getImage();
 		String lPostSchedule=socialData.getSchedule();
 		String lFacebookPage=socialData.getFacebookPage();
@@ -76,9 +78,11 @@ public class PPSocialPageTest extends PageTest{
 		String lEndingDate=socialData.getEndDate();
 		String lRepeatOnDays=socialData.getRepeatDays();
 		
+		
 		getPage("/content/marketing/social");
 		
 		assertTrue(page.isSocialPage(), "Social Posting page is not displayed..");
+		
 		//Selects Facebook option
 		assertTrue(page.checkFacebookOption(), "Unable to check Facebook option..");
 		
@@ -96,10 +100,11 @@ public class PPSocialPageTest extends PageTest{
 			
 			//Click on Post Later button
 			assertTrue(page.clickOnPostLaterButton(), "Unable to click on Post Later button ..");
-			
+			assertTrue(page.isScheduleLaterPostCompleted(), "Scheduled Post Completed Success Message is not displayed ..");
 			//Verifying the Later has been scheduled or not
-			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
-			assertTrue(page.isUpcomingPostsSuccessful(lStatus, lPostSchedule), "Post not found in Upcoming Post results..");
+//			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
+
+			assertTrue(page.isUpcomingPostsSuccessful(lStatus,FrameworkConstants.FacebookIconImage,lDate, lTime), "Post not found in Upcoming Post results..");
 			
 		}else if(lPostSchedule.equalsIgnoreCase("Recurring")) {
 			assertTrue(page.clickOnScheduleRecurring(), "Unable to click on Schedule Recurring radio button..");
@@ -107,10 +112,10 @@ public class PPSocialPageTest extends PageTest{
 			
 			//Click on Schedule a Recurring post
 			assertTrue(page.clickOnPostRecurringButton(), "Unable to click on Post Recurring button ..");
-			
+			assertTrue(page.isScheduleLaterPostCompleted(), "Scheduled Post Completed Success Message is not displayed ..");
 			//Verifying the Later has been scheduled or not
-			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
-			assertTrue(page.isUpcomingPostsSuccessful(lStatus, lPostSchedule), "Post not found in Upcoming Post results..");
+//			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
+			assertTrue(page.isUpcomingRecurringPostsSuccessful(lStatus,FrameworkConstants.FacebookIconImage,lDate, lTime,lEndingDate,lRepeatOnDays), "Post not found in Upcoming Post results..");
 			
 		}else {
 		
@@ -122,10 +127,6 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(postingHistoryPage.isPostingHistoryPage(), "Posting History Page is not opened ..");
 			
 			assertTrue(postingHistoryPage.isPostCompleted(lStatus), "The Post is not found on Posting History Page ..");
-			
-//			assertTrue(page.clickOnPreviousPosts(), "Unable to click on Previous Posts tab button..");
-//			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
-//			assertTrue(page.isUpcomingPostsSuccessful(lStatus, lPostSchedule), "Post not found in Previous Post results..");
 		}
 	}
 	
