@@ -112,6 +112,9 @@ public class PPSocialPage extends Page{
 	@FindBy(xpath="//div[@class='marketing_submit_results' and text()='Created Post Schedule']")
 	WebElement postScheduledSuccess_message;
 	
+	@FindBy(xpath="//div[@id='ajax_working' and @style='display: block;']")
+	WebElement ajaxLoader;
+	
 	public PPSocialPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -406,5 +409,7 @@ public class PPSocialPage extends Page{
 		return result;
 
 	}
-
+	public boolean isLoaderDisappeared() {
+		return ActionHelper.waitForAjaxToBeCompleted(driver);
+	}
 }

@@ -101,9 +101,10 @@ public class PPSocialPageTest extends PageTest{
 			//Click on Post Later button
 			assertTrue(page.clickOnPostLaterButton(), "Unable to click on Post Later button ..");
 			assertTrue(page.isScheduleLaterPostCompleted(), "Scheduled Post Completed Success Message is not displayed ..");
+			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			//Verifying the Later has been scheduled or not
-//			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
-
+			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
+			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.isUpcomingPostsSuccessful(lStatus,FrameworkConstants.FacebookIconImage,lDate, lTime), "Post not found in Upcoming Post results..");
 			
 		}else if(lPostSchedule.equalsIgnoreCase("Recurring")) {
@@ -113,8 +114,10 @@ public class PPSocialPageTest extends PageTest{
 			//Click on Schedule a Recurring post
 			assertTrue(page.clickOnPostRecurringButton(), "Unable to click on Post Recurring button ..");
 			assertTrue(page.isScheduleLaterPostCompleted(), "Scheduled Post Completed Success Message is not displayed ..");
+			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			//Verifying the Later has been scheduled or not
-//			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
+			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
+			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.isUpcomingRecurringPostsSuccessful(lStatus,FrameworkConstants.FacebookIconImage,lDate, lTime,lEndingDate,lRepeatOnDays), "Post not found in Upcoming Post results..");
 			
 		}else {

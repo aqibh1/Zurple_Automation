@@ -26,7 +26,7 @@
     </parameter>
 	</test>
 	-->
-	<!--  
+	
 	 <test name="Post status on Facebook Later">
  	<parameter name="dataFile" value="/resources/data/propertypulse/social/social-post-later-data-02.json" >
 	<classes>
@@ -48,7 +48,7 @@
     </classes>
     </parameter>
 	</test>
-	-->
+	
 	
 	 <test name="Post status on Facebook Recurring">
  	<parameter name="dataFile" value="/resources/data/propertypulse/social/social-post-recurring-data-03.json" >

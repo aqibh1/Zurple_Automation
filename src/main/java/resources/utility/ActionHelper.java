@@ -19,7 +19,7 @@ import org.openqa.selenium.support.ui.Wait;
 
 public class ActionHelper {
 	protected static WebDriverWait wait;
-	private static long GLOBAL_WAIT_COUNT=20;
+	private static long GLOBAL_WAIT_COUNT=30;
 	
 	public static boolean Type(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
 			boolean isSuccessfull=false;
@@ -355,6 +355,24 @@ public class ActionHelper {
 				   break;
 			   }
 			   counter++;
+		   }
+		   return isFound;
+	   }
+	   public static boolean waitForAjaxToBeCompleted(WebDriver pWebDriver) {
+		   boolean isFound = false;
+		   try {
+			   int counter = 0;
+			   AutomationLogger.info("Waiting for Ajax to be disappear ");
+			   while(counter<100) {
+				   if(!pWebDriver.findElement(By.id("ajax_working")).getAttribute("style").contains("block")) {
+					   isFound = true;
+					   break;
+				   }
+				   counter++;
+				   Thread.sleep(1000);
+			   }
+		   }catch(Exception ex) {
+			   isFound = false;
 		   }
 		   return isFound;
 	   }
