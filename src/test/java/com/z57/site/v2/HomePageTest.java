@@ -112,6 +112,9 @@ public class HomePageTest extends PageTest
     	registerUserData = new RegisterUserData();
     	registerUserData = registerUserData.setRegisterUserData(pFolderLocation);
     	
+    	String lUserName = updateName(registerUserData.getUserName());
+    	String lEmail = updateEmail(registerUserData.getUserEmail());
+    	
     	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
 
     	if(bootstrapModalObj.checkBootsrapModalIsShown()){
@@ -123,7 +126,7 @@ public class HomePageTest extends PageTest
     	assertEquals("Sign In",getPage().getUserMenu().getText());
     	assertTrue(loginFormObj.clickOnSignInButton(),"Sign In button not visible on Home Page");
     	
-    	assertTrue(registerLead(registerUserData.getUserName(),registerUserData.getUserEmail(),registerUserData.getUserPhoneNumber()), "The dialog didn't disappear after clicking Register button");
+    	assertTrue(registerLead(lUserName,lEmail,registerUserData.getUserPhoneNumber()), "The dialog didn't disappear after clicking Register button");
     	DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
     	assertTrue(dbHelperMethods.verifyLeadInDB(registerUserData.getUserEmail(),getLeadId()),"Lead not verified in DB");
       
