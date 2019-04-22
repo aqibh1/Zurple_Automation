@@ -5,6 +5,8 @@ package com.z57.propertypulse;
 
 import static org.testng.Assert.assertTrue;
 
+import java.awt.AWTException;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -67,7 +69,7 @@ public class PPSocialPageTest extends PageTest{
 	 */
 	@Test
 	@Parameters({"dataFile"})
-	public void testPostAStatusToFacebook(String pDataFile) {
+	public void testPostAStatusToFacebook(String pDataFile) throws AWTException {
 		socialData = new PPSocialData(pDataFile).getSocialData();
 		String lStatus =updateName(socialData.getStatus());
 		String lPhotoPath = socialData.getImage();
@@ -89,7 +91,11 @@ public class PPSocialPageTest extends PageTest{
 		assertTrue(page.typeStatus(lStatus), "Unable to type status in text area..");
 		
 		if(!lPhotoPath.isEmpty()) {
+			assertTrue(page.clickOnPhoto(), "Unable to click Photo tab button....");
 			assertTrue(page.clickOnLinkChooseFileButton(), "Unable to click on choose file button..");
+			//Upload the images
+			page.getPpUploadImagesForm().uploadFacebookImage(System.getProperty("user.dir")+lPhotoPath);
+			assertTrue(page.isSocialPage(), "Unable to upload the image..");			
 		}
 		
 		assertTrue(page.selectFacebookPage(lFacebookPage), "Unable to select Facebook page from drop down ..");
