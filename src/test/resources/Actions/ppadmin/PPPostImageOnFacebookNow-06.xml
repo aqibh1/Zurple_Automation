@@ -5,7 +5,7 @@
     </listeners>
   
     <test name="Post Image on Facebook now">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/social/social-post-image.json" >
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-image.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>

@@ -4,7 +4,7 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
    
-    <test name="Add and Edit Listing on PP">
+    <test name="Create an Ad for Listing on PP">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
