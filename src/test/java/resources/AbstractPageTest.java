@@ -22,6 +22,7 @@ public abstract class AbstractPageTest extends AbstractTest
     protected AbstractPage page;
     protected String source_in_url="";
     protected Boolean incognito=false;
+    private Long threadID;
 
     public abstract AbstractPage getPage();
 
@@ -30,9 +31,16 @@ public abstract class AbstractPageTest extends AbstractTest
     public WebDriver getDriver(){
         Long thread_id = Thread.currentThread().getId();
         WebDriver driver = EnvironmentFactory.getDriver(thread_id);
+        setThreadId(thread_id);
         return driver;
     }
 
+    private void setThreadId(Long pThreadId) {
+    	threadID = pThreadId;
+    }
+    public Long getThreadId() {
+    	return threadID;
+    }
     @Parameters({"source_in_url","incognito"})
     @BeforeTest
     public void globalSetUp(@Optional("") String source_in_url, @Optional("") String incognito){
