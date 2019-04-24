@@ -1,6 +1,11 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Verify Email Search Results">
+<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.TestListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+    </listeners>
   
   <test name="Verify Email Search">
   <parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
