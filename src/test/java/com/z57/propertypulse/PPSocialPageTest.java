@@ -5,6 +5,8 @@ package com.z57.propertypulse;
 
 import static org.testng.Assert.assertTrue;
 
+import java.awt.AWTException;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -12,8 +14,9 @@ import org.testng.annotations.Test;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
 import resources.data.z57.PPSocialData;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
@@ -66,8 +69,8 @@ public class PPSocialPageTest extends PageTest{
 	 * Facebook status post test case with Now, Later, Recuuring as schedule post option
 	 */
 	@Test
-	@Parameters({"dataFile"})
-	public void testPostAStatusToFacebook(String pDataFile) {
+	@Parameters({"dataFileSocial"})
+	public void testPostAStatusToFacebook(String pDataFile) throws AWTException {
 		socialData = new PPSocialData(pDataFile).getSocialData();
 		String lStatus =updateName(socialData.getStatus());
 		String lPhotoPath = socialData.getImage();
@@ -77,6 +80,7 @@ public class PPSocialPageTest extends PageTest{
 		String lTime=socialData.getTime();
 		String lEndingDate=socialData.getEndDate();
 		String lRepeatOnDays=socialData.getRepeatDays();
+		String lPromoteListing = socialData.getPromoteListing();
 		
 		
 		getPage("/content/marketing/social");
@@ -89,12 +93,28 @@ public class PPSocialPageTest extends PageTest{
 		assertTrue(page.typeStatus(lStatus), "Unable to type status in text area..");
 		
 		if(!lPhotoPath.isEmpty()) {
+			assertTrue(page.clickOnPhoto(), "Unable to click Photo tab button....");
 			assertTrue(page.clickOnLinkChooseFileButton(), "Unable to click on choose file button..");
+			//Upload the images
+			page.getPpUploadImagesForm().uploadFacebookImage(System.getProperty("user.dir")+lPhotoPath);
+			assertTrue(page.isSocialPage(), "Unable to upload the image..");			
+		}
+		
+		//If Promote a Listing option
+		if(lPromoteListing!=null && !lPromoteListing.isEmpty()) {
+			assertTrue(page.clickOnPromoteListingTab(), "Unable to click Promote a listing tab button....");
+			assertTrue(page.getPpPromoteListingForm().isChooseAListingForm(), "Promote Listing form is not visible...");
+			assertTrue(page.getPpPromoteListingForm().selectListing(ModuleCommonCache.getElement(Long.toString(getThreadId()), ModuleCacheConstants.ListingsAddress)), "Unable to select listing from dropdown...");
+			assertTrue(page.getPpPromoteListingForm().clickOnSelect(), "Unable to click on Select button...");
+			assertTrue(page.getPpPromoteListingForm().isSelectButtonDisappeared(), "Select button is not disappeared...");
+			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
+			lStatus = lStatus.split("details! ")[0]+"details!";
 		}
 		
 		assertTrue(page.selectFacebookPage(lFacebookPage), "Unable to select Facebook page from drop down ..");
 		
 		if(lPostSchedule.equalsIgnoreCase("Later")) {
+			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.clickOnScheduleLater(), "Unable to click on Schedule Later radio button..");
 			scheduleLater(lDate,lTime);
 			
@@ -108,6 +128,7 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.isUpcomingPostsSuccessful(lStatus,FrameworkConstants.FacebookIconImage,lDate, lTime), "Post not found in Upcoming Post results..");
 			
 		}else if(lPostSchedule.equalsIgnoreCase("Recurring")) {
+			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.clickOnScheduleRecurring(), "Unable to click on Schedule Recurring radio button..");
 			scheduleRecurring(lDate,lTime,lEndingDate,lRepeatOnDays);
 			
@@ -121,7 +142,7 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.isUpcomingRecurringPostsSuccessful(lStatus,FrameworkConstants.FacebookIconImage,lDate, lTime,lEndingDate,lRepeatOnDays), "Post not found in Upcoming Post results..");
 			
 		}else {
-		
+			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.clickOnPostNowButton(), "Unable to click on Post now button ..");
 			assertTrue(page.isPostCompleted(), "Post Completed Success Message is not displayed ..");
 			

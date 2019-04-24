@@ -110,5 +110,11 @@ public class PPEasyImportListingPage extends Page{
 	public boolean clickOnImportListingButton() {
 		return ActionHelper.Click(driver, import_listings_button);
 	}
+	public boolean isLoaderDisappeared() {
+		return ActionHelper.waitForAjaxToBeCompleted(driver);
+	}
+	public boolean isImportedSuccessfully() {
+		return ActionHelper.waitForElementToBeVisible(driver, import_listings_button, 30);
+	}
 
 }

@@ -12,8 +12,6 @@ import org.testng.annotations.Test;
 
 import com.z57.site.v2.PropertyListingPage;
 import com.zurple.my.PageTest;
-
-import resources.AbstractPage;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
@@ -104,6 +102,7 @@ public class PPListingPageTest extends PageTest{
 		ModuleCommonCache.setModuleCommonCache("listing_url_wp", listing_url);
 		ModuleCommonCache.setModuleCommonCache("listing_url_pp", driver.getCurrentUrl());
 		ModuleCommonCache.setModuleCommonCache("listing_id", lListingId);
+		ModuleCommonCache.updateCacheForModuleObject(Long.toString(getThreadId()), ModuleCacheConstants.ListingsAddress, lAddress);
 		
 		//Verification of DB
 		Listings listingObject = getEnvironment().getListingById(Integer.parseInt(lListingId));
@@ -216,6 +215,8 @@ public class PPListingPageTest extends PageTest{
 		assertTrue(easyImportListingPage.isListGeneratedSuccessfully(), "List is not generated successfully..");
 		assertTrue(easyImportListingPage.clicOnSelectAllButton(), "Unable to click on Select All button..");
 		assertTrue(easyImportListingPage.clickOnImportListingButton(), "Unable to click on Import Listing button..");
+		assertTrue(easyImportListingPage.isLoaderDisappeared(), "Ajax loader is strill visible..");
+		assertTrue(easyImportListingPage.isImportedSuccessfully(), "MLS listing is not imported successfully..");
 		
 		//Performing these steps to get Listing id
 		GetMaximumListingExposureModal maximumListing = new GetMaximumListingExposureModal(driver);
@@ -225,7 +226,7 @@ public class PPListingPageTest extends PageTest{
 		String lListingId = driver.getCurrentUrl().split("lsid=")[1];
 		
 		//To get listing address from the title. To compose non-idx listing URL
-		String listing_url_idx = EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url")+"idx/listings/cws/1098/"+lMLS;
+		String listing_url_idx = EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url")+"/idx/listings/cws/1098/"+lMLS;
 		driver.navigate().to(listing_url_idx);
 		
 		PropertyListingPage propertyListingPage = new PropertyListingPage(driver);

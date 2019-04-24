@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.forms.pp.PPPromoteAListingForm;
+import resources.forms.pp.PPUploadImagesForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.ValueMapper;
@@ -20,6 +22,8 @@ import resources.utility.ValueMapper;
  *
  */
 public class PPSocialPage extends Page{
+	PPUploadImagesForm ppUploadImagesForm;
+	PPPromoteAListingForm ppPromoteListingForm;
 	
 	String social_heading_xpath = "//h1[@class='z57-theme-page-topic' and text()='Social Posting ']";
 	
@@ -117,8 +121,27 @@ public class PPSocialPage extends Page{
 	
 	public PPSocialPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		setPpUploadImagesForm();
+		setPpPromoteListingForm();
 		PageFactory.initElements(driver, this);
 	}
+	
+	public PPPromoteAListingForm getPpPromoteListingForm() {
+		return ppPromoteListingForm;
+	}
+
+	public void setPpPromoteListingForm() {
+		this.ppPromoteListingForm = new PPPromoteAListingForm(driver);
+	}
+
+	public PPUploadImagesForm getPpUploadImagesForm() {
+		return ppUploadImagesForm;
+	}
+
+	public void setPpUploadImagesForm() {
+		this.ppUploadImagesForm = new PPUploadImagesForm(driver);
+	}
+
 	public boolean isSocialPage() {
 		return ActionHelper.waitForElementToBeLocated(driver, social_heading_xpath, 30);
 	}

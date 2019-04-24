@@ -1,6 +1,7 @@
 package com.z57.site.v2;
 
 import java.util.List;
+import java.util.Random;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -29,6 +30,12 @@ public class WhatsNearbyPage extends Page{
 	
 	@FindBy(xpath="//a[@class='paginate_button previous' and @id='z57_poi_table_previous']")
 	WebElement previous_button;
+	
+	@FindBy(xpath="//div[@id='z57_poi_table_paginate']/descendant::a[@data-dt-idx='1']")
+	WebElement pageNumberOne;
+	
+	@FindBy(xpath="//div[@id='z57_poi_table_paginate']/descendant::a[@class='paginate_button current']")
+	WebElement currentPageNumber;
 	
 	String list_of_point_of_intrest="//table[@id='z57_poi_table']/descendant::tbody/tr";
 	String pin_popup_info_table ="//table[@class='table table-condensed table-striped']/descendant::tbody/tr";
@@ -78,37 +85,70 @@ public class WhatsNearbyPage extends Page{
 	}
 	
 	public boolean verifyPagination() {
+		boolean flag = false;
 		boolean forwardPagination=false,backwardsPagination=false;
 		String lCurrent_text = table_entries_info.getText();
 		String lPrevious_Text = table_entries_info.getText();
 		String total_count = lCurrent_text.split("of ")[1].split(" ")[0];
 		int total_page_count = (Integer.parseInt(total_count))/10;
-	
-		for(int counter=1;counter<=total_page_count;counter++) {
-			if(counter%2==0) {
-				clickOnPageNumber(list_of_pages_pagination, String.valueOf(counter));
+		AutomationLogger.info("Checking if pages exists");
+		if(ActionHelper.waitForElementToBeVisible(driver, pageNumberOne, 30)) {
+			if(total_page_count!=1) {
+				for(int counter=1;counter<=total_page_count;counter++) {
+//					if(counter%2==0) {
+//						if(counter==Integer.parseInt(ActionHelper.getText(driver, currentPageNumber))) {
+//							counter++;
+//							clickOnPageNumber(list_of_pages_pagination, String.valueOf(counter));
+//						}
+//					}else {
+//						clickOnNextButtonPage();
+//						counter++;
+//					}
+					if(!flag) {
+						Random randomGenerator = new Random();
+						int randomPage = randomGenerator.nextInt(total_page_count) + 1;
+						if(randomPage>5) {
+							randomPage = randomPage/5;
+						}
+						if(randomPage==1) {
+							randomPage++;
+						}
+						if(randomPage==total_page_count) {
+							randomPage--;
+						}
+						clickOnPageNumber(list_of_pages_pagination, String.valueOf(randomPage));
+						counter = randomPage;
+						flag = true;
+					}else {
+						clickOnNextButtonPage();
+					}
+					lPrevious_Text =lCurrent_text;
+					lCurrent_text = table_entries_info.getText();
+
+					forwardPagination = !lPrevious_Text.equalsIgnoreCase(lCurrent_text);
+					if(!forwardPagination) {
+						break;
+					}
+				}
+
+				while(ActionHelper.isElementVisible(driver, previous_button)) {
+					ActionHelper.Click(driver, previous_button);
+					lPrevious_Text =lCurrent_text;
+					lCurrent_text = table_entries_info.getText();
+					backwardsPagination=lCurrent_text.equalsIgnoreCase(lPrevious_Text)?false:true;
+					if(!backwardsPagination) {
+						break;
+					}
+				}
 			}else {
-				clickOnNextButtonPage();
+				AutomationLogger.info("Only one page exists");
+				forwardPagination=true;
+				backwardsPagination=true;
 			}
-			lPrevious_Text =lCurrent_text;
-			lCurrent_text = table_entries_info.getText();
-			
-			forwardPagination = !lPrevious_Text.equalsIgnoreCase(lCurrent_text);
-			if(!forwardPagination) {
-				break;
-			}
+		}else {
+			AutomationLogger.error("Pagination is not visible");
 		}
-		
-		while(ActionHelper.isElementVisible(driver, previous_button)) {
-			ActionHelper.Click(driver, previous_button);
-			lPrevious_Text =lCurrent_text;
-			lCurrent_text = table_entries_info.getText();
-			backwardsPagination=lCurrent_text.equalsIgnoreCase(lPrevious_Text)?false:true;
-			if(!backwardsPagination) {
-				break;
-			}
-		}
-		
+
 		return (forwardPagination && backwardsPagination);
 	}
 	

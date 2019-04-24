@@ -3,23 +3,18 @@
         <listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
-   
-    <test name="Create an Ad for Listing on PP">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
+  
+    <test name="Post Image on Facebook now">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-image.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
       	<include name="testPPLogin" />
       </methods>
       </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
       <methods>
-      	<include name="testAddListingForAd" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
-      <methods>
-      <include name="testCreateAnAd" />
+      	<include name="testPostAStatusToFacebook" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">

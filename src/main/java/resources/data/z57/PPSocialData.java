@@ -34,6 +34,17 @@ public class PPSocialData extends JSONData<PPSocialData>{
 	
 	@JsonProperty("repeat_days")
 	String repeatDays;
+	
+	@JsonProperty("promote_listing")
+	String promoteListing;
+
+	public String getPromoteListing() {
+		return promoteListing;
+	}
+
+	public void setPromoteListing(String promoteListing) {
+		this.promoteListing = promoteListing;
+	}
 
 	public String getStatus() {
 		return status;

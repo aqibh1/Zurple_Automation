@@ -49,6 +49,10 @@ public class PPUploadImagesForm extends AbstractForm{
 		
 		return ActionHelper.waitForElementToBeDisappeared(driver, addFilesButton);
 	}
+	
+	public void uploadFacebookImage(String pPath) throws AWTException {
+		uploadImageFile(pPath);
+	}
 
 	private void uploadImageFile(String path)
 			throws AWTException
