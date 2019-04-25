@@ -3,25 +3,18 @@ package com.z57.site.v2;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.SkipException;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
-import resources.ParametersFactory;
 import resources.blocks.z57.Pagination;
 import resources.classes.SearchResult;
 import resources.data.z57.EmailListingFormData;
+import resources.data.z57.SaveSearchFormData;
 import resources.data.z57.SearchFormData;
 import resources.utility.FrameworkConstants;
 
@@ -286,8 +279,8 @@ public class HomeSearchPageTest extends PageTest{
 	}
 	
 	@Test
-	@Parameters({"dataFile","dataFile2"})
-	public void testEmailSearch(String pDataFile1, String pDataFile2) {
+	@Parameters({"dataFile","dataFile2","changeEmail"})
+	public void testEmailSearch(String pDataFile1, String pDataFile2, Boolean changeEmail) {
 		getPage("/idx");
 		
 		searchFormData = new SearchFormData(pDataFile1).getSearchFormData();
@@ -309,19 +302,29 @@ public class HomeSearchPageTest extends PageTest{
 		
 		searchHomes();
 		
-		assertTrue(page.clickOnEmailSeaarchButton(), "Unable to click on email search button");
+		assertTrue(page.clickOnEmailSearchButton(), "Unable to click on email search button");
 		
 		assertTrue(page.getEmailSearchForm().isEmailSearchModalVisible(),"Email Listing Modal is not visible");		
 
+		String lSenderEmail = lLeadEmail;
+
 		if(isLeadLoggedIn) { 
 			//Verify the name of the lead is in respective fields 
-			lLeadEmail = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
+			lSenderEmail = lLeadEmail = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
 			assertTrue(page.getEmailSearchForm().getLeadName().isEmpty(), "Lead is logged in but No Name in Email Listing form" );
 			assertTrue(page.getEmailSearchForm().getLeadEmail().isEmpty(), "Lead is logged in but No Name in Email Listing form" );
 
 		}else {
+
 			assertTrue(page.getEmailSearchForm().typeLeadName(lLeadName),"Unable to type name in Lead Name field");
-			assertTrue(page.getEmailSearchForm().typeEmailAddress(lLeadEmail),"Unable to type email in Lead email field"); 
+
+			//#5895
+            if ( changeEmail )
+            {
+                lSenderEmail = "changed_"+lLeadEmail;
+            }
+
+            assertTrue(page.getEmailSearchForm().typeEmailAddress(lSenderEmail),"Unable to type email in Lead email field");
 			if(!lLeadPhone.isEmpty()) {
 				assertTrue(page.getEmailSearchForm().typePhoneNumber(lLeadPhone),"Unable to type phone in Lead phone number field"); 
 			} 
@@ -344,12 +347,22 @@ public class HomeSearchPageTest extends PageTest{
 
 		// Verifies the email has been sent on respective email addresses.
 		if(!isLeadLoggedIn) {
-		assertTrue(dbHelper.verifyEmailIsSent(lLeadEmail, FrameworkConstants.CheckOutThisPropertySearch),"Unable to sent email to Lead");
-		//TODO
-		//Add check for welcome email
-		}
-		assertTrue(dbHelper.verifyEmailIsSent(lR1Email, FrameworkConstants.CheckOutThisPropertySearch),"Unable to sent email to Recipient1");
-		assertTrue(dbHelper.verifyEmailIsSent(lR2Email, FrameworkConstants.CheckOutThisPropertySearch),"Unable to sent email to Recipient2");
+			//TODO
+			//Add check for welcome email
+            assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Sender");
+        }
+
+		assertTrue(dbHelper.verifyEmailIsSent(lR1Email, FrameworkConstants.CheckOutThisPropertySearch),"Unable to sent 'Checkout Property' email to Recipient1");
+		assertTrue(dbHelper.verifyEmailIsSent(lR2Email, FrameworkConstants.CheckOutThisPropertySearch),"Unable to sent 'Checkout Property' email to Recipient2");
+
+        //#5895
+        assertTrue(dbHelper.verifyEmailIsSentToLead(lR1Email, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Recipient1");
+        assertTrue(dbHelper.verifyEmailIsSentToLead(lR2Email, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Recipient2");
+
+        if ( !lSenderEmail.equals(lLeadEmail) )
+        {
+            assertTrue(dbHelper.verifyEmailIsSentToLead(lSenderEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Changed Sender");
+        }
 
 		String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
 
@@ -362,6 +375,59 @@ public class HomeSearchPageTest extends PageTest{
 
 		
 	}
+
+
+    @Test
+    @Parameters({"dataFile","dataFile2"})
+    public void testSaveSearch(String pDataFile1, String pDataFile2) {
+        getPage("/idx");
+
+        searchFormData = new SearchFormData(pDataFile1).getSearchFormData();
+        SaveSearchFormData saveListingFormData = new SaveSearchFormData(pDataFile2).getEmailListingData();
+
+        String lLeadName = updateName(saveListingFormData.getLeadName());
+        String lLeadEmail = updateEmail(saveListingFormData.getLeadEmail());
+        String lLeadPhone = saveListingFormData.getLeadPhoneNumber();
+
+        assertTrue(page.isHomeSearchPage(), "Home Search page is not visible");
+
+        PageHeader pageHeader = new PageHeader(driver);
+
+        boolean isLeadLoggedIn=pageHeader.isLeadLoggedIn();
+
+        searchHomes();
+
+        assertTrue(page.clickOnSaveSearchButton(), "Unable to click on save search button");
+
+        assertTrue(page.getSaveSearchForm().isSaveSearchModalVisible(),"Save search Modal is not visible");
+
+        if(isLeadLoggedIn) {
+            //Verify the name of the lead is in respective fields
+            lLeadEmail = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
+            assertTrue(page.getSaveSearchForm().getLeadName().isEmpty(), "Lead is logged in but No Name in Save search form" );
+            assertTrue(page.getSaveSearchForm().getLeadEmail().isEmpty(), "Lead is logged in but No Name in Save search form" );
+
+        }else {
+            assertTrue(page.getSaveSearchForm().typeLeadName(lLeadName),"Unable to type name in Save search field");
+            assertTrue(page.getSaveSearchForm().typeEmailAddress(lLeadEmail),"Unable to type email in Save search field");
+            if(!lLeadPhone.isEmpty()) {
+                assertTrue(page.getSaveSearchForm().typePhoneNumber(lLeadPhone),"Unable to type phone in Lead phone number field");
+            }
+        }
+
+		String lSearchTitle = page.getSaveSearchForm().getTitle();
+
+		assertTrue(page.getSaveSearchForm().clickOnSaveButton(),"Unable to click on Save button");
+		assertTrue(page.getSaveSearchForm().isSearchSaved(),"No expected message is shown");
+
+		DBHelperMethods dbHelper = new DBHelperMethods(getEnvironment());
+
+        assertTrue(dbHelper.verifyLeadByEmailInDB(lLeadEmail), "User is not added as Lead in PP ->" + lLeadEmail);
+
+		assertTrue(dbHelper.verifySearchIsSaved(lLeadEmail, lSearchTitle),"Unable to save search");
+
+    }
+
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyPaginationOnHomeSearch(String pDataFile) {

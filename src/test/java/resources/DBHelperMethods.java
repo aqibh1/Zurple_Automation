@@ -7,11 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.testng.Reporter;
 
 import resources.orm.hibernate.models.AbstractLead;
-import resources.orm.hibernate.models.z57.Lead;
-import resources.orm.hibernate.models.z57.ListingImages;
-import resources.orm.hibernate.models.z57.NotificationEmails;
-import resources.orm.hibernate.models.z57.NotificationMailgun;
-import resources.orm.hibernate.models.z57.Notifications;
+import resources.orm.hibernate.models.z57.*;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
@@ -56,18 +52,55 @@ public class DBHelperMethods {
 
 		}
 	}
-	
-	public boolean verifyEmailIsSent(String pAgentEmail, String pEmailSubjectToVerify) {
-		boolean status=false;
-		Integer notificationId=getNotificationId(pAgentEmail);
-		if(notificationId>0) {
-			Notifications notificationsObj = getNotifications(notificationId);
-			status=notificationsObj.getEmail_subject().equalsIgnoreCase(pEmailSubjectToVerify)?true:false;
-			
+
+	public List<Integer> getNotificationsList(String pEmail) {
+
+		List<Integer> notificationIdList = new ArrayList<>();
+
+		try {
+			AutomationLogger.info("Getting Notification ID from DB for the email -> "+pEmail);
+			List<NotificationEmails> not_email_obj_list = testEnvironment.getNotificationEmailsObjectsList(pEmail);
+
+			for (NotificationEmails not_email_obj: not_email_obj_list) {
+				System.out.println(not_email_obj.getNotificationId());
+				AutomationLogger.info("Notification ID from DB for the email -> "+pEmail+" is"+not_email_obj.getNotificationId());
+				notificationIdList.add(not_email_obj.getNotificationId());
+			}
+		}catch(Exception ex) {
+			AutomationLogger.error("Notification ID from DB not found for the email -> "+pEmail);
+			AutomationLogger.error(ex.toString());
 		}
-		return status;
+
+		return notificationIdList;
 	}
 	
+	public boolean verifyEmailIsSent(String pAgentEmail, String pEmailSubjectToVerify) {
+
+		List<Integer> notificationsList=getNotificationsList(pAgentEmail);
+		for (Integer notificationId: notificationsList) {
+			Notifications notificationsObj = getNotifications(notificationId);
+			if ( notificationsObj.getEmail_subject().equalsIgnoreCase(pEmailSubjectToVerify) )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean verifySearchIsSaved(String pLeadEmail, String pSearchTitle) {
+		try {
+			AutomationLogger.info("Lead ID: "+pLeadEmail);
+			AbstractLead lead = testEnvironment.getLeadObject(pLeadEmail);
+			IdxLeadSearches idx_lead_search = testEnvironment.getIdxLeadSavedSearch(lead.getId(), pSearchTitle);
+			return pSearchTitle.equalsIgnoreCase(idx_lead_search.getTitle());
+		}
+		catch(NullPointerException ex) {
+
+			AutomationLogger.error("Saved Search Object is null for Lead ID: "+pLeadEmail+" Title:"+pSearchTitle);
+			return false;
+		}
+	}
+
 	public boolean verifyLeadInDB(String pEmailToVeirfy,Integer pLeadId) {
 		//Checking created lead source
 		//Checking DB record body

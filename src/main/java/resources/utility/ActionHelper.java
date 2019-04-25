@@ -115,6 +115,14 @@ public class ActionHelper {
 		   }
 		   return ltext;
 	   }
+
+	   public static String getValue(WebDriver pWebDriver,WebElement pElement) {
+		   String ltext="";
+		   if(isElementVisible(pWebDriver, pElement)) {
+			   ltext=pElement.getAttribute("value");
+		   }
+		   return ltext;
+	   }
 	   public static String getTextByValue(WebDriver pWebDriver,WebElement pElement) {
 		   String ltext="";
 		   if(isElementVisible(pWebDriver, pElement)) {

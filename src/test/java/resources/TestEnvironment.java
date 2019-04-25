@@ -7,11 +7,7 @@ import resources.orm.hibernate.dao.zurple.*;
 import resources.orm.hibernate.dao.z57.*;
 import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.models.AbstractLead;
-import resources.orm.hibernate.models.z57.ListingImages;
-import resources.orm.hibernate.models.z57.Listings;
-import resources.orm.hibernate.models.z57.NotificationEmails;
-import resources.orm.hibernate.models.z57.NotificationMailgun;
-import resources.orm.hibernate.models.z57.Notifications;
+import resources.orm.hibernate.models.z57.*;
 import resources.orm.hibernate.models.zurple.*;
 
 public class TestEnvironment
@@ -297,7 +293,35 @@ public class TestEnvironment
         	return null;
         }
     }
-    
+
+    //////////////////
+    public List<NotificationEmails> getNotificationEmailsObjectsList(String pEmail)
+    {
+        String project = System.getProperty("project");
+
+        if (project.equals("z57"))
+        {
+        	ManageNotificationEmails notification_emails_object = new ManageNotificationEmails(getSession());
+            return notification_emails_object.getNotificationIdList(pEmail,10);
+        }else {
+        	return null;
+        }
+    }
+
+    //////////////////
+    public IdxLeadSearches getIdxLeadSavedSearch(Integer pLeadId, String pTitle)
+    {
+        String project = System.getProperty("project");
+
+        if (project.equals("z57"))
+        {
+        	ManageIdxLeadSearches idx_lead_searches_object = new ManageIdxLeadSearches(getSession());
+            return idx_lead_searches_object.getIdxLeadSearcheByTitle(pLeadId, pTitle);
+        }else {
+        	return null;
+        }
+    }
+
     public NotificationMailgun getNotificationMailgunObject(Integer pNotificationId)
     {
         String project = System.getProperty("project");
