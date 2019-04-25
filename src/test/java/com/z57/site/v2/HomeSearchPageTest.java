@@ -3,25 +3,18 @@ package com.z57.site.v2;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.SkipException;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
-import resources.ParametersFactory;
 import resources.blocks.z57.Pagination;
 import resources.classes.SearchResult;
 import resources.data.z57.EmailListingFormData;
+import resources.data.z57.SaveSearchFormData;
 import resources.data.z57.SearchFormData;
 import resources.utility.FrameworkConstants;
 
@@ -309,7 +302,7 @@ public class HomeSearchPageTest extends PageTest{
 		
 		searchHomes();
 		
-		assertTrue(page.clickOnEmailSeaarchButton(), "Unable to click on email search button");
+		assertTrue(page.clickOnEmailSearchButton(), "Unable to click on email search button");
 		
 		assertTrue(page.getEmailSearchForm().isEmailSearchModalVisible(),"Email Listing Modal is not visible");		
 
@@ -361,6 +354,59 @@ public class HomeSearchPageTest extends PageTest{
 
 		
 	}
+
+
+    @Test
+    @Parameters({"dataFile","dataFile2"})
+    public void testSaveSearch(String pDataFile1, String pDataFile2) {
+        getPage("/idx");
+
+        searchFormData = new SearchFormData(pDataFile1).getSearchFormData();
+        SaveSearchFormData saveListingFormData = new SaveSearchFormData(pDataFile2).getEmailListingData();
+
+        String lLeadName = updateName(saveListingFormData.getLeadName());
+        String lLeadEmail = updateEmail(saveListingFormData.getLeadEmail());
+        String lLeadPhone = saveListingFormData.getLeadPhoneNumber();
+
+        assertTrue(page.isHomeSearchPage(), "Home Search page is not visible");
+
+        PageHeader pageHeader = new PageHeader(driver);
+
+        boolean isLeadLoggedIn=pageHeader.isLeadLoggedIn();
+
+        searchHomes();
+
+        assertTrue(page.clickOnSaveSearchButton(), "Unable to click on save search button");
+
+        assertTrue(page.getSaveSearchForm().isSaveSearchModalVisible(),"Save search Modal is not visible");
+
+        if(isLeadLoggedIn) {
+            //Verify the name of the lead is in respective fields
+            lLeadEmail = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
+            assertTrue(page.getSaveSearchForm().getLeadName().isEmpty(), "Lead is logged in but No Name in Save search form" );
+            assertTrue(page.getSaveSearchForm().getLeadEmail().isEmpty(), "Lead is logged in but No Name in Save search form" );
+
+        }else {
+            assertTrue(page.getSaveSearchForm().typeLeadName(lLeadName),"Unable to type name in Save search field");
+            assertTrue(page.getSaveSearchForm().typeEmailAddress(lLeadEmail),"Unable to type email in Save search field");
+            if(!lLeadPhone.isEmpty()) {
+                assertTrue(page.getSaveSearchForm().typePhoneNumber(lLeadPhone),"Unable to type phone in Lead phone number field");
+            }
+        }
+
+		String lSearchTitle = page.getSaveSearchForm().getTitle();
+
+		assertTrue(page.getSaveSearchForm().clickOnSaveButton(),"Unable to click on Save button");
+		assertTrue(page.getSaveSearchForm().isSearchSaved(),"No expected message is shown");
+
+		DBHelperMethods dbHelper = new DBHelperMethods(getEnvironment());
+
+        assertTrue(dbHelper.verifyLeadByEmailInDB(lLeadEmail), "User is not added as Lead in PP ->" + lLeadEmail);
+
+		assertTrue(dbHelper.verifySearchIsSaved(lLeadEmail, lSearchTitle),"Unable to save search");
+
+    }
+
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyPaginationOnHomeSearch(String pDataFile) {

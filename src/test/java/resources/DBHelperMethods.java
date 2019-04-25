@@ -7,11 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.testng.Reporter;
 
 import resources.orm.hibernate.models.AbstractLead;
-import resources.orm.hibernate.models.z57.Lead;
-import resources.orm.hibernate.models.z57.ListingImages;
-import resources.orm.hibernate.models.z57.NotificationEmails;
-import resources.orm.hibernate.models.z57.NotificationMailgun;
-import resources.orm.hibernate.models.z57.Notifications;
+import resources.orm.hibernate.models.z57.*;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
@@ -67,7 +63,21 @@ public class DBHelperMethods {
 		}
 		return status;
 	}
-	
+
+	public boolean verifySearchIsSaved(String pLeadEmail, String pSearchTitle) {
+		try {
+			AutomationLogger.info("Lead ID: "+pLeadEmail);
+			AbstractLead lead = testEnvironment.getLeadObject(pLeadEmail);
+			IdxLeadSearches idx_lead_search = testEnvironment.getIdxLeadSavedSearch(lead.getId(), pSearchTitle);
+			return pSearchTitle.equalsIgnoreCase(idx_lead_search.getTitle());
+		}
+		catch(NullPointerException ex) {
+
+			AutomationLogger.error("Saved Search Object is null for Lead ID: "+pLeadEmail+" Title:"+pSearchTitle);
+			return false;
+		}
+	}
+
 	public boolean verifyLeadInDB(String pEmailToVeirfy,Integer pLeadId) {
 		//Checking created lead source
 		//Checking DB record body
