@@ -52,16 +52,39 @@ public class DBHelperMethods {
 
 		}
 	}
+
+	public List<Integer> getNotificationsList(String pEmail) {
+
+		List<Integer> notificationIdList = new ArrayList<>();
+
+		try {
+			AutomationLogger.info("Getting Notification ID from DB for the email -> "+pEmail);
+			List<NotificationEmails> not_email_obj_list = testEnvironment.getNotificationEmailsObjectsList(pEmail);
+
+			for (NotificationEmails not_email_obj: not_email_obj_list) {
+				System.out.println(not_email_obj.getNotificationId());
+				AutomationLogger.info("Notification ID from DB for the email -> "+pEmail+" is"+not_email_obj.getNotificationId());
+				notificationIdList.add(not_email_obj.getNotificationId());
+			}
+		}catch(Exception ex) {
+			AutomationLogger.error("Notification ID from DB not found for the email -> "+pEmail);
+			AutomationLogger.error(ex.toString());
+		}
+
+		return notificationIdList;
+	}
 	
 	public boolean verifyEmailIsSent(String pAgentEmail, String pEmailSubjectToVerify) {
-		boolean status=false;
-		Integer notificationId=getNotificationId(pAgentEmail);
-		if(notificationId>0) {
+
+		List<Integer> notificationsList=getNotificationsList(pAgentEmail);
+		for (Integer notificationId: notificationsList) {
 			Notifications notificationsObj = getNotifications(notificationId);
-			status=notificationsObj.getEmail_subject().equalsIgnoreCase(pEmailSubjectToVerify)?true:false;
-			
+			if ( notificationsObj.getEmail_subject().equalsIgnoreCase(pEmailSubjectToVerify) )
+			{
+				return true;
+			}
 		}
-		return status;
+		return false;
 	}
 
 	public boolean verifySearchIsSaved(String pLeadEmail, String pSearchTitle) {

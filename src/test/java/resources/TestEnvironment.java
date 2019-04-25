@@ -295,6 +295,20 @@ public class TestEnvironment
     }
 
     //////////////////
+    public List<NotificationEmails> getNotificationEmailsObjectsList(String pEmail)
+    {
+        String project = System.getProperty("project");
+
+        if (project.equals("z57"))
+        {
+        	ManageNotificationEmails notification_emails_object = new ManageNotificationEmails(getSession());
+            return notification_emails_object.getNotificationIdList(pEmail,10);
+        }else {
+        	return null;
+        }
+    }
+
+    //////////////////
     public IdxLeadSearches getIdxLeadSavedSearch(Integer pLeadId, String pTitle)
     {
         String project = System.getProperty("project");
