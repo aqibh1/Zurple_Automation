@@ -81,6 +81,7 @@ public class PPSocialPageTest extends PageTest{
 		String lEndingDate=socialData.getEndDate();
 		String lRepeatOnDays=socialData.getRepeatDays();
 		String lPromoteListing = socialData.getPromoteListing();
+		String lLinkToProperty = socialData.getPropertyLink();
 		
 		
 		getPage("/content/marketing/social");
@@ -109,6 +110,12 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.getPpPromoteListingForm().isSelectButtonDisappeared(), "Select button is not disappeared...");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			lStatus = lStatus.split("details! ")[0]+"details!";
+		}
+		
+		if(lLinkToProperty!=null && !lLinkToProperty.isEmpty()) {
+			assertTrue(page.clickOnLinkToURL(), "Unable to click Link to URL tab button....");
+			assertTrue(page.setLinkToURL(lLinkToProperty),"Unable to set link in link field..");
+			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 		}
 		
 		assertTrue(page.selectFacebookPage(lFacebookPage), "Unable to select Facebook page from drop down ..");

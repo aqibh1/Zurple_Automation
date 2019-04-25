@@ -38,6 +38,18 @@ public class PPSocialData extends JSONData<PPSocialData>{
 	@JsonProperty("promote_listing")
 	String promoteListing;
 
+	@JsonProperty("property_link")
+	String propertyLink;
+	
+	
+	public String getPropertyLink() {
+		return propertyLink;
+	}
+
+	public void setPropertyLink(String propertyLink) {
+		this.propertyLink = propertyLink;
+	}
+
 	public String getPromoteListing() {
 		return promoteListing;
 	}

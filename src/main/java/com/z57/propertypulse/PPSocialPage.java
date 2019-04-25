@@ -329,10 +329,11 @@ public class PPSocialPage extends Page{
 					date_verified = false;
 					time_verified = false;
 				}
-				counter++;
+				
 			}
 		}catch(Exception ex) {
 			if(counter<3) {
+				counter++;
 				isPostSuccessful(pElement,pPostTitle, pPlatformImage, pDate, pTime);
 			}
 		}
