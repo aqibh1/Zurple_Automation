@@ -279,7 +279,7 @@ public class PPSocialPage extends Page{
 		ActionHelper.waitForElementsToBeFound(driver, pElement);
 		List<WebElement> list_of_rows = ActionHelper.getListOfElementByXpath(driver, pElement);
 		AutomationLogger.info("Size of element list "+list_of_rows.size());
-		int counter = 0;
+		
 		try {
 			for(WebElement element: list_of_rows) {
 				List<WebElement> list_of_div = element.findElements(By.tagName("div"));
@@ -332,10 +332,12 @@ public class PPSocialPage extends Page{
 				
 			}
 		}catch(Exception ex) {
-			if(counter<3) {
-				counter++;
-				isPostSuccessful(pElement,pPostTitle, pPlatformImage, pDate, pTime);
-			}
+//			if(counter<3) {
+//				counter++;
+//				isPostSuccessful(pElement,pPostTitle, pPlatformImage, pDate, pTime);
+//			}
+			AutomationLogger.error("Unable to verify post..");
+			result = false;
 		}
 		
 		return result;
@@ -358,7 +360,7 @@ public class PPSocialPage extends Page{
 		ActionHelper.waitForElementsToBeFound(driver, pElement);
 		List<WebElement> list_of_rows = ActionHelper.getListOfElementByXpath(driver, pElement);
 		AutomationLogger.info("Size of element list "+list_of_rows.size());
-		int counter = 0;
+		
 		try {
 			for(WebElement element: list_of_rows) {
 				List<WebElement> list_of_div = element.findElements(By.tagName("div"));
@@ -423,7 +425,6 @@ public class PPSocialPage extends Page{
 					date_verified = false;
 					time_verified = false;
 				}
-				counter++;
 			}
 		}catch(Exception ex) {
 			AutomationLogger.error("Unable to verify recurring post..");
