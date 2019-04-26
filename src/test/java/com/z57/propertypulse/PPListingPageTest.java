@@ -163,6 +163,7 @@ public class PPListingPageTest extends PageTest{
 		getPage("/listings");
 		
 		ModuleCommonCache.setModuleCommonCache(ModuleCacheConstants.ListingsAddress, lAddress);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.ListingsAddress, lAddress);
 		
 		assertTrue(page.isListingPage(), "Listing Page is not visible");
 		assertTrue(page.clickOnManualEntry(), "Unable to click on Manual Entry button");
