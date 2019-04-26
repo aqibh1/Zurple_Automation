@@ -348,8 +348,8 @@ public class PropertyListingPageTest extends PageTest {
 		//Verifies Agent has received a email with subject 'You have a new lead'
 		if(!isLeadLoggedIn) {
 			assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a new lead' to Agent for ->" + lLeadEmail);
-			//TODO
 			//Verify welcome email is sent to Lead
+            assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Sender");
 		}	
 		//Verifies Agent has received the email with subject 'Inquired about Listing'
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email,lLeadEmail,lLeadName+" "+FrameworkConstants.InquiredAboutListing),"Unable to sent email [Information is on the Way] to Agent");
