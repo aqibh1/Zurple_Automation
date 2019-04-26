@@ -197,9 +197,9 @@ public class PropertyListingPageTest extends PageTest {
 			throw new SkipException("No property found on search criteria.");
 		}
 	}
-	@Parameters({ "dataFile" })
+	@Parameters({ "dataFile","changeEmail" })
 	@Test
-	public void testEmailListing(String pFileName) {
+	public void testEmailListing(String pFileName, Boolean changeEmail) {
 		//Initiliazing data 
 		EmailListingFormData emailListingFormData = new EmailListingFormData(pFileName).getEmailListingData();
 		
@@ -221,17 +221,26 @@ public class PropertyListingPageTest extends PageTest {
 		boolean isLeadLoggedIn=pageHeader.isLeadLoggedIn();
 		
 		assertTrue(page.clickOnEmailListing(),"Unable to click on Email Listing button");
-		assertTrue(page.getEmailListingForm().isListingEmailModalVisible(),"Email Listing Modal is not visible");		
+		assertTrue(page.getEmailListingForm().isListingEmailModalVisible(),"Email Listing Modal is not visible");
+
+		String lSenderEmail = lLeadEmail;
 
 		if(isLeadLoggedIn) { 
 			//Verify the name of the lead is in respective fields 
-			lLeadEmail = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
+			lSenderEmail = lLeadEmail = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
 			assertTrue(page.getEmailListingForm().getLeadName().isEmpty(), "Lead is logged in but No Name in Email Listing form" );
 			assertTrue(page.getEmailListingForm().getLeadEmail().isEmpty(), "Lead is logged in but No Name in Email Listing form" );
 
 		}else {
 			assertTrue(page.getEmailListingForm().typeLeadName(lLeadName),"Unable to type name in Lead Name field");
-			assertTrue(page.getEmailListingForm().typeEmailAddress(lLeadEmail),"Unable to type email in Lead email field"); 
+
+			//#5895
+			if ( changeEmail )
+			{
+				lSenderEmail = "changed_"+lLeadEmail;
+			}
+
+			assertTrue(page.getEmailListingForm().typeEmailAddress(lSenderEmail),"Unable to type email in Lead email field");
 			if(!lLeadPhone.isEmpty()) {
 				assertTrue(page.getEmailListingForm().typePhoneNumber(lLeadPhone),"Unable to type phone in Lead phone number field"); 
 			} 
@@ -254,10 +263,19 @@ public class PropertyListingPageTest extends PageTest {
 
 		// Verifies the email has been sent on respective email addresses.
 		if(!isLeadLoggedIn) {
-		assertTrue(dbHelper.verifyEmailIsSent(lLeadEmail, FrameworkConstants.CheckoutThisListing),"Unable to sent email to Lead");
+			assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Sender");
 		}
 		assertTrue(dbHelper.verifyEmailIsSent(lR1Email, FrameworkConstants.CheckoutThisListing),"Unable to sent email to Recipient1");
 		assertTrue(dbHelper.verifyEmailIsSent(lR2Email, FrameworkConstants.CheckoutThisListing),"Unable to sent email to Recipient2");
+
+		//#5895
+		assertTrue(dbHelper.verifyEmailIsSentToLead(lR1Email, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Recipient1");
+		assertTrue(dbHelper.verifyEmailIsSentToLead(lR2Email, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Recipient2");
+
+		if ( !lSenderEmail.equals(lLeadEmail) )
+		{
+			assertTrue(dbHelper.verifyEmailIsSentToLead(lSenderEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Changed Sender");
+		}
 
 		String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
 
@@ -330,8 +348,8 @@ public class PropertyListingPageTest extends PageTest {
 		//Verifies Agent has received a email with subject 'You have a new lead'
 		if(!isLeadLoggedIn) {
 			assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a new lead' to Agent for ->" + lLeadEmail);
-			//TODO
 			//Verify welcome email is sent to Lead
+            assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Sender");
 		}	
 		//Verifies Agent has received the email with subject 'Inquired about Listing'
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email,lLeadEmail,lLeadName+" "+FrameworkConstants.InquiredAboutListing),"Unable to sent email [Information is on the Way] to Agent");
@@ -399,8 +417,8 @@ public class PropertyListingPageTest extends PageTest {
 		//Verifies Agent has received a email with subject 'You have a new lead'
 		if(!isLeadLoggedIn) {
 			assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a new lead' to Agent for ->" + lLeadEmail);
-			//TODO
 			//Verify welcome email is sent to Lead
+            assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Sender");
 		}	
 		//Verifies Agent has received the email with subject 'Inquired about A Showing'
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email,lLeadEmail,lLeadName+" "+FrameworkConstants.InquiredAboutShowing),"Unable to sent email to Agent. Subject [Inquired About A Showing]");
