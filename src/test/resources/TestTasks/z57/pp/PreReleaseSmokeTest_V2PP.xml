@@ -130,35 +130,6 @@
     </parameter>
 	</test>
 	
-	 <test name="Promote a Listing on Facebook now">
- 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-promote-listing-data.json" >
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-social-promote-listing-data.json" >
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
-      <methods>
-      	<include name="testAddListing" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPSocialPageTest" >
-      <methods>
-      	<include name="testPostAStatusToFacebook" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-    </parameter>
-	</test>
-	
 	 <test name="Add Listing by MLS">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/mls-listing-data-01.json" >
 	<classes>
