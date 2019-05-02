@@ -8,151 +8,7 @@
     </listeners>
    
 	
-    <test name="Create an Ad for Listing on PP">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
-      <methods>
-      	<include name="testAddListingForAd" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
-      <methods>
-      <include name="testCreateAnAd" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
-	 <test name="Post status on Facebook now">
- 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-data-01.json" >
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPSocialPageTest" >
-      <methods>
-      	<include name="testPostAStatusToFacebook" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
-	 <test name="Post status on Facebook Later">
- 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-later-data-02.json" >
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPSocialPageTest" >
-      <methods>
-      	<include name="testPostAStatusToFacebook" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
-	 <test name="Post status on Facebook Recurring">
- 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-recurring-data-03.json" >
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPSocialPageTest" >
-      <methods>
-      	<include name="testPostAStatusToFacebook" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
-	 <test name="Post Image on Facebook now">
- 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-promote-listing-data.json" >
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-social-promote-listing-data.json" >
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
-      <methods>
-      	<include name="testAddListing" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPSocialPageTest" >
-      <methods>
-      	<include name="testPostAStatusToFacebook" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-    </parameter>
-	</test>
-	
-	 <test name="Add Listing by MLS">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/mls-listing-data-01.json" >
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
-      <methods>
-      	<include name="testAddListingByMLS" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
-	<test name="Home Seacrh Test 01" preserve-order="true">
+   	<test name="Home Seacrh Test 01" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
 	<classes>
       <class name="com.z57.site.v2.HomePageTest" >
@@ -970,4 +826,150 @@
      </classes>
      </parameter>
     </test>
+    
+     <test name="Create an Ad for Listing on PP">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPListingPageTest" >
+      <methods>
+      	<include name="testAddListingForAd" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateAnAd" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Post status on Facebook now">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-data-01.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostAStatusToFacebook" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Post status on Facebook Later">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-later-data-02.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostAStatusToFacebook" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Post status on Facebook Recurring">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-recurring-data-03.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostAStatusToFacebook" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Post Image on Facebook now">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-promote-listing-data.json" >
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-social-promote-listing-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPListingPageTest" >
+      <methods>
+      	<include name="testAddListing" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostAStatusToFacebook" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+    </parameter>
+	</test>
+	
+	 <test name="Add Listing by MLS">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/mls-listing-data-01.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPListingPageTest" >
+      <methods>
+      	<include name="testAddListingByMLS" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+    
 </suite>
