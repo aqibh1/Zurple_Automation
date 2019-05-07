@@ -292,7 +292,7 @@ public class HomeSearchPageTest extends PageTest{
 		String lR1Email = updateEmail(emailListingFormData.getRecipientOneEmail());
 		String lR2Name = updateName(emailListingFormData.getRecipientTwoName());
 		String lR2Email = updateEmail(emailListingFormData.getRecipientTwoEmail());
-		
+		String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
 		assertTrue(page.isHomeSearchPage(), "Home Search page is not visible");
 		
 		PageHeader pageHeader = new PageHeader(driver);
@@ -318,7 +318,7 @@ public class HomeSearchPageTest extends PageTest{
 			assertTrue(page.getEmailSearchForm().typeLeadName(lLeadName),"Unable to type name in Lead Name field");
 
 			//#5895
-            if ( changeEmail )
+            if ( changeEmail!=null && changeEmail )
             {
                 lSenderEmail = "changed_"+lLeadEmail;
             }
@@ -346,32 +346,27 @@ public class HomeSearchPageTest extends PageTest{
 
 		// Verifies the email has been sent on respective email addresses.
 		if(!isLeadLoggedIn) {
-			//TODO
-			//Add check for welcome email
+			//Verify 'Thanks For Connecting' email is sent to lead
             assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Sender");
-        }
+            //Verify 'You have a new lead' email is sent to Agent.
+            assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email to Agent for ->" + lLeadEmail);
+		}
 
 		assertTrue(dbHelper.verifyEmailIsSent(lR1Email, FrameworkConstants.CheckOutThisPropertySearch),"Unable to sent 'Checkout Property' email to Recipient1");
 		assertTrue(dbHelper.verifyEmailIsSent(lR2Email, FrameworkConstants.CheckOutThisPropertySearch),"Unable to sent 'Checkout Property' email to Recipient2");
 
         //#5895
-        assertTrue(dbHelper.verifyEmailIsSentToLead(lR1Email, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Recipient1");
-        assertTrue(dbHelper.verifyEmailIsSentToLead(lR2Email, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Recipient2");
+		//5671 Comment 23 commenting it out
+//        assertTrue(dbHelper.verifyEmailIsSentToLead(lR1Email, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Recipient1");
+//        assertTrue(dbHelper.verifyEmailIsSentToLead(lR2Email, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Recipient2");
 
         if ( !lSenderEmail.equals(lLeadEmail) )
         {
             assertTrue(dbHelper.verifyEmailIsSentToLead(lSenderEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Changed Sender");
         }
-
-		String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
-
-		// Verifies the agent have received the email for all the leads
-		if(!isLeadLoggedIn) {
-		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email to Agent for ->" + lLeadEmail);
-		}
+        //Verify 'You have a new lead' email is sent to Agent.
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR1Email),"Unable to sent email to Agent for ->" + lR1Email);
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR2Email),"Unable to sent email to Agent for ->" + lR2Email);
-
 		
 	}
 

@@ -204,8 +204,11 @@ public class PropertyListingPageTest extends PageTest {
 		String lR1Email = updateEmail(emailListingFormData.getRecipientOneEmail());
 		String lR2Name = updateName(emailListingFormData.getRecipientTwoName());
 		String lR2Email = updateEmail(emailListingFormData.getRecipientTwoEmail());
-
+		
 		getPage("/idx/listings/cws/1098/46062964/821-portsmouth-ct-ct-san-diego-san-diego-county-ca-92109");
+		
+		String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
+		
 		closeBootStrapModal();
 		
 		assertTrue(page.isPropertyTitleVisible(), "Property Title is not visible");
@@ -258,6 +261,8 @@ public class PropertyListingPageTest extends PageTest {
 		// Verifies the email has been sent on respective email addresses.
 		if(!isLeadLoggedIn) {
 			assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Sender");
+			assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a New lead' to Agent for ->" + lLeadEmail);
+
 		}
 		assertTrue(dbHelper.verifyEmailIsSent(lR1Email, FrameworkConstants.CheckoutThisListing),"Unable to sent email to Recipient1");
 		assertTrue(dbHelper.verifyEmailIsSent(lR2Email, FrameworkConstants.CheckoutThisListing),"Unable to sent email to Recipient2");
@@ -272,14 +277,6 @@ public class PropertyListingPageTest extends PageTest {
 			assertTrue(dbHelper.verifyEmailIsSentToLead(lSenderEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Changed Sender");
 		}
 
-		String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
-
-		// Verifies the agent have received the email for all the leads
-		if(!isLeadLoggedIn) {
-			assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a New lead' to Agent for ->" + lLeadEmail);
-			//TODO
-			//Verify welcome email is sent to Lead
-		}
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR1Email),"Unable to sent email 'You have a New lead' to Agent for ->" + lR1Email);
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR2Email),"Unable to sent email 'You have a New lead' to Agent for ->" + lR2Email);
 
