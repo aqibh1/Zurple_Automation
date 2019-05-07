@@ -9,6 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 
 public class PPHomePage extends Page{
 	
@@ -21,6 +23,8 @@ public class PPHomePage extends Page{
 	
 	@FindBy(xpath="//div[@id='member-nav']/descendant::a[@class='btn dropdown-toggle']")
 	WebElement settings_button;
+	
+	String setting_option = "//ul[@class='dropdown-menu']/descendant::a[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
 	public PPHomePage() {
 		// TODO Auto-generated constructor stub
@@ -42,6 +46,17 @@ public class PPHomePage extends Page{
 			isUserLoggedIn = true;
 		}
 		return isUserLoggedIn;
+	}
+	
+	public boolean goToSettingsOption(String pOption) {
+		boolean result = false;
+		AutomationLogger.info("Waiting for Settings button to be visible..");
+		boolean isSettingVisible = ActionHelper.waitForElementToBeVisible(driver, settings_button, 30);
+		if(isSettingVisible) {
+			ActionHelper.Click(driver, settings_button);
+			result = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, setting_option, pOption));
+		}
+		return result;
 	}
 
 }

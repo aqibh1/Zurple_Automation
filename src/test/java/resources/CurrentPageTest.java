@@ -6,6 +6,8 @@ import resources.utility.AutomationLogger;
 
 import static org.testng.Assert.assertTrue;
 
+import java.io.IOException;
+
 public class CurrentPageTest
         extends AbstractPageTest
 {
@@ -16,7 +18,7 @@ public class CurrentPageTest
     };
 
     @Test
-    public void closeBrowser(){
+    public void closeBrowser() throws IOException{
         Long thread_id = Thread.currentThread().getId();
         AutomationLogger.info("Thread ID "+thread_id);
         EnvironmentFactory.closeDriver(thread_id);

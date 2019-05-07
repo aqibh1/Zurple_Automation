@@ -3,12 +3,17 @@
  */
 package com.z57.propertypulse;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 /**
  * @author adar
@@ -42,6 +47,12 @@ public class PPCreateAdPage extends Page{
 	
 	@FindBy(xpath="//input[@type='checkbox' and @name='fb_test_ad']")
 	WebElement fbTestAd_checkbox;
+	
+	@FindBy(id="fb_ad_select_listing")
+	WebElement select_listing_dropdown;
+	
+	@FindBy(xpath="//a[text()='Place Ad' and @data-lsid='cma1']")
+	WebElement place_ad_button_1;
 	
 	public PPCreateAdPage() {
 		
@@ -97,6 +108,24 @@ public class PPCreateAdPage extends Page{
 	public boolean clickOnFBTestAdCheckBox() {
 		return ActionHelper.Click(driver, fbTestAd_checkbox);
 	}
-	
-
+	public boolean selectListingFromDropDown(String pListing) {
+		boolean isSuccessful=false;
+		List<WebElement> list_of_options = new ArrayList<WebElement>();
+		 if(ActionHelper.Click(driver, select_listing_dropdown)) {
+			 list_of_options = select_listing_dropdown.findElements(By.tagName("option"));
+			 for(WebElement element: list_of_options) {
+				 System.out.println(element.getText().trim());
+				 if(element.getText().trim().contains(pListing)) {
+					 isSuccessful = ActionHelper.Click(driver, element);
+					 ActionHelper.Click(driver,select_listing_dropdown);
+					 break;
+				 }
+			 }
+		 }
+		return isSuccessful;	
+	}
+	public boolean clickOnPlaceAdButton() {
+		AutomationLogger.info("Clicking on Place Ad button 01");
+		return ActionHelper.Click(driver, place_ad_button_1);
+	}
 }

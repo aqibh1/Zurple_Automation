@@ -1,0 +1,29 @@
+<suite name="Create Customize Ad for Listing" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+    </listeners>
+   
+    <test name="Create CMA Ad on PP">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-for-customize-ad.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateCMAAd" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+</suite>

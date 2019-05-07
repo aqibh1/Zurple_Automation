@@ -4,18 +4,17 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
   
-    <test name="Promote a Listing on Facebook now">
- 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-promote-listing-data.json" >
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-social-promote-listing-data.json" >
+    <test name="Post status on Facebook after deauthorzing facebook">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-data-01.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
       	<include name="testPPLogin" />
       </methods>
       </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
+       <class name="com.z57.propertypulse.PPSocialIntegrationPageTest" >
       <methods>
-      	<include name="testAddListing" />
+      	<include name="testAuthorizeDeAuthorizeFacebookAccount" />
       </methods>
       </class>
       <class name="com.z57.propertypulse.PPSocialPageTest" >
@@ -30,7 +29,7 @@
       </class>
     </classes>
     </parameter>
-    </parameter>
 	</test>
+	
 	
 </suite>

@@ -47,6 +47,9 @@ public class LoginForm extends AbstractForm{
 	@FindBy(xpath="//input[@id='u_0_0' and @type='submit']")
 	WebElement FACEBOOK_LOGIN;
 	
+	@FindBy(xpath="//button[@id='loginbutton']")
+	WebElement FACEBOOK_LOGIN_BUTTON;
+	
 	@FindBy(xpath="//div[@id='registerModal']/descendant::iframe[@class='login_with_fb_frame']")
 	WebElement signupWithFb_frame;
 	
@@ -118,7 +121,7 @@ public class LoginForm extends AbstractForm{
 		ActionHelper.Click(driver, FACEBOOK_PASSWORD);
 		return ActionHelper.ClearAndType(driver, FACEBOOK_PASSWORD, pPassword);
 	}
-	public boolean clickOnFacbookLoginButton() {
+	public boolean clickOnFacebookLoginButton() {
 		return ActionHelper.Click(driver, FACEBOOK_LOGIN);
 	}
 	public boolean waitForLoginFormToDisappear() {
@@ -140,8 +143,11 @@ public class LoginForm extends AbstractForm{
 		return ActionHelper.waitForElementToBeDisappeared(driver, login_button_idx);
 	}
 	
-	public void switchToFrame() {
-		
+	public boolean isFacebookLoginForm() {
+		return ActionHelper.waitForElementToBeVisible(driver, FACEBOOK_EMAIL, 15);
 	}
-
+	
+	public boolean clickOnFacebookLoginButton2() {
+		return ActionHelper.Click(driver, FACEBOOK_LOGIN_BUTTON);
+	}
 }

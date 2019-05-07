@@ -17,6 +17,7 @@ import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.alerts.pp.AdCreatedSuccessAlert;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author adar
@@ -32,6 +33,15 @@ public class PPCreateAdPageTest extends PageTest{
 		if(page == null){
 			driver = getDriver();
 			page = new PPCreateAdPage(driver);
+		}
+		return page;
+	}
+	public AbstractPage getPage(String pUrl) {
+		if(page == null){
+			driver = getDriver();
+			page = new PPCreateAdPage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
 		}
 		return page;
 	}
@@ -92,6 +102,94 @@ public class PPCreateAdPageTest extends PageTest{
 		assertTrue(adsOverviewPage.isAdsOverviewPage(), "Ads Overview page is not visible");
 		assertTrue(adsOverviewPage.isAdPlacedSuccessfully(ModuleCommonCache.getModuleCommonCache(ModuleCacheConstants.ListingsAddress).toString()), "Ads Overview page is not visible");
 		
+	}
+	
+	@Test
+	@Parameters({"createAdDataFile"})
+	public void testCreateCustomizeAd() {
+		getPage("/content/marketing/create-ad");
+		
+		String lAdTitle="";
+		String lAdDesc="";
+		String lAdTargetedZip="";
+		String lListingAddress =ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.ListingsAddress);
+		
+		assertTrue(page.isCreateAdPage(),"Create Ad Page is not displayed");
+		assertTrue(page.selectListingFromDropDown(lListingAddress),"Unable to select a listing from dropdown.");
+		
+		assertTrue(page.isValidPreviewLink(EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url")), "The preview link is not valid");
+		
+		if(lAdTitle.isEmpty()) {
+			assertTrue(page.isValidTitle(),"Ad Title is Empty");
+		}else {
+			assertTrue(page.typeAdTitle(lAdTitle),"Unable to type Ad Title in the field");
+		}
+		
+		if(lAdDesc.isEmpty()) {
+			assertTrue(page.isValidDescription(),"Ad Desc is Empty");
+		}else {
+			assertTrue(page.typeAdDescription(lAdDesc),"Unable to type Ad Description in the field");
+		}
+		
+		assertTrue(page.clickOnNextButton(), "Unable to click on Next step button");
+		assertTrue(page.isSelectAdVisibilityOptionsPage(),"Step 2 page is not visible");
+		
+		if(lAdTargetedZip.isEmpty()) {
+			assertTrue(page.isValidZip(),"Ad targeted Zip is Empty");
+		}else {
+			assertTrue(page.typeAdZipCode(lAdTargetedZip),"Unable to type Zip in the field");
+		}
+		
+		assertTrue(page.clickOnNextButton(), "Unable to click on Next step button");
+		
+		assertTrue(page.isStep3PlaceOrderPage(),"Step 3 page is not visible");
+		
+		assertTrue(page.clickOnPaymentCheckBox(), "Unable to click on Payment checkbox");
+		assertTrue(page.clickOnFBTestAdCheckBox(), "Unable to click on FB test ad checkkbox");
+		
+		assertTrue(page.clickOnNextButton(), "Unable to click on Place Order button");
+		
+		AdCreatedSuccessAlert acsa = new AdCreatedSuccessAlert(driver);
+		assertTrue(acsa.isAdCreatedAlert(), "Ads Created Alert is not visible");
+		assertTrue(acsa.clickOnAdsOverviewButton(), "Unable to click on Ads Overview button");
+		
+		PPAdsOverviewPage adsOverviewPage = new PPAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.isAdsOverviewPage(), "Ads Overview page is not visible");
+		assertTrue(adsOverviewPage.isAdPlacedSuccessfully(ModuleCommonCache.getModuleCommonCache(ModuleCacheConstants.ListingsAddress).toString()), "Ads Overview page is not visible");
+		
+	}
+	
+	@Test
+	public void testCreateCMAAd() {
+		getPage("/content/marketing/create-ad");
+		String lAdTargetedZip="";
+		
+		assertTrue(page.isCreateAdPage(),"Create Ad Page is not displayed");
+		assertTrue(page.clickOnPlaceAdButton(), "Unable to click on Place Ad button");
+		
+		if(lAdTargetedZip.isEmpty()) {
+			assertTrue(page.isValidZip(),"Ad targeted Zip is Empty");
+		}else {
+			assertTrue(page.typeAdZipCode(lAdTargetedZip),"Unable to type Zip in the field");
+		}
+		
+		assertTrue(page.clickOnNextButton(), "Unable to click on Next step button");
+		
+		assertTrue(page.isStep3PlaceOrderPage(),"Step 3 page is not visible");
+		
+		assertTrue(page.clickOnPaymentCheckBox(), "Unable to click on Payment checkbox");
+		assertTrue(page.clickOnFBTestAdCheckBox(), "Unable to click on FB test ad checkkbox");
+		
+		assertTrue(page.clickOnNextButton(), "Unable to click on Place Order button");
+		
+		AdCreatedSuccessAlert acsa = new AdCreatedSuccessAlert(driver);
+		assertTrue(acsa.isAdCreatedAlert(), "Ads Created Alert is not visible");
+		assertTrue(acsa.clickOnAdsOverviewButton(), "Unable to click on Ads Overview button");
+		
+		PPAdsOverviewPage adsOverviewPage = new PPAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.isAdsOverviewPage(), "Ads Overview page is not visible");
+		assertTrue(adsOverviewPage.isAdPlacedSuccessfully(FrameworkConstants.IsTimeToSell), "Ads Overview page is not visible");
+
 	}
 
 }

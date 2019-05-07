@@ -1,25 +1,18 @@
 package com.z57.site.v2;
 
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-
-import java.io.IOException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.SkipException;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
-import resources.TestEnvironment;
 import resources.data.z57.EmailListingFormData;
 import resources.data.z57.RequestInfoFormData;
 import resources.data.z57.ScheduleListingFormData;
 import resources.data.z57.SearchFormData;
-import resources.forms.z57.RequestInfoForm;
 import resources.utility.FrameworkConstants;
 
 public class PropertyListingPageTest extends PageTest {
@@ -109,6 +102,7 @@ public class PropertyListingPageTest extends PageTest {
 	@Parameters({ "dataFile" })
 	@Test
 	public void testVerificationOfPropertyListing(String pFileLocation) {
+		
 		searchFormData = new SearchFormData(pFileLocation).getSearchFormData();
 //		searchFormData.setSearchFormData(pFileLocation);
 		setSearchParams();
@@ -199,7 +193,7 @@ public class PropertyListingPageTest extends PageTest {
 	}
 	@Parameters({ "dataFile","changeEmail" })
 	@Test
-	public void testEmailListing(String pFileName, Boolean changeEmail) {
+	public void testEmailListing(String pFileName, @Optional Boolean changeEmail) {
 		//Initiliazing data 
 		EmailListingFormData emailListingFormData = new EmailListingFormData(pFileName).getEmailListingData();
 		
@@ -224,7 +218,7 @@ public class PropertyListingPageTest extends PageTest {
 		assertTrue(page.getEmailListingForm().isListingEmailModalVisible(),"Email Listing Modal is not visible");
 
 		String lSenderEmail = lLeadEmail;
-
+		
 		if(isLeadLoggedIn) { 
 			//Verify the name of the lead is in respective fields 
 			lSenderEmail = lLeadEmail = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
@@ -235,7 +229,7 @@ public class PropertyListingPageTest extends PageTest {
 			assertTrue(page.getEmailListingForm().typeLeadName(lLeadName),"Unable to type name in Lead Name field");
 
 			//#5895
-			if ( changeEmail )
+			if ( changeEmail!=null && changeEmail )
 			{
 				lSenderEmail = "changed_"+lLeadEmail;
 			}
@@ -269,8 +263,9 @@ public class PropertyListingPageTest extends PageTest {
 		assertTrue(dbHelper.verifyEmailIsSent(lR2Email, FrameworkConstants.CheckoutThisListing),"Unable to sent email to Recipient2");
 
 		//#5895
-		assertTrue(dbHelper.verifyEmailIsSentToLead(lR1Email, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Recipient1");
-		assertTrue(dbHelper.verifyEmailIsSentToLead(lR2Email, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Recipient2");
+		//According to Logan #5671 email should not be sent to R1 and R2
+//		assertTrue(dbHelper.verifyEmailIsSentToLead(lR1Email, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Recipient1");
+//		assertTrue(dbHelper.verifyEmailIsSentToLead(lR2Email, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Recipient2");
 
 		if ( !lSenderEmail.equals(lLeadEmail) )
 		{

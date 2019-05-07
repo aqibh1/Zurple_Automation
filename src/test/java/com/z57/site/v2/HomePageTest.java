@@ -1,7 +1,6 @@
 package com.z57.site.v2;
-import com.z57.site.v2.Page;
-import resources.ConfigReader;
 
+import com.z57.site.v2.Page;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -10,25 +9,16 @@ import com.z57.site.v2.PageTest;
 import com.z57.site.v2.HomePage;
 import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
-
 import org.testng.annotations.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
 import resources.forms.z57.LoginForm;
 import resources.alerts.BootstrapModal;
 import resources.forms.z57.RegisterForm;
-import resources.orm.hibernate.models.z57.ListingImages;
 import resources.utility.AutomationLogger;
-import resources.utility.FrameworkConstants;
-
 import org.testng.annotations.Parameters;
 import static org.testng.Assert.assertTrue;
 import resources.data.z57.RegisterUserData;
 import static org.testng.Assert.assertEquals;
-
-
 
 public class HomePageTest extends PageTest
 {
@@ -41,6 +31,7 @@ public class HomePageTest extends PageTest
     };
 
     public Page getPage(){
+    	
         if(page == null){
             page = new HomePage(getDriver());
             page.setUrl("");
@@ -89,6 +80,7 @@ public class HomePageTest extends PageTest
     @Test
     public void testSignInWithValidEmail() {
     	getPage();
+    	
     	AutomationLogger.info("Closing Bottstrap modal");
     	closeBootStrapModal();
     	
@@ -183,7 +175,7 @@ public class HomePageTest extends PageTest
     			driver.switchTo().window(windowHandle);
     			assertTrue(page.getLoginForm().typeFacebookEmail(lFacebookEmail), "Unable to type Email on facebook login page.");
     			assertTrue(page.getLoginForm().typeFacebookPassword(lFacebookPassword), "Unable to type Password on facebook login page.");
-    			assertTrue(page.getLoginForm().clickOnFacbookLoginButton(), "Unable to click on facebook login button.");
+    			assertTrue(page.getLoginForm().clickOnFacebookLoginButton(), "Unable to click on facebook login button.");
     			driver.switchTo().window(parentWindowHandle);
     		}
     	}
