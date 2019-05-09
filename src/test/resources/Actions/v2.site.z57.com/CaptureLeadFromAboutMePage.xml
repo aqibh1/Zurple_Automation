@@ -1,6 +1,7 @@
 <suite name="Capture Lead From About Me Page" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	<listeners>
         <listener class-name="resources.ThreadCountChanger"/>
+         <listener class-name="resources.ExtentReporterListener"/>
     </listeners>
    
     <test name="Capture Lead From About Me" preserve-order="true">
