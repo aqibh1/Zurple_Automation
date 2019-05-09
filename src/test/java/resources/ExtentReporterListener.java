@@ -12,11 +12,13 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.aventstack.extentreports.reporter.ExtentEmailReporter;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.LogStatus;
 
 import resources.extentreports.ExtentManager;
 import resources.extentreports.ExtentTestManager;
+import resources.extentreports.ExtentTestManager4;
 import resources.orm.hibernate.HibernateUtil;
 import resources.utility.AutomationLogger;
 
@@ -48,9 +50,12 @@ public class ExtentReporterListener implements ITestListener{
 	        if(errorMessage==null) {
 	        	errorMessage = result.getThrowable().toString();
 	        }
-		   ExtentTestManager.getTest().log(LogStatus.FAIL,result.getName(),
-				   errorMessage+
-	                ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+//		   ExtentTestManager.getTest().log(LogStatus.FAIL,result.getName(),
+//				   errorMessage+
+//	                ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
+	        ExtentTestManager.getTest().log(LogStatus.FAIL,result.getName(),
+					   errorMessage+
+		                ExtentTestManager.getTest().addScreenCapture(base64Screenshot));
 //			 testCaseResults.put(result.getName(), LogStatus.FAIL.toString());
 //			 scenarioresults.put(Thread.currentThread().getId(),testCaseResults );
 		
