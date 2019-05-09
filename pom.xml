@@ -144,6 +144,32 @@
 </dependency>
 
 
+<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-multipart -->
+<dependency>
+    <groupId>org.glassfish.jersey.media</groupId>
+    <artifactId>jersey-media-multipart</artifactId>
+    <version>2.27</version>
+</dependency>
+<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client -->
+<dependency>
+    <groupId>org.glassfish.jersey.core</groupId>
+    <artifactId>jersey-client</artifactId>
+    <version>2.28</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/com.relevantcodes/extentreports -->
+<dependency>
+    <groupId>com.relevantcodes</groupId>
+    <artifactId>extentreports</artifactId>
+    <version>2.41.2</version>
+</dependency>
+
+
+<dependency>
+    <groupId>org.freemarker</groupId>
+    <artifactId>freemarker</artifactId>
+    <version>2.3.23</version>
+</dependency>
 	
   </dependencies>
 
@@ -239,6 +265,61 @@
             <mainClass>com.zurple.my.TestRunner</mainClass>
           </configuration>
         </plugin>
+        <!-- Post-Man plugin -->
+         <plugin>
+            <groupId>ch.fortysix</groupId>
+            <artifactId>maven-postman-plugin</artifactId>
+            <version>0.1.6</version>
+                <executions>
+                   <execution>
+                       <id>Report Generation</id>
+                       <phase>test</phase>
+                       <goals>
+                           <goal>send-mail</goal>
+                       </goals>
+                       <inherited>true</inherited>
+                       <configuration>
+                          <!-- From Email address -->
+                          <from>z57testuser@gmail.com</from>
+                          <!-- Email subject -->
+                          <subject>Cucumber Test Automation Report</subject>
+                          <!-- Fail the build if the mail doesn't reach -->
+                          <failonerror>false</failonerror>
+                          <!-- Email Body Content -->
+                          <htmlMessage>
+                                    <![CDATA[
+                                    <p>New test build triggered!</p>
+                                    <p>Attached html file contains the test result status</p> 
+                                    ]]>
+                          </htmlMessage>
+                          <!-- host -->
+                          <mailhost>smtp.gmail.com</mailhost>
+                          <!-- port of the host -->
+                          <mailport>465</mailport>
+                          <mailssl>true</mailssl>
+                          <mailAltConfig>true</mailAltConfig>
+                          <!-- Email Authentication(Username and Password) -->
+                          <mailuser>z57testuser@gmail.com</mailuser>
+                          <mailpassword>Bcsf08m020@</mailpassword>
+                          <receivers>
+                               <!-- To Email address -->
+                               <receiver>aqib.dar@z57.com</receiver>
+                        
+                          </receivers>
+                          <fileSets>
+                             <fileSet>
+                                  <!-- Report directory Path -->
+                                  <directory>${basedir}/target/surefire-reports</directory>
+                                       <includes>
+                                          <!-- Report file name -->
+                                          <include>emailable-report.html</include>
+                                       </includes>
+                             </fileSet>
+                          </fileSets>
+                       </configuration>
+                   </execution>
+                </executions>
+         </plugin>
       </plugins>
     </pluginManagement><plugins><plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><configuration><source>8</source><target>8</target></configuration></plugin></plugins>
   </build>
