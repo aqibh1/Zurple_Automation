@@ -10,7 +10,7 @@ public class ExtentManager {
         if(extent == null){
             //Set HTML reporting file location
             String workingDir = System.getProperty("user.dir");
-            extent = new ExtentReports(workingDir+"\\ExtentReports\\ExtentReportResults.html", true);
+            extent = new ExtentReports(workingDir+"\\target\\surefire-reports\\ExtentReportResults.html", true);
         }
         return extent;
     }
