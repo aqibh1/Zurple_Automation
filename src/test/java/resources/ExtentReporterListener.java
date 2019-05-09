@@ -36,8 +36,15 @@ public class ExtentReporterListener implements ITestListener{
 		Object currentClass = result.getInstance();
 		 WebDriver webDriver = ((AbstractPageTest) currentClass).getDriver();
 	        //Take base64Screenshot screenshot.
-	        String base64Screenshot = "data:image/png;base64,"+((TakesScreenshot)webDriver).
-	                getScreenshotAs(OutputType.BASE64);
+		 String base64Screenshot="";
+		try {
+			base64Screenshot = ExtentTestManager.getScreenshot(webDriver, result.getName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//	        String base64Screenshot = "data:image/png;base64,"+((TakesScreenshot)webDriver).
+//	                getScreenshotAs(OutputType.BASE64);
 	        if(errorMessage==null) {
 	        	errorMessage = result.getThrowable().toString();
 	        }
@@ -76,5 +83,7 @@ public class ExtentReporterListener implements ITestListener{
 	      ExtentManager.getReporter().flush();
 		
 	}
+	
+	
 
 }
