@@ -1,24 +1,15 @@
 package resources;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import org.apache.commons.exec.LogOutputStream;
+
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-
-import com.aventstack.extentreports.reporter.ExtentEmailReporter;
-import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.LogStatus;
-
 import resources.extentreports.ExtentManager;
 import resources.extentreports.ExtentTestManager;
-import resources.extentreports.ExtentTestManager4;
 import resources.orm.hibernate.HibernateUtil;
 import resources.utility.AutomationLogger;
 
