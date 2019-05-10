@@ -53,7 +53,7 @@ public class ExtentTestManager {
      Path pathRelative = pathBase.relativize(pathAbsolute);
      System.out.println(pathRelative);
      
-     return finalDestination.getPath();
+     return pathRelative.toString();
     }
    
 }
