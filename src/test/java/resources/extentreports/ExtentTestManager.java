@@ -39,13 +39,13 @@ public class ExtentTestManager {
                     String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
      TakesScreenshot ts = (TakesScreenshot) driver;
      File source = ts.getScreenshotAs(OutputType.FILE);
-     String relitive_path = "\\target\\surefire-reports\\screenshots\\"+screenshotName+dateName+".png";
+     String relitive_path = "\\target\\surefire-reports\\"+screenshotName+dateName+".png";
                     //after execution, you could see a folder "FailedTestsScreenshots" under src folder
      String destination = System.getProperty("user.dir") + relitive_path;
      File finalDestination = new File(destination);
      FileUtils.copyFile(source, finalDestination);
                     //Returns the captured file path
-     return relitive_path;
+     return destination;
     }
    
 }
