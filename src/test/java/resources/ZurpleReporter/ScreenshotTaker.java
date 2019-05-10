@@ -44,9 +44,13 @@ public class ScreenshotTaker  extends TestListenerAdapter {
 //            String dest = configReader.getPropertyByName("zurple_reporter_output_dir") + getScreenshotName(result);
             String dest = configReader.getPropertyByName("reporter_output_dir") + getScreenshotName(result);
             File destination = new File(dest);
+            
+            String base64ScreenshotEmail = "data:image/png;base64,"+((TakesScreenshot)webDriver).
+	                getScreenshotAs(OutputType.BASE64);
             try {
                 FileUtils.copyFile(source, destination);
-                Reporter.log("<a href='"+ destination.getAbsolutePath() + "'> <img src='"+ destination.getAbsolutePath() + "' height='100' width='100'/> </a>");
+//                Reporter.log("<a href='"+ destination.getAbsolutePath() + "'> <img src='"+ destination.getAbsolutePath() + "' height='100' width='100'/> </a>");
+                Reporter.log("<a href='"+ base64ScreenshotEmail + "'> <img src='"+ base64ScreenshotEmail + "' height='100' width='100'/> </a>");
             } catch (IOException e) {
                 e.printStackTrace();
             }
