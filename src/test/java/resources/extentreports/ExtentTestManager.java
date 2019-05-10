@@ -1,6 +1,8 @@
 package resources.extentreports;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,7 +47,13 @@ public class ExtentTestManager {
      File finalDestination = new File(destination);
      FileUtils.copyFile(source, finalDestination);
                     //Returns the captured file path
-     return destination;
+     
+     Path pathAbsolute = Paths.get(destination);
+     Path pathBase = Paths.get(System.getProperty("user.dir") );
+     Path pathRelative = pathBase.relativize(pathAbsolute);
+     System.out.println(pathRelative);
+     
+     return finalDestination.getPath();
     }
    
 }
