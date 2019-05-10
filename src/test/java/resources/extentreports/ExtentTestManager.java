@@ -19,7 +19,9 @@ import com.relevantcodes.extentreports.ExtentTest;
 public class ExtentTestManager {
 	
 	static Map extentTestMap = new HashMap();
+	static Map extentTestEmailMap = new HashMap();
     static ExtentReports extent = ExtentManager.getReporter();
+    static ExtentReports extentEmailReporter = ExtentManager.getEmailReporter();
  
     public static synchronized ExtentTest getTest() {
         return (ExtentTest)extentTestMap.get((int) (long) (Thread.currentThread().getId()));
@@ -32,6 +34,20 @@ public class ExtentTestManager {
     public static synchronized ExtentTest startTest(String testName, String desc) {
         ExtentTest test = extent.startTest(testName, desc);
         extentTestMap.put((int) (long) (Thread.currentThread().getId()), test);
+        return test;
+    }
+    
+    public static synchronized ExtentTest getTestEmail() {
+        return (ExtentTest)extentTestEmailMap.get((int) (long) (Thread.currentThread().getId()));
+    }
+ 
+    public static synchronized void endTestEmail() {
+    	extentEmailReporter.endTest((ExtentTest)extentTestEmailMap.get((int) (long) (Thread.currentThread().getId())));
+    }
+ 
+    public static synchronized ExtentTest startTestEmail(String testName, String desc) {
+        ExtentTest test = extentEmailReporter.startTest(testName, desc);
+        extentTestEmailMap.put((int) (long) (Thread.currentThread().getId()), test);
         return test;
     }
     
@@ -48,10 +64,6 @@ public class ExtentTestManager {
      FileUtils.copyFile(source, finalDestination);
                     //Returns the captured file path
      
-     Path pathAbsolute = Paths.get(destination);
-     Path pathBase = Paths.get(System.getProperty("user.dir") );
-     Path pathRelative = pathBase.relativize(pathAbsolute);
-     System.out.println(pathRelative);
      
      return screenshotName+dateName+".png";
     }

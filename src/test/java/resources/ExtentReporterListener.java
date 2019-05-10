@@ -25,9 +25,8 @@ public class ExtentReporterListener implements ITestListener{
 	@Override
 	public void onTestSuccess(ITestResult result) {
 		 ExtentTestManager.getTest().log(LogStatus.PASS,result.getName(),"");
-//		 testCaseResults.put(result.getName(), LogStatus.PASS.toString());
-//		 scenarioresults.put(Thread.currentThread().getId(),testCaseResults );
-		
+
+		 ExtentTestManager.getTestEmail().log(LogStatus.PASS,result.getName(),"");
 	}
 
 	@Override
@@ -43,25 +42,20 @@ public class ExtentReporterListener implements ITestListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//	        String base64Screenshot = "data:image/png;base64,"+((TakesScreenshot)webDriver).
-//	                getScreenshotAs(OutputType.BASE64);
+	        String base64ScreenshotEmail = "data:image/png;base64,"+((TakesScreenshot)webDriver).
+	                getScreenshotAs(OutputType.BASE64);
 	        if(errorMessage==null) {
 	        	errorMessage = result.getThrowable().toString();
 	        }
-//		   ExtentTestManager.getTest().log(LogStatus.FAIL,result.getName(),
-//				   errorMessage+
-//	                ExtentTestManager.getTest().addBase64ScreenShot(base64Screenshot));
-	        ExtentTestManager.getTest().log(LogStatus.FAIL,result.getName(),
-					   errorMessage+
-		                ExtentTestManager.getTest().addScreenCapture(base64Screenshot));
-//			 testCaseResults.put(result.getName(), LogStatus.FAIL.toString());
-//			 scenarioresults.put(Thread.currentThread().getId(),testCaseResults );
-		
+		   ExtentTestManager.getTestEmail().log(LogStatus.FAIL,result.getName(),errorMessage+ExtentTestManager.getTestEmail().addBase64ScreenShot(base64ScreenshotEmail));
+	        
+	        ExtentTestManager.getTest().log(LogStatus.FAIL,result.getName(),errorMessage+ExtentTestManager.getTest().addScreenCapture(base64Screenshot));		
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
 		ExtentTestManager.getTest().log(LogStatus.SKIP,result.getName()+ "-= Skipped =-");
+		ExtentTestManager.getTestEmail().log(LogStatus.SKIP,result.getName()+ "-= Skipped =-");
 		
 	}
 
@@ -74,16 +68,15 @@ public class ExtentReporterListener implements ITestListener{
 	@Override
 	public void onStart(ITestContext context) {
 		ExtentTestManager.startTest(context.getName(),"");
+		ExtentTestManager.startTestEmail(context.getName(),"");
 		
 	}
 
 	@Override
 	public void onFinish(ITestContext context) {
+		 ExtentTestManager.endTestEmail();
+	      ExtentManager.getEmailReporter().flush();
 		 ExtentTestManager.endTest();
-	      ExtentManager.getReporter().flush();
-		
+	      ExtentManager.getReporter().flush();	
 	}
-	
-	
-
 }
