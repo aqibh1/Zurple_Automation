@@ -47,7 +47,7 @@ public class ExtentReporterListener implements ITestListener{
 	        if(errorMessage==null) {
 	        	errorMessage = result.getThrowable().toString();
 	        }
-		   ExtentTestManager.getTestEmail().log(LogStatus.FAIL,result.getName(),errorMessage+ExtentTestManager.getTestEmail().addBase64ScreenShot(base64ScreenshotEmail));
+//		   ExtentTestManager.getTestEmail().log(LogStatus.FAIL,result.getName(),errorMessage+ExtentTestManager.getTestEmail().addBase64ScreenShot(base64ScreenshotEmail));
 	        
 	        ExtentTestManager.getTest().log(LogStatus.FAIL,result.getName(),errorMessage+ExtentTestManager.getTest().addScreenCapture(base64Screenshot));		
 	}
