@@ -1,0 +1,51 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Verify Save Search">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.TestListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+    </listeners>
+    
+  <test name="Verify Save Search">
+   <parameter name="saveSearchData" value="/resources/data/save-search-v1-data.json">
+    <classes>
+      <class name="com.z57.site.v1.HomeSearchPageTest" >
+        <methods>
+          <include name="testSaveSearch" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+  </test>
+ 
+  <test name="Verify Email Listing with User logged in">
+    <parameter name="saveSearchData" value="/resources/data/save-search-v1-data.json">
+    <parameter name="registerLeadData" value="/resources/data/save-search-v1-data.json">
+    <classes>
+      <class name="com.z57.site.v1.HomePageTest" >
+        <methods>
+          <include name="testRegisterLead" />
+        </methods>
+      </class>
+     <class name="com.z57.site.v1.HomeSearchPageTest" >
+        <methods>
+          <include name="testSaveSearch" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+    </parameter>
+  </test>
+ 
+</suite>

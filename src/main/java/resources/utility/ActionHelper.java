@@ -384,4 +384,17 @@ public class ActionHelper {
 		   }
 		   return isFound;
 	   }
+	   
+	   public static boolean waitForElementToBeDisappeared(WebDriver pWebDriver,String pElementToBeDisappeared) {			
+		   wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+		   boolean isElementVisible = false;
+		   try {
+			   isElementVisible=wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(pElementToBeDisappeared)));
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Element did not disappear.  Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return isElementVisible;
+
+	   }
 }
