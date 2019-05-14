@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Pre Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+<suite name="Pre Release Smoke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	 <listeners>
         <listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ExtentReporterListener"/>
