@@ -228,4 +228,16 @@ public class DBHelperMethods {
 			return null;
 		}
 	}
+	public boolean isWebSiteHTTPSEnables(String pWebSite) {
+		boolean isHttpsEnabled = false;
+		try {
+			Sites siteObj = testEnvironment.getSitesByUrl(pWebSite);
+			if(siteObj!=null && siteObj.getHttpsEnabled()!=0) {
+				isHttpsEnabled = true;
+			}
+		}catch(Exception ex) {
+			AutomationLogger.info("No site found for the URL: "+pWebSite);
+		}
+		return isHttpsEnabled;
+	}
 }

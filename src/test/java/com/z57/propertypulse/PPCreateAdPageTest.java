@@ -13,6 +13,7 @@ import com.google.common.base.Ascii;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
@@ -117,7 +118,7 @@ public class PPCreateAdPageTest extends PageTest{
 		assertTrue(page.isCreateAdPage(),"Create Ad Page is not displayed");
 		assertTrue(page.selectListingFromDropDown(lListingAddress),"Unable to select a listing from dropdown.");
 		
-		assertTrue(page.isValidPreviewLink(EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url")), "The preview link is not valid");
+		assertTrue(page.isValidPreviewLink(getTheValidUrlToVerify()), "The preview link is not valid");
 		
 		if(lAdTitle.isEmpty()) {
 			assertTrue(page.isValidTitle(),"Ad Title is Empty");
@@ -190,6 +191,17 @@ public class PPCreateAdPageTest extends PageTest{
 		assertTrue(adsOverviewPage.isAdsOverviewPage(), "Ads Overview page is not visible");
 		assertTrue(adsOverviewPage.isAdPlacedSuccessfully(FrameworkConstants.IsTimeToSell), "Ads Overview page is not visible");
 
+	}
+	
+	private String getTheValidUrlToVerify() {
+		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
+		String v2BaseUrl = EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url").split("://")[1];
+		if(dbHelperMethods.isWebSiteHTTPSEnables(v2BaseUrl)) {
+			v2BaseUrl = "https://"+v2BaseUrl;
+		}else {
+			v2BaseUrl = "http://"+v2BaseUrl;
+		}
+		return v2BaseUrl;
 	}
 
 }

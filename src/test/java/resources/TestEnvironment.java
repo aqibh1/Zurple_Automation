@@ -420,4 +420,15 @@ public class TestEnvironment
          return null;
     	
     }
+    public Sites getSitesByUrl(String pWPUrl) {
+   	 String project = System.getProperty("project");
+
+        if (project.equals("z57"))
+        {
+            ManageSites manageSites = new ManageSites(getSession());
+            return manageSites.getSitesByWPUrl(pWPUrl);
+        }
+        return null;
+   	
+   }
 }
