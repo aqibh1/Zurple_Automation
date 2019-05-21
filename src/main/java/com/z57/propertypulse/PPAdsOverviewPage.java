@@ -5,6 +5,7 @@ package com.z57.propertypulse;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -30,14 +31,45 @@ public class PPAdsOverviewPage extends Page{
 	}
 	
 	public boolean isAdPlacedSuccessfully(String pListingTitle) {
+		int index = 0;
 		boolean isFound = false;
 		List<WebElement> list_of_table_contents = ActionHelper.getListOfElementByXpath(driver, tableDataContent);
 		for(WebElement element: list_of_table_contents) {
 			if(element.getText().trim().contains(pListingTitle)) {
-				isFound = true;
+//				element.findElement(By.xpath("/descendant::span[text()='Live (Paused)']"));
+				isFound = waitForElementToVisibleAfterRegularIntervals(driver, "following-sibling::td/span[text()='Live (Paused)']", 100, 20,index);
 				break;
 			}
+			index++;
 		}
 		return isFound;
+	}
+	private boolean waitForElementToVisibleAfterRegularIntervals(WebDriver pWebDriver, String pXpathToAppend, long pWaitIntervalInSeconds, int pTotalAttempts,int pIndex) {
+		List<WebElement> list_of_table_contents;
+
+		boolean displayed = false;
+		int counter = 0;
+		while (!displayed && counter<pTotalAttempts) {
+			list_of_table_contents = ActionHelper.getListOfElementByXpath(driver, tableDataContent);
+			try {
+				WebElement elementFund = list_of_table_contents.get(pIndex).findElement(By.xpath(pXpathToAppend));
+				if (elementFund!=null) {
+					// Element is found so set the boolean as true
+					displayed = ActionHelper.isElementVisible(driver, elementFund);
+					break;
+				} 
+			}catch(Exception ex) {
+				try {
+					ActionHelper.RefreshPage(pWebDriver);
+					Thread.sleep(pWaitIntervalInSeconds*1000);
+					counter++;
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return displayed;
+
 	}
 }

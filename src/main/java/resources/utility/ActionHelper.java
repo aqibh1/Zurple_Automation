@@ -13,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -396,5 +397,36 @@ public class ActionHelper {
 		   }
 		   return isElementVisible;
 
+	   }
+	   public static String getHeading(WebDriver pWebDriver,String pHeading) {
+		   return pWebDriver.findElement(By.tagName(pHeading)).getText();
+		   
+	   }
+	   
+	   public static boolean waitForElementToVisibleAfterRegularIntervals(WebDriver pWebDriver, WebElement pEelement, String pXpathToAppend, long pWaitIntervalInSeconds, int pTotalAttempts) {
+		   
+		   boolean displayed = false;
+		   int counter = 0;
+		   pXpathToAppend = "/descendant::span[text()='FAILED']";
+		    while (counter<pTotalAttempts) {
+		    	try {
+		    	WebElement elementFund = pEelement.findElement(By.xpath(pXpathToAppend));
+		        if (elementFund!=null) {
+		            // Element is found so set the boolean as true
+		            displayed = isElementVisible(pWebDriver, elementFund);
+		        } 
+		    	}catch(Exception ex) {
+		    		try {
+		            	RefreshPage(pWebDriver);
+						Thread.sleep(pWaitIntervalInSeconds*1000);
+						counter++;
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		    	}
+		    }
+			return displayed;
+	       
 	   }
 }
