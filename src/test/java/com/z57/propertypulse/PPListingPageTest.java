@@ -6,6 +6,8 @@ package com.z57.propertypulse;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import java.awt.AWTException;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -150,7 +152,7 @@ public class PPListingPageTest extends PageTest{
 	
 	@Test
 	@Parameters({"dataFile"})
-	public void testAddListingForAd(String pDataFile) {
+	public void testAddListingForAd(String pDataFile) throws AWTException {
 	listingData = new PPListingData(pDataFile).getListingData();
 		
 		String lAddress = updateName(listingData.getAddress());
@@ -159,6 +161,7 @@ public class PPListingPageTest extends PageTest{
 		String lState = listingData.getState();
 		String lZip = listingData.getZip();
 		String lCounty = listingData.getCounty();
+		String lListingImagesPath=listingData.getImagePath();
 		
 		getPage("/listings");
 		
@@ -182,11 +185,17 @@ public class PPListingPageTest extends PageTest{
 		String lListingId = driver.getCurrentUrl().split("lid=")[1];
 		ModuleCommonCache.setModuleCommonCache("listing_id_for_ad", lListingId);
 		
-		assertTrue(ppLeadDetailPage.clickOnSaveButton(), "Unable to click on Save button");
+		//Uploading listing images.
+		PPListingDetailPage listingDetailPage = new PPListingDetailPage(driver);
+		String[] images = lListingImagesPath.split(",");
+		for(String image: images) {
+			assertTrue(listingDetailPage.clickOnUploadIamgesButton(), "Unable to click on Upload button");
+			assertTrue(listingDetailPage.getPpUploadImagesForm().isUploadImagesForm(), "Upload image form is not visible.");
+			assertTrue(listingDetailPage.getPpUploadImagesForm().clickOnAddFilesButton(), "Unable to click on Add Files button");
+			assertTrue(listingDetailPage.getPpUploadImagesForm().uploadImage(System.getProperty("user.dir")+image), "Unable to upload the image.");
+		}		
 		
-//		assertTrue(page.isListingPage(), "Listing Page is not visible");
-//		
-//		assertTrue(page.clickOnCreateAd(lListingId), "Unable to click on Create Ad button");
+		assertTrue(ppLeadDetailPage.clickOnSaveButton(), "Unable to click on Save button");
 		
 		assertTrue(page.getGetMaxListingExposure().isGextMaximumListingExposureAlert(), "Feature Listing Alert is not displayed");
 		
