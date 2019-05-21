@@ -11,6 +11,9 @@ public class PPHeader extends Page{
 	@FindBy(xpath="//a[@id='nav-leads']")
 	WebElement leadsTab;
 	
+	@FindBy(id="nav-website")
+	WebElement websiteTab;
+	
 	public PPHeader() {
 		// TODO Auto-generated constructor stub
 	}
@@ -22,5 +25,8 @@ public class PPHeader extends Page{
 
 	public boolean clickOnLeads() {
 		return ActionHelper.Click(driver, leadsTab);
+	}
+	public boolean clickOnWebsite() {
+		return ActionHelper.Click(driver, websiteTab);
 	}
 }
