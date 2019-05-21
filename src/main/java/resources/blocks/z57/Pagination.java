@@ -37,6 +37,9 @@ public class Pagination {
 	@FindBy(xpath="//ul[@class='pagination']/descendant::li[@class='disabled']/a[text()='Next']")
 	WebElement next_disabled_button;
 	
+	@FindBy(id="ic_search_results_info")
+	WebElement searchResultsInfo;
+	
 	public Pagination(WebDriver pWebDriver){
 		driver=pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -204,6 +207,19 @@ public class Pagination {
 		}
 		return lTotalPages;	
 		
+	}
+	public boolean isPaginationAvailableRHS() {
+		boolean isPaginationApplicable = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, searchResultsInfo, 30)) {
+			String enteriesCount=searchResultsInfo.getText().split("of")[1].split("enteries")[0].trim();
+			int enteriesCountInt=Integer.parseInt(enteriesCount.split(" ")[0].trim());
+			if(enteriesCountInt>10) {
+				isPaginationApplicable = true;
+			}else {
+				AutomationLogger.info("Pagination is not aplicable on this page..");
+			}
+		}
+		return isPaginationApplicable;
 	}
 	
 }

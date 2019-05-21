@@ -101,7 +101,7 @@ public class RecentHomeSalesPageTest extends PageTest{
 	@Test
 	public void testVerifyPaginationOnSoldListingPage() {
 		getPage("/recent-home-sales");
-		if(page.getPagination().isPaginationAvailable()) {
+		if(page.getPagination().isPaginationAvailableRHS()) {
 			assertTrue(page.getPagination().verifyAllPaginationButtonsWorkingRHS(),"Pagination buttons not working on Listing Page");
 			
 		}else {
