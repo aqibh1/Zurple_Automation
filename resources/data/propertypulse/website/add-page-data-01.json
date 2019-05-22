@@ -2,5 +2,9 @@
 	"page_title":"AgentBio",
 	"page_body":"This is Agent Bio page",
 	"page_body_update":"This is updated Agent bio.",
-	"page_delete":"true"
+	"page_delete":"true",
+	"lead_capture_enabled":"Off",
+	"lead_strength":"Medium",
+	"lead_capture_prompt":"Always",
+	"lead_strength_update":"Medium"
 }

@@ -22,6 +22,18 @@ public class PPAddPageData extends JSONData<PPAddPageData>{
 	
 	@JsonProperty("page_delete")
 	boolean pageDelete;
+	
+	@JsonProperty("lead_capture_enabled")
+	String leadCaptureEnabled;
+	
+	@JsonProperty("lead_strength")
+	String leadStrength;
+	
+	@JsonProperty("lead_capture_prompt")
+	String leadCapturePrompt;
+	
+	@JsonProperty("lead_strength_update")
+	String leadStrengthUpdate;
 
 	public String getPageTitle() {
 		return pageTitle;
@@ -55,6 +67,38 @@ public class PPAddPageData extends JSONData<PPAddPageData>{
 		this.pageDelete = pageDelete;
 	}
 	
+	public String getLeadCaptureEnabled() {
+		return leadCaptureEnabled;
+	}
+
+	public String getLeadStrength() {
+		return leadStrength;
+	}
+
+	public String getLeadCapturePrompt() {
+		return leadCapturePrompt;
+	}
+
+	public void setLeadCaptureEnabled(String leadCaptureEnabled) {
+		this.leadCaptureEnabled = leadCaptureEnabled;
+	}
+
+	public void setLeadStrength(String leadStrength) {
+		this.leadStrength = leadStrength;
+	}
+
+	public void setLeadCapturePrompt(String leadCapturePrompt) {
+		this.leadCapturePrompt = leadCapturePrompt;
+	}
+
+	public String getLeadStrengthUpdate() {
+		return leadStrengthUpdate;
+	}
+
+	public void setLeadStrengthUpdate(String leadStrengthUpdate) {
+		this.leadStrengthUpdate = leadStrengthUpdate;
+	}
+
 	private PPAddPageData addPageData;
 
 	public PPAddPageData() {

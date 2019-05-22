@@ -45,6 +45,15 @@ public class PPAddNewPage extends Page{
 	@FindBy(xpath="//div[@class='wrap']/descendant::h1[text()='Edit Page ']")
 	WebElement editPage_heading;
 	
+	@FindBy(xpath="//select[@name='z57_admin_lead_capture_settings_enabled']")
+	WebElement leadCaptureEnabled;
+	
+	@FindBy(xpath="//select[@name='z57_admin_lead_capture_settings_strength']")
+	WebElement leadCaptureStrength;
+	
+	@FindBy(xpath="//select[@name='z57_admin_lead_capture_settings_trigger']")
+	WebElement leadCaptureTriggerPrompt;
+	
 	public PPAddNewPage() {
 		
 	}
@@ -101,6 +110,15 @@ public class PPAddNewPage extends Page{
 	}
 	public boolean isEditPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, editPage_heading, 30);
+	}
+	public boolean clickAndSelectLeadCaptureEnabled(String pOption) {
+		return ActionHelper.selectDropDownOption(driver, leadCaptureEnabled,"", pOption);
+	}
+	public boolean clickAndSelectCaptureLeadStrength(String pStrength) {
+		return ActionHelper.selectDropDownOption(driver, leadCaptureStrength,"", pStrength);
+	}
+	public boolean clickAndSelectCaptureLeadTrigger(String pTrigger) {
+		return ActionHelper.selectDropDownOption(driver, leadCaptureTriggerPrompt,"", pTrigger);
 	}
 
 }

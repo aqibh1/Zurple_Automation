@@ -21,6 +21,7 @@ import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.TestEnvironment;
+import resources.alerts.BootstrapModal;
 import resources.data.z57.PPAddPageData;
 
 
@@ -69,6 +70,10 @@ public class PPAddNewPageTest extends PageTest{
 		
 		String lPageTitle = updateName(ppAddPageData.getPageTitle());
 		String lPageBody = ppAddPageData.getPageBody();
+		boolean isLeadCapture = ppAddPageData.getLeadCaptureEnabled().equalsIgnoreCase("On")?true:false;
+		String lLeadCaptureEnabled = ppAddPageData.getLeadCaptureEnabled();
+		String lLeadCaptureStrength =ppAddPageData.getLeadStrength();
+		String lLeadCaptureTrigger = ppAddPageData.getLeadCapturePrompt();
 		
 		getPage("");
 		
@@ -83,11 +88,22 @@ public class PPAddNewPageTest extends PageTest{
 		assertTrue(page.typePageTitle(lPageTitle), "Unable to type page title ..");
 		assertTrue(page.typeInBody(lPageBody), "Unable to type in page body ..");
 		
+		//Lead Capture strength
+		if(isLeadCapture) {
+			configureLeadCaptureSettings(lLeadCaptureEnabled, lLeadCaptureStrength, lLeadCaptureTrigger);
+		}
+		
 		assertTrue(page.clickOnPublishButton(), "Unable to click on Publish..");
 		assertTrue(page.isPublishSuccessful(), "Unable to publish the page. Verification failed...");
 		
 		String pageUrl = page.getPageUrl();
-		verifyPageOnWebsite(pageUrl, lPageTitle, lPageBody);
+		
+		if(isLeadCapture) {
+			verifyLeadCaptureSettingsOnWebsite(pageUrl, lLeadCaptureEnabled, lLeadCaptureStrength);
+		}else {
+			verifyPageOnWebsite(pageUrl, lPageTitle, lPageBody);
+		}
+		
 	}
 	
 	@Test(priority=1)
@@ -98,6 +114,7 @@ public class PPAddNewPageTest extends PageTest{
 		}else {
 			getPage("");
 		}
+		
 		assertTrue(header.clickOnWebsite(), "Unable to click on Website tab..");
 		
 		PPAddPageData ppAddPageData = new PPAddPageData(pDataFile).getAddPageData();
@@ -105,6 +122,10 @@ public class PPAddNewPageTest extends PageTest{
 		String lPageTitle = ModuleCommonCache.getCachedModuleObject(getThreadId().toString(), ModuleCacheConstants.PageTitle).toString();
 		String lPageBody = ppAddPageData.getPageBodyUpdate();
 		boolean deletePage = ppAddPageData.isPageDelete();
+		boolean isLeadCapture = ppAddPageData.getLeadCaptureEnabled().equalsIgnoreCase("On")?true:false;
+		String lLeadCaptureEnabled = ppAddPageData.getLeadCaptureEnabled();
+		String lLeadCaptureTrigger = ppAddPageData.getLeadCapturePrompt();
+		String lLeadCaptureStrengthUpdated = ppAddPageData.getLeadStrengthUpdate();
 		
 		assertTrue(ppWebsitePage.isWebSitePage(), "Unable to open website page..");
 		assertTrue(ppWebsitePage.typeInSearchField(lPageTitle), "Unable to type page title in search field..");
@@ -113,12 +134,23 @@ public class PPAddNewPageTest extends PageTest{
 		
 		assertTrue(page.isEditPage(), "Add new page is not open..");
 		assertTrue(page.typeInBody(lPageBody), "Unable to type in page body ..");
+		
+		if(isLeadCapture) {
+			configureLeadCaptureSettings(lLeadCaptureEnabled, lLeadCaptureStrengthUpdated, lLeadCaptureTrigger);
+		}
+		
 		assertTrue(page.clickOnPublishButton(), "Unable to click on Publish..");
 		assertTrue(page.isPublishSuccessful(), "Unable to publish the page. Verification failed...");
 		
 		String pageUrl = page.getPageUrl();
 		String lEditPageUrl = driver.getCurrentUrl();
-		verifyPageOnWebsite(pageUrl, lPageTitle, lPageBody);
+		
+		if(isLeadCapture) {
+			verifyLeadCaptureSettingsOnWebsite(pageUrl, lLeadCaptureEnabled, lLeadCaptureStrengthUpdated);
+		}else {
+			verifyPageOnWebsite(pageUrl, lPageTitle, lPageBody);
+		}
+		
 		if(deletePage) {
 			driver.navigate().to(lEditPageUrl);
 			assertTrue(page.clickOnMoveToTrashButton(), "Unable to click on move to trash button...");
@@ -126,6 +158,7 @@ public class PPAddNewPageTest extends PageTest{
 			
 		}
 	}
+	
 	
 	private void verifyPageOnWebsite(String pPageURL,String pPageTitle, String pPageBody) {
 		
@@ -136,7 +169,43 @@ public class PPAddNewPageTest extends PageTest{
 		assertTrue(newPageCreated.isPageLoaded(), "Website page is not loaded successfully..");
 		assertTrue(newPageCreated.verifyPageHeading(pPageTitle), "Unable to verify Page title..");
 		assertTrue(newPageCreated.verifyPageBody(pPageBody), "Unable to verify Page body content..");
+	}
+	
+	private void verifyLeadCaptureSettingsOnWebsite(String pPageURL,String pLeadCaptureEnabled, String pLeadCaptureStrength) {
+		//Switching to wordpress website
+		driver.navigate().to(pPageURL);
+		NewPageCreatedFromPP newPageCreated = new NewPageCreatedFromPP(driver);
+		assertTrue(newPageCreated.isPageLoaded(), "Website page is not loaded successfully..");
+		assertTrue(verifyLeadCaptureSettingsOnWebsite(pLeadCaptureEnabled, pLeadCaptureStrength), "Unable to verify lead capture settings on website..");
+	}
+	
+	private void configureLeadCaptureSettings(String pLeadCaptureEnabled, String pLeadCaptureStrength, String pLeadCaptureTrigger) {
+		assertTrue(page.clickAndSelectLeadCaptureEnabled(pLeadCaptureEnabled),"Unable to select lead capture enable option.."+pLeadCaptureEnabled);
+		assertTrue(page.clickAndSelectCaptureLeadStrength(pLeadCaptureStrength),"Unable to select lead capture strength option.."+pLeadCaptureStrength);
+		assertTrue(page.clickAndSelectCaptureLeadTrigger(pLeadCaptureTrigger),"Unable to select lead capture trigger option.."+pLeadCaptureTrigger);
+	}
+	
+	private boolean verifyLeadCaptureSettingsOnWebsite(String pLeadCaptureEnabled, String pLeadCaptureStrength) {
 		
+		boolean lLeadCaptureSettingVerified = false;
+		boolean lLeadCaptureEnable = pLeadCaptureEnabled.equalsIgnoreCase("On")?true:false;
+		BootstrapModal bootstrapModalObj = new BootstrapModal(driver);
+		boolean bootStrapModalIsShown = bootstrapModalObj.checkBootsrapModalIsShown();
+		
+		if(bootStrapModalIsShown && lLeadCaptureEnable) {
+			boolean isModalClosed = bootstrapModalObj.closeModal();
+			if(!isModalClosed && pLeadCaptureStrength.equalsIgnoreCase("Strong")) {
+				lLeadCaptureSettingVerified = true;
+			}else if(isModalClosed && pLeadCaptureStrength.equalsIgnoreCase("Medium")) {
+				lLeadCaptureSettingVerified = true;
+			}else {
+				lLeadCaptureSettingVerified = false;
+			}
+		}else if(!bootStrapModalIsShown && !lLeadCaptureEnable) {
+			lLeadCaptureSettingVerified = true;
+		}
+		
+		return lLeadCaptureSettingVerified;
 	}
 	
 
