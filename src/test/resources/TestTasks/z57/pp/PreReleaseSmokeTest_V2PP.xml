@@ -520,7 +520,7 @@
       </class>
     </classes>
 	</test>
-  
+  <!--  
    <test name="Signup with Facebook from Home Page">
   <parameter name="page" value="Home">
     <classes>
@@ -555,7 +555,7 @@
     </classes>
 	</parameter>
  </test>
-  
+  -->
   <test name="Verify Pagination on Home Search">
     <parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
     <classes>
@@ -894,17 +894,11 @@
 	</test>
 	
 	 <test name="Post Image on Facebook now">
- 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-promote-listing-data.json" >
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-social-promote-listing-data.json" >
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-image.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
       	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
-      <methods>
-      	<include name="testAddListing" />
       </methods>
       </class>
       <class name="com.z57.propertypulse.PPSocialPageTest" >
@@ -918,7 +912,6 @@
       </methods>
       </class>
     </classes>
-    </parameter>
     </parameter>
 	</test>
 	
@@ -1008,5 +1001,31 @@
     </classes>
 	</test>
 	
+	 <test name="Create Edit and Delete Page">
+    <parameter name="addNewPageDataFile" value="/resources/data/propertypulse/website/add-page-data-01.json" >
+	<classes>
+	<class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPAddNewPageTest" >
+      <methods>
+      	<include name="testAddNewPage" />
+      </methods>
+      </class>
+       <class name="com.z57.propertypulse.PPAddNewPageTest" >
+      <methods>
+      	<include name="testEditPage" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
     
 </suite>
