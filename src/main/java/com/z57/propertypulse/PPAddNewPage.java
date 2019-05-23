@@ -54,6 +54,24 @@ public class PPAddNewPage extends Page{
 	@FindBy(xpath="//select[@name='z57_admin_lead_capture_settings_trigger']")
 	WebElement leadCaptureTriggerPrompt;
 	
+	@FindBy(id="layout_value")
+	WebElement pageLayout;
+	
+	@FindBy(id="sidebar_value")
+	WebElement pageSidebarValue;
+	
+	@FindBy(xpath="//li[@id='contact_me_widget-4']/h3[text()='Contact Me']")
+	WebElement contactMeWidget;
+	
+	@FindBy(xpath="//li[@id='contact_me_widget-2']/h3[text()='Contact Me']")
+	WebElement contactMeWidgetDefault;
+	
+	@FindBy(xpath="//h2[text()='Fast Start Appointment']")
+	WebElement fastStartHeading;
+	
+	@FindBy(xpath="//li[@id='idx_search_widget-3']/h3[text()='Home Search']")
+	WebElement homeSearchWidget;
+	
 	public PPAddNewPage() {
 		
 	}
@@ -120,5 +138,22 @@ public class PPAddNewPage extends Page{
 	public boolean clickAndSelectCaptureLeadTrigger(String pTrigger) {
 		return ActionHelper.selectDropDownOption(driver, leadCaptureTriggerPrompt,"", pTrigger);
 	}
-
+	public boolean clickAndSelectPageLayout(String pLayout) {
+		return ActionHelper.selectDropDownOption(driver, pageLayout,"", pLayout);
+	}
+	public boolean clickAndSelectPageLayoutSidebar(String pSidebar) {
+		return ActionHelper.selectDropDownOption(driver, pageSidebarValue,"", pSidebar);
+	}
+	public boolean isDefaultSidebarVisible() {
+		return ActionHelper.isElementVisible(driver, contactMeWidgetDefault);
+	}
+	public boolean isContactMeWidgetVisible() {
+		return ActionHelper.isElementVisible(driver, contactMeWidget);
+	}
+	public boolean isHomepageWidgetVisible() {
+		return ActionHelper.isElementVisible(driver, fastStartHeading);
+	}
+	public boolean isHomesearchWidgetVisible() {
+		return ActionHelper.isElementVisible(driver, homeSearchWidget);
+	}
 }

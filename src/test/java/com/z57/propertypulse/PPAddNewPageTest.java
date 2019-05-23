@@ -159,9 +159,53 @@ public class PPAddNewPageTest extends PageTest{
 		}
 	}
 	
+	@Test
+	@Parameters({"addNewPageDataFile"})
+	public void testAddEditPageLayout(String pDataFile){
+		
+		getPage("");
+
+		PPAddPageData ppAddPageData = new PPAddPageData(pDataFile).getAddPageData();
+		String lPageTitle = updateName(ppAddPageData.getPageTitle());
+		String lPageBody = ppAddPageData.getPageBody();
+		String lPageLayout = ppAddPageData.getPageLayout();
+		String lPageLayoutValue = ppAddPageData.getPageLayoutSidebar();
+		String lPageLayoutUpdated = ppAddPageData.getPageLayoutUpdate();
+		String lPageLayoutSidebarUpdate = ppAddPageData.getPageLayoutSidebarUpdate();
+		
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.PageTitle, lPageTitle);
+
+		addNewPage(lPageTitle,lPageBody);
+
+		String pageUrl = page.getPageUrl();	
+
+		//Page Layout settings
+		setPageLayoutSettings(lPageLayout, lPageLayoutValue);
+
+		assertTrue(page.clickOnPublishButton(), "Unable to click on Publish..");
+		assertTrue(page.isPublishSuccessful(), "Unable to publish the page. Verification failed...");
+
+		assertTrue(verificationOfLayoutSettings(pageUrl,lPageLayout, lPageLayoutValue),"Verification of Pagelayout on website failed");
+
+		driver.navigate().to(EnvironmentFactory.configReader.getPropertyByName("z57_pp_base_url"));
+
+		searchPage(lPageTitle);
+
+		//Page Layout settings
+		setPageLayoutSettings(lPageLayoutUpdated, lPageLayoutSidebarUpdate);
+
+		assertTrue(page.clickOnPublishButton(), "Unable to click on Publish..");
+		assertTrue(page.isPublishSuccessful(), "Unable to publish the page. Verification failed...");
+		
+		String lEditPageUrl = driver.getCurrentUrl();
+		
+		assertTrue(verificationOfLayoutSettings(pageUrl,lPageLayoutUpdated, lPageLayoutSidebarUpdate),"Verification of updated Pagelayout on website failed");
+
+		deletePage(lEditPageUrl);
+	}
+	
 	
 	private void verifyPageOnWebsite(String pPageURL,String pPageTitle, String pPageBody) {
-		
 		//Switching to wordpress website
 		driver.navigate().to(pPageURL);
 		NewPageCreatedFromPP newPageCreated = new NewPageCreatedFromPP(driver);
@@ -208,5 +252,73 @@ public class PPAddNewPageTest extends PageTest{
 		return lLeadCaptureSettingVerified;
 	}
 	
+	//This method will add new page
+	private void addNewPage(String pPageTitle, String pPageBody) {
+		
+		assertTrue(header.clickOnWebsite(), "Unable to click on Website tab..");
+		
+		assertTrue(ppWebsitePage.isWebSitePage(), "Unable to open website page..");
+		assertTrue(ppWebsitePage.clickOnAddNewButton(), "Unable to click on Add new button..");
+		
+		assertTrue(page.isAddNewPage(), "Add new page is not open..");
+		assertTrue(page.typePageTitle(pPageTitle), "Unable to type page title ..");
+		assertTrue(page.typeInBody(pPageBody), "Unable to type in page body ..");
+		
+		//Lead Capture strength	
+		assertTrue(page.clickOnPublishButton(), "Unable to click on Publish..");
+		assertTrue(page.isPublishSuccessful(), "Unable to publish the page. Verification failed...");
+		
+	}
+	
+	//This method will search page
+	private void searchPage(String pPageTitle) {
+		assertTrue(header.clickOnWebsite(), "Unable to click on Website tab..");
+		assertTrue(ppWebsitePage.isWebSitePage(), "Unable to open website page..");
+		assertTrue(ppWebsitePage.typeInSearchField(pPageTitle), "Unable to type page title in search field..");
+		assertTrue(ppWebsitePage.clickOnSearchButton(), "Unable to click on search button..");
+		assertTrue(ppWebsitePage.clickOnRowPage(pPageTitle), "Unable to click on page row button..");
+		assertTrue(page.isEditPage(), "Add new page is not open..");
+	}
 
+	private boolean verificationOfLayoutSettings(String pPageUrl,String lPageLayout, String lPageLayoutValue) {
+		
+		driver.navigate().to(pPageUrl);
+		NewPageCreatedFromPP newPageCreated = new NewPageCreatedFromPP(driver);
+		assertTrue(newPageCreated.isPageLoaded(), "Website page is not loaded successfully..");
+		
+		boolean verificationSuccessful = false;
+		if(lPageLayout.equalsIgnoreCase("Full width")) {
+			verificationSuccessful = !page.isDefaultSidebarVisible();
+		}else {
+			switch(lPageLayoutValue) {
+
+			case "Default Sidebar":
+				verificationSuccessful = page.isDefaultSidebarVisible();
+				break;
+
+			case "Homepage":
+				verificationSuccessful = page.isHomepageWidgetVisible();
+				break;
+
+			case "Listings":
+				verificationSuccessful = page.isHomesearchWidgetVisible();
+				break;
+
+			case "Contact Me":
+				verificationSuccessful = page.isContactMeWidgetVisible();
+				break;
+			}
+		}
+		return verificationSuccessful;		
+	}
+	
+	private void setPageLayoutSettings(String pPageLayout, String pPageLayoutValue) {
+		assertTrue(page.clickAndSelectPageLayout(pPageLayout), "Unable to select page layout..");
+		assertTrue(page.clickAndSelectPageLayoutSidebar(pPageLayoutValue), "Unable to select page layout sidebar..");
+	}
+	private void deletePage(String pEditPageUrl) {
+		driver.navigate().to(pEditPageUrl);
+		assertTrue(page.clickOnMoveToTrashButton(), "Unable to click on move to trash button...");
+		assertTrue(ppWebsitePage.isPageDeletedSuccessfully(), "Page is not deleted, Success message is not displayed...");
+	}
 }

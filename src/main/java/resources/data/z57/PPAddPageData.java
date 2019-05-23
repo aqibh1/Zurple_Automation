@@ -34,6 +34,18 @@ public class PPAddPageData extends JSONData<PPAddPageData>{
 	
 	@JsonProperty("lead_strength_update")
 	String leadStrengthUpdate;
+	
+	@JsonProperty("page_layout")
+	String pageLayout;
+	
+	@JsonProperty("page_layout_sidebar")
+	String pageLayoutSidebar;
+	
+	@JsonProperty("page_layout_update")
+	String pageLayoutUpdate;
+	
+	@JsonProperty("page_layout_sidebar_update")
+	String pageLayoutSidebarUpdate;
 
 	public String getPageTitle() {
 		return pageTitle;
@@ -97,6 +109,38 @@ public class PPAddPageData extends JSONData<PPAddPageData>{
 
 	public void setLeadStrengthUpdate(String leadStrengthUpdate) {
 		this.leadStrengthUpdate = leadStrengthUpdate;
+	}
+
+	public String getPageLayout() {
+		return pageLayout;
+	}
+
+	public String getPageLayoutSidebar() {
+		return pageLayoutSidebar;
+	}
+
+	public String getPageLayoutUpdate() {
+		return pageLayoutUpdate;
+	}
+
+	public String getPageLayoutSidebarUpdate() {
+		return pageLayoutSidebarUpdate;
+	}
+
+	public void setPageLayout(String pageLayout) {
+		this.pageLayout = pageLayout;
+	}
+
+	public void setPageLayoutSidebar(String pageLayoutSidebar) {
+		this.pageLayoutSidebar = pageLayoutSidebar;
+	}
+
+	public void setPageLayoutUpdate(String pageLayoutUpdate) {
+		this.pageLayoutUpdate = pageLayoutUpdate;
+	}
+
+	public void setPageLayoutSidebarUpdate(String pageLayoutSidebarUpdate) {
+		this.pageLayoutSidebarUpdate = pageLayoutSidebarUpdate;
 	}
 
 	private PPAddPageData addPageData;

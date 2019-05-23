@@ -6,5 +6,9 @@
 	"lead_capture_enabled":"Off",
 	"lead_strength":"Medium",
 	"lead_capture_prompt":"Always",
-	"lead_strength_update":"Medium"
+	"lead_strength_update":"Medium",
+	"page_layout":"Full width",
+	"page_layout_sidebar":"Default Sidebar",
+	"page_layout_update":"Right Sidebar",
+	"page_layout_sidebar_update":"Contact Me"
 }
