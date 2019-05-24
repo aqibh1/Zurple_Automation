@@ -164,6 +164,8 @@ public class SearchForm extends AbstractForm{
 	@FindBy(xpath="//input[@id='address_input']")
 	WebElement address_input;
 	
+	String addressMatch_xpath = "//div[@class='pac-container pac-logo hdpi']/descendant::span[@class]";
+	
 	@FindBy(xpath="//input[@id='mlsid_input']")
 	WebElement mls_input;
 	
@@ -231,7 +233,20 @@ public class SearchForm extends AbstractForm{
 		return isTypeSuccessful;
 	}
 	public boolean typeAddress(String pText) {
-		return typeAndDownArrowSelect(address_input, pText);
+		boolean isSuccess = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, address_input, 30) && ActionHelper.Type(driver, address_input, pText)) {
+			ActionHelper.staticWait(2);
+			List<WebElement> list_of_matches = ActionHelper.getListOfElementByXpath(driver, addressMatch_xpath);
+			for(WebElement element: list_of_matches) {
+				if(element.getText().equalsIgnoreCase(pText)) {
+					isSuccess = ActionHelper.Click(driver, element);
+					ActionHelper.staticWait(3);
+					break;
+				}
+			}
+		}
+		//		return typeAndDownArrowSelect(address_input, pText);
+		return isSuccess;
 	}
 	public boolean typeMLS(String pText) {
 		return typeAndDownArrowSelect(mls_input, pText);
@@ -573,4 +588,5 @@ public class SearchForm extends AbstractForm{
 	public boolean clickOnBathsOptionIdx(String pBathrooms) {
 		return clickAndSelect(bathrooms_dropDown_idx, pBathrooms, bathroomsOptions_xpath_idx);
 	}
+
 }

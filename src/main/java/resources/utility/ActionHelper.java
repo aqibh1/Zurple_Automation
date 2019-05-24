@@ -429,4 +429,11 @@ public class ActionHelper {
 			return displayed;
 	       
 	   }
+	   public static void staticWait(long pTimeInSeconds) {
+		   try {
+			   Thread.sleep(pTimeInSeconds*1000);
+		   }catch(Exception ex) {
+			   
+		   }
+	   }
 }

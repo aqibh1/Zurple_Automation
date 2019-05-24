@@ -89,7 +89,7 @@ public class IDXPropertyListingPageTest extends PageTest{
 				assertTrue(page.getPropertyAddress().contains(optionToVerify), "Property Address doesn' contain "+optionToVerify);
 			}else if(lSearchByOption.equalsIgnoreCase("address")) {
 				String optionToVerify = lInputSearch.split("San Diego")[0];
-				assertTrue(page.getPropertyAddress().replace(" ", "").contains(optionToVerify.replace(" ", "")), "Property Address doesn' contain "+lInputSearch);
+				assertTrue(page.getPropertyAddress().replace(" ", "").contains(optionToVerify.replace(" ", "")), "Property Address doesn't contain "+lInputSearch);
 			}else if(lSearchByOption.equalsIgnoreCase("neighborhood")) {
 //				assertTrue(page.getSearchForm().typeAndSelectNeighborhood(lInputSearch), "Input field on Home Search is not visible");
 
