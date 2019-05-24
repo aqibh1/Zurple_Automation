@@ -95,10 +95,11 @@ public class PPSocialPageTest extends PageTest{
 		
 		if(!lPhotoPath.isEmpty()) {
 			assertTrue(page.clickOnPhoto(), "Unable to click Photo tab button....");
-			assertTrue(page.clickOnLinkChooseFileButton(), "Unable to click on choose file button..");
-			//Upload the images
-			page.getPpUploadImagesForm().uploadFacebookImage(System.getProperty("user.dir")+lPhotoPath);
-			assertTrue(page.isSocialPage(), "Unable to upload the image..");			
+//			assertTrue(page.clickOnLinkChooseFileButton(), "Unable to click on choose file button..");
+//			//Upload the images
+//			page.getPpUploadImagesForm().uploadFacebookImage(System.getProperty("user.dir")+lPhotoPath);
+//			assertTrue(page.isSocialPage(), "Unable to upload the image..");	
+			assertTrue(page.uploadImage(System.getProperty("user.dir")+lPhotoPath), "Unable to upload the image..");
 		}
 		
 		//If Promote a Listing option

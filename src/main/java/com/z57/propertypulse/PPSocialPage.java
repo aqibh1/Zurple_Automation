@@ -119,6 +119,9 @@ public class PPSocialPage extends Page{
 	@FindBy(xpath="//div[@id='ajax_working' and @style='display: block;']")
 	WebElement ajaxLoader;
 	
+	@FindBy(id="post_file")
+	WebElement image_input;
+	
 	public PPSocialPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		setPpUploadImagesForm();
@@ -436,5 +439,8 @@ public class PPSocialPage extends Page{
 	}
 	public boolean isLoaderDisappeared() {
 		return ActionHelper.waitForAjaxToBeCompleted(driver);
+	}
+	public boolean uploadImage(String pImagePath) {
+		return ActionHelper.Type(driver, image_input, pImagePath);
 	}
 }
