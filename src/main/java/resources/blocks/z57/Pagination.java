@@ -1,6 +1,7 @@
 package resources.blocks.z57;
 
 import java.util.List;
+import java.util.Random;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -58,6 +59,7 @@ public class Pagination {
 	}
 	
 	public boolean verifyAllPaginationButtonsWorking() {
+		Random randomGenerator = new Random();
 		int lAttemptCount=0;
 		boolean clickOnNum = false;
 		boolean clickOnPrev = false;
@@ -70,18 +72,22 @@ public class Pagination {
 		try {
 			if(totalPages>1) {
 				do {
-					int gotoPage = (int)(Math.random() * (totalPages));
+					int gotoPage = randomGenerator.nextInt(totalPages) + 1;//(int)(Math.random() * (totalPages));
+					System.out.println("Go to page "+gotoPage);
 					if(lCurrentPage!=gotoPage) {
 						clickOnPageNumber(String.valueOf(gotoPage));
+						System.out.println("Clicked on page number was success.. "+gotoPage);
 						clickOnNum = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)))==gotoPage;
 						if(clickOnNum) {
 							currentPageOld = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
 							if(clickOnPrevious()) {
+								System.out.println("Clicked on previous button was success.. ");
 								currentPageNew = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
 								clickOnPrev = currentPageOld!=currentPageNew;
 							}
 							currentPageOld = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
 							if(clicOnNext()) {
+								System.out.println("Clicked on NEXT button was success.. ");
 								currentPageNew = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
 								clickOnNext = currentPageOld!=currentPageNew;
 							}

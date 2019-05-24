@@ -381,7 +381,7 @@ public class SearchForm extends AbstractForm{
 	
 	public boolean clickAndSelectLotSize(String pLotSize) {
 		boolean isSuccessfull=false;
-		lotSize_dropdown.click();
+		ActionHelper.Click(driver, lotSize_dropdown);
 		if(typeInputAndSelectTheOption(lotSize_Input,pLotSize)) {
 			isSuccessfull=true;
 		}
@@ -392,9 +392,9 @@ public class SearchForm extends AbstractForm{
 	public boolean clickAndSelectStatus(String pStatus) {	
 		boolean isClickSuccessful=false;
 		try {
-			status_dropdown.click();
-			status_dropdown.sendKeys(Keys.BACK_SPACE);
-			status_dropdown.sendKeys(Keys.BACK_SPACE);
+			ActionHelper.Click(driver, status_dropdown);
+			ActionHelper.Type(driver, status_dropdown, Keys.BACK_SPACE);
+			ActionHelper.Type(driver, status_dropdown, Keys.BACK_SPACE);
 			dropDownOptions=getDynamicElement(status_xpath, WordUtils.capitalizeFully(pStatus));
 			if(wait.until(ExpectedConditions.visibilityOf(dropDownOptions))!=null) {
 				dropDownOptions.click();
