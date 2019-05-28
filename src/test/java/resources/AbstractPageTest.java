@@ -1,9 +1,13 @@
 package resources;
 
+import java.io.FileReader;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
@@ -12,6 +16,7 @@ import org.testng.annotations.Parameters;
 
 import resources.alerts.BootstrapModal;
 import resources.classes.Asset;
+import resources.utility.AutomationLogger;
 
 import static org.testng.Assert.assertTrue;
 
@@ -119,4 +124,17 @@ public abstract class AbstractPageTest extends AbstractTest
         	bootstrapModalObj.clearBootstrapModal();
         }
     }
+    protected JSONObject getDataFile(String pDataFile) {
+		JSONParser jsonParser = new JSONParser();
+		JSONObject jsonDatObject = new JSONObject();
+		try (FileReader reader = new FileReader(System.getProperty("user.dir")+pDataFile))
+		{
+			//Read JSON file
+			Object obj = jsonParser.parse(reader);
+			jsonDatObject = new JSONObject(obj.toString());
+		}catch(Exception ex) {
+			AutomationLogger.fatal("Unable to read data file "+pDataFile);
+		}
+		return jsonDatObject;
+	}
 }
