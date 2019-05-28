@@ -50,7 +50,7 @@ public class ExtentReporterListener implements ITestListener{
 //		   ExtentTestManager.getTestEmail().log(LogStatus.FAIL,result.getName(),errorMessage+ExtentTestManager.getTestEmail().addBase64ScreenShot(base64ScreenshotEmail));
 		   ExtentTestManager.getTestEmail().log(LogStatus.FAIL,result.getName(),errorMessage);
 
-	        ExtentTestManager.getTest().log(LogStatus.FAIL,result.getName(),errorMessage+ExtentTestManager.getTest().addScreenCapture(base64Screenshot));		
+	        ExtentTestManager.getTest().log(LogStatus.FAIL,result.getName(),errorMessage+ExtentTestManager.getTest().addScreenCapture(base64ScreenshotEmail));		
 	}
 
 	@Override

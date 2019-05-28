@@ -3,10 +3,12 @@
  */
 package com.z57.propertypulse;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import javax.annotation.Priority;
 
+import org.hibernate.tuple.ElementWrapper;
 import org.json.JSONArray;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.DataProvider;
@@ -205,6 +207,14 @@ public class PPAddNewPageTest extends PageTest{
 	}
 	
 	
+	/////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////
+	//////////////HELPER METHODS FOR NEW PAGE VERIFICATIONS AND//////////////////////////////
+	/////////////////////////////COMMON TEST STEPS///////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////
+	
+
 	private void verifyPageOnWebsite(String pPageURL,String pPageTitle, String pPageBody) {
 		//Switching to wordpress website
 		driver.navigate().to(pPageURL);
@@ -321,4 +331,6 @@ public class PPAddNewPageTest extends PageTest{
 		assertTrue(page.clickOnMoveToTrashButton(), "Unable to click on move to trash button...");
 		assertTrue(ppWebsitePage.isPageDeletedSuccessfully(), "Page is not deleted, Success message is not displayed...");
 	}
+	
+	
 }

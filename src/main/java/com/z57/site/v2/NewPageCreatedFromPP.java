@@ -17,6 +17,10 @@ public class NewPageCreatedFromPP extends Page{
 	
 	@FindBy(xpath="//DIV[@class='single-content']/descendant::p")
 	WebElement pageBody;
+	
+	@FindBy(id="calendar_wrap")
+	WebElement calendarWidget;
+	
 	public NewPageCreatedFromPP() {
 		
 	}
@@ -36,7 +40,10 @@ public class NewPageCreatedFromPP extends Page{
 	public boolean verifyPageBody(String pBodyToVerify) {
 		return ActionHelper.getText(driver, pageBody).trim().equalsIgnoreCase(pBodyToVerify);
 	}
-	
+	public boolean isCalendarWidgetVisible() {
+		ActionHelper.ScrollDownByPixels(driver,"1500");
+		return ActionHelper.waitForElementToBeVisible(driver, calendarWidget, 10);
+	}
 	@Override
 	public WebElement getHeader() {
 		// TODO Auto-generated method stub

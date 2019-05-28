@@ -58,13 +58,14 @@ public class ActionHelper {
 		}
 	   
 	   public static boolean MouseHoverOnElement(WebDriver pWebDriver, WebElement pElementToBeHoveredOn) {
-		   boolean status = false;
+		   boolean status = true;
 		   if(isElementVisible(pWebDriver, pElementToBeHoveredOn)) {
 			   Actions action = new Actions(pWebDriver);
 			   action.moveToElement(pElementToBeHoveredOn).build().perform();
 			   AutomationLogger.info("Mouse hover is successfull");
 		   }else {
 			   AutomationLogger.error("Mouse hover is unsuccessful over element ->"+pElementToBeHoveredOn);
+			   status = false;
 		   }
 		   return status;
 		}
@@ -435,5 +436,29 @@ public class ActionHelper {
 		   }catch(Exception ex) {
 			   
 		   }
+	   }
+	   //Drag and Drop Method
+	   public static boolean dragAndDrop (WebDriver pWebDriver, WebElement pFrom, WebElement pTo) {
+		   boolean result = true;
+		   try {
+			   Actions action=new Actions(pWebDriver);
+			   action.dragAndDrop(pFrom, pTo).build().perform();
+			   staticWait(5);
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Drag and Drop failed for "+pFrom);
+			   result = false;
+		   }
+		   return result;
+	   }
+	   
+	   public static void ScrollDownByPixels(WebDriver pWebDriver,String pPixels) {
+		   try {
+			   JavascriptExecutor js = (JavascriptExecutor) pWebDriver;
+			   AutomationLogger.info("Scrolling down");		
+			   js.executeScript("window.scrollBy(0,"+pPixels+")");
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Error in Scrolling down");
+		   }
+		   
 	   }
 }

@@ -46,6 +46,9 @@ public class PPAddPageData extends JSONData<PPAddPageData>{
 	
 	@JsonProperty("page_layout_sidebar_update")
 	String pageLayoutSidebarUpdate;
+	
+	@JsonProperty("widget_type")
+	String widgetType;
 
 	public String getPageTitle() {
 		return pageTitle;

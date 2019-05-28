@@ -34,6 +34,14 @@ public class PPWebsitePage extends Page{
 	@FindBy(id="message")
 	WebElement message_label;
 	
+	@FindBy(xpath="//div[@class='wp-menu-name' and text()='Appearance']")
+	WebElement appearanceSideMenu;
+	
+	@FindBy(xpath="//ul[@class='wp-submenu wp-submenu-wrap']/descendant::a[@href='widgets.php']")
+	WebElement widgetSubmenu;
+	
+
+	
 	public PPWebsitePage() {
 		
 	}
@@ -66,5 +74,13 @@ public class PPWebsitePage extends Page{
 	public boolean isPageDeletedSuccessfully() {
 		return ActionHelper.waitForElementToBeVisible(driver, message_label, 30);
 	}
+	public boolean clickOnWidget() {
+		boolean result = false;
+		if(ActionHelper.MouseHoverOnElement(driver, appearanceSideMenu)) {
+			result = ActionHelper.Click(driver, widgetSubmenu);
+		}
+		return result;
+	}
+	
 
 }
