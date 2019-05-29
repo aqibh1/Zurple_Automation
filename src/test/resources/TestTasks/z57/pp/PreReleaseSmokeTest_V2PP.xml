@@ -1027,55 +1027,7 @@
     </classes>
     </parameter>
 	</test>
-	
-	  <test name="Verify analytics stats for facebook page">
-	<classes>
-	<class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPAnalyticsPageTest" >
-      <methods>
-      	<include name="testVerifyFacebookAnalyticsPage" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-	</test>
-	
-	 
-    <test name="Create Edit and Delete Page">
-    <parameter name="addNewPageDataFile" value="/resources/data/propertypulse/website/add-page-data-01.json" >
-	<classes>
-	<class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPAddNewPageTest" >
-      <methods>
-      	<include name="testAddNewPage" />
-      </methods>
-      </class>
-       <class name="com.z57.propertypulse.PPAddNewPageTest" >
-      <methods>
-      	<include name="testEditPage" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
+	 	
 	 <test name="Update and Verify Lead Capture Settings">
     <parameter name="addNewPageDataFile" value="/resources/data/propertypulse/website/add-lead-capture-data-01.json" >
 	<classes>
