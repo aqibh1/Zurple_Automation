@@ -2,8 +2,8 @@
 
 <suite name="Pre Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	 <listeners>
-        <listener class-name="resources.ThreadCountChanger"/>
-        <listener class-name="resources.TestListener"/>
+         <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
     
