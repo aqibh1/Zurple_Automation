@@ -83,6 +83,7 @@ public class PPEmailCampaignEditorListing extends Page{
 		boolean isSuccess = false;
 		if(ActionHelper.Type(driver, selectIndividualLeads, pLeadEmail)) {
 			ActionHelper.waitForAjaxToBeCompleted(driver);
+			ActionHelper.staticWait(3);
 			isSuccess = ActionHelper.Type(driver, selectIndividualLeads, Keys.ENTER);
 		}
 		return isSuccess;
@@ -98,6 +99,7 @@ public class PPEmailCampaignEditorListing extends Page{
 	public boolean typeAndAddDate(String pDate) {
 		boolean isSuccess = false;
 		if(ActionHelper.ClearAndType(driver, scheduleDatepicker, pDate)) {
+			ActionHelper.waitForAjaxToBeCompleted(driver);
 			isSuccess = ActionHelper.Click(driver, add_button);
 		}
 		return isSuccess;

@@ -23,6 +23,7 @@ public class PPEmailCampaignManagerPageTest extends PageTest{
 	private WebDriver driver;
 	private PPEmailCampaignManagerPage page;
 	private PPEmailCampaignEditorListing emailCampaignEditorListing;
+	private PPEmailCampaignEditorCustom emailCMCustom;;
 	private JSONObject dataObject;
 	
 	@Override
@@ -31,6 +32,7 @@ public class PPEmailCampaignManagerPageTest extends PageTest{
 			driver = getDriver();
 			page = new PPEmailCampaignManagerPage(driver);
 			emailCampaignEditorListing = new PPEmailCampaignEditorListing(driver);
+			emailCMCustom = new PPEmailCampaignEditorCustom(driver);
 		}
 		return page;
 	}
@@ -39,6 +41,7 @@ public class PPEmailCampaignManagerPageTest extends PageTest{
 			driver = getDriver();
 			page = new PPEmailCampaignManagerPage(driver);
 			emailCampaignEditorListing = new PPEmailCampaignEditorListing(driver);
+			emailCMCustom = new PPEmailCampaignEditorCustom(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
 		}
@@ -74,7 +77,43 @@ public class PPEmailCampaignManagerPageTest extends PageTest{
 		assertTrue(emailCampaignEditorListing.selectTitleInHeader(lTitleInHeader), "Unable to select Title in Header..");
 		assertTrue(emailCampaignEditorListing.typeEmailSubject(lEmailSubjectLine), "Unable to type Email Subject Line..");
 		
-		setRecipientScheduleAndTest(lGroup, lSelectIndividualLead, lDate, lSendTestEmailTo);
+		setRecipientScheduleAndTest(lGroup, lSelectIndividualLead, lDate, lSendTestEmailTo,false);
+		
+		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
+		assertTrue(dbHelperMethods.verifyEmailIsSentToLead(lSendTestEmailTo, lEmailSubjectLine), "Test email is not sent to test email .."+lSendTestEmailTo);
+		
+		driver.navigate().to(EnvironmentFactory.configReader.getPropertyByName("z57_pp_base_url")+"/marketing/campaigns/scheduled");
+	
+		assertTrue(page.isEmailCampaignManagerPage(), "Email Campaign Manager is not visible..");
+		assertTrue(page.typeInSearch(lEmailSubjectLine), "Unable to type in search input..");
+		assertTrue(page.isListingScheduled(lEmailSubjectLine), "Listing is not scheduled..");
+		
+		AutomationLogger.endTestCase("testEmailCampaignManagerListing");
+	}
+	
+	@Parameters({"dataFileMarketing"})
+	@Test
+	public void testEmailCampaignManagerCustom(String pDataFile) {
+		AutomationLogger.startTestCase("testEmailCampaignManagerListing");
+		
+		dataObject = getDataFile(pDataFile);
+		String lEmailSubjectLine = updateName(dataObject.optString(DataConstants.EmailSubjectLine));
+		String lSelectTemplate = dataObject.optString(DataConstants.SelectTemplate);
+		String lGroup = dataObject.optString(DataConstants.Group);
+		String lSelectIndividualLead = dataObject.optString(DataConstants.IndividualLead);
+		String lSendTestEmailTo = dataObject.optString(DataConstants.SendTestEmailTo);
+		String lDate = dataObject.optString(DataConstants.ScheduleDatePick);
+		
+		getPage("/marketing/campaigns/manager");
+		
+		//Go to Campaign Manager
+		assertTrue(page.clickOnCustomSubMenu(), "Unable to click on 'Create a new campaign' > Listing");
+		
+		assertTrue(emailCMCustom.isEmailCampaignManagerPage(), "Email Campaign Manager Custom page is not visible..");
+		assertTrue(emailCMCustom.selectTemplate(lSelectTemplate), "Unable to select template from dropdown menu..");
+		assertTrue(emailCMCustom.typeEmailSubject(lEmailSubjectLine), "Unable to type email subject line..");
+		
+		setRecipientScheduleAndTest(lGroup, lSelectIndividualLead, lDate, lSendTestEmailTo,true);
 		
 		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
 		assertTrue(dbHelperMethods.verifyEmailIsSentToLead(lSendTestEmailTo, lEmailSubjectLine), "Test email is not sent to test email .."+lSendTestEmailTo);
@@ -92,12 +131,17 @@ public class PPEmailCampaignManagerPageTest extends PageTest{
 	//////////////////////HELPER METHODS/////////////////////////
 	/////////////////////////////////////////////////////////////
 	
-	private void setRecipientScheduleAndTest(String pGroup, String pLead,String pDate, String pTestEmail) {
+	private void setRecipientScheduleAndTest(String pGroup, String pLead,String pDate, String pTestEmail, boolean pCustomCampaign) {
 		if(pGroup!=null && !pGroup.isEmpty()) {
 			
 		}
 		if(pLead!=null && !pLead.isEmpty()) {
-			assertTrue(emailCampaignEditorListing.typeIndividualLead(pLead), "Unable to type lead email..");
+			if(pCustomCampaign) {
+				assertTrue(emailCMCustom.typeIndividualLead(pLead), "Unable to type lead email..");
+			}else {
+				assertTrue(emailCampaignEditorListing.typeIndividualLead(pLead), "Unable to type lead email..");
+			}
+			
 		}
 		assertTrue(emailCampaignEditorListing.typeAndAddDate(pDate), "Unable to type date and click add button..");
 		assertTrue(emailCampaignEditorListing.typeTestEmail(pTestEmail), "Unable to type test email..");

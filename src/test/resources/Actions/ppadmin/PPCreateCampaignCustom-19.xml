@@ -1,0 +1,29 @@
+<suite name="Update and Verify Page Layout Settings Suite" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+    </listeners>
+   
+    <test name="Create Custom Campaign Email">
+    <parameter name="dataFileMarketing" value="/resources/data/propertypulse/marketing/email-campaign-manager-custom.json" >
+	<classes>
+	<class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPEmailCampaignManagerPageTest" >
+      <methods>
+      	<include name="testEmailCampaignManagerCustom" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+</suite>
