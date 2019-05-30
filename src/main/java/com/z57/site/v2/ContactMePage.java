@@ -25,7 +25,7 @@ public class ContactMePage extends Page{
 //			result = FrameworkConstants.ContactMe.contains(driver.findElement(By.xpath("//h1[@class='entry-title title_prop']")).getText())?true:false;
 //		}
 		//ActionHelper.getText(driver, pageTitle).equalsIgnoreCase(FrameworkConstants.ContactMe)?true:false;
-		return ActionHelper.waitForElementToBeLocated(driver, "//h1[@class='entry-title title_prop' and contains(text(),'Contact Me')]", 20);
+		return ActionHelper.waitForElementToBeLocated(driver, "//h1[@class='entry-title title_prop' and contains(text(),'Contact')]", 20);
 	}
 
 	@Override
