@@ -122,6 +122,9 @@ public class PPSocialPage extends Page{
 	@FindBy(id="post_file")
 	WebElement image_input;
 	
+	@FindBy(id="type_status")
+	WebElement post_status_message;
+	
 	public PPSocialPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		setPpUploadImagesForm();
@@ -149,7 +152,13 @@ public class PPSocialPage extends Page{
 		return ActionHelper.waitForElementToBeLocated(driver, social_heading_xpath, 30);
 	}
 	public boolean checkFacebookOption() {
-		return ActionHelper.Click(driver, facebook_checkbox);
+		boolean isFacebookChecked = false;
+		if(!ActionHelper.isElementVisible(driver, post_status_message)) {
+			isFacebookChecked = ActionHelper.Click(driver, facebook_checkbox);
+		}else {
+			isFacebookChecked = true;
+		}
+		return isFacebookChecked;
 	}
 	public boolean checkTwitterOption() {
 		return ActionHelper.Click(driver, twitter_checkbox);
