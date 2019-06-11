@@ -1,18 +1,21 @@
 package com.z57.site.v2;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import resources.utility.ActionHelper;
-import resources.utility.FrameworkConstants;
 
 public class ContactMePage extends Page{
 	
 	@FindBy(xpath="//h1[@class='entry-title title_prop' and contains(text(),'Contact Me')]")
 	WebElement pageTitle;
+	
+	@FindBy(xpath="//div[@class='single-content listing-content']/h2")
+	WebElement nameDesignation_heading;
+	
+	@FindBy(xpath="//div[@class='single-content listing-content']/h3[2]")
+	WebElement phoneNumber_heading;
 	
 	public ContactMePage(WebDriver pWebDriver) {
 		driver=pWebDriver;
@@ -20,11 +23,6 @@ public class ContactMePage extends Page{
 	}
 	
 	public boolean isContactMePage() {
-//		boolean result = false;
-//		if(ActionHelper.waitForElementToBeLocated(driver, "//h1[@class='entry-title title_prop']", 10)) {
-//			result = FrameworkConstants.ContactMe.contains(driver.findElement(By.xpath("//h1[@class='entry-title title_prop']")).getText())?true:false;
-//		}
-		//ActionHelper.getText(driver, pageTitle).equalsIgnoreCase(FrameworkConstants.ContactMe)?true:false;
 		return ActionHelper.waitForElementToBeLocated(driver, "//h1[@class='entry-title title_prop' and contains(text(),'Contact')]", 20);
 	}
 
@@ -38,6 +36,20 @@ public class ContactMePage extends Page{
 	public WebElement getBrand() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public boolean verifyDesignation(String pDesignation) {
+		boolean isSuccess = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, nameDesignation_heading, 30)) {
+			String lDesignation = ActionHelper.getText(driver, nameDesignation_heading).split(", ")[1].trim();
+			isSuccess = pDesignation.equalsIgnoreCase(lDesignation)?true:false;
+		}
+		return isSuccess;
+	}
+	
+	public boolean verifyPhone(String pPhone) {
+		String lPhone = ActionHelper.getText(driver, phoneNumber_heading).trim();
+		boolean isSuccess = pPhone.equalsIgnoreCase(lPhone)?true:false;
+		return isSuccess;
 	}
 
 }

@@ -9,5 +9,7 @@ public class DataConstants {
 	public static final String SendTestEmailTo = "test_email";
 	public static final String ScheduleDatePick = "schedule_date_picker";
 	public static final String SelectTemplate = "select_template";
+	public static final String Designation = "designation";
+	public static final String Phone = "phone";
 
 }

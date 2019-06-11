@@ -461,4 +461,21 @@ public class ActionHelper {
 		   }
 		   
 	   }
+	   public static boolean Clear(WebDriver pWebDriver,WebElement pInputField) {
+			boolean isSuccessfull=false;
+			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			try {
+				AutomationLogger.info("Waiting for the visibility of element ->"+pInputField);
+				if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
+					pInputField.clear();
+					AutomationLogger.info("Input field cleared..");
+					isSuccessfull=true;
+				}
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to clear input field ");
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessfull;
+		}
 }
