@@ -33,7 +33,7 @@ public class PPEmailCampaignEditorListing extends Page{
 	@FindBy(id="theme_select")
 	WebElement titleInHeader_dropdown;
 	
-	@FindBy(id="s2id_autogen3")
+	@FindBy(id="s2id_autogen4")
 	WebElement selectIndividualLeads;
 	
 	@FindBy(id="email_test_input")
@@ -100,6 +100,7 @@ public class PPEmailCampaignEditorListing extends Page{
 		boolean isSuccess = false;
 		if(ActionHelper.ClearAndType(driver, scheduleDatepicker, pDate)) {
 			ActionHelper.waitForAjaxToBeCompleted(driver);
+			ActionHelper.Type(driver, testEmail_input, "");
 			isSuccess = ActionHelper.Click(driver, add_button);
 		}
 		return isSuccess;
