@@ -478,4 +478,22 @@ public class ActionHelper {
 			}
 			return isSuccessfull;
 		}
+	   public static boolean isOptionSelected(WebDriver pWebDriver, WebElement pDropdown, String pOption) {
+		   boolean lOptionValue = false;
+		   try {
+			   if(isElementVisible(pWebDriver, pDropdown)) {
+				   List<WebElement> list_of_options = pDropdown.findElements(By.tagName("option"));
+				   for(WebElement element: list_of_options) {
+					   if(element.getText().equalsIgnoreCase(pOption)) {
+						   lOptionValue = element.isSelected();
+						   break;
+					   }
+				   }
+			   }
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Element did not disappear.  Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return lOptionValue;
+	   }
 }
