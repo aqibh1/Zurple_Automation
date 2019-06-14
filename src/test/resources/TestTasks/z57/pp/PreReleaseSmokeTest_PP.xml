@@ -130,17 +130,11 @@
 	</test>
 	
 	 <test name="Post Image on Facebook now">
- 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-promote-listing-data.json" >
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-social-promote-listing-data.json" >
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-image.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
       	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
-      <methods>
-      	<include name="testAddListing" />
       </methods>
       </class>
       <class name="com.z57.propertypulse.PPSocialPageTest" >
@@ -154,7 +148,6 @@
       </methods>
       </class>
     </classes>
-    </parameter>
     </parameter>
 	</test>
 	
@@ -230,7 +223,7 @@
     </classes>
     </parameter>
 	</test>
-	<!--  
+
 	 <test name="Create Customize Ad for Listing on PP">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-for-customize-ad.json" >
 	<classes>
@@ -257,7 +250,7 @@
     </classes>
     </parameter>
 	</test>
-	-->
+	
 	 <test name="Create CMA Ad on PP">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-for-customize-ad.json" >
 	<classes>
@@ -395,6 +388,94 @@
       </methods>
       </class>
     </classes>
+	</test>
+	
+	 <test name="Create Listing Campaign Email">
+    <parameter name="dataFileMarketing" value="/resources/data/propertypulse/marketing/email-campaign-manager-listing.json" >
+	<classes>
+	<class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPEmailCampaignManagerPageTest" >
+      <methods>
+      	<include name="testEmailCampaignManagerListing" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Create Custom Campaign Email">
+    <parameter name="dataFileMarketing" value="/resources/data/propertypulse/marketing/email-campaign-manager-custom.json" >
+	<classes>
+	<class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPEmailCampaignManagerPageTest" >
+      <methods>
+      	<include name="testEmailCampaignManagerCustom" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Update And Veify User Settings">
+    <parameter name="dataFileSettings" value="/resources/data/propertypulse/settings/user-settings-data.json" >
+	<classes>
+	<class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPUserSettingsPageTest" >
+      <methods>
+      	<include name="testUpdateAndVerifyUserSettings" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Update And Veify User Settings">
+    <parameter name="dataFileSettings" value="/resources/data/propertypulse/settings/user-settings-data.json" >
+	<classes>
+	<class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPAutomationPageTest" >
+      <methods>
+      	<include name="testConfigureAutomationSettings" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
 	</test>
 	
 	 <test name="Add Listing by MLS">
