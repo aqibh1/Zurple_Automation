@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import resources.utility.AutomationLogger;
+
 public class ConfigReader {
     private static ConfigReader instance;
 
@@ -49,6 +51,7 @@ public class ConfigReader {
         if (instance == null) {
             String environment = System.getProperty("environment");
             instance = new ConfigReader(environment);
+            AutomationLogger.setLog4jPopFile();
         }
         return instance;
     }

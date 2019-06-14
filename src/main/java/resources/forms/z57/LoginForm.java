@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.forms.AbstractForm;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 /**
  * @author adar
@@ -35,7 +36,7 @@ public class LoginForm extends AbstractForm{
 	WebElement signIn_button;
 	
 	//Sign up with Facebook
-	@FindBy(xpath="//a[@id='login_with_fb']")
+	@FindBy(xpath="//a[@id='login_with_fb']/img")
 	WebElement signupFacebook_button;
 	
 	@FindBy(xpath="//input[@id='email']")
@@ -99,8 +100,11 @@ public class LoginForm extends AbstractForm{
 		return isSuccessful;
 	}
 	public boolean clickOnSignUpWithFacebookButton() {
+		AutomationLogger.info("Clicking on Signup with Facebook button in Register Form");
 		boolean status = false;
-		driver.switchTo().frame(signupWithFb_frame);
+		if(ActionHelper.waitForElementToBeVisible(driver, signupWithFb_frame, 30)) {
+			driver.switchTo().frame(signupWithFb_frame);
+		}
 		if(ActionHelper.waitForElementToBeVisible(driver, signupFacebook_button,30)) {
 			status = ActionHelper.Click(driver, signupFacebook_button);
 		}
@@ -111,6 +115,7 @@ public class LoginForm extends AbstractForm{
 	}
 	
 	public boolean clickOnSignInButton() {
+		AutomationLogger.info("Clicking on Sign In button");
 		return ActionHelper.Click(driver, signIn_button);
 	}
 	public boolean typeFacebookEmail(String pEmail) {

@@ -75,6 +75,7 @@ public class RegisterForm extends AbstractForm{
 		return waitForElementToBeDisappeared(register_button);
 	}
 	public boolean isRegisterFormDisplayed() {
+		AutomationLogger.info("Waiting for Register Form to be displayed");
 		return ActionHelper.isElementVisible(driver, alreadyregistered_link);
 	}
 	public boolean clickOnAlreadyRegisterIdx() {
