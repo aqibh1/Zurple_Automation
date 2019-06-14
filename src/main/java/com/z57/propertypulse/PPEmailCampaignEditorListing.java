@@ -51,11 +51,14 @@ public class PPEmailCampaignEditorListing extends Page{
 	@FindBy(id="s2id_listing_select")
 	WebElement select_Listing;
 	
+	private ActionHelper actionHelper;
+	
 	public PPEmailCampaignEditorListing() {
 		
 	}
 	public PPEmailCampaignEditorListing(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(pWebDriver);
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -68,7 +71,7 @@ public class PPEmailCampaignEditorListing extends Page{
 	public boolean selectListing(String pListing) {
 		boolean isSuccess = false;
 		boolean isClick = ActionHelper.Click(driver, select_Listing);
-		if(isClick && ActionHelper.Type(driver, selectListing_input, pListing)) {
+		if(isClick && actionHelper.Type(selectListing_input, pListing)) {
 			ActionHelper.waitForAjaxToBeCompleted(driver);
 			ActionHelper.staticWait(5);
 			List<WebElement> list_of_suggested_listings = ActionHelper.getListOfElementByXpath(driver, suggestedResults);
@@ -81,7 +84,7 @@ public class PPEmailCampaignEditorListing extends Page{
 	}
 	public boolean typeIndividualLead(String pLeadEmail) {
 		boolean isSuccess = false;
-		if(ActionHelper.Type(driver, selectIndividualLeads, pLeadEmail)) {
+		if(actionHelper.Type(selectIndividualLeads, pLeadEmail)) {
 			ActionHelper.waitForAjaxToBeCompleted(driver);
 			ActionHelper.staticWait(3);
 			isSuccess = ActionHelper.Type(driver, selectIndividualLeads, Keys.ENTER);
@@ -89,7 +92,7 @@ public class PPEmailCampaignEditorListing extends Page{
 		return isSuccess;
 	}
 	public boolean typeTestEmail(String pEmail) {
-		return ActionHelper.Type(driver, testEmail_input, pEmail);
+		return actionHelper.Type(testEmail_input, pEmail);
 	}
 	public boolean clickOnSendButton() {
 		boolean isSuccess = ActionHelper.Click(driver, send_button);
@@ -100,7 +103,7 @@ public class PPEmailCampaignEditorListing extends Page{
 		boolean isSuccess = false;
 		if(ActionHelper.ClearAndType(driver, scheduleDatepicker, pDate)) {
 			ActionHelper.waitForAjaxToBeCompleted(driver);
-			ActionHelper.Type(driver, testEmail_input, "");
+			actionHelper.Type(testEmail_input, "");
 			isSuccess = ActionHelper.Click(driver, add_button);
 		}
 		return isSuccess;

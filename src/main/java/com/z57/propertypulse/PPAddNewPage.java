@@ -17,6 +17,7 @@ import resources.utility.AutomationLogger;
  *
  */
 public class PPAddNewPage extends Page{
+	private ActionHelper actionHelper;
 	
 	@FindBy(xpath="//div[@class='wrap']/descendant::h1[text()='Add New Page']")
 	WebElement addNewPage_heading;
@@ -77,6 +78,7 @@ public class PPAddNewPage extends Page{
 	}
 	public PPAddNewPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(pWebDriver);
 		PageFactory.initElements(driver, this);
 	}
 
@@ -85,7 +87,7 @@ public class PPAddNewPage extends Page{
 	}
 	
 	public boolean typePageTitle(String pPageTitle) {
-		return ActionHelper.Type(driver, pageTitle_input, pPageTitle);
+		return actionHelper.Type(pageTitle_input, pPageTitle);
 	}
 	
 	public boolean clickOnPublishButton() {

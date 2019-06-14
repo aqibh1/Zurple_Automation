@@ -21,10 +21,15 @@ import org.openqa.selenium.support.ui.Wait;
 public class ActionHelper {
 	protected static WebDriverWait wait;
 	private static long GLOBAL_WAIT_COUNT=30;
+	private WebDriver driver;
 	
-	public static boolean Type(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
+	public ActionHelper(WebDriver pWebDriver) {
+		driver = pWebDriver;
+	}
+	
+	public boolean Type(WebElement pInputField, String pStringToType) {
 			boolean isSuccessfull=false;
-			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			wait=new WebDriverWait(driver, GLOBAL_WAIT_COUNT);
 			try {
 				AutomationLogger.info("Waiting for the visibility of element ->"+pInputField);
 				if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {

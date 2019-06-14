@@ -31,12 +31,14 @@ public class PPEmailCampaignEditorCustom extends Page{
 	@FindBy(id="s2id_autogen3")
 	WebElement selectIndividualLeads;
 	
+	private ActionHelper actionHelper;
 	
 	public PPEmailCampaignEditorCustom() {
 		
 	}
 	public PPEmailCampaignEditorCustom(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(pWebDriver);
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -54,7 +56,7 @@ public class PPEmailCampaignEditorCustom extends Page{
 	
 	public boolean typeIndividualLead(String pLeadEmail) {
 		boolean isSuccess = false;
-		if(ActionHelper.Type(driver, selectIndividualLeads, pLeadEmail)) {
+		if(actionHelper.Type(selectIndividualLeads, pLeadEmail)) {
 			ActionHelper.waitForAjaxToBeCompleted(driver);
 			ActionHelper.staticWait(3);
 			isSuccess = ActionHelper.Type(driver, selectIndividualLeads, Keys.ENTER);
