@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.forms.AbstractForm;
 import resources.utility.ActionHelper;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 /**
@@ -38,7 +39,9 @@ public class RegisterForm extends AbstractForm{
 	
 	@FindBy(xpath="//div[@class='controls']/descendant::a[@id='login-modal-register-button']")
 	WebElement alreadyregistered_link_idx;
-
+	
+	private ActionHelper actionHelper;
+	
 	public RegisterForm() {
 		
 	}
@@ -76,11 +79,9 @@ public class RegisterForm extends AbstractForm{
 	}
 	public boolean isRegisterFormDisplayed() {
 		AutomationLogger.info("Waiting for Register Form to be displayed");
-		return ActionHelper.isElementVisible(driver, alreadyregistered_link);
+		return actionHelper.isElementVisible(alreadyregistered_link);
 	}
 	public boolean clickOnAlreadyRegisterIdx() {
-		return ActionHelper.Click(driver, alreadyregistered_link_idx);
+		return actionHelper.Click(alreadyregistered_link_idx);
 	}
-	
-	
 }

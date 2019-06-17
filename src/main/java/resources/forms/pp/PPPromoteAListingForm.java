@@ -14,6 +14,8 @@ import resources.utility.AutomationLogger;
 
 public class PPPromoteAListingForm extends AbstractForm{
 	
+	private ActionHelper actionHelper;
+	
 	@FindBy(xpath="//div[@class='modal-header']/h3[text()='Choose a Listing to Promote']")
 	WebElement chooseAListingHeading;
 	
@@ -28,32 +30,33 @@ public class PPPromoteAListingForm extends AbstractForm{
 	}
 	public PPPromoteAListingForm(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	public boolean isChooseAListingForm() {
-		return ActionHelper.waitForElementToBeVisible(driver, chooseAListingHeading, 20);
+		return actionHelper.waitForElementToBeVisible(chooseAListingHeading, 20);
 	}
 	public boolean selectListing(String pListing) {
-		return selectDropDownOption(driver, selectListing, pListing);
+		return selectDropDownOption(selectListing, pListing);
 	}
 	public boolean clickOnSelect() {
-		return ActionHelper.Click(driver, select_button);
+		return actionHelper.Click(select_button);
 	}
 	public boolean isSelectButtonDisappeared() {
-		return ActionHelper.waitForElementToBeDisappeared(driver, select_button);
+		return actionHelper.waitForElementToBeDisappeared(select_button);
 	}
 	
-	 private static boolean selectDropDownOption(WebDriver pWebDriver, WebElement pElementToBeClicked, String pOptionToSelect) {
+	 private boolean selectDropDownOption(WebElement pElementToBeClicked, String pOptionToSelect) {
 			boolean isSuccessful=false;
 			List<WebElement> list_of_options = new ArrayList<WebElement>();
 			 AutomationLogger.info("Clicking on button "+pElementToBeClicked);
-			 if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+			 if(actionHelper.Click(pElementToBeClicked)) {
 				 list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
 				 for(WebElement element: list_of_options) {
 					 System.out.println(element.getText().trim());
 					 if(element.getText().trim().contains(pOptionToSelect)) {
-						 isSuccessful = ActionHelper.Click(pWebDriver, element);
-						 ActionHelper.Click(pWebDriver,pElementToBeClicked);
+						 isSuccessful = actionHelper.Click(element);
+						 actionHelper.Click(pElementToBeClicked);
 						 break;
 					 }
 				 }

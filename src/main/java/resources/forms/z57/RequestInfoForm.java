@@ -11,6 +11,7 @@ import resources.utility.FrameworkConstants;
 
 public class RequestInfoForm extends AbstractForm{
 	WebDriver driver;
+	ActionHelper actionHelper;
 	
 	String input_fields_xpath = "//input[@name='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
@@ -28,38 +29,39 @@ public class RequestInfoForm extends AbstractForm{
 	public RequestInfoForm(WebDriver pWebDriver){
 		driver=pWebDriver;
 		setDriver(pWebDriver);
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	
 	public boolean isListingEmailModalVisible() {
-		return ActionHelper.isElementVisible(driver, modal_header);
+		return actionHelper.isElementVisible(modal_header);
 	}
 	public boolean typeLeadName(String pName) {
-		return ActionHelper.ClearAndType(driver,getDynamicElement(input_fields_xpath, "rq_info_listing_form[name]"), pName);
+		return actionHelper.ClearAndType(getDynamicElement(input_fields_xpath, "rq_info_listing_form[name]"), pName);
 	}
 	public boolean typeLeadEmail(String pEmail) {
-		return ActionHelper.ClearAndType(driver,getDynamicElement(input_fields_xpath, "rq_info_listing_form[email]"), pEmail);
+		return actionHelper.ClearAndType(getDynamicElement(input_fields_xpath, "rq_info_listing_form[email]"), pEmail);
 	}
 	public boolean typeLeadPhoneNumber(String pPhone) {
-		return ActionHelper.ClearAndType(driver,getDynamicElement(input_fields_xpath, "rq_info_listing_form[phone]"), pPhone);
+		return actionHelper.ClearAndType(getDynamicElement(input_fields_xpath, "rq_info_listing_form[phone]"), pPhone);
 	}
 	public boolean typeComments(String pComments) {
-		return ActionHelper.ClearAndType(driver,getDynamicElement(textArea_xpath, "rq_info_listing_form[comments]"), pComments);
+		return actionHelper.ClearAndType(getDynamicElement(textArea_xpath, "rq_info_listing_form[comments]"), pComments);
 	}
 	public boolean clickOnSaveButton() {
-		return ActionHelper.Click(driver, save_button);
+		return actionHelper.Click(save_button);
 	}
 	public boolean isRequestInfoSent() {
-		boolean status = ActionHelper.isElementVisible(driver, success_notification);
+		boolean status = actionHelper.isElementVisible(success_notification);
 		if(!status) {
-			status =  ActionHelper.waitForElementToBeDisappeared(driver, modal_header);
+			status =  actionHelper.waitForElementToBeDisappeared(modal_header);
 		}
 		return status;
 	}
 	public String getLeadName() {
-		return ActionHelper.getText(driver,getDynamicElement(input_fields_xpath, "rq_info_listing_form[name]"));
+		return actionHelper.getText(getDynamicElement(input_fields_xpath, "rq_info_listing_form[name]"));
 	}
 	public String getLeadEmail() {
-		return ActionHelper.getText(driver,getDynamicElement(input_fields_xpath, "rq_info_listing_form[email]"));
+		return actionHelper.getText(getDynamicElement(input_fields_xpath, "rq_info_listing_form[email]"));
 	}
 }

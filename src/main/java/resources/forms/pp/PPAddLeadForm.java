@@ -9,6 +9,7 @@ import resources.forms.AbstractForm;
 import resources.utility.ActionHelper;
 
 public class PPAddLeadForm extends AbstractForm{
+	private ActionHelper actionHelper;
 	
 	@FindBy(xpath="//div[@id='add_new_lead_modal']/descendant::h3[text()='Add New Lead']")
 	WebElement addNewLead_header;
@@ -34,26 +35,26 @@ public class PPAddLeadForm extends AbstractForm{
 	}
 	
 	public boolean isAddNewLeadFormVisible() {
-		return ActionHelper.isElementVisible(driver, addNewLead_header);
+		return actionHelper.isElementVisible(addNewLead_header);
 	}
 	
 	public boolean typeLeadName(String pNewLeadName) {
-		return ActionHelper.Type(driver, new_lead_name, pNewLeadName);
+		return actionHelper.Type(new_lead_name, pNewLeadName);
 	}
 	
 	public boolean typeLeadEmail(String pNewLeadEmail) {
-		return ActionHelper.Type(driver, new_lead_email, pNewLeadEmail);
+		return actionHelper.Type(new_lead_email, pNewLeadEmail);
 	}
 	
 	public boolean typeLeadPhone(String pPhoneNumber) {
-		return ActionHelper.Type(driver, new_lead_phone, pPhoneNumber);
+		return actionHelper.Type(new_lead_phone, pPhoneNumber);
 	}
 	
 	public boolean clickOnContinueButton() {
-		return ActionHelper.Click(driver, continue_button);
+		return actionHelper.Click(continue_button);
 	}
 	public boolean isLeadAddedSuccessfully() {
-		return ActionHelper.waitForElementToBeDisappeared(driver, addNewLead_header);
+		return actionHelper.waitForElementToBeDisappeared(addNewLead_header);
 	}
 
 }

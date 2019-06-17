@@ -24,35 +24,37 @@ public class RegisterUserForm extends AbstractForm{
 	
 	@FindBy(xpath="//div[@id='registerModal']/descendant::h3[text()='Sign In']")
 	WebElement signIn_heading;
+	private ActionHelper actionHelper;
 	
 	public RegisterUserForm(){
 		
 	}
 	public RegisterUserForm(WebDriver pWebDriver){
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 		
 	}
 	public boolean typeLeadName(String pName) {
-		return ActionHelper.Type(driver, name_input, pName);
+		return actionHelper.Type(name_input, pName);
 	}
 	
 	public boolean typeEmailAddress(String pEmail) {
-		return ActionHelper.Type(driver, email_input, pEmail);
+		return actionHelper.Type(email_input, pEmail);
 	}
 	
 	public boolean typePhoneNumber(String pPhone) {
-		return ActionHelper.Type(driver, phone_input, pPhone);
+		return actionHelper.Type(phone_input, pPhone);
 	}
 	
 	public boolean clickOnRegisterButton() {
-		return ActionHelper.Click(driver, register_button);
+		return actionHelper.Click(register_button);
 	}
 	public boolean isRegisterForm() {
-		return ActionHelper.waitForElementToBeVisible(driver, signIn_heading, 10);
+		return actionHelper.waitForElementToBeVisible(signIn_heading, 10);
 	}
 	public boolean isLeadRegistered() {
-		return ActionHelper.waitForElementToBeDisappeared(driver, "//div[@id='registerModal']/descendant::h3[text()='Sign In']");
+		return actionHelper.waitForElementToBeDisappeared("//div[@id='registerModal']/descendant::h3[text()='Sign In']");
 	}
 
 }

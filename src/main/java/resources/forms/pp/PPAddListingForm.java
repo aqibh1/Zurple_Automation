@@ -41,6 +41,7 @@ public class PPAddListingForm extends AbstractForm{
 	
 	@FindBy(xpath="//button[@id='add_new_listing_confirm_button']")
 	WebElement continue_button;
+	private ActionHelper actionHelper;
 	
 	public PPAddListingForm() {
 		// TODO Auto-generated constructor stub
@@ -52,24 +53,24 @@ public class PPAddListingForm extends AbstractForm{
 	}
 	
 	public boolean typeAddress(String pAddress) {
-		return ActionHelper.ClearAndType(driver, address_input, pAddress);
+		return actionHelper.ClearAndType(address_input, pAddress);
 	}
 	public boolean typeCity(String pCity) {
-		return ActionHelper.ClearAndType(driver, city_input, pCity);
+		return actionHelper.ClearAndType(city_input, pCity);
 	}
 	public boolean typeZip(String pZip) {
-		return ActionHelper.ClearAndType(driver, zip_input, pZip);
+		return actionHelper.ClearAndType(zip_input, pZip);
 	}
 	public boolean typeCounty(String pCounty) {
-		return ActionHelper.ClearAndType(driver, county_input, pCounty);
+		return actionHelper.ClearAndType(county_input, pCounty);
 	}
 	public boolean selectStatus(String pStatus) {
-		return ActionHelper.selectDropDownOption(driver, status_dropdown, status_options, pStatus);	
+		return actionHelper.selectDropDownOption(status_dropdown, status_options, pStatus);	
 	}
 	public boolean selectState(String pState) {
-		return ActionHelper.selectDropDownOption(driver, state_dropdown, state_options, pState);
+		return actionHelper.selectDropDownOption(state_dropdown, state_options, pState);
 	}
 	public boolean clickOnContinueButton() {
-		return ActionHelper.Click(driver, continue_button);
+		return actionHelper.Click(continue_button);
 	}
 }

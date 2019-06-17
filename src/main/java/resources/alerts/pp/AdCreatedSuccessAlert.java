@@ -33,11 +33,11 @@ public class AdCreatedSuccessAlert {
 	}
 	
 	public boolean isAdCreatedAlert() {
-		return ActionHelper.waitForElementToBeLocated(driver, adCreated_heading_xpath, 30);
+		return new ActionHelper(driver).waitForElementToBeLocated(adCreated_heading_xpath, 30);
 	}
 	
 	public boolean clickOnAdsOverviewButton() {
-		return ActionHelper.Click(driver, adsOverview_button);
+		return new ActionHelper(driver).Click(adsOverview_button);
 	}
 
 }

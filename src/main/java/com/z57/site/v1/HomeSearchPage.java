@@ -49,18 +49,18 @@ public class HomeSearchPage extends Page{
 	}
 	
 	public boolean clickOnSaveSearch() {
-		return ActionHelper.Click(driver, saveSearch_button);
+		return actionHelper.Click(saveSearch_button);
 	}
 	
 	public boolean isHomeSearchPage() {
-		return ActionHelper.getText(driver, page_title).contains(FrameworkConstants.HomeSearchPageTitle);
+		return actionHelper.getText(page_title).contains(FrameworkConstants.HomeSearchPageTitle);
 	}
 	
 	public boolean isLeadLoggedIn() {
-		return ActionHelper.waitForElementToBeVisible(driver, myAccount_button, 5);
+		return actionHelper.waitForElementToBeVisible(myAccount_button, 5);
 	}
 	public boolean clickOnSignInButton() {
-		return ActionHelper.Click(driver, signin_button);
+		return actionHelper.Click(signin_button);
 	}
 	@Override
 	public WebElement getHeader() {

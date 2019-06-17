@@ -5,8 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import resources.utility.ActionHelper;
-
 public class PageHeader extends Page{
 	
 	@FindBy(xpath="//div[@class='header_wrapper header_type3']")
@@ -47,87 +45,87 @@ public class PageHeader extends Page{
 	}
 
 	public boolean clickOnHomeButton() {
-		return ActionHelper.Click(driver, getDynamicElement(header_menu_xpath, "Home"));
+		return actionHelper.Click(getDynamicElement(header_menu_xpath, "Home"));
 	}
 	
 	public boolean clickOnFeaturedProperties() {
-		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Listings"));
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "Featured Properties"));
+		actionHelper.MouseHoverOnElement(getDynamicElement(header_menu_xpath, "Listings"));
+		return actionHelper.Click(getDynamicElement(sub_menu_xpath, "Featured Properties"));
 	}
 	
 	public boolean clickOnSoldListings() {
-		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Listings"));
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "Sold Listings"));
+		actionHelper.MouseHoverOnElement(getDynamicElement(header_menu_xpath, "Listings"));
+		return actionHelper.Click(getDynamicElement(sub_menu_xpath, "Sold Listings"));
 	}
 	
 	public boolean clickOnSearchHomes() {
-		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Home Search"));
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "Search Homes"));
+		actionHelper.MouseHoverOnElement(getDynamicElement(header_menu_xpath, "Home Search"));
+		return actionHelper.Click(getDynamicElement(sub_menu_xpath, "Search Homes"));
 	}
 	
 	public boolean clickOnLocalHomeValues() {
-		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Home Search"));
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "Local Home Values"));
+		actionHelper.MouseHoverOnElement(getDynamicElement(header_menu_xpath, "Home Search"));
+		return actionHelper.Click(getDynamicElement(sub_menu_xpath, "Local Home Values"));
 	}
 	
 	public boolean clickOnCommunityReports() {
-		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Our Community"));
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "Community Reports"));
+		actionHelper.MouseHoverOnElement(getDynamicElement(header_menu_xpath, "Our Community"));
+		return actionHelper.Click(getDynamicElement(sub_menu_xpath, "Community Reports"));
 	}
 	
 	public boolean clickOnSchoolReports() {
-		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Our Community"));
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "School Reports"));
+		actionHelper.MouseHoverOnElement(getDynamicElement(header_menu_xpath, "Our Community"));
+		return actionHelper.Click(getDynamicElement(sub_menu_xpath, "School Reports"));
 	}
 	public boolean clickOnWhatsNearby() {
-		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Our Community"));
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "What’s Nearby"));
+		actionHelper.MouseHoverOnElement(getDynamicElement(header_menu_xpath, "Our Community"));
+		return actionHelper.Click(getDynamicElement(sub_menu_xpath, "What’s Nearby"));
 	}
 	public boolean clickOnRealEstateUpdates() {
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "Real Estate Updates"));
+		return actionHelper.Click(getDynamicElement(sub_menu_xpath, "Real Estate Updates"));
 	}
 	public boolean clickOnContact() {
-		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Services"));
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "Contact Me"));
+		actionHelper.MouseHoverOnElement(getDynamicElement(header_menu_xpath, "Services"));
+		return actionHelper.Click(getDynamicElement(sub_menu_xpath, "Contact Me"));
 	}
 	public boolean clickOnAbout() {
-		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Services"));
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "About Me"));
+		actionHelper.MouseHoverOnElement(getDynamicElement(header_menu_xpath, "Services"));
+		return actionHelper.Click(getDynamicElement(sub_menu_xpath, "About Me"));
 	}
 	public boolean clickOnBuyers() {
-		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Services"));
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "Buyers"));
+		actionHelper.MouseHoverOnElement(getDynamicElement(header_menu_xpath, "Services"));
+		return actionHelper.Click(getDynamicElement(sub_menu_xpath, "Buyers"));
 	}
 	public boolean clickOnSellers() {
-		ActionHelper.MouseHoverOnElement(driver, getDynamicElement(header_menu_xpath, "Services"));
-		return ActionHelper.Click(driver, getDynamicElement(sub_menu_xpath, "Sellers"));
+		actionHelper.MouseHoverOnElement(getDynamicElement(header_menu_xpath, "Services"));
+		return actionHelper.Click(getDynamicElement(sub_menu_xpath, "Sellers"));
 	}
 	public boolean clickOnSavedSearches() {
 		boolean isClickSuccessful=false;
-		if(ActionHelper.Click(driver, hamburger_menu_button)) {
-			isClickSuccessful = ActionHelper.Click(driver, getDynamicElement(hamburger_menu_open_xpath, "Saved Searches"));
+		if(actionHelper.Click(hamburger_menu_button)) {
+			isClickSuccessful = actionHelper.Click(getDynamicElement(hamburger_menu_open_xpath, "Saved Searches"));
 		}
 		return isClickSuccessful;
 	}
 	public boolean clickOnSavedProperties() {
 		boolean isClickSuccessful=false;
-		if(ActionHelper.Click(driver, hamburger_menu_button)) {
-			isClickSuccessful = ActionHelper.Click(driver, getDynamicElement(hamburger_menu_open_xpath, "Saved Properties"));
+		if(actionHelper.Click(hamburger_menu_button)) {
+			isClickSuccessful = actionHelper.Click(getDynamicElement(hamburger_menu_open_xpath, "Saved Properties"));
 		}
 		return isClickSuccessful;
 	}
 	public boolean clickOnLogout() {
 		boolean isClickSuccessful=false;
-		if(ActionHelper.Click(driver, hamburger_menu_button)) {
-			isClickSuccessful = ActionHelper.Click(driver, getDynamicElement(hamburger_menu_open_xpath, "Saved Searches"));
+		if(actionHelper.Click(hamburger_menu_button)) {
+			isClickSuccessful = actionHelper.Click(getDynamicElement(hamburger_menu_open_xpath, "Saved Searches"));
 		}
 		return isClickSuccessful;
 	}
 	public boolean isLeadLoggedIn() {
-		return ActionHelper.waitForElementToBeVisible(driver, user_image_icon,20);
+		return actionHelper.waitForElementToBeVisible(user_image_icon,20);
 	}
 	public void refreshPage() {
-		 ActionHelper.RefreshPage(driver);
+		 actionHelper.RefreshPage();
 	}
 }
 

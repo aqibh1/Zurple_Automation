@@ -23,6 +23,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.forms.AbstractForm;
 import resources.utility.ActionHelper;
+import resources.utility.ActionHelper;
 
 /**
  * @author adar
@@ -180,6 +181,8 @@ public class SearchForm extends AbstractForm{
 	@FindBy(xpath="//div[@id='s2id_location_input_main']/descendant::input[@type='text']")
 	WebElement city_input_idx;
 	
+	private ActionHelper actionHelper;
+	
 	public SearchForm(WebDriver pWebDriver) {
 		driver=pWebDriver;
 		wait=new WebDriverWait(driver, 10);
@@ -234,13 +237,13 @@ public class SearchForm extends AbstractForm{
 	}
 	public boolean typeAddress(String pText) {
 		boolean isSuccess = false;
-		if(ActionHelper.waitForElementToBeVisible(driver, address_input, 30) && ActionHelper.Type(driver, address_input, pText)) {
-			ActionHelper.staticWait(2);
-			List<WebElement> list_of_matches = ActionHelper.getListOfElementByXpath(driver, addressMatch_xpath);
+		if(actionHelper.waitForElementToBeVisible(address_input, 30) && actionHelper.Type(address_input, pText)) {
+			actionHelper.Wait(2);
+			List<WebElement> list_of_matches = actionHelper.getListOfElementByXpath(addressMatch_xpath);
 			for(WebElement element: list_of_matches) {
 				if(element.getText().equalsIgnoreCase(pText)) {
-					isSuccess = ActionHelper.Click(driver, element);
-					ActionHelper.staticWait(3);
+					isSuccess = actionHelper.Click(element);
+					actionHelper.Wait(3);
 					break;
 				}
 			}
@@ -396,7 +399,7 @@ public class SearchForm extends AbstractForm{
 	
 	public boolean clickAndSelectLotSize(String pLotSize) {
 		boolean isSuccessfull=false;
-		ActionHelper.Click(driver, lotSize_dropdown);
+		actionHelper.Click(lotSize_dropdown);
 		if(typeInputAndSelectTheOption(lotSize_Input,pLotSize)) {
 			isSuccessfull=true;
 		}
@@ -407,9 +410,9 @@ public class SearchForm extends AbstractForm{
 	public boolean clickAndSelectStatus(String pStatus) {	
 		boolean isClickSuccessful=false;
 		try {
-			ActionHelper.Click(driver, status_dropdown);
-			ActionHelper.Type(driver, status_dropdown, Keys.BACK_SPACE);
-			ActionHelper.Type(driver, status_dropdown, Keys.BACK_SPACE);
+			actionHelper.Click(status_dropdown);
+			actionHelper.Type(status_dropdown, Keys.BACK_SPACE);
+			actionHelper.Type(status_dropdown, Keys.BACK_SPACE);
 			dropDownOptions=getDynamicElement(status_xpath, WordUtils.capitalizeFully(pStatus));
 			if(wait.until(ExpectedConditions.visibilityOf(dropDownOptions))!=null) {
 				dropDownOptions.click();
@@ -425,16 +428,6 @@ public class SearchForm extends AbstractForm{
 	public boolean clickAndSelectYear(String pYear) {
 		return clickAndSelectOneClick(yearBuild_dropdown, pYear, yearBuildXpath);
 	}
-	public void waitForLoadingOfPage() {
-        ExpectedCondition<Boolean> pageLoadCondition = new
-                ExpectedCondition<Boolean>() {
-                    public Boolean apply(WebDriver driver) {
-                        return ((JavascriptExecutor)driver).executeScript("return document.readyState").equals("complete");
-                    }
-                };
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        wait.until(pageLoadCondition);
-    }
 	private boolean typeAndDownArrowSelect(WebElement pInputField,String pStringToType) {
 		boolean isTypeSuccessful=false;
 		try {
@@ -560,10 +553,10 @@ public class SearchForm extends AbstractForm{
 	}
 	public boolean typeAndSelectZipCity(String pStringToType) {
 		boolean isTypeSuccessful=false;
-		if(ActionHelper.isElementVisible(driver, city_input_idx)) {
-			ActionHelper.Type(driver, city_input_idx, Keys.BACK_SPACE);
-			ActionHelper.Type(driver, city_input_idx, Keys.BACK_SPACE);
-			ActionHelper.Type(driver, city_input_idx, pStringToType);
+		if(actionHelper.isElementVisible(city_input_idx)) {
+			actionHelper.Type(city_input_idx, Keys.BACK_SPACE);
+			actionHelper.Type(city_input_idx, Keys.BACK_SPACE);
+			actionHelper.Type(city_input_idx, pStringToType);
 			List<WebElement> listOfWebElements = driver.findElements(By.xpath("//div[@id='select2-drop']/descendant::div"));
 			for (WebElement singleElement: listOfWebElements){
 				System.out.println(singleElement.getText());

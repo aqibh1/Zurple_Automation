@@ -8,8 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import resources.utility.ActionHelper;
-
 /**
  * @author adar
  *
@@ -33,23 +31,23 @@ public class PPAutomationPage extends Page{
 	}
 	PPAutomationPage(WebDriver pWebDriver){
 		driver = pWebDriver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver,this);
 	}
 	public boolean isAutomationSettingsPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, automationSettings_heading, 30);
+		return actionHelper.waitForElementToBeVisible( automationSettings_heading, 30);
 	}
 	public boolean selectFacebookIdxDropdown(String pOption) {
-		return ActionHelper.selectDropDownOption(driver, facebookIdxPostDropdown, "", pOption);
+		return actionHelper.selectDropDownOption( facebookIdxPostDropdown, "", pOption);
 	}
 	public boolean clickOnSaveButton() {
 		boolean result = false;
-		if(ActionHelper.Click(driver, saveButton)) {
-			ActionHelper.waitForAjaxToBeCompleted(driver);
-			result = ActionHelper.waitForElementToBeVisible(driver, successMessage, 30);
+		if(actionHelper.Click( saveButton)) {
+			actionHelper.waitForAjaxToBeCompleted(driver);
+			result = actionHelper.waitForElementToBeVisible( successMessage, 30);
 		}
 		return result;
 	}
 	public boolean isFacebookIdxPostOptionEnabled(String pOption) {
-		return  ActionHelper.isOptionSelected(driver, facebookIdxPostDropdown,pOption);
+		return  actionHelper.isOptionSelected( facebookIdxPostDropdown,pOption);
 	}
 }

@@ -20,28 +20,31 @@ public class ContactMeForm extends AbstractForm{
 	@FindBy(xpath="//li[@class='widget-container Contact_Me_Widget']/descendant::strong[text()='Thank you!']")
 	WebElement thankyou_alert;
 	
+	private ActionHelper actionHelper;
+	
 	public ContactMeForm(WebDriver pWebDriver){
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	
 	public boolean typeName(String pName) {
-		return ActionHelper.Type(driver, getDynamicElement(input_fileds_xpath, "contact_me[name]"),pName);
+		return actionHelper.Type(getDynamicElement(input_fileds_xpath, "contact_me[name]"),pName);
 	}
 	public boolean typeEmail(String pEmail) {
-		return ActionHelper.Type(driver, getDynamicElement(input_fileds_xpath, "contact_me[email]"),pEmail);
+		return actionHelper.Type(getDynamicElement(input_fileds_xpath, "contact_me[email]"),pEmail);
 	}
 	public boolean typePhoneNumber(String pPhoneNumber) {
-		return ActionHelper.Type(driver, getDynamicElement(input_fileds_xpath, "contact_me[phone]"),pPhoneNumber);
+		return actionHelper.Type(getDynamicElement(input_fileds_xpath, "contact_me[phone]"),pPhoneNumber);
 	}
 	public boolean typeComments(String pComments) {
-		return ActionHelper.Type(driver, getDynamicElement(textarea_xpath, "contact_me[comments]"),pComments);
+		return actionHelper.Type(getDynamicElement(textarea_xpath, "contact_me[comments]"),pComments);
 	}
 	public boolean isThankyouAlertVisible() {
-		return ActionHelper.waitForElementToBeVisible(driver, thankyou_alert, 20);
+		return actionHelper.waitForElementToBeVisible(thankyou_alert, 20);
 	}
 	public boolean clickOnSendButton(){
-		return ActionHelper.Click(driver, send_button);
+		return actionHelper.Click(send_button);
 
 	}
 }

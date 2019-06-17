@@ -23,7 +23,7 @@ public class ContactMePage extends Page{
 	}
 	
 	public boolean isContactMePage() {
-		return ActionHelper.waitForElementToBeLocated(driver, "//h1[@class='entry-title title_prop' and contains(text(),'Contact')]", 20);
+		return actionHelper.waitForElementToBeLocated("//h1[@class='entry-title title_prop' and contains(text(),'Contact')]", 20);
 	}
 
 	@Override
@@ -39,15 +39,15 @@ public class ContactMePage extends Page{
 	}
 	public boolean verifyDesignation(String pDesignation) {
 		boolean isSuccess = false;
-		if(ActionHelper.waitForElementToBeVisible(driver, nameDesignation_heading, 30)) {
-			String lDesignation = ActionHelper.getText(driver, nameDesignation_heading).split(", ")[1].trim();
+		if(actionHelper.waitForElementToBeVisible(nameDesignation_heading, 30)) {
+			String lDesignation = actionHelper.getText(nameDesignation_heading).split(", ")[1].trim();
 			isSuccess = pDesignation.equalsIgnoreCase(lDesignation)?true:false;
 		}
 		return isSuccess;
 	}
 	
 	public boolean verifyPhone(String pPhone) {
-		String lPhone = ActionHelper.getText(driver, phoneNumber_heading).trim();
+		String lPhone = actionHelper.getText(phoneNumber_heading).trim();
 		boolean isSuccess = pPhone.equalsIgnoreCase(lPhone)?true:false;
 		return isSuccess;
 	}

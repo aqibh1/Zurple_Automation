@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
@@ -34,36 +33,35 @@ public class PPEmailCampaignManagerPage extends Page{
 	
 	String tableGrid_xpath = "//table[@id='scheduled_campaigns_table']/descendant::a[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
-	
 	public PPEmailCampaignManagerPage(){
 		
 	}
 	public PPEmailCampaignManagerPage(WebDriver pWebDriver) {
 		driver =  pWebDriver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver,this);
 	}
 	public boolean isEmailCampaignManagerPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, emailCampaignManagerHeading, 30);
+		return actionHelper.waitForElementToBeVisible(emailCampaignManagerHeading, 30);
 	}
 	public boolean clickOnListingSubMenu() {
 		boolean isSuccess = false;
-		if(ActionHelper.Click(driver, createNewCampaign_button)) {
-			isSuccess = ActionHelper.Click(driver, dropDownMenuListing);
+		if(actionHelper.Click(createNewCampaign_button)) {
+			isSuccess = actionHelper.Click(dropDownMenuListing);
 		}
 		return isSuccess;
 	}
 	public boolean clickOnCustomSubMenu() {
 		boolean isSuccess = false;
-		if(ActionHelper.Click(driver, createNewCampaign_button)) {
-			isSuccess = ActionHelper.Click(driver, dropDownMenuCustomMessage);
+		if(actionHelper.Click(createNewCampaign_button)) {
+			isSuccess = actionHelper.Click(dropDownMenuCustomMessage);
 		}
 		return isSuccess;
 	}
 	public boolean typeInSearch(String pSearchProp) {
-		return ActionHelper.Type(driver, search_input, pSearchProp);
+		return actionHelper.Type(search_input, pSearchProp);
 	}
 	public boolean isListingScheduled(String pSearchProp) {
-		return ActionHelper.waitForElementToBeLocated(driver, ActionHelper.getDynamicElementXpath(driver, tableGrid_xpath, pSearchProp), 15);
+		return actionHelper.waitForElementToBeLocated(actionHelper.getDynamicElementXpath(tableGrid_xpath, pSearchProp), 15);
 	}
 
 }

@@ -10,8 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
-import resources.utility.ActionHelper;
-
 /**
  * @author adar
  *
@@ -26,10 +24,10 @@ public class PPPostingHistoryPage extends Page{
 	}
 	public PPPostingHistoryPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver,this);
 	}
 	public boolean isPostingHistoryPage() {
-		return ActionHelper.waitForElementToBeLocated(driver, postHistory_title, 30);
+		return actionHelper.waitForElementToBeLocated(postHistory_title, 30);
 	}
 	
 	public boolean isPostCompleted(String pStatus) {
@@ -39,7 +37,7 @@ public class PPPostingHistoryPage extends Page{
 	private boolean isPostSuccessful(String pElement,String pPostTitle, String pPostStatusToVerify) {
 		boolean post_found = false;
 		boolean status_verified= false;
-		List<WebElement> list_of_rows = ActionHelper.getListOfElementByXpath(driver, pElement);
+		List<WebElement> list_of_rows = actionHelper.getListOfElementByXpath(pElement);
 		for(WebElement element: list_of_rows) {
 			List<WebElement> list_of_small = element.findElements(By.tagName("small"));
 			List<WebElement> list_of_span = element.findElements(By.tagName("span"));

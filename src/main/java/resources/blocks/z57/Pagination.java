@@ -14,7 +14,7 @@ import resources.utility.FrameworkConstants;
 
 public class Pagination {
 	WebDriver driver;
-	
+	private ActionHelper actionHelper;
 	@FindBy(xpath="//ul[@class='pagination']/descendant::li/a[text()='Prev']")
 	WebElement previous_button;
 	
@@ -43,19 +43,20 @@ public class Pagination {
 	
 	public Pagination(WebDriver pWebDriver){
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	
 	public boolean clicOnNext() {
-		return ActionHelper.Click(driver, next_button);
+		return actionHelper.Click(next_button);
 	}
 	
 	public boolean clickOnPrevious() {
-		return ActionHelper.Click(driver, previous_button);
+		return actionHelper.Click(previous_button);
 	}
 	
 	public boolean clickOnPageNumber(String pPageNumber) {
-		return ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, pagination_button, pPageNumber));
+		return actionHelper.Click(actionHelper.getDynamicElement(pagination_button, pPageNumber));
 	}
 	
 	public boolean verifyAllPaginationButtonsWorking() {
@@ -66,7 +67,7 @@ public class Pagination {
 		boolean clickOnNext = false;
 		int currentPageOld =0;
 		int currentPageNew=0;
-		List<WebElement> list_pagination_buttons = ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath);
+		List<WebElement> list_pagination_buttons = actionHelper.getListOfElementByXpath(pagination_buttons_xpath);
 		int lCurrentPage = Integer.parseInt(getCurrentPage(list_pagination_buttons));
 		int totalPages = getTotalPages(list_pagination_buttons);
 		try {
@@ -77,18 +78,18 @@ public class Pagination {
 					if(lCurrentPage!=gotoPage) {
 						clickOnPageNumber(String.valueOf(gotoPage));
 						System.out.println("Clicked on page number was success.. "+gotoPage);
-						clickOnNum = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)))==gotoPage;
+						clickOnNum = Integer.parseInt(getCurrentPage(actionHelper.getListOfElementByXpath(pagination_buttons_xpath)))==gotoPage;
 						if(clickOnNum) {
-							currentPageOld = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
+							currentPageOld = Integer.parseInt(getCurrentPage(actionHelper.getListOfElementByXpath(pagination_buttons_xpath)));
 							if(clickOnPrevious()) {
 								System.out.println("Clicked on previous button was success.. ");
-								currentPageNew = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
+								currentPageNew = Integer.parseInt(getCurrentPage(actionHelper.getListOfElementByXpath(pagination_buttons_xpath)));
 								clickOnPrev = currentPageOld!=currentPageNew;
 							}
-							currentPageOld = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
+							currentPageOld = Integer.parseInt(getCurrentPage(actionHelper.getListOfElementByXpath(pagination_buttons_xpath)));
 							if(clicOnNext()) {
 								System.out.println("Clicked on NEXT button was success.. ");
-								currentPageNew = Integer.parseInt(getCurrentPage(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath)));
+								currentPageNew = Integer.parseInt(getCurrentPage(actionHelper.getListOfElementByXpath(pagination_buttons_xpath)));
 								clickOnNext = currentPageOld!=currentPageNew;
 							}
 						}
@@ -112,12 +113,12 @@ public class Pagination {
 		return (clickOnNum && clickOnPrev && clickOnNext);
 	}
 	private boolean clickOnPageNumberRHS(String pPageNumber) {
-		return ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, pagination_button_rhs, pPageNumber));
+		return actionHelper.Click(actionHelper.getDynamicElement(pagination_button_rhs, pPageNumber));
 		
 	}
 
 	public boolean isPaginationAvailable() {
-		return !ActionHelper.isElementVisible(driver, next_disabled_button);
+		return !actionHelper.isElementVisible(next_disabled_button);
 	}
 	private String getCurrentPage(List<WebElement> pElementList) {
 		String lCurrentPage="";
@@ -149,7 +150,7 @@ public class Pagination {
 		boolean clickOnNext = false;
 		int currentPageOld =0;
 		int currentPageNew=0;
-		List<WebElement> list_pagination_buttons = ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath_rhs);
+		List<WebElement> list_pagination_buttons = actionHelper.getListOfElementByXpath(pagination_buttons_xpath_rhs);
 		int lCurrentPage = Integer.parseInt(getCurrentPageRHS(list_pagination_buttons));
 		int totalPages = getTotalPagesRHS(list_pagination_buttons);
 		
@@ -158,16 +159,16 @@ public class Pagination {
 				int gotoPage = (int)(Math.random() * (totalPages));
 				if(lCurrentPage!=gotoPage) {
 					clickOnPageNumberRHS(String.valueOf(gotoPage));
-					clickOnNum = Integer.parseInt(getCurrentPageRHS(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath_rhs)))==gotoPage;
+					clickOnNum = Integer.parseInt(getCurrentPageRHS(actionHelper.getListOfElementByXpath(pagination_buttons_xpath_rhs)))==gotoPage;
 					if(clickOnNum) {
-						currentPageOld = Integer.parseInt(getCurrentPageRHS(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath_rhs)));
+						currentPageOld = Integer.parseInt(getCurrentPageRHS(actionHelper.getListOfElementByXpath(pagination_buttons_xpath_rhs)));
 						if(clickOnPreviousRHS()) {
-							currentPageNew = Integer.parseInt(getCurrentPageRHS(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath_rhs)));
+							currentPageNew = Integer.parseInt(getCurrentPageRHS(actionHelper.getListOfElementByXpath(pagination_buttons_xpath_rhs)));
 							clickOnPrev = currentPageOld!=currentPageNew;
 						}
-						currentPageOld = Integer.parseInt(getCurrentPageRHS(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath_rhs)));
+						currentPageOld = Integer.parseInt(getCurrentPageRHS(actionHelper.getListOfElementByXpath(pagination_buttons_xpath_rhs)));
 						if(clicOnNextRHS()) {
-							currentPageNew = Integer.parseInt(getCurrentPageRHS(ActionHelper.getListOfElementByXpath(driver, pagination_buttons_xpath_rhs)));
+							currentPageNew = Integer.parseInt(getCurrentPageRHS(actionHelper.getListOfElementByXpath(pagination_buttons_xpath_rhs)));
 							clickOnNext = currentPageOld!=currentPageNew;
 						}
 					}
@@ -186,11 +187,11 @@ public class Pagination {
 	}
 
 	private boolean clicOnNextRHS() {
-		return ActionHelper.Click(driver, next_button_rhs);
+		return actionHelper.Click(next_button_rhs);
 	}
 
 	private boolean clickOnPreviousRHS() {
-		return ActionHelper.Click(driver, previous_button_rhs);
+		return actionHelper.Click(previous_button_rhs);
 	}
 	
 	private String getCurrentPageRHS(List<WebElement> pElementList) {
@@ -216,7 +217,7 @@ public class Pagination {
 	}
 	public boolean isPaginationAvailableRHS() {
 		boolean isPaginationApplicable = false;
-		if(ActionHelper.waitForElementToBeVisible(driver, searchResultsInfo, 30)) {
+		if(actionHelper.waitForElementToBeVisible(searchResultsInfo, 30)) {
 			String enteriesCount=searchResultsInfo.getText().split("of")[1].split("enteries")[0].trim();
 			int enteriesCountInt=Integer.parseInt(enteriesCount.split(" ")[0].trim());
 			if(enteriesCountInt>10) {

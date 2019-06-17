@@ -30,19 +30,19 @@ public class NewPageCreatedFromPP extends Page{
 	}
 	
 	public boolean isPageLoaded() {
-		return ActionHelper.waitForElementToBeVisible(driver, pageHeading, 30);
+		return actionHelper.waitForElementToBeVisible(pageHeading, 30);
 	}
 	
 	public boolean verifyPageHeading(String pHeadingToVerify) {
-		return ActionHelper.getText(driver, pageHeading).trim().equalsIgnoreCase(pHeadingToVerify);
+		return actionHelper.getText(pageHeading).trim().equalsIgnoreCase(pHeadingToVerify);
 	}
 	
 	public boolean verifyPageBody(String pBodyToVerify) {
-		return ActionHelper.getText(driver, pageBody).trim().equalsIgnoreCase(pBodyToVerify);
+		return actionHelper.getText(pageBody).trim().equalsIgnoreCase(pBodyToVerify);
 	}
 	public boolean isCalendarWidgetVisible() {
-		ActionHelper.ScrollDownByPixels(driver,"1500");
-		return ActionHelper.waitForElementToBeVisible(driver, calendarWidget, 10);
+		actionHelper.ScrollDownByPixels("1500");
+		return actionHelper.waitForElementToBeVisible(calendarWidget, 10);
 	}
 	@Override
 	public WebElement getHeader() {

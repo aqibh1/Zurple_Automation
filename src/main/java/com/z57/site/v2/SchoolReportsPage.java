@@ -10,8 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
@@ -46,12 +44,12 @@ public class SchoolReportsPage extends Page{
 	}
 	
 	public boolean isSchoolReportsPage() {
-		boolean result = ActionHelper.getText(driver, pageTitle).equalsIgnoreCase(FrameworkConstants.SchoolReportsPageTitle)?true:false;
+		boolean result = actionHelper.getText(pageTitle).equalsIgnoreCase(FrameworkConstants.SchoolReportsPageTitle)?true:false;
 		return result;
 	}
 	
 	public boolean isGoogleMapsDisplayed() {
-		return ActionHelper.isElementVisible(driver, googleMap);
+		return actionHelper.isElementVisible(googleMap);
 	}
 	
 	public boolean isResultsCorrect(String pZip) {
@@ -63,10 +61,10 @@ public class SchoolReportsPage extends Page{
 		for(WebElement element: list_of_elements) {
 			flag = false;
 			lSchoolName = element.findElement(By.tagName("a")).getText();
-			ActionHelper.Click(driver, element.findElement(By.tagName("a")));
+			actionHelper.Click(element.findElement(By.tagName("a")));
 			List<WebElement> table_contents_list = driver.findElements(By.xpath(pin_popup_info_table));
 			for(WebElement table_element: table_contents_list) {
-				ActionHelper.waitForElementToBeVisible(driver, table_element, 10);
+				actionHelper.waitForElementToBeVisible(table_element, 10);
 				String element_text = table_element.getText();
 				if(element_text.contains("Name:")) {
 					String pin_school_name = element_text.split("Name:")[1].trim();
@@ -100,14 +98,14 @@ public class SchoolReportsPage extends Page{
 		boolean lResult=false;
 		int counter=1;
 		do {
-			ActionHelper.waitForElementToBeVisible(driver, getDynamicElement(list_of_pages_pagination, String.valueOf(counter)), 10);
+			actionHelper.waitForElementToBeVisible(getDynamicElement(list_of_pages_pagination, String.valueOf(counter)), 10);
 			clickOnPageNumber(list_of_pages_pagination, String.valueOf(counter));
 			lResult = isResultsCorrect(pZip);
 			counter++;
 			if(!lResult) {
 				break;
 			}
-		}while(ActionHelper.isElementVisible(driver, getDynamicElement(list_of_pages_pagination, String.valueOf(counter))));
+		}while(actionHelper.isElementVisible(getDynamicElement(list_of_pages_pagination, String.valueOf(counter))));
 		
 		return lResult;
 	}
@@ -135,8 +133,8 @@ public class SchoolReportsPage extends Page{
 		}
 		
 		
-		while(ActionHelper.isElementVisible(driver, previous_button)) {
-			ActionHelper.Click(driver, previous_button);
+		while(actionHelper.isElementVisible(previous_button)) {
+			actionHelper.Click(previous_button);
 			lPrevious_Text =lCurrent_text;
 			lCurrent_text = table_entries_info.getText();
 			backwardsPagination=lCurrent_text.equalsIgnoreCase(lPrevious_Text)?false:true;
@@ -149,11 +147,11 @@ public class SchoolReportsPage extends Page{
 	}
 	
 	private boolean clickOnNextButtonPage() {
-		return ActionHelper.Click(driver, next_button);
+		return actionHelper.Click(next_button);
 	}
 	
 	private boolean clickOnPageNumber(String pElementXpath, String pPageNumber) {
-		return ActionHelper.Click(driver, getDynamicElement(pElementXpath, pPageNumber));
+		return actionHelper.Click(getDynamicElement(pElementXpath, pPageNumber));
 	}
 	@Override
 	public WebElement getHeader() {

@@ -39,16 +39,16 @@ public class RecentHomeSalesPage extends Page{
 	}
 
 	public boolean isGoogleMapDisplayed() {
-		return ActionHelper.waitForElementToBeVisible(driver, googleMap, 20);
+		return actionHelper.waitForElementToBeVisible(googleMap, 20);
 	}
 	
 	public boolean isRecentHomeSalesPage() {
-		boolean result = ActionHelper.getText(driver, pageTitle).equalsIgnoreCase(FrameworkConstants.RecentHomeSalesPageTitle)?true:false;
+		boolean result = actionHelper.getText(pageTitle).equalsIgnoreCase(FrameworkConstants.RecentHomeSalesPageTitle)?true:false;
 		return result;
 	}
 
 	public boolean isSearchSuccessful() {
-		return ActionHelper.isElementVisible(driver, print_result_button);
+		return actionHelper.isElementVisible(print_result_button);
 		
 	}
 	

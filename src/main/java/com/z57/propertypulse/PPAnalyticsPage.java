@@ -8,8 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import resources.utility.ActionHelper;
-
 /**
  * @author adar
  *
@@ -63,25 +61,25 @@ public class PPAnalyticsPage extends Page{
 	}
 	public PPAnalyticsPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver,this);
 		
 	}
 	public boolean selectFacebookPage(String pPage) {
-		return ActionHelper.selectDropDownOption(driver, facebookPageDropDown, "", pPage);
+		return actionHelper.selectDropDownOption( facebookPageDropDown, "", pPage);
 	}
 	public boolean isFacebookGraphVisible() {
-		return ActionHelper.waitForElementToBeVisible(driver, graphContainer, 30);
+		return actionHelper.waitForElementToBeVisible( graphContainer, 30);
 	}
 	
 	public boolean isPostFilterVisible() {
-		return ActionHelper.waitForElementToBeVisible(driver, postFilter, 30);
+		return actionHelper.waitForElementToBeVisible( postFilter, 30);
 	}
 	public boolean isDashboardAnalyticsPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, analyticsDashboard_heading, 10);
+		return actionHelper.waitForElementToBeVisible( analyticsDashboard_heading, 10);
 	}
 	public boolean clickAndVerifyStatusResults() {
 		boolean result = false;
-		if(ActionHelper.Click(driver, statusTab_button)) {
+		if(actionHelper.Click( statusTab_button)) {
 			result = isDetailTableVisible();
 		}
 		return result;
@@ -92,7 +90,7 @@ public class PPAnalyticsPage extends Page{
 	
 	public boolean clickAndVerifyLinksResults() {
 		boolean result = false;
-		if(ActionHelper.Click(driver, filterTab_button)) {
+		if(actionHelper.Click( filterTab_button)) {
 			result = isDetailTableVisible();
 		}
 		return result;
@@ -100,7 +98,7 @@ public class PPAnalyticsPage extends Page{
 	
 	public boolean clickAndVerifyPhotosResults() {
 		boolean result = false;
-		if(ActionHelper.Click(driver, photosTab_button)) {
+		if(actionHelper.Click( photosTab_button)) {
 			result = isDetailTableVisible();
 		}
 		return result;
@@ -108,19 +106,19 @@ public class PPAnalyticsPage extends Page{
 	
 	public boolean clickAndVerifyVideosResults() {
 		boolean result = false;
-		if(ActionHelper.Click(driver, videosTab_button)) {
+		if(actionHelper.Click( videosTab_button)) {
 			result = isDetailTableVisible();
 		}
 		return result;
 	}
 	
 	private boolean isDetailTableVisible() {
-		boolean isDateDisplayed = ActionHelper.waitForElementToBeVisible(driver, postHeaderDate, 10);
-		boolean isMessageDisplayed= ActionHelper.waitForElementToBeVisible(driver, postHeaderDate, 10);
-		boolean isEngageUserDisplayed = ActionHelper.waitForElementToBeVisible(driver, postHeaderDate, 10);
-		boolean isReachedDisplayed = ActionHelper.waitForElementToBeVisible(driver, postHeaderDate, 10);
-		boolean isTalkingAboutThisDisplayed = ActionHelper.waitForElementToBeVisible(driver, postHeaderDate, 10);
-		boolean isViralityDisplayed = ActionHelper.waitForElementToBeVisible(driver, postHeaderDate, 10);
+		boolean isDateDisplayed = actionHelper.waitForElementToBeVisible( postHeaderDate, 10);
+		boolean isMessageDisplayed= actionHelper.waitForElementToBeVisible( postHeaderDate, 10);
+		boolean isEngageUserDisplayed = actionHelper.waitForElementToBeVisible( postHeaderDate, 10);
+		boolean isReachedDisplayed = actionHelper.waitForElementToBeVisible( postHeaderDate, 10);
+		boolean isTalkingAboutThisDisplayed = actionHelper.waitForElementToBeVisible( postHeaderDate, 10);
+		boolean isViralityDisplayed = actionHelper.waitForElementToBeVisible( postHeaderDate, 10);
 		return (isDateDisplayed && isMessageDisplayed && isEngageUserDisplayed && isReachedDisplayed && isTalkingAboutThisDisplayed && isViralityDisplayed);
 	}
 

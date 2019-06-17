@@ -7,8 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
@@ -50,34 +48,34 @@ public class PPWebsitePage extends Page{
 		PageFactory.initElements(driver, this);
 	}
 	public boolean isWebSitePage() {
-		return ActionHelper.waitForElementToBeVisible(driver, page_heading, 30);
+		return actionHelper.waitForElementToBeVisible(page_heading, 30);
 	}
 	public boolean clickOnAddNewButton() {
-		return ActionHelper.Click(driver, addNew_button);
+		return actionHelper.Click(addNew_button);
 	}
 	public boolean typeInSearchField(String pStringToSearch) {
-		return ActionHelper.Type(driver, searchPage_input, pStringToSearch);
+		return actionHelper.Type(searchPage_input, pStringToSearch);
 	}
 	public boolean clickOnSearchButton() {
-		return ActionHelper.Click(driver, search_button);
+		return actionHelper.Click(search_button);
 	}
 	public boolean clickOnRowPage(String pPageName) {
 		boolean isSuccessful = false;
-		String lDynamicElement_xpath = ActionHelper.getDynamicElementXpath(driver, pageRow, pPageName);
-		if(ActionHelper.waitForElementToBeLocated(driver, lDynamicElement_xpath, 30)) {
-			WebElement lDynamicElement =  ActionHelper.getDynamicElement(driver, pageRow, pPageName);
-			isSuccessful = ActionHelper.Click(driver, lDynamicElement);
+		String lDynamicElement_xpath = actionHelper.getDynamicElementXpath(pageRow, pPageName);
+		if(actionHelper.waitForElementToBeLocated(lDynamicElement_xpath, 30)) {
+			WebElement lDynamicElement =  actionHelper.getDynamicElement(pageRow, pPageName);
+			isSuccessful = actionHelper.Click(lDynamicElement);
 		}
 		return isSuccessful;
 		
 	}
 	public boolean isPageDeletedSuccessfully() {
-		return ActionHelper.waitForElementToBeVisible(driver, message_label, 30);
+		return actionHelper.waitForElementToBeVisible(message_label, 30);
 	}
 	public boolean clickOnWidget() {
 		boolean result = false;
-		if(ActionHelper.MouseHoverOnElement(driver, appearanceSideMenu)) {
-			result = ActionHelper.Click(driver, widgetSubmenu);
+		if(actionHelper.MouseHoverOnElement(appearanceSideMenu)) {
+			result = actionHelper.Click(widgetSubmenu);
 		}
 		return result;
 	}

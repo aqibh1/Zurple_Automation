@@ -24,12 +24,12 @@ public class DeleteListingAlert {
 	}
 	
 	public boolean isDeleteListingAlert() {
-		return ActionHelper.waitForElementToBeVisible(driver, deleteListing_header, 30);
+		return new ActionHelper(driver).waitForElementToBeVisible(deleteListing_header, 30);
 	}
 	public boolean clickOnConfirmButton() {
-		return ActionHelper.Click(driver, confirm_button);
+		return new ActionHelper(driver).Click(confirm_button);
 	}
 	public boolean isDeleted() {
-		return ActionHelper.waitForElementToBeDisappeared(driver, deleteListing_header);
+		return new ActionHelper(driver).waitForElementToBeDisappeared(deleteListing_header);
 	}
 }

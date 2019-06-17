@@ -61,7 +61,7 @@ public class PPAutomationPageTest extends PageTest{
 		assertTrue(verifyFacebookIDX(lFacebookIdxUpdated),"Unable to verify Facebook IDX option "+lFacebookIdx);
 	}
 	private boolean verifyFacebookIDX(String lFacebookIdx) {
-		ActionHelper.RefreshPage(driver);
+		new ActionHelper(driver).RefreshPage();
 		return page.isFacebookIdxPostOptionEnabled(lFacebookIdx);
 	}
 	private void clickSaveButton() {

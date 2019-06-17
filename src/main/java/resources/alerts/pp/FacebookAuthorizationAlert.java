@@ -39,15 +39,15 @@ public class FacebookAuthorizationAlert extends AbstractAlert{
 	}
 	
 	private boolean isFacebookAuthorizationAlert() {
-		return ActionHelper.waitForElementToBeVisible(driver, continueAs_fbButton, 15);
+		return new ActionHelper(driver).waitForElementToBeVisible(continueAs_fbButton, 15);
 	}
 	
 	public void authorizeFacebook() {
 		if(isFacebookAuthorizationAlert()) {
-			ActionHelper.Click(driver, continueAs_fbButton);
-			ActionHelper.Click(driver, next_fbButton);
-			ActionHelper.Click(driver, done_fbButton);
-			ActionHelper.Click(driver, ok_fbButton);
+			new ActionHelper(driver).Click(continueAs_fbButton);
+			new ActionHelper(driver).Click(next_fbButton);
+			new ActionHelper(driver).Click( done_fbButton);
+			new ActionHelper(driver).Click(ok_fbButton);
 		}
 	}
 	

@@ -8,7 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 import resources.alerts.pp.DeleteListingAlert;
 import resources.alerts.pp.GetMaximumListingExposureModal;
 import resources.forms.pp.PPAddListingForm;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class PPListingPage extends Page{
@@ -44,7 +43,7 @@ public class PPListingPage extends Page{
 		setAddListingForm();
 		setGetMaxListingExposure();
 		setDeleteListingAlert();
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver,this);
 		
 	}
 	
@@ -68,22 +67,22 @@ public class PPListingPage extends Page{
 		deleteListingAlert = new DeleteListingAlert(driver);
 	}
 	public boolean isListingPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, listing_heading, 15);
+		return actionHelper.waitForElementToBeVisible(listing_heading, 15);
 	}
 	
 	public boolean clickOnManualEntry() {
-		return ActionHelper.clickAndSelectFromMenuButton(driver, addimport_button, manualEntry_dropDownOption);
+		return actionHelper.clickAndSelectFromMenuButton(addimport_button, manualEntry_dropDownOption);
 	}
 	public boolean clickOnCreateAd(String pListingId) {
-		return ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, createAd_button, pListingId));
+		return actionHelper.Click(actionHelper.getDynamicElement(createAd_button, pListingId));
 	}
 	public boolean clickOnEasyImportFromMLS() {
-		return ActionHelper.clickAndSelectFromMenuButton(driver, addimport_button, easyImportFromMLS_dropDownOption);
+		return actionHelper.clickAndSelectFromMenuButton(addimport_button, easyImportFromMLS_dropDownOption);
 	}
 	public boolean deleteListing(String pListingId) {
 		boolean deleted = false;
-		ActionHelper.waitForElementToBeLocated(driver, ActionHelper.getDynamicElementXpath(driver, delete_button_xpath, pListingId), 15);
-		if(ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, delete_button_xpath, pListingId))) {
+		actionHelper.waitForElementToBeLocated(actionHelper.getDynamicElementXpath(delete_button_xpath, pListingId), 15);
+		if(actionHelper.Click(actionHelper.getDynamicElement(delete_button_xpath, pListingId))) {
 			if(getDeleteListingAlert().isDeleteListingAlert()) {
 				deleted = getDeleteListingAlert().clickOnConfirmButton();
 			}
@@ -92,7 +91,7 @@ public class PPListingPage extends Page{
 		return deleted;
 	}
 	public boolean typeInpurSearch(String pInput) {
-		return ActionHelper.ClearAndType(driver, search_input, pInput);
+		return actionHelper.ClearAndType(search_input, pInput);
 	}
 
 }

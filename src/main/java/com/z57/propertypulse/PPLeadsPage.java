@@ -7,8 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
 import resources.forms.pp.PPAddLeadForm;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class PPLeadsPage extends Page{
@@ -64,7 +64,7 @@ public class PPLeadsPage extends Page{
 	public PPLeadsPage(WebDriver pWebdriver) {
 		driver = pWebdriver;
 		setAddNewLeadForm();
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver,this);
 	}
 	
 	public PPAddLeadForm getAddNewLeadForm() {
@@ -76,50 +76,50 @@ public class PPLeadsPage extends Page{
 	
 	public boolean clickOnManualEntryDropDown() {
 		boolean isSuccessful=false;
-		if(ActionHelper.Click(driver, addimport_button)) {
-			isSuccessful = ActionHelper.Click(driver, manaulEntry_button);
+		if(actionHelper.Click( addimport_button)) {
+			isSuccessful = actionHelper.Click( manaulEntry_button);
 		}
 		return isSuccessful;
 	}
 	
 	public boolean clickOnImportCSVDropDown() {
 		boolean isSuccessful=false;
-		if(ActionHelper.Click(driver, addimport_button)) {
-			isSuccessful = ActionHelper.Click(driver, importCsv_button);
+		if(actionHelper.Click( addimport_button)) {
+			isSuccessful = actionHelper.Click( importCsv_button);
 		}
 		return isSuccessful;
 	}
 	
 	public boolean clickOnImportEmailContactsDropDown() {
 		boolean isSuccessful=false;
-		if(ActionHelper.Click(driver, addimport_button)) {
-			isSuccessful = ActionHelper.Click(driver, importEmailContacts_button);
+		if(actionHelper.Click( addimport_button)) {
+			isSuccessful = actionHelper.Click( importEmailContacts_button);
 		}
 		return isSuccessful;
 	}
 	public boolean isLeadPage() {
-		return ActionHelper.isElementVisible(driver, leads_title);
+		return actionHelper.isElementVisible( leads_title);
 	}
 	
 	public boolean clickOnFilterArrow() {
-		return ActionHelper.Click(driver,searchFilter_arrow );
+		return actionHelper.Click(searchFilter_arrow );
 	}
 	
 	public boolean selectSourcesOption() {
 		boolean isSuccess= false;
-		if(ActionHelper.Click(driver, selectSources)) {
-			isSuccess = ActionHelper.Click(driver, manualEntry);
+		if(actionHelper.Click( selectSources)) {
+			isSuccess = actionHelper.Click( manualEntry);
 		}
 		return isSuccess;
 	}
 	
 	public boolean selectStatus(String pStatus) {
 		boolean isSuccess= false;
-		if(ActionHelper.Click(driver, selectStatus)) {
+		if(actionHelper.Click( selectStatus)) {
 			List<WebElement> list = driver.findElements(By.xpath(list_status));
 			for(WebElement element: list) {
-				if(ActionHelper.getText(driver, element).equalsIgnoreCase(pStatus)) {
-					isSuccess=ActionHelper.Click(driver, element);
+				if(actionHelper.getText( element).equalsIgnoreCase(pStatus)) {
+					isSuccess=actionHelper.Click( element);
 				}
 			}
 		}
@@ -127,25 +127,25 @@ public class PPLeadsPage extends Page{
 	}
 	
 	public boolean clickOnApplyFilterButton() {
-		return ActionHelper.Click(driver, applyFilter_button);
+		return actionHelper.Click( applyFilter_button);
 	}
 	
 	public boolean isLeadExistInTable(String pLead) {
-		return ActionHelper.waitForElementToBeLocated(driver, ActionHelper.getDynamicElementXpath(driver, leadExistInLeadsTable, pLead),15);
+		return actionHelper.waitForElementToBeLocated( actionHelper.getDynamicElementXpath( leadExistInLeadsTable, pLead),15);
 	}
 	
 	public boolean clickOnResetFilterButton() {
-		return ActionHelper.Click(driver, resetFilter_button);
+		return actionHelper.Click( resetFilter_button);
 	}
 	public boolean typeInSearch(String pStringToSearch) {
-		boolean result = ActionHelper.waitForElementToBeVisible(driver, search_input, 10);
+		boolean result = actionHelper.waitForElementToBeVisible( search_input, 10);
 		if(result) {
-			result= ActionHelper.ClearAndType(driver, search_input, pStringToSearch);
+			result= actionHelper.ClearAndType( search_input, pStringToSearch);
 		}
 		return result;
 	}
 	public boolean clickOnEditButton() {
-		return ActionHelper.Click(driver, editLead_button);
+		return actionHelper.Click( editLead_button);
 	}
 	
 

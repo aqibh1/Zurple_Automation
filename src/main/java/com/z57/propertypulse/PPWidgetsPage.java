@@ -39,14 +39,14 @@ public class PPWidgetsPage extends Page{
 		
 	}
 	public boolean dragTheWidgetToDeafultSidebar(String pWidget) {
-		WebElement lFrom = ActionHelper.getDynamicElement(driver, widget_xpath, pWidget);
-		return ActionHelper.dragAndDrop(driver, lFrom, default_sidebar);
+		WebElement lFrom = actionHelper.getDynamicElement(widget_xpath, pWidget);
+		return actionHelper.dragAndDrop(lFrom, default_sidebar);
 	}
 	public boolean dragTheWidgetFromDefaultSidebar(String pWidget) {
-		WebElement lFrom = ActionHelper.getDynamicElement(driver, defaultWidgets_xpath, pWidget);
-		return ActionHelper.dragAndDrop(driver, lFrom, availableWidgets);
+		WebElement lFrom = actionHelper.getDynamicElement(defaultWidgets_xpath, pWidget);
+		return actionHelper.dragAndDrop(lFrom, availableWidgets);
 	}
 	public boolean isWidgetsPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, widgetsHeading, 30);
+		return actionHelper.waitForElementToBeVisible(widgetsHeading, 30);
 	}
 }

@@ -19,7 +19,7 @@ public class AboutMePage extends Page{
 	}
 	
 	public boolean isAbouttMePage() {
-		boolean result = ActionHelper.getText(driver, pageTitle).equalsIgnoreCase(FrameworkConstants.AboutMe)?true:false;
+		boolean result = actionHelper.getText(pageTitle).equalsIgnoreCase(FrameworkConstants.AboutMe)?true:false;
 		return result;
 	}
 

@@ -39,16 +39,16 @@ public class UserCustomPage extends Page{
 	
 	public boolean isPageTitleDisplayed() {
 		boolean status = false;
-		if(ActionHelper.isElementVisible(driver, pageTitle)) {
-			status = ActionHelper.getText(driver, pageTitle).equalsIgnoreCase(FrameworkConstants.BrandingOptions);
+		if(actionHelper.isElementVisible(pageTitle)) {
+			status = actionHelper.getText(pageTitle).equalsIgnoreCase(FrameworkConstants.BrandingOptions);
 		}
 		return status;
 	}
 	public boolean isColorOptionsDisplayed() {
-		return ActionHelper.isElementVisible(driver, colorOptions_button);
+		return actionHelper.isElementVisible(colorOptions_button);
 	}
 	public boolean isImageOptionsDisplayed() {
-		return ActionHelper.isElementVisible(driver, imageOptions_button);
+		return actionHelper.isElementVisible(imageOptions_button);
 	}
 	
 	@Override

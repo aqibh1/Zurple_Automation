@@ -38,33 +38,36 @@ public class SaveSearchForm extends AbstractForm{
 	@FindBy(xpath="//div[@id='saveSearchModal']/descendant::h3[text()='Save Search']")
 	WebElement saveSearchFormHeader;
 	
+	private ActionHelper actionHelper;
+	
 	public SaveSearchForm() {
 		
 	}
 	public SaveSearchForm(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	public boolean typeLeadName(String pName) {
-		return ActionHelper.Type(driver, name_input, pName);
+		return actionHelper.Type(name_input, pName);
 	}
 	
 	public boolean typeEmailAddress(String pEmail) {
-		return ActionHelper.Type(driver, email_input, pEmail);
+		return actionHelper.Type(email_input, pEmail);
 	}
 	
 	public boolean typePhoneNumber(String pPhone) {
-		return ActionHelper.Type(driver, phone_input, pPhone);
+		return actionHelper.Type(phone_input, pPhone);
 	}
 	
 	public boolean typeSearchTitle(String pSearchTitle) {
-		return ActionHelper.ClearAndType(driver, savedSearchTitle_input, pSearchTitle);
+		return actionHelper.ClearAndType(savedSearchTitle_input, pSearchTitle);
 	}
 	
 	public boolean selectEmailAlertsCheckbox() {
 		boolean isSelected = false;
 		if(!emailAlerts_checkbox.isSelected()) {
-			isSelected = ActionHelper.Click(driver, emailAlerts_checkbox);
+			isSelected = actionHelper.Click(emailAlerts_checkbox);
 		}else {
 			isSelected = true;
 		}
@@ -72,28 +75,28 @@ public class SaveSearchForm extends AbstractForm{
 	}
 	
 	public boolean clickOnSaveButton() {
-		return ActionHelper.Click(driver, saveSearchSend_button);
+		return actionHelper.Click(saveSearchSend_button);
 	}
 	
 	public boolean isSaveSearchForm() {
-		return ActionHelper.waitForElementToBeVisible(driver, saveSearchFormHeader, 15);
+		return actionHelper.waitForElementToBeVisible(saveSearchFormHeader, 15);
 	}
 	
 	public String getLeadName() {
-		return ActionHelper.getText(driver, name_input);
+		return actionHelper.getText(name_input);
 	}
 	
 	public String getLeadEmail() {
-		return ActionHelper.getText(driver, email_input);
+		return actionHelper.getText(email_input);
 	}
 	
 	public String getTitle() {
-		return ActionHelper.getText(driver, savedSearchTitle_input);
+		return actionHelper.getText(savedSearchTitle_input);
 	}
 	public boolean isSearchSaved() {
-		return ActionHelper.waitForElementToBeDisappeared(driver, saveSearchFormHeader);
+		return actionHelper.waitForElementToBeDisappeared(saveSearchFormHeader);
 	}
 	public boolean isLeadEmailInputVisible() {
-		return ActionHelper.waitForElementToBeVisible(driver, email_input, 5);
+		return actionHelper.waitForElementToBeVisible(email_input, 5);
 	}
 }

@@ -8,9 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import resources.forms.z57.LoginForm;
-import resources.utility.ActionHelper;
-
 /**
  * @author adar
  *
@@ -37,37 +34,35 @@ public class PPUserSettingsPage extends Page{
 	}
 	PPUserSettingsPage(WebDriver pWebDriver){
 		driver = pWebDriver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver,this);
 	}
 	
 	public boolean isSettingsPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, settings_heading, 30);
+		return actionHelper.waitForElementToBeVisible(settings_heading, 30);
 	}
 	
 	public boolean typeDesignation(String pDesignation) {
-		boolean isSuccess = ActionHelper.ClearAndType(driver, designation_input, pDesignation);
-		ActionHelper.staticWait(4);
+		boolean isSuccess = actionHelper.ClearAndType(designation_input, pDesignation);
+		actionHelper.Wait(4);
 		return isSuccess;
 	}
 	public boolean typePhone(String pPhoneAgent) {
 		boolean isSuccess = false;
-		if(ActionHelper.Clear(driver, phoneAgent_input)) {
-			ActionHelper.staticWait(5);
+		if(actionHelper.Clear(phoneAgent_input)) {
+			actionHelper.Wait(5);
 			driver.switchTo().alert().accept();
-			ActionHelper.waitForAjaxToBeCompleted(driver);
-			isSuccess = ActionHelper.ClearAndType(driver, phoneAgent_input, pPhoneAgent);
+			actionHelper.waitForAjaxToBeCompleted(driver);
+			isSuccess = actionHelper.ClearAndType(phoneAgent_input, pPhoneAgent);
 		}
 		return isSuccess;
 	}
 	public boolean clickOnSaveButton() {
-		boolean clickSuccess = ActionHelper.Click(driver, save_button);
-//		ActionHelper.staticWait(5);
-//		driver.switchTo().alert().accept();
+		boolean clickSuccess = actionHelper.Click(save_button);
 		return clickSuccess;
 	}
 	public boolean isDetailUpdatedSuccessfully() {
-		ActionHelper.staticWait(30);
-		return ActionHelper.waitForElementToBeVisible(driver, updateSuccessMessage, 30);
+		actionHelper.Wait(30);
+		return actionHelper.waitForElementToBeVisible(updateSuccessMessage, 30);
 	}
 	
 	

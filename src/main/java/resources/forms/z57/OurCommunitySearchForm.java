@@ -28,34 +28,36 @@ public class OurCommunitySearchForm extends AbstractForm{
 	
 	String select_state_option="//select[@id='community_state']/option[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
+	private ActionHelper actionHelper;
 	
 	public OurCommunitySearchForm(WebDriver pWebDriver) {
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	
 	public boolean typeAddress(String pAddress) {
-		return ActionHelper.Type(driver, address_input, pAddress);
+		return actionHelper.Type(address_input, pAddress);
 	}
 	
 	public boolean typeCity(String pCity) {
-		return ActionHelper.ClearAndType(driver, city_input, pCity);
+		return actionHelper.ClearAndType(city_input, pCity);
 	}
 	
 	public boolean selectState(String pState) {
-		return ActionHelper.clickAndSelect(driver, state_dropdown, getDynamicElement(select_state_option, pState));
+		return actionHelper.clickAndSelect(state_dropdown, getDynamicElement(select_state_option, pState));
 	}
 	
 	public boolean typeZip(String pZip) {
-		return ActionHelper.ClearAndType(driver, zip_input, pZip);
+		return actionHelper.ClearAndType(zip_input, pZip);
 	}
 	
 	public boolean clickSubmitButton() {
-		return ActionHelper.Click(driver, submit_button);
+		return actionHelper.Click(submit_button);
 	}
 	
 	public boolean isSearchSuccessful() {
-		return ActionHelper.waitForElementToBeClickAble(driver, submit_button);
+		return actionHelper.waitForElementToBeClickAble(submit_button);
 	}
 	
 	

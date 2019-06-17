@@ -63,13 +63,16 @@ public class LoginForm extends AbstractForm{
 	@FindBy(xpath="//button[@id='lead_login_send']")
 	WebElement login_button_idx;
 	
+	private ActionHelper actionHelper;
+
 	public LoginForm() {
 		
 	}
 	public LoginForm(WebDriver webDriver) {
 		driver=webDriver;
-		wait = new WebDriverWait(driver, 20);
-		PageFactory.initElements(webDriver, this);
+		wait = new WebDriverWait (driver,20);
+		actionHelper = new ActionHelper(driver);
+		PageFactory.initElements(driver, this);
 	}
 
 	public boolean setEmail(String pEmail) {
@@ -102,11 +105,11 @@ public class LoginForm extends AbstractForm{
 	public boolean clickOnSignUpWithFacebookButton() {
 		AutomationLogger.info("Clicking on Signup with Facebook button in Register Form");
 		boolean status = false;
-		if(ActionHelper.waitForElementToBeVisible(driver, signupWithFb_frame, 30)) {
+		if(actionHelper.waitForElementToBeVisible( signupWithFb_frame, 30)) {
 			driver.switchTo().frame(signupWithFb_frame);
 		}
-		if(ActionHelper.waitForElementToBeVisible(driver, signupFacebook_button,30)) {
-			status = ActionHelper.Click(driver, signupFacebook_button);
+		if(actionHelper.waitForElementToBeVisible( signupFacebook_button,30)) {
+			status = actionHelper.Click( signupFacebook_button);
 		}
 		return status;
 	}
@@ -116,43 +119,43 @@ public class LoginForm extends AbstractForm{
 	
 	public boolean clickOnSignInButton() {
 		AutomationLogger.info("Clicking on Sign In button");
-		return ActionHelper.Click(driver, signIn_button);
+		return actionHelper.Click( signIn_button);
 	}
 	public boolean typeFacebookEmail(String pEmail) {
-		ActionHelper.Click(driver, FACEBOOK_EMAIL);
-		return ActionHelper.ClearAndType(driver, FACEBOOK_EMAIL, pEmail);
+		actionHelper.Click( FACEBOOK_EMAIL);
+		return actionHelper.ClearAndType( FACEBOOK_EMAIL, pEmail);
 	}
 	public boolean typeFacebookPassword(String pPassword) {
-		ActionHelper.Click(driver, FACEBOOK_PASSWORD);
-		return ActionHelper.ClearAndType(driver, FACEBOOK_PASSWORD, pPassword);
+		actionHelper.Click( FACEBOOK_PASSWORD);
+		return actionHelper.ClearAndType( FACEBOOK_PASSWORD, pPassword);
 	}
 	public boolean clickOnFacebookLoginButton() {
-		return ActionHelper.Click(driver, FACEBOOK_LOGIN);
+		return actionHelper.Click( FACEBOOK_LOGIN);
 	}
 	public boolean waitForLoginFormToDisappear() {
-		return ActionHelper.waitForElementToBeDisappeared(driver, email_input);
+		return actionHelper.waitForElementToBeDisappeared( email_input);
 	}
 	public boolean clickOnIdxSigninButton() {
-		return ActionHelper.Click(driver, signin_button_idx);
+		return actionHelper.Click( signin_button_idx);
 	}
 	
 	public boolean typeEmailIdx(String pEmail) {
-		return ActionHelper.Type(driver, email_input_idx, pEmail);
+		return actionHelper.Type( email_input_idx, pEmail);
 	}
 	
 	public boolean clickOnIdxLoginButton() {
-		return ActionHelper.Click(driver, login_button_idx);
+		return actionHelper.Click( login_button_idx);
 	}
 	
 	public boolean isIdxLoginSuccessful() {
-		return ActionHelper.waitForElementToBeDisappeared(driver, login_button_idx);
+		return actionHelper.waitForElementToBeDisappeared( login_button_idx);
 	}
 	
 	public boolean isFacebookLoginForm() {
-		return ActionHelper.waitForElementToBeVisible(driver, FACEBOOK_EMAIL, 15);
+		return actionHelper.waitForElementToBeVisible( FACEBOOK_EMAIL, 15);
 	}
 	
 	public boolean clickOnFacebookLoginButton2() {
-		return ActionHelper.Click(driver, FACEBOOK_LOGIN_BUTTON);
+		return actionHelper.Click( FACEBOOK_LOGIN_BUTTON);
 	}
 }

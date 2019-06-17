@@ -11,8 +11,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import resources.utility.ActionHelper;
-
 /**
  * @author adar
  *
@@ -51,43 +49,41 @@ public class PPEmailCampaignEditorListing extends Page{
 	@FindBy(id="s2id_listing_select")
 	WebElement select_Listing;
 	
-	private ActionHelper actionHelper;
 	
 	public PPEmailCampaignEditorListing() {
 		
 	}
 	public PPEmailCampaignEditorListing(WebDriver pWebDriver) {
 		driver = pWebDriver;
-		actionHelper = new ActionHelper(pWebDriver);
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver,this);
 	}
 	
 	public boolean typeEmailSubject(String pEmail) {
-		return ActionHelper.ClearAndType(driver, emailSubject_input, pEmail);
+		return actionHelper.ClearAndType(emailSubject_input, pEmail);
 	}
 	public boolean isEmailCampaignManagerPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, emailCampaignManagerTitle, 30);
+		return actionHelper.waitForElementToBeVisible(emailCampaignManagerTitle, 30);
 	}
 	public boolean selectListing(String pListing) {
 		boolean isSuccess = false;
-		boolean isClick = ActionHelper.Click(driver, select_Listing);
+		boolean isClick = actionHelper.Click(select_Listing);
 		if(isClick && actionHelper.Type(selectListing_input, pListing)) {
-			ActionHelper.waitForAjaxToBeCompleted(driver);
-			ActionHelper.staticWait(5);
-			List<WebElement> list_of_suggested_listings = ActionHelper.getListOfElementByXpath(driver, suggestedResults);
-			isSuccess = ActionHelper.Click(driver, list_of_suggested_listings.get(0));
+			actionHelper.waitForAjaxToBeCompleted(driver);
+			actionHelper.Wait(5);
+			List<WebElement> list_of_suggested_listings = actionHelper.getListOfElementByXpath(suggestedResults);
+			isSuccess = actionHelper.Click(list_of_suggested_listings.get(0));
 		}
 		return isSuccess;
 	}
 	public boolean selectTitleInHeader(String pHeader) {
-		return ActionHelper.selectDropDownOption(driver, titleInHeader_dropdown,"", pHeader);
+		return actionHelper.selectDropDownOption(titleInHeader_dropdown,"", pHeader);
 	}
 	public boolean typeIndividualLead(String pLeadEmail) {
 		boolean isSuccess = false;
 		if(actionHelper.Type(selectIndividualLeads, pLeadEmail)) {
-			ActionHelper.waitForAjaxToBeCompleted(driver);
-			ActionHelper.staticWait(3);
-			isSuccess = ActionHelper.Type(driver, selectIndividualLeads, Keys.ENTER);
+			actionHelper.waitForAjaxToBeCompleted(driver);
+			actionHelper.Wait(3);
+			isSuccess = actionHelper.Type(selectIndividualLeads, Keys.ENTER);
 		}
 		return isSuccess;
 	}
@@ -95,16 +91,16 @@ public class PPEmailCampaignEditorListing extends Page{
 		return actionHelper.Type(testEmail_input, pEmail);
 	}
 	public boolean clickOnSendButton() {
-		boolean isSuccess = ActionHelper.Click(driver, send_button);
-		ActionHelper.staticWait(20);
+		boolean isSuccess = actionHelper.Click(send_button);
+		actionHelper.Wait(20);
 		return isSuccess;
 	}
 	public boolean typeAndAddDate(String pDate) {
 		boolean isSuccess = false;
-		if(ActionHelper.ClearAndType(driver, scheduleDatepicker, pDate)) {
-			ActionHelper.waitForAjaxToBeCompleted(driver);
+		if(actionHelper.ClearAndType(scheduleDatepicker, pDate)) {
+			actionHelper.waitForAjaxToBeCompleted(driver);
 			actionHelper.Type(testEmail_input, "");
-			isSuccess = ActionHelper.Click(driver, add_button);
+			isSuccess = actionHelper.Click(add_button);
 		}
 		return isSuccess;
 	}

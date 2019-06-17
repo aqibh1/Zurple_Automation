@@ -7,8 +7,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 public class IDXPropertyListingPage extends Page{
@@ -46,7 +44,7 @@ public class IDXPropertyListingPage extends Page{
 	}
 	
 	public String getPropertyprice() {
-		return ActionHelper.getText(driver, title_price);
+		return actionHelper.getText(title_price);
 	}
 	@Override
 	public WebElement getHeader() {
@@ -61,7 +59,7 @@ public class IDXPropertyListingPage extends Page{
 	}
 
 	public int getPropertValueFromHeader() {
-		String propertyVal=ActionHelper.getText(driver, title_price).replace("$", "").replace(",", "");
+		String propertyVal=actionHelper.getText(title_price).replace("$", "").replace(",", "");
 		return Integer.parseInt(propertyVal);
 	}
 
@@ -78,30 +76,31 @@ public class IDXPropertyListingPage extends Page{
 	}
 
 	public double getNumberOfBaths() {
-		return Double.parseDouble(ActionHelper.getText(driver, number_of_baths));
+		return Double.parseDouble(actionHelper.getText(number_of_baths));
 	}
 	
 	public String getPropertyAddress() {
-		return ActionHelper.getAttribute(property_top_details, "data-listing-address").trim();
+		return actionHelper.getAttribute(property_top_details, "data-listing-address").trim();
 	}
 
 	public String getMLSNum() {
-		return ActionHelper.getAttribute(property_top_details, "data-mls-num");
+		return actionHelper.getAttribute(property_top_details, "data-mls-num");
 	}
 
 	public boolean clickOnMapBar() {
-		return ActionHelper.Click(driver, mapNavigationBarLink);
+		return actionHelper.Click(mapNavigationBarLink);
 	}
 
 	public boolean isGoogleMapDisplayed(){
-		return ActionHelper.Click(driver, googleMaps);
+		return actionHelper.Click(googleMaps);
 	}
 	
 	public boolean isPinDsiplayedOnGoogleMaps() {
 		boolean isPinDisplayed=false;
-		wait=new WebDriverWait(driver, 20);
 		try {
-			isPinDisplayed = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
+//			isPinDisplayed = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
+			isPinDisplayed = actionHelper.doesElementContainsAttribute("//map[@id='gmimap0']/parent::div/img", "src", ".png");
+
 		}catch(Exception ex) {
 			System.out.println("No Pin is displayed on Google MAPS");
 			AutomationLogger.info("No Pin is displayed on Google MAPS");
@@ -111,14 +110,14 @@ public class IDXPropertyListingPage extends Page{
 	}
 
 	public boolean clickOnCommunityStats() {
-		return ActionHelper.Click(driver, communityStatsBarLink);
+		return actionHelper.Click(communityStatsBarLink);
 	}
 
 	public boolean clickOnSchools() {
-		return ActionHelper.Click(driver, schoolsBarLink);
+		return actionHelper.Click(schoolsBarLink);
 	}
 
 	public boolean clickOnWhatsNearBy() {
-		return ActionHelper.Click(driver, whatsNearbyBarLink);
+		return actionHelper.Click(whatsNearbyBarLink);
 	}
 }

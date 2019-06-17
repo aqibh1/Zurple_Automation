@@ -9,7 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 /**
@@ -17,7 +16,6 @@ import resources.utility.AutomationLogger;
  *
  */
 public class PPAddNewPage extends Page{
-	private ActionHelper actionHelper;
 	
 	@FindBy(xpath="//div[@class='wrap']/descendant::h1[text()='Add New Page']")
 	WebElement addNewPage_heading;
@@ -78,12 +76,11 @@ public class PPAddNewPage extends Page{
 	}
 	public PPAddNewPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
-		actionHelper = new ActionHelper(pWebDriver);
 		PageFactory.initElements(driver, this);
 	}
 
 	public boolean isAddNewPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, addNewPage_heading, 30);
+		return actionHelper.waitForElementToBeVisible(addNewPage_heading, 30);
 	}
 	
 	public boolean typePageTitle(String pPageTitle) {
@@ -97,8 +94,8 @@ public class PPAddNewPage extends Page{
 		}catch(Exception ex) {
 
 		}
-		if(ActionHelper.waitForElementToBeVisible(driver, publish_button,15)) {
-			isClick = ActionHelper.Click(driver, publish_button);
+		if(actionHelper.waitForElementToBeVisible(publish_button,15)) {
+			isClick = actionHelper.Click(publish_button);
 		}
 		return isClick;
 	}
@@ -120,42 +117,42 @@ public class PPAddNewPage extends Page{
 	}
 	
 	public boolean isPublishSuccessful() {
-		return ActionHelper.waitForElementToBeVisible(driver, addNew_button, 30);
+		return actionHelper.waitForElementToBeVisible(addNew_button, 30);
 	}
 	public String getPageUrl() {
-		return ActionHelper.getAttribute(viewPage_button, "href");
+		return actionHelper.getAttribute(viewPage_button, "href");
 	}
 	public boolean clickOnMoveToTrashButton() {
-		return ActionHelper.Click(driver, moveToTrash_button);
+		return actionHelper.Click(moveToTrash_button);
 	}
 	public boolean isEditPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, editPage_heading, 30);
+		return actionHelper.waitForElementToBeVisible(editPage_heading, 30);
 	}
 	public boolean clickAndSelectLeadCaptureEnabled(String pOption) {
-		return ActionHelper.selectDropDownOption(driver, leadCaptureEnabled,"", pOption);
+		return actionHelper.selectDropDownOption(leadCaptureEnabled,"", pOption);
 	}
 	public boolean clickAndSelectCaptureLeadStrength(String pStrength) {
-		return ActionHelper.selectDropDownOption(driver, leadCaptureStrength,"", pStrength);
+		return actionHelper.selectDropDownOption(leadCaptureStrength,"", pStrength);
 	}
 	public boolean clickAndSelectCaptureLeadTrigger(String pTrigger) {
-		return ActionHelper.selectDropDownOption(driver, leadCaptureTriggerPrompt,"", pTrigger);
+		return actionHelper.selectDropDownOption(leadCaptureTriggerPrompt,"", pTrigger);
 	}
 	public boolean clickAndSelectPageLayout(String pLayout) {
-		return ActionHelper.selectDropDownOption(driver, pageLayout,"", pLayout);
+		return actionHelper.selectDropDownOption(pageLayout,"", pLayout);
 	}
 	public boolean clickAndSelectPageLayoutSidebar(String pSidebar) {
-		return ActionHelper.selectDropDownOption(driver, pageSidebarValue,"", pSidebar);
+		return actionHelper.selectDropDownOption(pageSidebarValue,"", pSidebar);
 	}
 	public boolean isDefaultSidebarVisible() {
-		return ActionHelper.isElementVisible(driver, contactMeWidgetDefault);
+		return actionHelper.isElementVisible(contactMeWidgetDefault);
 	}
 	public boolean isContactMeWidgetVisible() {
-		return ActionHelper.isElementVisible(driver, contactMeWidget);
+		return actionHelper.isElementVisible(contactMeWidget);
 	}
 	public boolean isHomepageWidgetVisible() {
-		return ActionHelper.isElementVisible(driver, fastStartHeading);
+		return actionHelper.isElementVisible(fastStartHeading);
 	}
 	public boolean isHomesearchWidgetVisible() {
-		return ActionHelper.isElementVisible(driver, homeSearchWidget);
+		return actionHelper.isElementVisible(homeSearchWidget);
 	}
 }

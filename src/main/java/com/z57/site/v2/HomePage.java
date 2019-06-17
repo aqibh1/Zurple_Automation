@@ -19,7 +19,6 @@ import com.z57.site.v2.Page;
 
 import resources.forms.z57.LoginForm;
 import resources.forms.z57.RegisterForm;
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
@@ -154,8 +153,7 @@ public class HomePage extends Page
 	}
 	
 	public boolean clickOnSearchHomes() {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
-		boolean isElementPresent = wait.until(ExpectedConditions.visibilityOf(searchHomes_submenu))!=null?true:false;
+		boolean isElementPresent = actionHelper.waitForElementToBeVisible(searchHomes_submenu, 30);
 		if(isElementPresent) {
 			searchHomes_submenu.click();
 		}
@@ -166,41 +164,41 @@ public class HomePage extends Page
 	
 	public boolean isFindMyLocationButtonWorking() {
 		boolean isSuccessful =false;
-		if(ActionHelper.Click(driver, findMyLocation_button)) {
-			isSuccessful=ActionHelper.getText(driver, findMyLocation_result).isEmpty()?false:true;
+		if(actionHelper.Click(findMyLocation_button)) {
+			isSuccessful=actionHelper.getText(findMyLocation_result).isEmpty()?false:true;
 		}
 		return isSuccessful;
 	}
 	
 	public boolean clickSearchButton() {
-		return ActionHelper.Click(driver, search_button);
+		return actionHelper.Click(search_button);
 	}
 	
 	public boolean isSellBuyContactImagesAreDisplayed() {
-		ActionHelper.ScrollToElement(driver, buySellContact_image);
-		List<WebElement> list_of_elemenets = ActionHelper.getListOfElementByXpath(driver, buySellContactImage_xpath);
+		actionHelper.ScrollToElement(buySellContact_image);
+		List<WebElement> list_of_elemenets = actionHelper.getListOfElementByXpath(buySellContactImage_xpath);
 		return isImageDisplayedCorrectly(list_of_elemenets);
 		
 	}
 	public boolean isBackgroundImageSlidersAreDisplayed() {
-		List<WebElement> list_of_elemenets = ActionHelper.getListOfElementByXpath(driver, background_slider_image_xpath);
+		List<WebElement> list_of_elemenets = actionHelper.getListOfElementByXpath(background_slider_image_xpath);
 		return isImageDisplayedCorrectly(list_of_elemenets);
 	}
 	public List<String> isFeaturePropertyImagesAreDisplayed() {
-		List<WebElement> list_of_elemenets = ActionHelper.getListOfElementByXpath(driver, feature_listings_slider_image_xpath);
+		List<WebElement> list_of_elemenets = actionHelper.getListOfElementByXpath(feature_listings_slider_image_xpath);
 		return isListingImageDisplayedCorrectly(list_of_elemenets);
 	}
 	public List<String> isAgentProfilePicDisplayed() {
-		List<WebElement> list_of_elemenets = ActionHelper.getListOfElementByXpath(driver, agent_image_xpath);
+		List<WebElement> list_of_elemenets = actionHelper.getListOfElementByXpath(agent_image_xpath);
 		return isAgentImageDisplayedCorrectly(list_of_elemenets);
 	}
 	public boolean clickOnSliderArrows() {
 		boolean lRight_button = false, lLeft_button=false;
-		while(ActionHelper.isElementVisible(driver, propertySliderRight_button)) {
-			lRight_button = ActionHelper.Click(driver, propertySliderRight_button);
+		while(actionHelper.isElementVisible(propertySliderRight_button)) {
+			lRight_button = actionHelper.Click(propertySliderRight_button);
 		}
-		while(ActionHelper.isElementVisible(driver, propertySliderLeft_button)) {
-			lLeft_button = ActionHelper.Click(driver, propertySliderLeft_button);
+		while(actionHelper.isElementVisible(propertySliderLeft_button)) {
+			lLeft_button = actionHelper.Click(propertySliderLeft_button);
 		}
 		return (lRight_button && lLeft_button);
 	}
@@ -285,11 +283,11 @@ public class HomePage extends Page
 	public boolean typeInputAndSelect(String pStringToType,String pStringToFind) {
 		boolean isTypeSuccessful=false;
 		try {
-			ActionHelper.Click(driver, findMyLocation_result);
-			if(ActionHelper.isElementVisible(driver, search_input)) {
-				ActionHelper.Type(driver, search_input, Keys.BACK_SPACE);
-				ActionHelper.Type(driver, search_input, pStringToType);
-				ActionHelper.waitForElementToBeVisible(driver, search_dropdown_div, 5);
+			actionHelper.Click(findMyLocation_result);
+			if(actionHelper.isElementVisible(search_input)) {
+				actionHelper.Type(search_input, Keys.BACK_SPACE);
+				actionHelper.Type(search_input, pStringToType);
+				actionHelper.waitForElementToBeVisible(search_dropdown_div, 5);
 				
 				List<WebElement> listOfWebElements = driver.findElements(By.xpath("//div[@id='select2-drop']/descendant::div"));
 				for (WebElement singleElement: listOfWebElements){
@@ -321,7 +319,7 @@ public class HomePage extends Page
 			}
 		}
 		return false;
-		//return ActionHelper.i(driver, ActionHelper.getDynamicElement(driver, propertyWidgetSlider_xpath, pListingUrl.toLowerCase()), 15);
+		//return actionHelper.i(actionHelper.getDynamicElement(propertyWidgetSlider_xpath, pListingUrl.toLowerCase()), 15);
 	}
 
 	

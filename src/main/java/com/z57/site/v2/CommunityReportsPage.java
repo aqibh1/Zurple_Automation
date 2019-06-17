@@ -26,7 +26,7 @@ public class CommunityReportsPage extends Page{
 	}
 	
 	public boolean isCommunityReportsPage() {
-		boolean result = ActionHelper.getText(driver, pageTitle).equalsIgnoreCase(FrameworkConstants.CommunityReportsPageTitle)?true:false;
+		boolean result = actionHelper.getText(pageTitle).equalsIgnoreCase(FrameworkConstants.CommunityReportsPageTitle)?true:false;
 		return result;
 	}
 	

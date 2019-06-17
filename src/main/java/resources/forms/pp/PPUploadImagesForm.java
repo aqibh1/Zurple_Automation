@@ -23,7 +23,7 @@ import resources.utility.ActionHelper;
  *
  */
 public class PPUploadImagesForm extends AbstractForm{
-
+	private ActionHelper actionHelper;
 	String lUploadImagesHeader = "//h3[@id='myModalLabel']";
 
 	@FindBy(id="uploader_browse")
@@ -34,20 +34,21 @@ public class PPUploadImagesForm extends AbstractForm{
 	}
 	public PPUploadImagesForm(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	public boolean isUploadImagesForm() {
-		return ActionHelper.waitForElementToBeLocated(driver, lUploadImagesHeader, 15);
+		return actionHelper.waitForElementToBeLocated(lUploadImagesHeader, 15);
 	}
 
 	public boolean clickOnAddFilesButton() {
-		return ActionHelper.Click(driver, addFilesButton);
+		return actionHelper.Click(addFilesButton);
 	}
 
 	public boolean uploadImage(String pPath) throws AWTException {
 		uploadImageFile(pPath);
 		
-		return ActionHelper.waitForElementToBeDisappeared(driver, addFilesButton);
+		return actionHelper.waitForElementToBeDisappeared(addFilesButton);
 	}
 	
 	public void uploadFacebookImage(String pPath) throws AWTException {

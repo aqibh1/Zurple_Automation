@@ -8,8 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
@@ -47,12 +45,12 @@ public class WhatsNearbyPage extends Page{
 	}
 	
 	public boolean isPointOfIntrestsPage() {
-		boolean result = ActionHelper.getText(driver, pageTitle).equalsIgnoreCase(FrameworkConstants.PointOfIntrestsPageTitle)?true:false;
+		boolean result = actionHelper.getText(pageTitle).equalsIgnoreCase(FrameworkConstants.PointOfIntrestsPageTitle)?true:false;
 		return result;
 	}
 
 	public boolean isSearchHasSomeResults() {
-		return ActionHelper.getText(driver, no_search_result_header).equalsIgnoreCase(FrameworkConstants.NoSearchResult);
+		return actionHelper.getText(no_search_result_header).equalsIgnoreCase(FrameworkConstants.NoSearchResult);
 	}
 	
 	public boolean isResultsCorrect(String pState) {
@@ -61,10 +59,10 @@ public class WhatsNearbyPage extends Page{
 		List<WebElement> list_of_elements = driver.findElements(By.xpath(list_of_point_of_intrest));
 		for(WebElement element: list_of_elements) {
 			String lPlaceName = element.findElement(By.tagName("a")).getText();
-			ActionHelper.Click(driver, element.findElement(By.tagName("a")));
+			actionHelper.Click(element.findElement(By.tagName("a")));
 			List<WebElement> table_contents_list = driver.findElements(By.xpath(pin_popup_info_table));
 			for(WebElement table_element: table_contents_list) {
-				ActionHelper.waitForElementToBeVisible(driver, table_element, 10);
+				actionHelper.waitForElementToBeVisible(table_element, 10);
 				String element_text = table_element.getText();
 				if(element_text.contains("Address:")) {
 					String pin_state = element_text.split(" ")[element_text.split(" ").length-1];
@@ -92,11 +90,11 @@ public class WhatsNearbyPage extends Page{
 		String total_count = lCurrent_text.split("of ")[1].split(" ")[0];
 		int total_page_count = (Integer.parseInt(total_count))/10;
 		AutomationLogger.info("Checking if pages exists");
-		if(ActionHelper.waitForElementToBeVisible(driver, pageNumberOne, 30)) {
+		if(actionHelper.waitForElementToBeVisible(pageNumberOne, 30)) {
 			if(total_page_count!=1) {
 				for(int counter=1;counter<=total_page_count;counter++) {
 //					if(counter%2==0) {
-//						if(counter==Integer.parseInt(ActionHelper.getText(driver, currentPageNumber))) {
+//						if(counter==Integer.parseInt(actionHelper.getText(currentPageNumber))) {
 //							counter++;
 //							clickOnPageNumber(list_of_pages_pagination, String.valueOf(counter));
 //						}
@@ -131,8 +129,8 @@ public class WhatsNearbyPage extends Page{
 					}
 				}
 
-				while(ActionHelper.isElementVisible(driver, previous_button)) {
-					ActionHelper.Click(driver, previous_button);
+				while(actionHelper.isElementVisible(previous_button)) {
+					actionHelper.Click(previous_button);
 					lPrevious_Text =lCurrent_text;
 					lCurrent_text = table_entries_info.getText();
 					backwardsPagination=lCurrent_text.equalsIgnoreCase(lPrevious_Text)?false:true;
@@ -153,11 +151,11 @@ public class WhatsNearbyPage extends Page{
 	}
 	
 		private boolean clickOnNextButtonPage() {
-			return ActionHelper.Click(driver, next_button);
+			return actionHelper.Click(next_button);
 		}
 		
 		private boolean clickOnPageNumber(String pElementXpath, String pPageNumber) {
-			return ActionHelper.Click(driver, getDynamicElement(pElementXpath, pPageNumber));
+			return actionHelper.Click(getDynamicElement(pElementXpath, pPageNumber));
 		}
 	@Override
 	public WebElement getHeader() {

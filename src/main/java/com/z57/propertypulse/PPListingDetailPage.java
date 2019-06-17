@@ -10,7 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import resources.alerts.pp.GetMaximumListingExposureModal;
 import resources.forms.pp.PPUploadImagesForm;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class PPListingDetailPage extends Page{
@@ -82,7 +81,7 @@ public class PPListingDetailPage extends Page{
 		driver = pWebDriver;
 		setPpUploadImagesForm();
 		setGetMaxListingExposure();
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver,this);
 	}
 	
 	public PPUploadImagesForm getPpUploadImagesForm() {
@@ -99,131 +98,131 @@ public class PPListingDetailPage extends Page{
 		getMaxListingExposure = new GetMaximumListingExposureModal(driver);
 	}
 	public boolean isListingDetailPage() {
-		return ActionHelper.waitForElementToBeLocated(driver, listingDetail_heading, 15);
+		return actionHelper.waitForElementToBeLocated(listingDetail_heading, 15);
 	}
 	
 	public boolean typeTitle(String pTitle) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[title]"), pTitle);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[title]"), pTitle);
 	}
 	public boolean typeListingDescription(String pListingDescription) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, textArea_fields, "listing[description]"), pListingDescription);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(textArea_fields, "listing[description]"), pListingDescription);
 	}
 	public boolean typeAccelatorCaption(String pAccelatorCaption) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, textArea_fields, "listing[accelerator_caption]"), pAccelatorCaption);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(textArea_fields, "listing[accelerator_caption]"), pAccelatorCaption);
 	}
 	public boolean typeListingEmbeded(String pListingEmbeded) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, textArea_fields, "listing[embeded]"), pListingEmbeded);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(textArea_fields, "listing[embeded]"), pListingEmbeded);
 	}
 	public boolean typeListingCustomLink(String pListingCustomLink) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[custom_link]"), pListingCustomLink);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[custom_link]"), pListingCustomLink);
 	}
 	public boolean typePrice(String pPrice) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[price]"), pPrice);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[price]"), pPrice);
 	}
 	public boolean selectStatus(String pStatus) {
-		return ActionHelper.selectDropDownOption(driver, listing_status_dropdown, "", pStatus);
+		return actionHelper.selectDropDownOption(listing_status_dropdown, "", pStatus);
 	}
 	public boolean typeAddress(String pAddress) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[address]"), pAddress);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[address]"), pAddress);
 	}
 	public boolean typeCounty(String pCounty) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[county]"), pCounty);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[county]"), pCounty);
 	}
 	public boolean typeCity(String pCity) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[city]"), pCity);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[city]"), pCity);
 	}
 	public boolean selectState(String pState) {
-		return ActionHelper.selectDropDownOption(driver, states, "", pState);
+		return actionHelper.selectDropDownOption(states, "", pState);
 	}
 	public boolean typeZip(String pZip) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[zip]"), pZip);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[zip]"), pZip);
 	}
 	public boolean typeMLS(String pMLS) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[mls]"), pMLS);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[mls]"), pMLS);
 	}
 	public boolean selectPropertytype(String pPropertyType) {
-		return ActionHelper.selectDropDownOption(driver, propertyType, "", pPropertyType);
+		return actionHelper.selectDropDownOption(propertyType, "", pPropertyType);
 	}
 	public boolean selectSaleType(String pSaleType) {
-		return ActionHelper.selectDropDownOption(driver, sale_type, "", pSaleType);
+		return actionHelper.selectDropDownOption(sale_type, "", pSaleType);
 	}
 	public boolean typeAgentName(String pAgentName) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[agent_name]"), pAgentName);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[agent_name]"), pAgentName);
 	}
 	public boolean typeBrokarage(String pBrokerage) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[brokerage]"), pBrokerage);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[brokerage]"), pBrokerage);
 	}
 	public boolean typeBed(String pBed) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[bed]"), pBed);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[bed]"), pBed);
 	}
 	public boolean typeBath(String pBath) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[bath]"), pBath);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[bath]"), pBath);
 	}
 	public boolean typeSquareFootage(String pSqFootage) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[sq_footage]"), pSqFootage);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[sq_footage]"), pSqFootage);
 	}
 	public boolean typeLotSize(String pLotSize) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[lot_size]"), pLotSize);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[lot_size]"), pLotSize);
 	}
 	public boolean typeYearBuilt(String pYearBuilt) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "listing[year_built]"), pYearBuilt);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "listing[year_built]"), pYearBuilt);
 	}
 	public boolean selectInterior(String[] pInteriorOptions) {
-		return ActionHelper.selectDropDownOptions(driver, interior_input, interior_options_xpath, pInteriorOptions);
+		return actionHelper.selectDropDownOptions(interior_input, interior_options_xpath, pInteriorOptions);
 		
 	}
 	public boolean selectExterior(String[] pExteriorOptions) {
 		boolean isSuccessful = true;
 //		for(String lExterior: pExteriorOptions) {
-//			if(!ActionHelper.selectDropDownOptions(driver, exterior_input, interior_options_xpath, pExteriorOptions)) {
+//			if(!actionHelper.selectDropDownOptions(exterior_input, interior_options_xpath, pExteriorOptions)) {
 //				isSuccessful = false;
 //				break;
 //			}
 //		}
-//		ActionHelper.Click(driver, exterior_input);
+//		actionHelper.Click(exterior_input);
 	
-		return ActionHelper.selectDropDownOptions(driver, exterior_input, interior_options_xpath, pExteriorOptions);
+		return actionHelper.selectDropDownOptions(exterior_input, interior_options_xpath, pExteriorOptions);
 		
 	}
 	public boolean selectLotDetails(String[] pLotDetails) {
 //		boolean isSuccessful = true;
 //		for(String lLotDetail: pLotDetails) {
-//			if(!ActionHelper.selectDropDownOption(driver, lot_details_input, interior_options_xpath, lLotDetail)) {
+//			if(!actionHelper.selectDropDownOption(lot_details_input, interior_options_xpath, lLotDetail)) {
 //				isSuccessful = false;
 //				break;
 //			}
 //		}
-//		ActionHelper.Click(driver, lot_details_input);
-		return ActionHelper.selectDropDownOptions(driver, lot_details_input, interior_options_xpath, pLotDetails);
+//		actionHelper.Click(lot_details_input);
+		return actionHelper.selectDropDownOptions(lot_details_input, interior_options_xpath, pLotDetails);
 		
 	}
 	
 	public boolean selectSaleInfo(String[] pSaleInfo) {
 //		boolean isSuccessful = true;
 //		for(String lSaleInfo: pSaleInfo) {
-//			if(!ActionHelper.selectDropDownOptions(driver, sale_info_input, interior_options_xpath, lSaleInfo)) {
+//			if(!actionHelper.selectDropDownOptions(sale_info_input, interior_options_xpath, lSaleInfo)) {
 //				isSuccessful = false;
 //				break;
 //			}
 //		}
-//		ActionHelper.Click(driver, sale_info_input);
-		return ActionHelper.selectDropDownOptions(driver, sale_info_input, interior_options_xpath, pSaleInfo);
+//		actionHelper.Click(sale_info_input);
+		return actionHelper.selectDropDownOptions(sale_info_input, interior_options_xpath, pSaleInfo);
 		
 	}
 	
 	public boolean clickOnUploadIamgesButton() {
-		return ActionHelper.Click(driver, upload_images_button);
+		return actionHelper.Click(upload_images_button);
 	}
 	public boolean clickOnSaveButton() {
-		if(ActionHelper.waitForElementToBeDisappeared(driver, uploadImages_title)) {
-			ActionHelper.waitForElementToBeClickAble(driver, save_button);
+		if(actionHelper.waitForElementToBeDisappeared(uploadImages_title)) {
+			actionHelper.waitForElementToBeClickAble(save_button);
 			waitForSaveButtonToBeClickable();
-			return ActionHelper.Click(driver, save_button);
+			return actionHelper.Click(save_button);
 		}
 		return false;
 	}
 	public boolean isListingEditedSuccessfully() {
-		return ActionHelper.waitForElementToBeLocated(driver, listingUpdatedXpath, 15);
+		return actionHelper.waitForElementToBeLocated(listingUpdatedXpath, 15);
 	}
 	private boolean waitForSaveButtonToBeClickable() {
 		List<WebElement> list_of_elements = driver.findElements(By.id("save_button"));

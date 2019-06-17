@@ -2,25 +2,19 @@ package resources.utility;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
+
 
 public class ActionHelper {
-	protected static WebDriverWait wait;
-	private static long GLOBAL_WAIT_COUNT=30;
+	protected  WebDriverWait wait;
+	private  long GLOBAL_WAIT_COUNT=30;
 	private WebDriver driver;
 	
 	public ActionHelper(WebDriver pWebDriver) {
@@ -46,9 +40,9 @@ public class ActionHelper {
 			return isSuccessfull;
 		}
 		
-	   public static boolean Click(WebDriver pWebDriver,WebElement pElementToBeClicked) {
+	   public boolean Click(WebElement pElementToBeClicked) {
 			boolean isSuccessfull=false;
-			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			wait=new WebDriverWait(driver, GLOBAL_WAIT_COUNT);
 			try {
 				if(wait.until(ExpectedConditions.visibilityOf(pElementToBeClicked))!=null) {
 					pElementToBeClicked.click();
@@ -62,10 +56,10 @@ public class ActionHelper {
 			return isSuccessfull;
 		}
 	   
-	   public static boolean MouseHoverOnElement(WebDriver pWebDriver, WebElement pElementToBeHoveredOn) {
+	   public boolean MouseHoverOnElement(WebElement pElementToBeHoveredOn) {
 		   boolean status = true;
-		   if(isElementVisible(pWebDriver, pElementToBeHoveredOn)) {
-			   Actions action = new Actions(pWebDriver);
+		   if(isElementVisible(pElementToBeHoveredOn)) {
+			   Actions action = new Actions(driver);
 			   action.moveToElement(pElementToBeHoveredOn).build().perform();
 			   AutomationLogger.info("Mouse hover is successfull");
 		   }else {
@@ -75,8 +69,8 @@ public class ActionHelper {
 		   return status;
 		}
 	   
-	   public static boolean waitForElementToBeDisappeared(WebDriver pWebDriver,WebElement pElementToBeDisappeared) {			
-		   wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+	   public boolean waitForElementToBeDisappeared(WebElement pElementToBeDisappeared) {			
+		   wait=new WebDriverWait(driver, GLOBAL_WAIT_COUNT);
 		   boolean isElementVisible = false;
 		   try {
 			   isElementVisible=wait.until(ExpectedConditions.invisibilityOf(pElementToBeDisappeared));
@@ -88,8 +82,8 @@ public class ActionHelper {
 
 	   }
 	   
-	   public static boolean isElementVisible(WebDriver pWebDriver,WebElement pElement) {
-		   wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+	   public  boolean isElementVisible(WebElement pElement) {
+		   wait=new WebDriverWait(driver, GLOBAL_WAIT_COUNT);
 		   boolean isElementVisible = false;
 		   try {
 			   AutomationLogger.info("Waiting for the visibility of element ->"+pElement);
@@ -102,8 +96,8 @@ public class ActionHelper {
 		   return isElementVisible;
 	   }
 	   
-	   public static boolean waitForElementToBeVisible(WebDriver pWebDriver,WebElement pElement,long pWaitInSecnds) {
-		   wait=new WebDriverWait(pWebDriver, pWaitInSecnds);
+	   public  boolean waitForElementToBeVisible(WebElement pElement,long pWaitInSecnds) {
+		   wait=new WebDriverWait(driver, pWaitInSecnds);
 		   boolean isElementVisible = false;
 		   try {
 			   isElementVisible=wait.until(ExpectedConditions.visibilityOf(pElement))!=null;
@@ -115,35 +109,35 @@ public class ActionHelper {
 		   return isElementVisible;
 	   }
 	   
-	   public static String getText(WebDriver pWebDriver,WebElement pElement) {
+	   public String getText(WebElement pElement) {
 		   String ltext="";
-		   if(isElementVisible(pWebDriver, pElement)) {
+		   if(isElementVisible(pElement)) {
 			   ltext=pElement.getText().trim();
 		   }
 		   return ltext;
 	   }
 
-	   public static String getValue(WebDriver pWebDriver,WebElement pElement) {
+	   public String getValue(WebElement pElement) {
 		   String ltext="";
-		   if(isElementVisible(pWebDriver, pElement)) {
+		   if(isElementVisible(pElement)) {
 			   ltext=pElement.getAttribute("value");
 		   }
 		   return ltext;
 	   }
-	   public static String getTextByValue(WebDriver pWebDriver,WebElement pElement) {
+	   public String getTextByValue(WebElement pElement) {
 		   String ltext="";
-		   if(isElementVisible(pWebDriver, pElement)) {
+		   if(isElementVisible(pElement)) {
 			   ltext=pElement.getAttribute("value").trim();
 		   }
 		   return ltext;
 	   }
 	   
-	   public static boolean clickAndSelect(WebDriver pWebDriver, WebElement pDropdown,WebElement pElementToSelect) {
+	   public boolean clickAndSelect(WebElement pDropdown,WebElement pElementToSelect) {
 		   boolean result=false;
-		   if(waitForElementToBeVisible(pWebDriver,pDropdown,GLOBAL_WAIT_COUNT)) {
-			   Click(pWebDriver, pDropdown);
-			   if(waitForElementToBeVisible(pWebDriver, pElementToSelect, 5)) {
-				   result= Click(pWebDriver, pElementToSelect);
+		   if(waitForElementToBeVisible(pDropdown,GLOBAL_WAIT_COUNT)) {
+			   Click(pDropdown);
+			   if(waitForElementToBeVisible(pElementToSelect, 5)) {
+				   result= Click(pElementToSelect);
 			   }
 		   }
 		   return result;
@@ -156,9 +150,9 @@ public class ActionHelper {
 	 * @return boolean
 	 * Clear the field and type the string
 	 */
-	public static boolean ClearAndType(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
+	public boolean ClearAndType(WebElement pInputField, String pStringToType) {
 			boolean isSuccessfull=false;
-			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			wait=new WebDriverWait(driver, GLOBAL_WAIT_COUNT);
 			try {
 				AutomationLogger.info("Waiting for the visibility of element ->"+pInputField);
 				if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
@@ -176,9 +170,9 @@ public class ActionHelper {
 			return isSuccessfull;
 		}
 	
-	public static boolean waitForElementToBeClickAble(WebDriver pWebDriver,WebElement pElement) {
+	public boolean waitForElementToBeClickAble(WebElement pElement) {
 		boolean isSuccessful =false;
-		wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+		wait=new WebDriverWait(driver, GLOBAL_WAIT_COUNT);
 		try {
 			AutomationLogger.info("Waiting for the element to be clickable"+pElement);
 			if(wait.until(ExpectedConditions.elementToBeClickable(pElement))!=null) {
@@ -192,10 +186,10 @@ public class ActionHelper {
 		return isSuccessful;
 	}
 	
-	public static List<WebElement> getListOfElementByXpath(WebDriver pWebDriver,String pElementXpath){
+	public  List<WebElement> getListOfElementByXpath(String pElementXpath){
 		List<WebElement> lList_of_Elements = null;
 		try {
-			lList_of_Elements = pWebDriver.findElements(By.xpath(pElementXpath));
+			lList_of_Elements = driver.findElements(By.xpath(pElementXpath));
 		}catch(Exception ex) {
 			AutomationLogger.error("Element list not found -> "+pElementXpath);
 			AutomationLogger.error(ex.getMessage());
@@ -204,20 +198,20 @@ public class ActionHelper {
 		
 	}
 	   
-	   public static void RefreshPage(WebDriver pWebDriver) {
+	   public  void RefreshPage() {
 		   AutomationLogger.info("Refreshing the page");
-		   pWebDriver.navigate().to(pWebDriver.getCurrentUrl()); 
+		   driver.navigate().to(driver.getCurrentUrl()); 
 	   }
 	   
-	   public static void waitForTime(WebDriver pWebDriver,long pWaitInSecnds) throws InterruptedException {
-		   wait=new WebDriverWait(pWebDriver, pWaitInSecnds);
+	   public  void waitForTime(long pWaitInSecnds) throws InterruptedException {
+		   wait=new WebDriverWait(driver, pWaitInSecnds);
 		   wait.wait(pWaitInSecnds);
 		   
 	   }
 	   
-	   public static boolean Type(WebDriver pWebDriver,WebElement pInputField, Keys pStringToType) {
+	   public  boolean Type(WebElement pInputField, Keys pStringToType) {
 			boolean isSuccessfull=false;
-			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			wait=new WebDriverWait(driver, GLOBAL_WAIT_COUNT);
 			try {
 				AutomationLogger.info("Waiting for the visibility of element ->"+pInputField);
 				if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
@@ -233,9 +227,9 @@ public class ActionHelper {
 			}
 			return isSuccessfull;
 		}
-	   public static void ScrollToElement(WebDriver pWebDriver,WebElement pScrollToElement) {
+	   public  void ScrollToElement(WebElement pScrollToElement) {
 		   try {
-			   JavascriptExecutor js = (JavascriptExecutor) pWebDriver;
+			   JavascriptExecutor js = (JavascriptExecutor) driver;
 			   AutomationLogger.info("Scrolling to element ->"+pScrollToElement);		
 			   js.executeScript("arguments[0].scrollIntoView();", pScrollToElement);
 		   }catch(Exception ex) {
@@ -243,9 +237,9 @@ public class ActionHelper {
 		   }
 		   
 	   }
-	   public static void ScrollPixels(WebDriver pWebDriver) {
+	   public void ScrollPixels() {
 		   try {
-			   JavascriptExecutor js = (JavascriptExecutor) pWebDriver;
+			   JavascriptExecutor js = (JavascriptExecutor) driver;
 			   AutomationLogger.info("Scrolling down");		
 			   js.executeScript("window.scrollBy(0,700)");
 		   }catch(Exception ex) {
@@ -253,22 +247,22 @@ public class ActionHelper {
 		   }
 		   
 	   }
-	   public static void BackPage(WebDriver pWebDriver) {
+	   public  void BackPage(WebDriver pWebDriver) {
 		   AutomationLogger.info("Going Back");
 		   pWebDriver.navigate().back(); 
 	   }
-	   public static void MoveToElement(WebDriver pWebDriver, WebElement pElement) {
-		   new Actions(pWebDriver).moveToElement(pElement).perform();
+	   public  void MoveToElement(WebElement pElement) {
+		   new Actions(driver).moveToElement(pElement).perform();
 	   }
-	   public static String getAttribute(WebElement pElement,String pAttributeName) {
+	   public  String getAttribute(WebElement pElement,String pAttributeName) {
 		   AutomationLogger.info("Fetching attribute: "+pAttributeName);
 		   return pElement.getAttribute(pAttributeName);
 		   
 	   }
 	   
-	   public static WebElement getDynamicElement(WebDriver pWebDriver,String pXpath,String pDynamicVariable) {
+	   public WebElement getDynamicElement(String pXpath,String pDynamicVariable) {
 	  		try {
-	  		return pWebDriver.findElement(By.xpath(pXpath.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable)));
+	  		return driver.findElement(By.xpath(pXpath.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable)));
 	  		}catch(Exception ex) {
 	  			AutomationLogger.error("Unable to get dynamic webelement for xpath "+pXpath);
 	  			AutomationLogger.error(ex.getMessage());
@@ -276,9 +270,8 @@ public class ActionHelper {
 	  		}
 	  	}
 	   
-	   
-	   public static boolean waitForElementToBeLocated(WebDriver pWebDriver,String pElement,long pWaitInSecnds) {
-		   wait=new WebDriverWait(pWebDriver, pWaitInSecnds);
+	   public  boolean waitForElementToBeLocated(String pElement,long pWaitInSecnds) {
+		   wait=new WebDriverWait(driver, pWaitInSecnds);
 		   boolean isElementVisible = false;
 		   AutomationLogger.info("Waiting for element to be Located ->"+pElement);
 		   try {
@@ -292,7 +285,7 @@ public class ActionHelper {
 		   return isElementVisible;
 	   }
 	   
-	   public static String getDynamicElementXpath(WebDriver pWebDriver,String pXpath,String pDynamicVariable) {
+	   public  String getDynamicElementXpath(String pXpath,String pDynamicVariable) {
 	  		try {
 	  		return pXpath.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable);
 	  		}catch(Exception ex) {
@@ -301,71 +294,71 @@ public class ActionHelper {
 	  			return null;
 	  		}
 	  	}
-	   public static boolean clickAndSelectFromMenuButton(WebDriver pWebDriver, WebElement pElementToBeClicked,WebElement pElementToBeSelected) {
+	   public boolean clickAndSelectFromMenuButton(WebElement pElementToBeClicked,WebElement pElementToBeSelected) {
 			boolean isSuccessful=false;
 			 AutomationLogger.info("Clicking on button "+pElementToBeClicked);
-			if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+			if(Click(pElementToBeClicked)) {
 				AutomationLogger.info("Selecting a option from Dropdown "+pElementToBeSelected);
-				isSuccessful = ActionHelper.Click(pWebDriver, pElementToBeSelected);
+				isSuccessful = Click(pElementToBeSelected);
 			}
 			return isSuccessful;
 		}
-	   public static boolean selectDropDownOption(WebDriver pWebDriver, WebElement pElementToBeClicked,String pDropdownOptionsXpath, String pOptionToSelect) {
+	   public boolean selectDropDownOption(WebElement pElementToBeClicked,String pDropdownOptionsXpath, String pOptionToSelect) {
 			boolean isSuccessful=false;
 			List<WebElement> list_of_options = new ArrayList<WebElement>();
 			 AutomationLogger.info("Clicking on button "+pElementToBeClicked);
-			if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+			if(Click(pElementToBeClicked)) {
 				if(pDropdownOptionsXpath.isEmpty()) {
 					 list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
 				}else {
-					 list_of_options = pWebDriver.findElements(By.xpath(pDropdownOptionsXpath));
+					 list_of_options = driver.findElements(By.xpath(pDropdownOptionsXpath));
 				}	
 				AutomationLogger.info("Selecting a option from Dropdown "+pDropdownOptionsXpath);
 				for(WebElement element: list_of_options) {
 					System.out.println(element.getText().trim());
 					if(element.getText().trim().equalsIgnoreCase(pOptionToSelect)) {
-						isSuccessful = ActionHelper.Click(pWebDriver, element);
-						Click(pWebDriver,pElementToBeClicked);
+						isSuccessful = Click(element);
+						Click(pElementToBeClicked);
 						break;
 					}
 				}
 			}
 			return isSuccessful;
 		}
-	   public static boolean selectDropDownOptions(WebDriver pWebDriver, WebElement pElementToBeClicked,String pDropdownOptionsXpath, String[] pOptionsToSelect) {
+	   public  boolean selectDropDownOptions( WebElement pElementToBeClicked,String pDropdownOptionsXpath, String[] pOptionsToSelect) {
 		   try {
 			   boolean isSuccessful=false;
 			   List<WebElement> list_of_options = new ArrayList<WebElement>();
 			   AutomationLogger.info("Clicking on button "+pElementToBeClicked);
-			   if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+			   if(Click(pElementToBeClicked)) {
 				   AutomationLogger.info("Selecting a option from Dropdown "+pDropdownOptionsXpath);
 				   for(String pOptionToSelect: pOptionsToSelect) {
 					   if(pDropdownOptionsXpath.isEmpty()) {
 						   list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
 					   }else {
-						   list_of_options = pWebDriver.findElements(By.xpath(pDropdownOptionsXpath));
+						   list_of_options = driver.findElements(By.xpath(pDropdownOptionsXpath));
 					   }	
 					   for(WebElement element: list_of_options) {
 						   if(element.getText().equalsIgnoreCase(pOptionToSelect.trim())) {
-							   isSuccessful = ActionHelper.Click(pWebDriver, element);
+							   isSuccessful = Click(element);
 							   break;
 						   }
 					   }
 				   }
 			   }
 			   
-			   return Type(pWebDriver,pElementToBeClicked.findElement(By.tagName("input")),Keys.ESCAPE) && isSuccessful;
+			   return Type(pElementToBeClicked.findElement(By.tagName("input")),Keys.ESCAPE) && isSuccessful;
 		   }catch(Exception ex) {
 				return false;
 			}
 		}
 	   
-	   public static boolean waitForElementsToBeFound(WebDriver pWebDriver, String pXpath) {
+	   public boolean waitForElementsToBeFound( String pXpath) {
 		   boolean isFound = false;
 		   int counter = 0;
 		   while(counter<100) {
 			   System.out.println(counter);
-			   if(pWebDriver.findElements(By.xpath(pXpath))!=null) {
+			   if(driver.findElements(By.xpath(pXpath))!=null) {
 				   isFound = true;
 				   break;
 			   }
@@ -373,7 +366,7 @@ public class ActionHelper {
 		   }
 		   return isFound;
 	   }
-	   public static boolean waitForAjaxToBeCompleted(WebDriver pWebDriver) {
+	   public boolean waitForAjaxToBeCompleted(WebDriver pWebDriver) {
 		   boolean isFound = false;
 		   try {
 			   int counter = 0;
@@ -392,8 +385,8 @@ public class ActionHelper {
 		   return isFound;
 	   }
 	   
-	   public static boolean waitForElementToBeDisappeared(WebDriver pWebDriver,String pElementToBeDisappeared) {			
-		   wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+	   public boolean waitForElementToBeDisappeared(String pElementToBeDisappeared) {			
+		   wait=new WebDriverWait(driver, GLOBAL_WAIT_COUNT);
 		   boolean isElementVisible = false;
 		   try {
 			   isElementVisible=wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(pElementToBeDisappeared)));
@@ -404,12 +397,12 @@ public class ActionHelper {
 		   return isElementVisible;
 
 	   }
-	   public static String getHeading(WebDriver pWebDriver,String pHeading) {
-		   return pWebDriver.findElement(By.tagName(pHeading)).getText();
+	   public  String getHeading(String pHeading) {
+		   return driver.findElement(By.tagName(pHeading)).getText();
 		   
 	   }
 	   
-	   public static boolean waitForElementToVisibleAfterRegularIntervals(WebDriver pWebDriver, WebElement pEelement, String pXpathToAppend, long pWaitIntervalInSeconds, int pTotalAttempts) {
+	   public boolean waitForElementToVisibleAfterRegularIntervals( WebElement pEelement, String pXpathToAppend, long pWaitIntervalInSeconds, int pTotalAttempts) {
 		   
 		   boolean displayed = false;
 		   int counter = 0;
@@ -419,11 +412,11 @@ public class ActionHelper {
 		    	WebElement elementFund = pEelement.findElement(By.xpath(pXpathToAppend));
 		        if (elementFund!=null) {
 		            // Element is found so set the boolean as true
-		            displayed = isElementVisible(pWebDriver, elementFund);
+		            displayed = isElementVisible(elementFund);
 		        } 
 		    	}catch(Exception ex) {
 		    		try {
-		            	RefreshPage(pWebDriver);
+		            	RefreshPage();
 						Thread.sleep(pWaitIntervalInSeconds*1000);
 						counter++;
 					} catch (InterruptedException e) {
@@ -435,20 +428,21 @@ public class ActionHelper {
 			return displayed;
 	       
 	   }
-	   public static void staticWait(long pTimeInSeconds) {
+	   public void Wait(long pTimeInSeconds) {
 		   try {
+			   AutomationLogger.info("Static wait of "+pTimeInSeconds+" seconds");
 			   Thread.sleep(pTimeInSeconds*1000);
 		   }catch(Exception ex) {
-			   
+			   AutomationLogger.error("Static wait failed");
 		   }
 	   }
 	   //Drag and Drop Method
-	   public static boolean dragAndDrop (WebDriver pWebDriver, WebElement pFrom, WebElement pTo) {
+	   public boolean dragAndDrop(WebElement pFrom, WebElement pTo) {
 		   boolean result = true;
 		   try {
-			   Actions action=new Actions(pWebDriver);
+			   Actions action=new Actions(driver);
 			   action.dragAndDrop(pFrom, pTo).build().perform();
-			   staticWait(5);
+			   Wait(5);
 		   }catch(Exception ex) {
 			   AutomationLogger.error("Drag and Drop failed for "+pFrom);
 			   result = false;
@@ -456,9 +450,9 @@ public class ActionHelper {
 		   return result;
 	   }
 	   
-	   public static void ScrollDownByPixels(WebDriver pWebDriver,String pPixels) {
+	   public void ScrollDownByPixels(String pPixels) {
 		   try {
-			   JavascriptExecutor js = (JavascriptExecutor) pWebDriver;
+			   JavascriptExecutor js = (JavascriptExecutor) driver;
 			   AutomationLogger.info("Scrolling down");		
 			   js.executeScript("window.scrollBy(0,"+pPixels+")");
 		   }catch(Exception ex) {
@@ -466,9 +460,9 @@ public class ActionHelper {
 		   }
 		   
 	   }
-	   public static boolean Clear(WebDriver pWebDriver,WebElement pInputField) {
+	   public boolean Clear(WebElement pInputField) {
 			boolean isSuccessfull=false;
-			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			wait=new WebDriverWait(driver, GLOBAL_WAIT_COUNT);
 			try {
 				AutomationLogger.info("Waiting for the visibility of element ->"+pInputField);
 				if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
@@ -483,10 +477,10 @@ public class ActionHelper {
 			}
 			return isSuccessfull;
 		}
-	   public static boolean isOptionSelected(WebDriver pWebDriver, WebElement pDropdown, String pOption) {
+	   public boolean isOptionSelected( WebElement pDropdown, String pOption) {
 		   boolean lOptionValue = false;
 		   try {
-			   if(isElementVisible(pWebDriver, pDropdown)) {
+			   if(isElementVisible(pDropdown)) {
 				   List<WebElement> list_of_options = pDropdown.findElements(By.tagName("option"));
 				   for(WebElement element: list_of_options) {
 					   if(element.getText().equalsIgnoreCase(pOption)) {
@@ -501,4 +495,21 @@ public class ActionHelper {
 		   }
 		   return lOptionValue;
 	   }
+	   
+	   public boolean doesElementContainsAttribute(String pElementXpath, String pAttribute, String pValue) {
+			boolean isSuccessfull=false;
+			wait=new WebDriverWait(driver, GLOBAL_WAIT_COUNT);
+			try {
+				AutomationLogger.info("Waiting for the visibility of element ->"+pElementXpath);
+				if(wait.until(ExpectedConditions.attributeContains(By.xpath(pElementXpath), pAttribute, pValue))) {
+					AutomationLogger.info("Atrribute contains the value..");
+					isSuccessfull=true;
+				}
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Element is not visible.. ");
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessfull;
+		}
 }

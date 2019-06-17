@@ -22,33 +22,35 @@ public class LeadCaptureForm extends AbstractForm{
 	@FindBy(xpath="//div[@class='modal-header']/h3[@id='anypage_lead_capture_modal_title']")
 	WebElement modal_header_title;
 	
+	private ActionHelper actionHelper;
+	
 	public LeadCaptureForm(WebDriver pWebDriver){
 		driver=pWebDriver;
 		PageFactory.initElements(driver, this);
 	}
 	
 	public boolean typeName(String pName) {
-		return ActionHelper.Type(driver, getDynamicElement(input_fileds_xpath, "anypage_lead_capture_form[name]"),pName);
+		return actionHelper.Type(getDynamicElement(input_fileds_xpath, "anypage_lead_capture_form[name]"),pName);
 	}
 	public boolean typeEmail(String pEmail) {
-		return ActionHelper.Type(driver, getDynamicElement(input_fileds_xpath, "anypage_lead_capture_form[email]"),pEmail);
+		return actionHelper.Type(getDynamicElement(input_fileds_xpath, "anypage_lead_capture_form[email]"),pEmail);
 	}
 	public boolean typePhoneNumber(String pPhoneNumber) {
-		return ActionHelper.Type(driver, getDynamicElement(input_fileds_xpath, "anypage_lead_capture_form[phone]"),pPhoneNumber);
+		return actionHelper.Type(getDynamicElement(input_fileds_xpath, "anypage_lead_capture_form[phone]"),pPhoneNumber);
 	}
 	public boolean typeComments(String pComments) {
-		return ActionHelper.Type(driver, getDynamicElement(textarea_xpath, "anypage_lead_capture_form[comments]"),pComments);
+		return actionHelper.Type(getDynamicElement(textarea_xpath, "anypage_lead_capture_form[comments]"),pComments);
 	}
 	public boolean clickOnSendButton() {
-		return ActionHelper.Click(driver, send_button);
+		return actionHelper.Click(send_button);
 
 	}
 	public boolean isCommentsSentSuccessfully() {
-		return ActionHelper.waitForElementToBeDisappeared(driver,send_button);
+		return actionHelper.waitForElementToBeDisappeared(send_button);
 	}
 	
 	public boolean isLeadCaptureFormVisible() {
-		return ActionHelper.waitForElementToBeVisible(driver, modal_header_title,20);
+		return actionHelper.waitForElementToBeVisible(modal_header_title,20);
 	}
 	
 }

@@ -6,8 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
-import resources.utility.ActionHelper;
-
 public class PPSideMenu extends Page{
 	String sideMenu_xpath = "//ul[@class='nav nav-tabs']/descendant::a";
 	
@@ -21,11 +19,11 @@ public class PPSideMenu extends Page{
 	
 	public boolean goToSubMenu(String pSubMenu) {
 		boolean isClicked = false;
-		List<WebElement> submenu_list = ActionHelper.getListOfElementByXpath(driver, sideMenu_xpath);
+		List<WebElement> submenu_list = actionHelper.getListOfElementByXpath(sideMenu_xpath);
 		
 		for(WebElement element: submenu_list) {
 			if(element.getText().trim().contains(pSubMenu)) {
-				isClicked = ActionHelper.Click(driver, element);
+				isClicked = actionHelper.Click(element);
 				break;
 			}
 		}

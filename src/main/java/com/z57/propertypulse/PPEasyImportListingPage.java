@@ -12,7 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 /**
@@ -51,7 +50,7 @@ public class PPEasyImportListingPage extends Page{
 	}
 
 	public boolean isEasyImportListingPage() {
-		return ActionHelper.waitForElementToBeLocated(driver, easyImport_heading_xpath, 60);
+		return actionHelper.waitForElementToBeLocated( easyImport_heading_xpath, 60);
 	}
 	
 	public boolean selectIdxMLSBoard(String pOption) {
@@ -59,7 +58,7 @@ public class PPEasyImportListingPage extends Page{
 		boolean isSuccessful=false;
 		List<WebElement> list_of_options = new ArrayList<WebElement>();
 		AutomationLogger.info("Clicking on button "+idxMlsBoardSelect);
-		if(ActionHelper.Click(driver, idxMlsBoardSelect)) {
+		if(actionHelper.Click( idxMlsBoardSelect)) {
 			list_of_options = idxMlsBoardSelect.findElements(By.tagName("option"));
 			AutomationLogger.info("Selecting a option from Dropdown "+idxMlsBoardSelect);
 			for(WebElement element: list_of_options) {
@@ -67,8 +66,8 @@ public class PPEasyImportListingPage extends Page{
 				System.out.println(lOptionText);
 
 				if(element.getText().trim().contains(pOption)) {
-					isSuccessful = ActionHelper.Click(driver, element);
-					//					Click(pWebDriver,pElementToBeClicked);
+					isSuccessful = actionHelper.Click( element);
+					//					Click(pWebpElementToBeClicked);
 					break;
 				}
 			}
@@ -79,11 +78,11 @@ public class PPEasyImportListingPage extends Page{
 	}
 	
 	public boolean clickOnMLSInputRadioButton() {
-		return ActionHelper.Click(driver, enterMls_radiobox);
+		return actionHelper.Click( enterMls_radiobox);
 	}
 	
 	public boolean typeMls(String pMLS) {
-		return ActionHelper.ClearAndType(driver, enterMls_input, pMLS);
+		return actionHelper.ClearAndType( enterMls_input, pMLS);
 	}
 	
 	public boolean isListGeneratedSuccessfully() {
@@ -95,26 +94,26 @@ public class PPEasyImportListingPage extends Page{
 	}
 	public boolean clickOnGenerateListButton() {
 		boolean isClicked= false;
-		if(ActionHelper.waitForElementToBeClickAble(driver, generateList_button)) {
-			isClicked = ActionHelper.Click(driver, generateList_button);;
+		if(actionHelper.waitForElementToBeClickAble( generateList_button)) {
+			isClicked = actionHelper.Click( generateList_button);;
 		}
 		return isClicked;
 	}
 	public boolean clicOnSelectAllButton() {
 		boolean clickSuccessful= false;
-		if(ActionHelper.waitForElementToBeVisible(driver, select_all_button, 30)) {
-			clickSuccessful = ActionHelper.Click(driver, select_all_button);
+		if(actionHelper.waitForElementToBeVisible( select_all_button, 30)) {
+			clickSuccessful = actionHelper.Click( select_all_button);
 		}
 		return clickSuccessful;
 	}
 	public boolean clickOnImportListingButton() {
-		return ActionHelper.Click(driver, import_listings_button);
+		return actionHelper.Click( import_listings_button);
 	}
 	public boolean isLoaderDisappeared() {
-		return ActionHelper.waitForAjaxToBeCompleted(driver);
+		return actionHelper.waitForAjaxToBeCompleted(driver);
 	}
 	public boolean isImportedSuccessfully() {
-		return ActionHelper.waitForElementToBeVisible(driver, import_listings_button, 30);
+		return actionHelper.waitForElementToBeVisible( import_listings_button, 30);
 	}
 
 }

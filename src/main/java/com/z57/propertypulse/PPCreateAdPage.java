@@ -12,7 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 /**
@@ -64,60 +63,60 @@ public class PPCreateAdPage extends Page{
 
 	public boolean isCreateAdPage() {
 		boolean isPageVisible=false;
-		if(ActionHelper.waitForElementToBeVisible(driver, pageTitle, 15)) {
-			isPageVisible = ActionHelper.getText(driver, pageTitle).equalsIgnoreCase("Featured Listings on Facebook");
+		if(actionHelper.waitForElementToBeVisible( pageTitle, 15)) {
+			isPageVisible = actionHelper.getText( pageTitle).equalsIgnoreCase("Featured Listings on Facebook");
 		}
 		return isPageVisible;
 	}
 	
 	public boolean isValidPreviewLink(String pDomain) {
-		return ActionHelper.getText(driver,fbPreviewLink).contains(pDomain);	
+		return actionHelper.getText(fbPreviewLink).contains(pDomain);	
 	}
 	
 	public boolean typeAdTitle(String pTitle) {
-		return ActionHelper.ClearAndType(driver, fbAdTitle, pTitle);
+		return actionHelper.ClearAndType( fbAdTitle, pTitle);
 	}
 	public boolean isValidTitle() {
-		return !ActionHelper.getTextByValue(driver, fbAdTitle).isEmpty();
+		return !actionHelper.getTextByValue( fbAdTitle).isEmpty();
 	}
 	
 	public boolean typeAdDescription(String pDescription) {
-		return ActionHelper.ClearAndType(driver, fbAdDetails, pDescription);
+		return actionHelper.ClearAndType( fbAdDetails, pDescription);
 	}
 	public boolean isValidDescription() {
-		return !ActionHelper.getTextByValue(driver, fbAdDetails).isEmpty();
+		return !actionHelper.getTextByValue( fbAdDetails).isEmpty();
 	}
 	public boolean clickOnNextButton() {
-		return ActionHelper.Click(driver, next_button);
+		return actionHelper.Click( next_button);
 	}
 	public boolean isSelectAdVisibilityOptionsPage() {
-		return ActionHelper.waitForElementToBeLocated(driver, step2_heading, 60);
+		return actionHelper.waitForElementToBeLocated( step2_heading, 60);
 	}
 	public boolean isValidZip() {
-		return !ActionHelper.getTextByValue(driver, fbAdZipCodes).isEmpty();
+		return !actionHelper.getTextByValue( fbAdZipCodes).isEmpty();
 	}
 	public boolean typeAdZipCode(String pZip) {
-		return ActionHelper.ClearAndType(driver, fbAdZipCodes, pZip);
+		return actionHelper.ClearAndType( fbAdZipCodes, pZip);
 	}	
 	public boolean isStep3PlaceOrderPage() {
-		return ActionHelper.waitForElementToBeLocated(driver, step3_heading, 60);
+		return actionHelper.waitForElementToBeLocated( step3_heading, 60);
 	}
 	public boolean clickOnPaymentCheckBox() {
-		return ActionHelper.Click(driver, adPaymentConfirmation_checkbox);
+		return actionHelper.Click( adPaymentConfirmation_checkbox);
 	}
 	public boolean clickOnFBTestAdCheckBox() {
-		return ActionHelper.Click(driver, fbTestAd_checkbox);
+		return actionHelper.Click( fbTestAd_checkbox);
 	}
 	public boolean selectListingFromDropDown(String pListing) {
 		boolean isSuccessful=false;
 		List<WebElement> list_of_options = new ArrayList<WebElement>();
-		 if(ActionHelper.Click(driver, select_listing_dropdown)) {
+		 if(actionHelper.Click( select_listing_dropdown)) {
 			 list_of_options = select_listing_dropdown.findElements(By.tagName("option"));
 			 for(WebElement element: list_of_options) {
 				 System.out.println(element.getText().trim());
 				 if(element.getText().trim().contains(pListing)) {
-					 isSuccessful = ActionHelper.Click(driver, element);
-					 ActionHelper.Click(driver,select_listing_dropdown);
+					 isSuccessful = actionHelper.Click( element);
+					 actionHelper.Click(select_listing_dropdown);
 					 break;
 				 }
 			 }
@@ -126,6 +125,6 @@ public class PPCreateAdPage extends Page{
 	}
 	public boolean clickOnPlaceAdButton() {
 		AutomationLogger.info("Clicking on Place Ad button 01");
-		return ActionHelper.Click(driver, place_ad_button_1);
+		return actionHelper.Click( place_ad_button_1);
 	}
 }

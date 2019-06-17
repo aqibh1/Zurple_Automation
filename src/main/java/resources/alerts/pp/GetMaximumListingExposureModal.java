@@ -26,17 +26,17 @@ public class GetMaximumListingExposureModal {
 	}
 	
 	public boolean isGextMaximumListingExposureAlert() {
-		return ActionHelper.waitForElementToBeLocated(driver, alertHeadingXpath, 60);
+		return new ActionHelper(driver).waitForElementToBeLocated(alertHeadingXpath, 60);
 	}
 	
 	public boolean clickOnFeatureListing() {
-		return ActionHelper.Click(driver, featureListing_button);
+		return new ActionHelper(driver).Click(featureListing_button);
 	}
 	
 	public boolean closeAlert() {
 		boolean close=false;
 		if(isGextMaximumListingExposureAlert()) {
-			close = ActionHelper.Click(driver, close_button);
+			close = new ActionHelper(driver).Click(close_button);
 		}
 		return close;
 	}

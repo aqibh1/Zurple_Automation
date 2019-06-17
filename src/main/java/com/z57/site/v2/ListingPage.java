@@ -38,11 +38,11 @@ public class ListingPage extends Page{
 		pagination = new Pagination(driver);
 	}
 	public boolean isGoogleMapDisplayed() {
-		return ActionHelper.waitForElementToBeVisible(driver, googleMap, 20);
+		return actionHelper.waitForElementToBeVisible(googleMap, 20);
 	}
 	
 	public boolean isListingPage() {
-		boolean result = ActionHelper.getText(driver, pageTitle).equalsIgnoreCase(FrameworkConstants.FeaturedPropertiesPageTitle)?true:false;
+		boolean result = actionHelper.getText(pageTitle).equalsIgnoreCase(FrameworkConstants.FeaturedPropertiesPageTitle)?true:false;
 		return result;
 	}
 	

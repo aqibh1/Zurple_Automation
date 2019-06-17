@@ -9,7 +9,6 @@ import org.openqa.selenium.support.PageFactory;
 import resources.forms.z57.EmailSearchForm;
 import resources.forms.z57.SaveSearchForm;
 import resources.forms.z57.SearchForm;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class HomeSearchPage extends Page{
@@ -72,18 +71,18 @@ public class HomeSearchPage extends Page{
 	}
 
 	public boolean isHomeSearchPage() {
-		return ActionHelper.getText(driver, page_title).contains(FrameworkConstants.HomeSearchPageTitle);
+		return actionHelper.getText(page_title).contains(FrameworkConstants.HomeSearchPageTitle);
 	}
 	
 	public void goBack() {
-		ActionHelper.BackPage(driver);
+		actionHelper.BackPage(driver);
 	}
 	public boolean clickOnEmailSearchButton() {
-		return ActionHelper.Click(driver, email_search_button);
+		return actionHelper.Click(email_search_button);
 	}
 
 	public boolean clickOnSaveSearchButton() {
-		return ActionHelper.Click(driver, save_search_button);
+		return actionHelper.Click(save_search_button);
 	}
 	@Override
 	public WebElement getHeader() {

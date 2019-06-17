@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.z57.LoginForm;
-import resources.utility.ActionHelper;
+
 
 /**
  * @author adar
@@ -43,22 +43,22 @@ public class PPSocialIntegrationPage extends Page{
 		this.loginForm = new LoginForm(driver);
 	}
 	public boolean isSocialIntegrationPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, socialIntegration_heading, 30);
+		return actionHelper.waitForElementToBeVisible(socialIntegration_heading, 30);
 	}
 	
 	public boolean clickOnDeauthorizeButton() {
-		return ActionHelper.Click(driver, facebookDeauthorize_button);
+		return actionHelper.Click(facebookDeauthorize_button);
 	}
 	
 	public boolean clickOnLoginWithFacebookButton() {
-		if(ActionHelper.waitForElementToBeVisible(driver, loginWithFacebook_button, 30)) {
-			return ActionHelper.Click(driver, loginWithFacebook_button);
+		if(actionHelper.waitForElementToBeVisible(loginWithFacebook_button, 30)) {
+			return actionHelper.Click(loginWithFacebook_button);
 		}else {
 			return false;
 		}
 	}
 	public boolean isAuthorizationSuccessfull() {
-		return ActionHelper.waitForElementToBeVisible(driver, facebookDeauthorize_button, 10);
+		return actionHelper.waitForElementToBeVisible(facebookDeauthorize_button, 10);
 	}
 
 }

@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import resources.utility.ActionHelper;
+
 import resources.utility.FrameworkConstants;
 
 public class PPLeadsDetailPage extends Page{
@@ -40,39 +40,39 @@ public class PPLeadsDetailPage extends Page{
 	
 	public PPLeadsDetailPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver,this);
 	}
 
 	public boolean isLeadDetailsPage() {
-		return ActionHelper.waitForElementToBeLocated(driver, "//div[@class='tab-content']/h1[text()='Lead Details']", 30);
+		return actionHelper.waitForElementToBeLocated("//div[@class='tab-content']/h1[text()='Lead Details']", 30);
 	}
 	
 	public boolean typeLeadName(String pLeadName) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "lead[name_full]"), pLeadName);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "lead[name_full]"), pLeadName);
 	}
 	
 	public boolean typeLeadPhone(String pLeadPhone) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "lead[phone]"), pLeadPhone);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "lead[phone]"), pLeadPhone);
 	}
 	
 	public boolean typeLeadEmail(String pLeadEmail) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "lead[email]"),pLeadEmail);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "lead[email]"),pLeadEmail);
 	}
 	
 	public boolean typeLeadDOB(String pLeadDOB) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "lead[dob]"), pLeadDOB);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "lead[dob]"), pLeadDOB);
 	}
 	
 	public boolean typeLeadAddress(String pLeadAddress) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "lead[address]"), pLeadAddress);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "lead[address]"), pLeadAddress);
 	}
 	
 	public boolean typeLeadCity(String pLeadCity) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "lead[city]"), pLeadCity);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "lead[city]"), pLeadCity);
 	}
 	
 	public boolean typeLeadZip(String pLeadZip) {
-		return ActionHelper.ClearAndType(driver, ActionHelper.getDynamicElement(driver, input_fields, "lead[zip]"), pLeadZip);
+		return actionHelper.ClearAndType(actionHelper.getDynamicElement(input_fields, "lead[zip]"), pLeadZip);
 	}
 	
 	public boolean selectState(String pState) {
@@ -88,21 +88,21 @@ public class PPLeadsDetailPage extends Page{
 	
 	private boolean clickAndSelect(WebElement pElementToClick, String pAllOptions, String pOptionToSelect) {
 		boolean isSuccessful = false;
-		if(ActionHelper.Click(driver, pElementToClick)) {
-			List<WebElement> list_of_options = ActionHelper.getListOfElementByXpath(driver, pAllOptions);
+		if(actionHelper.Click(pElementToClick)) {
+			List<WebElement> list_of_options = actionHelper.getListOfElementByXpath(pAllOptions);
 			for(WebElement element: list_of_options) {
 				if(element.getText().equalsIgnoreCase(pOptionToSelect)) {
-					isSuccessful = ActionHelper.Click(driver, element);
+					isSuccessful = actionHelper.Click(element);
 				}
 			}
 		}
 		return isSuccessful;
 	}
 	public boolean clickOnSaveButton() {
-		return ActionHelper.Click(driver, saveButton);
+		return actionHelper.Click(saveButton);
 	}
 	
 	public boolean isLeadUpdatedSuccessfully() {
-		return ActionHelper.waitForElementToBeVisible(driver, leadUpdated_notification, 30);
+		return actionHelper.waitForElementToBeVisible(leadUpdated_notification, 30);
 	}
 }

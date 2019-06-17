@@ -73,7 +73,7 @@ public class BootstrapModal extends AbstractAlert
     public boolean closeModal() {
     	try {
     		WebElement crossButton = driver.findElement(By.xpath("//div[@class='modal fade in']/descendant::button[@class='close']"));
-    		ActionHelper.Click(driver, crossButton);
+    		new ActionHelper(driver).Click(crossButton);
 
     		Wait<WebDriver> wait = new WebDriverWait(driver, 10, 1000);
     		return wait.until(ExpectedConditions.invisibilityOfAllElements(crossButton));

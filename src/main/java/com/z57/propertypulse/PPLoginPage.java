@@ -1,13 +1,9 @@
 package com.z57.propertypulse;
 
-import java.util.List;
-
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import resources.utility.ActionHelper;
 
 public class PPLoginPage extends Page{
 	
@@ -30,31 +26,31 @@ public class PPLoginPage extends Page{
 	}
 	public PPLoginPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
-		PageFactory.initElements(driver, this);
+		PageFactory.initElements(driver,this);
 	}
 	
 	public boolean typeUsername(String pUserName) {
-		return ActionHelper.ClearAndType(driver, username_input, pUserName);
+		return actionHelper.ClearAndType(username_input, pUserName);
 	}
 	public boolean typePassword(String pPassword) {
-		return ActionHelper.ClearAndType(driver, password_input, pPassword);
+		return actionHelper.ClearAndType(password_input, pPassword);
 	}
 	public boolean clickOnLoginButton() {
-		return ActionHelper.Click(driver, login_button);
+		return actionHelper.Click(login_button);
 	}
 	
 	public boolean isLoginPageVisible() {
-		return ActionHelper.isElementVisible(driver, username_input);
+		return actionHelper.isElementVisible(username_input);
 	}
 	
 	public boolean isLoginFailed() {
-		return ActionHelper.isElementVisible(driver, invalid_password_error);
+		return actionHelper.isElementVisible(invalid_password_error);
 	}
 	
 	public boolean isLoginSuccessful(String pUsername) {
 		boolean isUserLoggedIn = false;	
 
-		if(ActionHelper.waitForElementToBeVisible(driver, settings_button, 60)) {
+		if(actionHelper.waitForElementToBeVisible(settings_button, 60)) {
 			isUserLoggedIn = true;
 		}
 		return isUserLoggedIn;

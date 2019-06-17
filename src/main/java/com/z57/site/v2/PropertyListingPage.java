@@ -17,11 +17,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import resources.forms.z57.EmailListingForm;
 import resources.forms.z57.RequestInfoForm;
 import resources.forms.z57.ScheduleListingForm;
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 public class PropertyListingPage extends Page{
-	WebDriverWait wait;
+//	WebDriverWait wait;
 	EmailListingForm emailListingForm;
 	RequestInfoForm requestInfoForm;
 	ScheduleListingForm scheduleListingForm;
@@ -149,7 +148,7 @@ public class PropertyListingPage extends Page{
 	
 	public PropertyListingPage(WebDriver pWebDriver){
 		driver=pWebDriver;
-		wait=new WebDriverWait(driver, 20);
+//		wait=new WebDriverWait(20);
 		setEmailListingForm(driver);
 		setRequestInfoForm(driver);
 		setScheduleListingForm(driver);
@@ -295,7 +294,7 @@ public class PropertyListingPage extends Page{
 	public boolean verifySchoolPins() {
 		int counter=0;
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("z57_schools_map_canvas")));
-		if(ActionHelper.waitForElementsToBeFound(driver, schoolPins_xpath)) {
+		if(actionHelper.waitForElementsToBeFound(schoolPins_xpath)) {
 			List<WebElement> schoolPins = driver.findElements(By.xpath(schoolPins_xpath));
 			for(WebElement element: schoolPins) {
 				System.out.println(element.getAttribute("src"));
@@ -385,18 +384,18 @@ public class PropertyListingPage extends Page{
 	}
 	
 	public boolean clickOnEmailListing() {
-		ActionHelper.ScrollPixels(driver);
-		ActionHelper.MoveToElement(driver, emailListing_button);
-		return ActionHelper.Click(driver, emailListing_button);
+		actionHelper.ScrollPixels();
+		actionHelper.MoveToElement(emailListing_button);
+		return actionHelper.Click(emailListing_button);
 	}
 	public boolean clickOnRequestInfo() {
-		return ActionHelper.Click(driver, reqInfo_button);
+		return actionHelper.Click(reqInfo_button);
 	}
 	public boolean isPropertyTitleVisible() {
-		return ActionHelper.waitForElementToBeVisible(driver, lPropertyTitleInHeader, 15);
+		return actionHelper.waitForElementToBeVisible(lPropertyTitleInHeader, 15);
 	}
 	public boolean clickOnSheduleShowing() {
-		return ActionHelper.Click(driver, scheduleShowing_button);
+		return actionHelper.Click(scheduleShowing_button);
 	}
 	@Override
 	public WebElement getHeader() {
@@ -412,26 +411,26 @@ public class PropertyListingPage extends Page{
 	
 	private boolean clickOnElement(WebElement pElementToBeClicked) {
 
-		return ActionHelper.Click(driver, pElementToBeClicked);
+		return actionHelper.Click(pElementToBeClicked);
 	
 	}
 	
 	private boolean isElementDisplayed(WebElement pElement) {
-		return ActionHelper.isElementVisible(driver, pElement);
+		return actionHelper.isElementVisible(pElement);
 
 	}
 	public boolean isListingDetailPage() {
-		return ActionHelper.waitForElementToBeLocated(driver, "//button[@id='schedule_showing_listing_start']", 15);
+		return actionHelper.waitForElementToBeLocated("//button[@id='schedule_showing_listing_start']", 15);
 	}
 	public String getDescription() {
-		return ActionHelper.getText(driver, description);
+		return actionHelper.getText(description);
 	}
 	public String getPropertyType(String pTarget) {
 		return getValuesFromTabs(propertyDetails_xpath, pTarget);
 	}
 	
 	private String getValuesFromTabs(String pXpath, String pTarget) {
-		List<WebElement> list_of_options = ActionHelper.getListOfElementByXpath(driver, pXpath);
+		List<WebElement> list_of_options = actionHelper.getListOfElementByXpath(pXpath);
 		for(int i=1;i<=list_of_options.size();i++) {
 //		for(WebElement element:list_of_options) {
 			if(list_of_options.get(i).getText().contains(pTarget+":")) {
@@ -444,7 +443,7 @@ public class PropertyListingPage extends Page{
 	
 	public boolean verifyPropertyFeatures(String[] pTarget) {
 		boolean flag=false;
-		List<WebElement> list_of_options = ActionHelper.getListOfElementByXpath(driver, propertyFeatures_xapth);
+		List<WebElement> list_of_options = actionHelper.getListOfElementByXpath(propertyFeatures_xapth);
 		for(String pTargetFeature: pTarget) {
 			flag=false;
 			for(WebElement element:list_of_options) {
