@@ -5,6 +5,7 @@
          <listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
     
    
