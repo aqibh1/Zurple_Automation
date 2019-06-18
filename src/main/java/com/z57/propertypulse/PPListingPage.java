@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import resources.alerts.pp.DeleteListingAlert;
 import resources.alerts.pp.GetMaximumListingExposureModal;
 import resources.forms.pp.PPAddListingForm;
+import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class PPListingPage extends Page{
@@ -35,11 +36,14 @@ public class PPListingPage extends Page{
 	
 	String createAd_button = "//tr[@id='row_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::button[text()='Create Ad']";
 	
+	private ActionHelper actionHelper;
+	
 	public PPListingPage() {
 		// TODO Auto-generated constructor stub
 	}
 	public PPListingPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		setAddListingForm();
 		setGetMaxListingExposure();
 		setDeleteListingAlert();

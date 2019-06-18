@@ -29,12 +29,15 @@ public class PPWidgetsPage extends Page{
 	
 	@FindBy(xpath="//div[@id='wpbody-content']")
 	WebElement widgetsHeading;
+
+	private ActionHelper actionHelper;
 	
 	public PPWidgetsPage() {
 		
 	}
 	public PPWidgetsPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 		
 	}

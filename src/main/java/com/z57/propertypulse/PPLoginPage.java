@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.utility.ActionHelper;
+
 public class PPLoginPage extends Page{
 	
 	@FindBy(xpath="//input[@id='inputEmail']")
@@ -21,11 +23,14 @@ public class PPLoginPage extends Page{
 	
 	@FindBy(xpath="//div[@id='member-nav']/descendant::a[@class='btn dropdown-toggle']")
 	WebElement settings_button;
+
+	private ActionHelper actionHelper;
 	
 	public PPLoginPage() {
 	}
 	public PPLoginPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver,this);
 	}
 	

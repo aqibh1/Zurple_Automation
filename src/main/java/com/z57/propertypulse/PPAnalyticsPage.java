@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.utility.ActionHelper;
+
 /**
  * @author adar
  *
@@ -55,12 +57,15 @@ public class PPAnalyticsPage extends Page{
 	
 	@FindBy(xpath="//h1[text()='Analytics Dashboard']")
 	WebElement analyticsDashboard_heading;
+
+	private ActionHelper actionHelper;
 	
 	public PPAnalyticsPage() {
 		
 	}
 	public PPAnalyticsPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver,this);
 		
 	}

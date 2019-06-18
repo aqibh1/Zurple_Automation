@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.pp.PPAddLeadForm;
+import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class PPLeadsPage extends Page{
@@ -57,12 +58,15 @@ public class PPLeadsPage extends Page{
 	
 	@FindBy(xpath="//a[@title='Edit Lead']/i")
 	WebElement editLead_button;
+
+	private ActionHelper actionHelper;
 	
 	public PPLeadsPage() {
 		// TODO Auto-generated constructor stub
 	}
 	public PPLeadsPage(WebDriver pWebdriver) {
 		driver = pWebdriver;
+		actionHelper = new ActionHelper(driver);
 		setAddNewLeadForm();
 		PageFactory.initElements(driver,this);
 	}

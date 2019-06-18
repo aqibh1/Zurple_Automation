@@ -11,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import resources.forms.pp.PPPromoteAListingForm;
 import resources.forms.pp.PPUploadImagesForm;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.ValueMapper;
 
@@ -121,9 +122,12 @@ public class PPSocialPage extends Page{
 	
 	@FindBy(id="type_status")
 	WebElement post_status_message;
+
+	private ActionHelper actionHelper;
 	
 	public PPSocialPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		setPpUploadImagesForm();
 		setPpPromoteListingForm();
 		PageFactory.initElements(driver,this);

@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 /**
@@ -70,12 +71,15 @@ public class PPAddNewPage extends Page{
 	
 	@FindBy(xpath="//li[@id='idx_search_widget-3']/h3[text()='Home Search']")
 	WebElement homeSearchWidget;
+
+	private ActionHelper actionHelper;
 	
 	public PPAddNewPage() {
 		
 	}
 	public PPAddNewPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 

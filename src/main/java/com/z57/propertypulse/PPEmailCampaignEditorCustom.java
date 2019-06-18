@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import resources.utility.ActionHelper;
 /**
  * @author adar
  *
@@ -25,12 +27,15 @@ public class PPEmailCampaignEditorCustom extends Page{
 	
 	@FindBy(id="s2id_autogen3")
 	WebElement selectIndividualLeads;
+
+	private ActionHelper actionHelper;
 	
 	public PPEmailCampaignEditorCustom() {
 		
 	}
 	public PPEmailCampaignEditorCustom(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	

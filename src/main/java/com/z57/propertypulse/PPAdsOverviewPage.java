@@ -10,6 +10,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.utility.ActionHelper;
+
 /**
  * @author adar
  *
@@ -18,9 +20,11 @@ public class PPAdsOverviewPage extends Page{
 	
 	String adOverviewPageTitle = "//h2[@class='z57-theme-page-topic' and text()='Paid Ads']";
 	String tableDataContent = "//table[@id='campaign_table']/descendant::td";
+	private ActionHelper actionHelper;
 	
 	public PPAdsOverviewPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 

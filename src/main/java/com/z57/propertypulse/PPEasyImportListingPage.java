@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 /**
@@ -39,6 +40,8 @@ public class PPEasyImportListingPage extends Page{
 	
 	@FindBy(id="import_listings_button")
 	WebElement import_listings_button;
+
+	private ActionHelper actionHelper;
 	
 	PPEasyImportListingPage(){
 		
@@ -46,6 +49,7 @@ public class PPEasyImportListingPage extends Page{
 	
 	public PPEasyImportListingPage(WebDriver pWebDriver) {
 			driver = pWebDriver;
+			actionHelper = new ActionHelper(driver);
 			PageFactory.initElements(driver, this);
 	}
 

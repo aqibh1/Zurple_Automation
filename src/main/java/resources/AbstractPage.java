@@ -20,7 +20,6 @@ public abstract class AbstractPage
 {
     protected WebDriver driver;
     protected String url;
-    protected ActionHelper actionHelper;
 
     public void setDriver(WebDriver driver){
         this.driver=driver;
@@ -28,13 +27,11 @@ public abstract class AbstractPage
             driver.get(getFullUrl());
         }
         focusOnPage();
-        actionHelper = new ActionHelper(driver);
     }
     public void setDriver(WebDriver driver, String pIdxUrl){
         this.driver=driver;
         driver.get(pIdxUrl);
         focusOnPage();
-        actionHelper = new ActionHelper(driver);
     }
     public WebDriver getWebDriver() {
     	return driver;

@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.utility.ActionHelper;
+
 /**
  * @author adar
  *
@@ -28,12 +30,15 @@ public class PPUserSettingsPage extends Page{
 	
 	@FindBy(xpath="//div[@class='alert alert-success']/descendant::strong[text()='Details successfully updated']")
 	WebElement updateSuccessMessage;
+
+	private ActionHelper actionHelper;
 	
 	PPUserSettingsPage(){
 		
 	}
 	PPUserSettingsPage(WebDriver pWebDriver){
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver,this);
 	}
 	

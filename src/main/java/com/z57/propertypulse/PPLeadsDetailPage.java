@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class PPLeadsDetailPage extends Page{
@@ -33,6 +34,8 @@ public class PPLeadsDetailPage extends Page{
 	
 	@FindBy(xpath="//div[@class='alert alert-success' and text()='Lead Updated']")
 	WebElement leadUpdated_notification;
+
+	private ActionHelper actionHelper;
 	
 	public PPLeadsDetailPage() {
 		// TODO Auto-generated constructor stub
@@ -40,6 +43,7 @@ public class PPLeadsDetailPage extends Page{
 	
 	public PPLeadsDetailPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver,this);
 	}
 

@@ -1,0 +1,62 @@
+Return-Path: <z57testuser@gmail.com>
+Received: from pps.reinject (m0131650.ppops.net [127.0.0.1])
+	by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id x5I6HZhS003551
+	for <aqib.dar@z57.com>; Tue, 18 Jun 2019 06:17:35 GMT
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	by mx0a-002d2f01.pphosted.com with ESMTP id 2t6q0a8c7w-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Tue, 18 Jun 2019 06:13:06 +0000
+Received: by mail-qt1-f173.google.com with SMTP id s15so13871453qtk.9;
+        Mon, 17 Jun 2019 23:13:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:date:to:message-id:in-reply-to:references:subject:mime-version;
+        bh=ABeBJqAtfEM3p5Gn9KWYdsz8qJ2xA8Q1tK76gXCXXPU=;
+        b=LUPaEnjqbjF2L4tH/VsjFvYtnsE71HseugVPWsxC/0bFkWxnUxkPTenJhudMFNMXB6
+         yLEZZ7/l6L/Kgm5ltLb05SgBWS4Xqfd0kBo08Y9DmV8Kn87gOtkpQ3rQCRAa3y4u/OjY
+         HFvJ+K+AKdQdZIyPii+QyYarkQirPhTZLlbqassfyDoaUf/tUuYH/EsERLl4N6DQz0Lp
+         l/xWC1a7xCI7L9n/3IX7y96xti/YlyM7LuZhLT1wu2SMLwvmNDjzsAK1MeOZy7IZtfAD
+         nwCJvZLym9OS1sInOYogs1IOA+dhVrM0cKiF6QjENCQG666BS5gI+jsKBSFIPsVAiXPY
+         4f7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:date:to:message-id:in-reply-to:references
+         :subject:mime-version;
+        bh=ABeBJqAtfEM3p5Gn9KWYdsz8qJ2xA8Q1tK76gXCXXPU=;
+        b=BpwEK02VOqOVGHfunPGCV3Ax1DmJGkaHCquDOT1SiatSjzWYhPSy/ciTQoKCv+57DA
+         mzXDQUN5hs5AngqWW9dV+7aOgzBuwQbSn1SlpMeH8+ZT4WnTp8cpgN0SR9AanEo84daG
+         dFO0kV008kGXZB5O/2h50JtGbNJYMkAhxG7S1hpRn2HKc0xVg+7z6Kb75v8eGOtWk/Te
+         cMY7hrNRErQI2v118nH/yQlyH3j9bL5aIrhruDoOumu7xjZ5cFn8u5uPcBhF72qg7YJN
+         E4hdp9c8LG+1FsbhtTpelImmAf67u6IZXH5cNezMxw/DwzBP0fP+o8EdAc0SxrshYtPG
+         Hblw==
+X-Gm-Message-State: APjAAAWpDjQnTbiX58kzkHCx8HuTmbwVa1hZgrgc+VTnZnVu7FxG+ZWp
+	PIy6rOsQwrYd1YYib7xfZfnK3bEmtYQ=
+X-Google-Smtp-Source: APXvYqwvJj3ioFB4RfmJsZdmoUKlNE278D+x7nvOQnwkd5LjyQSJDhTV/+mzcLJPQ4wktpi0ewkWYA==
+X-Received: by 2002:ac8:c45:: with SMTP id l5mr81321635qti.63.1560838382791;
+        Mon, 17 Jun 2019 23:13:02 -0700 (PDT)
+Received: from 172.30.2.241 (ec2-52-73-154-56.compute-1.amazonaws.com. [52.73.154.56])
+        by smtp.gmail.com with ESMTPSA id a51sm8390323qta.85.2019.06.17.23.12.56
+        (version=TLS1 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+        Mon, 17 Jun 2019 23:12:57 -0700 (PDT)
+From: Automation Results <z57testuser@gmail.com>
+X-Google-Original-From: Automation Results <nobody@nowhere>
+Date: Tue, 18 Jun 2019 06:12:48 +0000 (UTC)
+To: aqib.dar@z57.com, robin.diraimondo@z57.com, logan.gibbs@z57.com,
+        vladimir.zotov@z57.com
+Message-ID: <1865229791.77.1560838377386.JavaMail.Administrator@EC2AMAZ-RPBPVM5>
+In-Reply-To: <1054256457.65.1560750785989.JavaMail.Administrator@EC2AMAZ-RPBPVM5>
+References: <1054256457.65.1560750785989.JavaMail.Administrator@EC2AMAZ-RPBPVM5>
+Subject: Staging Smoke Tests | 06-17-2019 20:35 | Build # 41
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_76_1553675459.1560838376558"
+X-Jenkins-Job: Z57_AutomationFramework_Staging
+X-Jenkins-Result: FAILURE
+X-Proofpoint-Sentinel: stfj9mTN46PTnmWIhjLlR15FjBaKxK/KLnIZYwLzt9SaOJZTYWx0ZWRfXxTt
+ 4CNU/8VQ2bLewAWnO7C0CmL4TGm4Vt0RS12Mf/hJ3ucoQTu/wpM2aJFJnVn8nPIUZMmZwJWyys7G
+ 3MwoJLsiHp/qMncN9H2CTBIL+6XtDj0cLXUIk3/lO3mYFwhbGRDKzV/efaUBmV793Od4LlwLcQg4
+ 4lGX6CWWekufMDicEDidQvuci0LZU78vGyaSpHpLQPBRtA/QPcSOK7uxCPaK1BPecNljGgI2B53x
+ WU+MsKf5cx0OqlYVXDtqSPjGbItyOKmyrVGqqJPwjgB8aFVuYwAlqCKCvPUtd1dBMTgOtvbwWAlD
+ KtgAK5DvjTHhLgc6f8JE59nvkO7/bb4UCDGNLH5K91H+YHxrZcGF6YpivUudS0T4NkwyDqbdF8Se
+ /qFcIfTuLrOg/HBCDfd1tr6emT5LGdHWlJZ3jrDowlmOV2rMCqdjD21QVYgNdug8W1ZMu4HHboKc
+ 80VTfoPd7Gk01wsHwJmbCQ==

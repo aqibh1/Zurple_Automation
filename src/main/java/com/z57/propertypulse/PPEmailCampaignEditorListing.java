@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.utility.ActionHelper;
+
 /**
  * @author adar
  *
@@ -48,6 +50,8 @@ public class PPEmailCampaignEditorListing extends Page{
 	
 	@FindBy(id="s2id_listing_select")
 	WebElement select_Listing;
+
+	private ActionHelper actionHelper;
 	
 	
 	public PPEmailCampaignEditorListing() {
@@ -55,6 +59,7 @@ public class PPEmailCampaignEditorListing extends Page{
 	}
 	public PPEmailCampaignEditorListing(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver,this);
 	}
 	

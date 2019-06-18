@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.utility.ActionHelper;
+
 /**
  * @author adar
  *
@@ -25,12 +27,15 @@ public class PPAutomationPage extends Page{
 	
 	@FindBy(id="response_message_success")
 	WebElement successMessage;
+
+	private ActionHelper actionHelper;
 	
 	public PPAutomationPage() {
 		// TODO Auto-generated constructor stub
 	}
 	PPAutomationPage(WebDriver pWebDriver){
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver,this);
 	}
 	public boolean isAutomationSettingsPage() {

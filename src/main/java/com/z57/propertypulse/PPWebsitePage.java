@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
@@ -37,14 +39,15 @@ public class PPWebsitePage extends Page{
 	
 	@FindBy(xpath="//ul[@class='wp-submenu wp-submenu-wrap']/descendant::a[@href='widgets.php']")
 	WebElement widgetSubmenu;
-	
 
-	
+	private ActionHelper actionHelper;
+		
 	public PPWebsitePage() {
 		
 	}
 	public PPWebsitePage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	public boolean isWebSitePage() {

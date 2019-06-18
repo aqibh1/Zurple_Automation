@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import resources.alerts.pp.GetMaximumListingExposureModal;
 import resources.forms.pp.PPUploadImagesForm;
+import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class PPListingDetailPage extends Page{
@@ -73,12 +74,14 @@ public class PPListingDetailPage extends Page{
 	@FindBy(xpath="//div[@class='alert alert-success' and text()='Listing Updated']")
 	WebElement listingUpdated_notification;
 	String listingUpdatedXpath="//div[@class='alert alert-success' and text()='Listing Updated']";
+	private ActionHelper actionHelper;
 	
 	public PPListingDetailPage() {
 		
 	}
 	public PPListingDetailPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		setPpUploadImagesForm();
 		setGetMaxListingExposure();
 		PageFactory.initElements(driver,this);

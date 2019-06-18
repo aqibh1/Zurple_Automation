@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.z57.LoginForm;
+import resources.utility.ActionHelper;
 
 
 /**
@@ -26,12 +27,15 @@ public class PPSocialIntegrationPage extends Page{
 	
 	@FindBy(xpath="//button[text()='Login with Facebook']")
 	WebElement loginWithFacebook_button;
+
+	private ActionHelper actionHelper;
 	
 	PPSocialIntegrationPage(){
 		
 	}
 	PPSocialIntegrationPage(WebDriver pWebDriver){
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		setLoginForm();
 		PageFactory.initElements(driver, this);
 	}

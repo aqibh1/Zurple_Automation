@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
@@ -32,12 +33,15 @@ public class PPEmailCampaignManagerPage extends Page{
 	WebElement search_input;
 	
 	String tableGrid_xpath = "//table[@id='scheduled_campaigns_table']/descendant::a[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+
+	private ActionHelper actionHelper;
 	
 	public PPEmailCampaignManagerPage(){
 		
 	}
 	public PPEmailCampaignManagerPage(WebDriver pWebDriver) {
 		driver =  pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver,this);
 	}
 	public boolean isEmailCampaignManagerPage() {
