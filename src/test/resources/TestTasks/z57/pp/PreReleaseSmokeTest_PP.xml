@@ -457,28 +457,6 @@
     </parameter>
 	</test>
 	
-	<test name="Update And Veify User Settings">
-    <parameter name="dataFileSettings" value="/resources/data/propertypulse/settings/user-settings-data.json" >
-	<classes>
-	<class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPAutomationPageTest" >
-      <methods>
-      	<include name="testConfigureAutomationSettings" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
 	 <test name="Add Listing by MLS">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/mls-listing-data-01.json" >
 	<classes>
