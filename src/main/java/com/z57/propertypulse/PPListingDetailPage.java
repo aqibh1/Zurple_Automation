@@ -175,40 +175,14 @@ public class PPListingDetailPage extends Page{
 		
 	}
 	public boolean selectExterior(String[] pExteriorOptions) {
-		boolean isSuccessful = true;
-//		for(String lExterior: pExteriorOptions) {
-//			if(!actionHelper.selectDropDownOptions(exterior_input, interior_options_xpath, pExteriorOptions)) {
-//				isSuccessful = false;
-//				break;
-//			}
-//		}
-//		actionHelper.Click(exterior_input);
-	
 		return actionHelper.selectDropDownOptions(exterior_input, interior_options_xpath, pExteriorOptions);
 		
 	}
 	public boolean selectLotDetails(String[] pLotDetails) {
-//		boolean isSuccessful = true;
-//		for(String lLotDetail: pLotDetails) {
-//			if(!actionHelper.selectDropDownOption(lot_details_input, interior_options_xpath, lLotDetail)) {
-//				isSuccessful = false;
-//				break;
-//			}
-//		}
-//		actionHelper.Click(lot_details_input);
 		return actionHelper.selectDropDownOptions(lot_details_input, interior_options_xpath, pLotDetails);
 		
 	}
-	
 	public boolean selectSaleInfo(String[] pSaleInfo) {
-//		boolean isSuccessful = true;
-//		for(String lSaleInfo: pSaleInfo) {
-//			if(!actionHelper.selectDropDownOptions(sale_info_input, interior_options_xpath, lSaleInfo)) {
-//				isSuccessful = false;
-//				break;
-//			}
-//		}
-//		actionHelper.Click(sale_info_input);
 		return actionHelper.selectDropDownOptions(sale_info_input, interior_options_xpath, pSaleInfo);
 		
 	}

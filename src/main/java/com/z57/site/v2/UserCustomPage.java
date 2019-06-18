@@ -17,7 +17,6 @@ import resources.utility.FrameworkConstants;
  */
 public class UserCustomPage extends Page{
 
-	private PageHeader pageHeader;
 	
 	@FindBy(xpath="//h1[@class='entry-title title_prop']")
 	WebElement pageTitle;
@@ -37,7 +36,6 @@ public class UserCustomPage extends Page{
 		driver = pWebDriver;
 		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
-		pageHeader = new PageHeader(driver);
 	}
 	
 	public boolean isPageTitleDisplayed() {

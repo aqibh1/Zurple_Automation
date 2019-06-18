@@ -3,8 +3,12 @@ package com.zurple.my.resources.forms;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.*;
-import resources.classes.LeadSearchCriteria;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
+
 import resources.classes.LeadStatus;
 
 public class LeadStatusForm

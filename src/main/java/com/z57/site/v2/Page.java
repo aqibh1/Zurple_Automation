@@ -7,7 +7,6 @@ import resources.AbstractPage;
 import resources.ConfigReader;
 import resources.alerts.SweetAlertNotification;
 import resources.interfaces.HasHeader;
-import us.zengtest1.resources.forms.RegisterForm;
 
 /**
  * todo
@@ -18,7 +17,6 @@ public abstract class Page extends AbstractPage implements HasHeader
 {
 
     private String baseUrl = null;
-    private RegisterForm registerForm;
     protected static String DYNAMIC_VARIABLE="[--Dynamic Variable--]";
     
     protected String getBaseUrl(){
@@ -48,13 +46,5 @@ public abstract class Page extends AbstractPage implements HasHeader
         return driver.findElement(By.xpath("//div[contains(concat(\" \",normalize-space(@class),\" \"),\" user_menu \")]"));
     }
 
-//    public RegisterForm getRegisterForm(){
-//        if(null == registerForm){
-//            registerForm = new RegisterForm();
-//            registerForm.setForm(driver.findElement(By.xpath("//*[@id=\"zfs_idx_lead_reg_form\"]")));
-//            registerForm.setSubmitButton(driver.findElement(By.xpath("//*[@id=\"wp-submit-register_topbar\"]")));
-//        }
-//        return registerForm;
-//    }
 
 }

@@ -1,14 +1,11 @@
 package com.zurple.my;
 
-import com.zurple.my.resources.forms.LoginForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class ForgotPage
         extends Page
 {
-
-    private LoginForm loginForm;
 
     public ForgotPage(){
         url = "/forgot";
