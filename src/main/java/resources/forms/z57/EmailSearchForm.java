@@ -33,6 +33,7 @@ public class EmailSearchForm extends AbstractForm{
 	
 	public EmailSearchForm(WebDriver pWebDriver){
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		setDriver(pWebDriver);
 		PageFactory.initElements(driver, this);
 	}

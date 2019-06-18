@@ -26,6 +26,7 @@ public class LeadCaptureForm extends AbstractForm{
 	
 	public LeadCaptureForm(WebDriver pWebDriver){
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	

@@ -48,6 +48,7 @@ public class RegisterForm extends AbstractForm{
 	
 	public RegisterForm(WebDriver webDriver) {
 		setDriver(webDriver);
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 		
 	}

@@ -20,12 +20,15 @@ public class NewPageCreatedFromPP extends Page{
 	
 	@FindBy(id="calendar_wrap")
 	WebElement calendarWidget;
+
+	private ActionHelper actionHelper;
 	
 	public NewPageCreatedFromPP() {
 		
 	}
 	public NewPageCreatedFromPP(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	

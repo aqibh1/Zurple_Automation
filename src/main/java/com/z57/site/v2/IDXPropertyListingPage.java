@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 public class IDXPropertyListingPage extends Page{
@@ -37,9 +39,12 @@ public class IDXPropertyListingPage extends Page{
 	
 	@FindBy(xpath="//a[text()=\"What's Nearby\"]")
 	WebElement whatsNearbyBarLink;
+
+	private ActionHelper actionHelper;
 	
 	public IDXPropertyListingPage(WebDriver pWebDriver){
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	

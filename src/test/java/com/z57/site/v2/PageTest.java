@@ -52,49 +52,6 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
         assertEquals("Services",getPage().getTopMenu().findElement(By.xpath("//li[5]/a")).getText().trim());
         assertEquals("Real Estate Updates",getPage().getTopMenu().findElement(By.xpath("//li[6]/a")).getText().trim());
     }
-
-    @Test
-    public void testRegisterNewRegularLead() {
-    	//TODO
-    	//If bootstrap model doesn't exist than it should be handled properly
-    	
-//        if(getPage().checkBootsrapModalIsShown()){
-//            getPage().getBootstrapModal().close();
-//            getPage().clearBootstrapModal();
-//        }
-    	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
-        if(bootstrapModalObj.checkBootsrapModalIsShown()){
-        	bootstrapModalObj.getBootstrapModal().close();
-        	bootstrapModalObj.clearBootstrapModal();
-        }
-
-        assertEquals("Sign In",getPage().getUserMenu().getText());
-
-        getPage().getUserMenu().click();
-        assertTrue(bootstrapModalObj.checkBootsrapModalIsShown());
-
-        String username = "test_regular_lead_" + UUID.randomUUID().toString();
-        String email = username + "@test.com";
-        String phone = "(212) 435-8762";
-
-        getPage().getRegisterForm().setInputValue("top_bar_lead_reg_name",username);
-        getPage().getRegisterForm().setInputValue("top_bar_lead_reg_email",email);
-        getPage().getRegisterForm().setInputValue("top_bar_lead_reg_phone",phone);
-        getPage().getRegisterForm().submit();
-        //Browser will be redirected
-        // And user info will be shown
-        Wait<WebDriver> wait = new WebDriverWait(getDriver(), 10, 1000);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"user_menu_u\"]/div[contains(concat(\" \",normalize-space(@class),\" \"),\" menu_user_picture \")]")));
-
-        Cookie cks = getDriver().manage().getCookieNamed("zfs_lead_id");
-        Integer lead_id = Integer.parseInt(cks.getValue());
-
-        //Checking created lead source
-        //Checking DB record body
-        AbstractLead newLead = getEnvironment().getLeadObject(lead_id);
-        assertEquals(email,newLead.getEmail());
-
-    }
     
     public void captureLead(String pName,String pEmail, String pPhone, String pComments) {
     		PageHeader pageHeader = new PageHeader(getDriver());

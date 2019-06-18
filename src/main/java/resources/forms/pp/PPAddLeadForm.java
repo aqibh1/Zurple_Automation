@@ -31,6 +31,7 @@ public class PPAddLeadForm extends AbstractForm{
 	}
 	public PPAddLeadForm(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	

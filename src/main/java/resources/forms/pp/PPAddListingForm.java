@@ -48,6 +48,7 @@ public class PPAddListingForm extends AbstractForm{
 	}
 	public PPAddListingForm(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 		
 	}

@@ -16,9 +16,12 @@ public class ContactMePage extends Page{
 	
 	@FindBy(xpath="//div[@class='single-content listing-content']/h3[2]")
 	WebElement phoneNumber_heading;
+
+	private ActionHelper actionHelper;
 	
 	public ContactMePage(WebDriver pWebDriver) {
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	

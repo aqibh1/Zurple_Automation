@@ -23,9 +23,12 @@ public class RecentHomeSalesPage extends Page{
 	
 	@FindBy(xpath="//a[@id='ic_print_results_button']")
 	WebElement print_result_button;
+
+	private ActionHelper actionHelper;
 	
 	public RecentHomeSalesPage(WebDriver pWebDriver) {
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		setPagination();
 		PageFactory.initElements(driver, this);
 	}

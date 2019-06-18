@@ -31,12 +31,15 @@ public class HomeSearchPage extends Page{
 	
 	@FindBy(id="register-modal-button")
 	WebElement signin_button;
+
+	private ActionHelper actionHelper;
 	
 	public HomeSearchPage() {
 		
 	}
 	public HomeSearchPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		setSaveSearchForm();
 		PageFactory.initElements(driver, this);
 	}

@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import resources.forms.z57.EmailSearchForm;
 import resources.forms.z57.SaveSearchForm;
 import resources.forms.z57.SearchForm;
+import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class HomeSearchPage extends Page{
@@ -27,9 +28,12 @@ public class HomeSearchPage extends Page{
 
 	@FindBy(xpath="//div[@id='google_map_prop_list_sidebar']/descendant::button[@data-target='#save_search_modal']")
 	WebElement save_search_button;
+	
+	private ActionHelper actionHelper;
 
 	public HomeSearchPage(WebDriver pWebDriver) {
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		searchForm = new SearchForm(pWebDriver);
 		setEmailSearchForm();
 		setSaveSearchForm();

@@ -24,8 +24,11 @@ public class ListingPage extends Page{
 	@FindBy(xpath="//h1[@class='entry-title title_prop']")
 	WebElement pageTitle;
 	
+	private ActionHelper actionHelper;
+	
 	public ListingPage(WebDriver pWebDriver) {
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		setPagination();
 		PageFactory.initElements(driver, this);
 	}

@@ -185,6 +185,7 @@ public class SearchForm extends AbstractForm{
 	
 	public SearchForm(WebDriver pWebDriver) {
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		wait=new WebDriverWait(driver, 10);
 		setSubmitButton(search_button);
 		PageFactory.initElements(driver, this);

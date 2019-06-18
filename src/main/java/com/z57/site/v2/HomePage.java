@@ -19,6 +19,7 @@ import com.z57.site.v2.Page;
 
 import resources.forms.z57.LoginForm;
 import resources.forms.z57.RegisterForm;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
@@ -88,6 +89,7 @@ public class HomePage extends Page
 	WebElement search_dropdown_div;
 	
 	String propertyWidgetSlider_xpath="//div[@class='col-md-12']/descendant::h4[@class='listing-title']/a[@href='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	private ActionHelper actionHelper;
 	
     public HomePage(){
         url = "";
@@ -125,6 +127,7 @@ public class HomePage extends Page
 
 	public HomePage(WebDriver pWebDriver){
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		setLoginForm(driver);
 		setPageHeader(driver);
 		setRegisterForm(driver);
@@ -133,6 +136,7 @@ public class HomePage extends Page
 	public HomePage(WebDriver pWebDriver,String pSourceUrl){
 		url=pSourceUrl;
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		setLoginForm(driver);
 		setPageHeader(driver);
 		setRegisterForm(driver);
@@ -157,8 +161,7 @@ public class HomePage extends Page
 		if(isElementPresent) {
 			searchHomes_submenu.click();
 		}
-		wait.until(ExpectedConditions.visibilityOf(homeSearch_title));
-		
+		actionHelper.waitForElementToBeVisible(homeSearch_title, 30);
 		return homeSearch_title.getText().startsWith("Home Search");
 	}
 	

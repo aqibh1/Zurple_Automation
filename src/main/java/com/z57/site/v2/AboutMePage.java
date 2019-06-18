@@ -13,8 +13,11 @@ public class AboutMePage extends Page{
 	@FindBy(xpath="//h1[@class='entry-title title_prop']")
 	WebElement pageTitle;
 	
+	private ActionHelper actionHelper;
+	
 	public AboutMePage(WebDriver pWebDriver) {
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	

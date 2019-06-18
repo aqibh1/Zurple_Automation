@@ -17,6 +17,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import resources.forms.z57.EmailListingForm;
 import resources.forms.z57.RequestInfoForm;
 import resources.forms.z57.ScheduleListingForm;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 public class PropertyListingPage extends Page{
@@ -146,9 +147,12 @@ public class PropertyListingPage extends Page{
 	
 	String propertyFeatures_xapth="//div[@id='listing-features']/descendant::strong";
 	
+	private ActionHelper actionHelper;
+	
 	public PropertyListingPage(WebDriver pWebDriver){
 		driver=pWebDriver;
 //		wait=new WebDriverWait(20);
+		actionHelper = new ActionHelper(driver);
 		setEmailListingForm(driver);
 		setRequestInfoForm(driver);
 		setScheduleListingForm(driver);
@@ -282,6 +286,7 @@ public class PropertyListingPage extends Page{
 		js.executeScript("window.scrollBy(0,1200)");
 	}
 	public boolean isPinDsiplayedOnGoogleMaps() {
+		WebDriverWait wait=new WebDriverWait(driver, 30);
 		boolean isPinDisplayed=false;
 		try {
 			isPinDisplayed = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
@@ -292,6 +297,7 @@ public class PropertyListingPage extends Page{
 		return isPinDisplayed;
 	}
 	public boolean verifySchoolPins() {
+		WebDriverWait wait=new WebDriverWait(driver, 30);
 		int counter=0;
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("z57_schools_map_canvas")));
 		if(actionHelper.waitForElementsToBeFound(schoolPins_xpath)) {
@@ -313,6 +319,7 @@ public class PropertyListingPage extends Page{
 	}
 	
 	public boolean verifyPOIPins() {
+		WebDriverWait wait=new WebDriverWait(driver, 30);
 		int counter=0;
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.id("z57_poi_map_canvas")));
 		List<WebElement> poiPins = driver.findElements(By.xpath("//div[@id='z57_poi_map_canvas']/descendant::div[@title]/img"));

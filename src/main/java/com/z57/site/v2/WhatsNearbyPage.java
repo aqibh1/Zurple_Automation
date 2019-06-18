@@ -8,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
@@ -39,8 +41,11 @@ public class WhatsNearbyPage extends Page{
 	String pin_popup_info_table ="//table[@class='table table-condensed table-striped']/descendant::tbody/tr";
 	String list_of_pages_pagination="//div[@id='z57_poi_table_paginate']/span/a[@data-dt-idx='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 
+	private ActionHelper actionHelper;
+
 	public WhatsNearbyPage(WebDriver pWebDriver) {
 		driver=pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -155,7 +160,7 @@ public class WhatsNearbyPage extends Page{
 		}
 		
 		private boolean clickOnPageNumber(String pElementXpath, String pPageNumber) {
-			return actionHelper.Click(getDynamicElement(pElementXpath, pPageNumber));
+			return actionHelper.Click(actionHelper.getDynamicElement(pElementXpath, pPageNumber));
 		}
 	@Override
 	public WebElement getHeader() {

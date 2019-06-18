@@ -27,12 +27,15 @@ public class UserCustomPage extends Page{
 	
 	@FindBy(xpath="//button[text()='IMAGE OPTIONS']")
 	WebElement imageOptions_button;
+
+	private ActionHelper actionHelper;
 	
 	public UserCustomPage() {
 		// TODO Auto-generated constructor stub
 	}
 	UserCustomPage(WebDriver pWebDriver){
 		driver = pWebDriver;
+		actionHelper = new ActionHelper(driver);
 		PageFactory.initElements(driver, this);
 		pageHeader = new PageHeader(driver);
 	}
