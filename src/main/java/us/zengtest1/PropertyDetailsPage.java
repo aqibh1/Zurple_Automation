@@ -1,16 +1,13 @@
 package us.zengtest1;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import resources.AbstractPage;
-import resources.JssorSlider;
-import resources.alerts.SweetAlertNotification;
-import resources.forms.ContactAgentForm;
-import resources.forms.LoginForm;
-
-import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import resources.JssorSlider;
+import resources.forms.ContactAgentForm;
 
 public class PropertyDetailsPage
         extends Page

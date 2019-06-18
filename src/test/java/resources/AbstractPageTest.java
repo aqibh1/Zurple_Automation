@@ -18,12 +18,8 @@ import resources.alerts.BootstrapModal;
 import resources.classes.Asset;
 import resources.utility.AutomationLogger;
 
-import static org.testng.Assert.assertTrue;
-
 public abstract class AbstractPageTest extends AbstractTest
 {
-
-    protected TestEnvironment environment;
     protected AbstractPage page;
     protected String source_in_url="";
     protected Boolean incognito=false;

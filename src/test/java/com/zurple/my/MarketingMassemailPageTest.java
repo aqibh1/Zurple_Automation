@@ -1,5 +1,9 @@
 package com.zurple.my;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,11 +11,8 @@ import java.util.regex.Pattern;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import resources.orm.hibernate.models.zurple.EmailQueue;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.assertFalse;
+import resources.orm.hibernate.models.zurple.EmailQueue;
 
 /**
  * todo

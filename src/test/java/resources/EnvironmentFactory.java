@@ -1,5 +1,8 @@
 package resources;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,10 +10,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
-
-import java.lang.ref.PhantomReference;
-import java.util.HashMap;
-import java.util.Map;
 
 public class EnvironmentFactory {
 

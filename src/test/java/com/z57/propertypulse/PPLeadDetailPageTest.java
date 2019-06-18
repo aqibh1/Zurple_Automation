@@ -5,7 +5,6 @@ package com.z57.propertypulse;
 
 import static org.testng.Assert.assertTrue;
 
-import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;

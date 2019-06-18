@@ -1,23 +1,19 @@
 package us.zengtest1;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertFalse;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.cactoos.scalar.False;
-import org.openqa.selenium.By;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import resources.AbstractPageTest;
+
 import resources.ParametersFactory;
 import resources.elements.Select2Dropdown;
 import us.zengtest1.resources.forms.SearchForm;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-import static org.testng.AssertJUnit.assertFalse;
 
 public class SearchPageTest
         extends PageTest

@@ -1,8 +1,8 @@
 package us.zengtest1;
 
-import org.testng.annotations.Test;
-import resources.AbstractPageTest;
 import static org.testng.Assert.assertEquals;
+
+import org.testng.annotations.Test;
 
 public class LoginPageTest
         extends PageTest

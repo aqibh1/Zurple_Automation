@@ -2,13 +2,15 @@ package resources;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import org.testng.Reporter;
 
 import resources.orm.hibernate.models.AbstractLead;
-import resources.orm.hibernate.models.z57.*;
-import resources.utility.ActionHelper;
+import resources.orm.hibernate.models.z57.IdxLeadSearches;
+import resources.orm.hibernate.models.z57.Lead;
+import resources.orm.hibernate.models.z57.ListingImages;
+import resources.orm.hibernate.models.z57.NotificationEmails;
+import resources.orm.hibernate.models.z57.NotificationMailgun;
+import resources.orm.hibernate.models.z57.Notifications;
+import resources.orm.hibernate.models.z57.Sites;
 import resources.utility.AutomationLogger;
 
 public class DBHelperMethods {

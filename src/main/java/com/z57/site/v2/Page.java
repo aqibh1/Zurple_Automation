@@ -1,17 +1,12 @@
 package com.z57.site.v2;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
 import resources.AbstractPage;
 import resources.ConfigReader;
-import resources.alerts.BootstrapModal;
 import resources.alerts.SweetAlertNotification;
 import resources.interfaces.HasHeader;
-import resources.utility.AutomationLogger;
-import resources.utility.FrameworkConstants;
 import us.zengtest1.resources.forms.RegisterForm;
 
 /**

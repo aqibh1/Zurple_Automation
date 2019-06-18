@@ -1,20 +1,22 @@
 package com.zurple.my;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import resources.ConfigReader;
-import resources.classes.MenuItem;
-import resources.classes.Alert;
-import resources.orm.hibernate.models.zurple.User;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.assertFalse;
+import resources.ConfigReader;
+import resources.classes.Alert;
+import resources.classes.MenuItem;
+import resources.orm.hibernate.models.zurple.User;
 
 public class DashboardPageTest
         extends PageTest

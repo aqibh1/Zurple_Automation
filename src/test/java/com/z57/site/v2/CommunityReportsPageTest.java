@@ -1,8 +1,10 @@
 package com.z57.site.v2;
-import org.testng.annotations.Test;
+import static org.testng.Assert.assertTrue;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
-import static org.testng.Assert.assertTrue;
+import org.testng.annotations.Test;
+
 import resources.data.z57.OurCommunityData;
 import resources.data.z57.RegisterUserData;
 import resources.forms.z57.OurCommunitySearchForm;

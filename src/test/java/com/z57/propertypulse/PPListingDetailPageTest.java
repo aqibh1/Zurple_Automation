@@ -3,16 +3,11 @@ package com.z57.propertypulse;
 import static org.testng.Assert.assertTrue;
 
 import java.awt.AWTException;
-import java.io.IOException;
-import java.net.ProtocolException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.xml.bind.ParseConversionEvent;
-
 import org.apache.http.HttpStatus;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.entity.ContentType;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
@@ -31,7 +26,6 @@ import resources.ModuleCommonCache;
 import resources.data.z57.PPListingData;
 import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.models.z57.Listings;
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.HTTPConstants;
 import resources.utility.ValueMapper;

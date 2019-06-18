@@ -1,10 +1,11 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.ProcessEmailQueuePage;
-import com.zurple.my.PageTest;
+import static org.testng.Assert.assertTrue;
+
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertTrue;
+import com.zurple.my.PageTest;
+import com.zurple.my.Admin.ProcessEmailQueuePage;
 
 public class ProcessEmailQueuePageTest
         extends PageTest

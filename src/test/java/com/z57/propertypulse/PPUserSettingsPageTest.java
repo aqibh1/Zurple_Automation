@@ -12,9 +12,9 @@ import org.testng.annotations.Test;
 
 import com.z57.site.v2.ContactMePage;
 import com.zurple.my.PageTest;
+
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
-import resources.TestEnvironment;
 import resources.utility.DataConstants;
 
 /**

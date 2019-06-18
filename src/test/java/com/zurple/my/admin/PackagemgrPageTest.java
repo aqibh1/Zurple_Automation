@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.PackagemgrPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.PackagemgrPage;
 
 public class PackagemgrPageTest
         extends PageTest

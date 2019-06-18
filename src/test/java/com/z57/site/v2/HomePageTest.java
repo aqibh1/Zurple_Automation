@@ -1,24 +1,24 @@
 package com.z57.site.v2;
 
-import com.z57.site.v2.Page;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import com.z57.site.v2.PageTest;
-import com.z57.site.v2.HomePage;
+
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
 import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
-import org.testng.annotations.Test;
-import org.openqa.selenium.WebDriver;
-import resources.forms.z57.LoginForm;
 import resources.alerts.BootstrapModal;
+import resources.data.z57.RegisterUserData;
+import resources.forms.z57.LoginForm;
 import resources.forms.z57.RegisterForm;
 import resources.utility.AutomationLogger;
-import org.testng.annotations.Parameters;
-import static org.testng.Assert.assertTrue;
-import resources.data.z57.RegisterUserData;
-import static org.testng.Assert.assertEquals;
 
 public class HomePageTest extends PageTest
 {

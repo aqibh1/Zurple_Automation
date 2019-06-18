@@ -2,7 +2,7 @@ package us.zengtest1;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import resources.forms.LoginForm;
+
 import us.zengtest1.resources.forms.RegisterForm;
 
 public class RegisterPage

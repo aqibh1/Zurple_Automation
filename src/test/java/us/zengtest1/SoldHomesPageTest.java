@@ -1,11 +1,8 @@
 package us.zengtest1;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.testng.annotations.Test;
-
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+
+import org.testng.annotations.Test;
 
 public class SoldHomesPageTest
         extends PageTest

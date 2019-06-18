@@ -1,15 +1,15 @@
 package com.zurple.my;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 import resources.classes.LeadSearchCriteria;
 import resources.models.UserTest;
 import resources.orm.hibernate.models.zurple.User;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
 
 /**
  * todo

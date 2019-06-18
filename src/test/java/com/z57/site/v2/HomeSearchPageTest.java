@@ -1,10 +1,15 @@
 package com.z57.site.v2;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import java.util.ArrayList;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
 import resources.blocks.z57.Pagination;
@@ -13,8 +18,6 @@ import resources.data.z57.EmailListingFormData;
 import resources.data.z57.SaveSearchFormData;
 import resources.data.z57.SearchFormData;
 import resources.utility.FrameworkConstants;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class HomeSearchPageTest extends PageTest{
 

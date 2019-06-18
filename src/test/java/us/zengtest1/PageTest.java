@@ -1,12 +1,14 @@
 package us.zengtest1;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
+
 import resources.AbstractPageTest;
 import resources.interfaces.TestHavingHeader;
 import resources.interfaces.UsingPage;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public abstract class PageTest extends AbstractPageTest  implements UsingPage, TestHavingHeader
 {

@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.EditUserDetailsPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.EditUserDetailsPage;
 
 public class EditUserDetailsPageTest
         extends PageTest

@@ -2,14 +2,10 @@ package com.z57.propertypulse;
 
 import static org.testng.Assert.assertTrue;
 
-import org.hibernate.validator.AssertTrueValidator;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.z57.propertypulse.PPLeadsPage;
-import com.zurple.my.LeadDetailPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;

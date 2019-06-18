@@ -11,7 +11,6 @@ import org.testng.annotations.Test;
 
 import resources.data.z57.OurCommunityData;
 import resources.data.z57.RegisterUserData;
-import resources.forms.z57.OurCommunitySearchForm;
 
 /**
  * @author adar

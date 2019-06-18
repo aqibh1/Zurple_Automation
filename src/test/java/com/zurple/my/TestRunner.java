@@ -1,11 +1,19 @@
 package com.zurple.my;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.testng.ITestNGListener;
 import org.testng.TestNG;
@@ -13,12 +21,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import resources.ConfigReader;
-import resources.ZurpleReporter.*;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import resources.ConfigReader;
+import resources.ZurpleReporter.ReportWriter;
+import resources.ZurpleReporter.ReportWriterContainer;
+import resources.ZurpleReporter.ScreenshotTaker;
+import resources.ZurpleReporter.TestSuiteTitleContainer;
+import resources.ZurpleReporter.ZurpleReporter;
 
 /**
  * todo
