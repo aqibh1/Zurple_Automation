@@ -4,11 +4,14 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import resources.orm.hibernate.dao.zurple.*;
+import resources.orm.hibernate.dao.pp.ManagePosts;
 import resources.orm.hibernate.dao.z57.*;
 import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.models.AbstractLead;
+import resources.orm.hibernate.models.pp.Posts;
 import resources.orm.hibernate.models.z57.*;
 import resources.orm.hibernate.models.zurple.*;
+import resources.utility.AutomationLogger;
 
 public class TestEnvironment
 {
@@ -430,5 +433,42 @@ public class TestEnvironment
         }
         return null;
    	
+   }
+    public Posts getPostByParentPostId(String pParentPostId) {
+    	 String project = System.getProperty("project");
+    	 Posts posts = null;
+         if (project.equals("z57"))
+         {
+             ManagePosts postObject = new ManagePosts(getSession());
+             posts = postObject.getPostsByParentPostId(pParentPostId);
+             if(posts!=null) {
+            	 AutomationLogger.info("Successfully fetched Posts object for Parent Post Id "+pParentPostId);
+             }else {
+            	 AutomationLogger.error("Posts object is null for Parent Post Id "+pParentPostId);
+             }
+         }else {
+        	 
+         }
+         
+         return posts;
+    }
+    
+    public Posts getPostByFacebookStatus(String pFacebookStatus,String pFacebookPage) {
+   	 String project = System.getProperty("project");
+   	 Posts posts = null;
+        if (project.equals("z57"))
+        {
+            ManagePosts postObject = new ManagePosts(getSession());
+            posts = postObject.getPostsByFacebookStatus(pFacebookStatus,pFacebookPage);
+            if(posts!=null) {
+           	 AutomationLogger.info("Successfully fetched Posts object for Parent Post Id "+pFacebookStatus);
+            }else {
+           	 AutomationLogger.error("Posts object is null for Parent Post Id "+pFacebookStatus);
+            }
+        }else {
+       	 
+        }
+        
+        return posts;
    }
 }

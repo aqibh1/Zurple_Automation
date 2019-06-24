@@ -6,7 +6,10 @@ package com.z57.propertypulse;
 import static org.testng.Assert.assertTrue;
 
 import java.awt.AWTException;
+import java.time.LocalDate;
 
+import org.hibernate.property.Getter;
+import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -14,9 +17,12 @@ import org.testng.annotations.Test;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.DBHelperMethods;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.TestEnvironment;
 import resources.data.z57.PPSocialData;
+import resources.orm.hibernate.models.pp.Posts;
 import resources.utility.FrameworkConstants;
 
 /**
@@ -83,7 +89,6 @@ public class PPSocialPageTest extends PageTest{
 		String lPromoteListing = socialData.getPromoteListing();
 		String lLinkToProperty = socialData.getPropertyLink();
 		
-		
 		getPage("/content/marketing/social");
 		
 		assertTrue(page.isSocialPage(), "Social Posting page is not displayed..");
@@ -92,6 +97,7 @@ public class PPSocialPageTest extends PageTest{
 		assertTrue(page.checkFacebookOption(), "Unable to check Facebook option..");
 		
 		assertTrue(page.typeStatus(lStatus), "Unable to type status in text area..");
+		
 		
 		if(!lPhotoPath.isEmpty()) {
 			assertTrue(page.clickOnPhoto(), "Unable to click Photo tab button....");
@@ -122,8 +128,11 @@ public class PPSocialPageTest extends PageTest{
 		assertTrue(page.selectFacebookPage(lFacebookPage), "Unable to select Facebook page from drop down ..");
 		
 		if(lPostSchedule.equalsIgnoreCase("Later")) {
+			lDate = getStartDateInFormat("");
+			
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.clickOnScheduleLater(), "Unable to click on Schedule Later radio button..");
+			
 			scheduleLater(lDate,lTime);
 			
 			//Click on Post Later button
@@ -135,9 +144,16 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.isUpcomingPostsSuccessful(lStatus,FrameworkConstants.FacebookIconImage,lDate, lTime), "Post not found in Upcoming Post results..");
 			
+			String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later.json":"/resources/cache/facebook-later-qa.json";
+			String lPreviousFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later-previous.json":"/resources/cache/facebook-later-previous-qa.json";
+//			createCacheFile(lStatus,lNewFileToWrite ,lPreviousFileToWrite, lFacebookPage);
 		}else if(lPostSchedule.equalsIgnoreCase("Recurring")) {
+			
+			lDate = getStartDateInFormat("");
+			lEndingDate = getStartDateInFormat(LocalDate.now().plusDays(7).toString());
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.clickOnScheduleRecurring(), "Unable to click on Schedule Recurring radio button..");
+			
 			scheduleRecurring(lDate,lTime,lEndingDate,lRepeatOnDays);
 			
 			//Click on Schedule a Recurring post
@@ -148,6 +164,11 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.isUpcomingRecurringPostsSuccessful(lStatus,FrameworkConstants.FacebookIconImage,lDate, lTime,lEndingDate,lRepeatOnDays), "Post not found in Upcoming Post results..");
+
+			String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-recurring.json":"/resources/cache/facebook-recurring-qa.json";
+			String lPreviousFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-recurring-previous.json":"/resources/cache/facebook-recurring-previous-qa.json";
+
+//			createCacheFile(lStatus,lNewFileToWrite ,lPreviousFileToWrite, lFacebookPage);
 			
 		}else {
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
@@ -162,6 +183,40 @@ public class PPSocialPageTest extends PageTest{
 		}
 	}
 	
+	/*
+	 * This is DB test, whcih will verify that post was succesfully posted on the
+	 * social platform. It uses hardcoded post id.
+	 */
+	
+	@Test
+	public void testVerificationOfReccurringPosts() {
+//		getPage();
+
+		String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-recurring.json":"/resources/cache/facebook-recurring-qa.json";
+
+		String lParentPostId = "";
+
+		lParentPostId = getDataFile(lNewFileToWrite).opt("postID").toString();
+
+		Posts postObj = getEnvironment().getPostByParentPostId(lParentPostId);
+
+		assertTrue(new DBHelperMethods(getEnvironment()).isPostSuccessful(postObj), "Post was not successful");
+	}
+	
+	@Test
+	public void testVerificationOfLaterPosts() {
+
+		String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later.json":"/resources/cache/facebook-later-qa.json";
+
+		String lParentPostId = "";
+
+		lParentPostId = getDataFile(lNewFileToWrite).opt("postID").toString();
+
+		Posts postObj = getEnvironment().getPostByParentPostId(lParentPostId);
+
+		assertTrue(new DBHelperMethods(getEnvironment()).isPostSuccessful(postObj), "Post was not successful");
+	}
+	
 	private void scheduleLater(String pDate, String pTime) {
 		assertTrue(page.typeDate(pDate), "Unable to type Date ..");
 		assertTrue(page.selectTime(pTime), "Unable to select Time from dropdown menu..");
@@ -173,6 +228,28 @@ public class PPSocialPageTest extends PageTest{
 		assertTrue(page.selectTime(pTime), "Unable to select Time from dropdown menu..");
 		assertTrue(page.typeEndingDate(pEndingDate), "Unable to type Ending Date ..");
 		assertTrue(page.selectRepeatDays(pWeekdays), "Unable to select repeat days..");
+	}
+	
+	private void createCacheFile(String pStatus, String pNewFileFile, String pPreviousFile, String pFacebookPage) {
+		String forLikeQuery = pStatus.split(" ")[pStatus.split(" ").length-1];
+		//Writing cache files for verification of recurring posts are success
+		JSONObject lCurrentObject = getDataFile(pNewFileFile);
+		writeJsonToFile(pPreviousFile, lCurrentObject);
+		
+		Posts postObj = getEnvironment().getPostByFacebookStatus(forLikeQuery,pFacebookPage);
+		writePojoToJsonFile(postObj,pNewFileFile);
+		
+	}
+	private String getStartDateInFormat(String pDate) {
+		String lDate = "";
+		if(pDate.isEmpty()) {
+			lDate = LocalDate.now().toString();
+		}else {
+			lDate = pDate;
+		}
+		String tempDate[] = lDate.split("-");
+		lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
+		return lDate;
 	}
 
 }

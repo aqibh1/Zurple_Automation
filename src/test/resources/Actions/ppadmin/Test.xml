@@ -4,17 +4,12 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
   
-    <test name="Post status on Facebook after deauthorzing facebook">
- 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-data-01.json" >
+    <test name="Post status on Facebook Recurring">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-recurring-data-03.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
       	<include name="testPPLogin" />
-      </methods>
-      </class>
-       <class name="com.z57.propertypulse.PPSocialIntegrationPageTest" >
-      <methods>
-      	<include name="testAuthorizeDeAuthorizeFacebookAccount" />
       </methods>
       </class>
       <class name="com.z57.propertypulse.PPSocialPageTest" >
