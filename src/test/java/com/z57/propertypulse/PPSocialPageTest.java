@@ -22,6 +22,7 @@ import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.TestEnvironment;
 import resources.data.z57.PPSocialData;
+import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.models.pp.Posts;
 import resources.utility.FrameworkConstants;
 
@@ -146,7 +147,10 @@ public class PPSocialPageTest extends PageTest{
 			
 			String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later.json":"/resources/cache/facebook-later-qa.json";
 			String lPreviousFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later-previous.json":"/resources/cache/facebook-later-previous-qa.json";
-//			createCacheFile(lStatus,lNewFileToWrite ,lPreviousFileToWrite, lFacebookPage);
+			createCacheFile(lStatus,lNewFileToWrite ,lPreviousFileToWrite, lFacebookPage);
+			forceLaterPost();
+			verifyLaterPost();
+			
 		}else if(lPostSchedule.equalsIgnoreCase("Recurring")) {
 			
 			lDate = getStartDateInFormat("");
@@ -188,6 +192,16 @@ public class PPSocialPageTest extends PageTest{
 	 * social platform. It uses hardcoded post id.
 	 */
 	
+	private void forceLaterPost() {
+		PPForceExecuteSchedulePost forceSchedulePost = new PPForceExecuteSchedulePost(driver);
+		String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later.json":"/resources/cache/facebook-later-qa.json";
+		String lScheduleId = getDataFile(lNewFileToWrite).opt("scheduleID").toString();
+		driver.navigate().to("https://propertypulse.z57.com/dev/force-execute-scheduled-post/"+lScheduleId);
+		assertTrue(forceSchedulePost.isExecutingSchedulePage(), "Force Schedule page was not found");
+		assertTrue(forceSchedulePost.getStatus().equalsIgnoreCase("1"), "Force Schedule was not succcessful. Status code is "+forceSchedulePost.getStatus());
+		assertTrue(forceSchedulePost.getResultMessage().contains("success"), "Force Schedule was not succcessful. Result message is "+forceSchedulePost.getResultMessage());
+	}
+
 	@Test
 	public void testVerificationOfReccurringPosts() {
 //		getPage();
@@ -205,7 +219,7 @@ public class PPSocialPageTest extends PageTest{
 	
 	@Test
 	public void testVerificationOfLaterPosts() {
-
+		
 		String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later.json":"/resources/cache/facebook-later-qa.json";
 
 		String lParentPostId = "";
@@ -217,6 +231,18 @@ public class PPSocialPageTest extends PageTest{
 		assertTrue(new DBHelperMethods(getEnvironment()).isPostSuccessful(postObj), "Post was not successful");
 	}
 	
+	private void verifyLaterPost() {
+		HibernateUtil.setSessionFactoryEmpty();
+		String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later.json":"/resources/cache/facebook-later-qa.json";
+
+		String lParentPostId = "";
+
+		lParentPostId = getDataFile(lNewFileToWrite).opt("postID").toString();
+
+		Posts postObj = getEnvironment().getPostByParentPostId(lParentPostId);
+
+		assertTrue(new DBHelperMethods(getEnvironment()).isPostSuccessful(postObj), "Post was not successful");
+	}
 	private void scheduleLater(String pDate, String pTime) {
 		assertTrue(page.typeDate(pDate), "Unable to type Date ..");
 		assertTrue(page.selectTime(pTime), "Unable to select Time from dropdown menu..");
