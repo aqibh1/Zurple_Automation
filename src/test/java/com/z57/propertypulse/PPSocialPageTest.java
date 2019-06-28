@@ -145,11 +145,11 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.isUpcomingPostsSuccessful(lStatus,FrameworkConstants.FacebookIconImage,lDate, lTime), "Post not found in Upcoming Post results..");
 			
-			String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later.json":"/resources/cache/facebook-later-qa.json";
-			String lPreviousFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later-previous.json":"/resources/cache/facebook-later-previous-qa.json";
-			createCacheFile(lStatus,lNewFileToWrite ,lPreviousFileToWrite, lFacebookPage);
-			forceLaterPost();
-			verifyLaterPost();
+//			String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later.json":"/resources/cache/facebook-later-qa.json";
+//			String lPreviousFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later-previous.json":"/resources/cache/facebook-later-previous-qa.json";
+//			createCacheFile(lStatus,lNewFileToWrite ,lPreviousFileToWrite, lFacebookPage);
+//			forceLaterPost();
+//			verifyLaterPost();
 			
 		}else if(lPostSchedule.equalsIgnoreCase("Recurring")) {
 			

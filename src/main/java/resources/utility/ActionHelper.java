@@ -496,4 +496,21 @@ public class ActionHelper {
 		   }
 		   return lOptionValue;
 	   }
+	   
+	   public static boolean doubleClick(WebDriver pWebDriver,WebElement pElementToBeClicked) {
+			boolean isSuccessfull=false;
+			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			try {
+				if(wait.until(ExpectedConditions.visibilityOf(pElementToBeClicked))!=null) {
+					Actions actions = new Actions(pWebDriver);
+					actions.doubleClick(pElementToBeClicked).perform();
+					isSuccessfull=true;
+				}
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessfull;
+		}
 }
