@@ -4,6 +4,7 @@ package resources.orm.hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
+
 import resources.ConfigReader;
 
 public class HibernateUtil {

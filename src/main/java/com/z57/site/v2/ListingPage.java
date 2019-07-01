@@ -6,10 +6,8 @@ package com.z57.site.v2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.blocks.z57.Pagination;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
@@ -24,13 +22,9 @@ public class ListingPage extends Page{
 	@FindBy(xpath="//h1[@class='entry-title title_prop']")
 	WebElement pageTitle;
 	
-	private ActionHelper actionHelper;
-	
 	public ListingPage(WebDriver pWebDriver) {
-		driver=pWebDriver;
-		actionHelper = new ActionHelper(driver);
+		setPageObject(pWebDriver, this);
 		setPagination();
-		PageFactory.initElements(driver, this);
 	}
 
 	public Pagination getPagination() {

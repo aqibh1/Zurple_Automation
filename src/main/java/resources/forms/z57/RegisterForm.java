@@ -6,11 +6,9 @@ package resources.forms.z57;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 /**
@@ -38,16 +36,12 @@ public class RegisterForm extends AbstractForm{
 	@FindBy(xpath="//div[@class='controls']/descendant::a[@id='login-modal-register-button']")
 	WebElement alreadyregistered_link_idx;
 	
-	private ActionHelper actionHelper;
-	
 	public RegisterForm() {
 		
 	}
 	
-	public RegisterForm(WebDriver webDriver) {
-		setDriver(webDriver);
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+	public RegisterForm(WebDriver pWebDriver) {
+		setPageObject(pWebDriver, this);
 		
 	}
 

@@ -3,13 +3,10 @@ package resources.forms.pp;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 
 public class PPAddLeadForm extends AbstractForm{
-	private ActionHelper actionHelper;
 	
 	@FindBy(xpath="//div[@id='add_new_lead_modal']/descendant::h3[text()='Add New Lead']")
 	WebElement addNewLead_header;
@@ -30,9 +27,7 @@ public class PPAddLeadForm extends AbstractForm{
 		// TODO Auto-generated constructor stub
 	}
 	public PPAddLeadForm(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean isAddNewLeadFormVisible() {

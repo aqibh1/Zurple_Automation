@@ -3,15 +3,15 @@
  */
 package resources.orm.hibernate.dao.z57;
 
-import org.hibernate.Hibernate;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import resources.orm.hibernate.models.z57.IdxLeadSearches;
-import resources.orm.hibernate.models.z57.NotificationEmails;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import resources.orm.hibernate.models.z57.IdxLeadSearches;
 
 /**
  * @author adar

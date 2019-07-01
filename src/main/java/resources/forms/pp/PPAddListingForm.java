@@ -6,10 +6,8 @@ package resources.forms.pp;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 
 /**
  * @author adar
@@ -41,16 +39,12 @@ public class PPAddListingForm extends AbstractForm{
 	
 	@FindBy(xpath="//button[@id='add_new_listing_confirm_button']")
 	WebElement continue_button;
-	private ActionHelper actionHelper;
 	
 	public PPAddListingForm() {
 		// TODO Auto-generated constructor stub
 	}
 	public PPAddListingForm(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
-		
+		setPageObject(pWebDriver, this);	
 	}
 	
 	public boolean typeAddress(String pAddress) {

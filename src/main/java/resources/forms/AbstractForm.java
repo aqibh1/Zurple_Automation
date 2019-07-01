@@ -15,12 +15,14 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.classes.FormErrorMessage;
 import resources.interfaces.UsesDriver;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
@@ -30,6 +32,7 @@ public abstract class AbstractForm implements UsesDriver
     protected WebElement submitButton;
     protected WebDriver driver;
     protected WebDriverWait wait;
+	protected ActionHelper actionHelper;
 
     public void setForm(WebElement object){
         form = object;
@@ -224,4 +227,9 @@ public abstract class AbstractForm implements UsesDriver
 			return null;
 		}
 	}
+    protected void setPageObject(WebDriver pWebDriver, Object pObject){
+		 driver = pWebDriver;
+		 actionHelper = new ActionHelper(driver);
+		 PageFactory.initElements(driver, pObject); 
+	 }
 }

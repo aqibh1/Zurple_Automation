@@ -14,7 +14,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import resources.forms.z57.EmailListingForm;
 import resources.forms.z57.RequestInfoForm;
 import resources.forms.z57.ScheduleListingForm;
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 public class PropertyListingPage extends Page{
@@ -144,16 +143,11 @@ public class PropertyListingPage extends Page{
 	
 	String propertyFeatures_xapth="//div[@id='listing-features']/descendant::strong";
 	
-	private ActionHelper actionHelper;
-	
 	public PropertyListingPage(WebDriver pWebDriver){
-		driver=pWebDriver;
-//		wait=new WebDriverWait(20);
-		actionHelper = new ActionHelper(driver);
-		setEmailListingForm(driver);
-		setRequestInfoForm(driver);
-		setScheduleListingForm(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
+		setEmailListingForm();
+		setRequestInfoForm();
+		setScheduleListingForm();
 	}
 	public PropertyListingPage(WebDriver pWebDriver,String pSourceUrl){
 		url=pSourceUrl;
@@ -164,22 +158,22 @@ public class PropertyListingPage extends Page{
 	public EmailListingForm getEmailListingForm() {
 		return emailListingForm;
 	}
-	public void setEmailListingForm(WebDriver pWebDriver) {
-		emailListingForm = new EmailListingForm(pWebDriver);
+	public void setEmailListingForm() {
+		emailListingForm = new EmailListingForm(driver);
 	}
 	
 	public RequestInfoForm getRequestInfoForm() {
 		return requestInfoForm;
 	}
-	public void setRequestInfoForm(WebDriver pWebDriver) {
-		requestInfoForm = new RequestInfoForm(pWebDriver);
+	public void setRequestInfoForm() {
+		requestInfoForm = new RequestInfoForm(driver);
 	}
 	
 	public ScheduleListingForm getScheduleListingForm() {
 		return scheduleListingForm;
 	}
-	public void setScheduleListingForm(WebDriver pWebDriver) {
-		scheduleListingForm = new ScheduleListingForm(pWebDriver);
+	public void setScheduleListingForm() {
+		scheduleListingForm = new ScheduleListingForm(driver);
 	}
 	public String getPropertyTitleFromTheHeader() {
 		return lPropertyTitleInHeader.getText();

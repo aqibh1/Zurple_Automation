@@ -1,10 +1,10 @@
 package com.zurple.my.Admin;
 
-import com.zurple.my.Page;
-import com.zurple.my.resources.blocks.TemplatesListBlock;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
+
+import com.zurple.my.Page;
+import com.zurple.my.resources.blocks.TemplatesListBlock;
 
 public class SimpletmplmgrPage
         extends Page

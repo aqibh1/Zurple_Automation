@@ -6,7 +6,6 @@ package com.z57.site.v1;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.z57.v1.SaveSearchForm;
 import resources.utility.ActionHelper;
@@ -38,10 +37,8 @@ public class HomeSearchPage extends Page{
 		
 	}
 	public HomeSearchPage(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
+		setPageObject(pWebDriver, this);
 		setSaveSearchForm();
-		PageFactory.initElements(driver, this);
 	}
 	
 	public SaveSearchForm getSaveSearchForm() {

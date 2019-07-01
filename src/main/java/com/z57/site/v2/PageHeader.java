@@ -3,9 +3,6 @@ package com.z57.site.v2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
-import resources.utility.ActionHelper;
 
 public class PageHeader extends Page{
 	
@@ -28,13 +25,9 @@ public class PageHeader extends Page{
 	
 	@FindBy(xpath="//div[@class='menu_user_picture']")
 	WebElement user_image_icon;
-
-	private ActionHelper actionHelper;
 	
 	public PageHeader(WebDriver pWebDriver){
-		driver=pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	@Override

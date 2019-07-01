@@ -6,16 +6,15 @@ package resources.alerts.pp;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
+import resources.alerts.AbstractAlert;
 import resources.utility.ActionHelper;
 
 /**
  * @author adar
  *
  */
-public class AdCreatedSuccessAlert {
-	WebDriver driver;
+public class AdCreatedSuccessAlert extends AbstractAlert{
 	
 	@FindBy(xpath="//h3[text()='Success - Ad Created']")
 	WebElement adCreated_heading;
@@ -28,12 +27,11 @@ public class AdCreatedSuccessAlert {
 		
 	}
 	public AdCreatedSuccessAlert(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean isAdCreatedAlert() {
-		return new ActionHelper(driver).waitForElementToBeLocated(adCreated_heading_xpath, 30);
+		return actionHelper.waitForElementToBeLocated(adCreated_heading_xpath, 30);
 	}
 	
 	public boolean clickOnAdsOverviewButton() {

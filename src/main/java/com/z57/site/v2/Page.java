@@ -1,12 +1,15 @@
 package com.z57.site.v2;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 import resources.AbstractPage;
 import resources.ConfigReader;
 import resources.alerts.SweetAlertNotification;
 import resources.interfaces.HasHeader;
+import resources.utility.ActionHelper;
 
 /**
  * todo
@@ -28,6 +31,7 @@ public abstract class Page extends AbstractPage implements HasHeader
     }
 
     private SweetAlertNotification sweetAlertNotification;
+	protected ActionHelper actionHelper;
 
     public SweetAlertNotification getSweetAlertNotification(){
         if(null == sweetAlertNotification){
@@ -45,6 +49,11 @@ public abstract class Page extends AbstractPage implements HasHeader
     public WebElement getUserMenu(){
         return driver.findElement(By.xpath("//div[contains(concat(\" \",normalize-space(@class),\" \"),\" user_menu \")]"));
     }
+	protected void setPageObject(WebDriver pWebDriver, Object pObject){
+		 driver = pWebDriver;
+		 actionHelper = new ActionHelper(driver);
+		 PageFactory.initElements(driver, pObject); 
+	 }
 
 
 }

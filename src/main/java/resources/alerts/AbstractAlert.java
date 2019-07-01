@@ -3,6 +3,9 @@ package resources.alerts;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
+
+import resources.utility.ActionHelper;
 
 public abstract class AbstractAlert {
 
@@ -11,6 +14,7 @@ public abstract class AbstractAlert {
     protected WebElement cancelButton;
     protected String message;
     protected WebDriver driver;
+	protected ActionHelper actionHelper;
 
     public void setAlert(WebElement object) {
         alert = object;
@@ -51,4 +55,9 @@ public abstract class AbstractAlert {
     public void setDriver(WebDriver driver) {
         this.driver = driver;
     }
+    protected void setPageObject(WebDriver pWebDriver, Object pObject){
+		 driver = pWebDriver;
+		 actionHelper = new ActionHelper(driver);
+		 PageFactory.initElements(driver, pObject); 
+	 }
 }

@@ -1,16 +1,52 @@
 package resources;
 
 import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import resources.orm.hibernate.dao.zurple.*;
-import resources.orm.hibernate.dao.pp.ManagePosts;
-import resources.orm.hibernate.dao.z57.*;
+
 import resources.orm.hibernate.HibernateUtil;
+import resources.orm.hibernate.dao.pp.ManagePosts;
+import resources.orm.hibernate.dao.z57.ManageIdxLeadSearches;
+import resources.orm.hibernate.dao.z57.ManageListingImages;
+import resources.orm.hibernate.dao.z57.ManageListings;
+import resources.orm.hibernate.dao.z57.ManageNotificationEmails;
+import resources.orm.hibernate.dao.z57.ManageNotificationMailgun;
+import resources.orm.hibernate.dao.z57.ManageNotifications;
+import resources.orm.hibernate.dao.z57.ManageSites;
+import resources.orm.hibernate.dao.zurple.ManageAdmin;
+import resources.orm.hibernate.dao.zurple.ManageDistributionRules;
+import resources.orm.hibernate.dao.zurple.ManageEmailQueue;
+import resources.orm.hibernate.dao.zurple.ManageImports;
+import resources.orm.hibernate.dao.zurple.ManagePackageProducts;
+import resources.orm.hibernate.dao.zurple.ManageSessionAnonymous;
+import resources.orm.hibernate.dao.zurple.ManageSessionUser;
+import resources.orm.hibernate.dao.zurple.ManageSite;
+import resources.orm.hibernate.dao.zurple.ManageTransactionGoals;
+import resources.orm.hibernate.dao.zurple.ManageTransactions;
+import resources.orm.hibernate.dao.zurple.ManageUser;
+import resources.orm.hibernate.dao.zurple.ManageViewDetailedProperty;
 import resources.orm.hibernate.models.AbstractLead;
 import resources.orm.hibernate.models.pp.Posts;
-import resources.orm.hibernate.models.z57.*;
-import resources.orm.hibernate.models.zurple.*;
+import resources.orm.hibernate.models.z57.IdxLeadSearches;
+import resources.orm.hibernate.models.z57.ListingImages;
+import resources.orm.hibernate.models.z57.Listings;
+import resources.orm.hibernate.models.z57.NotificationEmails;
+import resources.orm.hibernate.models.z57.NotificationMailgun;
+import resources.orm.hibernate.models.z57.Notifications;
+import resources.orm.hibernate.models.z57.Sites;
+import resources.orm.hibernate.models.zurple.Admin;
+import resources.orm.hibernate.models.zurple.DistributionRule;
+import resources.orm.hibernate.models.zurple.EmailQueue;
+import resources.orm.hibernate.models.zurple.Import;
+import resources.orm.hibernate.models.zurple.PackageProduct;
+import resources.orm.hibernate.models.zurple.Property;
+import resources.orm.hibernate.models.zurple.SessionAnonymous;
+import resources.orm.hibernate.models.zurple.SessionUser;
+import resources.orm.hibernate.models.zurple.Site;
+import resources.orm.hibernate.models.zurple.Transaction;
+import resources.orm.hibernate.models.zurple.TransactionGoal;
+import resources.orm.hibernate.models.zurple.User;
 import resources.utility.AutomationLogger;
 
 public class TestEnvironment

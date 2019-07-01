@@ -6,10 +6,8 @@ package resources.forms.z57.v1;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 
 /**
  * @author adar
@@ -38,15 +36,11 @@ public class SaveSearchForm extends AbstractForm{
 	@FindBy(xpath="//div[@id='saveSearchModal']/descendant::h3[text()='Save Search']")
 	WebElement saveSearchFormHeader;
 	
-	private ActionHelper actionHelper;
-	
 	public SaveSearchForm() {
 		
 	}
 	public SaveSearchForm(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	public boolean typeLeadName(String pName) {
 		return actionHelper.Type(name_input, pName);

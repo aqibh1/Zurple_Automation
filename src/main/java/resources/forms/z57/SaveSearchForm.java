@@ -6,10 +6,8 @@ package resources.forms.z57;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
@@ -17,7 +15,6 @@ import resources.utility.FrameworkConstants;
  *
  */
 public class SaveSearchForm extends AbstractForm{
-	WebDriver driver;
 
 	String input_fields_xpath = "//input[@name='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 
@@ -29,12 +26,9 @@ public class SaveSearchForm extends AbstractForm{
 
 	@FindBy(xpath="//div[@id='save_search_notify']/descendant::strong[text()='Search Saved']")
 	WebElement search_saved_notification;
-	ActionHelper actionHelper;
+
 	public SaveSearchForm(WebDriver pWebDriver){
-		driver=pWebDriver;
-		setDriver(pWebDriver);
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean isSaveSearchModalVisible() {

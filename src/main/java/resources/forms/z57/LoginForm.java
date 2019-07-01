@@ -7,12 +7,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 /**
@@ -62,17 +60,14 @@ public class LoginForm extends AbstractForm{
 	
 	@FindBy(xpath="//button[@id='lead_login_send']")
 	WebElement login_button_idx;
-	
-	private ActionHelper actionHelper;
 
 	public LoginForm() {
 		
 	}
-	public LoginForm(WebDriver webDriver) {
-		driver=webDriver;
+	public LoginForm(WebDriver pWebDriver) {
+		setPageObject(pWebDriver, this);
 		wait = new WebDriverWait (driver,20);
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+	
 	}
 
 	public boolean setEmail(String pEmail) {

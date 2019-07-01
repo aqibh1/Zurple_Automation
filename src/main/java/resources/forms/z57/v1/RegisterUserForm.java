@@ -3,10 +3,8 @@ package resources.forms.z57.v1;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 
 public class RegisterUserForm extends AbstractForm{
 	
@@ -24,16 +22,12 @@ public class RegisterUserForm extends AbstractForm{
 	
 	@FindBy(xpath="//div[@id='registerModal']/descendant::h3[text()='Sign In']")
 	WebElement signIn_heading;
-	private ActionHelper actionHelper;
 	
 	public RegisterUserForm(){
 		
 	}
 	public RegisterUserForm(WebDriver pWebDriver){
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
-		
+		setPageObject(pWebDriver, this);
 	}
 	public boolean typeLeadName(String pName) {
 		return actionHelper.Type(name_input, pName);

@@ -4,17 +4,14 @@ package com.z57.site.v2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.z57.EmailSearchForm;
 import resources.forms.z57.SaveSearchForm;
 import resources.forms.z57.SearchForm;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class HomeSearchPage extends Page{
 
-	private WebDriver localWebDriver;
 	private SearchForm searchForm;
 	private EmailSearchForm emailSearchForm;
 	private SaveSearchForm saveSearchForm;
@@ -28,16 +25,12 @@ public class HomeSearchPage extends Page{
 
 	@FindBy(xpath="//div[@id='google_map_prop_list_sidebar']/descendant::button[@data-target='#save_search_modal']")
 	WebElement save_search_button;
-	
-	private ActionHelper actionHelper;
 
 	public HomeSearchPage(WebDriver pWebDriver) {
-		driver=pWebDriver;
-		actionHelper = new ActionHelper(driver);
+		setPageObject(pWebDriver, this);
 		searchForm = new SearchForm(pWebDriver);
 		setEmailSearchForm();
 		setSaveSearchForm();
-		PageFactory.initElements(driver, this);
 	}
 	
 	public SearchForm getSearchForm() {
@@ -50,12 +43,10 @@ public class HomeSearchPage extends Page{
 	}
 
 	public HomeSearchPage(WebDriver pWebDriver, String pSourceUrl) {
-		driver=pWebDriver;
+		setPageObject(pWebDriver, this);
 		url=pSourceUrl;
 		setEmailSearchForm();
 		setSaveSearchForm();
-		localWebDriver=pWebDriver;
-		PageFactory.initElements(localWebDriver, this);
 	}
 	
 	public EmailSearchForm getEmailSearchForm() {

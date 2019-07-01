@@ -8,9 +8,6 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
-
-import resources.utility.ActionHelper;
 
 /**
  * @author adar
@@ -20,15 +17,12 @@ public class PPPostingHistoryPage extends Page{
 	
 	String postHistory_title="//table[@id='history_table']/descendant::h2[text()='Post History ']";
 	String historyTable_rows = "//table[@id='history_table']/descendant::tbody/tr";
-	private ActionHelper actionHelper;
 	
 	public PPPostingHistoryPage() {
 		// TODO Auto-generated constructor stub
 	}
 	public PPPostingHistoryPage(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver,this);
+		setPageObject(pWebDriver, this);
 	}
 	public boolean isPostingHistoryPage() {
 		return actionHelper.waitForElementToBeLocated(postHistory_title, 30);

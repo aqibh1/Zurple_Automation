@@ -3,10 +3,8 @@ package resources.forms.z57;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class ContactMeForm extends AbstractForm{
@@ -20,12 +18,8 @@ public class ContactMeForm extends AbstractForm{
 	@FindBy(xpath="//li[@class='widget-container Contact_Me_Widget']/descendant::strong[text()='Thank you!']")
 	WebElement thankyou_alert;
 	
-	private ActionHelper actionHelper;
-	
 	public ContactMeForm(WebDriver pWebDriver){
-		driver=pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean typeName(String pName) {

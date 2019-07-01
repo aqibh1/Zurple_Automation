@@ -3,15 +3,11 @@ package resources.forms.z57;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class RequestInfoForm extends AbstractForm{
-	WebDriver driver;
-	ActionHelper actionHelper;
 	
 	String input_fields_xpath = "//input[@name='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
@@ -27,10 +23,7 @@ public class RequestInfoForm extends AbstractForm{
 	WebElement success_notification;
 
 	public RequestInfoForm(WebDriver pWebDriver){
-		driver=pWebDriver;
-		setDriver(pWebDriver);
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean isListingEmailModalVisible() {

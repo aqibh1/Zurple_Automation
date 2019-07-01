@@ -6,7 +6,6 @@ package com.z57.propertypulse;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.z57.LoginForm;
 import resources.utility.ActionHelper;
@@ -34,10 +33,8 @@ public class PPSocialIntegrationPage extends Page{
 		
 	}
 	PPSocialIntegrationPage(WebDriver pWebDriver){
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
+		setPageObject(pWebDriver, this);
 		setLoginForm();
-		PageFactory.initElements(driver, this);
 	}
 	
 	public LoginForm getLoginForm() {

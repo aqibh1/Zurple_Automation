@@ -6,7 +6,6 @@ package com.z57.site.v2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.blocks.z57.Pagination;
 import resources.utility.ActionHelper;
@@ -28,10 +27,8 @@ public class SoldListingsPage extends Page{
 	private ActionHelper actionHelper;
 	
 	public SoldListingsPage(WebDriver pWebDriver) {
-		driver=pWebDriver;
-		actionHelper = new ActionHelper(driver);
+		setPageObject(pWebDriver, this);
 		setPagination();
-		PageFactory.initElements(driver, this);
 	}
 	
 	public Pagination getPagination() {

@@ -6,13 +6,13 @@ import java.util.Random;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
+import resources.blocks.AbstractBlock;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
-public class Pagination {
+public class Pagination extends AbstractBlock{
 	WebDriver driver;
 	private ActionHelper actionHelper;
 	@FindBy(xpath="//ul[@class='pagination']/descendant::li/a[text()='Prev']")
@@ -42,9 +42,7 @@ public class Pagination {
 	WebElement searchResultsInfo;
 	
 	public Pagination(WebDriver pWebDriver){
-		driver=pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean clicOnNext() {

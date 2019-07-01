@@ -4,21 +4,15 @@ import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
-
-import resources.utility.ActionHelper;
 
 public class PPSideMenu extends Page{
 	String sideMenu_xpath = "//ul[@class='nav nav-tabs']/descendant::a";
-	private ActionHelper actionHelper;
 	
 	PPSideMenu(){
 		
 	}
 	public PPSideMenu(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean goToSubMenu(String pSubMenu) {

@@ -3,10 +3,8 @@ package resources.forms.z57;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class SearchSoldHomesForm extends AbstractForm{
@@ -31,11 +29,9 @@ public class SearchSoldHomesForm extends AbstractForm{
 	
 	String select_state_option="//select[@id='ic_state']/option[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	String select_radius_option="//select[@id='ic_state']/option[@value='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
-	ActionHelper actionHelper;
+
 	public SearchSoldHomesForm(WebDriver pWebDriver) {
-		driver=pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean typeAddress(String pAddress) {

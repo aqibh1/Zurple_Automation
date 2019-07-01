@@ -12,7 +12,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -185,11 +184,9 @@ public class SearchForm extends AbstractForm{
 	private ActionHelper actionHelper;
 	
 	public SearchForm(WebDriver pWebDriver) {
-		driver=pWebDriver;
-		actionHelper = new ActionHelper(driver);
+		setPageObject(pWebDriver, this);
 		wait=new WebDriverWait(driver, 10);
 		setSubmitButton(search_button);
-		PageFactory.initElements(driver, this);
 	}
 	public boolean clickOnInputField() {
 		if(searchField_input.isDisplayed()) {
@@ -268,8 +265,8 @@ public class SearchForm extends AbstractForm{
 //		}else {
 //			return false;
 //		}
-		if(ActionHelper.waitForElementToBeVisible(driver, search_button, 30)) {
-			isClickSuccessful = ActionHelper.Click(driver, search_button);
+		if(actionHelper.waitForElementToBeVisible(search_button, 30)) {
+			isClickSuccessful = actionHelper.Click(search_button);
 		}
 		return isClickSuccessful;
 	}
@@ -309,7 +306,7 @@ public class SearchForm extends AbstractForm{
 			if(searchby_option!=null) {
 				searchby_option.click();
 				isClickSuccessful = true;
-				ActionHelper.staticWait(3);
+				actionHelper.Wait(3);
 			}else {
 				isClickSuccessful = false;
 			}
@@ -370,17 +367,17 @@ public class SearchForm extends AbstractForm{
 	public boolean clickAndSelectFeature(String pFeature) {
 //		return typeAndSelect(propertyFeatures_input, pFeature, selectFeaturesOptions_xpath);
 		boolean isSuccess = false;
-		if(ActionHelper.Click(driver, propertyFeatures_input)) {
-			ActionHelper.waitForElementToBeVisible(driver,select_View , 30);
-			List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, select_view_xpath);
+		if(actionHelper.Click(propertyFeatures_input)) {
+			actionHelper.waitForElementToBeVisible(select_View , 30);
+			List<WebElement> list_of_elements = actionHelper.getListOfElementByXpath(select_view_xpath);
 			for(WebElement element: list_of_elements) {
 				if(element.getText().trim().equalsIgnoreCase(pFeature)) {
-					isSuccess = ActionHelper.Click(driver, element);
+					isSuccess = actionHelper.Click(element);
 					break;
 				}
 			}
 		}
-		ActionHelper.doubleClick(driver, moreOptions_button);
+		actionHelper.doubleClick(moreOptions_button);
 		return isSuccess;
 	}
 	
@@ -406,17 +403,17 @@ public class SearchForm extends AbstractForm{
 //			focusOut();
 //			isSuccessful=true;
 //		}
-		if(ActionHelper.Click(driver, view_input)) {
-			ActionHelper.waitForElementToBeVisible(driver,select_View , 30);
-			List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, select_view_xpath);
+		if(actionHelper.Click(view_input)) {
+			actionHelper.waitForElementToBeVisible(select_View , 30);
+			List<WebElement> list_of_elements = actionHelper.getListOfElementByXpath(select_view_xpath);
 			for(WebElement element: list_of_elements) {
 				if(element.getText().trim().equalsIgnoreCase(pView)) {
-					isSuccessful = ActionHelper.Click(driver, element);
+					isSuccessful = actionHelper.Click(element);
 					break;
 				}
 			}
 		}
-		ActionHelper.doubleClick(driver, moreOptions_button);
+		actionHelper.doubleClick(moreOptions_button);
 		return isSuccessful;
 	}
 	

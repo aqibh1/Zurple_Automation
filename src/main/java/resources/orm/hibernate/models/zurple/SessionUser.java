@@ -1,8 +1,9 @@
 package resources.orm.hibernate.models.zurple;
 
-import resources.orm.hibernate.models.Abstract;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import resources.orm.hibernate.models.Abstract;
 
 @Entity
 @Table(name = "session_user", uniqueConstraints = {

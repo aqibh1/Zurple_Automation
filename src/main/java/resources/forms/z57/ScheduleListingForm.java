@@ -3,14 +3,11 @@ package resources.forms.z57;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class ScheduleListingForm extends AbstractForm{
-	WebDriver driver;
 	
 	String input_fields_xpath = "//input[@name='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
@@ -24,13 +21,9 @@ public class ScheduleListingForm extends AbstractForm{
 	
 	@FindBy(xpath="//div[@id='schedule_showing_modal_notify']/descendant::strong[text()='Your request has been sent']")
 	WebElement success_notification;
-	ActionHelper actionHelper;
 	
 	public ScheduleListingForm(WebDriver pWebDriver){
-		driver=pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		setDriver(pWebDriver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean isScheduleListingModalVisible() {

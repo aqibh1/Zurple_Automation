@@ -3,10 +3,8 @@ package resources.forms.z57;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class LeadCaptureForm extends AbstractForm{
@@ -22,12 +20,8 @@ public class LeadCaptureForm extends AbstractForm{
 	@FindBy(xpath="//div[@class='modal-header']/h3[@id='anypage_lead_capture_modal_title']")
 	WebElement modal_header_title;
 	
-	private ActionHelper actionHelper;
-	
 	public LeadCaptureForm(WebDriver pWebDriver){
-		driver=pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean typeName(String pName) {

@@ -3,10 +3,8 @@ package resources.forms.z57;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class OurCommunitySearchForm extends AbstractForm{
@@ -28,12 +26,8 @@ public class OurCommunitySearchForm extends AbstractForm{
 	
 	String select_state_option="//select[@id='community_state']/option[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
-	private ActionHelper actionHelper;
-	
 	public OurCommunitySearchForm(WebDriver pWebDriver) {
-		driver=pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean typeAddress(String pAddress) {

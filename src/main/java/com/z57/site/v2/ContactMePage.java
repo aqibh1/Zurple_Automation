@@ -3,9 +3,6 @@ package com.z57.site.v2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-
-import resources.utility.ActionHelper;
 
 public class ContactMePage extends Page{
 	
@@ -17,13 +14,9 @@ public class ContactMePage extends Page{
 	
 	@FindBy(xpath="//div[@class='single-content listing-content']/h3[2]")
 	WebElement phoneNumber_heading;
-
-	private ActionHelper actionHelper;
 	
 	public ContactMePage(WebDriver pWebDriver) {
-		driver=pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean isContactMePage() {

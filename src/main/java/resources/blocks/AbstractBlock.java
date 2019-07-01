@@ -3,14 +3,17 @@ package resources.blocks;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 import resources.classes.HotAlertsFlags;
 import resources.interfaces.UsesDriver;
+import resources.utility.ActionHelper;
 
 public abstract class AbstractBlock implements UsesDriver
 {
     protected WebElement block;
     protected WebDriver driver;
+	protected ActionHelper actionHelper;
 
     public void setBlock(WebElement object){
         block = object;
@@ -38,5 +41,9 @@ public abstract class AbstractBlock implements UsesDriver
 
         return flags;
     }
-
+    protected void setPageObject(WebDriver pWebDriver, Object pObject){
+		 driver = pWebDriver;
+		 actionHelper = new ActionHelper(driver);
+		 PageFactory.initElements(driver, pObject); 
+	 }
 }

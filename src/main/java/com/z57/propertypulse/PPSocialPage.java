@@ -9,11 +9,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.pp.PPPromoteAListingForm;
 import resources.forms.pp.PPUploadImagesForm;
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.ValueMapper;
 
@@ -124,18 +122,14 @@ public class PPSocialPage extends Page{
 	
 	@FindBy(id="type_status")
 	WebElement post_status_message;
-
-	private ActionHelper actionHelper;
 	
 	@FindBy(id="twitter_char_count")
 	WebElement twitter_message;
 	
 	public PPSocialPage(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
+		setPageObject(pWebDriver, this);
 		setPpUploadImagesForm();
 		setPpPromoteListingForm();
-		PageFactory.initElements(driver,this);
 	}
 	
 	public PPPromoteAListingForm getPpPromoteListingForm() {
@@ -461,8 +455,8 @@ public class PPSocialPage extends Page{
 	
 	public boolean unCheckFacebookOption() {
 		boolean isFacebookUnChecked = false;
-		if(ActionHelper.isElementVisible(driver, post_status_message)) {
-			isFacebookUnChecked = ActionHelper.Click(driver, facebook_checkbox);
+		if(actionHelper.isElementVisible(post_status_message)) {
+			isFacebookUnChecked = actionHelper.Click(facebook_checkbox);
 		}else {
 			isFacebookUnChecked = true;
 		}
@@ -470,15 +464,15 @@ public class PPSocialPage extends Page{
 	}
 	public boolean checkTwitterOption(boolean pCheck) {
 		boolean isSuccess = false;
-		if(ActionHelper.isElementVisible(driver, twitter_message)) {
+		if(actionHelper.isElementVisible(twitter_message)) {
 			if(!pCheck) {
-				isSuccess = ActionHelper.Click(driver, twitter_checkbox);
+				isSuccess = actionHelper.Click(twitter_checkbox);
 			}else {
 				isSuccess = true;
 			}
 		}else {
 			if(pCheck) {
-				isSuccess = ActionHelper.Click(driver, twitter_checkbox);
+				isSuccess = actionHelper.Click(twitter_checkbox);
 			}else {
 				isSuccess = true;
 			}

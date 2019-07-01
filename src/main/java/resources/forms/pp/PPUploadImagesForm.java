@@ -10,17 +10,15 @@ import java.awt.event.KeyEvent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 
 /**
  * @author adar
  *
  */
 public class PPUploadImagesForm extends AbstractForm{
-	private ActionHelper actionHelper;
+	
 	String lUploadImagesHeader = "//h3[@id='myModalLabel']";
 
 	@FindBy(id="uploader_browse")
@@ -30,9 +28,7 @@ public class PPUploadImagesForm extends AbstractForm{
 		// TODO Auto-generated constructor stub
 	}
 	public PPUploadImagesForm(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	public boolean isUploadImagesForm() {
 		return actionHelper.waitForElementToBeLocated(lUploadImagesHeader, 15);

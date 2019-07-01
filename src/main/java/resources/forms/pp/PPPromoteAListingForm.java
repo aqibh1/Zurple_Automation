@@ -7,15 +7,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 public class PPPromoteAListingForm extends AbstractForm{
-	
-	private ActionHelper actionHelper;
 	
 	@FindBy(xpath="//div[@class='modal-header']/h3[text()='Choose a Listing to Promote']")
 	WebElement chooseAListingHeading;
@@ -30,9 +26,7 @@ public class PPPromoteAListingForm extends AbstractForm{
 		
 	}
 	public PPPromoteAListingForm(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	public boolean isChooseAListingForm() {
 		return actionHelper.waitForElementToBeVisible(chooseAListingHeading, 20);

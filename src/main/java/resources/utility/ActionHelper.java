@@ -514,12 +514,12 @@ public class ActionHelper {
 			return isSuccessfull;
 		}
 	   
-	   public boolean doubleClick(WebDriver pWebDriver,WebElement pElementToBeClicked) {
+	   public boolean doubleClick(WebElement pElementToBeClicked) {
 			boolean isSuccessfull=false;
-			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			wait=new WebDriverWait(driver, GLOBAL_WAIT_COUNT);
 			try {
 				if(wait.until(ExpectedConditions.visibilityOf(pElementToBeClicked))!=null) {
-					Actions actions = new Actions(pWebDriver);
+					Actions actions = new Actions(driver);
 					actions.doubleClick(pElementToBeClicked).perform();
 
 					isSuccessfull=true;

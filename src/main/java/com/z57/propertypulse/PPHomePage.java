@@ -3,9 +3,7 @@ package com.z57.propertypulse;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
@@ -23,16 +21,11 @@ public class PPHomePage extends Page{
 	
 	String setting_option = "//ul[@class='dropdown-menu']/descendant::a[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
-	private ActionHelper actionHelper;
-	
 	public PPHomePage() {
 		// TODO Auto-generated constructor stub
 	}
 	PPHomePage(WebDriver pWebDriver){
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
-		
+		setPageObject(pWebDriver, this);
 	}
 	public boolean isLoginSuccessful(String pUsername) {
 		boolean isUserLoggedIn = false;		

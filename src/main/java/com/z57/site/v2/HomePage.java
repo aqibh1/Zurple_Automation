@@ -9,11 +9,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.z57.LoginForm;
 import resources.forms.z57.RegisterForm;
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
@@ -83,7 +81,6 @@ public class HomePage extends Page
 	WebElement search_dropdown_div;
 	
 	String propertyWidgetSlider_xpath="//div[@class='col-md-12']/descendant::h4[@class='listing-title']/a[@href='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
-	private ActionHelper actionHelper;
 	
     public HomePage(){
         url = "";
@@ -107,42 +104,38 @@ public class HomePage extends Page
 		return loginForm;
 	}
 
-	public void setLoginForm(WebDriver pWebDriver) {
-		loginForm = new LoginForm(pWebDriver);
+	public void setLoginForm() {
+		loginForm = new LoginForm(driver);
 	}
 	
 	public RegisterForm getRegisterFormNew() {
 		return registerForm;
 	}
 
-	public void setRegisterForm(WebDriver pWebDriver) {
-		registerForm = new RegisterForm(pWebDriver);
+	public void setRegisterForm() {
+		registerForm = new RegisterForm(driver);
 	}
 
 	public HomePage(WebDriver pWebDriver){
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		setLoginForm(driver);
-		setPageHeader(driver);
-		setRegisterForm(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
+		setLoginForm();
+		setPageHeader();
+		setRegisterForm();
 	}
 	public HomePage(WebDriver pWebDriver,String pSourceUrl){
 		url=pSourceUrl;
-		driver=pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		setLoginForm(driver);
-		setPageHeader(driver);
-		setRegisterForm(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
+		setLoginForm();
+		setPageHeader();
+		setRegisterForm();
 	}
 
 	public PageHeader getPageHeader() {
 		return pageHeader;
 	}
 
-	public void setPageHeader(WebDriver pWebDriver) {
-		pageHeader = new PageHeader(pWebDriver);
+	public void setPageHeader() {
+		pageHeader = new PageHeader(driver);
 	}
 
 	public void mouseoverHomeSearch() {

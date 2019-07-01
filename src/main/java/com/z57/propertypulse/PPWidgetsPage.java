@@ -6,9 +6,7 @@ package com.z57.propertypulse;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
@@ -29,17 +27,12 @@ public class PPWidgetsPage extends Page{
 	
 	@FindBy(xpath="//div[@id='wpbody-content']")
 	WebElement widgetsHeading;
-
-	private ActionHelper actionHelper;
 	
 	public PPWidgetsPage() {
 		
 	}
 	public PPWidgetsPage(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
-		
+		setPageObject(pWebDriver, this);	
 	}
 	public boolean dragTheWidgetToDeafultSidebar(String pWidget) {
 		WebElement lFrom = actionHelper.getDynamicElement(widget_xpath, pWidget);
