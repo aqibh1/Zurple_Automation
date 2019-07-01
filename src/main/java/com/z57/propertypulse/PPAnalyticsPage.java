@@ -57,16 +57,12 @@ public class PPAnalyticsPage extends Page{
 	
 	@FindBy(xpath="//h1[text()='Analytics Dashboard']")
 	WebElement analyticsDashboard_heading;
-
-	private ActionHelper actionHelper;
 	
 	public PPAnalyticsPage() {
 		
 	}
 	public PPAnalyticsPage(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver,this);
+		setPageObject(pWebDriver, this);
 		
 	}
 	public boolean selectFacebookPage(String pPage) {

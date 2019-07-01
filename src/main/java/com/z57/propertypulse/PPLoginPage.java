@@ -23,15 +23,14 @@ public class PPLoginPage extends Page{
 	
 	@FindBy(xpath="//div[@id='member-nav']/descendant::a[@class='btn dropdown-toggle']")
 	WebElement settings_button;
-
-	private ActionHelper actionHelper;
 	
 	public PPLoginPage() {
 	}
 	public PPLoginPage(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver,this);
+//		driver = pWebDriver;
+//		actionHelper = new ActionHelper(driver);
+//		PageFactory.initElements(driver,this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean typeUsername(String pUserName) {

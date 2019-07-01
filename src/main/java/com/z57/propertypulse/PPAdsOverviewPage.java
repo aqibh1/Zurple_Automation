@@ -21,12 +21,9 @@ public class PPAdsOverviewPage extends Page{
 	
 	String adOverviewPageTitle = "//h2[@class='z57-theme-page-topic' and text()='Paid Ads']";
 	String tableDataContent = "//table[@id='campaign_table']/descendant::td";
-	private ActionHelper actionHelper;
 	
 	public PPAdsOverviewPage(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 
 	public boolean isAdsOverviewPage() {

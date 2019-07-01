@@ -27,16 +27,12 @@ public class PPAutomationPage extends Page{
 	
 	@FindBy(id="response_message_success")
 	WebElement successMessage;
-
-	private ActionHelper actionHelper;
 	
 	public PPAutomationPage() {
 		// TODO Auto-generated constructor stub
 	}
 	PPAutomationPage(WebDriver pWebDriver){
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver,this);
+		setPageObject(pWebDriver, this);
 	}
 	public boolean isAutomationSettingsPage() {
 		return actionHelper.waitForElementToBeVisible( automationSettings_heading, 30);

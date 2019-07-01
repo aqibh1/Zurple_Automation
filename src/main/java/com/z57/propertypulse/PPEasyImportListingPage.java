@@ -40,17 +40,13 @@ public class PPEasyImportListingPage extends Page{
 	
 	@FindBy(id="import_listings_button")
 	WebElement import_listings_button;
-
-	private ActionHelper actionHelper;
 	
 	PPEasyImportListingPage(){
 		
 	}
 	
 	public PPEasyImportListingPage(WebDriver pWebDriver) {
-			driver = pWebDriver;
-			actionHelper = new ActionHelper(driver);
-			PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 
 	public boolean isEasyImportListingPage() {

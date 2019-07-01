@@ -26,6 +26,8 @@ public class LoginPageTest extends PageTest{
 			page = new PPLoginPage(driver);
 			page.setUrl("");
 			page.setDriver(driver);
+//			page.setUrl("");
+			
 
 		}
 		return page;

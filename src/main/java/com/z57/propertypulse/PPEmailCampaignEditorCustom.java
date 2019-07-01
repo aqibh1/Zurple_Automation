@@ -27,16 +27,12 @@ public class PPEmailCampaignEditorCustom extends Page{
 	
 	@FindBy(id="s2id_autogen3")
 	WebElement selectIndividualLeads;
-
-	private ActionHelper actionHelper;
 	
 	public PPEmailCampaignEditorCustom() {
 		
 	}
 	public PPEmailCampaignEditorCustom(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean typeEmailSubject(String pEmail) {

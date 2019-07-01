@@ -53,16 +53,12 @@ public class PPCreateAdPage extends Page{
 	
 	@FindBy(xpath="//a[text()='Place Ad' and @data-lsid='cma1']")
 	WebElement place_ad_button_1;
-
-	private ActionHelper actionHelper;
 	
 	public PPCreateAdPage() {
 		
 	}
 	public PPCreateAdPage(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 
 	public boolean isCreateAdPage() {

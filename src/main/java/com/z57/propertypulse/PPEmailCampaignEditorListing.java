@@ -49,18 +49,13 @@ public class PPEmailCampaignEditorListing extends Page{
 	WebElement scheduleDatepicker;
 	
 	@FindBy(id="s2id_listing_select")
-	WebElement select_Listing;
-
-	private ActionHelper actionHelper;
-	
+	WebElement select_Listing;	
 	
 	public PPEmailCampaignEditorListing() {
 		
 	}
 	public PPEmailCampaignEditorListing(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver,this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean typeEmailSubject(String pEmail) {
