@@ -18,5 +18,6 @@
     <mapping class="resources.orm.hibernate.models.z57.Listings"></mapping>
     <mapping class="resources.orm.hibernate.models.z57.IdxLeadSearches"></mapping>
     <mapping class="resources.orm.hibernate.models.z57.Sites"></mapping>
+    <mapping class="resources.orm.hibernate.models.pp.Posts"></mapping>
   </session-factory>
 </hibernate-configuration>

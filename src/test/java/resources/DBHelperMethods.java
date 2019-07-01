@@ -1,16 +1,17 @@
 package resources;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.testng.Reporter;
 
 import resources.orm.hibernate.models.AbstractLead;
-import resources.orm.hibernate.models.z57.IdxLeadSearches;
-import resources.orm.hibernate.models.z57.Lead;
-import resources.orm.hibernate.models.z57.ListingImages;
-import resources.orm.hibernate.models.z57.NotificationEmails;
-import resources.orm.hibernate.models.z57.NotificationMailgun;
-import resources.orm.hibernate.models.z57.Notifications;
-import resources.orm.hibernate.models.z57.Sites;
+import resources.orm.hibernate.models.pp.Posts;
+import resources.orm.hibernate.models.z57.*;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 public class DBHelperMethods {
@@ -241,5 +242,27 @@ public class DBHelperMethods {
 			AutomationLogger.info("No site found for the URL: "+pWebSite);
 		}
 		return isHttpsEnabled;
+	}
+	
+	//Social Posts helper methods
+	public boolean isPostSuccessful(Posts pPostsObject) {
+		boolean isSuccess = false;
+		AutomationLogger.info("Verifying Post is successful or not");
+		if(pPostsObject.getStatus()!=null && pPostsObject.getStatus()==1) {
+			if(pPostsObject.getErrors()==null) {
+				AutomationLogger.info("Post is successful for ID "+pPostsObject.getPostID());
+				isSuccess = isStatusPostedOnTime(pPostsObject);
+			}else {
+				AutomationLogger.error("Post is unsuccessful for ID "+pPostsObject.getPostID());
+				AutomationLogger.error("Error Message : "+pPostsObject.getErrors());
+			}
+		}
+		return isSuccess;
+	}
+	
+	public boolean isStatusPostedOnTime(Posts pPostsObject) {
+		LocalDate lCurrentDate = LocalDate.now();
+		LocalDate lPostDate = LocalDate.parse(pPostsObject.getDateAdded().toString().split(" ")[0]);
+		return lCurrentDate.equals(lPostDate);
 	}
 }

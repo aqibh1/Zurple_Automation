@@ -127,6 +127,9 @@ public class PPSocialPage extends Page{
 
 	private ActionHelper actionHelper;
 	
+	@FindBy(id="twitter_char_count")
+	WebElement twitter_message;
+	
 	public PPSocialPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		actionHelper = new ActionHelper(driver);
@@ -454,5 +457,32 @@ public class PPSocialPage extends Page{
 	}
 	public boolean uploadImage(String pImagePath) {
 		return actionHelper.Type(image_input, pImagePath);
+	}
+	
+	public boolean unCheckFacebookOption() {
+		boolean isFacebookUnChecked = false;
+		if(ActionHelper.isElementVisible(driver, post_status_message)) {
+			isFacebookUnChecked = ActionHelper.Click(driver, facebook_checkbox);
+		}else {
+			isFacebookUnChecked = true;
+		}
+		return isFacebookUnChecked;
+	}
+	public boolean checkTwitterOption(boolean pCheck) {
+		boolean isSuccess = false;
+		if(ActionHelper.isElementVisible(driver, twitter_message)) {
+			if(!pCheck) {
+				isSuccess = ActionHelper.Click(driver, twitter_checkbox);
+			}else {
+				isSuccess = true;
+			}
+		}else {
+			if(pCheck) {
+				isSuccess = ActionHelper.Click(driver, twitter_checkbox);
+			}else {
+				isSuccess = true;
+			}
+		}
+		return isSuccess;
 	}
 }

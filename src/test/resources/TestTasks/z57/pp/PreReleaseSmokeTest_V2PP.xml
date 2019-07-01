@@ -491,7 +491,7 @@
     </classes>
     </parameter>
 	</test>
-	
+	<!--  
 	 <test name="Verify Home Page" preserve-order="true">
 	<classes>
       <class name="com.z57.site.v2.HomePageTest" >
@@ -521,7 +521,7 @@
       </class>
     </classes>
 	</test>
-  <!--  
+  
    <test name="Signup with Facebook from Home Page">
   <parameter name="page" value="Home">
     <classes>
@@ -850,7 +850,7 @@
     </parameter>
 	</test>
 	
-	 <test name="Post status on Facebook Later">
+	<test name="Post status on Facebook Later">
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-later-data-02.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >

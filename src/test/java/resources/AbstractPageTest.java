@@ -1,6 +1,9 @@
 package resources;
 
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -13,6 +16,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import resources.alerts.BootstrapModal;
 import resources.classes.Asset;
@@ -123,6 +128,7 @@ public abstract class AbstractPageTest extends AbstractTest
     protected JSONObject getDataFile(String pDataFile) {
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonDatObject = new JSONObject();
+		AutomationLogger.info("Reading Data File: "+pDataFile);
 		try (FileReader reader = new FileReader(System.getProperty("user.dir")+pDataFile))
 		{
 			//Read JSON file
@@ -133,4 +139,29 @@ public abstract class AbstractPageTest extends AbstractTest
 		}
 		return jsonDatObject;
 	}
+    
+    protected void writeJsonToFile(String pFileToWrite, JSONObject pObjectToWrite) {
+
+    	try (FileWriter file = new FileWriter(System.getProperty("user.dir")+pFileToWrite)) {
+    		AutomationLogger.info("Writing json to file "+pFileToWrite);
+    		file.write(pObjectToWrite.toString());
+    		file.flush();
+
+    	} catch (IOException e) {
+    		AutomationLogger.fatal("Unable to write file "+pFileToWrite);
+    	}
+    }
+    protected void writePojoToJsonFile(Object pPojoObject, String pFileToWrite) {
+    	ObjectMapper mapper = new ObjectMapper();
+    	 
+        /**
+         * Write object to file
+         */
+        try {
+//            mapper.writeValue(new File(pFileToWrite), pPojoObject);//Plain JSON
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(System.getProperty("user.dir")+pFileToWrite), pPojoObject);//Prettified JSON
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

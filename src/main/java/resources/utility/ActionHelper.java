@@ -14,8 +14,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class ActionHelper {
-	protected  WebDriverWait wait;
-	private  long GLOBAL_WAIT_COUNT=30;
+	protected WebDriverWait wait;
+	private long GLOBAL_WAIT_COUNT=30;
 	private WebDriver driver;
 	
 	public ActionHelper(WebDriver pWebDriver) {
@@ -97,7 +97,7 @@ public class ActionHelper {
 		   return isElementVisible;
 	   }
 	   
-	   public  boolean waitForElementToBeVisible(WebElement pElement,long pWaitInSecnds) {
+	   public boolean waitForElementToBeVisible(WebElement pElement,long pWaitInSecnds) {
 		   wait=new WebDriverWait(driver, pWaitInSecnds);
 		   boolean isElementVisible = false;
 		   try {
@@ -509,6 +509,27 @@ public class ActionHelper {
 				
 			}catch(Exception ex) {
 				AutomationLogger.error("Element is not visible.. ");
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessfull;
+		}
+	   
+	   public boolean doubleClick(WebDriver pWebDriver,WebElement pElementToBeClicked) {
+			boolean isSuccessfull=false;
+			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			try {
+				if(wait.until(ExpectedConditions.visibilityOf(pElementToBeClicked))!=null) {
+					Actions actions = new Actions(pWebDriver);
+					actions.doubleClick(pElementToBeClicked).perform();
+
+					isSuccessfull=true;
+				}
+				
+			}catch(Exception ex) {
+
+				AutomationLogger.error("Element is not visible.. ");
+				AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
+
 				AutomationLogger.error(ex.getMessage());
 			}
 			return isSuccessfull;

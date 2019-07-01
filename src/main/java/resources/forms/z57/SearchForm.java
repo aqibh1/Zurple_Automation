@@ -106,6 +106,9 @@ public class SearchForm extends AbstractForm{
 
 	@FindBy(xpath="//div[@id='zfs_idx_search_options_container']/descendant::button[@id='zfs_idx_form_more_options_button']")
 	WebElement advanceSearchExpand_button;
+	
+	@FindBy(id="zfs_idx_form_more_options_button")
+	WebElement moreOptions_button;
 
 	@FindBy(xpath="//div[@id='s2id_property_type_select']/descendant::input[@id='s2id_autogen2']")
 	WebElement propertyType_input;
@@ -133,6 +136,10 @@ public class SearchForm extends AbstractForm{
 	
 	@FindBy(xpath="//div[@id='s2id_view_select']/descendant::input[@id='s2id_autogen4']")
 	WebElement view_input;
+	
+	@FindBy(xpath="//div[@id='select2-drop']/descendant::div[@role='option']")
+	WebElement select_View;
+	String select_view_xpath = "//div[@id='select2-drop']/descendant::div[@role='option']";
 	
 //	String viewInput_xpath="//select[@id='view_select']/option[@value='"+DYNAMIC_VARIABLE+"']";
 	String viewInput_xpath="//div[@id='select2-drop']/descendant::div[text()='"+DYNAMIC_VARIABLE+"']";
@@ -254,12 +261,17 @@ public class SearchForm extends AbstractForm{
 	}
 	
 	public boolean clickOnSearchButton() {
-		if(search_button.isDisplayed()) {
-			search_button.click();
-			return true;
-		}else {
-			return false;
+		boolean isClickSuccessful = false;
+//		if(search_button.isDisplayed()) {
+//			search_button.click();
+//			return true;
+//		}else {
+//			return false;
+//		}
+		if(ActionHelper.waitForElementToBeVisible(driver, search_button, 30)) {
+			isClickSuccessful = ActionHelper.Click(driver, search_button);
 		}
+		return isClickSuccessful;
 	}
 
 	public boolean clickOnSearchByOption(String pOption) {
@@ -297,6 +309,7 @@ public class SearchForm extends AbstractForm{
 			if(searchby_option!=null) {
 				searchby_option.click();
 				isClickSuccessful = true;
+				ActionHelper.staticWait(3);
 			}else {
 				isClickSuccessful = false;
 			}
@@ -355,7 +368,20 @@ public class SearchForm extends AbstractForm{
 	}
 	
 	public boolean clickAndSelectFeature(String pFeature) {
-		return typeAndSelect(propertyFeatures_input, pFeature, selectFeaturesOptions_xpath);
+//		return typeAndSelect(propertyFeatures_input, pFeature, selectFeaturesOptions_xpath);
+		boolean isSuccess = false;
+		if(ActionHelper.Click(driver, propertyFeatures_input)) {
+			ActionHelper.waitForElementToBeVisible(driver,select_View , 30);
+			List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, select_view_xpath);
+			for(WebElement element: list_of_elements) {
+				if(element.getText().trim().equalsIgnoreCase(pFeature)) {
+					isSuccess = ActionHelper.Click(driver, element);
+					break;
+				}
+			}
+		}
+		ActionHelper.doubleClick(driver, moreOptions_button);
+		return isSuccess;
 	}
 	
 	public boolean clickAndSelecctSquareFootage(String pSquareFootValue) {
@@ -376,10 +402,21 @@ public class SearchForm extends AbstractForm{
 	
 	public boolean clickAndSelectView(String pView) {
 		boolean isSuccessful=false;
-		if(clickAndSelectOneClick(view_input, pView, viewInput_xpath)) {
-			focusOut();
-			isSuccessful=true;
+//		if(clickAndSelectOneClick(view_input, pView, viewInput_xpath)) {
+//			focusOut();
+//			isSuccessful=true;
+//		}
+		if(ActionHelper.Click(driver, view_input)) {
+			ActionHelper.waitForElementToBeVisible(driver,select_View , 30);
+			List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, select_view_xpath);
+			for(WebElement element: list_of_elements) {
+				if(element.getText().trim().equalsIgnoreCase(pView)) {
+					isSuccessful = ActionHelper.Click(driver, element);
+					break;
+				}
+			}
 		}
+		ActionHelper.doubleClick(driver, moreOptions_button);
 		return isSuccessful;
 	}
 	
