@@ -1,0 +1,10 @@
+{
+	"facebook_status":"This status is Scheduled as Recurring post",
+	"image_path":"",
+	"post_schedule":"Recurring",
+	"facebook_page":"Aqib Automated Testing",
+	"start_date": "12/12/2019",
+	"end_date":"12/12/2020",
+	"time": "09:00 pm",
+	"repeat_days":"Tuesday,Wednesday,Thursday,Friday,Sunday,Monday,Saturday"
+}

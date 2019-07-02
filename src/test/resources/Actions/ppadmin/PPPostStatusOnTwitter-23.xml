@@ -1,0 +1,95 @@
+<suite name="Capture Lead From About Me Page" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+    </listeners>
+  <!-- 
+    <test name="Post status on Facebook now">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-twitter-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	-->
+	 <test name="Post status on Facebook Later">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-later-twitter-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	<!--  
+	 <test name="Post status on Facebook Recurring">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-recurring-data-03.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Post Image on Facebook now">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-image.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	 -->
+</suite>

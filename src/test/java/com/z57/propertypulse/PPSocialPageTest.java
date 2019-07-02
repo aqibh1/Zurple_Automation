@@ -184,19 +184,21 @@ public class PPSocialPageTest extends PageTest{
 	}
 	
 	@Test
+	@Parameters({"dataFileSocial"})
 	public void testPostOnSocialPlatform(String pDataFile) {
-		socialData = new PPSocialData(pDataFile).getSocialData();
-		String lStatus =updateName(socialData.getStatus());
-		String lPhotoPath = socialData.getImage();
-		String lPostSchedule=socialData.getSchedule();
-		String lFacebookPage=socialData.getFacebookPage();
-		String lDate=socialData.getStartDate();
-		String lTime=socialData.getTime();
-		String lEndingDate=socialData.getEndDate();
-		String lRepeatOnDays=socialData.getRepeatDays();
-		String lPromoteListing = socialData.getPromoteListing();
-		String lLinkToProperty = socialData.getPropertyLink();
-		String lPlatform = "";
+		JSONObject dataObject = getDataFile(pDataFile);
+		String lStatus =updateName(dataObject.optString("status"));
+		String lPhotoPath = dataObject.optString("image_path");
+		String lPostSchedule=dataObject.optString("post_schedule");
+		String lFacebookPage=dataObject.optString("facebook_page");
+		String lDate=dataObject.optString("start_date");
+		String lTime=dataObject.optString("time");
+		String lEndingDate=dataObject.optString("end_date");
+		String lRepeatOnDays=dataObject.optString("repeat_days");
+		String lPromoteListing = dataObject.optString("promote_listing");
+		String lLinkToProperty = dataObject.optString("property_link");
+		String lPlatform = dataObject.optString("platform");
+		String lPlatformIcon = "";
 		getPage("/content/marketing/social");
 		
 		assertTrue(page.isSocialPage(), "Social Posting page is not displayed..");
@@ -208,6 +210,7 @@ public class PPSocialPageTest extends PageTest{
 		
 		case "Twitter":
 			assertTrue(page.checkTwitterOption(true), "Unable to check Twitter checkbox..");
+			lPlatformIcon = FrameworkConstants.TwitterIconImage;
 		
 		case "YouTube":
 		
@@ -256,13 +259,14 @@ public class PPSocialPageTest extends PageTest{
 			//Verifying the Later has been scheduled or not
 			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
-			assertTrue(page.isUpcomingPostsSuccessful(lStatus,FrameworkConstants.FacebookIconImage,lDate, lTime), "Post not found in Upcoming Post results..");
+			assertTrue(page.isUpcomingPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime), "Post not found in Upcoming Post results..");
 			
-//			String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later.json":"/resources/cache/facebook-later-qa.json";
-//			String lPreviousFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later-previous.json":"/resources/cache/facebook-later-previous-qa.json";
-//			createCacheFile(lStatus,lNewFileToWrite ,lPreviousFileToWrite, lFacebookPage);
-//			forceLaterPost();
-//			verifyLaterPost();
+			String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later.json":"/resources/cache/facebook-later-qa.json";
+			String lPreviousFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later-previous.json":"/resources/cache/facebook-later-previous-qa.json";
+			createCacheFile(lStatus,lNewFileToWrite ,lPreviousFileToWrite, lFacebookPage);
+			String lScheduleId = getScheduleId(lStatus);
+			forceLaterPost();
+			verifyLaterPost();
 			
 		}else if(lPostSchedule.equalsIgnoreCase("Recurring")) {
 			
@@ -300,6 +304,12 @@ public class PPSocialPageTest extends PageTest{
 		}
 	}
 	
+	private String getScheduleId(String pStatus) {
+		String forLikeQuery = pStatus.split(" ")[pStatus.split(" ").length-1];
+		Posts postObj = getEnvironment().getPostByTwitterStatus(forLikeQuery);
+		return postObj.getScheduleID().toString();
+	}
+
 	/*
 	 * This is DB test, which will verify that post was successfully posted on the
 	 * social platform. It uses hard coded post id.

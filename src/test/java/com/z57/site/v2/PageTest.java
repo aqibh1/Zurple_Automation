@@ -224,4 +224,7 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
     	}
     	return lIsSuccessful;
     }
+    public boolean closeBootStrapModal(WebDriver pWebDriver) {
+    	return new BootstrapModal(pWebDriver).closeBootstrapModal();
+    }
 }

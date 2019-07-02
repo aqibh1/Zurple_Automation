@@ -89,11 +89,15 @@ public class SoldListingsPageTest extends PageTest{
 	@Test
 	public void testVerifyPaginationOnSoldListingPage() {
 		getPage("/listings/sold-listings");
-		if(page.getPagination().isPaginationAvailable()) {
-			assertTrue(page.getPagination().verifyAllPaginationButtonsWorking(),"Pagination buttons not working on Listing Page");
-			
+		if(page.getPagination().isPaginationExists()) {
+			if(page.getPagination().isPaginationAvailable()) {
+				assertTrue(page.getPagination().verifyAllPaginationButtonsWorking(),"Pagination buttons not working on Listing Page");
+
+			}else {
+				assertTrue(true,"Pagination actions are not applicable on current page.");
+			}
 		}else {
-			assertTrue(true,"Pagination actions are not applicable on current page.");
+			assertTrue(true,"Pagination doesn't exists on current page.");
 		}
 	}
 
