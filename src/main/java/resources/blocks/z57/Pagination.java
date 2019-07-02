@@ -41,6 +41,9 @@ public class Pagination {
 	@FindBy(id="ic_search_results_info")
 	WebElement searchResultsInfo;
 	
+	@FindBy(xpath="//ul[@class='pagination']")
+	WebElement pagination_exists;
+	
 	public Pagination(WebDriver pWebDriver){
 		driver=pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -226,6 +229,10 @@ public class Pagination {
 			}
 		}
 		return isPaginationApplicable;
+	}
+	
+	public boolean isPaginationExists() {
+		return ActionHelper.waitForElementToBeVisible(driver, pagination_exists, 30);
 	}
 	
 }

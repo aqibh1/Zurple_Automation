@@ -1,6 +1,8 @@
 package resources.alerts;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,6 +20,9 @@ public class BootstrapModal extends AbstractAlert
 	
     public static String alertXpath = "//div[contains(@class,\"modal fade in\")]";
 
+    @FindBy(xpath="//div[@class='modal fade in']/descendant::button[@class='close']")
+    WebElement close_modal;
+    
     public void close() {
         alert.findElement(By.xpath("./descendant::button[@class=\"close\"]")).click();
 
@@ -32,6 +37,7 @@ public class BootstrapModal extends AbstractAlert
     }
     public BootstrapModal(WebDriver pWebDriver){
     	driver=pWebDriver;
+    	PageFactory.initElements(driver, this);
     }
     public BootstrapModal getBootstrapModal(){
     	 
@@ -74,14 +80,19 @@ public class BootstrapModal extends AbstractAlert
     	try {
     		WebElement crossButton = driver.findElement(By.xpath("//div[@class='modal fade in']/descendant::button[@class='close']"));
     		ActionHelper.Click(driver, crossButton);
-
-    		Wait<WebDriver> wait = new WebDriverWait(driver, 10, 1000);
-    		return wait.until(ExpectedConditions.invisibilityOfAllElements(crossButton));
+    		return !ActionHelper.isElementVisible(driver, crossButton);
     	}catch(Exception ex) {
     		AutomationLogger.info("No cross button to close lead capture form..");
         	return false;
         }
 
+    }
+    public boolean closeBootstrapModal() {
+    	boolean isSuccess = false;
+    	if(ActionHelper.waitForElementToBeVisible(driver, close_modal, 30)) {
+    		isSuccess = ActionHelper.Click(driver, close_modal);
+    	}
+    	return isSuccess;
     }
 
 }
