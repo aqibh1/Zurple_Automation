@@ -260,13 +260,11 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.isUpcomingPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime), "Post not found in Upcoming Post results..");
-			
-			String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later.json":"/resources/cache/facebook-later-qa.json";
-			String lPreviousFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later-previous.json":"/resources/cache/facebook-later-previous-qa.json";
-			createCacheFile(lStatus,lNewFileToWrite ,lPreviousFileToWrite, lFacebookPage);
+
 			String lScheduleId = getScheduleId(lStatus);
-			forceLaterPost();
-			verifyLaterPost();
+			forceLaterPost(lScheduleId);
+			Posts postObject = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.PostObject);
+			verifyLaterPost(postObject.getPostID().toString());
 			
 		}else if(lPostSchedule.equalsIgnoreCase("Recurring")) {
 			
@@ -284,12 +282,12 @@ public class PPSocialPageTest extends PageTest{
 			//Verifying the Later has been scheduled or not
 			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
-			assertTrue(page.isUpcomingRecurringPostsSuccessful(lStatus,FrameworkConstants.FacebookIconImage,lDate, lTime,lEndingDate,lRepeatOnDays), "Post not found in Upcoming Post results..");
+			assertTrue(page.isUpcomingRecurringPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime,lEndingDate,lRepeatOnDays), "Post not found in Upcoming Post results..");
 
-			String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-recurring.json":"/resources/cache/facebook-recurring-qa.json";
-			String lPreviousFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-recurring-previous.json":"/resources/cache/facebook-recurring-previous-qa.json";
-
-//			createCacheFile(lStatus,lNewFileToWrite ,lPreviousFileToWrite, lFacebookPage);
+			String lScheduleId = getScheduleId(lStatus);
+			forceLaterPost(lScheduleId);
+			Posts postObject = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.PostObject);
+			verifyLaterPost(postObject.getPostID().toString());
 			
 		}else {
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
@@ -304,9 +302,19 @@ public class PPSocialPageTest extends PageTest{
 		}
 	}
 	
+	private void verifyLaterPost(String pPostId) {
+		HibernateUtil.setSessionFactoryEmpty();
+	
+		Posts postObj = getEnvironment().getPostByParentPostId(pPostId);
+
+		assertTrue(new DBHelperMethods(getEnvironment()).isPostSuccessful(postObj), "Post was not successful");
+		
+	}
+
 	private String getScheduleId(String pStatus) {
 		String forLikeQuery = pStatus.split(" ")[pStatus.split(" ").length-1];
 		Posts postObj = getEnvironment().getPostByTwitterStatus(forLikeQuery);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.PostObject, postObj);
 		return postObj.getScheduleID().toString();
 	}
 
@@ -400,5 +408,12 @@ public class PPSocialPageTest extends PageTest{
 		lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
 		return lDate;
 	}
-
+	
+	private void forceLaterPost(String pScheduleId) {
+		PPForceExecuteSchedulePost forceSchedulePost = new PPForceExecuteSchedulePost(driver);
+		driver.navigate().to("https://propertypulse.z57.com/dev/force-execute-scheduled-post/"+pScheduleId);
+		assertTrue(forceSchedulePost.isExecutingSchedulePage(), "Force Schedule page was not found");
+		assertTrue(forceSchedulePost.getStatus().equalsIgnoreCase("1"), "Force Schedule was not succcessful. Status code is "+forceSchedulePost.getStatus());
+		assertTrue(forceSchedulePost.getResultMessage().contains("success"), "Force Schedule was not succcessful. Result message is "+forceSchedulePost.getResultMessage());
+	}
 }
