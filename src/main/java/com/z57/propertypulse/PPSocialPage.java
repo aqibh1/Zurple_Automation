@@ -467,7 +467,7 @@ public class PPSocialPage extends Page{
 	}
 	public boolean checkTwitterOption(boolean pCheck) {
 		boolean isSuccess = false;
-		if(ActionHelper.isElementVisible(driver, twitter_message)) {
+		if(ActionHelper.waitForElementToBeVisible(driver, twitter_message,10)) {
 			if(!pCheck) {
 				isSuccess = ActionHelper.Click(driver, twitter_checkbox);
 			}else {

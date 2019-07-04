@@ -189,7 +189,7 @@ public class PPSocialPageTest extends PageTest{
 		JSONObject dataObject = getDataFile(pDataFile);
 		String lStatus =updateName(dataObject.optString("status"));
 		String lPhotoPath = dataObject.optString("image_path");
-		String lPostSchedule=dataObject.optString("post_schedule");
+		String lPostSchedule=dataObject.optString("post_schedule"); 
 		String lFacebookPage=dataObject.optString("facebook_page");
 		String lDate=dataObject.optString("start_date");
 		String lTime=dataObject.optString("time");
@@ -283,7 +283,8 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.isUpcomingRecurringPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime,lEndingDate,lRepeatOnDays), "Post not found in Upcoming Post results..");
-
+			
+			HibernateUtil.setSessionFactoryEmpty();
 			String lScheduleId = getScheduleId(lStatus);
 			forceLaterPost(lScheduleId);
 			Posts postObject = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.PostObject);

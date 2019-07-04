@@ -3,8 +3,8 @@
         <listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
-  <!-- 
-    <test name="Post status on Facebook now">
+ 
+    <test name="Post on Twitter now">
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-twitter-data.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
@@ -26,7 +26,7 @@
     </parameter>
 	</test>
 	
-	 <test name="Post status on Facebook Later">
+	 <test name="Post on Twitter Later">
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-later-twitter-data.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
@@ -48,7 +48,7 @@
     </parameter>
 	</test>
 	
-	 <test name="Post status on Facebook Recurring">
+	 <test name="Post on Twitter Recurring">
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-recurring-twitter-data.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
@@ -69,9 +69,9 @@
     </classes>
     </parameter>
 	</test>
-	-->
-	  
-	 <test name="Post Image on Facebook now">
+	
+	 
+	 <test name="Post Image on Twitter now">
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-image-twitter-data.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
