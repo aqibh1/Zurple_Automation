@@ -211,11 +211,14 @@ public class PPSocialPageTest extends PageTest{
 		case "Twitter":
 			assertTrue(page.checkTwitterOption(true), "Unable to check Twitter checkbox..");
 			lPlatformIcon = FrameworkConstants.TwitterIconImage;
+			break;
 		
 		case "YouTube":
 		
 		case "LinkedIn":
-
+			assertTrue(page.checkLinkedInOption(true), "Unable to check LinkedIn checkbox..");
+			lPlatformIcon = FrameworkConstants.LinkedInIconImage;
+			break;
 		default:
 			break;
 		}
@@ -261,7 +264,7 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.isUpcomingPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime), "Post not found in Upcoming Post results..");
 
-			String lScheduleId = getScheduleId(lStatus);
+			String lScheduleId = getScheduleId(lStatus,lPlatform);
 			forceLaterPost(lScheduleId);
 			Posts postObject = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.PostObject);
 			verifyLaterPost(postObject.getPostID().toString());
@@ -285,7 +288,7 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.isUpcomingRecurringPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime,lEndingDate,lRepeatOnDays), "Post not found in Upcoming Post results..");
 			
 			HibernateUtil.setSessionFactoryEmpty();
-			String lScheduleId = getScheduleId(lStatus);
+			String lScheduleId = getScheduleId(lStatus,lPlatform);
 			forceLaterPost(lScheduleId);
 			Posts postObject = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.PostObject);
 			verifyLaterPost(postObject.getPostID().toString());
@@ -312,9 +315,25 @@ public class PPSocialPageTest extends PageTest{
 		
 	}
 
-	private String getScheduleId(String pStatus) {
+	private String getScheduleId(String pStatus, String pPlatform) {
+		Posts postObj = null;
 		String forLikeQuery = pStatus.split(" ")[pStatus.split(" ").length-1];
-		Posts postObj = getEnvironment().getPostByTwitterStatus(forLikeQuery);
+		switch(pPlatform) {
+		case "Twitter":
+			postObj = getEnvironment().getPostByTwitterStatus(forLikeQuery);
+			break;
+
+		case "LinkedIn":
+			postObj = getEnvironment().getPostByLinkedInStatus(forLikeQuery);
+			break;
+
+		case "YouTube":
+			postObj = getEnvironment().getPostByTwitterStatus(forLikeQuery);
+			break;
+
+		default:
+			break;
+		}
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.PostObject, postObj);
 		return postObj.getScheduleID().toString();
 	}

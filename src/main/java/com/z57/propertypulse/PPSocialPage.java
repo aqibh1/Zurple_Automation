@@ -36,6 +36,9 @@ public class PPSocialPage extends Page{
 	@FindBy(id="post_youtube_toggle")
 	WebElement youtube_checkbox;
 	
+	@FindBy(id="post_linkedin_toggle")
+	WebElement linkedin_checkbox;
+	
 	@FindBy(id="post_tab_status")
 	WebElement status_tab;
 	
@@ -476,6 +479,23 @@ public class PPSocialPage extends Page{
 		}else {
 			if(pCheck) {
 				isSuccess = ActionHelper.Click(driver, twitter_checkbox);
+			}else {
+				isSuccess = true;
+			}
+		}
+		return isSuccess;
+	}
+	public boolean checkLinkedInOption(boolean pCheck) {
+		boolean isSuccess = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, post_status_message,10)) {
+			if(!pCheck) {
+				isSuccess = ActionHelper.Click(driver, linkedin_checkbox);
+			}else {
+				isSuccess = true;
+			}
+		}else {
+			if(pCheck) {
+				isSuccess = ActionHelper.Click(driver, linkedin_checkbox);
 			}else {
 				isSuccess = true;
 			}

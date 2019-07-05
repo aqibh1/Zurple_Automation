@@ -489,4 +489,23 @@ public class TestEnvironment
            
            return posts;
       }
+    
+    public Posts getPostByLinkedInStatus(String pLinkedInStatus) {
+     	 String project = System.getProperty("project");
+     	 Posts posts = null;
+          if (project.equals("z57"))
+          {
+              ManagePosts postObject = new ManagePosts(getSession());
+              posts = postObject.getPostsByLinkedInStatus(pLinkedInStatus);
+              if(posts!=null) {
+             	 AutomationLogger.info("Successfully fetched Posts object for Parent Post Id "+pLinkedInStatus);
+              }else {
+             	 AutomationLogger.error("Posts object is null for Parent Post Id "+pLinkedInStatus);
+              }
+          }else {
+         	 
+          }
+          
+          return posts;
+     }
 }
