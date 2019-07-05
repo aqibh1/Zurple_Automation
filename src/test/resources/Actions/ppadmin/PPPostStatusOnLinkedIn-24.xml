@@ -3,7 +3,7 @@
         <listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
- <!--  
+   
     <test name="Post on LinkedIn now">
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-linkedin-data.json" >
 	<classes>
@@ -69,7 +69,7 @@
     </classes>
     </parameter>
 	</test>
-	-->
+	
 	 
 	 <test name="Post Image on LinkedIn now">
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-image-linkedin-data.json" >
