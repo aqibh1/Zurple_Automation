@@ -22,4 +22,6 @@ public class FrameworkConstants {
 	public static final String CheckOutThisPropertySearch = "Check Out this Property Search";
 	public static final String FacebookIconImage = "icon_post_facebook_32.png";
 	public static final String IsTimeToSell = "Is Now the Time to Sell?";
+	public static final String TwitterIconImage = "icon_post_twitter_32.png";
+	public static final String LinkedInIconImage = "icon_post_linkedin_32.png";
 }

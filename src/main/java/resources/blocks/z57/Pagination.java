@@ -41,6 +41,9 @@ public class Pagination extends AbstractBlock{
 	@FindBy(id="ic_search_results_info")
 	WebElement searchResultsInfo;
 	
+	@FindBy(xpath="//ul[@class='pagination']")
+	WebElement pagination_exists;
+	
 	public Pagination(WebDriver pWebDriver){
 		setPageObject(pWebDriver, this);
 	}
@@ -225,6 +228,10 @@ public class Pagination extends AbstractBlock{
 			}
 		}
 		return isPaginationApplicable;
+	}
+	
+	public boolean isPaginationExists() {
+		return ActionHelper.waitForElementToBeVisible(driver, pagination_exists, 30);
 	}
 	
 }

@@ -182,19 +182,21 @@ public class PPSocialPageTest extends PageTest{
 	}
 	
 	@Test
+	@Parameters({"dataFileSocial"})
 	public void testPostOnSocialPlatform(String pDataFile) {
-		socialData = new PPSocialData(pDataFile).getSocialData();
-		String lStatus =updateName(socialData.getStatus());
-		String lPhotoPath = socialData.getImage();
-		String lPostSchedule=socialData.getSchedule();
-		String lFacebookPage=socialData.getFacebookPage();
-		String lDate=socialData.getStartDate();
-		String lTime=socialData.getTime();
-		String lEndingDate=socialData.getEndDate();
-		String lRepeatOnDays=socialData.getRepeatDays();
-		String lPromoteListing = socialData.getPromoteListing();
-		String lLinkToProperty = socialData.getPropertyLink();
-		String lPlatform = "";
+		JSONObject dataObject = getDataFile(pDataFile);
+		String lStatus =updateName(dataObject.optString("status"));
+		String lPhotoPath = dataObject.optString("image_path");
+		String lPostSchedule=dataObject.optString("post_schedule"); 
+		String lFacebookPage=dataObject.optString("facebook_page");
+		String lDate=dataObject.optString("start_date");
+		String lTime=dataObject.optString("time");
+		String lEndingDate=dataObject.optString("end_date");
+		String lRepeatOnDays=dataObject.optString("repeat_days");
+		String lPromoteListing = dataObject.optString("promote_listing");
+		String lLinkToProperty = dataObject.optString("property_link");
+		String lPlatform = dataObject.optString("platform");
+		String lPlatformIcon = "";
 		getPage("/content/marketing/social");
 		
 		assertTrue(page.isSocialPage(), "Social Posting page is not displayed..");
@@ -206,11 +208,15 @@ public class PPSocialPageTest extends PageTest{
 		
 		case "Twitter":
 			assertTrue(page.checkTwitterOption(true), "Unable to check Twitter checkbox..");
+			lPlatformIcon = FrameworkConstants.TwitterIconImage;
+			break;
 		
 		case "YouTube":
 		
 		case "LinkedIn":
-
+			assertTrue(page.checkLinkedInOption(true), "Unable to check LinkedIn checkbox..");
+			lPlatformIcon = FrameworkConstants.LinkedInIconImage;
+			break;
 		default:
 			break;
 		}
@@ -254,13 +260,12 @@ public class PPSocialPageTest extends PageTest{
 			//Verifying the Later has been scheduled or not
 			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
-			assertTrue(page.isUpcomingPostsSuccessful(lStatus,FrameworkConstants.FacebookIconImage,lDate, lTime), "Post not found in Upcoming Post results..");
-			
-//			String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later.json":"/resources/cache/facebook-later-qa.json";
-//			String lPreviousFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-later-previous.json":"/resources/cache/facebook-later-previous-qa.json";
-//			createCacheFile(lStatus,lNewFileToWrite ,lPreviousFileToWrite, lFacebookPage);
-//			forceLaterPost();
-//			verifyLaterPost();
+			assertTrue(page.isUpcomingPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime), "Post not found in Upcoming Post results..");
+
+			String lScheduleId = getScheduleId(lStatus,lPlatform);
+			forceLaterPost(lScheduleId);
+			Posts postObject = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.PostObject);
+			verifyLaterPost(postObject.getPostID().toString());
 			
 		}else if(lPostSchedule.equalsIgnoreCase("Recurring")) {
 			
@@ -278,12 +283,13 @@ public class PPSocialPageTest extends PageTest{
 			//Verifying the Later has been scheduled or not
 			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
-			assertTrue(page.isUpcomingRecurringPostsSuccessful(lStatus,FrameworkConstants.FacebookIconImage,lDate, lTime,lEndingDate,lRepeatOnDays), "Post not found in Upcoming Post results..");
-
-			String lNewFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-recurring.json":"/resources/cache/facebook-recurring-qa.json";
-			String lPreviousFileToWrite = System.getProperty("environment").equalsIgnoreCase("prod")?"/resources/cache/facebook-recurring-previous.json":"/resources/cache/facebook-recurring-previous-qa.json";
-
-//			createCacheFile(lStatus,lNewFileToWrite ,lPreviousFileToWrite, lFacebookPage);
+			assertTrue(page.isUpcomingRecurringPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime,lEndingDate,lRepeatOnDays), "Post not found in Upcoming Post results..");
+			
+			HibernateUtil.setSessionFactoryEmpty();
+			String lScheduleId = getScheduleId(lStatus,lPlatform);
+			forceLaterPost(lScheduleId);
+			Posts postObject = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.PostObject);
+			verifyLaterPost(postObject.getPostID().toString());
 			
 		}else {
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
@@ -298,6 +304,38 @@ public class PPSocialPageTest extends PageTest{
 		}
 	}
 	
+	private void verifyLaterPost(String pPostId) {
+		HibernateUtil.setSessionFactoryEmpty();
+	
+		Posts postObj = getEnvironment().getPostByParentPostId(pPostId);
+
+		assertTrue(new DBHelperMethods(getEnvironment()).isPostSuccessful(postObj), "Post was not successful");
+		
+	}
+
+	private String getScheduleId(String pStatus, String pPlatform) {
+		Posts postObj = null;
+		String forLikeQuery = pStatus.split(" ")[pStatus.split(" ").length-1];
+		switch(pPlatform) {
+		case "Twitter":
+			postObj = getEnvironment().getPostByTwitterStatus(forLikeQuery);
+			break;
+
+		case "LinkedIn":
+			postObj = getEnvironment().getPostByLinkedInStatus(forLikeQuery);
+			break;
+
+		case "YouTube":
+			postObj = getEnvironment().getPostByTwitterStatus(forLikeQuery);
+			break;
+
+		default:
+			break;
+		}
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.PostObject, postObj);
+		return postObj.getScheduleID().toString();
+	}
+
 	/*
 	 * This is DB test, which will verify that post was successfully posted on the
 	 * social platform. It uses hard coded post id.
@@ -388,5 +426,12 @@ public class PPSocialPageTest extends PageTest{
 		lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
 		return lDate;
 	}
-
+	
+	private void forceLaterPost(String pScheduleId) {
+		PPForceExecuteSchedulePost forceSchedulePost = new PPForceExecuteSchedulePost(driver);
+		driver.navigate().to("https://propertypulse.z57.com/dev/force-execute-scheduled-post/"+pScheduleId);
+		assertTrue(forceSchedulePost.isExecutingSchedulePage(), "Force Schedule page was not found");
+		assertTrue(forceSchedulePost.getStatus().equalsIgnoreCase("1"), "Force Schedule was not succcessful. Status code is "+forceSchedulePost.getStatus());
+		assertTrue(forceSchedulePost.getResultMessage().contains("success"), "Force Schedule was not succcessful. Result message is "+forceSchedulePost.getResultMessage());
+	}
 }

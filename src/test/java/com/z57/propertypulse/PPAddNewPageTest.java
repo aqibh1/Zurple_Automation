@@ -18,6 +18,7 @@ import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.alerts.BootstrapModal;
 import resources.data.z57.PPAddPageData;
+import resources.utility.ActionHelper;
 
 
 /**
@@ -222,6 +223,7 @@ public class PPAddNewPageTest extends PageTest{
 		//Switching to wordpress website
 		driver.navigate().to(pPageURL);
 		NewPageCreatedFromPP newPageCreated = new NewPageCreatedFromPP(driver);
+		ActionHelper.RefreshPage(driver);
 		assertTrue(newPageCreated.isPageLoaded(), "Website page is not loaded successfully..");
 		assertTrue(verifyLeadCaptureSettingsOnWebsite(pLeadCaptureEnabled, pLeadCaptureStrength), "Unable to verify lead capture settings on website..");
 	}
@@ -240,7 +242,7 @@ public class PPAddNewPageTest extends PageTest{
 		boolean bootStrapModalIsShown = bootstrapModalObj.checkBootsrapModalIsShown();
 		
 		if(bootStrapModalIsShown && lLeadCaptureEnable) {
-			boolean isModalClosed = bootstrapModalObj.closeModal();
+			boolean isModalClosed = bootstrapModalObj.closeBootstrapModal();
 			if(!isModalClosed && pLeadCaptureStrength.equalsIgnoreCase("Strong")) {
 				lLeadCaptureSettingVerified = true;
 			}else if(isModalClosed && pLeadCaptureStrength.equalsIgnoreCase("Medium")) {

@@ -9,9 +9,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.pp.PPPromoteAListingForm;
 import resources.forms.pp.PPUploadImagesForm;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.ValueMapper;
 
@@ -33,6 +35,9 @@ public class PPSocialPage extends Page{
 	
 	@FindBy(id="post_youtube_toggle")
 	WebElement youtube_checkbox;
+	
+	@FindBy(id="post_linkedin_toggle")
+	WebElement linkedin_checkbox;
 	
 	@FindBy(id="post_tab_status")
 	WebElement status_tab;
@@ -127,9 +132,10 @@ public class PPSocialPage extends Page{
 	WebElement twitter_message;
 	
 	public PPSocialPage(WebDriver pWebDriver) {
-		setPageObject(pWebDriver, this);
+		driver = pWebDriver;
 		setPpUploadImagesForm();
 		setPpPromoteListingForm();
+		PageFactory.initElements(driver, this);
 	}
 	
 	public PPPromoteAListingForm getPpPromoteListingForm() {
@@ -149,58 +155,58 @@ public class PPSocialPage extends Page{
 	}
 
 	public boolean isSocialPage() {
-		return actionHelper.waitForElementToBeLocated(social_heading_xpath, 30);
+		return ActionHelper.waitForElementToBeLocated(driver, social_heading_xpath, 30);
 	}
 	public boolean checkFacebookOption() {
 		boolean isFacebookChecked = false;
-		if(!actionHelper.isElementVisible(post_status_message)) {
-			isFacebookChecked = actionHelper.Click(facebook_checkbox);
+		if(!ActionHelper.isElementVisible(driver, post_status_message)) {
+			isFacebookChecked = ActionHelper.Click(driver, facebook_checkbox);
 		}else {
 			isFacebookChecked = true;
 		}
 		return isFacebookChecked;
 	}
 	public boolean checkTwitterOption() {
-		return actionHelper.Click(twitter_checkbox);
+		return ActionHelper.Click(driver, twitter_checkbox);
 	}
 	public boolean checkYoutubeOption() {
-		return actionHelper.Click(youtube_checkbox);
+		return ActionHelper.Click(driver, youtube_checkbox);
 	}
 	public boolean clickOnStatus() {
-		return actionHelper.Click(status_tab);
+		return ActionHelper.Click(driver, status_tab);
 	}
 	public boolean clickOnPhoto() {
-		return actionHelper.Click(photo_tab);
+		return ActionHelper.Click(driver, photo_tab);
 	}
 	public boolean clickOnLinkToURL() {
-		return actionHelper.Click(link_to_url_tab);
+		return ActionHelper.Click(driver, link_to_url_tab);
 	}
 	public boolean typeStatus(String pStatus) {
-		return actionHelper.ClearAndType(status_textarea, pStatus);
+		return ActionHelper.ClearAndType(driver, status_textarea, pStatus);
 	}
 	public boolean clickOnLinkChooseFileButton() {
-		return actionHelper.Click(choose_file_button);
+		return ActionHelper.Click(driver, choose_file_button);
 	}
 	public boolean clickOnPromoteListingTab() {
-		return actionHelper.Click(promote_listing_tab);
+		return ActionHelper.Click(driver, promote_listing_tab);
 	}
 	public boolean selectFacebookPage(String pPageName) {
-		return actionHelper.selectDropDownOption(fb_page_dropdown,"", pPageName);
+		return ActionHelper.selectDropDownOption(driver, fb_page_dropdown,"", pPageName);
 	}
 	public boolean setLinkToURL(String pUrl) {
-		return actionHelper.ClearAndType(url_to_post_input, pUrl);
+		return ActionHelper.ClearAndType(driver, url_to_post_input, pUrl);
 	}
 	public boolean clickOnScheduleNow() {
-		return actionHelper.Click(now_radio_button);
+		return ActionHelper.Click(driver, now_radio_button);
 	}
 	public boolean clickOnScheduleLater() {
-		return actionHelper.Click(later_radio_button);
+		return ActionHelper.Click(driver, later_radio_button);
 	}
 	public boolean clickOnScheduleRecurring() {
-		return actionHelper.Click(recurring_radio_button);
+		return ActionHelper.Click(driver, recurring_radio_button);
 	}
 	public boolean clickOnPreviousPosts() {
-		return actionHelper.Click(previousPosts_tab);
+		return ActionHelper.Click(driver, previousPosts_tab);
 	}
 	public boolean isPreviousPostsSuccessful(String pPostTitle, String pPostStatusToVerify) {	
 		return isPostSuccessful(previousPostsRow_xpath, pPostTitle, pPostStatusToVerify);
@@ -209,35 +215,35 @@ public class PPSocialPage extends Page{
 		return isPostSuccessful(upcomingPostsRow_xpath, pPostTitle, pImage, pDate, pTime);
 	}
 	public boolean selectNumberOfRecords(String pNumRecords) {
-		return actionHelper.selectDropDownOption(number_of_records_per_page, number_of_records_per_page_options_xpath, pNumRecords);
+		return ActionHelper.selectDropDownOption(driver, number_of_records_per_page, number_of_records_per_page_options_xpath, pNumRecords);
 	}
 	public boolean clickOnPostNowButton() {
-		return actionHelper.Click(postNow_button);
+		return ActionHelper.Click(driver, postNow_button);
 	}
 	public boolean typeDate(String pDate) {
-		return actionHelper.Type(dateStart_input, pDate);
+		return ActionHelper.Type(driver, dateStart_input, pDate);
 	}
 	public boolean selectTime(String pTime) {
-		return actionHelper.selectDropDownOption(time_dropdown, "", pTime);
+		return ActionHelper.selectDropDownOption(driver, time_dropdown, "", pTime);
 	}
 	public boolean clickOnAddButton() {
-		return actionHelper.Click(addPost_button);
+		return ActionHelper.Click(driver, addPost_button);
 	}
 	public boolean isDateTimeAdded() {
-		return actionHelper.waitForElementsToBeFound("//div[@id='multi_post_schedule_frame']/descendant::input[@name='post_multi[]']");
-//		return actionHelper.waitForElementToBeVisible(addedTime_input, 10);
+		return ActionHelper.waitForElementsToBeFound(driver, "//div[@id='multi_post_schedule_frame']/descendant::input[@name='post_multi[]']");
+//		return ActionHelper.waitForElementToBeVisible(driver, addedTime_input, 10);
 	}
 	public boolean typeEndingDate(String pEndingDate) {
-		return actionHelper.ClearAndType(dateEnd_input, pEndingDate);
+		return ActionHelper.ClearAndType(driver, dateEnd_input, pEndingDate);
 	}
 	public boolean selectRepeatDays(String pWeekdays) {
 		int counter = 0;
 		String[] lWeekdaysArray = pWeekdays.split(",");
-		List<WebElement> repeat_days_list = actionHelper.getListOfElementByXpath(repeatOnDays_xpath);
+		List<WebElement> repeat_days_list = ActionHelper.getListOfElementByXpath(driver, repeatOnDays_xpath);
 		for(WebElement element: repeat_days_list) {
 			for(String lDay: lWeekdaysArray) {
 				if(element.getAttribute("value").equalsIgnoreCase(lDay)) {
-					actionHelper.Click(element);
+					ActionHelper.Click(driver, element);
 					counter++;
 					break;
 				}
@@ -246,21 +252,21 @@ public class PPSocialPage extends Page{
 		return counter==lWeekdaysArray.length;
 	}
 	public boolean clickOnPostLaterButton() {
-		return actionHelper.Click(postLater_button);
+		return ActionHelper.Click(driver, postLater_button);
 	}
 	public boolean clickOnPostRecurringButton() {
-		return actionHelper.Click(postRecurring_button);
+		return ActionHelper.Click(driver, postRecurring_button);
 	}
 	public boolean isPostCompleted() {
-		return actionHelper.waitForElementToBeVisible(postCompletedSuccess_message, 30);
+		return ActionHelper.waitForElementToBeVisible(driver, postCompletedSuccess_message, 30);
 	}
 	public boolean isScheduleLaterPostCompleted() {
-		return actionHelper.waitForElementToBeVisible(postScheduledSuccess_message, 30);
+		return ActionHelper.waitForElementToBeVisible(driver, postScheduledSuccess_message, 30);
 	}
 	private boolean isPostSuccessful(String pElement,String pPostTitle, String pPostStatusToVerify) {
 		boolean post_found = false;
 		boolean status_verified= false;
-		List<WebElement> list_of_rows = actionHelper.getListOfElementByXpath(pElement);
+		List<WebElement> list_of_rows = ActionHelper.getListOfElementByXpath(driver, pElement);
 		for(WebElement element: list_of_rows) {
 			List<WebElement> list_of_td = element.findElements(By.tagName("td"));
 			for(WebElement td: list_of_td) {
@@ -288,8 +294,8 @@ public class PPSocialPage extends Page{
 		boolean platform_image_verified= false;
 		boolean date_verified = false;
 		boolean time_verified = false;
-		actionHelper.waitForElementsToBeFound(pElement);
-		List<WebElement> list_of_rows = actionHelper.getListOfElementByXpath(pElement);
+		ActionHelper.waitForElementsToBeFound(driver, pElement);
+		List<WebElement> list_of_rows = ActionHelper.getListOfElementByXpath(driver, pElement);
 		AutomationLogger.info("Size of element list "+list_of_rows.size());
 		
 		try {
@@ -369,8 +375,8 @@ public class PPSocialPage extends Page{
 		boolean isRecurring = false;
 		boolean repeatOnDays = false;
 		
-		actionHelper.waitForElementsToBeFound(pElement);
-		List<WebElement> list_of_rows = actionHelper.getListOfElementByXpath(pElement);
+		ActionHelper.waitForElementsToBeFound(driver, pElement);
+		List<WebElement> list_of_rows = ActionHelper.getListOfElementByXpath(driver, pElement);
 		AutomationLogger.info("Size of element list "+list_of_rows.size());
 		
 		try {
@@ -447,16 +453,16 @@ public class PPSocialPage extends Page{
 
 	}
 	public boolean isLoaderDisappeared() {
-		return actionHelper.waitForAjaxToBeCompleted(driver);
+		return ActionHelper.waitForAjaxToBeCompleted(driver);
 	}
 	public boolean uploadImage(String pImagePath) {
-		return actionHelper.Type(image_input, pImagePath);
+		return ActionHelper.Type(driver, image_input, pImagePath);
 	}
 	
 	public boolean unCheckFacebookOption() {
 		boolean isFacebookUnChecked = false;
-		if(actionHelper.isElementVisible(post_status_message)) {
-			isFacebookUnChecked = actionHelper.Click(facebook_checkbox);
+		if(ActionHelper.isElementVisible(driver, post_status_message)) {
+			isFacebookUnChecked = ActionHelper.Click(driver, facebook_checkbox);
 		}else {
 			isFacebookUnChecked = true;
 		}
@@ -464,15 +470,32 @@ public class PPSocialPage extends Page{
 	}
 	public boolean checkTwitterOption(boolean pCheck) {
 		boolean isSuccess = false;
-		if(actionHelper.isElementVisible(twitter_message)) {
+		if(ActionHelper.waitForElementToBeVisible(driver, twitter_message,10)) {
 			if(!pCheck) {
-				isSuccess = actionHelper.Click(twitter_checkbox);
+				isSuccess = ActionHelper.Click(driver, twitter_checkbox);
 			}else {
 				isSuccess = true;
 			}
 		}else {
 			if(pCheck) {
-				isSuccess = actionHelper.Click(twitter_checkbox);
+				isSuccess = ActionHelper.Click(driver, twitter_checkbox);
+			}else {
+				isSuccess = true;
+			}
+		}
+		return isSuccess;
+	}
+	public boolean checkLinkedInOption(boolean pCheck) {
+		boolean isSuccess = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, post_status_message,10)) {
+			if(!pCheck) {
+				isSuccess = ActionHelper.Click(driver, linkedin_checkbox);
+			}else {
+				isSuccess = true;
+			}
+		}else {
+			if(pCheck) {
+				isSuccess = ActionHelper.Click(driver, linkedin_checkbox);
 			}else {
 				isSuccess = true;
 			}

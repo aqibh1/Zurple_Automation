@@ -31,7 +31,7 @@ public class Posts extends Abstract{
 	private Integer accountID;
 	private String postFacebook;
 	private String postTwitter;
-	private String postLinkedInd;
+	private String postLinkedIn;
 	private String postYoutube;
 	private Integer status;
 	private Integer postAttempts;
@@ -73,8 +73,8 @@ public class Posts extends Abstract{
 	}
 	
 	@Column(name = "post_linkedin", unique = false, nullable = true, length = 700)
-	public String getPostLinkedInd() {
-		return postLinkedInd;
+	public String getPostLinkedIn() {
+		return postLinkedIn;
 	}
 	
 	@Column(name = "post_youtube", unique = false, nullable = true, length = 5000)
@@ -130,8 +130,8 @@ public class Posts extends Abstract{
 	public void setPostTwitter(String postTwitter) {
 		this.postTwitter = postTwitter;
 	}
-	public void setPostLinkedInd(String postLinkedInd) {
-		this.postLinkedInd = postLinkedInd;
+	public void setPostLinkedIn(String postLinkedIn) {
+		this.postLinkedIn = postLinkedIn;
 	}
 	public void setPostYoutube(String postYoutube) {
 		this.postYoutube = postYoutube;
