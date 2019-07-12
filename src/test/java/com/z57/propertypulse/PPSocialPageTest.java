@@ -203,28 +203,40 @@ public class PPSocialPageTest extends PageTest{
 		
 		assertTrue(page.isSocialPage(), "Social Posting page is not displayed..");
 		
-		//Uncheck Facebook option
-		assertTrue(page.unCheckFacebookOption(), "Unable to check Facebook option..");
+	
 		
 		switch(lPlatform){
 		
 		case "Twitter":
+			//Uncheck Facebook option
+			assertTrue(page.unCheckFacebookOption(), "Unable to check Facebook option..");
 			assertTrue(page.checkTwitterOption(true), "Unable to check Twitter checkbox..");
 			lPlatformIcon = FrameworkConstants.TwitterIconImage;
+			assertTrue(page.typeStatus(lStatus), "Unable to type status in text area..");
 			break;
 		
 		case "YouTube":
+			lStatus = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.ListingsAddress);
+			assertTrue(page.checkYoutubeOption(), "Unable to check Youtube checkbox..");
+			assertTrue(page.getPpPromoteListingForm().isChooseAListingForm(), "Promote Listing form is not visible after clicking youtube checkbox..");
+			assertTrue(page.getPpPromoteListingForm().selectListingYoutube(lStatus), "Unable to select listing from dropdown..");
+			assertTrue(page.getPpPromoteListingForm().isSelectButtonDisappeared(), "Listing is not selected..");
+			lPlatformIcon = FrameworkConstants.YoutubeIconImage;
+			
+			break;
 		
 		case "LinkedIn":
+			//Uncheck Facebook option
+			assertTrue(page.unCheckFacebookOption(), "Unable to check Facebook option..");
 			assertTrue(page.checkLinkedInOption(true), "Unable to check LinkedIn checkbox..");
 			lPlatformIcon = FrameworkConstants.LinkedInIconImage;
+			assertTrue(page.typeStatus(lStatus), "Unable to type status in text area..");
 			break;
+	
 		default:
 			break;
 		}
 
-		assertTrue(page.typeStatus(lStatus), "Unable to type status in text area..");
-		
 		if(!lPhotoPath.isEmpty()) {
 			assertTrue(page.clickOnPhoto(), "Unable to click Photo tab button....");
 			assertTrue(page.uploadImage(System.getProperty("user.dir")+lPhotoPath), "Unable to upload the image..");
@@ -296,13 +308,21 @@ public class PPSocialPageTest extends PageTest{
 		}else {
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.clickOnPostNowButton(), "Unable to click on Post now button ..");
-			assertTrue(page.isPostCompleted(), "Post Completed Success Message is not displayed ..");
-			
+			if(lPlatform.equalsIgnoreCase("YouTube")) {
+				assertTrue(page.isYoutubePostCompleted(), "Your Video is being processed Message is not displayed ..");
+			}else {
+				assertTrue(page.isPostCompleted(), "Post Completed Success Message is not displayed ..");
+			}
 			assertTrue(sideMenu.goToSubMenu("Posting History"), "Unable to click on Posting History button on side menu ..");
-			
+
 			assertTrue(postingHistoryPage.isPostingHistoryPage(), "Posting History Page is not opened ..");
-			
-			assertTrue(postingHistoryPage.isPostCompleted(lStatus), "The Post is not found on Posting History Page ..");
+
+			if(lPlatform.equalsIgnoreCase("Youtube")) {
+				assertTrue(postingHistoryPage.isYoutubePostCompleted(lStatus), "The Post is not found on Posting History Page ..");
+
+			}else {
+				assertTrue(postingHistoryPage.isPostCompleted(lStatus), "The Post is not found on Posting History Page ..");
+			}
 		}
 	}
 	

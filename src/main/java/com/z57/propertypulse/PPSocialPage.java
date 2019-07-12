@@ -116,6 +116,9 @@ public class PPSocialPage extends Page{
 	@FindBy(xpath="//div[@class='marketing_submit_results' and text()='Post Completed']")
 	WebElement postCompletedSuccess_message;
 	
+	@FindBy(xpath="//div[@class='marketing_submit_results' and contains(text(),'Your video is')]")
+	WebElement youtubePostCompletedSuccess_message;
+	
 	@FindBy(xpath="//div[@class='marketing_submit_results' and text()='Created Post Schedule']")
 	WebElement postScheduledSuccess_message;
 	
@@ -218,7 +221,11 @@ public class PPSocialPage extends Page{
 		return ActionHelper.selectDropDownOption(driver, number_of_records_per_page, number_of_records_per_page_options_xpath, pNumRecords);
 	}
 	public boolean clickOnPostNowButton() {
-		return ActionHelper.Click(driver, postNow_button);
+		boolean isClicked = false;
+		if(ActionHelper.waitForElementToBeClickAble(driver, postNow_button)) {
+			isClicked = ActionHelper.Click(driver, postNow_button);
+		}
+		return isClicked;
 	}
 	public boolean typeDate(String pDate) {
 		return ActionHelper.Type(driver, dateStart_input, pDate);
@@ -259,6 +266,9 @@ public class PPSocialPage extends Page{
 	}
 	public boolean isPostCompleted() {
 		return ActionHelper.waitForElementToBeVisible(driver, postCompletedSuccess_message, 30);
+	}
+	public boolean isYoutubePostCompleted() {
+		return ActionHelper.waitForElementToBeVisible(driver, youtubePostCompletedSuccess_message, 30);
 	}
 	public boolean isScheduleLaterPostCompleted() {
 		return ActionHelper.waitForElementToBeVisible(driver, postScheduledSuccess_message, 30);
