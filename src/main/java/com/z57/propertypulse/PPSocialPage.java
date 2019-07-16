@@ -116,7 +116,7 @@ public class PPSocialPage extends Page{
 	@FindBy(xpath="//div[@class='marketing_submit_results' and text()='Post Completed']")
 	WebElement postCompletedSuccess_message;
 	
-	@FindBy(xpath="//div[@class='marketing_submit_results' and contains(text(),'Your video is')]")
+	@FindBy(xpath="//div[@class='marketing_submit_results' and contains(text(),'video is')]")
 	WebElement youtubePostCompletedSuccess_message;
 	
 	@FindBy(xpath="//div[@class='marketing_submit_results' and text()='Created Post Schedule']")
@@ -133,6 +133,9 @@ public class PPSocialPage extends Page{
 	
 	@FindBy(id="twitter_char_count")
 	WebElement twitter_message;
+	
+	@FindBy(id="post_tab_listing_video")
+	WebElement promote_listing_video_tab;
 	
 	public PPSocialPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -511,5 +514,9 @@ public class PPSocialPage extends Page{
 			}
 		}
 		return isSuccess;
+	}
+	
+	public boolean clickOnPromoteListingVideoTab() {
+		return ActionHelper.Click(driver, promote_listing_video_tab);
 	}
 }

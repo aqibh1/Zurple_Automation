@@ -37,8 +37,9 @@ public class PPPostingHistoryPage extends Page{
 		return isPostSuccessful(historyTable_rows, pStatus, "Completed");
 	}
 	
-	public boolean isYoutubePostCompleted(String pStatus) {
-		return isYoutubePostSuccessful(historyTable_rows, pStatus, "Completed");
+	public boolean isYoutubePostCompleted(String pStatus, String pPlatform) {
+//		return isYoutubePostSuccessful(historyTable_rows, pStatus, "Completed",pPlatform);
+		return verifyVideoPosted(10, 20, pStatus, pPlatform, "Completed");//(historyTable_rows, pStatus, "Completed",pPlatform);
 	}
 	private boolean isPostSuccessful(String pElement,String pPostTitle, String pPostStatusToVerify) {
 		boolean post_found = false;
@@ -81,7 +82,7 @@ public class PPPostingHistoryPage extends Page{
 
 	}
 	
-	private boolean isYoutubePostSuccessful(String pElement,String pPostTitle, String pPostStatusToVerify) {
+	private boolean isYoutubePostSuccessful(String pElement,String pPostTitle, String pPostStatusToVerify, String pPlatform) {
 		boolean post_found = false;
 		boolean status_verified= false;
 		boolean image_verified = false;
@@ -100,7 +101,7 @@ public class PPPostingHistoryPage extends Page{
 			}
 			//Span tag will look for post status: Completed
 			if(post_found) {
-				status_verified = verifyPostsStatus(lArrayIndexCounter, "Completed", 20, 20,pPostTitle);
+				status_verified = verifyPostsStatus(lArrayIndexCounter, "Completed", 20, 20,pPostTitle,pPlatform);
 			}
 			if(status_verified) {
 				image_verified = verifyImageIcon(lArrayIndexCounter);	
@@ -122,11 +123,11 @@ public class PPPostingHistoryPage extends Page{
 
 	}
 	
-	private boolean verifyPostsStatus(int pArrayIndex,String pStatus, int pTotalAttempts, int pInterval, String pTitle) {
+	private boolean verifyPostsStatus(int pArrayIndex,String pStatus, int pTotalAttempts, int pInterval, String pTitle,String pPlatform) {
 		int counter = 0;
 		boolean status_verified = false;
 		
-		while(counter<20 && !status_verified) {
+		while(counter<pTotalAttempts && !status_verified) {
 			List<WebElement> list_of_rows = ActionHelper.getListOfElementByXpath(driver, historyTable_rows);
 			List<WebElement> list_of_span = list_of_rows.get(pArrayIndex).findElements(By.tagName("span"));	
 				
@@ -156,7 +157,7 @@ public class PPPostingHistoryPage extends Page{
 						
 						if(smallElement.getText().trim().contains(pTitle.trim())) {
 							post_found = true;
-						}else if(smallElement.getText().trim().contains("YouTube")) {
+						}else if(smallElement.getText().trim().contains(pPlatform)) {
 							isPlatformYoutube = true;
 						}
 					}
@@ -169,6 +170,76 @@ public class PPPostingHistoryPage extends Page{
 			}
 		}
 		return status_verified;
+	}
+	
+	private boolean verifyVideoPosted(int pTotalAttempts, int pInterval, String pTitle,String pPlatform,String pStatus) {
+		int counter = 0;
+		boolean status_verified = false;
+		boolean post_found=false;
+		boolean isPlatformYoutube = false;
+		boolean verificationSuccess = false;
+		boolean isPending = false;
+
+		while(counter<pTotalAttempts && !verificationSuccess) {
+			
+			isPending = false;
+			status_verified = false;
+			post_found=false;
+			isPlatformYoutube = false;
+			
+			List<WebElement> list_of_rows = ActionHelper.getListOfElementByXpath(driver, historyTable_rows);
+
+			for(WebElement element:list_of_rows) {
+				List<WebElement> list_of_span = element.findElements(By.tagName("span"));
+				List<WebElement> list_of_small = element.findElements(By.tagName("small"));
+
+				//Verification of Post Title and Platform
+				for(WebElement smallElement: list_of_small) {
+					if(smallElement.getText().trim().contains(pTitle.trim())) {
+						post_found = true;
+					}else if(smallElement.getText().trim().contains(pPlatform)) {
+						isPlatformYoutube = true;
+					}else if(post_found && isPlatformYoutube) {
+						break;
+					}
+					
+				}
+
+				if(post_found && isPlatformYoutube) {
+					//Verification of status i.e Complete
+					for(WebElement spanElement: list_of_span) {
+						if(spanElement.getText().equalsIgnoreCase(pStatus)) {
+							status_verified = true;
+						}else if(spanElement.getText().equalsIgnoreCase("Pending")) {
+							isPending = true;
+							break;
+						}
+					}
+				}
+				if(!isPending) {
+					//Verification of Image
+					if(status_verified) {
+						List<WebElement> list_of_img = element.findElements(By.tagName("img"));
+						for(WebElement imgElement: list_of_img) {
+							if(!imgElement.getAttribute("src").contains("hqdefault.jpg")) {
+								verificationSuccess = true;
+								break;
+							}
+						}
+					}
+				}else {
+					break;
+				}
+				if(verificationSuccess) {
+					break;
+				}
+			}
+			if(!verificationSuccess && isPending) {
+				ActionHelper.staticWait(15);
+				ActionHelper.RefreshPage(driver);
+			}
+		}
+		return verificationSuccess;
 	}
 	
 	private boolean verifyImageIcon(int pArrayIndex) {
