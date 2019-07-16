@@ -22,6 +22,13 @@ public class PPForceExecuteSchedulePost extends Page{
 	@FindBy(xpath="//h2[text()='EXECUTING SCHEDULE']")
 	WebElement executingSchedule;
 	
+	String listing_detail_xpath = "//h3[text()='LISTING DETAILS']/following::div[contains(text(),'["+FrameworkConstants.DYNAMIC_VARIABLE+"] =>')]";
+
+	String results_by_scheduled_jobs_xpath = "//h3[contains(text(),'as captured by scheduled jobs')]/following::div[contains(text(),'["+FrameworkConstants.DYNAMIC_VARIABLE+"] =>')]";
+
+	@FindBy(xpath="//h3[text()='LISTING DETAILS'])")
+	WebElement listing_details;
+	
 //	private ActionHelper actionHelper;
 	public PPForceExecuteSchedulePost() {
 		// TODO Auto-generated constructor stub
@@ -45,5 +52,26 @@ public class PPForceExecuteSchedulePost extends Page{
 		String resultMessage = ActionHelper.getText(driver,ActionHelper.getDynamicElement(driver, result_xpath, "status"));
 		resultMessage = resultMessage.split("=>")[1].trim();
 		return resultMessage;
+	}
+	
+	public String getListingPrice() {
+		String lListingPrice = ActionHelper.getText(driver,ActionHelper.getDynamicElement(driver, listing_detail_xpath, "list_price"));
+		lListingPrice = lListingPrice.split("=>")[1].trim();
+		return lListingPrice;
+	}
+	
+	public String getScheduledPostsStatus() {
+		String resultMessage = ActionHelper.getText(driver,ActionHelper.getDynamicElement(driver, results_by_scheduled_jobs_xpath, "status"));
+		resultMessage = resultMessage.split("=>")[1].trim();
+		return resultMessage;
+	}
+	
+	public String getStatusMessage() {
+		String resultMessage = ActionHelper.getText(driver,ActionHelper.getDynamicElement(driver, results_by_scheduled_jobs_xpath, "message"));
+		resultMessage = resultMessage.split("=>")[1].trim();
+		return resultMessage;
+	}
+	public boolean isListingDetailsPage() {
+		return ActionHelper.waitForElementToBeVisible(driver, listing_details, 30);
 	}
 }

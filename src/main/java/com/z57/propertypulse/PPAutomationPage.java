@@ -28,6 +28,18 @@ public class PPAutomationPage extends Page{
 	@FindBy(id="response_message_success")
 	WebElement successMessage;
 	
+	@FindBy(xpath="//input[@name='settings[accelerator_idx_posts_zip]']")
+	WebElement zip_input;
+	
+	@FindBy(xpath="//select[@name='settings[accelerator_idx_posts_price_min]']")
+	WebElement minimum_price;
+	
+	@FindBy(xpath="//select[@name='settings[accelerator_idx_posts_price_max]']")
+	WebElement maximum_price;
+	
+	@FindBy(xpath="//div[text()='Twitter']/following::select[@name='settings[accelerator_idx_posts_tw]']")
+	WebElement twitterIdxPostDropdown;
+	
 	public PPAutomationPage() {
 		// TODO Auto-generated constructor stub
 	}
@@ -51,5 +63,18 @@ public class PPAutomationPage extends Page{
 	}
 	public boolean isFacebookIdxPostOptionEnabled(String pOption) {
 		return  ActionHelper.isOptionSelected(driver, facebookIdxPostDropdown,pOption);
+	}
+	
+	public boolean typeZip(String pZip) {
+		return ActionHelper.ClearAndType(driver, zip_input, pZip);
+	}
+	public boolean selectMinPrice(String pPrice) {
+		return ActionHelper.selectDropDownOption(driver, minimum_price, "", pPrice);
+	}
+	public boolean selectMaxPrice(String pPrice) {
+		return ActionHelper.selectDropDownOption(driver, maximum_price, "", pPrice);
+	}
+	public boolean selectTwitterIdxDropdown(String pOption) {
+		return ActionHelper.selectDropDownOption(driver, twitterIdxPostDropdown, "", pOption);
 	}
 }
