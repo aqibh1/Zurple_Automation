@@ -34,11 +34,16 @@ public class PPPromoteAListingForm extends AbstractForm{
 	public boolean selectListing(String pListing) {
 		return selectDropDownOption(selectListing, pListing);
 	}
+	public boolean selectListingYoutube(String pListing) {
+		return selectDropDownOptionYoutube(driver, selectListing, pListing);
+	}
 	public boolean clickOnSelect() {
 		return actionHelper.Click(select_button);
 	}
 	public boolean isSelectButtonDisappeared() {
+		actionHelper.Wait(5);
 		return actionHelper.waitForElementToBeDisappeared(select_button);
+		
 	}
 	
 	 private boolean selectDropDownOption(WebElement pElementToBeClicked, String pOptionToSelect) {
@@ -52,6 +57,22 @@ public class PPPromoteAListingForm extends AbstractForm{
 					 if(element.getText().trim().contains(pOptionToSelect)) {
 						 isSuccessful = actionHelper.Click(element);
 						 actionHelper.Click(pElementToBeClicked);
+						 break;
+					 }
+				 }
+			 }
+			return isSuccessful;
+		}
+	 private boolean selectDropDownOptionYoutube(WebDriver pWebDriver, WebElement pElementToBeClicked, String pOptionToSelect) {
+			boolean isSuccessful=false;
+			List<WebElement> list_of_options = new ArrayList<WebElement>();
+			 AutomationLogger.info("Clicking on button "+pElementToBeClicked);
+			 if(actionHelper.Click(pElementToBeClicked)) {
+				 list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
+				 for(WebElement element: list_of_options) {
+					 System.out.println(element.getText().trim());
+					 if(element.getText().trim().contains(pOptionToSelect)) {
+						 isSuccessful = actionHelper.Click(element);
 						 break;
 					 }
 				 }

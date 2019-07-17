@@ -22,6 +22,7 @@ import com.zurple.my.PageTest;
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
 import resources.HttpRequestClient;
+import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.data.z57.PPListingData;
 import resources.orm.hibernate.HibernateUtil;
@@ -109,7 +110,7 @@ public class PPListingDetailPageTest extends PageTest{
 		String lListingFeatureSaleInfo = listingData.getSaleInfo();
 		String lListingFeatureYearBuilt = listingData.getYearBuilt();
 		String lListingImagesPath=listingData.getImagePath();
-
+		
 		assertTrue(page.isListingDetailPage(), "Listing Detail Page is not visible..");
 
 		if(!lListingTitle.isEmpty()) {
@@ -201,6 +202,7 @@ public class PPListingDetailPageTest extends PageTest{
 			assertTrue(page.getPpUploadImagesForm().isUploadImagesForm(), "Upload image form is not visible.");
 			assertTrue(page.getPpUploadImagesForm().clickOnAddFilesButton(), "Unable to click on Add Files button");
 			assertTrue(page.getPpUploadImagesForm().uploadImage(System.getProperty("user.dir")+image), "Unable to upload the image.");
+			ActionHelper.staticWait(10);
 		}		
 		//Clicking on Save button
 		assertTrue(page.clickOnSaveButton(), "Unable to click on Save button");

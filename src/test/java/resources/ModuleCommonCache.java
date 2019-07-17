@@ -50,8 +50,8 @@ public class ModuleCommonCache {
 		}
 		
 		@SuppressWarnings("unchecked")
-		public static <T> T getElement(String modulePath, String objectKey) {
-			Map<String, Object> moduleMap = getModuleMap(modulePath);
+		public static <T> T getElement(String pThreadId, String objectKey) {
+			Map<String, Object> moduleMap = getModuleMap(pThreadId);
 			
 			return (T) moduleMap.get(objectKey);
 		}

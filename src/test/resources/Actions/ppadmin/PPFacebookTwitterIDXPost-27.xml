@@ -1,20 +1,20 @@
-<suite name="Update and Verify Page Layout Settings Suite" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+<suite name="Trigger and Verify IDX post on FB and Twitter Suite" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
 	<listeners>
         <listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
    
-    <test name="Update And Veify Automation Settings">
-    <parameter name="dataFileSettings" value="/resources/data/propertypulse/settings/user-settings-data.json" >
+    <test name="Trigger and Verify IDX post on FB and Twitter">
+ 	<parameter name="dataFileAutomation" value="/resources/data/propertypulse/automation/idx-post-data.json" >
 	<classes>
-	<class name="com.z57.propertypulse.LoginPageTest" >
+      <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
       	<include name="testPPLogin" />
       </methods>
       </class>
-      <class name="com.z57.propertypulse.PPAutomationPageTest" >
+       <class name="com.z57.propertypulse.PPAutomationPageTest" >
       <methods>
-      	<include name="testConfigureAutomationSettings" />
+      	<include name="testEnableAndVerifyIdxListingPosts" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
