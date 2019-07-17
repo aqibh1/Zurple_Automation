@@ -457,6 +457,239 @@
     </parameter>
 	</test>
 	
+	<test name="Update And Veify Automation Settings">
+    <parameter name="dataFileSettings" value="/resources/data/propertypulse/settings/user-settings-data.json" >
+	<classes>
+	<class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPAutomationPageTest" >
+      <methods>
+      	<include name="testConfigureAutomationSettings" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Post on Twitter now">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-twitter-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Post on Twitter Later">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-later-twitter-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Post on Twitter Recurring">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-recurring-twitter-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 
+	 <test name="Post Image on Twitter now">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-image-twitter-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Post on LinkedIn now">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-linkedin-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Post on LinkedIn Later">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-later-linkedin-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	 
+	 <test name="Post on LinkedIn Recurring">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-recurring-linkedin-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	 
+	 <test name="Post Image on LinkedIn now">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-image-linkedin-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Post a Video on Youtube">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-youtube-video-data.json" >
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-youtube-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+       <class name="com.z57.propertypulse.PPListingPageTest" >
+      <methods>
+      	<include name="testAddListing" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPListingDetailPageTest" >
+      <methods>
+      <include name="testEditListingDetails" />
+      </methods>
+      </class>
+       <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+    </parameter>
+	</test>
+	
 	 <test name="Add Listing by MLS">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/mls-listing-data-01.json" >
 	<classes>
@@ -478,4 +711,5 @@
     </classes>
     </parameter>
 	</test>
+	
 </suite>

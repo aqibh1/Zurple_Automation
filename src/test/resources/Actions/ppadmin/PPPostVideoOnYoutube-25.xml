@@ -4,7 +4,7 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
    
-    <test name="Create an Ad for Listing on PP">
+    <test name="Post a Video on Youtube">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-youtube-video-data.json" >
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-youtube-data.json" >
 	<classes>
