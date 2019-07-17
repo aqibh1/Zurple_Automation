@@ -46,14 +46,11 @@ public class RegisterForm extends AbstractForm{
 	}
 
 	public boolean clickOnAlreadyRegistered() {
-		wait.until(ExpectedConditions.elementToBeClickable(alreadyregistered_link));
-		if(alreadyregistered_link.isDisplayed()) {
-			alreadyregistered_link.click();
-			return true;
-		}else {
-			return false;
+		boolean isClickSuccess = false;
+		if(actionHelper.waitForElementToBeVisible(alreadyregistered_link, 30)) {
+			isClickSuccess = actionHelper.Click(alreadyregistered_link);
 		}
-
+		return isClickSuccess;
 	}
 	public boolean setName(String pName) {
 		return type(name_input, pName);

@@ -223,7 +223,7 @@ public class PPAddNewPageTest extends PageTest{
 		//Switching to wordpress website
 		driver.navigate().to(pPageURL);
 		NewPageCreatedFromPP newPageCreated = new NewPageCreatedFromPP(driver);
-		ActionHelper.RefreshPage(driver);
+		new ActionHelper(driver).RefreshPage();
 		assertTrue(newPageCreated.isPageLoaded(), "Website page is not loaded successfully..");
 		assertTrue(verifyLeadCaptureSettingsOnWebsite(pLeadCaptureEnabled, pLeadCaptureStrength), "Unable to verify lead capture settings on website..");
 	}

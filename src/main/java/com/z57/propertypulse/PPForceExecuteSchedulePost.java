@@ -6,9 +6,7 @@ package com.z57.propertypulse;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
@@ -29,49 +27,47 @@ public class PPForceExecuteSchedulePost extends Page{
 	@FindBy(xpath="//h3[text()='LISTING DETAILS'])")
 	WebElement listing_details;
 	
-//	private ActionHelper actionHelper;
+//	private actionHelper actionHelper;
 	public PPForceExecuteSchedulePost() {
 		// TODO Auto-generated constructor stub
 	}
 	public PPForceExecuteSchedulePost(WebDriver pWebDriver) {
-		driver = pWebDriver;
-//		actionHelper = new ActionHelper(driver);
-		PageFactory.initElements(driver, this);
+		setPageObject(pWebDriver, this);
 	}
 	
 	public boolean isExecutingSchedulePage() {
-		return ActionHelper.waitForElementToBeVisible(driver, executingSchedule, 30);
+		return actionHelper.waitForElementToBeVisible(executingSchedule, 30);
 	}
 	public String getResultMessage() {
-		String resultMessage = ActionHelper.getText(driver,ActionHelper.getDynamicElement(driver, result_xpath, "result"));
+		String resultMessage = actionHelper.getText(actionHelper.getDynamicElement(result_xpath, "result"));
 		resultMessage = resultMessage.split("=>")[1].trim();
 		return resultMessage;
 	}
 	
 	public String getStatus() {
-		String resultMessage = ActionHelper.getText(driver,ActionHelper.getDynamicElement(driver, result_xpath, "status"));
+		String resultMessage = actionHelper.getText(actionHelper.getDynamicElement(result_xpath, "status"));
 		resultMessage = resultMessage.split("=>")[1].trim();
 		return resultMessage;
 	}
 	
 	public String getListingPrice() {
-		String lListingPrice = ActionHelper.getText(driver,ActionHelper.getDynamicElement(driver, listing_detail_xpath, "list_price"));
+		String lListingPrice = actionHelper.getText(actionHelper.getDynamicElement( listing_detail_xpath, "list_price"));
 		lListingPrice = lListingPrice.split("=>")[1].trim();
 		return lListingPrice;
 	}
 	
 	public String getScheduledPostsStatus() {
-		String resultMessage = ActionHelper.getText(driver,ActionHelper.getDynamicElement(driver, results_by_scheduled_jobs_xpath, "status"));
+		String resultMessage = actionHelper.getText(actionHelper.getDynamicElement( results_by_scheduled_jobs_xpath, "status"));
 		resultMessage = resultMessage.split("=>")[1].trim();
 		return resultMessage;
 	}
 	
 	public String getStatusMessage() {
-		String resultMessage = ActionHelper.getText(driver,ActionHelper.getDynamicElement(driver, results_by_scheduled_jobs_xpath, "message"));
+		String resultMessage = actionHelper.getText(actionHelper.getDynamicElement( results_by_scheduled_jobs_xpath, "message"));
 		resultMessage = resultMessage.split("=>")[1].trim();
 		return resultMessage;
 	}
 	public boolean isListingDetailsPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, listing_details, 30);
+		return actionHelper.waitForElementToBeVisible( listing_details, 30);
 	}
 }

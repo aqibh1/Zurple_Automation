@@ -15,7 +15,7 @@ public class HomeSearchPage extends Page{
 	private SearchForm searchForm;
 	private EmailSearchForm emailSearchForm;
 	private SaveSearchForm saveSearchForm;
-
+	
 	
 	@FindBy(xpath="//h1[@class='entry-title title_prop']")
 	WebElement page_title;
@@ -27,24 +27,25 @@ public class HomeSearchPage extends Page{
 	WebElement save_search_button;
 
 	public HomeSearchPage(WebDriver pWebDriver) {
+		driver = pWebDriver;
 		setPageObject(pWebDriver, this);
-		searchForm = new SearchForm(pWebDriver);
+		setSearchForm();
 		setEmailSearchForm();
 		setSaveSearchForm();
 	}
 	
 	public SearchForm getSearchForm() {
-		if(searchForm!=null) {
-			return searchForm;
-		}else {
-			searchForm=new SearchForm(driver);
-			return searchForm;
-		}
+		return searchForm;
+	}
+	
+	public void setSearchForm() {
+		this.searchForm = new SearchForm(driver);
 	}
 
 	public HomeSearchPage(WebDriver pWebDriver, String pSourceUrl) {
 		setPageObject(pWebDriver, this);
 		url=pSourceUrl;
+		setSearchForm();
 		setEmailSearchForm();
 		setSaveSearchForm();
 	}

@@ -79,8 +79,8 @@ public class BootstrapModal extends AbstractAlert
     public boolean closeModal() {
     	try {
     		WebElement crossButton = driver.findElement(By.xpath("//div[@class='modal fade in']/descendant::button[@class='close']"));
-    		ActionHelper.Click(driver, crossButton);
-    		return !ActionHelper.isElementVisible(driver, crossButton);
+    		actionHelper.Click(crossButton);
+    		return !actionHelper.isElementVisible(crossButton);
     	}catch(Exception ex) {
     		AutomationLogger.info("No cross button to close lead capture form..");
         	return false;
@@ -89,8 +89,8 @@ public class BootstrapModal extends AbstractAlert
     }
     public boolean closeBootstrapModal() {
     	boolean isSuccess = false;
-    	if(ActionHelper.waitForElementToBeVisible(driver, close_modal, 30)) {
-    		isSuccess = ActionHelper.Click(driver, close_modal);
+    	if(actionHelper.waitForElementToBeVisible(close_modal, 30)) {
+    		isSuccess = actionHelper.Click(close_modal);
     	}
     	return isSuccess;
     }

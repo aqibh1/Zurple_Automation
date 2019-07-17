@@ -231,7 +231,7 @@ public class Pagination extends AbstractBlock{
 	}
 	
 	public boolean isPaginationExists() {
-		return ActionHelper.waitForElementToBeVisible(driver, pagination_exists, 30);
+		return actionHelper.waitForElementToBeVisible(pagination_exists, 30);
 	}
 	
 }

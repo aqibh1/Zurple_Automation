@@ -62,15 +62,15 @@ public class PPAutomationPage extends Page{
 	}
 	
 	public boolean typeZip(String pZip) {
-		return ActionHelper.ClearAndType(driver, zip_input, pZip);
+		return actionHelper.ClearAndType(zip_input, pZip);
 	}
 	public boolean selectMinPrice(String pPrice) {
-		return ActionHelper.selectDropDownOption(driver, minimum_price, "", pPrice);
+		return actionHelper.selectDropDownOption(minimum_price, "", pPrice);
 	}
 	public boolean selectMaxPrice(String pPrice) {
-		return ActionHelper.selectDropDownOption(driver, maximum_price, "", pPrice);
+		return actionHelper.selectDropDownOption(maximum_price, "", pPrice);
 	}
 	public boolean selectTwitterIdxDropdown(String pOption) {
-		return ActionHelper.selectDropDownOption(driver, twitterIdxPostDropdown, "", pOption);
+		return actionHelper.selectDropDownOption(twitterIdxPostDropdown, "", pOption);
 	}
 }
