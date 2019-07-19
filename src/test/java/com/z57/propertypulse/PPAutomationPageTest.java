@@ -95,6 +95,18 @@ public class PPAutomationPageTest extends PageTest{
 		assertTrue(isIdxFacebookPostSuccessful(resultMessage), "IDX Facebook post is not successful");
 		assertTrue(isIdxTwitterPostSuccessful(resultMessage), "IDX Twitter post is not successful");
 	}
+	
+	@Test
+	public void testEnableAndVerifyListingPosts() {
+		getPage("/automation");
+		
+		assertTrue(page.isAutomationSettingsPage(),"Automation page is not visible");
+		assertTrue(page.selectFacebookListingPostDropdown("Enabled"),"Unable to select Facebook post option..");
+		assertTrue(page.selectTwitterListingPostDropdown("Enabled"),"Unable to select Twitter post option..");
+	
+		clickSaveButton();
+	}
+	
 	private boolean isIdxTwitterPostSuccessful(String resultMessage) {
 		return resultMessage.contains("Posted to Twitter");
 	}

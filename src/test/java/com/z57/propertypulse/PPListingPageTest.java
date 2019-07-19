@@ -105,7 +105,8 @@ public class PPListingPageTest extends PageTest{
 		ModuleCommonCache.setModuleCommonCache("listing_url_pp", driver.getCurrentUrl());
 		ModuleCommonCache.setModuleCommonCache("listing_id", lListingId);
 		ModuleCommonCache.updateCacheForModuleObject(Long.toString(getThreadId()), ModuleCacheConstants.ListingsAddress, lAddress);
-		
+		ModuleCommonCache.updateCacheForModuleObject(Long.toString(getThreadId()), ModuleCacheConstants.ListingId, lListingId);
+
 		//Verification of DB
 		Listings listingObject = getEnvironment().getListingById(Integer.parseInt(lListingId));
 		ValueMapper valueMapper = new ValueMapper();

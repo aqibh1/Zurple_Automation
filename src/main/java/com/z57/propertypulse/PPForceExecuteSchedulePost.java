@@ -3,6 +3,8 @@
  */
 package com.z57.propertypulse;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,6 +30,13 @@ public class PPForceExecuteSchedulePost extends Page{
 
 	@FindBy(xpath="//h3[text()='LISTING DETAILS'])")
 	WebElement listing_details;
+	
+	@FindBy(xpath="//h3[contains(text(),'QA TEST TOOL')]")
+	WebElement test_tool_heading;
+	
+	String facebook_listing_id_xpath = "//h3[text()='FACEBOOK POSTS']/following::div[contains(text(),'["+FrameworkConstants.DYNAMIC_VARIABLE+"] =>')]";
+
+	String twitter_listing_id_xpath = "//h3[text()='TWITTER POSTS']/following::div[contains(text(),'listing_id:') and contains(text(),'TWITTER POST')]";
 	
 //	private ActionHelper actionHelper;
 	public PPForceExecuteSchedulePost() {
@@ -73,5 +82,44 @@ public class PPForceExecuteSchedulePost extends Page{
 	}
 	public boolean isListingDetailsPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, listing_details, 30);
+	}
+	public boolean isQATestToolPage() {
+		return ActionHelper.waitForElementToBeVisible(driver, test_tool_heading, 30);
+	}
+	public boolean isListingIdExistFacebook(String pListingId) {
+		boolean found = false;
+		List<WebElement> listing_id_list = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, facebook_listing_id_xpath, "listing_id"));
+		for(WebElement element: listing_id_list) {
+			if(element.getText().contains(pListingId)) {
+				found = true;
+				break;
+			}
+		}
+		return found;
+	}
+	public String getFacebookListingStatus() {
+		WebElement statusElement = ActionHelper.getDynamicElement(driver, facebook_listing_id_xpath, "status");
+		String lStatus = statusElement.getText().split("=>")[1].trim();
+		return lStatus;
+
+	}
+	
+	public boolean isListingIdExistTwitter(String pListingId) {
+		boolean found = false;
+		List<WebElement> listing_id_list = ActionHelper.getListOfElementByXpath(driver, twitter_listing_id_xpath);
+		for(WebElement element: listing_id_list) {
+			if(element.getText().contains(pListingId)) {
+				found = true;
+				break;
+			}
+		}
+		return found;
+	}
+	
+	public String getTwitterListingStatus() {
+		WebElement statusElement = ActionHelper.getDynamicElement(driver, facebook_listing_id_xpath, "status");
+		String lStatus = statusElement.getText().split("=>")[1].trim();
+		return lStatus;
+
 	}
 }

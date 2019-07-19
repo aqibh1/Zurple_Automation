@@ -40,6 +40,12 @@ public class PPAutomationPage extends Page{
 	@FindBy(xpath="//div[text()='Twitter']/following::select[@name='settings[accelerator_idx_posts_tw]']")
 	WebElement twitterIdxPostDropdown;
 	
+	@FindBy(xpath="//div[text()='Facebook']/following::select[@name='settings[accelerator_status_fb]']")
+	WebElement facebookPostDropdown;
+	
+	@FindBy(xpath="//div[text()='Twitter']/following::select[@name='settings[accelerator_status_tw]']")
+	WebElement twitterPostDropdown;
+	
 	public PPAutomationPage() {
 		// TODO Auto-generated constructor stub
 	}
@@ -76,5 +82,11 @@ public class PPAutomationPage extends Page{
 	}
 	public boolean selectTwitterIdxDropdown(String pOption) {
 		return ActionHelper.selectDropDownOption(driver, twitterIdxPostDropdown, "", pOption);
+	}
+	public boolean selectFacebookListingPostDropdown(String pOption) {
+		return ActionHelper.selectDropDownOption(driver, facebookPostDropdown, "", pOption);
+	}
+	public boolean selectTwitterListingPostDropdown(String pOption) {
+		return ActionHelper.selectDropDownOption(driver, twitterPostDropdown, "", pOption);
 	}
 }

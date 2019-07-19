@@ -7,5 +7,6 @@ public class ModuleCacheConstants {
 	public static final String PageTitle = "propertypulse.website.pagetitle";
 	public static final String PostObject = "propertypulse.db.posts";
 	public static final String ListingTitle = "listing.title";
+	public static final String ListingId = "listing.id";
 
 }
