@@ -513,4 +513,19 @@ public class ActionHelper {
 			}
 			return isSuccessfull;
 		}
+	  
+	   public static boolean isElementToBeClickAble(WebDriver pWebDriver,WebElement pElement) {
+			boolean isSuccessful =false;
+			try {
+				AutomationLogger.info("Waiting for the element to be clickable"+pElement);
+				if(ExpectedConditions.elementToBeClickable(pElement)!=null) {
+					isSuccessful=true;
+				}
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Element is not clickable -> "+pElement);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessful;
+		}
 }
