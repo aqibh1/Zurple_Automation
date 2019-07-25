@@ -77,6 +77,7 @@ public class PPAutomationPageTest extends PageTest{
 		JSONObject dataObject = getDataFile(pDataFile);
 		
 		assertTrue(page.isAutomationSettingsPage(),"Automation page is not visible");
+		assertTrue(page.selectFacebookPage(dataObject.optString("facebook_page")),"Unable to select facebook page..");
 		assertTrue(page.selectFacebookIdxDropdown(dataObject.optString("fb_idx_listing_post")),"Unable to select Facebook IDX post option..");
 		assertTrue(page.selectTwitterIdxDropdown(dataObject.optString("tw_idx_listing_post")),"Unable to select Twitter IDX post option..");
 		assertTrue(page.typeZip(dataObject.optString("zip")),"Unable to type zip..");

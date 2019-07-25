@@ -3,19 +3,25 @@
  */
 package com.z57.propertypulse;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.alerts.pp.ConfirmNewDefaultFacebookPageAlert;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 /**
  * @author adar
  *
  */
 public class PPAutomationPage extends Page{
-	
+	private ConfirmNewDefaultFacebookPageAlert confirmAlert;
 	@FindBy(xpath="//form[@id='automation_settings']/h1[text()='Automation Settings']")
 	WebElement automationSettings_heading;
 	
@@ -46,11 +52,15 @@ public class PPAutomationPage extends Page{
 	@FindBy(xpath="//div[text()='Twitter']/following::select[@name='settings[accelerator_status_tw]']")
 	WebElement twitterPostDropdown;
 	
+	@FindBy(id="accelerator_fb_page_id")
+	WebElement fb_page_dropdown;
+	
 	public PPAutomationPage() {
 		// TODO Auto-generated constructor stub
 	}
 	PPAutomationPage(WebDriver pWebDriver){
 		driver = pWebDriver;
+		confirmAlert = new ConfirmNewDefaultFacebookPageAlert(driver);
 		PageFactory.initElements(driver, this);
 	}
 	public boolean isAutomationSettingsPage() {
@@ -88,5 +98,28 @@ public class PPAutomationPage extends Page{
 	}
 	public boolean selectTwitterListingPostDropdown(String pOption) {
 		return ActionHelper.selectDropDownOption(driver, twitterPostDropdown, "", pOption);
+	}
+	public boolean selectFacebookPage(String pPage) {
+		return selectFacebookPage(driver, fb_page_dropdown, pPage);
+	}
+	
+	private boolean selectFacebookPage(WebDriver pWebDriver, WebElement pElementToBeClicked, String pOptionToSelect) {
+		boolean isSuccessful=false;
+		List<WebElement> list_of_options = new ArrayList<WebElement>();
+		 AutomationLogger.info("Clicking on button "+pElementToBeClicked);
+		 if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+			 list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
+			 for(WebElement element: list_of_options) {
+				 System.out.println(element.getText().trim());
+				 if(element.getText().trim().equalsIgnoreCase(pOptionToSelect)) {
+					 isSuccessful = ActionHelper.Click(pWebDriver, element);
+					 if(isSuccessful && confirmAlert.isConfirmFbPageAlert()) {
+						 confirmAlert.clickOnConfirmButton();
+					 }
+					 break;
+				 }
+			 }
+		 }
+		return isSuccessful;
 	}
 }
