@@ -61,6 +61,8 @@ public class PPAutomationPageTest extends PageTest{
 		String lFacebookIdxUpdated = "Disabled";
 		
 		assertTrue(page.isAutomationSettingsPage(),"Automation page is not visible");
+		assertTrue(page.selectFacebookPage("Aqib Automated Testing"),"Unable to select facebook page..");
+
 		assertTrue(page.selectFacebookIdxDropdown(lFacebookIdx),"Unable to select Facebook IDX post option..");
 		clickSaveButton();
 		assertTrue(verifyFacebookIDX(lFacebookIdx),"Unable to verify Facebook IDX option "+lFacebookIdx);
@@ -102,6 +104,8 @@ public class PPAutomationPageTest extends PageTest{
 		getPage("/automation");
 		
 		assertTrue(page.isAutomationSettingsPage(),"Automation page is not visible");
+		assertTrue(page.selectFacebookPage("Aqib Automated Testing"),"Unable to select facebook page..");
+
 		assertTrue(page.selectFacebookListingPostDropdown("Enabled"),"Unable to select Facebook post option..");
 		assertTrue(page.selectTwitterListingPostDropdown("Enabled"),"Unable to select Twitter post option..");
 	
