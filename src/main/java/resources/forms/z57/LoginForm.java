@@ -73,15 +73,12 @@ public class LoginForm extends AbstractForm{
 	}
 
 	public boolean setEmail(String pEmail) {
-		try {
-			wait.until(ExpectedConditions.visibilityOf(email_input));
-			email_input.sendKeys(pEmail);
-			return true;
-		}catch(Exception ex) {
-			System.out.println(ex.toString());
-			return false;
+		boolean isSuccess = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, email_input, 15)) {
+			ActionHelper.staticWait(2);
+			isSuccess = ActionHelper.Type(driver, email_input, pEmail);
 		}
-		
+		return isSuccess;
 	}
 	public boolean clickLoginButton() {
 		boolean isSuccessful=false;
