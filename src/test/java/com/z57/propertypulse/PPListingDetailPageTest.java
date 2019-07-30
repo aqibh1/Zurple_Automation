@@ -208,7 +208,9 @@ public class PPListingDetailPageTest extends PageTest{
 			assertTrue(page.getPpUploadImagesForm().isUploadImagesForm(), "Upload image form is not visible.");
 			assertTrue(page.getPpUploadImagesForm().clickOnAddFilesButton(), "Unable to click on Add Files button");
 			assertTrue(page.getPpUploadImagesForm().uploadImage(System.getProperty("user.dir")+image), "Unable to upload the image.");
-			ActionHelper.staticWait(10);
+			assertTrue(page.getPpUploadImagesForm().isUploadFormDisappeared(), "Upload form is not disappeared..");
+			assertTrue(ActionHelper.waitForAjaxToBeCompleted(driver));
+			ActionHelper.staticWait(15);
 		}		
 		//Clicking on Save button
 		assertTrue(page.clickOnSaveButton(), "Unable to click on Save button");

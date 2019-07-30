@@ -53,7 +53,10 @@ public class PPUploadImagesForm extends AbstractForm{
 	public void uploadFacebookImage(String pPath) throws AWTException {
 		uploadImageFile(pPath);
 	}
-
+	
+	public boolean isUploadFormDisappeared() {
+		return ActionHelper.waitForElementToBeDisappeared(driver, lUploadImagesHeader);
+	}
 	private void uploadImageFile(String path)
 			throws AWTException
 	{
