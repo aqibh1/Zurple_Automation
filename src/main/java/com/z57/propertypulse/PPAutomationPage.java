@@ -15,6 +15,7 @@ import org.openqa.selenium.support.PageFactory;
 import resources.alerts.pp.ConfirmNewDefaultFacebookPageAlert;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author adar
@@ -54,6 +55,8 @@ public class PPAutomationPage extends Page{
 	
 	@FindBy(id="accelerator_fb_page_id")
 	WebElement fb_page_dropdown;
+
+	String isPageAlreadySelected_xpath = "//select[@id='accelerator_fb_page_id']/option[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
 	public PPAutomationPage() {
 		// TODO Auto-generated constructor stub
@@ -100,7 +103,14 @@ public class PPAutomationPage extends Page{
 		return ActionHelper.selectDropDownOption(driver, twitterPostDropdown, "", pOption);
 	}
 	public boolean selectFacebookPage(String pPage) {
-		return selectFacebookPage(driver, fb_page_dropdown, pPage);
+		boolean isSuccess = false;
+		WebElement element = ActionHelper.getDynamicElement(driver, isPageAlreadySelected_xpath, pPage);
+		if(element!=null && element.isSelected()) {
+			isSuccess = true;
+		}else {
+			isSuccess = selectFacebookPage(driver, fb_page_dropdown, pPage);
+		}
+		return isSuccess;
 	}
 	
 	private boolean selectFacebookPage(WebDriver pWebDriver, WebElement pElementToBeClicked, String pOptionToSelect) {
