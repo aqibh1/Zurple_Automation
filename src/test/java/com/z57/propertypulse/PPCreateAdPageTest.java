@@ -8,6 +8,7 @@ import static org.testng.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.google.common.base.Ascii;
 import com.zurple.my.PageTest;
@@ -108,6 +109,7 @@ public class PPCreateAdPageTest extends PageTest{
 	@Test
 	@Parameters({"createAdDataFile"})
 	public void testCreateCustomizeAd() {
+		SoftAssert softAssert= new SoftAssert(); 
 		getPage("/content/marketing/create-ad");
 		
 		String lAdTitle="";
@@ -118,7 +120,7 @@ public class PPCreateAdPageTest extends PageTest{
 		assertTrue(page.isCreateAdPage(),"Create Ad Page is not displayed");
 		assertTrue(page.selectListingFromDropDown(lListingAddress),"Unable to select a listing from dropdown.");
 		
-		assertTrue(page.isValidPreviewLink(getTheValidUrlToVerify()), "The preview link is not valid");
+		softAssert.assertTrue(page.isValidPreviewLink(getTheValidUrlToVerify()), "The preview link is not valid");
 		
 		if(lAdTitle.isEmpty()) {
 			assertTrue(page.isValidTitle(),"Ad Title is Empty");
@@ -156,7 +158,7 @@ public class PPCreateAdPageTest extends PageTest{
 		
 		PPAdsOverviewPage adsOverviewPage = new PPAdsOverviewPage(driver);
 		assertTrue(adsOverviewPage.isAdsOverviewPage(), "Ads Overview page is not visible");
-		assertTrue(adsOverviewPage.isAdPlacedSuccessfully(ModuleCommonCache.getModuleCommonCache(ModuleCacheConstants.ListingsAddress).toString()), "Ads Overview page is not visible");
+		assertTrue(adsOverviewPage.isAdPlacedSuccessfully(ModuleCommonCache.getModuleCommonCache(ModuleCacheConstants.ListingsAddress).toString()), "Unable to Post an Ad..Ad Status Failed");
 		
 	}
 	
