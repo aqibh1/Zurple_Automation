@@ -72,6 +72,11 @@ public class AutomationLogger {
 		 AutomationLogger.debug(message);
 	 
 	 }
+	 public static void testStep(String message) {
+		 AutomationLogger.info("-----***** " +message+ " *****----");
+		 Reporter.log("-----=====" +message+ "=====-----");
+	 
+	 }
 	 
 
 }
