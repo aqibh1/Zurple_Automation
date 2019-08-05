@@ -1,0 +1,18 @@
+<suite name="Search And Verify Property suite" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+    </listeners>
+ 
+    <test name="Search and Verify property">
+	<classes>
+      <class name="com.zurple.website.ZWLoginPageTest" >
+      <methods>
+      	<include name="testSignIn" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+
+	 
+</suite>

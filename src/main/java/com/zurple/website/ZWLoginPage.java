@@ -9,11 +9,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import com.zurple.my.Page;
-
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import us.zengtest1.Page;
 
 /**
  * @author adar
@@ -24,7 +22,7 @@ public class ZWLoginPage extends Page{
 	@FindBy(xpath="//div[@class='box_inner_content']/h1[text()='Member Login']")
 	WebElement member_login_heading;
 	
-	@FindBy(xpath="username")
+	@FindBy(id="username")
 	WebElement username_input;
 	
 	@FindBy(xpath="//div[@id='form-element_signin']/descendant::button[@type='submit']")
@@ -65,6 +63,21 @@ public class ZWLoginPage extends Page{
 		assertTrue(isLoginPage(), "Login Page is not visible..");
 		assertTrue(typeUsername(pUsername), "Unable to type username in input field..");
 		assertTrue(clickLoginButton(), "Unable to click on Login button..");
-		assertTrue(clickLoginButton(), "Login is not successfull..");
+		assertTrue(isLoginSuccessful(), "Login is not successfull..");
+	}
+	@Override
+	public WebElement getHeader() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public WebElement getBrand() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public WebElement getTopMenu() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

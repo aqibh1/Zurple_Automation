@@ -20,7 +20,7 @@ import org.openqa.selenium.support.ui.Wait;
 
 public class ActionHelper {
 	protected static WebDriverWait wait;
-	private static long GLOBAL_WAIT_COUNT=30;
+	private static long GLOBAL_WAIT_COUNT=5;
 	
 	public static boolean Type(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
 			boolean isSuccessfull=false;
@@ -524,6 +524,21 @@ public class ActionHelper {
 				
 			}catch(Exception ex) {
 				AutomationLogger.error("Element is not clickable -> "+pElement);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessful;
+		}
+	   
+	   public static boolean isElementSelected(WebDriver pWebDriver,WebElement pElement) {
+			boolean isSuccessful =false;
+			try {
+				AutomationLogger.info("Checking if element is selected"+pElement);
+				if(pElement.isSelected()) {
+					isSuccessful=true;
+				}
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Element is not visible -> "+pElement);
 				AutomationLogger.error(ex.getMessage());
 			}
 			return isSuccessful;
