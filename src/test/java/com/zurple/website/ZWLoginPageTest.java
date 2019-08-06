@@ -28,14 +28,13 @@ public class ZWLoginPageTest extends PageTest{
 
 	@Override
 	public void testHeader() {
-		// TODO Auto-generated method stub
+		assertTrue(new ZurpleWebsiteHeader(driver).isTopNavigationBarValid(), "Page header is not valid..");
 		
 	}
 
 	@Override
 	public void testBrand() {
-		// TODO Auto-generated method stub
-		
+		assertTrue(new ZWHomeSearchPage(driver).verifyLogos());	
 	}
 
 	@Override
@@ -58,6 +57,8 @@ public class ZWLoginPageTest extends PageTest{
 	@Test
 	public void testSignIn() {
 		getPage();
+		testBrand();
+		testHeader();
 		ZWHomeSearchPage homeSearchPage = new ZWHomeSearchPage(driver);
 		assertTrue(homeSearchPage.clickOnLoginLink());
 		page.doLogin("autoadmin_zurpleqa@mailinator.com");

@@ -3,16 +3,21 @@
         <listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
- 
+    
     <test name="Search and Verify property">
+    
+    <parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-01.json" >
+	
 	<classes>
-      <class name="com.zurple.website.ZWLoginPageTest" >
+    
+    <class name="com.zurple.website.ZWHomeSearchPageTest" >
       <methods>
-      	<include name="testSignIn" />
+      	<include name="testSearchPropoerty" />
       </methods>
-      </class>
+     </class>
+    
     </classes>
+    
+    </parameter>
 	</test>
-
-	 
 </suite>

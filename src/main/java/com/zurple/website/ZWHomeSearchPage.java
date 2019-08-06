@@ -6,14 +6,14 @@ package com.zurple.website;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import com.zurple.my.Page;
-
 import resources.utility.ActionHelper;
+import resources.utility.FrameworkConstants;
+import us.zengtest1.Page;
 
 /**
  * @author adar
@@ -107,7 +107,10 @@ public class ZWHomeSearchPage extends Page{
 	
 	String select_view = "//ul[@id='select2-view-results']/li";
 	
-	String select_input = "//div[@id='jSuggestContainer']/descendant::li";
+	String select_input = "//div[@id='jSuggestContainer']/descendant::li[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
+	
+	@FindBy(xpath="//div[@id='jSuggestContainer']")
+	WebElement suggestion_container;
 	
 	public ZWHomeSearchPage() {
 		
@@ -118,16 +121,15 @@ public class ZWHomeSearchPage extends Page{
 	}
 	
 	public boolean typeInputString(String pInputString) {
-		boolean isSuccess = false;
-		if(ActionHelper.Type(driver, search_input, pInputString)) {
-			ActionHelper.staticWait(3);
-			List<WebElement> list_of_element = ActionHelper.getListOfElementByXpath(driver, select_input);
-			for(WebElement element: list_of_element) {
-				if(element.getText().trim().equalsIgnoreCase(pInputString)) {
-					isSuccess = ActionHelper.Click(driver, element);
-					break;
-				}
+		boolean isSuccess = true;
+		try {
+			if(ActionHelper.ClearAndType(driver, search_input, pInputString)) {
+				ActionHelper.staticWait(5);
+				ActionHelper.getDynamicElement(driver,select_input, pInputString).click();;
+//				isSuccess = ActionHelper.Click(driver, suggested_element);
 			}
+		}catch(Exception ex) {
+			isSuccess = false;
 		}
 		return isSuccess;
 	}
@@ -207,7 +209,7 @@ public class ZWHomeSearchPage extends Page{
 	}
 	
 	public boolean selectBathrooms(String pBathrooms) {
-		return ActionHelper.selectDropDownOption(driver, bedrooms_dropdown, "", pBathrooms);
+		return ActionHelper.selectDropDownOption(driver, bathrooms_dropdown, "", pBathrooms);
 	}
 	
 	public boolean selectSquareFeet(String pSquareFeet) {
@@ -221,17 +223,37 @@ public class ZWHomeSearchPage extends Page{
 	}
 	public boolean selectPropertyType(String[] pPropType) {
 		boolean isChecked = false;
+		boolean homeChecked = false;
+		boolean condoChecked = false;
+		boolean landChecked = false;
 		for(String lPropType: pPropType) {
 			isChecked = false;
 			if(lPropType.equalsIgnoreCase("Homes")) {
+				homeChecked = true;
 				isChecked = ActionHelper.isElementSelected(driver, homes_input)?true:ActionHelper.Click(driver, homes_input);
 			}else if(lPropType.equalsIgnoreCase("CONDO")) {
+				condoChecked = true;
 				isChecked = ActionHelper.isElementSelected(driver, condo_input)?true:ActionHelper.Click(driver, condo_input);
 			}else if(lPropType.equalsIgnoreCase("LOTS/LAND")) {
+				landChecked = true;
 				isChecked = ActionHelper.isElementSelected(driver, land_input)?true:ActionHelper.Click(driver, land_input);
 
 			}
+			if(!isChecked) {
+				break;
+			}
 		}
+		//Unchecking the remaining options
+		if(!homeChecked) {
+			ActionHelper.Click(driver, homes_input);
+		}
+		if(!condoChecked) {
+			ActionHelper.Click(driver, condo_input);
+		}
+		if(!landChecked) {
+			ActionHelper.Click(driver, land_input);
+		}
+		
 		return isChecked;
 	}
 	public boolean selectFeatures(String[] pFeatures) {
@@ -268,5 +290,20 @@ public class ZWHomeSearchPage extends Page{
 	
 	public boolean clickOnLoginLink() {
 		return ActionHelper.Click(driver, login_link);
+	}
+	@Override
+	public WebElement getHeader() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public WebElement getBrand() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public WebElement getTopMenu() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -6,23 +6,25 @@ package com.zurple.website;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
-import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import com.zurple.my.PageTest;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
-import resources.AbstractPage;
+import us.zengtest1.Page;
+import us.zengtest1.PageTest;
 
 /**
  * @author adar
  *
  */
 public class ZWHomeSearchPageTest extends PageTest{
+	
 	private WebDriver driver;
 	private ZWHomeSearchPage page;
 	private JSONObject dataObject;
 	
 	@Override
-	public AbstractPage getPage() {
+	public Page getPage() {
 		if(page == null){
 			driver = getDriver();
 			page = new ZWHomeSearchPage(driver);
@@ -33,28 +35,49 @@ public class ZWHomeSearchPageTest extends PageTest{
 	}
 
 	@Override
+	public void testTitle() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void testHeader() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void testBrand() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
 		
 	}
 	
 	@Test
-	public void testSearchPropoerty() {
-		dataObject = getDataFile("");
+	@Parameters({"searchPropertyDataFile"})
+	public void testSearchPropoerty(String pDataFile) {
+		getPage();
+		dataObject = getDataFile(pDataFile);
+		searchProperty();
 	}
 	
-	private void searchProperty() {
-		assertTrue(page.selectInputType(dataObject.optString("input_type")), "Unable to select Input Type search criteria");
-		assertTrue(page.typeInputString(dataObject.optString("input_string")), "Unable to type input string..");
+	public void searchProperty() {
+		assertTrue(page.selectInputType(dataObject.optString("search_by")), "Unable to select Input Type search criteria");
+		assertTrue(page.typeInputString(dataObject.optString("input_search")), "Unable to type input string..");
 	
-		if(!dataObject.optString("min_price").isEmpty()) {
-			assertTrue(page.selectMinPrice(dataObject.optString("min_price")), "Unable to select minimum price..");
+		if(!dataObject.optString("minimum_price").isEmpty()) {
+			assertTrue(page.selectMinPrice(dataObject.optString("minimum_price")), "Unable to select minimum price..");
 		}
-		if(!dataObject.optString("max_price").isEmpty()) {
-			assertTrue(page.selectMaxPrice(dataObject.optString("max_price")), "Unable to select maximum price..");
+		if(!dataObject.optString("maximum_price").isEmpty()) {
+			assertTrue(page.selectMaxPrice(dataObject.optString("maximum_price")), "Unable to select maximum price..");
 		}
 		
-		if(!dataObject.optString("bedrooms").isEmpty() || !dataObject.optString("bathrooms").isEmpty() ||
+		if(!dataObject.optString("number_of_beds").isEmpty() || !dataObject.optString("number_of_baths").isEmpty() ||
 				!dataObject.optString("square_feet").isEmpty() || !dataObject.optString("year_built").isEmpty() ||
 				!dataObject.optString("lot_size").isEmpty() || !dataObject.optString("property_type").isEmpty()
 				|| !dataObject.optString("features").isEmpty() || !dataObject.optString("style").isEmpty()
@@ -62,11 +85,11 @@ public class ZWHomeSearchPageTest extends PageTest{
 			
 			assertTrue(page.clickOnExpandSearchFields(), "Unable to click on expand search fields..");
 			
-			if(!dataObject.optString("bedrooms").isEmpty()) {
-				assertTrue(page.selectBedrooms(dataObject.optString("bedrooms")), "Unable to select bedrooms..");
+			if(!dataObject.optString("number_of_beds").isEmpty()) {
+				assertTrue(page.selectBedrooms(dataObject.optString("number_of_beds")), "Unable to select bedrooms..");
 			}
-			if(!dataObject.optString("bathrooms").isEmpty()) {
-				assertTrue(page.selectBathrooms(dataObject.optString("bathrooms")), "Unable to select bathrooms..");
+			if(!dataObject.optString("number_of_baths").isEmpty()) {
+				assertTrue(page.selectBathrooms(dataObject.optString("number_of_baths")), "Unable to select bathrooms..");
 			}
 			if(!dataObject.optString("square_feet").isEmpty()) {
 				assertTrue(page.selectSquareFeet(dataObject.optString("square_feet")), "Unable to select square feet..");
@@ -94,4 +117,7 @@ public class ZWHomeSearchPageTest extends PageTest{
 
 	}
 
+
+
+	
 }
