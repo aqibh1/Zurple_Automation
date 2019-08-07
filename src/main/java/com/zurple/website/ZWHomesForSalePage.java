@@ -15,7 +15,7 @@ import us.zengtest1.Page;
  * @author adar
  *
  */
-public class HomesForSalePage extends Page{
+public class ZWHomesForSalePage extends Page{
 
 	@FindBy(xpath="//h2[contains(text(),'Homes for Sale')]")
 	WebElement homesForSale_heading;
