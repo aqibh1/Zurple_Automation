@@ -690,6 +690,121 @@
     </parameter>
 	</test>
 	
+	  <test name="Post a Video on Facebook">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-facebook-video-data.json" >
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-facebook-video-data.json">
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+       <class name="com.z57.propertypulse.PPListingPageTest" >
+      <methods>
+      	<include name="testAddListing" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPListingDetailPageTest" >
+      <methods>
+      <include name="testEditListingDetails" />
+      </methods>
+      </class>
+       <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+    </parameter>
+	</test>
+	
+	 <test name="Trigger and Verify IDX post on FB and Twitter">
+ 	<parameter name="dataFileAutomation" value="/resources/data/propertypulse/automation/idx-post-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+       <class name="com.z57.propertypulse.PPAutomationPageTest" >
+      <methods>
+      	<include name="testEnableAndVerifyIdxListingPosts" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	  <test name="Trigger and Verify regular post on FB and Twitter">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-accelator-posts-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+       <class name="com.z57.propertypulse.PPAutomationPageTest" >
+      <methods>
+      	<include name="testEnableAndVerifyListingPosts" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPListingPageTest" >
+      <methods>
+      	<include name="testAddListing" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPListingDetailPageTest" >
+      <methods>
+      <include name="testEditListingDetails" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPDevToolsPageTest" >
+      <methods>
+      	<include name="testVerifyForceRegularListingPosts" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Social Auto Poster">
+ 	<parameter name="dataFileAutoPoster" value="/resources/data/propertypulse/social/social-auto-poster-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialAutoPosterPageTest" >
+      <methods>
+      	<include name="testCreateSocialAutoPost" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
 	 <test name="Add Listing by MLS">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/mls-listing-data-01.json" >
 	<classes>
