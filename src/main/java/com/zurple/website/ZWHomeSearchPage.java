@@ -124,7 +124,7 @@ public class ZWHomeSearchPage extends Page{
 		boolean isSuccess = true;
 		try {
 			if(ActionHelper.ClearAndType(driver, search_input, pInputString)) {
-				ActionHelper.staticWait(5);
+				ActionHelper.staticWait(10);
 				ActionHelper.getDynamicElement(driver,select_input, pInputString).click();;
 //				isSuccess = ActionHelper.Click(driver, suggested_element);
 			}

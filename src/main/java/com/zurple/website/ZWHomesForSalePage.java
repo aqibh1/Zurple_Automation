@@ -5,8 +5,10 @@ package com.zurple.website;
 
 import java.util.List;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import resources.utility.ActionHelper;
 import us.zengtest1.Page;
@@ -33,17 +35,23 @@ public class ZWHomesForSalePage extends Page{
 	
 	String allListings_xpath = "//div[@class='row property-photo-grid']/descendant::a";
 	
+	public ZWHomesForSalePage(WebDriver pWebDriver) {
+		driver = pWebDriver;
+		PageFactory.initElements(driver, this);
+	}
+
 	public boolean isHomeForSalePage() {
 		return ActionHelper.waitForElementToBeVisible(driver, homesForSale_heading, 20);
 	}
 	
-	public String getTotalListings() {
-		return ActionHelper.getText(driver, total_listings);
+	public int getTotalListings() {
+		String lTemp = ActionHelper.getText(driver, total_listings).split("\\(")[1].split(" ")[0];
+		return Integer.parseInt(lTemp.trim());
 	}
 	
 	public boolean verifyNavigationTabs() {
 		boolean isFound = false;
-		String [] navigation_array = {"Sort by:","Price","My Favorites","Popularity","Sq. Ft.","Bdrms","Newest"};
+		String [] navigation_array = {"Price","My Favorites","Popularity","Sq. Ft.","Bdrms","Newest"};
 		List<WebElement> list_of_element = ActionHelper.getListOfElementByXpath(driver, nav_tabs);
 		for(String nav: navigation_array) {
 			isFound = false;
@@ -60,13 +68,13 @@ public class ZWHomesForSalePage extends Page{
 		return isFound;
 	}
 	public int getPageNumOfProps() {
-		String listingCount = ActionHelper.getText(driver, showingListingCount).split("1 -")[1].split("of")[0].trim();
-		return Integer.parseInt(listingCount);
+		String lText =ActionHelper.getText(driver, showingListingCount).split(" ")[3];
+		return Integer.parseInt(lText);
 	}
 	
 	public boolean clickOnListing(int pIndex) {
 		List<WebElement> list_of_props = ActionHelper.getListOfElementByXpath(driver, allListings_xpath);
-		return ActionHelper.Click(driver, list_of_props.get(pIndex));
+		return ActionHelper.Click(driver, list_of_props.get(pIndex-1));
 	}
 	
 	@Override

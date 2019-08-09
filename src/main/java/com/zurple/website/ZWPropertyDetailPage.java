@@ -5,8 +5,10 @@ package com.zurple.website;
 
 import java.util.List;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
@@ -49,6 +51,8 @@ public class ZWPropertyDetailPage extends Page{
 	WebElement googleMapPinIcon;
 	
 	String navigationTabs_xpath = "//ul[@class='nav nav-tabs nav-justified']/descendant::a[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	
+	String lPropAndLotDetails = "//table[@class='table table-condensed table-striped']/descendant::strong[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::td/following-sibling::td";
 	
 	//////////////////////////////////////////// Community Stats elements //////////////////////////////////////////////////////////////////////
 	
@@ -103,6 +107,14 @@ public class ZWPropertyDetailPage extends Page{
 	
 	String lastPagePOI = "//table[@id='poi']/descendant::tbody/tr";
 	
+	///////////////////////////////////// FEATURES /////////////////////////////////////////////////////
+	
+	String lFeaturesHeading_xpath = "//div[@id='listing-features']/descendant::h4";
+	
+	public ZWPropertyDetailPage(WebDriver pWebDriver) {
+		driver = pWebDriver;
+		PageFactory.initElements(driver, this);
+	}
 	public boolean verifyPropName() {
 		return !ActionHelper.getText(driver, propName_heading).isEmpty();
 	}
@@ -168,13 +180,41 @@ public class ZWPropertyDetailPage extends Page{
 	public String getVirtualTour() {
 		return ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, propDetails_xpath, "Virtual Tour:")).trim();
 	}
+	public String getStyle() {
+		return ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, propDetails_xpath, "Styles:")).trim();
+	}
+	public String getYearBuilt() {
+		return ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, lPropAndLotDetails, "Year Built:")).trim();
+	}
 	public String getMLSDescription() {
 		return ActionHelper.getText(driver, mlsDescription).trim();
 	}
+	public boolean isFeaturesTableVisible() {
+		boolean isSuccess = false;
+		String lFeatureHeadingArray[] = {"Interior","Exterior","Property and Lot Details"};
+		if(ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "FEATURES"))) {
+			List<WebElement> list_of_features_heading = ActionHelper.getListOfElementByXpath(driver, lFeaturesHeading_xpath);
+			for(String lFeature: lFeatureHeadingArray) {
+				isSuccess = false;
+				for(WebElement element: list_of_features_heading) {
+					if(element.getText().trim().equalsIgnoreCase(lFeature)) {
+						isSuccess = true;
+						break;
+					}
+				}
+				if(!isSuccess) {
+					break;
+				}
+			}
+		}
+		return isSuccess;
+	}
 	public boolean isGoogleMapAndPinVisible() {
 		boolean isSuccess = false;
-		if(ActionHelper.isElementVisible(driver, listing_map)) {
-			isSuccess = ActionHelper.isElementVisible(driver, googleMapPinIcon);
+		if(ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "MAP"))) {
+			if(ActionHelper.isElementVisible(driver, listing_map)) {
+				isSuccess = ActionHelper.isElementVisible(driver, googleMapPinIcon);
+			}
 		}
 		return isSuccess;
 	}

@@ -15,7 +15,16 @@
       	<include name="testSearchPropoerty" />
       </methods>
      </class>
-    
+      <class name="com.zurple.website.ZWHomesForSalePageTest" >
+      <methods>
+      	<include name="testHomesForSale" />
+      </methods>
+     </class>
+      <class name="com.zurple.website.ZWPropertyDetailPageTest">
+      <methods>
+      	<include name="testVerifyPropertyDetails" />
+      </methods>
+     </class>
     </classes>
     
     </parameter>

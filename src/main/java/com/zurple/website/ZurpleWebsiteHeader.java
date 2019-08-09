@@ -13,6 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 /**
@@ -22,6 +23,9 @@ import resources.utility.AutomationLogger;
 public class ZurpleWebsiteHeader extends Page{
 	
 	String top_navigation_bar="//ul[@class='nav navbar-nav pull-right']/descendant::a[@title]";
+	
+	@FindBy(xpath="//a[@href='/login']")
+	WebElement login_link;
 	
 	String[] top_header = {"Search","Real Estate Notes","Agents","Sold Homes"};
 	
@@ -47,6 +51,10 @@ public class ZurpleWebsiteHeader extends Page{
 			}
 		}
 		return isFound;
+	}
+	
+	public boolean isLeadLoggedIn() {
+		return !ActionHelper.isElementVisible(driver, login_link);
 	}
 
 }
