@@ -62,8 +62,9 @@ public class ZWPropertyDetailPageTest extends PageTest{
 	}
 	@Test
 	@Parameters({"searchPropertyDataFile"})
-	public void testVerifyPropertyDetails() {
+	public void testVerifyPropertyDetails(String pDataFile) {
 		getPage();
+		dataObject = getDataFile(pDataFile);
 		SoftAssert softAssert = new SoftAssert();
 		String lInpuSearch = dataObject.optString("input_search");
 		String lSearchBy = dataObject.optString("search_by");
@@ -84,8 +85,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		
 		switch(lSearchBy) {
 		case "Zip":
-			String lZip = page.getAddress().split("(")[1].replace(")", "");
-			assertTrue(lInpuSearch.equalsIgnoreCase(lZip),"Zip is not according to criteria...");
+			assertTrue(page.getAddress().contains(lInpuSearch),"Zip is not according to criteria...");
 			break;
 		case "Address":
 			assertTrue(page.getAddress().contains(lInpuSearch),"Address is not according to criteria...");
@@ -115,16 +115,16 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		}
 		if(!lMaxPrice.isEmpty()) {
 			int lMaximumPrice = Integer.parseInt(dataObject.optString("maximum_price").replace(",", "").replace("$", ""));
-			assertTrue(lMaximumPrice>=lPropPriceOnPage, "Property Price is greater than maximum search price..");
+			assertTrue(lMaximumPrice>=lPropPriceOnPage, "Property Price is greater than maximum search price.. \n"+"Maximum Price"+lMaximumPrice+"\n Price:"+lPropPriceOnPage);
 		}
 		if(!lNumOfBeds.isEmpty()) {
 			int lNumberOfBeds = Integer.parseInt(dataObject.optString("number_of_beds").replace("+", ""));
 			assertTrue(Integer.parseInt(page.getBedrooms())>=lNumberOfBeds, "Bedrooms count is less than miniimum number of beds..");
 		}
-		if(!lNumOfBeds.isEmpty()) {
-			int lNumberOfBeds = Integer.parseInt(dataObject.optString("number_of_beds").replace("+", ""));
-			assertTrue(Integer.parseInt(page.getBedrooms())>=lNumberOfBeds, "Bedrooms count is less than miniimum number of beds..");
-		}
+//		if(!lNumOfBeds.isEmpty()) {
+//			int lNumberOfBeds = Integer.parseInt(dataObject.optString("number_of_beds").replace("+", ""));
+//			assertTrue(Integer.parseInt(page.getBedrooms())>=lNumberOfBeds, "Bedrooms count is less than miniimum number of beds..");
+//		}
 		if(!lNumOfBaths.isEmpty()) {
 			int lNumberOfBaths = Integer.parseInt(dataObject.optString("number_of_baths").replace("+", ""));
 			assertTrue(Integer.parseInt(page.getBathrooms())>=lNumberOfBaths, "Bathrooms count is less than miniimum number of beds..");
@@ -143,17 +143,8 @@ public class ZWPropertyDetailPageTest extends PageTest{
 			String [] lViewsToVerify = lView.split(",");
 			assertTrue(elementExists(lViewsOnPage, lViewsToVerify), "All the views doesn't exist on the page..");
 		}
-//		if(!lLotSize.isEmpty()) {
-//			if(lLotSize.contains("acres") && lLotSize.contains("sq ft")) {
-//				lLotSize = lLotSize.split("/")[1].replace("+", "").trim();
-//			}else if(lLotSize.contains("acres")) {
-//				lLotSize = lLotSize.split("+")[0];
-//			}else {
-//				lLotSize = lLotSize.split("+")[0].replace(",", "");
-//			}
-//			int lLotSizeOnPage = Integer.parseInt(page.getLotSize().replace("acres", ""));
-//			
-//		}
+		verifyLotSize(lLotSize);
+		
 		
 		if(!lStyle.isEmpty()) {
 			String lStyleOnPage[] = page.getStyle().split(",");
@@ -185,6 +176,27 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		
 	}
 	
+	private void verifyLotSize(String lLotSize) {
+		if(!lLotSize.isEmpty()) {
+			double lLotSizeInAcres = 0;
+			if(lLotSize.contains("acres") && lLotSize.contains("sq ft")) {
+				if(lLotSize.contains(".25")) {
+					lLotSizeInAcres = 0.25;
+				}else {
+					lLotSizeInAcres = 0.50;
+				}
+			}else if(lLotSize.contains("acre")) {
+				lLotSizeInAcres = Double.parseDouble(lLotSize.split(" ")[0].replace("+", "").trim());
+			}else {
+				lLotSize = lLotSize.split("sq")[0].replace(",", "").replace("+", "");
+				lLotSizeInAcres = Double.parseDouble(lLotSize.trim())/43560;
+			}
+			double lLotSizeOnPage = Double.parseDouble(page.getLotSize().replace("acres", "").trim());
+			assertTrue(lLotSizeOnPage>=lLotSizeInAcres,"Unable to verify lot size in acres");
+		}
+		
+	}
+
 	private boolean elementExists(String[] pElementsOnPage, String[] pElementsToVerify) {
 		boolean isFound = false;
 		for(String elementToVerify: pElementsToVerify) {

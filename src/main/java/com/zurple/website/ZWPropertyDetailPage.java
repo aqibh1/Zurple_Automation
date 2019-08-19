@@ -148,7 +148,11 @@ public class ZWPropertyDetailPage extends Page{
 		return ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, propDetails_xpath, "Bedrooms:")).trim();
 	}
 	public String getBathrooms() {
-		return ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, propDetails_xpath, "Bathrooms:")).trim();
+		String lBathroomCount = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, propDetails_xpath, "Bathrooms:")).trim();
+		if (lBathroomCount.contains("full") || lBathroomCount.contains("half")) {
+			lBathroomCount = lBathroomCount.split("\\(")[0].trim();
+		}
+		return lBathroomCount;
 	}
 	public String getSqFeet() {
 		return ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, propDetails_xpath, "Square Feet:")).trim();
@@ -273,6 +277,8 @@ public class ZWPropertyDetailPage extends Page{
 				return false;
 			}
 			
+		}else {
+			return false;
 		}
 		return true;
 	}
@@ -286,6 +292,8 @@ public class ZWPropertyDetailPage extends Page{
 				AutomationLogger.error("Pins of POI map count mismatched....");
 				return false;
 			}
+		}else {
+			return false;
 		}
 		return true;
 	}
