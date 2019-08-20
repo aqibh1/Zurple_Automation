@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
 
@@ -103,7 +104,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 			assertTrue(page.getCounty().equalsIgnoreCase(lInpuSearch),"County is not according to criteria..");
 			break;
 		default:
-			assertTrue(page.getAddress().contains(lInpuSearch),"Property doesn' exist in the desired city..");
+			assertTrue(page.getAddressFromPropDetails().contains(lInpuSearch),"Property doesn't exist in the desired city..");
 			break;
 		}
 		
@@ -135,7 +136,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 			assertTrue(elementExists(lFeaturesOnPage, lFeaturesToVerify), "All the features doesn't exist on the page..");
 		}
 		if(!lSquareFeet.isEmpty()) {
-			int lSqFeetOnPage = Integer.parseInt(page.getSqFeet().split("sq.ft")[0].trim());
+			int lSqFeetOnPage = Integer.parseInt(page.getSqFeet().split("sq.ft")[0].trim().replace(",", "").trim());
 			assertTrue(lSqFeetOnPage>=Integer.parseInt(lSquareFeet), "Square Feet is less than mentioned criteria..");
 		}
 		if(!lView.isEmpty()) {
@@ -201,10 +202,14 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		boolean isFound = false;
 		for(String elementToVerify: pElementsToVerify) {
 			for(String lElementsOnPage: pElementsOnPage) {
-				if(elementToVerify.equalsIgnoreCase(lElementsOnPage)) {
+				if(elementToVerify.equalsIgnoreCase(lElementsOnPage.trim())) {
 					isFound = true;
 					break;
 				}
+			}
+			if(!isFound) {
+				AutomationLogger.error("Unable to verify -> "+elementToVerify);
+				break;
 			}
 		}
 		return isFound;

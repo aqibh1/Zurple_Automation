@@ -54,6 +54,8 @@ public class ZWPropertyDetailPage extends Page{
 	
 	String lPropAndLotDetails = "//table[@class='table table-condensed table-striped']/descendant::strong[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::td/following-sibling::td";
 	
+	@FindBy(xpath="//div[@class='row address-row']/descendant::h2[1]")
+	WebElement addressInHeading;
 	//////////////////////////////////////////// Community Stats elements //////////////////////////////////////////////////////////////////////
 	
 	@FindBy(id="overview-table")
@@ -139,6 +141,9 @@ public class ZWPropertyDetailPage extends Page{
 	}
 	
 	public String getAddress() {
+		return ActionHelper.getText(driver, addressInHeading).trim();
+	}
+	public String getAddressFromPropDetails() {
 		return ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, propDetails_xpath, "Address:")).trim();
 	}
 	public String getFeatures() {
