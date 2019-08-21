@@ -29,7 +29,7 @@ public class ZWHomeSearchPageTest extends PageTest{
 			driver = getDriver();
 			page = new ZWHomeSearchPage(driver);
 			page.setUrl("");
-			page.setDriver(driver);
+//			page.setDriver(driver);
 		}
 		return page;
 	}
@@ -69,7 +69,7 @@ public class ZWHomeSearchPageTest extends PageTest{
 	public void searchProperty() {
 		assertTrue(page.selectInputType(dataObject.optString("search_by")), "Unable to select Input Type search criteria");
 		assertTrue(page.typeInputString(dataObject.optString("input_search")), "Unable to type input string..");
-	
+
 		if(!dataObject.optString("minimum_price").isEmpty()) {
 			assertTrue(page.selectMinPrice(dataObject.optString("minimum_price")), "Unable to select minimum price..");
 		}
@@ -113,6 +113,7 @@ public class ZWHomeSearchPageTest extends PageTest{
 				assertTrue(page.selectView(dataObject.optString("view").split(",")), "Unable to select view..");
 			}	
 		}
+
 		assertTrue(page.clickSearchButton(), "Unable to click on search button..");
 
 	}

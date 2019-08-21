@@ -5,10 +5,13 @@ package com.zurple.website;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
@@ -219,10 +222,18 @@ public class ZWPropertyDetailPage extends Page{
 		return isSuccess;
 	}
 	public boolean isGoogleMapAndPinVisible() {
+		WebDriverWait wait=new WebDriverWait(driver, 20);
+		ActionHelper.ScrollToElement(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "MAP"));
 		boolean isSuccess = false;
 		if(ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "MAP"))) {
 			if(ActionHelper.isElementVisible(driver, listing_map)) {
-				isSuccess = ActionHelper.isElementVisible(driver, googleMapPinIcon);
+//				isSuccess = ActionHelper.isElementVisible(driver, googleMapPinIcon);
+				try {
+					isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
+				}catch(Exception ex) {
+					System.out.println("No Pin is displayed on Google MAPS");
+					return isSuccess;
+				}
 			}
 		}
 		return isSuccess;

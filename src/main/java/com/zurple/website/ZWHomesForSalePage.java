@@ -74,7 +74,7 @@ public class ZWHomesForSalePage extends Page{
 	
 	public boolean clickOnListing(int pIndex) {
 		List<WebElement> list_of_props = ActionHelper.getListOfElementByXpath(driver, allListings_xpath);
-		return ActionHelper.Click(driver, list_of_props.get(pIndex-1));
+		return ActionHelper.Click(driver, list_of_props.get(pIndex));
 	}
 	
 	@Override
