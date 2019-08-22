@@ -34,6 +34,15 @@ public class ZWHomeSearchPageTest extends PageTest{
 		return page;
 	}
 
+	public Page getPage(String pUrl) {
+		if(page == null){
+			driver = getDriver();
+			page = new ZWHomeSearchPage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+		}
+		return page;
+	}
 	@Override
 	public void testTitle() {
 		// TODO Auto-generated method stub
@@ -61,6 +70,14 @@ public class ZWHomeSearchPageTest extends PageTest{
 	@Test
 	@Parameters({"searchPropertyDataFile"})
 	public void testSearchPropoerty(String pDataFile) {
+		getPage("");
+		dataObject = getDataFile(pDataFile);
+		searchProperty();
+	}
+	
+	@Test
+	@Parameters({"searchPropertyDataFile"})
+	public void testSearchPropoertyAfterLoggedIn(String pDataFile) {
 		getPage();
 		dataObject = getDataFile(pDataFile);
 		searchProperty();

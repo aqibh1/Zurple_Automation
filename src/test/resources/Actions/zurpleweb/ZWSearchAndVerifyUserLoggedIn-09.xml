@@ -1,0 +1,41 @@
+<suite name="Search And Verify Property suite" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+    </listeners>
+    
+    <test name="Search and Verify property by County">
+    
+    <parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-squarefeet.json" >
+	
+	<classes>
+	<class name="com.zurple.website.ZWLoginPageTest" >
+      <methods>
+      	<include name="testSignIn" />
+      </methods>
+     </class>
+    <class name="com.zurple.website.ZWHomeSearchPageTest" >
+      <methods>
+      	<include name="testSearchPropoertyAfterLoggedIn" />
+      </methods>
+     </class>
+      <class name="com.zurple.website.ZWHomesForSalePageTest" >
+      <methods>
+      	<include name="testHomesForSale" />
+      </methods>
+     </class>
+      <class name="com.zurple.website.ZWPropertyDetailPageTest">
+      <methods>
+      	<include name="testVerifyPropertyDetails" />
+      </methods>
+     </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    
+    </parameter>
+	</test>
+</suite>

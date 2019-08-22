@@ -124,7 +124,7 @@ public class ZWHomeSearchPage extends Page{
 		boolean isSuccess = true;
 		try {
 			if(ActionHelper.ClearAndType(driver, search_input, pInputString)) {
-				ActionHelper.staticWait(15);
+				ActionHelper.staticWait(25);
 				ActionHelper.getDynamicElement(driver,select_input, pInputString).click();;
 //				isSuccess = ActionHelper.Click(driver, suggested_element);
 			}
@@ -181,26 +181,32 @@ public class ZWHomeSearchPage extends Page{
 		switch(pInputType) {
 		case "Zip":
 			clickOnExpandSearchFields();
+			ActionHelper.staticWait(5);
 			isSelectSuccess = ActionHelper.Click(driver, zip_input);
 			break;
 		case "Address":
 			clickOnExpandSearchFields();
+			ActionHelper.staticWait(5);
 			isSelectSuccess = ActionHelper.Click(driver, address_input);
 			break;
 		case "MLS":
 			clickOnExpandSearchFields();
+			ActionHelper.staticWait(5);
 			isSelectSuccess = ActionHelper.Click(driver, mls_input);
 			break;
 		case "Neighborhood":
 			clickOnExpandSearchFields();
+			ActionHelper.staticWait(5);
 			isSelectSuccess = ActionHelper.Click(driver, neighbourhood_input);
 			break;
 		case "School District":
 			clickOnExpandSearchFields();
+			ActionHelper.staticWait(5);
 			isSelectSuccess = ActionHelper.Click(driver, school_input);
 			break;
 		case "County":
 			clickOnExpandSearchFields();
+			ActionHelper.staticWait(5);
 			isSelectSuccess = ActionHelper.Click(driver, county_input);
 			break;
 		default:
