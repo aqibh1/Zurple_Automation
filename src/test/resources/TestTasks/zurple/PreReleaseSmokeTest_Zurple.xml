@@ -1,0 +1,547 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Zurple Website Pre Release Somke Tests"
+	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.TestListener" />
+		<listener class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+	<test name="Search and Verify property by Price City Features">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-01.json">
+			<classes>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoerty" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test name="Search and Verify property by City">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-city.json">
+			<classes>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoerty" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test name="Search and Verify property by Zip">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-zip.json">
+			<classes>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoerty" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test name="Search and Verify property by Neighborhood">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-neighborhood.json">
+			<classes>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoerty" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test name="Search and Verify property on City Style and View">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-city-style-view.json">
+			<classes>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoerty" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test name="Search and Verify property on MLS">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-mls.json">
+			<classes>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoerty" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test name="Search and Verify property by Address">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-address.json">
+			<classes>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoerty" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test name="Search and Verify property by County">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-county.json">
+			<classes>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoerty" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test name="Search and Verify property by Square Feet">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-squarefeet.json">
+			<classes>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoerty" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<!-- Search property test cases with user logged in -->
+	<test
+		name="Search and Verify property by Bed Bath Price and Features with User Logged In">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-01.json">
+			<classes>
+				<class name="com.zurple.website.ZWLoginPageTest">
+					<methods>
+						<include name="testSignIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoertyAfterLoggedIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test
+		name="Search and Verify property by City with User Logged In">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-city.json">
+			<classes>
+				<class name="com.zurple.website.ZWLoginPageTest">
+					<methods>
+						<include name="testSignIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoertyAfterLoggedIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test name="Search and Verify property by Zip with User Logged In">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-zip.json">
+			<classes>
+				<class name="com.zurple.website.ZWLoginPageTest">
+					<methods>
+						<include name="testSignIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoertyAfterLoggedIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test name="Search and Verify property by Neighborhood with User Logged In">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-neighborhood.json">
+			<classes>
+				<class name="com.zurple.website.ZWLoginPageTest">
+					<methods>
+						<include name="testSignIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoertyAfterLoggedIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test
+		name="Search and Verify property by City Style Feature View with User Logged In">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-city-style-view.json">
+			<classes>
+				<class name="com.zurple.website.ZWLoginPageTest">
+					<methods>
+						<include name="testSignIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoertyAfterLoggedIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test name="Search and Verify property by MLS with User Logged In">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-mls.json">
+			<classes>
+				<class name="com.zurple.website.ZWLoginPageTest">
+					<methods>
+						<include name="testSignIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoertyAfterLoggedIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test
+		name="Search and Verify property by Address with User Logged In">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-address.json">
+			<classes>
+				<class name="com.zurple.website.ZWLoginPageTest">
+					<methods>
+						<include name="testSignIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoertyAfterLoggedIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test
+		name="Search and Verify property by County with User Logged In">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-county.json">
+			<classes>
+				<class name="com.zurple.website.ZWLoginPageTest">
+					<methods>
+						<include name="testSignIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoertyAfterLoggedIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+
+	<test
+		name="Search and Verify property by Square Feet with User Logged In">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-squarefeet.json">
+			<classes>
+				<class name="com.zurple.website.ZWLoginPageTest">
+					<methods>
+						<include name="testSignIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoertyAfterLoggedIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+</suite>
