@@ -16,7 +16,7 @@
      </class>
     <class name="com.zurple.website.ZWHomeSearchPageTest" >
       <methods>
-      	<include name="testSearchPropoerty" />
+      	<include name="testSearchPropoertyAfterLoggedIn" />
       </methods>
      </class>
       <class name="com.zurple.website.ZWHomesForSalePageTest" >
