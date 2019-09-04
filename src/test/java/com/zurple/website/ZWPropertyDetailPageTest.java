@@ -16,6 +16,7 @@ import org.testng.asserts.SoftAssert;
 
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.forms.zurple.website.ZWLeadCaptureForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import us.zengtest1.Page;
@@ -82,6 +83,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		String lLotSize = dataObject.optString("lot_size");
 		String lStyle = dataObject.optString("style");
 		String lYearBuilt = dataObject.optString("year_built");
+		String lLeadCapture = dataObject.optString("lead_capture");
 		
 		assertTrue(page.verifyPropName(), "Property page is not visible..");
 		assertTrue(!page.getPropPrice().isEmpty(),"Property Price is not visible in header..");
@@ -177,6 +179,12 @@ public class ZWPropertyDetailPageTest extends PageTest{
 //			assertFalse(page.verifyCommunityStatsVisible(), "Unable to verify community stats..");
 //			assertFalse(page.verifySchoolMap(), "Unable to verify school map..");
 //			assertFalse(page.verifyPOIMap(), "Unable to verify whats nearby map..");
+			
+		}
+		if(lLeadCapture!=null && !lLeadCapture.isEmpty()) {
+			ActionHelper.RefreshPage(driver);
+			ActionHelper.RefreshPage(driver);
+			assertTrue(new ZWLeadCaptureForm(driver).isLeadCaptureFormIsVisible(),"Lead Capture form is not visible for the user..");
 		}
 		
 	}
