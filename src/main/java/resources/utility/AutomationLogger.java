@@ -26,7 +26,7 @@ public class AutomationLogger {
 	 
 	 //This is to print log for the ending of the test case
 	 
-	 public static void endTestCase(String sTestCaseName){
+	 public static void endTestCase(){
 	 
 		 AutomationLogger.info("XXXXXXXXXXXXXXXXXXXXXXX             "+"-E---N---D-"+"             XXXXXXXXXXXXXXXXXXXXXX");
 	 

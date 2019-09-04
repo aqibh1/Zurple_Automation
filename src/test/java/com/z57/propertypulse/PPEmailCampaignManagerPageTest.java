@@ -88,7 +88,7 @@ public class PPEmailCampaignManagerPageTest extends PageTest{
 		assertTrue(page.typeInSearch(lEmailSubjectLine), "Unable to type in search input..");
 		assertTrue(page.isListingScheduled(lEmailSubjectLine), "Listing is not scheduled..");
 		
-		AutomationLogger.endTestCase("testEmailCampaignManagerListing");
+		AutomationLogger.endTestCase();
 	}
 	
 	@Parameters({"dataFileMarketing"})
@@ -124,7 +124,7 @@ public class PPEmailCampaignManagerPageTest extends PageTest{
 		assertTrue(page.typeInSearch(lEmailSubjectLine), "Unable to type in search input..");
 		assertTrue(page.isListingScheduled(lEmailSubjectLine), "Listing is not scheduled..");
 		
-		AutomationLogger.endTestCase("testEmailCampaignManagerListing");
+		AutomationLogger.endTestCase();
 	}
 	
 	/////////////////////////////////////////////////////////////
