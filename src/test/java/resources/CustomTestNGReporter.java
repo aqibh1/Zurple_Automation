@@ -10,12 +10,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import javax.xml.stream.events.StartElement;
 
 import org.testng.IReporter;
 import org.testng.IResultMap;
@@ -177,6 +181,7 @@ public class CustomTestNGReporter implements IReporter {
 					
 					/* Start Date*/
 					Date startDate = testObj.getStartDate();
+					Timestamp ts = new Timestamp(startDate.getTime());
 					retBuf.append("<td>");
 					retBuf.append(this.getDateInStringFormat(startDate));
 					retBuf.append("</td>");
@@ -189,6 +194,7 @@ public class CustomTestNGReporter implements IReporter {
 					
 					/* Execute Time */
 					long deltaTime = endDate.getTime() - startDate.getTime();
+					long lSeconds= TimeUnit.MILLISECONDS.toSeconds(deltaTime);
 					String deltaTimeStr = this.convertDeltaTimeToString(deltaTime);
 					retBuf.append("<td>");
 					retBuf.append(deltaTimeStr);
@@ -234,15 +240,19 @@ public class CustomTestNGReporter implements IReporter {
 	{
 		StringBuffer retBuf = new StringBuffer();
 		
-		long milli = deltaTime;
+		 String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(deltaTime),
+		            TimeUnit.MILLISECONDS.toMinutes(deltaTime) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(deltaTime)),
+		            TimeUnit.MILLISECONDS.toSeconds(deltaTime) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(deltaTime)));
+				 
+//		long milli = deltaTime;
+//		
+//		long seconds = deltaTime / 1000;
+//		
+//		long minutes = seconds / 60;
+//		
+//		long hours = minutes / 60;
 		
-		long seconds = deltaTime / 1000;
-		
-		long minutes = seconds / 60;
-		
-		long hours = minutes / 60;
-		
-		retBuf.append(hours + ":" + minutes + ":" + seconds + ":" + milli);
+		retBuf.append(hms);
 		
 		return retBuf.toString();
 	}
