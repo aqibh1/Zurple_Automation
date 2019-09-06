@@ -15,6 +15,7 @@ import com.zurple.my.PageTest;
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
 import resources.TestEnvironment;
+import resources.utility.ActionHelper;
 import resources.utility.DataConstants;
 
 /**
@@ -70,7 +71,7 @@ public class PPUserSettingsPageTest extends PageTest{
 	}
 	
 	private void verifyDetailsOnContactPage(String pDesignation, String pPhoneNum) {
-		
+		ActionHelper.staticWait(30);
 		driver.navigate().to(EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url")+"/contact-me");
 		System.out.print(pDesignation);
 		ContactMePage contactPage = new ContactMePage(driver);
