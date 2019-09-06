@@ -41,7 +41,7 @@ public class PPAnalyticsPageTest extends PageTest{
 	@Test
 	public void testVerifyFacebookAnalyticsPage() {
 		getPage("/content/analytics");
-		String faceBookPageToSelect = "Agent Thomsan";
+		String faceBookPageToSelect = "Aqib Automated Testing";
 		assertTrue(page.isDashboardAnalyticsPage(), "Dashboard Analytics page is not visible..");
 		assertTrue(page.selectFacebookPage(faceBookPageToSelect), "Unable to select facebook page from drop down..");
 		assertTrue(page.isFacebookGraphVisible(), "Facebook graph container is not visible..");
