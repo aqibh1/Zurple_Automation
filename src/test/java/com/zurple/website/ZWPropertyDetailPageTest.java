@@ -170,15 +170,15 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		if(isUserLoggedIn) {
 			softAssert.assertTrue(page.isFeaturesTableVisible(), "Features table is not visible..");
 			assertTrue(page.isGoogleMapAndPinVisible(), "Google Map and pin is not visible..");
-//			assertTrue(page.verifyCommunityStatsVisible(), "Unable to verify community stats..");
-//			assertTrue(page.verifySchoolMap(), "Unable to verify school map..");
-//			assertTrue(page.verifyPOIMap(), "Unable to verify whats nearby map..");
+			assertTrue(page.verifyCommunityStatsVisible(), "Unable to verify community stats..");
+			softAssert.assertTrue(page.verifySchoolMap(), "Unable to verify school map..");
+			softAssert.assertTrue(page.verifyPOIMap(), "Unable to verify whats nearby map..");
 		}else {
 			softAssert.assertTrue(page.isFeaturesTableVisible(), "Features table is not visible..");
 			assertTrue(page.isGoogleMapAndPinVisible(), "Google Map and pin is not visible..");
-//			assertFalse(page.verifyCommunityStatsVisible(), "Unable to verify community stats..");
-//			assertFalse(page.verifySchoolMap(), "Unable to verify school map..");
-//			assertFalse(page.verifyPOIMap(), "Unable to verify whats nearby map..");
+			assertFalse(page.verifyCommunityStatsVisible(), "Unable to verify community stats..");
+			assertFalse(page.verifySchoolMap(), "Unable to verify school map..");
+			assertFalse(page.verifyPOIMap(), "Unable to verify whats nearby map..");
 			
 		}
 		if(lLeadCapture!=null && !lLeadCapture.isEmpty()) {

@@ -93,11 +93,11 @@ public class ZWPropertyDetailPage extends Page{
 	@FindBy(id="schoolsMap")
 	WebElement schoolMap;
 	
-	@FindBy(xpath="//ul[@class='pagination']/li[@data-page='last']/a")
-	WebElement lastPagePagination_button;
+	@FindBy(xpath="//div[@id='schools-table']/descendant::ul[@class='pagination']/li[@data-page='last']/a")
+	WebElement lastPagePagination_button_school;
 	
-	@FindBy(xpath="//div[@class='footable-pagination-wrapper']/descendant::span")
-	WebElement totalNumOfPages;
+	@FindBy(xpath="//table[@id='schools']/descendant::div[@class='footable-pagination-wrapper']/descendant::span")
+	WebElement totalNumOfPages_schools;
 	
 	String lastPageSchools = "//table[@id='schools']/descendant::tbody/tr";
 	
@@ -112,6 +112,14 @@ public class ZWPropertyDetailPage extends Page{
 	
 	String lastPagePOI = "//table[@id='poi']/descendant::tbody/tr";
 	
+	@FindBy(xpath="//ul[@class='nav nav-tabs nav-justified']/descendant::a[contains(text(),'NEARBY')]")
+	WebElement nearybyTabElement;
+	
+	@FindBy(xpath="//div[@id='poi-table']/descendant::ul[@class='pagination']/li[@data-page='last']/a")
+	WebElement lastPagePagination_button_poi;
+	
+	@FindBy(xpath="//table[@id='poi']/descendant::div[@class='footable-pagination-wrapper']/descendant::span")
+	WebElement totalNumOfPages_poi;
 	///////////////////////////////////// FEATURES /////////////////////////////////////////////////////
 	
 	String lFeaturesHeading_xpath = "//div[@id='listing-features']/descendant::h4";
@@ -299,7 +307,7 @@ public class ZWPropertyDetailPage extends Page{
 		return true;
 	}
 	public boolean verifyPOIMap() {
-		if(ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "WHAT'S NEARBY"))) {
+		if(ActionHelper.Click(driver, nearybyTabElement)) {
 			if(!ActionHelper.waitForElementToBeVisible(driver, poiMap, 10)) {
 				AutomationLogger.error("POI Map is not visible....");
 				return false;
@@ -315,10 +323,10 @@ public class ZWPropertyDetailPage extends Page{
 	}
 	private boolean verifySchoolPins() {
 		boolean isSuccess = false;
-		if(ActionHelper.Click(driver, lastPagePagination_button)) {
+		if(ActionHelper.Click(driver, lastPagePagination_button_school)) {
 			List<WebElement> list_of_schools = ActionHelper.getListOfElementByXpath(driver, lastPageSchools);
 			int lSchoolPins = ActionHelper.getListOfElementByXpath(driver, schoolPins).size()/2;
-			int lTotalPages = Integer.parseInt(ActionHelper.getText(driver, totalNumOfPages).split("of")[1].trim());
+			int lTotalPages = Integer.parseInt(ActionHelper.getText(driver, totalNumOfPages_schools).split("of")[1].trim())-1;
 			int lTotalSchools = (lTotalPages*15)+list_of_schools.size();
 			isSuccess = lSchoolPins==lTotalSchools;
 		}
@@ -327,10 +335,10 @@ public class ZWPropertyDetailPage extends Page{
 	
 	private boolean verifyPOIPins() {
 		boolean isSuccess = false;
-		if(ActionHelper.Click(driver, lastPagePagination_button)) {
+		if(ActionHelper.Click(driver, lastPagePagination_button_poi)) {
 			List<WebElement> list_of_POI = ActionHelper.getListOfElementByXpath(driver, lastPagePOI);
 			int lPins = ActionHelper.getListOfElementByXpath(driver, poi_pins_xpath).size();
-			int lTotalPages = Integer.parseInt(ActionHelper.getText(driver, totalNumOfPages).split("of")[1].trim());
+			int lTotalPages = Integer.parseInt(ActionHelper.getText(driver, totalNumOfPages_poi).split("of")[1].trim())-1;
 			int lTotalPins = (lTotalPages*15)+list_of_POI.size();
 			isSuccess = lPins==lTotalPins;
 		}
