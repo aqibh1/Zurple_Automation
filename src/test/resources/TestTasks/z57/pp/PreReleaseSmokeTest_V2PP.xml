@@ -1098,7 +1098,8 @@
       </class>
     </classes>
 	</test>
-	
+	<!-- DB Dependednt Testcases -->
+	<!--  
 	<test name="Create Listing Campaign Email">
     <parameter name="dataFileMarketing" value="/resources/data/propertypulse/marketing/email-campaign-manager-listing.json" >
 	<classes>
@@ -1142,7 +1143,7 @@
     </classes>
     </parameter>
 	</test>
-	
+	-->
 	<test name="Update And Veify User Settings">
     <parameter name="dataFileSettings" value="/resources/data/propertypulse/settings/user-settings-data.json" >
 	<classes>
@@ -1208,7 +1209,8 @@
     </classes>
     </parameter>
 	</test>
-	
+	<!-- DB Dependent -->
+	<!--  
 	 <test name="Post on Twitter Later">
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-later-twitter-data.json" >
 	<classes>
@@ -1252,7 +1254,7 @@
     </classes>
     </parameter>
 	</test>
-	
+	-->
 	 
 	 <test name="Post Image on Twitter now">
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-image-twitter-data.json" >
@@ -1297,7 +1299,8 @@
     </classes>
     </parameter>
 	</test>
-	
+	<!-- DB Dependent -->
+	<!--  
 	 <test name="Post on LinkedIn Later">
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-later-linkedin-data.json" >
 	<classes>
@@ -1341,7 +1344,7 @@
     </classes>
     </parameter>
 	</test>
-	 
+	 -->
 	 <test name="Post Image on LinkedIn now">
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-image-linkedin-data.json" >
 	<classes>
@@ -1363,7 +1366,8 @@
     </classes>
     </parameter>
 	</test>
-	
+	<!-- DB Dependent -->
+	<!--  
 	 <test name="Post a Video on Youtube">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-youtube-video-data.json" >
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-youtube-data.json" >
@@ -1431,7 +1435,7 @@
     </parameter>
     </parameter>
 	</test>
-	
+	-->
 	 <test name="Trigger and Verify IDX post on FB and Twitter">
  	<parameter name="dataFileAutomation" value="/resources/data/propertypulse/automation/idx-post-data.json" >
 	<classes>
@@ -1453,7 +1457,8 @@
     </classes>
     </parameter>
 	</test>
-	
+	<!-- DB Dependent -->
+	<!--  
 	  <test name="Trigger and Verify regular post on FB and Twitter">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-accelator-posts-data.json" >
 	<classes>
@@ -1490,7 +1495,7 @@
     </classes>
     </parameter>
 	</test>
-	
+	-->
 	 <test name="Social Auto Poster">
  	<parameter name="dataFileAutoPoster" value="/resources/data/propertypulse/social/social-auto-poster-data.json" >
 	<classes>
