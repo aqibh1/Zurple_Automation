@@ -22,6 +22,8 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(xpath="//div[@id='property-views-stats']/descendant::td/div[text()='Loading...']")
 	WebElement loading;
 	
+	String lead_name = "//div[@id='lead-details-main']/descendant::h2";
+	
 	public ZBOLeadDetailPage() {
 		
 	}
@@ -50,5 +52,16 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	private boolean isLoading() {
 		return ActionHelper.waitForElementToBeDisappeared(driver, loading);
+	}
+	public boolean isLeadNameExist(String pName) {
+		boolean isLeadExist = false;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, lead_name);
+		for(WebElement element: list_element) {
+			if(element.getText().trim().equalsIgnoreCase(pName)) {
+				isLeadExist = true;
+				break;
+			}
+		}
+		return isLeadExist;
 	}
 }

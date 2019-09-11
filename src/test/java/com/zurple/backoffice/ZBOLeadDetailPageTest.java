@@ -58,5 +58,20 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		AutomationLogger.endTestCase();
 	}
 
+	@Test
+	public void testVerifyLeadIsAddedInBackOffice() {
+		AutomationLogger.startTestCase("Verify lead is added in Back Office");
+		getPage();
+		String lLeadEmail = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.ZurpleLeadEmail);
+		String lLeadId = ModuleCommonCache.getElement(getThreadId().toString(), lLeadEmail);
+		
+		String lUpdatedUrl = driver.getCurrentUrl().replace("dashboard", "lead/"+lLeadId+"");
+		driver.navigate().to(lUpdatedUrl);
+		
+		assertTrue(page.isLeadDetailPage(),"Lead Detail page is not opened..");
+		assertTrue(page.isLeadNameExist(ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.ZurpleLeadName)),"Lead name not found in lead details page..");
+		
+		AutomationLogger.endTestCase();
+	}
 
 }

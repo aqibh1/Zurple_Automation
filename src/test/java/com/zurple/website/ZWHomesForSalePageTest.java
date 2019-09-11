@@ -9,8 +9,12 @@ import java.util.Random;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
@@ -23,6 +27,7 @@ public class ZWHomesForSalePageTest extends PageTest{
 	
 	private WebDriver driver;
 	private ZWHomesForSalePage page;
+	private JSONObject dataObject;
 	
 	@Override
 	public void testTitle() {
@@ -52,7 +57,15 @@ public class ZWHomesForSalePageTest extends PageTest{
 		}
 		return page;
 	}
-
+	public Page getPage(String pUrl) {
+		if(page == null){
+			driver = getDriver();
+			page = new ZWHomesForSalePage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+		}
+		return page;
+	}
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
@@ -72,6 +85,40 @@ public class ZWHomesForSalePageTest extends PageTest{
 		}
 	}
 	
+	@Test
+	@Parameters({"captureLeadData"})
+	public void testCaptureLeadFromSearchResults(String pDataFile) {
+		AutomationLogger.startTestCase("Lead Capture from Search Results");
+		getPage("/CA/Carlsbad");
+		dataObject = getDataFile(pDataFile);
+		
+		String lName = updateName(dataObject.optString("name"));
+		String lEmail = updateEmail(dataObject.optString("email"));
+		String lThreadId = getThreadId().toString();
+		
+		assertTrue(page.isHomeForSalePage(),"Homes for Sale page is not found..");
+		ActionHelper.RefreshPage(driver);
+		ActionHelper.RefreshPage(driver);
+		assertTrue(page.leadCaptureForm.isLeadCaptureFormIsVisible(),"Lead capture form is not visible..");
+		assertTrue(page.leadCaptureForm.typeName(lName),"Lead capture form is not visible..");
+		assertTrue(page.leadCaptureForm.typeEmail(lEmail),"Lead capture form is not visible..");
+		assertTrue(page.leadCaptureForm.typePhone(dataObject.optString("phone")),"Lead capture form is not visible..");
+		assertTrue(page.leadCaptureForm.isAlreadyRegisteredLinkVisible(),"Already register link not visible..");
+		assertTrue(page.leadCaptureForm.isSubscribed(),"Subscribed checkbox is not checked..");
+		assertTrue(page.leadCaptureForm.clickOnRegisterButton(),"Unable to click on register button..");
+		
+		assertTrue(new ZWRegisterUserPage(driver).isRegisterSuccessfully(),"Registration of user is unsuccessful..");
+		
+		String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
+		
+		ModuleCommonCache.updateCacheForModuleObject(lThreadId, ModuleCacheConstants.ZurpleLeadEmail, lEmail);
+		ModuleCommonCache.updateCacheForModuleObject(lThreadId,lEmail,lLeadId);
+		ModuleCommonCache.updateCacheForModuleObject(lThreadId, ModuleCacheConstants.ZurpleLeadName, lName);
+		
+		AutomationLogger.endTestCase();
+		
+		
+	}
 	private int getRandomNumber(int pRange) {
 		// Obtain a number between [0 - 49].
 		int lRandomNumber = new Random().nextInt(pRange);

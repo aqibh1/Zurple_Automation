@@ -10,6 +10,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.forms.z57.LeadCaptureForm;
+import resources.forms.zurple.website.ZWLeadCaptureForm;
 import resources.utility.ActionHelper;
 import us.zengtest1.Page;
 
@@ -18,7 +20,8 @@ import us.zengtest1.Page;
  *
  */
 public class ZWHomesForSalePage extends Page{
-
+	
+	ZWLeadCaptureForm leadCaptureForm;
 	@FindBy(xpath="//h2[contains(text(),'Homes for Sale')]")
 	WebElement homesForSale_heading;
 	
@@ -37,6 +40,7 @@ public class ZWHomesForSalePage extends Page{
 	
 	public ZWHomesForSalePage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		leadCaptureForm = new ZWLeadCaptureForm(driver);
 		PageFactory.initElements(driver, this);
 	}
 
