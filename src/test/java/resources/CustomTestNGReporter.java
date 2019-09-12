@@ -163,9 +163,15 @@ public class CustomTestNGReporter implements IReporter {
 					retBuf.append("</td>");
 					
 					/* Failed method count. */
-					retBuf.append("<td bgcolor=red>");
-					retBuf.append(totalTestFailed);
-					retBuf.append("</td>");
+					if(totalTestFailed>0) {
+						retBuf.append("<td bgcolor=red>");
+						retBuf.append(totalTestFailed);
+						retBuf.append("</td>");
+					}else {
+						retBuf.append("<td>");
+						retBuf.append(totalTestFailed);
+						retBuf.append("</td>");
+					}
 					
 					/* Get browser type. */
 					String browserType = tempSuite.getParameter("browserType");
