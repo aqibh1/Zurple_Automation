@@ -4,7 +4,7 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
     
-    <test name="Search and Verify property">
+    <test name="Search and Verify property by City">
     
     <parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-city.json" >
 	

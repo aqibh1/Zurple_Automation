@@ -109,7 +109,7 @@ public class PPSocialPageTest extends PageTest{
 		if(lPromoteListing!=null && !lPromoteListing.isEmpty()) {
 			assertTrue(page.clickOnPromoteListingTab(), "Unable to click Promote a listing tab button....");
 			assertTrue(page.getPpPromoteListingForm().isChooseAListingForm(), "Promote Listing form is not visible...");
-			assertTrue(page.getPpPromoteListingForm().selectListing(ModuleCommonCache.getElement(Long.toString(getThreadId()), ModuleCacheConstants.ListingsAddress)), "Unable to select listing from dropdown...");
+			assertTrue(page.getPpPromoteListingForm().selectListing(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ListingsAddress)), "Unable to select listing from dropdown...");
 			assertTrue(page.getPpPromoteListingForm().clickOnSelect(), "Unable to click on Select button...");
 			assertTrue(page.getPpPromoteListingForm().isSelectButtonDisappeared(), "Select button is not disappeared...");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
@@ -255,7 +255,7 @@ public class PPSocialPageTest extends PageTest{
 		if(lPromoteListing!=null && !lPromoteListing.isEmpty()) {
 			assertTrue(page.clickOnPromoteListingTab(), "Unable to click Promote a listing tab button....");
 			assertTrue(page.getPpPromoteListingForm().isChooseAListingForm(), "Promote Listing form is not visible...");
-			assertTrue(page.getPpPromoteListingForm().selectListing(ModuleCommonCache.getElement(Long.toString(getThreadId()), ModuleCacheConstants.ListingsAddress)), "Unable to select listing from dropdown...");
+			assertTrue(page.getPpPromoteListingForm().selectListing(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ListingsAddress)), "Unable to select listing from dropdown...");
 			assertTrue(page.getPpPromoteListingForm().clickOnSelect(), "Unable to click on Select button...");
 			assertTrue(page.getPpPromoteListingForm().isSelectButtonDisappeared(), "Select button is not disappeared...");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");

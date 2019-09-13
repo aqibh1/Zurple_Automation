@@ -7,7 +7,7 @@
 	</listeners>
 
 	<test
-		name="Lead Capture Form appears for user not signed in on Listing">
+		name="Capture and verify lead from back office">
 
 		<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-city.json">
 		<parameter name="captureLeadData" value="/resources/data/zurple/register_user/register-user-track-search.json">

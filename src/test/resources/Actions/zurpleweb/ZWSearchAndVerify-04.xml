@@ -1,10 +1,12 @@
 <suite name="Search And Verify Property suite" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
 	<listeners>
-        <listener class-name="resources.ThreadCountChanger"/>
+         <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
     
-    <test name="Search and Verify property">
+    <test name="Search and Verify property by Neighborhood">
     
     <parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-neighborhood.json" >
 	
