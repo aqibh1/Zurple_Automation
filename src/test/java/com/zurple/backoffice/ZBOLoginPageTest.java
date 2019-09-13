@@ -27,7 +27,6 @@ public class ZBOLoginPageTest extends PageTest{
 	
 	@Override
 	public AbstractPage getPage() {
-		page= null;
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOLoginPage(driver);

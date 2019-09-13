@@ -48,8 +48,8 @@ public abstract class AbstractPageTest extends AbstractTest
     private void setThreadId(Long pThreadId) {
     	threadID = pThreadId;
     }
-    public Long getThreadId() {
-    	return threadID;
+    public String getThreadId() {
+    	return threadID.toString();
     }
     @Parameters({"source_in_url","incognito"})
     @BeforeTest

@@ -13,6 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import resources.forms.zurple.website.ZWContactAgentForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
@@ -124,10 +125,22 @@ public class ZWPropertyDetailPage extends Page{
 	
 	String lFeaturesHeading_xpath = "//div[@id='listing-features']/descendant::h4";
 	
+	private ZWContactAgentForm contactAgentForm;
+	
 	public ZWPropertyDetailPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		setContactAgentForm();
 		PageFactory.initElements(driver, this);
 	}
+	
+	public ZWContactAgentForm getContactAgentForm() {
+		return contactAgentForm;
+	}
+
+	public void setContactAgentForm() {
+		contactAgentForm = new ZWContactAgentForm(driver);
+	}
+
 	public boolean verifyPropName() {
 		return !ActionHelper.getText(driver, propName_heading).isEmpty();
 	}

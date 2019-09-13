@@ -83,6 +83,19 @@ public class ActionHelper {
 
 	   }
 	   
+	   
+	   public static boolean waitForElementToBeDisappeared(WebDriver pWebDriver,WebElement pElementToBeDisappeared, long pWaitForTime) {			
+		   wait=new WebDriverWait(pWebDriver, pWaitForTime);
+		   boolean isElementVisible = false;
+		   try {
+			   isElementVisible=wait.until(ExpectedConditions.invisibilityOf(pElementToBeDisappeared));
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Element did not disappear.  Wait max limit is "+pWaitForTime+" seconds");
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return isElementVisible;
+
+	   }
 	   public static boolean isElementVisible(WebDriver pWebDriver,WebElement pElement) {
 		   wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
 		   boolean isElementVisible = false;
@@ -257,7 +270,7 @@ public class ActionHelper {
 	   }
 	   public static String getAttribute(WebElement pElement,String pAttributeName) {
 		   AutomationLogger.info("Fetching attribute: "+pAttributeName);
-		   return pElement.getAttribute(pAttributeName);
+		   return pElement.getAttribute(pAttributeName).trim();
 		   
 	   }
 	   

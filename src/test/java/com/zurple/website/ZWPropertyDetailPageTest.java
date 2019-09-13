@@ -58,7 +58,16 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		}
 		return page;
 	}
-
+	public Page getPage(String pUrl) {
+		if(page == null){
+			driver = getDriver();
+			page = new ZWPropertyDetailPage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+			
+		}
+		return page;
+	}
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
@@ -186,6 +195,36 @@ public class ZWPropertyDetailPageTest extends PageTest{
 			ActionHelper.RefreshPage(driver);
 			assertTrue(new ZWLeadCaptureForm(driver).isLeadCaptureFormIsVisible(),"Lead Capture form is not visible for the user..");
 		}
+		
+	}
+	
+	@Test
+	@Parameters({"contactAgentData"})
+	public void testContactAgentOnListingDetail(String pDataFile) {
+		getPage("/CA/Carlsbad/34120574");
+		dataObject = getDataFile(pDataFile);
+		String lName = updateName(dataObject.optString("name"));
+		String lEmail = updateEmail(dataObject.optString("email"));
+		String lPhone = dataObject.optString("phone");
+		String lComments = dataObject.optString("comment");
+		String lThreadId = getThreadId().toString();
+		
+		assertTrue(page.getContactAgentForm().isContactAgentFormVisible(), "Contact Agent form is not visible on the page..");
+		assertTrue(page.getContactAgentForm().typeName(lName), "Unable to type name..");
+		assertTrue(page.getContactAgentForm().typeEmail(lEmail), "Unable to type email..");
+		assertTrue(page.getContactAgentForm().typePhone(lPhone), "Unable to type phone..");
+		assertTrue(page.getContactAgentForm().typeComments(lComments), "Unable to type comments..");
+		assertTrue(page.getContactAgentForm().isScheduleShowingChecked(), "Schedule showing checkbox is checked..");
+		assertTrue(page.getContactAgentForm().clickContactAgentButton(), "Unable to click on contact agent button..");
+		assertTrue(page.getContactAgentForm().isContactSuccessful(), "OK Alert box is not visible..");
+		ActionHelper.RefreshPage(driver);
+		boolean isUserLoggedIn = new ZurpleWebsiteHeader(driver).isLeadLoggedIn();
+		assertTrue(isUserLoggedIn, "User is not logged in..");
+		assertTrue(page.getContactAgentForm().isContactAgentFormVisible(), "Contact Agent form is not visible on the page..");
+		assertTrue(page.getContactAgentForm().verifyLeadName(lName), "Name mismatched..");
+		
+		ModuleCommonCache.updateCacheForModuleObject(lThreadId, ModuleCacheConstants.ZurpleLeadName, lName);
+		
 		
 	}
 	
