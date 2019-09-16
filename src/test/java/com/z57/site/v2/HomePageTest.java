@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import resources.forms.z57.LoginForm;
 import resources.alerts.BootstrapModal;
 import resources.forms.z57.RegisterForm;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import org.testng.annotations.Parameters;
 import static org.testng.Assert.assertTrue;
@@ -181,6 +182,7 @@ public class HomePageTest extends PageTest
     		}
     	}
     	assertTrue(page.getLoginForm().waitForLoginFormToDisappear(),"Login form didn't disappear");
+    	ActionHelper.RefreshPage(driver);
     	assertTrue(page.getPageHeader().isLeadLoggedIn(), "Lead is not logged in trough Facebook");
     	
 
