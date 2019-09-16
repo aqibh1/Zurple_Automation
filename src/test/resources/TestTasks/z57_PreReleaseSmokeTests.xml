@@ -762,7 +762,7 @@
     </classes>
     </parameter>
   </test>
-	
+	<!--  
 	 <test name="Verify Branding Options Page" preserve-order="true">
 	<classes>
       <class name="com.z57.site.v2.UserCustomPageTest" >
@@ -777,7 +777,7 @@
       </class>
     </classes>
 	</test>
-  
+  -->
    <test name="Signup with Facebook from Home Page">
   <parameter name="page" value="Home">
     <classes>
