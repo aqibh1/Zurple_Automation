@@ -88,12 +88,12 @@ public class WhatsNearbyPageTest extends PageTest{
 		String lState = ourCommunityData.getState();
 		String lZip = ourCommunityData.getZip();
     	
-		closeBootStrapModal();
+		closeBootStrapModal(driver);
 		
 		PageHeader pageHeader = new PageHeader(driver);
 		assertTrue(pageHeader.clickOnWhatsNearby(), "Unable to click on Whats Nearby");
 		
-		closeBootStrapModal();
+		closeBootStrapModal(driver);
 		
 		assertTrue(page.isPointOfIntrestsPage(), "Page Title not found");
 		searchResultsFromCommunityPages(lAddress, lCity, lState, lZip);
