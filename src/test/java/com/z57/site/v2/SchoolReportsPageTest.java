@@ -91,12 +91,12 @@ public class SchoolReportsPageTest extends PageTest{
 		String lState = ourCommunityData.getState();
 		String lZip = ourCommunityData.getZip();
     	
-		closeBootStrapModal();
+		closeBootStrapModal(driver);
 		
 		PageHeader pageHeader = new PageHeader(driver);
 		assertTrue(pageHeader.clickOnSchoolReports(), "Unable to click on Community Reports");
 		
-		closeBootStrapModal();
+		closeBootStrapModal(driver);
 		
 		assertTrue(page.isSchoolReportsPage(), "Page Title not found");
 		searchResultsFromCommunityPages(lAddress, lCity, lState, lZip);

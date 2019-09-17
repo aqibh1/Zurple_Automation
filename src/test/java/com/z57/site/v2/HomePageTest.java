@@ -149,8 +149,10 @@ public class HomePageTest extends PageTest
     @Parameters({"page"})
     @Test
     public void testSignUpWithFacebook(String pSignUpPage) {
-    	String lFacebookEmail="propertypulsetest7@gmail.com";
-    	String lFacebookPassword="Mesarim10045";
+//    	String lFacebookEmail="propertypulsetest7@gmail.com";
+//    	String lFacebookPassword="Mesarim10045";
+    	String lFacebookEmail="z57testuser@gmail.com";
+    	String lFacebookPassword="Bcsf08m020@";
     	String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
     	
     	closeBootStrapModal();

@@ -80,11 +80,11 @@ public class CommunityReportsPageTest extends PageTest{
 		String lState = ourCommunityData.getState();
 		String lZip = ourCommunityData.getZip();
     	
-		closeBootStrapModal();
+		closeBootStrapModal(driver);
 		PageHeader pageHeader = new PageHeader(driver);
 		assertTrue(pageHeader.clickOnCommunityReports(), "Unable to click on Community Reports");
 		
-		closeBootStrapModal();
+		closeBootStrapModal(driver);
 		
 		assertTrue(page.isCommunityReportsPage(), "Page Title not found");
 		
