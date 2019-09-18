@@ -33,7 +33,10 @@ public class PPEmailCampaignEditorListing extends Page{
 	@FindBy(id="theme_select")
 	WebElement titleInHeader_dropdown;
 	
-	@FindBy(id="s2id_autogen4")
+//	@FindBy(id="s2id_autogen4")
+//	WebElement selectIndividualLeads;
+	
+	@FindBy(xpath="//div[@id='s2id_leads_select']/descendant::input")
 	WebElement selectIndividualLeads;
 	
 	@FindBy(id="email_test_input")

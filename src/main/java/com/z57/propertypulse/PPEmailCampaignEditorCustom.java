@@ -28,9 +28,11 @@ public class PPEmailCampaignEditorCustom extends Page{
 	@FindBy(id="template_select")
 	WebElement selectTemplate;
 	
-	@FindBy(id="s2id_autogen3")
-	WebElement selectIndividualLeads;
+//	@FindBy(id="s2id_autogen3")
+//	WebElement selectIndividualLeads;
 	
+	@FindBy(xpath="//div[@id='s2id_leads_select']/descendant::input")
+	WebElement selectIndividualLeads;
 	
 	public PPEmailCampaignEditorCustom() {
 		
