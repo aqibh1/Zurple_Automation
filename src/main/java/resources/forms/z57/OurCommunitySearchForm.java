@@ -51,9 +51,15 @@ public class OurCommunitySearchForm extends AbstractForm{
 	}
 	
 	public boolean clickSubmitButton() {
-		return ActionHelper.Click(driver, submit_button);
+		if(ActionHelper.waitForElementToBeClickAble(driver, submit_button)) {
+			return ActionHelper.Click(driver, submit_button);
+		}else {
+			return false;
+		}
 	}
-	
+	public boolean isSearchButtonVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, submit_button, 40);
+	}
 	public boolean isSearchSuccessful() {
 		return ActionHelper.waitForElementToBeClickAble(driver, submit_button);
 	}
