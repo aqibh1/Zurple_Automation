@@ -7,22 +7,22 @@
     </listeners>
 
   
-   	<test name="Create an Ad for Listing on PP">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
+   	 <test name="Update and Verify Lead Capture Settings">
+    <parameter name="addNewPageDataFile" value="/resources/data/propertypulse/website/add-lead-capture-data-01.json" >
 	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
+	<class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
       	<include name="testPPLogin" />
       </methods>
       </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
+      <class name="com.z57.propertypulse.PPAddNewPageTest" >
       <methods>
-      	<include name="testAddListingForAd" />
+      	<include name="testAddNewPage" />
       </methods>
       </class>
-      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+       <class name="com.z57.propertypulse.PPAddNewPageTest" >
       <methods>
-      <include name="testCreateAnAd" />
+      	<include name="testEditPage" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
@@ -34,23 +34,17 @@
     </parameter>
 	</test>
 	
-	 <test name="Add and Edit Lead on PP">
-    <parameter name="dataFile" value="/resources/data/propertypulse/lead/lead-data-01.json" >
-    <parameter name="dataFile2" value="/resources/data/propertypulse/lead/lead-data-01.json" >
+	 <test name="Update and Verify Page Layout Settings">
+    <parameter name="addNewPageDataFile" value="/resources/data/propertypulse/website/add-pageLayout-data.json" >
 	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
+	<class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
       	<include name="testPPLogin" />
       </methods>
       </class>
-      <class name="com.z57.propertypulse.PPLeadPageTest" >
+      <class name="com.z57.propertypulse.PPAddNewPageTest" >
       <methods>
-      	<include name="testAddLead" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPLeadDetailPageTest" >
-      <methods>
-      	<include name="testAddLeadDetail" />
+      	<include name="testAddEditPageLayout" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
@@ -60,43 +54,6 @@
       </class>
     </classes>
     </parameter>
-    </parameter>
 	</test>
-	
-	<test name="Search and Verify Results on POI" preserve-order="true">
-	<parameter name="dataFile" value="/resources/data/our_community/our-community-data-02.json">
-	<classes>
-      <class name="com.z57.site.v2.WhatsNearbyPageTest" >
-      <methods>
-      	<include name="testSearchAndVerifyStatsOnPOIPage" />
-      </methods>
-      </class>
-        <class name="resources.CurrentPageTest">
-        <methods>
-          <include name="closeBrowser" />
-        </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
-	<test name="Search and Verify Results on School Reports" preserve-order="true">
-	<parameter name="dataFile" value="/resources/data/our_community/our-community-data-01.json">
-	<classes>
-      <class name="com.z57.site.v2.SchoolReportsPageTest" >
-      <methods>
-      	<include name="testSearchAndVerifyStatsOnSchoolReportsPage" />
-      </methods>
-      </class>
-        <class name="resources.CurrentPageTest">
-        <methods>
-          <include name="closeBrowser" />
-        </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
-	
 	
 </suite>
