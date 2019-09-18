@@ -1,20 +1,28 @@
 <suite name="Capture Lead From About Me Page" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
 	<listeners>
         <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
+
   
-   	<test name="Post status on Facebook Later">
- 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-later-data-02.json" >
+   	<test name="Create an Ad for Listing on PP">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
       	<include name="testPPLogin" />
       </methods>
       </class>
-      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <class name="com.z57.propertypulse.PPListingPageTest" >
       <methods>
-      	<include name="testPostAStatusToFacebook" />
+      	<include name="testAddListingForAd" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateAnAd" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
@@ -25,6 +33,7 @@
     </classes>
     </parameter>
 	</test>
+	
 	
 	
 </suite>
