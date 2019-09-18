@@ -177,7 +177,7 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
     public void searchResultsFromCommunityPages(String pAddress, String pCity, String pState,String pZip) {
     	
     	OurCommunitySearchForm ourCommunitySearchForm = new OurCommunitySearchForm(getDriver());
-		
+		assertTrue(ourCommunitySearchForm.isSearchButtonVisible(), "Search button is not visible");
 		if(!pAddress.isEmpty()) {
 			assertTrue(ourCommunitySearchForm.typeAddress(pAddress), "Unable to type address.");
 		}
