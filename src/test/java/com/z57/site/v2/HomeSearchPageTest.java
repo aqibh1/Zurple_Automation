@@ -165,7 +165,7 @@ public class HomeSearchPageTest extends PageTest{
 	private void searchHomes() {
 		String lInputSearch=searchFormData.getInputSearch();
 		String lSearchByOption=searchFormData.getSearchBy();
-		String lMinimumValue=searchFormData.getMaximumValue();
+		String lMinimumValue=searchFormData.getMinimumValue();
 		String lMaximumValue=searchFormData.getMaximumValue();
 		String lNumberOfBeds=searchFormData.getNumberOfBeds();
 		String lNumberOfBaths=searchFormData.getNumberOfBaths();

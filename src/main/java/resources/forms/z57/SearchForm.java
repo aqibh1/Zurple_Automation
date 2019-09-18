@@ -245,7 +245,8 @@ public class SearchForm extends AbstractForm{
 			ActionHelper.staticWait(2);
 			List<WebElement> list_of_matches = ActionHelper.getListOfElementByXpath(driver, addressMatch_xpath);
 			for(WebElement element: list_of_matches) {
-				if(element.getText().equalsIgnoreCase(pText)) {
+				//if(element.getText().equalsIgnoreCase(pText)) {
+					if(pText.contains(element.getText().trim())) {
 					isSuccess = ActionHelper.Click(driver, element);
 					ActionHelper.staticWait(3);
 					break;
