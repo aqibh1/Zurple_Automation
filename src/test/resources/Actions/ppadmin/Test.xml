@@ -7,17 +7,28 @@
     </listeners>
 
   
-    <test name="Create Custom Campaign Email">
-    <parameter name="dataFileMarketing" value="/resources/data/propertypulse/marketing/email-campaign-manager-custom.json" >
+     <test name="Post a Video on Facebook">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-facebook-video-data.json" >
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-facebook-video-data.json">
 	<classes>
-	<class name="com.z57.propertypulse.LoginPageTest" >
+      <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
       	<include name="testPPLogin" />
       </methods>
       </class>
-      <class name="com.z57.propertypulse.PPEmailCampaignManagerPageTest" >
+       <class name="com.z57.propertypulse.PPListingPageTest" >
       <methods>
-      	<include name="testEmailCampaignManagerCustom" />
+      	<include name="testAddListing" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPListingDetailPageTest" >
+      <methods>
+      <include name="testEditListingDetails" />
+      </methods>
+      </class>
+       <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
@@ -27,19 +38,31 @@
       </class>
     </classes>
     </parameter>
+    </parameter>
 	</test>
 	
-	<test name="Create Listing Campaign Email">
-    <parameter name="dataFileMarketing" value="/resources/data/propertypulse/marketing/email-campaign-manager-listing.json" >
+	<test name="Post a Video on Youtube">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-youtube-video-data.json" >
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-youtube-data.json" >
 	<classes>
-	<class name="com.z57.propertypulse.LoginPageTest" >
+      <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
       	<include name="testPPLogin" />
       </methods>
       </class>
-      <class name="com.z57.propertypulse.PPEmailCampaignManagerPageTest" >
+       <class name="com.z57.propertypulse.PPListingPageTest" >
       <methods>
-      	<include name="testEmailCampaignManagerListing" />
+      	<include name="testAddListing" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPListingDetailPageTest" >
+      <methods>
+      <include name="testEditListingDetails" />
+      </methods>
+      </class>
+       <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
@@ -48,6 +71,7 @@
       </methods>
       </class>
     </classes>
+    </parameter>
     </parameter>
 	</test>
 	
