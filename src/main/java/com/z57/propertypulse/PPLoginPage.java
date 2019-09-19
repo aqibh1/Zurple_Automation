@@ -26,6 +26,9 @@ public class PPLoginPage extends Page{
 	@FindBy(xpath="//div[@id='member-nav']/descendant::a[@class='btn dropdown-toggle']")
 	WebElement settings_button;
 	
+	@FindBy(id="sitelogo")
+	WebElement propertypulse_logo;
+	
 	public PPLoginPage() {
 	}
 	public PPLoginPage(WebDriver pWebDriver) {
@@ -58,5 +61,8 @@ public class PPLoginPage extends Page{
 			isUserLoggedIn = true;
 		}
 		return isUserLoggedIn;
+	}
+	public boolean isPPLogoVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, propertypulse_logo, 30);
 	}
 }
