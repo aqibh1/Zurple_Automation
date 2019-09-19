@@ -938,6 +938,77 @@
     </classes>
   </test>
   
+  <test name="Update and Verify Lead Capture Settings">
+    <parameter name="addNewPageDataFile" value="/resources/data/propertypulse/website/add-lead-capture-data-01.json" >
+	<classes>
+	<class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPAddNewPageTest" >
+      <methods>
+      	<include name="testAddNewPage" />
+      </methods>
+      </class>
+       <class name="com.z57.propertypulse.PPAddNewPageTest" >
+      <methods>
+      	<include name="testEditPage" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Update and Verify Page Layout Settings">
+    <parameter name="addNewPageDataFile" value="/resources/data/propertypulse/website/add-pageLayout-data.json" >
+	<classes>
+	<class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPAddNewPageTest" >
+      <methods>
+      	<include name="testAddEditPageLayout" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Update And Veify User Settings">
+    <parameter name="dataFileSettings" value="/resources/data/propertypulse/settings/user-settings-data.json" >
+	<classes>
+	<class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPUserSettingsPageTest" >
+      <methods>
+      	<include name="testUpdateAndVerifyUserSettings" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
   <test name="Add and Edit Lead on PP">
     <parameter name="dataFile" value="/resources/data/propertypulse/lead/lead-data-01.json" >
     <parameter name="dataFile2" value="/resources/data/propertypulse/lead/lead-data-01.json" >
@@ -1252,54 +1323,7 @@
     </parameter>
 	</test>
 	
-	 <test name="Update and Verify Lead Capture Settings">
-    <parameter name="addNewPageDataFile" value="/resources/data/propertypulse/website/add-lead-capture-data-01.json" >
-	<classes>
-	<class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPAddNewPageTest" >
-      <methods>
-      	<include name="testAddNewPage" />
-      </methods>
-      </class>
-       <class name="com.z57.propertypulse.PPAddNewPageTest" >
-      <methods>
-      	<include name="testEditPage" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
-	 <test name="Update and Verify Page Layout Settings">
-    <parameter name="addNewPageDataFile" value="/resources/data/propertypulse/website/add-pageLayout-data.json" >
-	<classes>
-	<class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPAddNewPageTest" >
-      <methods>
-      	<include name="testAddEditPageLayout" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
+	 
 	
     <test name="Add Delete Widget from Default Sidebar">
 	<classes>
@@ -1354,28 +1378,6 @@
       <class name="com.z57.propertypulse.PPEmailCampaignManagerPageTest" >
       <methods>
       	<include name="testEmailCampaignManagerCustom" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
-	<test name="Update And Veify User Settings">
-    <parameter name="dataFileSettings" value="/resources/data/propertypulse/settings/user-settings-data.json" >
-	<classes>
-	<class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPUserSettingsPageTest" >
-      <methods>
-      	<include name="testUpdateAndVerifyUserSettings" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
