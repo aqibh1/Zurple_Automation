@@ -73,22 +73,14 @@ public class ZWRegisterUserPageTest extends PageTest{
 	@Test
 	@Parameters({"registerUserDataFile"})
 	public void testRegisterUser(String pDataFile) {
+		AutomationLogger.startTestCase("Register User");
 		getPage("/register");
 		lDataObject = getDataFile(pDataFile);
 		String lName = updateName(lDataObject.optString("name"));
 		String lEmail = updateEmail(lDataObject.optString("email"));
 		
 		AutomationLogger.startTestCase("Register User");
-		assertTrue(page.isRegisterPage(),"Register page is not opened..");
-		assertTrue(page.typeName(lName),"Unable to type name..");
-		assertTrue(page.typeEmail(lEmail),"Unable to type email..");
-		if(!lDataObject.optString("phone").isEmpty()) {
-			assertTrue(page.typePhone(lDataObject.optString("phone")),"Unable to type phone..");
-		}
-		assertTrue(page.isTermsAndCondCheckboxChecked(),"Terms and conditions checkbox is not checked..");
-		assertTrue(page.clickRegisterButton(),"Unable to click on register button..");
-		
-		assertTrue(page.isRegisterSuccessfully(),"Registration of user is unsuccessful..");
+		registerUser(lName,lEmail);
 		
 		String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
 		
@@ -96,6 +88,37 @@ public class ZWRegisterUserPageTest extends PageTest{
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),lEmail,lLeadId);
 
 		AutomationLogger.endTestCase();
+		
+	}
+	
+	@Test(priority=15)
+	@Parameters({"registerUserDataFile"})
+	public void testRegisterUserScheduleShowing(String pDataFile) {
+		AutomationLogger.startTestCase("Register User from Schedule Showing");
+		getPage();
+		lDataObject = getDataFile(pDataFile);
+		String lName = updateName(lDataObject.optString("name"));
+		String lEmail = updateEmail(lDataObject.optString("email"));
+		
+		registerUser(lName,lEmail);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.RegisterFormLeadEmail, lEmail);
+
+		AutomationLogger.endTestCase();
+		
+	}
+
+
+	private void registerUser(String pName, String pEmail) {
+		assertTrue(page.isRegisterPage(),"Register page is not opened..");
+		assertTrue(page.typeName(pName),"Unable to type name..");
+		assertTrue(page.typeEmail(pEmail),"Unable to type email..");
+		if(!lDataObject.optString("phone").isEmpty()) {
+			assertTrue(page.typePhone(lDataObject.optString("phone")),"Unable to type phone..");
+		}
+		assertTrue(page.isTermsAndCondCheckboxChecked(),"Terms and conditions checkbox is not checked..");
+		assertTrue(page.clickRegisterButton(),"Unable to click on register button..");
+		
+		assertTrue(page.isRegisterSuccessfully(),"Registration of user is unsuccessful..");
 		
 	}
 

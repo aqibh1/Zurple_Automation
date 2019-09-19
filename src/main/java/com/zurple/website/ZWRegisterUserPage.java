@@ -62,6 +62,7 @@ public class ZWRegisterUserPage extends Page{
 	public boolean isRegisterSuccessfully() {
 		return ActionHelper.waitForElementToBeVisible(driver, thankyouForRegistering, 30);
 	}
+
 	@Override
 	public WebElement getHeader() {
 		// TODO Auto-generated method stub

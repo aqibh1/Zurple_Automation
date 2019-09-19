@@ -5,15 +5,11 @@ package com.zurple.website;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-
-import java.util.Arrays;
-
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.forms.zurple.website.ZWLeadCaptureForm;
@@ -201,6 +197,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 	@Test
 	@Parameters({"contactAgentData"})
 	public void testContactAgentOnListingDetail(String pDataFile) {
+		AutomationLogger.startTestCase("Contact Agent from listing detail page");
 		getPage("/CA/Carlsbad/34120574");
 		dataObject = getDataFile(pDataFile);
 		String lName = updateName(dataObject.optString("name"));
@@ -225,7 +222,41 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		
 		ModuleCommonCache.updateCacheForModuleObject(lThreadId, ModuleCacheConstants.ZurpleLeadName, lName);
 		
+		AutomationLogger.endTestCase();
+	}
+	
+	@Test(priority = 10)
+	@Parameters({"registerUserDataFile"})
+	public void testScheduleShowingUserNotLoggedIn() {
+		AutomationLogger.startTestCase("Schedule Showing User not logged in");
+		getPage("/CA/Carlsbad/34120574");
+		assertTrue(page.clickOnScheduleShowingButton(),"Unable to click on Schedule Showing button..");
+		assertTrue(page.selectCurrentDate(),"Unable to select current date..");
+		assertTrue(page.getScheduleShowingAlert().isShceduleAlertShowing(),"Schedule showing alert is not showing..");
+		assertTrue(page.getScheduleShowingAlert().clickOnYesButton(),"Unable to click on 'Yes' button..");
 		
+		ZWLoginPage loginPage = new ZWLoginPage(driver);
+		assertTrue(loginPage.isLoginPage(), "Login Page is not displayed");
+		assertTrue(loginPage.clickOnSignUpLink(),"Unable click on sign up link..");
+		
+		AutomationLogger.endTestCase();
+
+	}
+	
+	@Test(priority = 20)
+	@Parameters({"registerUserDataFile"})
+	public void testScheduleShowingUserLoggedIn() {
+		AutomationLogger.startTestCase("Schedule Showing User logged in");
+		getPage("/CA/Carlsbad/34120574");
+		assertTrue(page.isScheduleShowingButtonVisible(),"Schedule Showing button is not visible..");
+		assertTrue(page.clickOnScheduleShowingButton(),"Unable to click on Schedule Showing button..");
+		assertTrue(page.selectCurrentDate(),"Unable to select current date..");
+		assertTrue(page.getScheduleShowingAlert().isShceduleAlertShowing(),"Schedule showing alert is not showing..");
+		assertTrue(page.getScheduleShowingAlert().clickOnYesButton(),"Unable to click on 'Yes' button..");
+		assertTrue(page.getScheduleShowingAlert().isScheduleAlertDisappeared(),"Schedule Alert is not disappeared ..");
+		assertTrue(page.getScheduleShowingAlert().isSuccessDisplayed(),"Success message is not displayed ..");
+		assertTrue(page.getScheduleShowingAlert().clickOnYesButton(),"Unable to click on Ok button ..");
+		AutomationLogger.endTestCase();
 	}
 	
 	private void verifyLotSize(String lLotSize) {

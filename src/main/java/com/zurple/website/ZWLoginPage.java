@@ -31,6 +31,9 @@ public class ZWLoginPage extends Page{
 	@FindBy(xpath="//div[@id='form']/p[contains(text(),'This email address does not')]")
 	WebElement login_unsuccessful_message;
 	
+	@FindBy(xpath="//div[@id='form']/descendant::a[text()='Sign up here.']")
+	WebElement signupHere_link;
+	
 	public ZWLoginPage() {
 		// TODO Auto-generated constructor stub
 	}
@@ -57,7 +60,9 @@ public class ZWLoginPage extends Page{
 		boolean lAnyErrorMessage = !ActionHelper.isElementVisible(driver, login_unsuccessful_message);
 		return (isUrlChanged && lAnyErrorMessage);
 	}
-	
+	public boolean clickOnSignUpLink() {
+		return ActionHelper.Click(driver, signupHere_link);
+	}
 	//Generic method for login
 	public void doLogin(String pUsername) {
 		assertTrue(isLoginPage(), "Login Page is not visible..");

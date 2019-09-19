@@ -13,6 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import resources.alerts.zurple.website.ZWScheduleShowingAlert;
 import resources.forms.zurple.website.ZWContactAgentForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
@@ -125,11 +126,21 @@ public class ZWPropertyDetailPage extends Page{
 	
 	String lFeaturesHeading_xpath = "//div[@id='listing-features']/descendant::h4";
 	
+	@FindBy(xpath="//a[@id='pick_schedule']/button")
+	WebElement scheduleShowing_button;
+	
+//	@FindBy(xpath="//div[@id='ui-datepicker-div']/descendant::a[@class='ui-state-default ui-state-highlight']")
+	@FindBy(xpath="//div[@id='ui-datepicker-div']/descendant::a[@href='#']")
+
+	WebElement datePicker;
+	
 	private ZWContactAgentForm contactAgentForm;
+	private ZWScheduleShowingAlert scheduleShowingAlert;
 	
 	public ZWPropertyDetailPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		setContactAgentForm();
+		setScheduleShowingAlert();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -139,6 +150,14 @@ public class ZWPropertyDetailPage extends Page{
 
 	public void setContactAgentForm() {
 		contactAgentForm = new ZWContactAgentForm(driver);
+	}
+	
+	public ZWScheduleShowingAlert getScheduleShowingAlert() {
+		return scheduleShowingAlert;
+	}
+
+	public void setScheduleShowingAlert() {
+		this.scheduleShowingAlert = new ZWScheduleShowingAlert(driver);
 	}
 
 	public boolean verifyPropName() {
@@ -358,6 +377,23 @@ public class ZWPropertyDetailPage extends Page{
 		return isSuccess;
 	}
 	
+	public boolean clickOnScheduleShowingButton() {
+		return ActionHelper.Click(driver, scheduleShowing_button);
+	}
+	public boolean isScheduleShowingButtonVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, scheduleShowing_button, 30);
+	}
+	
+	public boolean selectCurrentDate() {
+//		boolean isSuccess = true;
+//		try {
+//			datePicker.isDisplayed();
+//		datePicker.click();//ActionHelper.Click(driver, datePicker);
+//		}catch(Exception ex) {
+//			isSuccess = false;
+//		}
+		return ActionHelper.Click(driver, datePicker);
+	}
 	@Override
 	public WebElement getHeader() {
 		// TODO Auto-generated method stub
