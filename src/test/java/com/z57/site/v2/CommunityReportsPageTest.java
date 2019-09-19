@@ -84,9 +84,9 @@ public class CommunityReportsPageTest extends PageTest{
 		PageHeader pageHeader = new PageHeader(driver);
 		assertTrue(pageHeader.clickOnCommunityReports(), "Unable to click on Community Reports");
 		
-		closeBootStrapModal(driver);
-		
 		assertTrue(page.isCommunityReportsPage(), "Page Title not found");
+		
+		closeBootStrapModal(driver);
 		
 		OurCommunitySearchForm ourCommunitySearchForm = new OurCommunitySearchForm(driver);
 		
