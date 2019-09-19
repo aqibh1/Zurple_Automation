@@ -71,7 +71,11 @@ public class PPCreateAdPage extends Page{
 	}
 	
 	public boolean isValidPreviewLink(String pDomain) {
-		return ActionHelper.getText(driver,fbPreviewLink).contains(pDomain);	
+		//Currently not comparing https
+		pDomain = pDomain.split(":")[1];
+		String lPreviewLink = ActionHelper.getText(driver,fbPreviewLink).split(":")[1];
+//		return ActionHelper.getText(driver,fbPreviewLink).contains(pDomain);	
+		return pDomain.equalsIgnoreCase(lPreviewLink);
 	}
 	
 	public boolean typeAdTitle(String pTitle) {
