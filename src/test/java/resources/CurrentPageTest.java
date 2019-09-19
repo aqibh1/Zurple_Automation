@@ -17,7 +17,7 @@ public class CurrentPageTest
         return currentPage;
     };
 
-    @Test(priority=5)
+    @Test(priority=500)
     public void closeBrowser() throws IOException{
         Long thread_id = Thread.currentThread().getId();
         AutomationLogger.info("Thread ID "+thread_id);
