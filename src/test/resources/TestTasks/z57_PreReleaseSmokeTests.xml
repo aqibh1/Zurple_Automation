@@ -1,8 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Pre Release Smoke Tests">
+<suite name="Z57 Pre Release Smoke Tests" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
 
-<listeners>
+	<listeners>
         <listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
