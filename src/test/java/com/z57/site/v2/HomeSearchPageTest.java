@@ -12,6 +12,7 @@ import resources.classes.SearchResult;
 import resources.data.z57.EmailListingFormData;
 import resources.data.z57.SaveSearchFormData;
 import resources.data.z57.SearchFormData;
+import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -334,7 +335,10 @@ public class HomeSearchPageTest extends PageTest{
 
 		assertTrue(page.getEmailSearchForm().typeR2Name(lR2Name),"Unable to write the name oof Recipient 2");
 		assertTrue(page.getEmailSearchForm().typeR2Email(lR2Email),"Unable to write the email of Recepient 2");
-
+		
+		//Added this manual delay because of the findings that form is submitted before text is typed
+		ActionHelper.staticWait(5);
+		
 		assertTrue(page.getEmailSearchForm().clickOnSendButton(),"Unable to click on Send button");
 		assertTrue(page.getEmailSearchForm().isEmailSent(),"After clicking Send button 'Email this Listing' modal is still visible");
 
@@ -410,7 +414,9 @@ public class HomeSearchPageTest extends PageTest{
         }
 
 		String lSearchTitle = page.getSaveSearchForm().getTitle();
-
+		
+		ActionHelper.staticWait(5);
+		
 		assertTrue(page.getSaveSearchForm().clickOnSaveButton(),"Unable to click on Save button");
 		assertTrue(page.getSaveSearchForm().isSearchSaved(),"No expected message is shown");
 

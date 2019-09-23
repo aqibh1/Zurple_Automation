@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 public class ContactMePage extends Page{
 	
@@ -40,7 +41,9 @@ public class ContactMePage extends Page{
 	public boolean verifyDesignation(String pDesignation) {
 		boolean isSuccess = false;
 		if(ActionHelper.waitForElementToBeVisible(driver, nameDesignation_heading, 30)) {
+			AutomationLogger.info("Expected Designation: "+pDesignation);
 			String lDesignation = ActionHelper.getText(driver, nameDesignation_heading).split(", ")[1].trim();
+			AutomationLogger.info("Designation on Page: "+lDesignation);
 			isSuccess = pDesignation.equalsIgnoreCase(lDesignation)?true:false;
 		}
 		return isSuccess;

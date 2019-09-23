@@ -44,10 +44,12 @@ public class ActionHelper {
 	   public static boolean Click(WebDriver pWebDriver,WebElement pElementToBeClicked) {
 			boolean isSuccessfull=false;
 			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			AutomationLogger.info("Clicking on button -> "+pElementToBeClicked);
 			try {
 				if(wait.until(ExpectedConditions.visibilityOf(pElementToBeClicked))!=null) {
 					pElementToBeClicked.click();
 					isSuccessfull=true;
+					AutomationLogger.info("Clicked on button successful..");
 				}
 				
 			}catch(Exception ex) {

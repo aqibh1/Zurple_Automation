@@ -13,6 +13,7 @@ import resources.data.z57.EmailListingFormData;
 import resources.data.z57.RequestInfoFormData;
 import resources.data.z57.ScheduleListingFormData;
 import resources.data.z57.SearchFormData;
+import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class PropertyListingPageTest extends PageTest {
@@ -248,7 +249,9 @@ public class PropertyListingPageTest extends PageTest {
 
 		assertTrue(page.getEmailListingForm().typeR2Name(lR2Name),"Unable to write the name oof Recipient 2");
 		assertTrue(page.getEmailListingForm().typeR2Email(lR2Email),"Unable to write the email of Recepient 2");
-
+		
+		ActionHelper.staticWait(5);
+		
 		assertTrue(page.getEmailListingForm().clickOnSendButton(),"Unable to click on Send button");
 		assertTrue(page.getEmailListingForm().isEmailSent(),"After clicking Send button 'Email this Listing' modal is still visible");
 

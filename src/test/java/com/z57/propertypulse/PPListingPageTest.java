@@ -101,9 +101,9 @@ public class PPListingPageTest extends PageTest{
 		AutomationLogger.info("Listing URL :: "+listing_url);
 		
 		//Saving the listing urls to be used in listing editing
-		ModuleCommonCache.setModuleCommonCache("listing_url_wp", listing_url);
-		ModuleCommonCache.setModuleCommonCache("listing_url_pp", driver.getCurrentUrl());
-		ModuleCommonCache.setModuleCommonCache("listing_id", lListingId);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(),"listing_url_wp", listing_url);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(),"listing_url_pp", driver.getCurrentUrl());
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(),"listing_id", lListingId);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ListingsAddress, lAddress);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ListingId, lListingId);
 
