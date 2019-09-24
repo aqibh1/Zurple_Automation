@@ -31,6 +31,7 @@ public class ActionHelper {
 					pInputField.sendKeys(pStringToType);
 					AutomationLogger.info("String typed ->"+pStringToType);
 					isSuccessfull=true;
+					staticWait(1);
 				}
 				
 			}catch(Exception ex) {
@@ -176,6 +177,7 @@ public class ActionHelper {
 					pInputField.sendKeys(pStringToType);
 					AutomationLogger.info("String typed ->"+pStringToType);
 					isSuccessfull=true;
+					staticWait(1);
 				}
 				
 			}catch(Exception ex) {
@@ -234,6 +236,7 @@ public class ActionHelper {
 					pInputField.sendKeys(pStringToType);
 					AutomationLogger.info("String typed ->"+pStringToType);
 					isSuccessfull=true;
+					staticWait(1);
 				}
 				
 			}catch(Exception ex) {
@@ -558,4 +561,27 @@ public class ActionHelper {
 			}
 			return isSuccessful;
 		}
+	   
+	   //True if you want to check the checkbox
+	   public static boolean checkUncheckInputBox(WebDriver pWebDriver, WebElement pElement, boolean pSelect) {
+		   boolean isSuccess = false;
+		   String lElementVal = pElement.getAttribute("value");
+		   if(lElementVal.equalsIgnoreCase("1") && !pSelect) {
+			   isSuccess = ActionHelper.Click(pWebDriver, pElement);
+		   }else if(lElementVal.equalsIgnoreCase("0") && pSelect) {
+			   isSuccess = ActionHelper.Click(pWebDriver, pElement);
+		   }
+		   return isSuccess;
+	   }
+	   
+	   public static boolean typeAndSelect(WebDriver pWebDriver, WebElement pDropdown,WebElement pElementToSelect, String pStringToType) {
+		   boolean result=false;
+		   if(waitForElementToBeVisible(pWebDriver,pDropdown,GLOBAL_WAIT_COUNT)) {
+			   ActionHelper.Type(pWebDriver, pDropdown, pStringToType);
+			   if(waitForElementToBeVisible(pWebDriver, pElementToSelect, 5)) {
+				   result= Click(pWebDriver, pElementToSelect);
+			   }
+		   }
+		   return result;
+	   }
 }
