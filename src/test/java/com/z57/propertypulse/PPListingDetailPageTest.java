@@ -77,16 +77,21 @@ public class PPListingDetailPageTest extends PageTest{
 	public void testEditListingDetails(String pDataFile) throws AWTException {
 		listingData = new PPListingData(pDataFile).getListingData();
 		//If editing existing listing
+		getPage();
 		String lListing_ID = ModuleCommonCache.getElement(getThreadId(),"listing_id");
 		String lListing_Url = ModuleCommonCache.getElement(getThreadId(),"listing_url_pp").toString().split(EnvironmentFactory.configReader.getPropertyByName("z57_pp_base_url"))[1];
 //		ModuleCommonCache.setModuleCommonCache("listing_url_pp", "/listings/details?lid=351386");
 //		ModuleCommonCache.setModuleCommonCache("listing_url_wp", "http://aqibdar-1584.sites.z57.com/listings/351386/221-Baker-Street-San-Diego");
+	
 		String wp_url = ModuleCommonCache.getElement(getThreadId(),"listing_url_wp").toString().split(EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url"))[1];
 		if(ModuleCommonCache.getElement(getThreadId(),"listing_url_pp")!=null) {
+			page = null;
 			getPage(lListing_Url);
 		}else {
 			getPage();
 		}
+		
+		
 		
 		String lListingPrice = listingData.getPrice();
 		String lListingStatus = listingData.getStatus();
@@ -219,7 +224,8 @@ public class PPListingDetailPageTest extends PageTest{
 		assertTrue(page.isListingEditedSuccessfully(), "Listing was not updated successfully");
 		
 		//Verification from DB and on WP
-		driver.navigate().to(ModuleCommonCache.getModuleCommonCache("listing_url_wp").toString());
+		goToUrl(wp_url);
+		
 		closeBootStrapModal();
 		
 		PropertyListingPage propertyListingPage = new PropertyListingPage(driver);
@@ -360,5 +366,14 @@ public class PPListingDetailPageTest extends PageTest{
 			}
 		}
 		return cookieString;
+	}
+	
+	private void goToUrl(String pUrl) {
+		try {
+			pUrl = ModuleCommonCache.getElement(getThreadId(),"listing_url_wp").toString();
+			driver.navigate().to(pUrl);
+		}catch(Exception ex) {
+			
+		}
 	}
 }
