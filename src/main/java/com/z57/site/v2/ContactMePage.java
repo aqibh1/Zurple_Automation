@@ -46,6 +46,9 @@ public class ContactMePage extends Page{
 			AutomationLogger.info("Designation on Page: "+lDesignation);
 			isSuccess = pDesignation.equalsIgnoreCase(lDesignation)?true:false;
 		}
+		if(!isSuccess) {
+			AutomationLogger.error(driver.getCurrentUrl());
+		}
 		return isSuccess;
 	}
 	

@@ -203,8 +203,7 @@ public class PropertyListingPageTest extends PageTest {
 		String lLeadPhone = emailListingFormData.getLeadPhoneNumber();
 		String lR1Name = updateName(emailListingFormData.getRecipientOneName());
 		String lR1Email = updateEmail(emailListingFormData.getRecipientOneEmail());
-		String lR2Name = updateName(emailListingFormData.getRecipientTwoName());
-		String lR2Email = updateEmail(emailListingFormData.getRecipientTwoEmail());
+		
 		
 		getPage("/idx/listings/cws/1098/46062964/821-portsmouth-ct-ct-san-diego-san-diego-county-ca-92109");
 		
@@ -246,7 +245,10 @@ public class PropertyListingPageTest extends PageTest {
 
 		assertTrue(page.getEmailListingForm().typeR1Name(lR1Name),"Unable to write the name oof Recipient 1");
 		assertTrue(page.getEmailListingForm().typeR1Email(lR1Email),"Unable to write the email of Recepient 1");
-
+		
+		String lR2Name = updateName(emailListingFormData.getRecipientTwoName());
+		String lR2Email = updateEmail(emailListingFormData.getRecipientTwoEmail());
+		
 		assertTrue(page.getEmailListingForm().typeR2Name(lR2Name),"Unable to write the name oof Recipient 2");
 		assertTrue(page.getEmailListingForm().typeR2Email(lR2Email),"Unable to write the email of Recepient 2");
 		

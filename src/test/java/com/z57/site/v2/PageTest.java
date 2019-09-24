@@ -22,6 +22,7 @@ import resources.interfaces.UsingPage;
 import resources.orm.hibernate.models.AbstractLead;
 import resources.orm.hibernate.models.z57.Lead;
 import resources.orm.hibernate.models.z57.ListingImages;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
@@ -114,7 +115,7 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
         	if(!pComments.isEmpty()) {
         		assertTrue(leadCaptureForm.typeComments(pComments), "Comments input field not visible. Unable to type");
         	}
-        	
+        	ActionHelper.staticWait(3);
         	assertTrue(leadCaptureForm.clickOnSendButton(),"Unable to click on Send button.");
         	
         	assertTrue(pageHeader.isLeadLoggedIn(), "Lead is not logged in.");	
@@ -152,7 +153,7 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
     	if(!pComments.isEmpty()) {
     		assertTrue(contactMeForm.typeComments(pComments), "Comments input field not visible. Unable to type");
     	}
-    	
+    	ActionHelper.staticWait(3);
     	assertTrue(contactMeForm.clickOnSendButton(),"Unable to click on Send button.");
     	
     	assertTrue(contactMeForm.isThankyouAlertVisible(),"Thankyou alert is not visible.");
@@ -190,7 +191,7 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
 		if(!pState.isEmpty()) {
 			assertTrue(ourCommunitySearchForm.selectState(pState), "Unable to select state.");
 		}
-		
+		ActionHelper.staticWait(3);
 		assertTrue(ourCommunitySearchForm.clickSubmitButton(),"Unable to Click on submit button");
 		assertTrue(ourCommunitySearchForm.isSearchSuccessful(),"Search is not successful");
     }

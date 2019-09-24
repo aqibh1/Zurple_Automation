@@ -34,29 +34,36 @@ public class EmailListingForm extends AbstractForm{
 		return ActionHelper.isElementVisible(driver, modal_header);
 	}
 	public boolean typeLeadName(String pName) {
+		ActionHelper.staticWait(2);
 		return ActionHelper.ClearAndType(driver,getDynamicElement(input_fields_xpath, "email_listing_form[name]"), pName);
 	}
 
 	public boolean typeEmailAddress(String pEmail) {
+		ActionHelper.staticWait(2);
 		return ActionHelper.ClearAndType(driver,getDynamicElement(input_fields_xpath, "email_listing_form[email]"), pEmail);
 	}
 	
 	public boolean typePhoneNumber(String pPhoneNumber) {
+		ActionHelper.staticWait(2);
 		return ActionHelper.ClearAndType(driver,getDynamicElement(input_fields_xpath, "email_listing_form[phone]"), pPhoneNumber);
 	}
 	
 	public boolean typeR1Name(String pName) {
+		ActionHelper.staticWait(2);
 		return ActionHelper.ClearAndType(driver,getDynamicElement(input_fields_xpath, "email_listing_form[name_r1]"), pName);
 	}
 	
 	public boolean typeR1Email(String pEmail) {
+		ActionHelper.staticWait(2);
 		return ActionHelper.ClearAndType(driver,getDynamicElement(input_fields_xpath, "email_listing_form[email_r1]"), pEmail);
 	}
 	
 	public boolean typeR2Name(String pName) {
+		ActionHelper.staticWait(2);
 		return ActionHelper.ClearAndType(driver,getDynamicElement(input_fields_xpath, "email_listing_form[name_r2]"), pName);
 	}
 	public boolean typeR2Email(String pEmail) {
+		ActionHelper.staticWait(2);
 		return ActionHelper.ClearAndType(driver,getDynamicElement(input_fields_xpath, "email_listing_form[email_r2]"), pEmail);
 	}
 	public boolean clickOnSendButton() {
