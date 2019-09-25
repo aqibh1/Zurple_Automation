@@ -1,10 +1,10 @@
 {
 	"lead_name":"Email Listing Lead",
-	"lead_email":"email_listing_lead@mailinator.com",
+	"lead_email":"els@mailinator.com",
 	"lead_phone_number":"987589658",
 	"comments":"",
 	"recipient_one_name": "Recipient One",
-	"recipient_one_email":"recipient_one_email@mailinator.com",
+	"recipient_one_email":"r1@mailinator.com",
 	"recipient_two_name": "Recipient Two",
-	"recipient_two_email":"recipient_two_email@mailinator.com"
+	"recipient_two_email":"r2@mailinator.com"
 }
