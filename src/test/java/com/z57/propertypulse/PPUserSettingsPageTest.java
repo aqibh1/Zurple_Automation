@@ -71,9 +71,11 @@ public class PPUserSettingsPageTest extends PageTest{
 	}
 	
 	private void verifyDetailsOnContactPage(String pDesignation, String pPhoneNum) {
-		ActionHelper.staticWait(30);
+		ActionHelper.staticWait(60);
 		driver.navigate().to(EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url")+"/contact-me");
 		System.out.print(pDesignation);
+		ActionHelper.staticWait(60);
+		ActionHelper.RefreshPage(driver);
 		ContactMePage contactPage = new ContactMePage(driver);
 		assertTrue(contactPage.isContactMePage(), "Contact Page is not visible..");
 		assertTrue(contactPage.verifyDesignation(pDesignation), "Unable to verify designation..");
