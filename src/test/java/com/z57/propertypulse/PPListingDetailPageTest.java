@@ -226,7 +226,8 @@ public class PPListingDetailPageTest extends PageTest{
 		//Verification from DB and on WP
 		goToUrl(wp_url);
 		
-		closeBootStrapModal();
+//		closeBootStrapModal();
+		closeBootStrapModal(driver);
 		
 		PropertyListingPage propertyListingPage = new PropertyListingPage(driver);
 		assertTrue(propertyListingPage.isListingDetailPage(), "Listing Detail Page is not visible");
@@ -317,12 +318,11 @@ public class PPListingDetailPageTest extends PageTest{
 		if(!lListingFeatureYearBuilt.isEmpty()) {
 			assertTrue(propertyListingPage.getPropertyType("Year Built").equalsIgnoreCase(lListingFeatureYearBuilt), "Year Built of the Listing didn't match");
 		}
-		
-		
+			
 		//Verifying if listing is added to default slider widget or not
-		assertTrue(header.clickOnHomeButton(), "Unable to click on Home Button");
-		HomePage homePage = new HomePage(driver);
-		assertTrue(homePage.isPropertyExistsInSliderWidget(wp_url), "Listing doesn't exists in Slider Widget");
+//		assertTrue(header.clickOnHomeButton(), "Unable to click on Home Button");
+//		HomePage homePage = new HomePage(driver);
+//		assertTrue(homePage.isPropertyExistsInSliderWidget(wp_url), "Listing doesn't exists in Slider Widget");
 
 	}
 

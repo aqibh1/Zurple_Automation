@@ -168,4 +168,7 @@ public abstract class AbstractPageTest extends AbstractTest
             e.printStackTrace();
         }
     }
+    public boolean closeBootStrapModal(WebDriver pWebDriver) {
+    	return new BootstrapModal(pWebDriver).closeBootstrapModal();
+    }
 }
