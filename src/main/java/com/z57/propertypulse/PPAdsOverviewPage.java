@@ -38,7 +38,7 @@ public class PPAdsOverviewPage extends Page{
 		for(WebElement element: list_of_table_contents) {
 			if(element.getText().trim().contains(pListingTitle)) {
 //				element.findElement(By.xpath("/descendant::span[text()='Live (Paused)']"));
-				isFound = waitForElementToVisibleAfterRegularIntervals(driver, "following-sibling::td/span[text()='Live (Paused)']","following-sibling::td/span[text()='FAILED']", 100, 20,index);
+				isFound = waitForElementToVisibleAfterRegularIntervals(driver, "following-sibling::td/span[text()='Live (Paused)']","following-sibling::td/span[text()='FAILED']", 50, 20,index);
 				break;
 			}
 			index++;

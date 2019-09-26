@@ -20,7 +20,7 @@ import org.openqa.selenium.support.ui.Wait;
 
 public class ActionHelper {
 	protected static WebDriverWait wait;
-	private static long GLOBAL_WAIT_COUNT=5;
+	private static long GLOBAL_WAIT_COUNT=15;
 	
 	public static boolean Type(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
 			boolean isSuccessfull=false;
@@ -372,7 +372,33 @@ public class ActionHelper {
 				return false;
 			}
 		}
-	   
+	   public static boolean selectDropDownOptions2(WebDriver pWebDriver, WebElement pElementToBeClicked,String pDropdownOptionsXpath, String[] pOptionsToSelect) {
+		   try {
+			   boolean isSuccessful=false;
+			   List<WebElement> list_of_options = new ArrayList<WebElement>();
+			   AutomationLogger.info("Clicking on button "+pElementToBeClicked);
+			   if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+				   AutomationLogger.info("Selecting a option from Dropdown "+pDropdownOptionsXpath);
+				   for(String pOptionToSelect: pOptionsToSelect) {
+					   if(pDropdownOptionsXpath.isEmpty()) {
+						   list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
+					   }else {
+						   list_of_options = pWebDriver.findElements(By.xpath(pDropdownOptionsXpath));
+					   }	
+					   for(WebElement element: list_of_options) {
+						   if(element.getText().equalsIgnoreCase(pOptionToSelect.trim())) {
+							   isSuccessful = ActionHelper.Click(pWebDriver, element);
+							   break;
+						   }
+					   }
+				   }
+			   }
+			   
+			   return isSuccessful;
+		   }catch(Exception ex) {
+				return false;
+			}
+		}
 	   public static boolean waitForElementsToBeFound(WebDriver pWebDriver, String pXpath) {
 		   boolean isFound = false;
 		   int counter = 0;
@@ -565,23 +591,40 @@ public class ActionHelper {
 	   //True if you want to check the checkbox
 	   public static boolean checkUncheckInputBox(WebDriver pWebDriver, WebElement pElement, boolean pSelect) {
 		   boolean isSuccess = false;
-		   String lElementVal = pElement.getAttribute("value");
-		   if(lElementVal.equalsIgnoreCase("1") && !pSelect) {
+		   boolean lElementVal = pElement.isSelected();
+		   if(lElementVal && !pSelect) {
 			   isSuccess = ActionHelper.Click(pWebDriver, pElement);
-		   }else if(lElementVal.equalsIgnoreCase("0") && pSelect) {
+		   }else if(!lElementVal && pSelect) {
 			   isSuccess = ActionHelper.Click(pWebDriver, pElement);
 		   }
 		   return isSuccess;
 	   }
 	   
-	   public static boolean typeAndSelect(WebDriver pWebDriver, WebElement pDropdown,WebElement pElementToSelect, String pStringToType) {
+	   public static boolean typeAndSelect(WebDriver pWebDriver, WebElement pDropdown,String pElementToSelect, String pStringToType) {
 		   boolean result=false;
 		   if(waitForElementToBeVisible(pWebDriver,pDropdown,GLOBAL_WAIT_COUNT)) {
 			   ActionHelper.Type(pWebDriver, pDropdown, pStringToType);
-			   if(waitForElementToBeVisible(pWebDriver, pElementToSelect, 5)) {
-				   result= Click(pWebDriver, pElementToSelect);
+			   WebElement lElementToBeClicked = waitAndGetDynamicElement(pWebDriver, pElementToSelect,pStringToType);
+			   if(lElementToBeClicked!=null) {
+				   result= Click(pWebDriver, lElementToBeClicked);
 			   }
 		   }
 		   return result;
+	   }
+	   
+	   public static WebElement waitAndGetDynamicElement(WebDriver pWebDriver, String pElement,String pDynamicVariable) {
+		 WebElement lElement = null;
+		   int lTotalAttemps = 0;
+		   do {
+			   try {
+				   lElement = pWebDriver.findElement(By.xpath(pElement.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable)));
+			   }catch(Exception ex) {
+				   AutomationLogger.error("Unable to get dynamic webelement for xpath "+pElement);
+				   AutomationLogger.error(ex.getMessage());
+				   lTotalAttemps++;
+				   staticWait(10);
+			   }
+		   }while(lElement==null && lTotalAttemps<5);
+		   return lElement;
 	   }
 }
