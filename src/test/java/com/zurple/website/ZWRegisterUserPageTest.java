@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
@@ -78,15 +79,16 @@ public class ZWRegisterUserPageTest extends PageTest{
 		lDataObject = getDataFile(pDataFile);
 		String lName = updateName(lDataObject.optString("name"));
 		String lEmail = updateEmail(lDataObject.optString("email"));
-		
-		AutomationLogger.startTestCase("Register User");
+	
 		registerUser(lName,lEmail);
 		
 		String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
 		
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.RegisterFormLeadEmail, lEmail);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),lEmail,lLeadId);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId,lLeadId);
 
+		ActionHelper.staticWait(30);
 		AutomationLogger.endTestCase();
 		
 	}

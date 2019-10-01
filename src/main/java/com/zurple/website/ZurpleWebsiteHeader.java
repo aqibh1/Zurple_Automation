@@ -29,6 +29,12 @@ public class ZurpleWebsiteHeader extends Page{
 	
 	String[] top_header = {"Search","Real Estate Notes","Agents","Sold Homes"};
 	
+	@FindBy(xpath="//li[@class='dropdown']/descendant::b[@class='caret']")
+	WebElement userDropdown;
+	
+	@FindBy(xpath="//ul[@class='dropdown-menu pull-right']/descendant::a[@href='/my']")
+	WebElement myAccount_dropdown;
+	
 	public ZurpleWebsiteHeader(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -55,6 +61,14 @@ public class ZurpleWebsiteHeader extends Page{
 	
 	public boolean isLeadLoggedIn() {
 		return !ActionHelper.isElementVisible(driver, login_link);
+	}
+	
+	public boolean goToMyAccount() {
+		boolean isClick = false;
+		if(ActionHelper.Click(driver, userDropdown)) {
+			isClick = ActionHelper.Click(driver, myAccount_dropdown);
+		}
+		return isClick;
 	}
 
 }
