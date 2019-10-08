@@ -10,6 +10,9 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import resources.ConfigReader;
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.forms.zurple.website.ZWLeadCaptureForm;
@@ -198,7 +201,13 @@ public class ZWPropertyDetailPageTest extends PageTest{
 	@Parameters({"contactAgentData"})
 	public void testContactAgentOnListingDetail(String pDataFile) {
 		AutomationLogger.startTestCase("Contact Agent from listing detail page");
-		getPage("/CA/Carlsbad/34120574");
+		String lEnvironment = System.getProperty("environment");
+		if(lEnvironment.equalsIgnoreCase("prod")) {
+			getPage("CA/San_Diego/50057517");
+		}else {
+			getPage("/CA/Carlsbad/34119166");
+		}
+		
 		dataObject = getDataFile(pDataFile);
 		String lName = updateName(dataObject.optString("name"));
 		String lEmail = updateEmail(dataObject.optString("email"));
