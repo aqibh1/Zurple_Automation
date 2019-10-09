@@ -508,4 +508,15 @@ public class TestEnvironment
           
           return posts;
      }
+    
+    public List<Posts> getPostsByListingId(Integer pListingId){
+    	String project = System.getProperty("project");
+    	if (project.equals("z57"))
+    	{
+    		ManagePosts postObject = new ManagePosts(getSession());
+    		return postObject.getPostsByListingId(pListingId);
+    	}else {
+    		return null;
+    	}
+    }
 }

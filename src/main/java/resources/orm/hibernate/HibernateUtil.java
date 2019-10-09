@@ -1,10 +1,23 @@
 package resources.orm.hibernate;
 
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
+
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
+
 import resources.ConfigReader;
+import resources.SSHConnector;
 
 public class HibernateUtil {
 
@@ -30,7 +43,35 @@ public class HibernateUtil {
             }
             else
             {
-                cfg.getProperties().setProperty("hibernate.connection.url","jdbc:mysql://"+configReader.getPropertyByName("zurple_mysql_host")+":"+configReader.getPropertyByName("zurple_mysql_port")+"/"+configReader.getPropertyByName("zurple_mysql_db")+"?zeroDateTimeBehavior=convertToNull");
+            	JSch jsch=new JSch();
+            	jsch.addIdentity(System.getProperty("user.dir")+"\\resources\\aqib.private.ppk",configReader.getPropertyByName("zurple_ssh_password"));
+            	jsch.setConfig("StrictHostKeyChecking", "no");
+            	//enter your own EC2 instance IP here
+            	Session session=jsch.getSession(configReader.getPropertyByName("zurple_ssh_username"), configReader.getPropertyByName("zurple_ssh_host"), 33322);
+            	session.setPassword(configReader.getPropertyByName("zurple_ssh_password"));
+            	session.getPort();
+            	session.getPortForwardingL();
+            	session.connect();
+//            	 ChannelExec channelExec = (ChannelExec)session.openChannel("exec");
+//            	 InputStream in = channelExec.getInputStream();
+//            	 channelExec.setCommand("date");
+//                 channelExec.connect();
+//
+//                 BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+//                 String line;
+//                 int index = 0;
+//
+//                 while ((line = reader.readLine()) != null)
+//                 {
+//                     System.out.println(++index + " : " + line);
+//                 }
+//
+//                
+//            	 
+//            	Channel channel = session.openChannel("shell");
+//            	int assinged_port=session.setPortForwardingL(3307, configReader.getPropertyByName("zurple_ssh_host"), 33326);
+
+                cfg.getProperties().setProperty("hibernate.connection.url","jdbc:mysql://"+configReader.getPropertyByName("zurple_mysql_host")+":"+configReader.getPropertyByName("zurple_mysql_port")+"/"+configReader.getPropertyByName("zurple_mysql_db")+"&autoReconnect=true&failOverReadOnly=false&maxReconnects=10");
                 cfg.getProperties().setProperty("hibernate.connection.username",configReader.getPropertyByName("zurple_mysql_user"));
                 cfg.getProperties().setProperty("hibernate.connection.password",configReader.getPropertyByName("zurple_mysql_pass"));
                 cfg.configure("/zurple.hibernate.cfg.xml");
@@ -56,7 +97,10 @@ public class HibernateUtil {
         return sessionFactory;
     }
     public static void setSessionFactoryEmpty() {
-    	sessionFactory = null;
+    	if(sessionFactory!=null) {
+    		sessionFactory.close();
+    		sessionFactory = null;
+    	}
     }
 
 }

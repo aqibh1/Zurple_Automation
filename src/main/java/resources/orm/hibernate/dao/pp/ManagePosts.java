@@ -88,4 +88,26 @@ public class ManagePosts {
 		}
 		return postObjList.get(0);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Posts> getPostsByListingId(Integer pListingId){
+	
+		List<Posts> postObjList = new ArrayList<Posts>();
+		try {
+			Query q = session.createQuery("FROM Posts WHERE listingId='"+pListingId+"'");
+			
+			postObjList = q.list();
+			Hibernate.initialize(postObjList);
+			session.evict(q);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (session != null && session.isOpen()) {
+				session.getSessionFactory().evictQueries();
+				session.clear();
+				session.close();		
+			}
+		}
+		return postObjList;
+	}
 }

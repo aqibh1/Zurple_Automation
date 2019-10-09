@@ -39,7 +39,57 @@ public class Posts extends Abstract{
 	private String errors;
 	private Timestamp dateAdded;
 	private String facebookPageName;
+	private Integer listingId;
+	private String postType;
+	private String source;
+	private String postLink;
+	private String postImage;
 	
+	@Column(name = "post_image", unique = true, nullable = true, length = 1000)
+	public String getPostImage() {
+		return postImage;
+	}
+
+	public void setPostImage(String postImage) {
+		this.postImage = postImage;
+	}
+
+	@Column(name = "post_link", unique = true, nullable = true, length = 500)
+	public String getPostLink() {
+		return postLink;
+	}
+
+	public void setPostLink(String postLink) {
+		this.postLink = postLink;
+	}
+
+	@Column(name = "source", unique = true, nullable = true, length = 50)
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	@Column(name = "listing_id", unique = true, nullable = true, length = 11)
+	public Integer getListingId() {
+		return listingId;
+	}
+
+	public void setListingId(Integer listingId) {
+		this.listingId = listingId;
+	}
+		
+	@Column(name = "post_type", unique = true, nullable = true, length = 30)
+	public String getPostType() {
+		return postType;
+	}
+
+	public void setPostType(String postType) {
+		this.postType = postType;
+	}
+
 	@Id
     @GeneratedValue(strategy = IDENTITY)
 	@Column(name = "post_id", unique = true, nullable = false, length = 11)

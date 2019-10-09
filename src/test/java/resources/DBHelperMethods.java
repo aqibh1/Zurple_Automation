@@ -265,4 +265,16 @@ public class DBHelperMethods {
 		LocalDate lPostDate = LocalDate.parse(pPostsObject.getDateAdded().toString().split(" ")[0]);
 		return lCurrentDate.equals(lPostDate);
 	}
+	
+//	public boolean isEmailSentToLead(String pLeadEmail, String pEmailSubject) {
+//		resources.orm.hibernate.models.zurple.Lead leadObject = (resources.orm.hibernate.models.zurple.Lead) testEnvironment.getLeadObject(pLeadEmail);
+//		
+//		 return leadObject.getEmail()!=null;
+//	}
+//	public List<Notifications> getListOfNotfications(){
+//		return testEnvironment.getListOfNotificationObject();
+//	}
+	public List<Posts> getPostsByListingId(Integer pListingId){
+		return testEnvironment.getPostsByListingId(pListingId);
+	}
 }
