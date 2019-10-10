@@ -76,7 +76,7 @@ public class ManagePosts {
 		List<Posts> postObjList = new ArrayList<Posts>();
 		try {
 //			Query q = session.createQuery("FROM Posts WHERE postFacebook='"+pFacebookStatus+"' ORDER BY dateAdded DESC LIMIT 1");
-			Query q = session.createQuery("FROM Posts WHERE postLinkedIn LIKE '%"+pLinkedInStatus+"%' ORDER BY dateAdded DESC LIMIT 1");
+			Query q = session.createQuery("FROM Posts WHERE postLinkedIn LIKE '%"+pLinkedInStatus+"%' ORDER BY dateAdded DESC").setMaxResults(1);
 			postObjList = q.list();
 			Hibernate.initialize(postObjList);
 		} catch (Exception e) {

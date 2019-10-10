@@ -191,7 +191,7 @@ public class PPCreateAdPageTest extends PageTest{
 		
 		PPAdsOverviewPage adsOverviewPage = new PPAdsOverviewPage(driver);
 		assertTrue(adsOverviewPage.isAdsOverviewPage(), "Ads Overview page is not visible");
-		assertTrue(adsOverviewPage.isAdPlacedSuccessfully(FrameworkConstants.IsTimeToSell), "Ads Overview page is not visible");
+		assertTrue(adsOverviewPage.isAdPlacedSuccessfully(FrameworkConstants.IsTimeToSell), "Unable to find the ad status 'Live (Paused)'..");
 
 	}
 	

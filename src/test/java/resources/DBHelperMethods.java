@@ -263,7 +263,13 @@ public class DBHelperMethods {
 	public boolean isStatusPostedOnTime(Posts pPostsObject) {
 		LocalDate lCurrentDate = LocalDate.now();
 		LocalDate lPostDate = LocalDate.parse(pPostsObject.getDateAdded().toString().split(" ")[0]);
-		return lCurrentDate.equals(lPostDate);
+		boolean isDateVerified = lCurrentDate.equals(lPostDate);
+		if(!isDateVerified) {
+			AutomationLogger.error("Unable to verify post date..");
+			AutomationLogger.error("Current Date :: "+lCurrentDate);
+			AutomationLogger.error("Post Date :: "+lPostDate);
+		}
+		return isDateVerified;
 	}
 	
 //	public boolean isEmailSentToLead(String pLeadEmail, String pEmailSubject) {
