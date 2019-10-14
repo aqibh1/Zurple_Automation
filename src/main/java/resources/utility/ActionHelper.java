@@ -619,8 +619,8 @@ public class ActionHelper {
 			   try {
 				   lElement = pWebDriver.findElement(By.xpath(pElement.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable)));
 			   }catch(Exception ex) {
-				   AutomationLogger.error("Unable to get dynamic webelement for xpath "+pElement);
-				   AutomationLogger.error(ex.getMessage());
+				   AutomationLogger.info("Unable to get dynamic webelement for xpath "+pElement);
+				   AutomationLogger.info(ex.getMessage());
 				   lTotalAttemps++;
 				   staticWait(10);
 			   }

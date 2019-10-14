@@ -35,6 +35,12 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(xpath="//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-note ']/div[@class='yui-dt-liner']")
 	WebElement notes_text;
 	
+	//Sorting Headers
+	
+	String sorting_column_ascending_xpath = "//th[@aria-label='"+FrameworkConstants.DYNAMIC_VARIABLE+": activate to sort column ascending']";
+	
+	String sorting_column_descending_xpath = "//th[@aria-label='"+FrameworkConstants.DYNAMIC_VARIABLE+": activate to sort column descending']";
+
 	public ZBOLeadDetailPage() {
 		
 	}
@@ -150,6 +156,7 @@ public class ZBOLeadDetailPage extends Page{
 		return verifyPropFromNotes("Added property style", pPropStyle);
 	}
 	
+	
 	private boolean verifyPropFromNotes(String pPropToVerify, String pValue) {
 		boolean isVerified = false;
 		List<WebElement> list_of_notes = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-note ']/div[@class='yui-dt-liner']");
@@ -169,4 +176,6 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isVerified;
 	}
+	
+	
 }

@@ -27,6 +27,22 @@ public class ZBOLeadPage extends Page{
 	
 	String lead_row = "//div[@id='DataTables_Table_0_wrapper']/descendant::td/a[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
 	
+	//Sorting Headers
+	
+	String sorting_column_ascending_xpath = "//th[@aria-label='"+FrameworkConstants.DYNAMIC_VARIABLE+": activate to sort column ascending']";
+	
+	String sorting_column_descending_xpath = "//th[@aria-label='"+FrameworkConstants.DYNAMIC_VARIABLE+": activate to sort column descending']";
+
+	@FindBy(xpath="//div[@id='leads-grid']/descendant::div[text()='Processing...']")
+	WebElement processing_alert;
+	
+	@FindBy(xpath="//select[@id='location-parent-1']")
+	WebElement filter_dropdown;
+	
+	@FindBy(xpath="//select[@id='location-child-1']")
+	WebElement filter_child_dropdown;
+	
+	
 	public ZBOLeadPage() {
 		
 	}
@@ -61,5 +77,44 @@ public class ZBOLeadPage extends Page{
 			isLeadExist = ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_row,pLeadName));
 		}
 		return isLeadExist;
+	}
+	public boolean verifyNameSortingWorking() {
+		return isSortingWorking(sorting_column_ascending_xpath, sorting_column_descending_xpath, "Name");
+	}
+	public boolean verifyEmailSortingWorking() {
+		return isSortingWorking(sorting_column_ascending_xpath, sorting_column_descending_xpath, "Email");
+	}
+	public boolean verifySearchLocationSortingWorking() {
+		return isSortingWorking(sorting_column_ascending_xpath, sorting_column_descending_xpath, "Search Location");
+	}
+	public boolean verifyMaxPriceSortingWorking() {
+		return isSortingWorking(sorting_column_ascending_xpath, sorting_column_descending_xpath, "Max Price");
+	}
+	public boolean verifyDateCreatedSortingWorking() {
+		return isSortingWorking(sorting_column_ascending_xpath, sorting_column_descending_xpath, "Date Created");
+	}
+	public boolean verifyAgentSortingWorking() {
+		return isSortingWorking(sorting_column_ascending_xpath, sorting_column_descending_xpath, "Agent");
+	}
+	public boolean verifyLastModifiedSortingWorking() {
+		return isSortingWorking(sorting_column_ascending_xpath, sorting_column_descending_xpath, "Last Modified");
+	}
+	public boolean verifyLastVisitSortingWorking() {
+		return isSortingWorking(sorting_column_ascending_xpath, sorting_column_descending_xpath, "Last Visit");
+	}
+	public boolean verifyPriorityRankSortingWorking() {
+		return isSortingWorking(sorting_column_ascending_xpath, sorting_column_descending_xpath, "Priority Rank");
+	}
+	public boolean isProcessingComplete() {
+		return ActionHelper.waitForElementToBeDisappeared(driver, procession_notfication,30);
+	}
+	
+	private boolean isSortingWorking(String pXpathAscending, String pXpathDescending,String pDynamicVariable) {
+		boolean isWorking = false;
+		ActionHelper.staticWait(3);
+		if(ActionHelper.Click(driver, ActionHelper.waitAndGetDynamicElement(driver,pXpathAscending,pDynamicVariable))) {
+			isWorking = ActionHelper.waitForElementToBeVisible(driver, ActionHelper.waitAndGetDynamicElement(driver, pXpathDescending, pDynamicVariable), 15);		
+		}
+		return isWorking;
 	}
 }

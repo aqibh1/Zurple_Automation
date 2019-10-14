@@ -45,5 +45,22 @@ public class ZBOLeadPageTest extends PageTest{
 		AutomationLogger.endTestCase();
 		
 	}
+	
+	@Test
+	public void testVerifySortingIsWorking() {
+		AutomationLogger.startTestCase("Veifying Sorting on Leads page");
+		getPage("/leads");
+		assertTrue(page.isLeadPage(), "Lead Page is not visible..");
+		assertTrue(page.isProcessingComplete(), "Processing is not completed..");
+		assertTrue(page.verifyNameSortingWorking(), "Sorting for Name column is not working...");
+		assertTrue(page.verifyEmailSortingWorking(), "Sorting for Email column is not working...");
+		assertTrue(page.verifySearchLocationSortingWorking(), "Sorting for Search Location column is not working...");
+		assertTrue(page.verifyMaxPriceSortingWorking(), "Sorting for Max Price column is not working...");
+		assertTrue(page.verifyDateCreatedSortingWorking(), "Sorting for Date Created column is not working...");
+		assertTrue(page.verifyAgentSortingWorking(), "Sorting for Agent column is not working...");
+		assertTrue(page.verifyLastModifiedSortingWorking(), "Sorting for Last Modified column is not working...");
+		assertTrue(page.verifyLastVisitSortingWorking(), "Sorting for Last Visit column is not working...");
+		AutomationLogger.endTestCase();
+	}
 
 }
