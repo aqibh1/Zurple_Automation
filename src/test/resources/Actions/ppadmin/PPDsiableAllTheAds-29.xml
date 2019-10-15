@@ -1,0 +1,27 @@
+<suite name="Trigger and Verify regular post on FB and Twitter Suite" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+    </listeners>
+   
+    <test name="Trigger and Verify regular post on FB and Twitter">
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+     </class>
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      	<include name="testDisAbleAllTheAds" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+	
+</suite>

@@ -627,4 +627,15 @@ public class ActionHelper {
 		   }while(lElement==null && lTotalAttemps<5);
 		   return lElement;
 	   }
+	   public static boolean handleDisableAdAlert(WebDriver pWebDriver) {
+		   boolean isSuccess = true;
+		   try {
+			   if(ExpectedConditions.alertIsPresent()!=null) {
+				   pWebDriver.switchTo().alert().accept();	   
+			   }
+		   }catch(Exception ex) {
+			   isSuccess = false;
+		   }
+		   return isSuccess;
+	   }
 }

@@ -21,6 +21,7 @@ public class PPAdsOverviewPage extends Page{
 	
 	String adOverviewPageTitle = "//h2[@class='z57-theme-page-topic' and text()='Paid Ads']";
 	String tableDataContent = "//table[@id='campaign_table']/descendant::td";
+	String disable_button = "//table[@id='campaign_table']/descendant::td/button[text()='Disable Ad']";
 	
 	public PPAdsOverviewPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -44,6 +45,34 @@ public class PPAdsOverviewPage extends Page{
 			index++;
 		}
 		return isFound;
+	}
+	
+	public boolean disableAllTheAds() {
+		boolean isSuccess = false;
+		List<WebElement> list_of_disable_button = ActionHelper.getListOfElementByXpath(driver, disable_button);
+		for(WebElement disableButton: list_of_disable_button) {
+			isSuccess = disableAd();
+			if(!isSuccess) {
+				AutomationLogger.error("Unable to disable the ad..");
+				break;
+			}
+		}
+		return isSuccess;
+	}
+	
+	private boolean disableAd() {
+		boolean isSuccess = false;
+		List<WebElement> list_of_disable_button = ActionHelper.getListOfElementByXpath(driver, disable_button);
+		if(list_of_disable_button.size()>0) {
+			isSuccess = ActionHelper.Click(driver, list_of_disable_button.get(0));
+			ActionHelper.staticWait(3);
+			isSuccess = ActionHelper.handleDisableAdAlert(driver);
+			ActionHelper.staticWait(10);
+		}else {
+			AutomationLogger.info("No ad to disable...");
+			isSuccess = true;
+		}
+		return isSuccess;
 	}
 	private boolean waitForElementToVisibleAfterRegularIntervals(WebDriver pWebDriver, String pXpathToAppend,String pXpathToAppend2, long pWaitIntervalInSeconds, int pTotalAttempts,int pIndex) {
 		List<WebElement> list_of_table_contents;

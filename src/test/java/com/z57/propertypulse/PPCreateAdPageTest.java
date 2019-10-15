@@ -195,6 +195,12 @@ public class PPCreateAdPageTest extends PageTest{
 
 	}
 	
+	@Test
+	public void testDisAbleAllTheAds() {
+		getPage("/content/marketing/ads");
+		assertTrue(new PPAdsOverviewPage(driver).disableAllTheAds(), "Unable to disable all the ads");
+		
+	}
 	private String getTheValidUrlToVerify() {
 		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
 		String v2BaseUrl = EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url").split("://")[1];
