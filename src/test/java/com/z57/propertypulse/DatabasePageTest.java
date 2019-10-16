@@ -81,6 +81,10 @@ public class DatabasePageTest extends PageTest{
 			ActionHelper.staticWait(150);
 			list_of_Posts = new DBHelperMethods(getEnvironment()).getPostsByListingId(listingId);
 			listSize = list_of_Posts.size();
+			AutomationLogger.info("Listing Id : "+listingId);
+			AutomationLogger.info("Attempt Number : "+counter);
+			AutomationLogger.info("List Size : "+listSize);
+			counter++;
 			HibernateUtil.setSessionFactoryEmpty();
 		}
 		
@@ -91,10 +95,12 @@ public class DatabasePageTest extends PageTest{
 		assertTrue(verifyAcceleratorPostedFacebookTwitterLink(), "Unable to verify the post link on facebook and twitter..");
 		//asserttrue();
         LocalDateTime localNow = LocalDateTime.now(TimeZone.getTimeZone("PST").toZoneId());
-        
-
-		
-	
+	}
+	@Test
+	public void testConnectToZurpleDB() {
+//		getPage();
+//		
+//		new DBHelperMethods(getEnvironment()).getPostsByListingId(112);
 	}
 	private boolean verifyAcceleratorPostedYoutubeVideo() {
 		boolean isVerified = true;
