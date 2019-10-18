@@ -283,4 +283,19 @@ public class DBHelperMethods {
 	public List<Posts> getPostsByListingId(Integer pListingId){
 		return testEnvironment.getPostsByListingId(pListingId);
 	}
+	public List<Posts> getTwitterAcceleratorLink(){
+		return testEnvironment.getTwitterAcceleratorLinkPosts();
+	}
+	
+	public List<Posts> getFacebookAcceleratorLink(){
+		return testEnvironment.getFacebookAcceleratorLinkPosts();
+	}
+	
+	public List<Posts> getFacebookAcceleratorVideo(){
+		return testEnvironment.getFacebookAcceleratorVideoPosts();
+	}
+
+	public List<Posts> getYoutubeAcceleratorVideo() {
+		return testEnvironment.getYoutubeAcceleratorVideoPosts();
+	}
 }

@@ -516,7 +516,57 @@ public class TestEnvironment
     		ManagePosts postObject = new ManagePosts(getSession());
     		return postObject.getPostsByListingId(pListingId);
     	}else {
+    		getSession();
     		return null;
     	}
     }
+
+    
+    public List<Posts> getTwitterAcceleratorLinkPosts(){
+    	String project = System.getProperty("project");
+    	if (project.equals("z57"))
+    	{
+    		ManagePosts postObject = new ManagePosts(getSession());
+    		return postObject.getTwitterAcceleratorLinkPosts();
+    	}else {
+    		getSession();
+    		return null;
+    	}
+    }
+    
+    public List<Posts> getFacebookAcceleratorLinkPosts(){
+    	String project = System.getProperty("project");
+    	if (project.equals("z57"))
+    	{
+    		ManagePosts postObject = new ManagePosts(getSession());
+    		return postObject.getFacebookAcceleratorLinkPosts();
+    	}else {
+    		getSession();
+    		return null;
+    	}
+    }
+    
+    public List<Posts> getFacebookAcceleratorVideoPosts(){
+    	String project = System.getProperty("project");
+    	if (project.equals("z57"))
+    	{
+    		ManagePosts postObject = new ManagePosts(getSession());
+    		return postObject.getFacebookAcceleratorVideoPosts();
+    	}else {
+    		getSession();
+    		return null;
+    	}
+    }
+
+	public List<Posts> getYoutubeAcceleratorVideoPosts() {
+		String project = System.getProperty("project");
+    	if (project.equals("z57"))
+    	{
+    		ManagePosts postObject = new ManagePosts(getSession());
+    		return postObject.getYoutubeAcceleratorVideoPosts();
+    	}else {
+    		getSession();
+    		return null;
+    	}
+	}
 }

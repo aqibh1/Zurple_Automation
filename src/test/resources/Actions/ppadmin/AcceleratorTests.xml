@@ -1,0 +1,69 @@
+<suite name="Accelerator Suite" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+    </listeners>
+
+	<test name="Accelerator Triggered for Twitter Link">
+	<classes>
+      <class name="com.z57.propertypulse.DatabasePageTest" >
+      <methods>
+      	<include name="testTwitterLinkAccelerator" />
+      </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+	
+	<test name="Accelerator Triggered for Facebook Link">
+	<classes>
+      <class name="com.z57.propertypulse.DatabasePageTest" >
+      <methods>
+      	<include name="testFacebookLinkAccelerator" />
+      </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+	
+	<test name="Accelerator Triggered for Facebook Video">
+	<classes>
+      <class name="com.z57.propertypulse.DatabasePageTest" >
+      <methods>
+      	<include name="testFacebookVideoAccelerator" />
+      </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+  
+	<test name="Accelerator Triggered for Youtube Video">
+	<classes>
+      <class name="com.z57.propertypulse.DatabasePageTest" >
+      <methods>
+      	<include name="testYoutubeVideoAccelerator" />
+      </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+	
+</suite>

@@ -98,9 +98,9 @@ public class DatabasePageTest extends PageTest{
 	}
 	@Test
 	public void testConnectToZurpleDB() {
-//		getPage();
-//		
-//		new DBHelperMethods(getEnvironment()).getPostsByListingId(112);
+		getPage();
+		
+		new DBHelperMethods(getEnvironment()).getPostsByListingId(112);
 	}
 	private boolean verifyAcceleratorPostedYoutubeVideo() {
 		boolean isVerified = true;
@@ -268,6 +268,64 @@ public class DatabasePageTest extends PageTest{
 		return isVerified && foundThePost;
 	}
 
+	@Test
+	public void testTwitterLinkAccelerator() {
+		getPage();
+		List<Posts> list_of_Posts = new DBHelperMethods(getEnvironment()).getTwitterAcceleratorLink();
+		assertTrue(list_of_Posts.size()>0,"No twitter accelerator link post found..");
+		AutomationLogger.info("Listing Id :: "+list_of_Posts.get(0).getListingId());
+		AutomationLogger.info("Post Link :: "+list_of_Posts.get(0).getPostLink());
+		AutomationLogger.info("Post Id :: "+list_of_Posts.get(0).getPostID());
+		AutomationLogger.info("Status Id :: "+list_of_Posts.get(0).getStatus());
+		AutomationLogger.info("Date Added :: "+list_of_Posts.get(0).getDateAdded());
+		AutomationLogger.info("Account Id :: "+list_of_Posts.get(0).getAccountID());
+		AutomationLogger.info("Schedule Id :: "+list_of_Posts.get(0).getScheduleID());
+		AutomationLogger.info("Source :: "+list_of_Posts.get(0).getSource());
+	}
 	
+	@Test
+	public void testFacebookLinkAccelerator() {
+		getPage();
+		List<Posts> list_of_Posts = new DBHelperMethods(getEnvironment()).getFacebookAcceleratorLink();
+		assertTrue(list_of_Posts.size()>0,"No Facebook accelerator link post found..");
+		AutomationLogger.info("Listing Id :: "+list_of_Posts.get(0).getListingId());
+		AutomationLogger.info("Post Link :: "+list_of_Posts.get(0).getPostLink());
+		AutomationLogger.info("Post Id :: "+list_of_Posts.get(0).getPostID());
+		AutomationLogger.info("Status Id :: "+list_of_Posts.get(0).getStatus());
+		AutomationLogger.info("Date Added :: "+list_of_Posts.get(0).getDateAdded());
+		AutomationLogger.info("Account Id :: "+list_of_Posts.get(0).getAccountID());
+		AutomationLogger.info("Schedule Id :: "+list_of_Posts.get(0).getScheduleID());
+		AutomationLogger.info("Source :: "+list_of_Posts.get(0).getSource());
+	}
+	
+	@Test
+	public void testFacebookVideoAccelerator() {
+		getPage();
+		List<Posts> list_of_Posts = new DBHelperMethods(getEnvironment()).getFacebookAcceleratorVideo();
+		assertTrue(list_of_Posts.size()>0,"No Facebook accelerator link post found..");
+		AutomationLogger.info("Listing Id :: "+list_of_Posts.get(0).getListingId());
+		AutomationLogger.info("Post Link :: "+list_of_Posts.get(0).getPostLink());
+		AutomationLogger.info("Post Id :: "+list_of_Posts.get(0).getPostID());
+		AutomationLogger.info("Status Id :: "+list_of_Posts.get(0).getStatus());
+		AutomationLogger.info("Date Added :: "+list_of_Posts.get(0).getDateAdded());
+		AutomationLogger.info("Account Id :: "+list_of_Posts.get(0).getAccountID());
+		AutomationLogger.info("Schedule Id :: "+list_of_Posts.get(0).getScheduleID());
+		AutomationLogger.info("Source :: "+list_of_Posts.get(0).getSource());
+	}
+	
+	@Test
+	public void testYoutubeVideoAccelerator() {
+		getPage();
+		List<Posts> list_of_Posts = new DBHelperMethods(getEnvironment()).getYoutubeAcceleratorVideo();
+		assertTrue(list_of_Posts.size()>0,"No Youtube accelerator video post found..");
+		AutomationLogger.info("Listing Id :: "+list_of_Posts.get(0).getListingId());
+		AutomationLogger.info("Post Link :: "+list_of_Posts.get(0).getPostLink());
+		AutomationLogger.info("Post Id :: "+list_of_Posts.get(0).getPostID());
+		AutomationLogger.info("Status Id :: "+list_of_Posts.get(0).getStatus());
+		AutomationLogger.info("Date Added :: "+list_of_Posts.get(0).getDateAdded());
+		AutomationLogger.info("Account Id :: "+list_of_Posts.get(0).getAccountID());
+		AutomationLogger.info("Schedule Id :: "+list_of_Posts.get(0).getScheduleID());
+		AutomationLogger.info("Source :: "+list_of_Posts.get(0).getSource());
+	}
 	
 }
