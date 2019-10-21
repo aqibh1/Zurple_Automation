@@ -66,4 +66,19 @@
     </classes>
 	</test>
 	
+	<test name="Mailgun notification status">
+	<classes>
+      <class name="com.z57.propertypulse.DatabasePageTest" >
+      <methods>
+      	<include name="testMailgunNotifications" />
+      </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+	
 </suite>

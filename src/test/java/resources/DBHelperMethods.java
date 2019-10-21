@@ -298,4 +298,8 @@ public class DBHelperMethods {
 	public List<Posts> getYoutubeAcceleratorVideo() {
 		return testEnvironment.getYoutubeAcceleratorVideoPosts();
 	}
+	
+	public List<NotificationMailgun> getMailgunNotifications() {
+		return testEnvironment.getMailgunNotifications();
+	}
 }

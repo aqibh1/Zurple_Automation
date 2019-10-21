@@ -18,6 +18,7 @@ import resources.DBHelperMethods;
 import resources.ModuleCommonCache;
 import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.models.pp.Posts;
+import resources.orm.hibernate.models.z57.NotificationMailgun;
 import resources.orm.hibernate.models.z57.Notifications;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
@@ -326,6 +327,18 @@ public class DatabasePageTest extends PageTest{
 		AutomationLogger.info("Account Id :: "+list_of_Posts.get(0).getAccountID());
 		AutomationLogger.info("Schedule Id :: "+list_of_Posts.get(0).getScheduleID());
 		AutomationLogger.info("Source :: "+list_of_Posts.get(0).getSource());
+	}
+	
+	@Test
+	public void testMailgunNotifications() {
+		List<NotificationMailgun> list_of_notification_mailgun = new DBHelperMethods(getEnvironment()).getMailgunNotifications();
+		assertTrue(list_of_notification_mailgun.size()>0,"No mailgun notifications found..");
+		AutomationLogger.info("Notification Mailgun Id :: "+list_of_notification_mailgun.get(0).getNotificationMailgunId());
+		AutomationLogger.info("Notification Id :: "+list_of_notification_mailgun.get(0).getNotficationId());
+		AutomationLogger.info("Notification Email Id :: "+list_of_notification_mailgun.get(0).getNotficationEmailId());
+		AutomationLogger.info("Account Id :: "+list_of_notification_mailgun.get(0).getAccountId());
+		AutomationLogger.info("External Mailgun Id :: "+list_of_notification_mailgun.get(0).getExternalMailgunId());
+	
 	}
 	
 }

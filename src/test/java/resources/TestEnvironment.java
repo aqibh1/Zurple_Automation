@@ -569,4 +569,16 @@ public class TestEnvironment
     		return null;
     	}
 	}
+	
+	public List<NotificationMailgun> getMailgunNotifications() {
+		String project = System.getProperty("project");
+    	if (project.equals("z57"))
+    	{
+    		ManageNotificationMailgun notificationMailgunObject = new ManageNotificationMailgun(getSession());
+    		return notificationMailgunObject.getNotificationMailgunByDate();
+    	}else {
+    		getSession();
+    		return null;
+    	}
+	}
 }

@@ -2,6 +2,8 @@ package resources.orm.hibernate.models.z57;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +23,8 @@ public class NotificationMailgun extends Abstract{
 	private Integer notficationEmailId;
 	private Integer notficationId;
 	private Integer notificationMailgunId;
+	private String externalMailgunId;
+	private Timestamp dateAdded;
 	
 	@Id
     @GeneratedValue(strategy = IDENTITY)
@@ -44,6 +48,17 @@ public class NotificationMailgun extends Abstract{
 	public Integer getNotficationEmailId() {
 		return notficationEmailId;
 	}
+	
+	@Column(name = "external_mailgun_id", unique = false, nullable = false, length = 200)
+	public String getExternalMailgunId() {
+		return externalMailgunId;
+	}
+	
+	@Column(name = "date_added", unique = true, nullable = true, length = 11)
+	public Timestamp getDateAdded() {
+		return dateAdded;
+	}
+	
 	public void setNotficationEmailId(Integer notficationEmailId) {
 		this.notficationEmailId = notficationEmailId;
 	}
@@ -64,5 +79,11 @@ public class NotificationMailgun extends Abstract{
 		this.status = status;
 	}
 	
-
+	public void setDateAdded(Timestamp dateAdded) {
+		this.dateAdded = dateAdded;
+	}
+	
+	public void setExternalMailgunId(String externalMailgunId) {
+		this.externalMailgunId = externalMailgunId;
+	}
 }
