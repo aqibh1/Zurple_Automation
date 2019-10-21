@@ -186,7 +186,7 @@ public class ManagePosts {
 		String date = sdf.format(new Date());
 		List<Posts> postObjList = new ArrayList<Posts>();
 		try {
-			Query q = session.createQuery("FROM Posts WHERE source='accelerator' AND postType='youtube_listing_post' AND postFacebook IS NOT NULL AND status='1' AND dateAdded>='"+date+"'");
+			Query q = session.createQuery("FROM Posts WHERE source='accelerator' AND postType='youtube_listing_post' AND status='1' AND dateAdded>='"+date+"'");
 			
 			postObjList = q.list();
 			Hibernate.initialize(postObjList);
