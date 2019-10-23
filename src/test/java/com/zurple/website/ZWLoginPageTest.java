@@ -57,8 +57,8 @@ public class ZWLoginPageTest extends PageTest{
 	@Test
 	public void testSignIn() {
 		getPage();
-		testBrand();
-		testHeader();
+//		testBrand();
+//		testHeader();
 		ZWHomeSearchPage homeSearchPage = new ZWHomeSearchPage(driver);
 		assertTrue(homeSearchPage.clickOnLoginLink());
 		page.doLogin("autoadmin_zurpleqa@mailinator.com");
