@@ -2,14 +2,22 @@ package com.zurple.backoffice;
 
 import static org.testng.Assert.assertTrue;
 
+import java.text.ParseException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 public class ZBOLeadPageTest extends PageTest{
@@ -61,6 +69,31 @@ public class ZBOLeadPageTest extends PageTest{
 		assertTrue(page.verifyLastModifiedSortingWorking(), "Sorting for Last Modified column is not working...");
 		assertTrue(page.verifyLastVisitSortingWorking(), "Sorting for Last Visit column is not working...");
 		AutomationLogger.endTestCase();
+	}
+	
+	@Test
+	@Parameters({"filterDataFile"})
+	public void testVerifyFilterIsWorking(String pDataFile) throws JSONException, ParseException {
+		AutomationLogger.startTestCase("Veifying filters on Leads page");
+		getPage("/leads");
+		JSONObject jObject = getDataFile(pDataFile);
+		JSONArray jArray = jObject.getJSONArray("filterNameVals");
+		for(int i=0;i<jArray.length();i++) {
+			applyAndVerifyFilter(jArray.getJSONObject(i).optString("key"),jArray.getJSONObject(i).optString("value"));
+		}
+		
+	}
+	
+	private boolean applyAndVerifyFilter(String pFilterName, String pFilterValue) throws ParseException {
+		boolean isSuccess = false;
+		assertTrue(page.isLeadPage(),"Lead Page is not found..");
+		assertTrue(page.clickAndSelectFilterName(pFilterName),"Unable to select the filter type "+pFilterName);
+		ActionHelper.staticWait(30);
+		assertTrue(page.clickAndSelectFilterValue(pFilterValue),"Unable to select the filter value "+pFilterValue);
+		assertTrue(page.clickOnSearchButton(),"Unable to click on search button..");
+		ModuleCommonCache.updateCacheForModuleObject("LeadPage","LeadPage.URL", EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url"));
+
+		return page.verifyFilter(pFilterName,pFilterValue);
 	}
 
 }

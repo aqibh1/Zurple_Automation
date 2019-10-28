@@ -41,6 +41,17 @@ public class ZBOLeadDetailPage extends Page{
 	
 	String sorting_column_descending_xpath = "//th[@aria-label='"+FrameworkConstants.DYNAMIC_VARIABLE+": activate to sort column descending']";
 
+	String lead_details_xpath = "//span[@class='lead-details-title' and text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/following::span[1]";
+	
+	@FindBy(xpath="//div[@class='detail-row-inline bottom-small-padd']/descendant::i[@title='Phone']/parent::span/parent::span")
+	WebElement phoneNumber;
+	
+	@FindBy(xpath="//span[@class='lead-details-title' and text()='Website:']/following::a[1]")
+	WebElement website_element;
+	
+	@FindBy(xpath="//ul[@class='z-lead-preferences z-grid-view-content']")
+	WebElement email_preferences;
+	
 	public ZBOLeadDetailPage() {
 		
 	}
@@ -155,8 +166,26 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyPropStyle(String pPropStyle) {
 		return verifyPropFromNotes("Added property style", pPropStyle);
 	}
-	
-	
+	public String getLeadDetails(String pPropName) {
+		return ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, lead_details_xpath, pPropName));
+	}
+	public String getPhoneNum() {
+		return ActionHelper.getText(driver, phoneNumber);
+	}
+	public String getWebSite() {
+		return ActionHelper.getText(driver, website_element);
+	}
+	public boolean verifyEmailPreferences(String pPrefToVerify, String pPrefValue) {
+		boolean isVerified = false;
+		List<WebElement> email_pref = email_preferences.findElements(By.tagName("span"));
+		for(int i=0;i<email_pref.size();i++) {
+			if(email_pref.get(i).getText().equalsIgnoreCase(pPrefToVerify)) {
+				isVerified = email_pref.get(i+1).getText().equalsIgnoreCase(pPrefValue);
+				break;
+			}
+		}
+		return isVerified;
+	}
 	private boolean verifyPropFromNotes(String pPropToVerify, String pValue) {
 		boolean isVerified = false;
 		List<WebElement> list_of_notes = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-note ']/div[@class='yui-dt-liner']");
