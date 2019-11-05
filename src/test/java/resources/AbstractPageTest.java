@@ -33,6 +33,7 @@ public abstract class AbstractPageTest extends AbstractTest
     protected String source_in_url="";
     protected Boolean incognito=false;
     private Long threadID;
+    private boolean isProd = false;
 
     public abstract AbstractPage getPage();
 
@@ -42,9 +43,17 @@ public abstract class AbstractPageTest extends AbstractTest
         Long thread_id = Thread.currentThread().getId();
         WebDriver driver = EnvironmentFactory.getDriver(thread_id);
         setThreadId(thread_id);
+        setIsProd();
         return driver;
     }
-
+    private void setIsProd() {
+    	if(System.getProperty("environment").equalsIgnoreCase("prod")){
+    		isProd = true; 
+    	}
+    }
+    public boolean getIsProd() {
+    	return isProd;
+    }
     private void setThreadId(Long pThreadId) {
     	threadID = pThreadId;
     }

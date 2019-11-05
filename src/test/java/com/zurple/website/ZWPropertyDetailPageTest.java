@@ -238,7 +238,12 @@ public class ZWPropertyDetailPageTest extends PageTest{
 	@Parameters({"registerUserDataFile"})
 	public void testScheduleShowingUserNotLoggedIn() {
 		AutomationLogger.startTestCase("Schedule Showing User not logged in");
-		getPage("/CA/Carlsbad/34120574");
+		if(getIsProd()) {
+			getPage("/CA/San_Diego/50057517");
+		}else {
+			getPage("/CA/Carlsbad/34118489");
+		}
+		
 		assertTrue(page.clickOnScheduleShowingButton(),"Unable to click on Schedule Showing button..");
 		assertTrue(page.selectCurrentDate(),"Unable to select current date..");
 		assertTrue(page.getScheduleShowingAlert().isShceduleAlertShowing(),"Schedule showing alert is not showing..");
@@ -256,7 +261,11 @@ public class ZWPropertyDetailPageTest extends PageTest{
 	@Parameters({"registerUserDataFile"})
 	public void testScheduleShowingUserLoggedIn() {
 		AutomationLogger.startTestCase("Schedule Showing User logged in");
-		getPage("/CA/Carlsbad/34120574");
+		if(getIsProd()) {
+			getPage("/CA/San_Diego/50057517");
+		}else {
+			getPage("/CA/Carlsbad/34118489");
+		}
 		assertTrue(page.isScheduleShowingButtonVisible(),"Schedule Showing button is not visible..");
 		assertTrue(page.clickOnScheduleShowingButton(),"Unable to click on Schedule Showing button..");
 		assertTrue(page.selectCurrentDate(),"Unable to select current date..");

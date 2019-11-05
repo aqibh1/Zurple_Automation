@@ -134,6 +134,9 @@ public class ZWPropertyDetailPage extends Page{
 
 	WebElement datePicker;
 	
+	@FindBy(xpath="//a[@title='view address']")
+	WebElement viewAddress;
+	
 	private ZWContactAgentForm contactAgentForm;
 	private ZWScheduleShowingAlert scheduleShowingAlert;
 	
@@ -393,6 +396,9 @@ public class ZWPropertyDetailPage extends Page{
 //			isSuccess = false;
 //		}
 		return ActionHelper.Click(driver, datePicker);
+	}
+	public boolean clickOnViewAddress() {
+		return ActionHelper.Click(driver, viewAddress);
 	}
 	@Override
 	public WebElement getHeader() {
