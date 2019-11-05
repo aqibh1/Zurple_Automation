@@ -112,6 +112,9 @@ public class ZBOLeadEmailPreferencesPage extends Page{
 	@FindBy(xpath="//h3[text()='Notifications']")
 	WebElement notifications_title;
 	
+	@FindBy(id="add-agent-button")
+	WebElement save_button;
+	
 	public ZBOLeadEmailPreferencesPage(){
 		
 	}
@@ -212,6 +215,15 @@ public class ZBOLeadEmailPreferencesPage extends Page{
 	public boolean verifyBPStyle(String pStyle) {
 		return multipleValsToVerify(style_xpath, pStyle);
 	}
+	public boolean typeCity(String pCity) {
+		return ActionHelper.ClearAndType(driver, seller_city, pCity);
+	}
+	public boolean typeState(String pState) {
+		return ActionHelper.ClearAndType(driver, seller_state, pState);
+	}
+	public boolean typeZip(String pZip) {
+		return ActionHelper.ClearAndType(driver, seller_zip, pZip);
+	}
 	public boolean verifyPropTypes(String pPropTypes) {
 		boolean isVerified = false;
 		String lPropType_array[] = pPropTypes.split(",");
@@ -235,6 +247,9 @@ public class ZBOLeadEmailPreferencesPage extends Page{
 		return isVerified;
 	}
 	
+	public boolean clickOnSaveButton() {
+		return ActionHelper.Click(driver, save_button);
+	}
 	
 	private boolean verifySelectedValFromDropDown(WebElement pElement, String pValue) {
 		boolean isVerified = false;

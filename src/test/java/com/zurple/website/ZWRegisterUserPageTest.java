@@ -87,6 +87,7 @@ public class ZWRegisterUserPageTest extends PageTest{
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.RegisterFormLeadEmail, lEmail);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),lEmail,lLeadId);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId,lLeadId);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadName,lName);
 
 		ActionHelper.staticWait(30);
 		AutomationLogger.endTestCase();
@@ -108,6 +109,31 @@ public class ZWRegisterUserPageTest extends PageTest{
 		AutomationLogger.endTestCase();
 		
 	}
+	
+	@Test
+	@Parameters({"registerUserDataFile"})
+	public void testRegisterUserFromLoginPage(String pDataFile) {
+	AutomationLogger.startTestCase("Register User from Schedule Showing");
+	getPage();
+	lDataObject = getDataFile(pDataFile);
+	String lName = updateName(lDataObject.optString("name"));
+	String lEmail = updateEmail(lDataObject.optString("email"));
+	
+	ZWLoginPage loginPage = new ZWLoginPage(driver);
+	assertTrue(loginPage.isLoginPage(), "Login Page is not displayed");
+	assertTrue(loginPage.clickOnSignUpLink(),"Unable click on sign up link..");
+	
+	registerUser(lName,lEmail);
+	
+	String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
+	
+	ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.ZurpleLeadEmail, lEmail);
+	ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),lEmail,lLeadId);
+	ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId,lLeadId);
+	ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadName,lName);
+
+	ActionHelper.staticWait(30);
+}
 
 
 	private void registerUser(String pName, String pEmail) {

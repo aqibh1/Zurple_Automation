@@ -93,5 +93,43 @@ public class ZBOLeadEmailPreferencesPageTest extends PageTest{
 		
 		AutomationLogger.endTestCase();
 	}
+	
+	@Test
+	@Parameters({"userSettings"})
+	public void testUpdateLeadInfo(String pDataFile) {
+		AutomationLogger.startTestCase("Verify lead email preferences");
+		getPage();
+//		String lLead = "3015660"
+		String lLead = ModuleCommonCache.getElement(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId);
+		getPage("/lead/edit/user_id/"+lLead);
+		dataObject = getDataFile(pDataFile);
+
+		String lCity = dataObject.optString(DataConstants.City);
+		String lState = dataObject.optString(DataConstants.State);
+		String lZip = dataObject.optString(DataConstants.Zip);     
+	
+		assertTrue(page.isLeadUpdatePage(), "Lead update page is not visible..");
+		assertTrue(page.allHeadingsDisplayed(), "All headings are not displayed..");
+		
+		assertTrue(page.typeCity(lCity), "Unable to type lead city..");
+		assertTrue(page.typeState(lState), "Unable to type Lead City..");
+		assertTrue(page.typeZip(lZip), "Unable to type Lead City..");
+		
+		assertTrue(page.clickOnSaveButton(), "Unable to click on save button..");
+		
+		getPage("/lead/edit/user_id/"+lLead);
+		
+		assertTrue(page.verifyCity(lCity), "Unable to verify lead city..");
+		assertTrue(page.verifyState(lState), "Unable to verify lead state..");
+		assertTrue(page.verifyZip(lZip), "Unable to verify lead Zip..");
+		
+		assertTrue(page.clickOnSaveButton(), "Unable to click on save button..");
+		
+		assertTrue(new ZBOLeadDetailPage(driver).isLeadDetailPage(), "Lead Detail Page is not visible..");
+		assertTrue(new ZBOLeadDetailPage(driver).isNotesEmpty(), "Lead notes are not empty..");
+		
+		AutomationLogger.endTestCase();
+	}
+
 
 }

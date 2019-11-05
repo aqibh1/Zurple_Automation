@@ -370,4 +370,36 @@ public class ZWAccountSettingsPage extends Page{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public boolean isAddressUpdated(String pStreet, String pCity, String pState, String pZip) {
+		boolean isStreet = false;
+		boolean isCity = false;
+		boolean isState = false;
+		boolean isZip = false;
+		
+		if(ActionHelper.waitForElementToBeVisible(driver, changed_address_text, 30)) {
+			String lAddress = ActionHelper.getText(driver, changed_address_text);
+			if(pStreet.isEmpty()) {
+				isStreet = true;
+			}else {
+				isStreet = lAddress.contains(pStreet);
+			}
+			if(pCity.isEmpty()) {
+				isCity = true;
+			}else {
+				isCity = lAddress.contains(pCity);
+			}
+			if(pState.isEmpty()) {
+				isState = true;
+			}else {
+				isState = lAddress.contains(pState);
+			}
+			if(pZip.isEmpty()) {
+				isZip = true;
+			}else {
+				isZip = lAddress.contains(pZip);
+			}	
+		}
+		return (isStreet && isCity && isState && isZip);
+	}
 }

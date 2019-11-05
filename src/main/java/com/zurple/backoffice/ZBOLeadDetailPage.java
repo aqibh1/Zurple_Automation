@@ -52,6 +52,9 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(xpath="//ul[@class='z-lead-preferences z-grid-view-content']")
 	WebElement email_preferences;
 	
+	@FindBy(xpath="//div[@id='z-lead-notes']/descendant::div[text()='No records found.']")
+	WebElement lead_notes_no_record;
+	
 	public ZBOLeadDetailPage() {
 		
 	}
@@ -185,6 +188,9 @@ public class ZBOLeadDetailPage extends Page{
 			}
 		}
 		return isVerified;
+	}
+	public boolean isNotesEmpty() {
+		return ActionHelper.isElementVisible(driver, lead_notes_no_record);
 	}
 	private boolean verifyPropFromNotes(String pPropToVerify, String pValue) {
 		boolean isVerified = false;

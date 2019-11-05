@@ -9,6 +9,7 @@ import java.util.Random;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -73,8 +74,10 @@ public class ZWHomesForSalePageTest extends PageTest{
 	}
 	
 	@Test
-	public void testHomesForSale() {
+	@Parameters({"searchPropertyDataFile"})
+	public void testHomesForSale(@Optional String pDataFile) {
 		getPage();
+		dataObject = getDataFile(pDataFile);
 		assertTrue(page.isHomeForSalePage(),"Homes for Sale page is not found..");
 		assertTrue(page.verifyNavigationTabs(),"Unable to verify navigation tabs on Homes for Sale page..");
 		if(page.getTotalListings()>0) {
@@ -82,6 +85,12 @@ public class ZWHomesForSalePageTest extends PageTest{
 
 		}else {
 			AutomationLogger.error("No Listing found on search criteria..");
+		}
+		
+		if(dataObject.optBoolean("view_address")) {
+			ActionHelper.staticWait(30);
+			assertTrue(new ZWPropertyDetailPage(driver).clickOnViewAddress(),"Unable to click on the listing..");
+
 		}
 	}
 	

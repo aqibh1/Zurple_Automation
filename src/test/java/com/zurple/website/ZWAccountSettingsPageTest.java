@@ -121,4 +121,24 @@ public class ZWAccountSettingsPageTest extends PageTest{
 		assertTrue(page.verifyChangeCriteriaText("Property Type:",dataObject.optString(DataConstants.PropertyTypes)), "Unable to verify updated property types");
 
 	}
+	
+	@Test
+	@Parameters({"userSettings"})
+	public void testVerifyAccountSettings(String pDataFile) {
+		getPage("/login");
+		String lEnv = "";
+		String lEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
+		if(lEnv.equalsIgnoreCase("prod")) {
+
+		}else {
+			lEmail = lEmail.replace("@", "_ZurpleQA@");
+		}
+		new ZWLoginPage(driver).doLogin(lEmail);
+		getPage("/my");
+		assertTrue(page.isAddressUpdated("", 
+				dataObject.optString(DataConstants.City), 
+				dataObject.optString(DataConstants.State), 
+				dataObject.optString(DataConstants.Zip)), "address not changed successfully..");
+	}
+	
 }

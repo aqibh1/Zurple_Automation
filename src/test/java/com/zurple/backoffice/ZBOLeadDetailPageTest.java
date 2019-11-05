@@ -32,7 +32,6 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	}
 	
 	public AbstractPage getPage(String pUrl) {
-		page = null;
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOLeadDetailPage(driver);
@@ -70,8 +69,13 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage();
 		String lLeadEmail = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.ZurpleLeadEmail);
 		String lLeadId = ModuleCommonCache.getElement(getThreadId().toString(), lLeadEmail);
-		
-		String lUpdatedUrl = driver.getCurrentUrl().replace("dashboard", "lead/"+lLeadId+"");
+		String lUpdatedUrl = "";
+		if(driver.getCurrentUrl().contains("dashboard")) {
+			lUpdatedUrl = driver.getCurrentUrl().replace("dashboard", "lead/"+lLeadId+"");
+		}else {
+			lUpdatedUrl = driver.getCurrentUrl().replace("leads", "lead/"+lLeadId+"");
+		}
+		 
 		driver.navigate().to(lUpdatedUrl);
 		
 		assertTrue(page.isLeadDetailPage(),"Lead Detail page is not opened..");
@@ -121,5 +125,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		AutomationLogger.endTestCase();
 		
 	}
+	
+	
 
 }

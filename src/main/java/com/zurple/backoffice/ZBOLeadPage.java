@@ -64,8 +64,6 @@ public class ZBOLeadPage extends Page{
 	WebElement lead_rows;
 	String lead_rows_xpath="//table[@id='DataTables_Table_0']/descendant::tbody/descendant::tr";
 	
-	
-	
 	String lZurpleBOUrl = "";
 	
 	private Map<Integer, HashMap<String,String>> rowDataMap = new HashMap<Integer, HashMap<String,String>>(); 
@@ -210,7 +208,7 @@ public class ZBOLeadPage extends Page{
 		}
 		return isVerified;
 	}
-	
+
 	private boolean verifyFromPopulatedData(String pFilterName, String pFilterValue) {
 		int randomInt = (int)(rowDataMap.size() * Math.random());
 		HashMap<String,String> dataRowMap = rowDataMap.get(randomInt);
