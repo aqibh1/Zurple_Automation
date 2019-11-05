@@ -251,7 +251,7 @@
 		</parameter>
 	</test>
 
-	<!-- Search property test cases with user logged in -->
+
 	<test
 		name="Search and Verify property by Bed Bath Price and Features with User Logged In">
 		<parameter name="searchPropertyDataFile"
@@ -545,6 +545,8 @@
 		</parameter>
 	</test>
 	
+
+	
 	<test name="Track Property in Lead Details">
 
 		<parameter name="registerUserDataFile"
@@ -695,5 +697,115 @@
 				</class>
 			</classes>
 		</parameter>
+	</test>
+	
+	<test name="Schedule showing listing">
+		<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-schedule-showing.json">
+			<classes>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testScheduleShowingUserNotLoggedIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWRegisterUserPageTest">
+					<methods>
+						<include name="testRegisterUserScheduleShowing" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testScheduleShowingUserLoggedIn" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+	
+	<test name="Update and Verify User Settings">
+		<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-update-settings.json">
+		<parameter name="userSettings" value="/resources/data/zurple/zurple-user-settings.json">
+		 
+			<classes>
+				<class name="com.zurple.website.ZWRegisterUserPageTest">
+					<methods>
+							<include name="testRegisterUser" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWAccountSettingsPageTest">
+					<methods>
+						<include name="testUpdateAccountSettings" />
+					</methods>
+				</class>
+		 		<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+		 		<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifySettingsInNotes" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadEmailPreferencesPageTest">
+					<methods>
+						<include name="testVerifyLeadEmailPreferences" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+		</parameter>
+	</test>
+	
+	<test name="Verify Sorting works on Leads Page">	 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadPageTest">
+					<methods>
+							<include name="testVerifySortingIsWorking" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+	<test name="Verify Filter works on Lead Page">	 
+	<parameter name="filterDataFile" value="/resources/data/zurple/backoffice/zurple-filter-data.json">
+	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadPageTest">
+					<methods>
+							<include name="testVerifyFilterIsWorking" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
 	</test>
 </suite>
