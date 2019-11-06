@@ -1,0 +1,17 @@
+<suite name="Capture Lead From About Me Page" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+    </listeners>
+   
+    <test name="Login to PP" preserve-order="true">
+	
+	<classes>
+      <class name="com.zurple.website.ZWHomeSearchPageTest" >
+      <methods>
+      	<include name="testConnectToZurpleDb" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+	
+</suite>

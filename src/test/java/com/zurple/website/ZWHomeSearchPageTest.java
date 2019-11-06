@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import resources.DBHelperMethods;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
 
@@ -70,7 +71,7 @@ public class ZWHomeSearchPageTest extends PageTest{
 	@Test
 	@Parameters({"searchPropertyDataFile"})
 	public void testSearchPropoerty(String pDataFile) {
-		getPage("");
+		getPage("");		
 		dataObject = getDataFile(pDataFile);
 		searchProperty();
 	}
@@ -135,7 +136,9 @@ public class ZWHomeSearchPageTest extends PageTest{
 
 	}
 
-
-
+	@Test
+	public void testConnectToZurpleDb() {
+		new DBHelperMethods(getEnvironment()).getMailgunNotifications();
+	}
 	
 }
