@@ -90,7 +90,22 @@ public class ManageLead {
         }
         return lead;
     }
-
+    
+    public Lead getLeadByEmail(String pLeadEmail ){
+    	List<Lead> leads = new ArrayList<>();
+    	 Transaction tx = null;
+         try{
+//             tx = session.beginTransaction();
+             leads = session.createQuery("FROM Lead WHERE email='"+pLeadEmail+"'").list();
+             tx.commit();
+         }catch (HibernateException e) {
+             if (tx!=null) tx.rollback();
+             e.printStackTrace();
+         }finally {
+             session.close();
+         }
+         return leads.get(0);
+    }
     /*
         Method returns list of hot behavior flags by lead id
      */

@@ -4,6 +4,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import resources.orm.hibernate.dao.zurple.*;
+import resources.orm.hibernate.dao.zurple.ManageLead;
 import resources.orm.hibernate.dao.pp.ManagePosts;
 import resources.orm.hibernate.dao.z57.*;
 import resources.orm.hibernate.HibernateUtil;
@@ -577,7 +578,8 @@ public class TestEnvironment
     		ManageNotificationMailgun notificationMailgunObject = new ManageNotificationMailgun(getSession());
     		return notificationMailgunObject.getNotificationMailgunByDate();
     	}else {
-    		getSession();
+    		resources.orm.hibernate.dao.zurple.ManageLead ml = new resources.orm.hibernate.dao.zurple.ManageLead(getSession());
+    		ml.getLeadByEmail("zsettinguser_436979018@mailinator.com");
     		return null;
     	}
 	}
