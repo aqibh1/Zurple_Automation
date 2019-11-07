@@ -44,7 +44,7 @@ public class HibernateUtil {
             else
             {
             	JSch jsch=new JSch();
-            	jsch.addIdentity(System.getProperty("user.dir")+"\\resources\\aqib.private.ppk",configReader.getPropertyByName("zurple_ssh_password"));
+            	jsch.addIdentity(System.getProperty("user.dir")+"\\resources\\aqib_openssh",configReader.getPropertyByName("zurple_ssh_password"));
             	jsch.setConfig("StrictHostKeyChecking", "no");
             	//enter your own EC2 instance IP here
             	Session session=jsch.getSession(configReader.getPropertyByName("zurple_ssh_username"), configReader.getPropertyByName("zurple_ssh_host"), 33322);
@@ -83,7 +83,7 @@ public class HibernateUtil {
 //            	int assinged_port=session.setPortForwardingL(3307, configReader.getPropertyByName("zurple_ssh_host"), 33326);
 //            	session.getServerVersion();
 //            	session.getUserName();
-            	String conString = "jdbc:mysql://"+configReader.getPropertyByName("zurple_mysql_host")+":"+configReader.getPropertyByName("zurple_mysql_port")+"/"+configReader.getPropertyByName("zurple_mysql_db")+"&autoReconnect=true&failOverReadOnly=false&maxReconnects=10";
+            	String conString = "jdbc:mysql://"+configReader.getPropertyByName("zurple_mysql_host")+":"+configReader.getPropertyByName("zurple_mysql_port")+"/"+configReader.getPropertyByName("zurple_mysql_db");
             	System.out.println(conString);
                 cfg.getProperties().setProperty("hibernate.connection.url",conString);
                 cfg.getProperties().setProperty("hibernate.connection.username",configReader.getPropertyByName("zurple_mysql_user"));
