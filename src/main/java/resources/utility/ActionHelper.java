@@ -130,6 +130,8 @@ public class ActionHelper {
 		   String ltext="";
 		   if(isElementVisible(pWebDriver, pElement)) {
 			   ltext=pElement.getText().trim();
+			   AutomationLogger.info("Element Text :" +ltext);
+			   
 		   }
 		   return ltext;
 	   }
@@ -637,5 +639,22 @@ public class ActionHelper {
 			   isSuccess = false;
 		   }
 		   return isSuccess;
+	   }
+	   
+	   public static boolean ClickAndSelect(WebDriver pWebDriver, WebElement pDropdown,String pElementToSelect, String pStringToType) {
+		   boolean result=false;
+		   if(waitForElementToBeVisible(pWebDriver,pDropdown,GLOBAL_WAIT_COUNT)) {
+			   Click(pWebDriver, pDropdown);
+			   Type(pWebDriver,pDropdown,pStringToType);
+			   staticWait(20);
+			   List<WebElement> list_element = getListOfElementByXpath(pWebDriver, pElementToSelect);
+			   for(WebElement element: list_element) {
+				   if(getText(pWebDriver, element).contains(pStringToType)) {
+					   result = Click(pWebDriver,element);
+					   break;
+				   }
+			   }
+		   }
+		   return result;
 	   }
 }

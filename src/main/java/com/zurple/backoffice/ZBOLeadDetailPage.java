@@ -1,5 +1,6 @@
 package com.zurple.backoffice;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -54,6 +55,9 @@ public class ZBOLeadDetailPage extends Page{
 	
 	@FindBy(xpath="//div[@id='z-lead-notes']/descendant::div[text()='No records found.']")
 	WebElement lead_notes_no_record;
+	
+	String email_prefernces_xpath = "//ul[@class='z-lead-preferences z-grid-view-content']/descendant::span";
+	String leadName_xpath = "//div[@id='lead-details-main']/descendant::h2[@class='panel-title']";
 	
 	public ZBOLeadDetailPage() {
 		
@@ -180,17 +184,33 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean verifyEmailPreferences(String pPrefToVerify, String pPrefValue) {
 		boolean isVerified = false;
+		ActionHelper.waitForElementToBeVisible(driver, email_preferences, 30);
 		List<WebElement> email_pref = email_preferences.findElements(By.tagName("span"));
 		for(int i=0;i<email_pref.size();i++) {
-			if(email_pref.get(i).getText().equalsIgnoreCase(pPrefToVerify)) {
+			if(ActionHelper.getText(driver, email_pref.get(i)).contains(pPrefToVerify)) {
 				isVerified = email_pref.get(i+1).getText().equalsIgnoreCase(pPrefValue);
 				break;
 			}
+			i++;
 		}
 		return isVerified;
 	}
 	public boolean isNotesEmpty() {
 		return ActionHelper.isElementVisible(driver, lead_notes_no_record);
+	}
+	
+	public HashMap<String,String> populateEmailPreferencesMap() {
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, email_prefernces_xpath);
+		HashMap<String,String> email_pref_Map = new HashMap<String,String>();
+		
+		for(int i=0; i<list_element.size();i++) {
+			email_pref_Map.put(list_element.get(i).getText().trim().replace("", "").trim(), list_element.get(i+1).getText().trim());
+			i++;
+		}
+		return email_pref_Map;
+	}
+	public boolean verifyLeadEmail(String pEmail) {
+		return ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_email_xpath, pEmail));
 	}
 	private boolean verifyPropFromNotes(String pPropToVerify, String pValue) {
 		boolean isVerified = false;
