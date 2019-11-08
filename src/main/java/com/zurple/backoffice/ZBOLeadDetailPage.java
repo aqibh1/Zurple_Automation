@@ -188,7 +188,7 @@ public class ZBOLeadDetailPage extends Page{
 		List<WebElement> email_pref = email_preferences.findElements(By.tagName("span"));
 		for(int i=0;i<email_pref.size();i++) {
 			if(ActionHelper.getText(driver, email_pref.get(i)).contains(pPrefToVerify)) {
-				isVerified = email_pref.get(i+1).getText().equalsIgnoreCase(pPrefValue);
+				isVerified = email_pref.get(i+1).getText().contains(pPrefValue);
 				break;
 			}
 			i++;

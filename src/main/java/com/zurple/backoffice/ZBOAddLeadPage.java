@@ -159,8 +159,8 @@ public class ZBOAddLeadPage extends Page{
 	public boolean selectCity(String pCity) {
 		return ActionHelper.ClickAndSelect(driver, city_input, city_xpath, pCity);
 	}
-	public boolean selectZip(String pCity) {
-		return ActionHelper.selectDropDownOption(driver, zip_input, zip_xpath, pCity);
+	public boolean selectZip(String pZip) {
+		return ActionHelper.ClickAndSelect(driver, zip_input, zip_xpath, pZip);
 	}
 	public boolean clickSaveButton() {
 		return ActionHelper.Click(driver, save_button);

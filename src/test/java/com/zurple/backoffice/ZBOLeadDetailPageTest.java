@@ -135,7 +135,12 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.isLeadDetailPage(),"Lead Detail page is not opened..");
 		assertTrue(page.isLeadNameExist(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName)),"Unable to verify lead name..");
 		assertTrue(page.verifyLeadEmail(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail)),"Unable to verify lead email..");
-		assertTrue(page.verifyEmailPreferences("Location", dataObject.optString("city_criteria")),"Unable to verify email preferences.."+dataObject.optString("city_criteria"));
+		if(!dataObject.optString("city_criteria").isEmpty()) {
+			assertTrue(page.verifyEmailPreferences("Location", dataObject.optString("city_criteria")),"Unable to verify email preferences.."+dataObject.optString("city_criteria"));
+		}
+		if(!dataObject.optString("zip_criteria").isEmpty()) {
+			assertTrue(page.verifyEmailPreferences("Location", dataObject.optString("city_criteria")),"Unable to verify email preferences.."+dataObject.optString("city_criteria"));
+		}
 		AutomationLogger.endTestCase();
 
 	}

@@ -61,7 +61,12 @@ public class ZBOAddLeadPageTest extends PageTest{
 		String  lLeadName = updateName(dataObject.optString("first_name"));
 		assertTrue(page.typeEmail(lLeadEmail), "Unable to type email address..");
 		assertTrue(page.typeFirstName(lLeadName), "Unable to type first name..");
-		assertTrue(page.selectCity(dataObject.optString("city_criteria")), "Unable to select city");
+		if(!dataObject.optString("city_criteria").isEmpty()) {
+			assertTrue(page.selectCity(dataObject.optString("city_criteria")), "Unable to select city");
+		}
+		if(!dataObject.optString("zip_criteria").isEmpty()) {
+			assertTrue(page.selectZip (dataObject.optString("zip_criteria")), "Unable to select city");
+		}
 		assertTrue(page.clickSaveButton(), "Unable click on save button..");
 		
 		if(getIsProd()) {
