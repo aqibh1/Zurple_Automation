@@ -657,4 +657,17 @@ public class ActionHelper {
 		   }
 		   return result;
 	   }
+	   public static boolean clickSaveAsButtonWindows(WebDriver pWebDriver) {
+		   boolean result = true;
+		   try {
+			   ActionHelper.staticWait(5);
+			   Runtime.getRuntime().exec(System.getProperty("user.dir")+"\\resources\\autoit-scripts"+"\\save-as.exe");
+		   }catch(Exception ex) {
+			   AutomationLogger.fatal("AutoIT error..Image upload failed..");
+			   result = false;
+		   }
+		   return result;
+	   }
+
+	   
 }
