@@ -668,6 +668,9 @@ public class ActionHelper {
 		   }
 		   return result;
 	   }
+	   public static boolean waitForProcessingToEnd(WebDriver pDriver) {
+		   return waitForElementToBeDisappeared(pDriver,pDriver.findElement(By.id("DataTables_Table_0_processing")),30);
+	   }
 
 	   
 }

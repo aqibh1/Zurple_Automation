@@ -40,8 +40,9 @@ public class ZBOExportLeadsPage extends Page{
 	}
 	public boolean selectAgentLeads() {
 		boolean isSelected = false;
+		ActionHelper.waitForProcessingToEnd(driver);
 		List<WebElement> list_of_input = ActionHelper.getListOfElementByXpath(driver, agentLeads_input);
-		if(list_of_input.get(2)!=null) {
+		if(list_of_input.size()>2) {
 			isSelected = ActionHelper.Click(driver, list_of_input.get(2));
 		}else {
 			isSelected = ActionHelper.Click(driver, list_of_input.get(1));
