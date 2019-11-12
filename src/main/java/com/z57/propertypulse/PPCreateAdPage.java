@@ -42,7 +42,7 @@ public class PPCreateAdPage extends Page{
 	@FindBy(id="ad_payment_confirmation")
 	WebElement adPaymentConfirmation_checkbox;
 	
-	String step2_heading = "//h2[text()='Step 2 - Select Ad Visibility Options']";
+	String step2_heading = "//h2[text()='Step 2 - Select Ad Visibility Options & Placement']";
 	String step3_heading = "//h2[text()='Step 3 - Place Order']";
 	
 	@FindBy(xpath="//input[@type='checkbox' and @name='fb_test_ad']")
@@ -65,7 +65,7 @@ public class PPCreateAdPage extends Page{
 	public boolean isCreateAdPage() {
 		boolean isPageVisible=false;
 		if(ActionHelper.waitForElementToBeVisible(driver, pageTitle, 15)) {
-			isPageVisible = ActionHelper.getText(driver, pageTitle).equalsIgnoreCase("Featured Listings on Facebook");
+			isPageVisible = ActionHelper.getText(driver, pageTitle).equalsIgnoreCase("Featured Listings on Facebook and Instagram");
 		}
 		return isPageVisible;
 	}

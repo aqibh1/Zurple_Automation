@@ -9,7 +9,7 @@ import resources.utility.ActionHelper;
 
 public class GetMaximumListingExposureModal {
 	WebDriver driver;
-	String alertHeadingXpath = "//div[@id='flp_confirm_modal']/descendant::h3[text()='Get Maximum Listing Exposure']";
+	String alertHeadingXpath = "//div[@id='flp_confirm_modal']/descendant::h3[text()='Get Maximum Listing Exposure – Now available on Instagram!']";
 	
 	@FindBy(xpath="//div[@id='flp_confirm_modal']/descendant::button[@class='close']")
 	WebElement close_button;
