@@ -9,12 +9,22 @@
           <include name="testSignUpWithFacebook" />
         </methods>
       </class>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPLeadPageTest" >
+      <methods>
+      	<include name="testSearchAndDeleteLead" />
+      </methods>
+      </class>
        <class name="resources.CurrentPageTest">
         <methods>
           <include name="closeBrowser" />
         </methods>
       </class>
     </classes>
-</parameter>
+  </parameter>
   </test>
   </suite>

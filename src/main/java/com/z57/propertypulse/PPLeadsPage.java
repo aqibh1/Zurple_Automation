@@ -58,6 +58,9 @@ public class PPLeadsPage extends Page{
 	@FindBy(xpath="//a[@title='Edit Lead']/i")
 	WebElement editLead_button;
 	
+	@FindBy(xpath="//div[@id='leadsTable_wrapper']/descendant::a[@title='Delete Lead']")
+	WebElement delete_lead;
+	
 	public PPLeadsPage() {
 		// TODO Auto-generated constructor stub
 	}
@@ -142,10 +145,19 @@ public class PPLeadsPage extends Page{
 		if(result) {
 			result= ActionHelper.ClearAndType(driver, search_input, pStringToSearch);
 		}
-		return result;
+		return result && ActionHelper.waitForAjaxToBeCompleted(driver);
 	}
 	public boolean clickOnEditButton() {
 		return ActionHelper.Click(driver, editLead_button);
+	}
+	public boolean deleteLead() {
+		boolean isDeleted = false;
+		if(ActionHelper.Click(driver, delete_lead)) {
+			ActionHelper.staticWait(5);
+			isDeleted = ActionHelper.handleDisableAdAlert(driver);
+			ActionHelper.staticWait(5);
+		}
+		return isDeleted;
 	}
 	
 

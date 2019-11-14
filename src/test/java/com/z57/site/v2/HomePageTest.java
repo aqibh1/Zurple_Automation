@@ -9,6 +9,9 @@ import com.z57.site.v2.PageTest;
 import com.z57.site.v2.HomePage;
 import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
+
 import org.testng.annotations.Test;
 import org.openqa.selenium.WebDriver;
 import resources.forms.z57.LoginForm;
@@ -153,10 +156,10 @@ public class HomePageTest extends PageTest
 //    	String lFacebookPassword="Mesarim10045";
     	String lFacebookEmail="z57testuser@gmail.com";
     	String lFacebookPassword="Bcsf08m020@";
-    	String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
-    	
-    	closeBootStrapModal();
+    	ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.FacebookLeadEmail, lFacebookEmail);
     	getPage();
+    	closeBootStrapModal();
+    	
     	switch(pSignUpPage) {
     	case "Home":
     		assertEquals("Sign In",getPage().getUserMenu().getText());
@@ -184,6 +187,7 @@ public class HomePageTest extends PageTest
     		}
     	}
     	assertTrue(page.getLoginForm().waitForLoginFormToDisappear(),"Login form didn't disappear");
+    	ActionHelper.staticWait(5);
     	ActionHelper.RefreshPage(driver);
     	assertTrue(page.getPageHeader().isLeadLoggedIn(), "Lead is not logged in trough Facebook");
     	

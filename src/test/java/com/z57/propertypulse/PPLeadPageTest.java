@@ -14,8 +14,11 @@ import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.DBHelperMethods;
+import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.data.z57.LeadData;
+import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 public class PPLeadPageTest extends PageTest{
 	WebDriver driver;
@@ -119,6 +122,21 @@ public class PPLeadPageTest extends PageTest{
 		assertTrue(page.clickOnResetFilterButton(), "Unable to click on reset button");
 		assertTrue(page.typeInSearch(leadData.getLeadEmail()), "Unable to type in Search Field");
 		assertTrue(page.isLeadExistInTable(leadData.getLeadEmail()), "The lead doesn't exist in filter search. Lead Email ["+leadData.getLeadEmail()+"]");	
+	}
+	
+	@Test
+	public void testSearchAndDeleteLead() {
+		AutomationLogger.startTestCase("Search and Delete Lead");
+		getPage("/leads");
+		String lLeadEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.FacebookLeadEmail);
+		assertTrue(page.isLeadPage(), "Lead page is not visible...");
+		ActionHelper.waitForAjaxToBeCompleted(driver);
+		assertTrue(page.typeInSearch(lLeadEmail), "Unable to type in Search Field");
+		ActionHelper.waitForAjaxToBeCompleted(driver);
+		assertTrue(page.isLeadExistInTable(lLeadEmail), "The lead doesn't exist in filter search. Lead Email ["+lLeadEmail+"]");	
+		assertTrue(page.deleteLead(),"Unable to delete the lead "+lEmail);
+		AutomationLogger.endTestCase();
+		
 	}
 	
 	private void applyFilters() {
