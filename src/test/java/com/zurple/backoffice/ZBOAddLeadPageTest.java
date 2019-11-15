@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.DBHelperMethods;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;
@@ -69,12 +70,17 @@ public class ZBOAddLeadPageTest extends PageTest{
 		}
 		assertTrue(page.clickSaveButton(), "Unable click on save button..");
 		
-		if(getIsProd()) {
-			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail, lLeadEmail);
-		}else {
-			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail, lLeadEmail.replace("@", "_ZurpleQA@"));
+		if(!getIsProd()) {
+			lLeadEmail = lLeadEmail.replace("@", "_ZurpleQA@");
 		}
+		
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail, lLeadEmail);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadName, lLeadName);
+		String lLeadId = driver.getCurrentUrl().split("user_id/")[1];
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), lLeadEmail, lLeadId);
+		
+//		int lLead_id = new DBHelperMethods(getEnvironment()).getZurpleLeadId(lLeadEmail);
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), lLeadEmail, lLead_id);
 
 		AutomationLogger.endTestCase();
 	}

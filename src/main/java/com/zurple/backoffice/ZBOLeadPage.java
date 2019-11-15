@@ -256,6 +256,24 @@ public class ZBOLeadPage extends Page{
 		return lDiffInDays<=days;
 	}
 	
+	public boolean selectLead(String pLeadName) {
+		boolean isLeadExist= false;
+		pLeadName = WordUtils.capitalizeFully(pLeadName);
+		if(!typeLeadNameToSearch(pLeadName)) {
+			return false;
+		}
+		if(!clickOnSearchButton()) {
+			return false;
+		}
+		if(ActionHelper.waitForElementToBeDisappeared(driver, procession_notfication,30)) {
+			ActionHelper.staticWait(5);
+			WebElement element = ActionHelper.getDynamicElement(driver, lead_row,pLeadName);
+			isLeadExist = ActionHelper.isElementVisible(driver, element);
+			ActionHelper.Click(driver, element);
+		}
+		return isLeadExist;
+	}
+	
 	private boolean verifyEmailStatus(String pFilterName, String pFilterValue) {
 		boolean isVerified = false;
 		int randomInt = (int)(rowDataMap.size() * Math.random());

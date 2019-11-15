@@ -84,6 +84,19 @@ public class ZBOLeadPageTest extends PageTest{
 		
 	}
 	
+	@Test
+	public void testSearchAndSelectLead() {
+		AutomationLogger.startTestCase("Search and Verify lead");
+		getPage("/leads");
+		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
+		assertTrue(page.isLeadPage(), "Lead page is not visible..");
+		assertTrue(page.selectLead(lLeadName), "Unable to find lead on lead page..");
+		String lLeadId = driver.getCurrentUrl().split("lead/")[1];
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), lLeadName, lLeadId);
+		AutomationLogger.endTestCase();
+		
+	}
+	
 	private boolean applyAndVerifyFilter(String pFilterName, String pFilterValue) throws ParseException {
 		boolean isSuccess = false;
 		assertTrue(page.isLeadPage(),"Lead Page is not found..");
