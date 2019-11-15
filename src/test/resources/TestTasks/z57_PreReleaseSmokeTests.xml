@@ -1779,4 +1779,23 @@
     </parameter>
 	</test>
 	
+    <test name="Disable all the ads">
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+     </class>
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      	<include name="testDisAbleAllTheAds" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
 </suite>
