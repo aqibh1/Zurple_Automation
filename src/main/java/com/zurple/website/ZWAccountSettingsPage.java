@@ -377,27 +377,27 @@ public class ZWAccountSettingsPage extends Page{
 		boolean isState = false;
 		boolean isZip = false;
 		
-		if(ActionHelper.waitForElementToBeVisible(driver, changed_address_text, 30)) {
-			String lAddress = ActionHelper.getText(driver, changed_address_text);
+		if(ActionHelper.Click(driver, change_address_link_button)) {
+			//String lAddress = ActionHelper.getText(driver, changed_address_text);
 			if(pStreet.isEmpty()) {
 				isStreet = true;
 			}else {
-				isStreet = lAddress.contains(pStreet);
+				isStreet = ActionHelper.getValue(driver, seller_street_input).contains(pStreet);
 			}
 			if(pCity.isEmpty()) {
 				isCity = true;
 			}else {
-				isCity = lAddress.contains(pCity);
+				isCity = ActionHelper.getValue(driver, seller_city_input).contains(pCity);
 			}
 			if(pState.isEmpty()) {
 				isState = true;
 			}else {
-				isState = lAddress.contains(pState);
+				isState = ActionHelper.getValue(driver, seller_state_input).contains(pState);
 			}
 			if(pZip.isEmpty()) {
 				isZip = true;
 			}else {
-				isZip = lAddress.contains(pZip);
+				isZip = ActionHelper.getValue(driver, seller_zip_input).contains(pZip);
 			}	
 		}
 		return (isStreet && isCity && isState && isZip);

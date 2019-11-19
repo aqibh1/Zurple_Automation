@@ -125,7 +125,9 @@ public class ZWAccountSettingsPageTest extends PageTest{
 	@Test
 	@Parameters({"userSettings"})
 	public void testVerifyAccountSettings(String pDataFile) {
-		getPage("/login");
+		//getPage("/login");
+		getPage("/my");
+		dataObject = getDataFile(pDataFile);
 		String lEnv = "";
 		String lEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
 		if(lEnv.equalsIgnoreCase("prod")) {
@@ -133,8 +135,8 @@ public class ZWAccountSettingsPageTest extends PageTest{
 		}else {
 			lEmail = lEmail.replace("@", "_ZurpleQA@");
 		}
-		new ZWLoginPage(driver).doLogin(lEmail);
-		getPage("/my");
+		//new ZWLoginPage(driver).doLogin(lEmail);
+		
 		assertTrue(page.isAddressUpdated("", 
 				dataObject.optString(DataConstants.City), 
 				dataObject.optString(DataConstants.State), 
