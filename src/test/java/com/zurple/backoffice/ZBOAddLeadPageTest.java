@@ -68,11 +68,17 @@ public class ZBOAddLeadPageTest extends PageTest{
 		if(!dataObject.optString("zip_criteria").isEmpty()) {
 			assertTrue(page.selectZip (dataObject.optString("zip_criteria")), "Unable to select city");
 		}
-		assertTrue(page.clickSaveButton(), "Unable click on save button..");
 		
 		if(!getIsProd()) {
 			lLeadEmail = lLeadEmail.replace("@", "_ZurpleQA@");
 		}
+		
+		boolean isWelcomeEmail = dataObject.optString("welcome_Email")!=null?true:false;
+		if(isWelcomeEmail) {
+			assertTrue(page.clickWelcomeEmailToggle(), "Unable to click on welcome email toggle button..");
+		}
+		
+		assertTrue(page.clickSaveButton(), "Unable click on save button..");
 		
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail, lLeadEmail);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadName, lLeadName);

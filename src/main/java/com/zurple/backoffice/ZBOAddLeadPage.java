@@ -115,6 +115,9 @@ public class ZBOAddLeadPage extends Page{
 	@FindBy(id="add-agent-button")
 	WebElement save_button;
 	
+	@FindBy(xpath="//input[@id='welcome_email']/following-sibling::span")
+	WebElement welcome_email_toggle;
+	
 	public ZBOAddLeadPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -164,5 +167,8 @@ public class ZBOAddLeadPage extends Page{
 	}
 	public boolean clickSaveButton() {
 		return ActionHelper.Click(driver, save_button);
+	}
+	public boolean clickWelcomeEmailToggle() {
+		return ActionHelper.Click(driver, welcome_email_toggle);
 	}
 }

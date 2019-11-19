@@ -59,6 +59,9 @@ public class ZBOLeadDetailPage extends Page{
 	String email_prefernces_xpath = "//ul[@class='z-lead-preferences z-grid-view-content']/descendant::span";
 	String leadName_xpath = "//div[@id='lead-details-main']/descendant::h2[@class='panel-title']";
 	
+	@FindBy(xpath="//div[@id='z-activity-details-alert-emails-grid']/descendant::div[text()='Welcome to our new site']")
+	WebElement welcome_email;
+	
 	public ZBOLeadDetailPage() {
 		
 	}
@@ -211,6 +214,9 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean verifyLeadEmail(String pEmail) {
 		return ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_email_xpath, pEmail));
+	}
+	public boolean isWelcomeEmailSent() {
+		return ActionHelper.waitForElementToBeVisible(driver, welcome_email, 20);
 	}
 	private boolean verifyPropFromNotes(String pPropToVerify, String pValue) {
 		boolean isVerified = false;
