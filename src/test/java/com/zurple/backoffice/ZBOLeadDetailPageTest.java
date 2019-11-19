@@ -89,6 +89,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	public void testVerifySettingsInNotes(String pDataFile) {
 		AutomationLogger.startTestCase("Verify Settings in Notes");
 		getPage();
+		page=null;
 		String lLead = ModuleCommonCache.getElement(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId);
 		getPage("/lead/"+lLead);
 		dataObject = getDataFile(pDataFile);
