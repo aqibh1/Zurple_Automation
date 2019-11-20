@@ -449,7 +449,9 @@ public class PPSocialPageTest extends PageTest{
 	private String getStartDateInFormat(String pDate) {
 		String lDate = "";
 		if(pDate.isEmpty()) {
-			lDate = LocalDate.now().toString();
+			LocalDate today = LocalDate.now();
+			LocalDate tomorrow = today.plusDays(1);
+			lDate = tomorrow.toString();
 		}else {
 			lDate = pDate;
 		}
