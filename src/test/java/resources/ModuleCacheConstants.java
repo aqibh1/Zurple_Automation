@@ -12,5 +12,6 @@ public class ModuleCacheConstants {
 	public static final String ZurpleLeadName = "zurple.lead.name";
 	public static final String ZurpleLeadId = "zurple.lead.id";
 	public static final String FacebookLeadEmail = "lead.facebook";
+	public static final String ZurpleProp = "zurple.property";
 
 }

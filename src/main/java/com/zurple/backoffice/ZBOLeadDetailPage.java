@@ -62,6 +62,28 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(xpath="//div[@id='z-activity-details-alert-emails-grid']/descendant::div[text()='Welcome to our new site']")
 	WebElement welcome_email;
 	
+	@FindBy(xpath="//span[@class='glyphicon email-validation-glyph glyphicon-ok-circle verified']")
+	WebElement verified_email_tick;
+	
+	@FindBy(xpath="//span[@class='z-lead-primary']")
+	WebElement lead_primary_alerts;
+	
+	@FindBy(id="z-activity-details-alerts")
+	WebElement alerts_tab_button;
+	
+	String alerts_type_xpath="//span[@class='z-alert-type']";
+	
+	String lead_activity_xpath="//span[@class='z-lead-activity']/span";
+	
+	@FindBy(id="z-activity-details-alert-emails")
+	WebElement zurple_messages_tab_button;
+	
+	@FindBy(xpath="//div[@id='z-activity-details-alert-emails-grid']/descendant::div[text()='Quick Question']")
+	WebElement quick_question_subject;
+	
+	@FindBy(xpath="//div[@id='z-activity-details-alert-emails-grid']/descendant::td[@headers='yui-dt4-th-messageDateTime ']/div")
+	WebElement date_time_email;
+	
 	public ZBOLeadDetailPage() {
 		
 	}
@@ -217,6 +239,92 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean isWelcomeEmailSent() {
 		return ActionHelper.waitForElementToBeVisible(driver, welcome_email, 20);
+	}
+	public boolean isEmailVerified() {
+		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, verified_email_tick, 30, 30);
+	}
+	public boolean verifySignupAlert() {
+		return verifyAlerts("New Sign-up", "");
+	}
+	public boolean isQuickQuestionEmailGenerated() {
+		int counter = 0;
+		boolean isVerified = false;
+		while(!isVerified && counter<15) {
+			ActionHelper.staticWait(45);
+			ActionHelper.RefreshPage(driver);
+			ActionHelper.ScrollDownByPixels(driver, "300");
+			isVerified = verifyQuickQuestionEmailGenerated();
+			counter++;
+		}
+		return isVerified;
+	}
+	public boolean verifyQuickQuestionEmailGenerated() {
+		boolean isVerified = false;
+		boolean isEmailExists = false;
+		boolean isTimeDateCorrect = false;
+		if(ActionHelper.Click(driver, zurple_messages_tab_button)) {
+			ActionHelper.staticWait(3);
+			isEmailExists = ActionHelper.waitForElementToBeVisible(driver, quick_question_subject, 30);
+			if(isEmailExists) {
+				isTimeDateCorrect = ActionHelper.getText(driver, date_time_email).contains(getTodaysDate().replace("2019", "19"));
+			}
+			isVerified = (isEmailExists && isTimeDateCorrect)?true:false;
+		}
+		return isVerified;
+	}
+	public boolean verifyLeadReqShowingActivityInAlerts(String pListingAddress) {
+		int counter = 0;
+		boolean isVerified = false;
+		while(!isVerified && counter<15) {
+			ActionHelper.staticWait(45);
+			ActionHelper.RefreshPage(driver);
+			ActionHelper.ScrollDownByPixels(driver, "300");
+			isVerified = verifyAlerts("Requested Showing", pListingAddress);
+			counter++;
+		}
+		return isVerified;
+	}
+	private boolean verifyAlerts(String pAlertToVerify, String pScheduleShowingAddress) {
+		boolean isVerified = false;
+		boolean alertVerified = false;
+		boolean dateVerified = false;
+		if(ActionHelper.Click(driver, alerts_tab_button)) {
+			ActionHelper.staticWait(5);
+			switch(pAlertToVerify) {
+			case "New Sign-up":
+				List<WebElement> list_alert_type = ActionHelper.getListOfElementByXpath(driver, alerts_type_xpath);
+				for(WebElement element: list_alert_type) {
+					alertVerified = ActionHelper.getText(driver, element).equalsIgnoreCase("New Sign-up");
+					if(alertVerified) {
+						if(ActionHelper.getText(driver, driver.findElement(By.xpath("//span[@class='z-alert-datetime']")))!=null) {
+							String lDate = ActionHelper.getText(driver, driver.findElement(By.xpath("//span[@class='z-alert-datetime']")));
+							dateVerified = lDate.contains(getTodaysDate().replace("2019", "19"))?true:false;
+						}
+					}
+				}
+				isVerified = (alertVerified && dateVerified)?true:false;
+				break;
+
+			case "Requested Showing":
+				List<WebElement> list_lead_activity = ActionHelper.getListOfElementByXpath(driver, "//span[@class='z-lead-activity']/span");
+				for (WebElement element: list_lead_activity) {
+					alertVerified = element.getText().trim().contains("Requested Showing");
+					if(alertVerified) {
+						alertVerified = element.findElement(By.tagName("a")).getText().trim().contains(pScheduleShowingAddress);
+						dateVerified = element.getText().trim().contains(getTodaysDate().replace("2019", "19"));
+					}
+					if(alertVerified && dateVerified) {
+						isVerified = true;
+						break;
+					}
+				}
+				break;
+
+			default:
+				break;
+			}
+		}
+		return isVerified;
 	}
 	private boolean verifyPropFromNotes(String pPropToVerify, String pValue) {
 		boolean isVerified = false;

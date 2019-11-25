@@ -1,5 +1,6 @@
 package resources;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -104,4 +105,12 @@ public abstract class AbstractPage
             qq.printStackTrace();
         }
     }
+    // Month/Day/Year
+    public String getTodaysDate() {
+		String lDate = "";
+		LocalDate today = LocalDate.now();
+		String tempDate[] = today.toString().split("-");
+		lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
+		return lDate;
+	}
 }

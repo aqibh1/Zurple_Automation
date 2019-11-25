@@ -140,6 +140,9 @@ public class ZWPropertyDetailPage extends Page{
 	private ZWContactAgentForm contactAgentForm;
 	private ZWScheduleShowingAlert scheduleShowingAlert;
 	
+	@FindBy(xpath="//div[@id='propdetail']/descendant::h2[1]")
+	WebElement property_heading;
+	
 	public ZWPropertyDetailPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		setContactAgentForm();
@@ -399,6 +402,9 @@ public class ZWPropertyDetailPage extends Page{
 	}
 	public boolean clickOnViewAddress() {
 		return ActionHelper.Click(driver, viewAddress);
+	}
+	public String getPropHeading() {
+		return ActionHelper.getText(driver, property_heading);
 	}
 	@Override
 	public WebElement getHeader() {

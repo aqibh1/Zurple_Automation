@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
@@ -148,6 +149,45 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		}
 		AutomationLogger.endTestCase();
 
+	}
+	
+	@Test(priority = 100)
+	public void testVerifyValidEmail() {
+		AutomationLogger.startTestCase("Verify lead email");
+		getPage();
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page = null;
+		getPage("/lead/"+lLeadId);
+		assertTrue(page.isEmailVerified(), "Email is not verified..");
+		AutomationLogger.endTestCase();
+	}
+	
+	@Test(priority = 150 , dependsOnMethods = {"testVerifyValidEmail"})
+	public void testVerifyAlerts() {
+		AutomationLogger.startTestCase("Verify Alerts");
+		getPage();
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page = null;
+		if(!getIsProd()) {
+			//Process email queue
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
+			new ZAProcessEmailQueuesPage(driver).processImmediateResponderQueue();
+			page =null;
+		}
+		getPage("/lead/"+lLeadId);
+		String lAddress = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleProp);
+		assertTrue(page.verifySignupAlert(), "Unable to verify sign up alert..");
+//		assertTrue(page.verifyLeadReqShowingActivityInAlerts(lAddress), "Lead request showing activity is not tracked in alerts");
+		assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subjectg quick question..");
+		AutomationLogger.endTestCase();
+		
+	}
+	
+	@Test 
+	public void testVerifyZurpleMessages() {
+		getPage();
+		
 	}
 	
 

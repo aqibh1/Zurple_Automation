@@ -104,7 +104,12 @@ public class ZWRegisterUserPageTest extends PageTest{
 		String lEmail = updateEmail(lDataObject.optString("email"));
 		
 		registerUser(lName,lEmail);
+		String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
+		
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.RegisterFormLeadEmail, lEmail);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),lEmail,lLeadId);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId,lLeadId);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadName,lName);
 
 		AutomationLogger.endTestCase();
 		

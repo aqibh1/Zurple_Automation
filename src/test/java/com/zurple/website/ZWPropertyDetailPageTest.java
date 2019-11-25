@@ -205,7 +205,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		if(lEnvironment.equalsIgnoreCase("prod")) {
 			getPage("CA/San_Diego/50057517");
 		}else {
-			getPage("/CA/Carlsbad/34119166");
+			getPage("/CA/Carlsbad/34209050");
 		}
 		
 		dataObject = getDataFile(pDataFile);
@@ -243,7 +243,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		}else {
 			getPage("/CA/Carlsbad/34118489");
 		}
-		
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleProp, page.getPropHeading().split(",")[0]);
 		assertTrue(page.clickOnScheduleShowingButton(),"Unable to click on Schedule Showing button..");
 		assertTrue(page.selectCurrentDate(),"Unable to select current date..");
 		assertTrue(page.getScheduleShowingAlert().isShceduleAlertShowing(),"Schedule showing alert is not showing..");

@@ -476,6 +476,29 @@ public class ActionHelper {
 			return displayed;
 	       
 	   }
+   public static boolean waitForElementToVisibleAfterRegularIntervals(WebDriver pWebDriver, WebElement pEelement, long pWaitIntervalInSeconds, int pTotalAttempts) {
+		   
+		   boolean displayed = false;
+		   int counter = 0;
+		   while (counter<pTotalAttempts && !displayed) {
+			   // Element is found so set the boolean as true
+			   displayed = isElementVisible(pWebDriver, pEelement);
+			   if(!displayed) {
+				   RefreshPage(pWebDriver);
+				   try {
+					Thread.sleep(pWaitIntervalInSeconds*1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				   counter++;
+			   }
+
+
+		   }
+			return displayed;
+	       
+	   }
 	   public static void staticWait(long pTimeInSeconds) {
 		   try {
 			   Thread.sleep(pTimeInSeconds*1000);
@@ -670,6 +693,16 @@ public class ActionHelper {
 	   }
 	   public static boolean waitForProcessingToEnd(WebDriver pDriver) {
 		   return waitForElementToBeDisappeared(pDriver,pDriver.findElement(By.id("DataTables_Table_0_processing")),30);
+	   }
+	   
+	   public static boolean waitforElementToBeDisappearedByRegularIntervals(WebDriver pWebDriver, WebElement pElement, long pTime, int pAttempts) {
+		   boolean isDisappeared = false;
+		   int count = 0;
+		   while(!isDisappeared && count<pAttempts) {
+			   isDisappeared = !isElementVisible(pWebDriver, pElement);
+			   staticWait(pTime);
+		   }
+		   return isDisappeared;
 	   }
 
 	   
