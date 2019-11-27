@@ -77,9 +77,9 @@ public class ZBOLeadEmailPreferencesPageTest extends PageTest{
 		assertTrue(page.verifySqFeet(lSqFeet), "Unable to verify lead square feet..");
 
 		assertTrue(page.verifyLocationZipCode(dataObject.optString(DataConstants.Zip_Criteria)), "Unable to verify zip criteria..");
-		assertTrue(page.verifyLocationCounty(dataObject.optString(DataConstants.County)), "Unable to verify zip criteria..");
-		assertTrue(page.verifyLocationNeighborhood(dataObject.optString(DataConstants.Neighborhood)), "Unable to verify zip criteria..");
-		assertTrue(page.verifyLocationSchoolDistrict(dataObject.optString(DataConstants.SchoolDistrict)), "Unable to verify zip criteria..");
+		assertTrue(page.verifyLocationCounty(dataObject.optString(DataConstants.County)), "Unable to verify County..");
+		assertTrue(page.verifyLocationNeighborhood(dataObject.optString(DataConstants.Neighborhood)), "Unable to verify neighborhood..");
+//		assertTrue(page.verifyLocationSchoolDistrict(dataObject.optString(DataConstants.SchoolDistrict)), "Unable to verify school district..");
 		
 		assertTrue(page.verifyBPMinPrice(dataObject.optString(DataConstants.MinPrice)), "Unable to verify minimum price..");
 		assertTrue(page.verifyBPMaxPrice(dataObject.optString(DataConstants.MaxPrice)), "Unable to verify maximum price..");

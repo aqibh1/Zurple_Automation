@@ -12,6 +12,7 @@
 		<parameter name="userSettings" value="/resources/data/zurple/zurple-user-settings.json">
 		 
 			<classes>
+			
 				<class name="com.zurple.website.ZWRegisterUserPageTest">
 					<methods>
 							<include name="testRegisterUser" />
@@ -22,11 +23,13 @@
 						<include name="testUpdateAccountSettings" />
 					</methods>
 				</class>
+			
 		 		<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
 						<include name="testBackOfficeLogin" />
 					</methods>
 				</class>
+				
 		 		<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
 					<methods>
 						<include name="testVerifySettingsInNotes" />
@@ -35,6 +38,16 @@
 				<class name="com.zurple.backoffice.ZBOLeadEmailPreferencesPageTest">
 					<methods>
 						<include name="testVerifyLeadEmailPreferences" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyValidEmail" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="verifyUserSettingsAlerts" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">

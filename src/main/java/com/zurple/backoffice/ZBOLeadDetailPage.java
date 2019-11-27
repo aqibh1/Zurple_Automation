@@ -16,6 +16,8 @@ import resources.utility.FrameworkConstants;
 
 public class ZBOLeadDetailPage extends Page{
 	
+	boolean isRefreshPageRequired = true;
+	
 	@FindBy(xpath="//div[@class='row']/descendant::h3[text()='Lead Detail']")
 	WebElement leadDetailHeading;
 	
@@ -284,7 +286,25 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isVerified;
 	}
-	private boolean verifyAlerts(String pAlertToVerify, String pScheduleShowingAddress) {
+	public boolean verifyLeadActivityInAlerts(String pAlertType,String pListingAddress) {
+		isRefreshPageRequired = true;
+		int counter = 0;
+		boolean isVerified = false;
+		while(!isVerified && counter<15) {
+			isVerified = verifyAlerts(pAlertType, pListingAddress);
+			if(!isRefreshPageRequired) {
+				break;
+			}else {
+				ActionHelper.staticWait(25);
+				ActionHelper.RefreshPage(driver);
+				ActionHelper.ScrollDownByPixels(driver, "300");
+			}
+			counter++;
+		}
+		return isVerified;
+	}
+	private boolean verifyAlerts(String pAlertToVerify, String pAlertValueToVerify) {
+
 		boolean isVerified = false;
 		boolean alertVerified = false;
 		boolean dateVerified = false;
@@ -310,8 +330,30 @@ public class ZBOLeadDetailPage extends Page{
 				for (WebElement element: list_lead_activity) {
 					alertVerified = element.getText().trim().contains("Requested Showing");
 					if(alertVerified) {
-						alertVerified = element.findElement(By.tagName("a")).getText().trim().contains(pScheduleShowingAddress);
+						alertVerified = element.findElement(By.tagName("a")).getText().trim().contains(pAlertValueToVerify);
 						dateVerified = element.getText().trim().contains(getTodaysDate().replace("2019", "19"));
+					}
+					if(alertVerified && dateVerified) {
+						isVerified = true;
+						break;
+					}
+				}
+				break;
+				
+			case "Modified Search Preferences":
+				List<WebElement> list_lead_activity_pref = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]");
+				for(int i=0;i<list_lead_activity_pref.size();i++) {
+					alertVerified = list_lead_activity_pref.get(i).findElement(By.xpath("/descendant::span[@class='z-alert-type']")).getText().trim().contains("Modified Search Preferences");
+					if(alertVerified) {
+						isRefreshPageRequired = false;
+						List<WebElement> list_of_lead_activity = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-lead-activity']/span");
+						for(WebElement element: list_of_lead_activity) {
+							alertVerified = element.getText().contains(pAlertValueToVerify);
+							if(alertVerified) {
+								break;
+							}
+						}
+						dateVerified = list_lead_activity_pref.get(i).getText().trim().contains(getTodaysDate().replace("2019", "19"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;

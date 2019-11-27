@@ -66,6 +66,9 @@ public class ZWAccountSettingsPageTest extends PageTest{
 		dataObject = getDataFile(pDataFile);
 		getPage("/my");
 		String lEmail= updateEmail(dataObject.optString(DataConstants.Email));
+		if(!getIsProd()) {
+			lEmail = lEmail.replace("@", "_ZurpleQA@");
+		}
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail, lEmail);
 		
 		assertTrue(page.isMyAccountPage(),"My Account page is not visible..");
@@ -91,7 +94,7 @@ public class ZWAccountSettingsPageTest extends PageTest{
 		assertTrue(page.clickOnChangeCriteriaLink(), "Unable to click on Change criteria link");
 		assertTrue(page.typeAndSelectZip(dataObject.optString(DataConstants.Zip_Criteria)), "Unable to type and select zip..");
 		assertTrue(page.typeAndSelectNeighborhood(dataObject.optString(DataConstants.Neighborhood)), "Unable to type and select zip..");
-		assertTrue(page.typeAndSelectSchoolDistrict(dataObject.optString(DataConstants.SchoolDistrict)), "Unable to type and select school district");
+//		assertTrue(page.typeAndSelectSchoolDistrict(dataObject.optString(DataConstants.SchoolDistrict)), "Unable to type and select school district");
 		assertTrue(page.isDrawButtonsVisible(),"Draw buttons not visble..");
 		assertTrue(page.typeAndSelectCounty(dataObject.optString(DataConstants.County)),"Unable to type and select county..");
 		assertTrue(page.selectMinPrice(dataObject.optString(DataConstants.MinPrice)),"Unable to select minimum price..");

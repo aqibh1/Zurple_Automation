@@ -117,7 +117,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.verifyMinSqFeet(dataObject.optString(DataConstants.Squarefeet_Criteria)), "Unable to verify Square Feet in Notes..");
 		assertTrue(page.verifyLotSize(dataObject.optString(DataConstants.LotSize)), "Unable to verify lot size in Notes..");
 		assertTrue(page.verifyNeighborhood(dataObject.optString(DataConstants.Neighborhood)), "Unable to verify neighborhood in Notes..");
-		assertTrue(page.verifySchoolDistrict(dataObject.optString(DataConstants.SchoolDistrict)), "Unable to verify School District in Notes..");
+//		assertTrue(page.verifySchoolDistrict(dataObject.optString(DataConstants.SchoolDistrict)), "Unable to verify School District in Notes..");
 		assertTrue(page.verifyZipCode(dataObject.optString(DataConstants.Zip_Criteria)), "Unable to verify zip code in Notes..");
 		assertTrue(page.verifyCounty(dataObject.optString(DataConstants.County)), "Unable to verify zip code in Notes..");
 		assertTrue(page.verifyFeatures(dataObject.optString(DataConstants.Features)), "Unable to verify features in Notes..");
@@ -182,6 +182,44 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subjectg quick question..");
 		AutomationLogger.endTestCase();
 		
+	}
+	
+	@Test(priority = 200 , dependsOnMethods = {"testVerifyValidEmail"})
+	@Parameters({"userSettings"})
+	public void verifyUserSettingsAlerts(String pDataFile) {
+		AutomationLogger.startTestCase("Verify Alerts");
+		getPage();
+		dataObject = getDataFile(pDataFile);
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page = null;
+		if(!getIsProd()) {
+			//Process email queue
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
+			new ZAProcessEmailQueuesPage(driver).processImmediateResponderQueue();
+			page =null;
+		}
+		getPage("/lead/"+lLeadId);
+//		getPage("/lead/4581389");
+		
+		assertTrue(page.verifySignupAlert(), "Unable to verify sign up alert..");
+		
+		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Updated minimum price: "+dataObject.optString(DataConstants.MinPrice).replace("$", "").replace(",", "")), "Unable to verify minimum price in Notes..");
+		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Updated maximum price: "+dataObject.optString(DataConstants.MaxPrice).replace("$", "").replace(",", "")), "Unable to verify maximum price in Notes..");
+		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Updated minimum bedrooms: "+dataObject.optString(DataConstants.Beds_Criteria).replace("+", "")), "Unable to verify Beds in Notes..");
+		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Updated minimum bathrooms: "+dataObject.optString(DataConstants.Baths_Criteria).replace("+", "")), "Unable to verify Baths in Notes..");
+		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Updated minimum sqft: "+dataObject.optString(DataConstants.Squarefeet_Criteria)), "Unable to verify Square Feet in Notes..");
+		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Added lot size: "+dataObject.optString(DataConstants.LotSize).replace("sq ft", "Sq Ft")), "Unable to verify lot size in Notes..");
+		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Added neighborhood: "+dataObject.optString(DataConstants.Neighborhood)), "Unable to verify neighborhood in Notes..");
+//		assertTrue(page.verifySchoolDistrict(dataObject.optString(DataConstants.SchoolDistrict)), "Unable to verify School District in Notes..");
+		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Added zip code: "+dataObject.optString(DataConstants.Zip_Criteria)), "Unable to verify zip code in Notes..");
+		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Added county: "+dataObject.optString(DataConstants.County)), "Unable to verify zip code in Notes..");
+		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Added features: "+dataObject.optString(DataConstants.Features)), "Unable to verify features in Notes..");
+		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Added property view: "+dataObject.optString(DataConstants.Views).replace("Golf course view", "Golf Course View")), "Unable to verify views in Notes..");
+		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Added property style: "+dataObject.optString(DataConstants.Style)), "Unable to verify style in Notes..");
+		
+		assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subjectg quick question..");
+		AutomationLogger.endTestCase();
 	}
 	
 	@Test 
