@@ -189,8 +189,8 @@ public class PPSocialPageTest extends PageTest{
 //			verifyLaterPost(postObject.getPostID().toString());
 			
 			String lNewFileToWrite = getIsProd()?lFileToWriteProd:lFileToWriteStage;
-			String lPreviousFileToWrite = getIsProd()?"/resources/cache/facebook-later-previous.json":"/resources/cache/facebook-later-previous-qa.json";
-			createCacheFile(lStatus,lNewFileToWrite ,lPreviousFileToWrite, lFacebookPage);
+//			String lPreviousFileToWrite = getIsProd()?"/resources/cache/facebook-later-previous.json":"/resources/cache/facebook-later-previous-qa.json";
+			createCacheFile(lStatus,lNewFileToWrite, lFacebookPage);
 		}
 	}
 	
@@ -453,11 +453,11 @@ public class PPSocialPageTest extends PageTest{
 		assertTrue(page.selectRepeatDays(pWeekdays), "Unable to select repeat days..");
 	}
 	
-	private void createCacheFile(String pStatus, String pNewFileFile, String pPreviousFile, String pFacebookPage) {
+	private void createCacheFile(String pStatus, String pNewFileFile, String pFacebookPage) {
 		String forLikeQuery = pStatus.split(" ")[pStatus.split(" ").length-1];
 		//Writing cache files for verification of recurring posts are success
-		JSONObject lCurrentObject = getDataFile(pNewFileFile);
-		writeJsonToFile(pPreviousFile, lCurrentObject);
+//		JSONObject lCurrentObject = getDataFile(pNewFileFile);
+//		writeJsonToFile(pPreviousFile, lCurrentObject);
 		
 		Posts postObj = getEnvironment().getPostByFacebookStatus(forLikeQuery,pFacebookPage);
 		writePojoToJsonFile(postObj,pNewFileFile);
