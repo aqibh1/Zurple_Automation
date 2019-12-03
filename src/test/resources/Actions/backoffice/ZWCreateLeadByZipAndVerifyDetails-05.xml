@@ -7,7 +7,7 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
 
-	<test name="Update and Verify User Settings">	
+	<test name="Create lead by Zip and verify details">	
 	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-by-zip.json"> 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
