@@ -274,7 +274,7 @@ public abstract class AbstractPageTest extends AbstractTest
     }
     
     protected String getCurrentPSTTime() {
-    	SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy-ss");
     	dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
     	String formattedDate = dateFormat.format(new Date(System.currentTimeMillis())).toString().toLowerCase();
     	return formattedDate;
