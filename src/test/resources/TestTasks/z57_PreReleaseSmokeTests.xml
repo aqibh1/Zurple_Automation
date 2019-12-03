@@ -9,7 +9,20 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
 
-  
+  <test name="Verify Later and Recurring Posts">
+	<classes>
+      <class name="com.z57.propertypulse.DatabasePageTest" >
+      <methods>
+      	<include name="testVerifyLaterAndRecurringPost" />
+      </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
    
 	<test name="Home Seacrh Test 01" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
