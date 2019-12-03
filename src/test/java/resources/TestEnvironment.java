@@ -374,12 +374,11 @@ public class TestEnvironment
             resources.orm.hibernate.dao.z57.ManageLead ml = new resources.orm.hibernate.dao.z57.ManageLead(getSession());
             return ml.getLead(pLeadEmail);
         }
-//        else
-//        {
-//            resources.orm.hibernate.dao.zurple.ManageLead ml = new resources.orm.hibernate.dao.zurple.ManageLead(getSession());
-//            return ml.getLead(lead_id);
-//        }
-        return null;
+        else
+        {
+            resources.orm.hibernate.dao.zurple.ManageLead ml = new resources.orm.hibernate.dao.zurple.ManageLead(getSession());
+            return ml.getLeadByEmail(pLeadEmail);
+        }
 
     }
     public List<NotificationEmails> getNotificationEmailsObject(String pEmail,Integer pMaxRows)
@@ -583,4 +582,25 @@ public class TestEnvironment
     		return null;
     	}
 	}
+
+	public Posts getPostByYoutubeStatus(String pYoutube) {
+		 String project = System.getProperty("project");
+     	 Posts posts = null;
+          if (project.equals("z57"))
+          {
+              ManagePosts postObject = new ManagePosts(getSession());
+              posts = postObject.getPostsByYoutubeStatus(pYoutube);
+              if(posts!=null) {
+             	 AutomationLogger.info("Successfully fetched Posts object for Parent Post Id "+pYoutube);
+              }else {
+             	 AutomationLogger.error("Posts object is null for Parent Post Id "+pYoutube);
+              }
+          }else {
+         	 
+          }
+          
+          return posts;
+	}
+	
+	
 }

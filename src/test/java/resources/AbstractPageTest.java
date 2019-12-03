@@ -4,8 +4,20 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +30,10 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import resources.alerts.BootstrapModal;
 import resources.classes.Asset;
@@ -154,15 +170,29 @@ public abstract class AbstractPageTest extends AbstractTest
 	}
     
     protected void writeJsonToFile(String pFileToWrite, JSONObject pObjectToWrite) {
-
-    	try (FileWriter file = new FileWriter(System.getProperty("user.dir")+pFileToWrite)) {
+    	File lFilePath = new File(System.getProperty("user.dir")+pFileToWrite);
+    	boolean isEmptyFile = lFilePath.length()==0?true:false;
+    	try (FileWriter file = new FileWriter(lFilePath,true)) {
     		AutomationLogger.info("Writing json to file "+pFileToWrite);
-    		file.write(pObjectToWrite.toString());
+    		if(!isEmptyFile) {
+    			file.write(",");
+    		}
+    		file.write(toPrettyFormat(pObjectToWrite.toString()));
     		file.flush();
 
     	} catch (IOException e) {
     		AutomationLogger.fatal("Unable to write file "+pFileToWrite);
     	}
+    }
+    private String toPrettyFormat(String pJsonString) 
+    {
+        JsonParser parser = new JsonParser();
+        JsonObject json = parser.parse(pJsonString).getAsJsonObject();
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String prettyJson = gson.toJson(json);
+
+        return prettyJson;
     }
     protected void writePojoToJsonFile(Object pPojoObject, String pFileToWrite) {
     	ObjectMapper mapper = new ObjectMapper();
@@ -171,8 +201,10 @@ public abstract class AbstractPageTest extends AbstractTest
          * Write object to file
          */
         try {
+        	 final String json1 = mapper.writeValueAsString(pPojoObject);
 //            mapper.writeValue(new File(pFileToWrite), pPojoObject);//Plain JSON
-            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(System.getProperty("user.dir")+pFileToWrite), pPojoObject);//Prettified JSON
+        	 writeJsonToFile(pFileToWrite, new JSONObject(json1));
+//            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(System.getProperty("user.dir")+pFileToWrite), pPojoObject);//Prettified JSON
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -180,4 +212,75 @@ public abstract class AbstractPageTest extends AbstractTest
     public boolean closeBootStrapModal(WebDriver pWebDriver) {
     	return new BootstrapModal(pWebDriver).closeBootstrapModal();
     }
+    //Month/Day/Year
+    //12/24/2019
+    protected String getTodaysDate() {
+    	
+    	Instant timeStamp= Instant.now();
+        System.out.println("Machine Time Now:" + timeStamp);
+     
+        //timeStamp in zone - "America/Los_Angeles"
+        ZonedDateTime LAZone= timeStamp.atZone(ZoneId.of("America/Los_Angeles"));
+        System.out.println("In Los Angeles(America) Time Zone:"+ LAZone);
+        
+    	String lDate = "";
+  
+    	String tempDate[] = LAZone.toString().split("T")[0].split("-");
+    	lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
+    	
+    	return lDate;
+    }
+  //Month/Day/Year
+    //12/24/2019
+    protected String getTomorrowsDate() {
+    	Instant timeStamp= Instant.now();
+        System.out.println("Machine Time Now:" + timeStamp);
+     
+        //timeStamp in zone - "America/Los_Angeles"
+        ZonedDateTime LAZone= timeStamp.atZone(ZoneId.of("America/Los_Angeles")).plusDays(1);
+        System.out.println("In Los Angeles(America) Time Zone:"+ LAZone);
+        
+    	String lDate = "";
+  
+    	String tempDate[] = LAZone.toString().split("T")[0].split("-");
+    	lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
+ 
+    	return lDate;
+    }
+  //Add two hours to current PST time
+    //05:00 pm
+    protected String getPSTTime() {
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("hh aa");
+    	dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
+    	String formattedDate = dateFormat.format(new Date(System.currentTimeMillis() + 7200000)).toString().toLowerCase();
+    	return formattedDate.replace(" ", ":00 ");
+    	
+    }
+    
+    protected String getCurrentAndNextDayOfTheWeek() {
+    	Instant timeStamp= Instant.now();
+    	ZonedDateTime LAZone= timeStamp.atZone(ZoneId.of("America/Los_Angeles"));
+    	//LocalDate date = LocalDate.now();
+    	DayOfWeek dow = LAZone.getDayOfWeek();
+    	System.out.println("Enum = " + dow);
+    	String dayName = dow.getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+    	System.out.println("FULL = " + dayName);
+    	LAZone = LAZone.plus(1, ChronoUnit.DAYS);
+    	dow = LAZone.getDayOfWeek();
+    	String dayName2 = dow.getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+    	
+    	return dayName+","+dayName2;
+    	
+    }
+    
+    protected String getCurrentPSTTime() {
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+    	dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
+    	String formattedDate = dateFormat.format(new Date(System.currentTimeMillis())).toString().toLowerCase();
+    	return formattedDate;
+    	
+    }
+    
+    
+
 }

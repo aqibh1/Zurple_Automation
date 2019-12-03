@@ -5,11 +5,21 @@ package com.z57.propertypulse;
 
 import static org.testng.Assert.assertTrue;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
@@ -97,6 +107,9 @@ public class DatabasePageTest extends PageTest{
 		//asserttrue();
         LocalDateTime localNow = LocalDateTime.now(TimeZone.getTimeZone("PST").toZoneId());
 	}
+	
+	
+	
 	@Test
 	public void testConnectToZurpleDB() {
 		getPage();
@@ -339,6 +352,63 @@ public class DatabasePageTest extends PageTest{
 		AutomationLogger.info("Account Id :: "+list_of_notification_mailgun.get(0).getAccountId());
 		AutomationLogger.info("External Mailgun Id :: "+list_of_notification_mailgun.get(0).getExternalMailgunId());
 	
+	}
+	
+	@Test
+	public void testVerifyLaterAndRecurringPost() {
+		getPage();
+		String lFileToReadProd = "/resources/cache/posts-to-verify-prod.json";
+		String lFileToReadStage = "/resources/cache/posts-to-verify-qa.json";
+		String lFileToRead = getIsProd()?System.getProperty("user.dir")+lFileToReadProd:System.getProperty("user.dir")+lFileToReadStage;
+		try {
+			JSONArray lJArray = new JSONArray(getDataFileContentJsonArray(lFileToRead));
+			for(int i = 0 ;i<lJArray.length();i++) {
+				JSONObject jObj = lJArray.getJSONObject(i);
+				Posts lPost = getEnvironment().getPostByParentPostId(jObj.opt("postID").toString());
+				if(lPost!=null) {
+					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
+				}else {
+					assertTrue(false,"Unable to verify the following post \n"+lPost);
+	
+				}
+						
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		assertTrue(renameAndCreateNewFile(lFileToRead), "Unable to rename or create new file");
+	}
+	
+	private boolean renameAndCreateNewFile(String pFilePath) {
+		boolean isFileNameAndCreated = true;
+		String lNewFileName = getIsProd()?System.getProperty("user.dir")+"/resources/cache/"+"Prod-"+getCurrentPSTTime()+".json":System.getProperty("user.dir")+"/resources/cache/"+"QA-"+getCurrentPSTTime()+".json";
+		File fileToRename = new File(pFilePath);
+		File newFile = new File(lNewFileName);
+		try {
+			Files.copy(fileToRename.toPath(), newFile.toPath());
+			fileToRename.delete();
+			fileToRename.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			isFileNameAndCreated = false;
+		}
+
+
+		return isFileNameAndCreated;
+
+	}
+	private String getDataFileContentJsonArray(String pDataFile) throws IOException {
+		String data = ""; 
+		data = new String(Files.readAllBytes(Paths.get(pDataFile))); 
+		return "["+data+"]"; 
+
 	}
 	
 }
