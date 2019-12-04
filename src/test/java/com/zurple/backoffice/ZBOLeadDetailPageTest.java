@@ -178,7 +178,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage("/lead/"+lLeadId);
 		String lAddress = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleProp);
 		assertTrue(page.verifySignupAlert(), "Unable to verify sign up alert..");
-//		assertTrue(page.verifyLeadReqShowingActivityInAlerts(lAddress), "Lead request showing activity is not tracked in alerts");
+		assertTrue(page.verifyLeadReqShowingActivityInAlerts(lAddress), "Lead request showing activity is not tracked in alerts");
 		assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subjectg quick question..");
 		AutomationLogger.endTestCase();
 		
