@@ -51,6 +51,7 @@ public class LoginPageTest extends PageTest{
 	public void testPPLogin() {
 		getPage();
 		//Fetch this from config file
+		
 		String lPPUserName = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
 		String lPPPassword =EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_password");
 		if(page.isLoginPageVisible()) {
@@ -64,5 +65,12 @@ public class LoginPageTest extends PageTest{
 			AutomationLogger.info("User is already logged in..");
 		}
 		
+	}
+	
+	@Test(priority=10)
+	void testDisableAdsFromAdmin() {
+		page=null;
+		getPage("/admin/social?account=44276&ad_id=&num_billed=&ad_type=0&ad_billed=0&ui_step=4&ad_state=live&api_status=PAUSED&test_ads=0&date_start=&date_end=&limit=100");
+		assertTrue(new PPAdminAds(driver).disableAllAds(), "Unable to disable all the ads");;
 	}
 }

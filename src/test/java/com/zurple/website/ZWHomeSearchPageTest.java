@@ -138,7 +138,7 @@ public class ZWHomeSearchPageTest extends PageTest{
 
 	@Test
 	public void testConnectToZurpleDb() {
-		new DBHelperMethods(getEnvironment()).getMailgunNotifications();
+		assertTrue(!new DBHelperMethods(getEnvironment()).getMailgunNotifications().isEmpty(), "Didnt fetch any results for the email");
 	}
 	
 }

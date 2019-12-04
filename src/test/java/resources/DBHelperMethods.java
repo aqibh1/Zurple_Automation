@@ -302,4 +302,7 @@ public class DBHelperMethods {
 	public List<NotificationMailgun> getMailgunNotifications() {
 		return testEnvironment.getMailgunNotifications();
 	}
+	public Integer getZurpleLeadId(String pEmail) {
+		return testEnvironment.getLeadObject(pEmail).getId();
+	}
 }
