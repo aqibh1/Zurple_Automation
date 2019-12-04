@@ -81,11 +81,11 @@ public class PPCreateAdPageTest extends PageTest{
 		assertTrue(page.clickOnNextButton(), "Unable to click on Next step button");
 		assertTrue(page.isSelectAdVisibilityOptionsPage(),"Step 2 page is not visible");
 		
-		if(lAdTargetedZip.isEmpty()) {
-			assertTrue(page.isValidZip(),"Ad targeted Zip is Empty");
-		}else {
-			assertTrue(page.typeAdZipCode(lAdTargetedZip),"Unable to type Zip in the field");
-		}
+//		if(lAdTargetedZip.isEmpty()) {
+//			assertTrue(page.isValidZip(),"Ad targeted Zip is Empty");
+//		}else {
+//			assertTrue(page.typeAdZipCode(lAdTargetedZip),"Unable to type Zip in the field");
+//		}
 		
 		assertTrue(page.clickOnNextButton(), "Unable to click on Next step button");
 		
