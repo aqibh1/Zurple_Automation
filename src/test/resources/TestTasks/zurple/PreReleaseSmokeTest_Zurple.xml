@@ -717,6 +717,21 @@
 						<include name="testScheduleShowingUserLoggedIn" />
 					</methods>
 				</class>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyValidEmail" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyAlerts" />
+					</methods>
+				</class>
 				<class name="resources.CurrentPageTest">
 					<methods>
 						<include name="closeBrowser" />
@@ -724,13 +739,14 @@
 				</class>
 			</classes>
 		</parameter>
-	</test>
+		</test>
 	
 	<test name="Update and Verify User Settings">
 		<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-update-settings.json">
 		<parameter name="userSettings" value="/resources/data/zurple/zurple-user-settings.json">
 		 
 			<classes>
+			
 				<class name="com.zurple.website.ZWRegisterUserPageTest">
 					<methods>
 							<include name="testRegisterUser" />
@@ -741,11 +757,13 @@
 						<include name="testUpdateAccountSettings" />
 					</methods>
 				</class>
+			
 		 		<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
 						<include name="testBackOfficeLogin" />
 					</methods>
 				</class>
+				
 		 		<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
 					<methods>
 						<include name="testVerifySettingsInNotes" />
@@ -754,6 +772,16 @@
 				<class name="com.zurple.backoffice.ZBOLeadEmailPreferencesPageTest">
 					<methods>
 						<include name="testVerifyLeadEmailPreferences" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyValidEmail" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="verifyUserSettingsAlerts" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
