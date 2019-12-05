@@ -357,11 +357,13 @@ public class DatabasePageTest extends PageTest{
 	@Test
 	public void testVerifyLaterAndRecurringPost() {
 		getPage();
+		boolean isFileEmpty = false;
 		String lFileToReadProd = "/resources/cache/posts-to-verify-prod.json";
 		String lFileToReadStage = "/resources/cache/posts-to-verify-qa.json";
 		String lFileToRead = getIsProd()?System.getProperty("user.dir")+lFileToReadProd:System.getProperty("user.dir")+lFileToReadStage;
 		try {
 			JSONArray lJArray = new JSONArray(getDataFileContentJsonArray(lFileToRead));
+			isFileEmpty = lJArray.length()==0?true:false;
 			for(int i = 0 ;i<lJArray.length();i++) {
 				JSONObject jObj = lJArray.getJSONObject(i);
 				Posts lPost = getEnvironment().getPostByParentPostId(jObj.opt("postID").toString());
@@ -369,19 +371,18 @@ public class DatabasePageTest extends PageTest{
 					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
 				}else {
 					assertTrue(false,"Unable to verify the following post \n"+lPost);
-	
 				}
-						
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assertTrue(false, "Unable to verify the posts..");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assertTrue(false, "Unable to verify the posts..");
 		}
-		
 		assertTrue(renameAndCreateNewFile(lFileToRead), "Unable to rename or create new file");
+		if(isFileEmpty) {
+			assertTrue(false, "JSON Data File is empty...");
+		}
 	}
 	
 	private boolean renameAndCreateNewFile(String pFilePath) {

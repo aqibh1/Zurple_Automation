@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 
 import resources.data.z57.OurCommunityData;
 import resources.data.z57.RegisterUserData;
+import resources.utility.ActionHelper;
 
 /**
  * @author adar
@@ -88,11 +89,13 @@ public class WhatsNearbyPageTest extends PageTest{
 		String lState = ourCommunityData.getState();
 		String lZip = ourCommunityData.getZip();
     	
+		ActionHelper.staticWait(5);
 		closeBootStrapModal(driver);
 		
 		PageHeader pageHeader = new PageHeader(driver);
 		assertTrue(pageHeader.clickOnWhatsNearby(), "Unable to click on Whats Nearby");
 		
+		ActionHelper.staticWait(5);
 		closeBootStrapModal(driver);
 		
 		assertTrue(page.isPointOfIntrestsPage(), "Page Title not found");

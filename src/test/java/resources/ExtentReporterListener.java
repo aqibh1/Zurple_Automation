@@ -17,6 +17,7 @@ public class ExtentReporterListener implements ITestListener{
 	
 	@Override
 	public void onTestStart(ITestResult result) {
+		AutomationLogger.startTestCase(result.getName());
 		AutomationLogger.info("Refreshing Hibernate Database Connection");
 		HibernateUtil.setSessionFactoryEmpty();
 		
@@ -27,11 +28,14 @@ public class ExtentReporterListener implements ITestListener{
 		 ExtentTestManager.getTest().log(LogStatus.PASS,result.getName(),"");
 
 		 ExtentTestManager.getTestEmail().log(LogStatus.PASS,result.getName(),"");
+		 AutomationLogger.onTestPass(result.getName());
 	}
 
 	@Override
 	public void onTestFailure(ITestResult result) {
 		String errorMessage = result.getThrowable().getLocalizedMessage();
+		AutomationLogger.onTestPass(result.getName());
+		AutomationLogger.error(errorMessage);
 		Object currentClass = result.getInstance();
 		 WebDriver webDriver = ((AbstractPageTest) currentClass).getDriver();
 	        //Take base64Screenshot screenshot.

@@ -77,6 +77,15 @@ public class AutomationLogger {
 		 Reporter.log("-----=====" +message+ "=====-----");
 	 
 	 }
+	 public static void onTestPass(String pMessage) {
+		 AutomationLogger.error("-----PASS=====" +pMessage+ "=====PASS-----");
+		 Reporter.log("-----PASS=====" +pMessage+ "=====PASS-----");
+	 }
+	 
+	 public static void onTestFail(String pMessage) {
+		 AutomationLogger.error("-----FAIL=====" +pMessage+ "=====FAIL-----");
+		 Reporter.log("-----FAIL=====" +pMessage+ "=====FAIL-----");
+	 }
 	 
 
 }

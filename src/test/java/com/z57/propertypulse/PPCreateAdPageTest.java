@@ -128,11 +128,11 @@ public class PPCreateAdPageTest extends PageTest{
 			assertTrue(page.typeAdTitle(lAdTitle),"Unable to type Ad Title in the field");
 		}
 		
-		if(lAdDesc.isEmpty()) {
-			assertTrue(page.isValidDescription(),"Ad Desc is Empty");
-		}else {
-			assertTrue(page.typeAdDescription(lAdDesc),"Unable to type Ad Description in the field");
-		}
+//		if(lAdDesc.isEmpty()) {
+//			assertTrue(page.isValidDescription(),"Ad Desc is Empty");
+//		}else {
+//			assertTrue(page.typeAdDescription(lAdDesc),"Unable to type Ad Description in the field");
+//		}
 		
 		assertTrue(page.clickOnNextButton(), "Unable to click on Next step button");
 		assertTrue(page.isSelectAdVisibilityOptionsPage(),"Step 2 page is not visible");
