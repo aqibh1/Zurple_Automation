@@ -89,8 +89,8 @@ public class PPSocialPageTest extends PageTest{
 		String lRepeatOnDays=getCurrentAndNextDayOfTheWeek();//socialData.getRepeatDays();
 		String lPromoteListing = socialData.getPromoteListing();
 		String lLinkToProperty = socialData.getPropertyLink();
-		String lFileToWriteProd = "/resources/cache/posts-to-verify-prod.json";
-		String lFileToWriteStage = "/resources/cache/posts-to-verify-qa.json";
+		String lFileToWriteProd = "/resources/cache/facebook-posts-prod.json";
+		String lFileToWriteStage = "/resources/cache/facebook-posts-qa.json";
 		
 		getPage("/content/marketing/social");
 		
@@ -150,7 +150,7 @@ public class PPSocialPageTest extends PageTest{
 		}else if(lPostSchedule.equalsIgnoreCase("Recurring")) {
 			
 //			lDate = getStartDateInFormat("");
-			lEndingDate = getStartDateInFormat(LocalDate.now().plusDays(7).toString());
+//			lEndingDate = getStartDateInFormat(LocalDate.now().plusDays(7).toString());
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.clickOnScheduleRecurring(), "Unable to click on Schedule Recurring radio button..");
 			
@@ -216,7 +216,7 @@ public class PPSocialPageTest extends PageTest{
 //		String lNewFileToWrite = getIsProd()?"/resources/cache/facebook-later.json":"/resources/cache/posts-to-verify-qa.json";
 		String lFileToWriteProd = "/resources/cache/posts-to-verify-prod.json";
 		String lFileToWriteStage = "/resources/cache/posts-to-verify-qa.json";
-		String lNewFileToWrite = getIsProd()?lFileToWriteProd:lFileToWriteStage;
+		
 
 	
 		
@@ -224,6 +224,8 @@ public class PPSocialPageTest extends PageTest{
 
 		case "Twitter":
 			//Uncheck Facebook option
+			lFileToWriteProd = "/resources/cache/twitter-posts-prod.json";
+			lFileToWriteStage = "/resources/cache/twitter-posts-qa.json";
 			assertTrue(page.unCheckFacebookOption(), "Unable to check Facebook option..");
 			assertTrue(page.checkTwitterOption(true), "Unable to check Twitter checkbox..");
 			lPlatformIcon = FrameworkConstants.TwitterIconImage;
@@ -231,6 +233,8 @@ public class PPSocialPageTest extends PageTest{
 			break;
 
 		case "YouTube":
+			lFileToWriteProd = "/resources/cache/youtube-posts-prod.json";
+			lFileToWriteStage = "/resources/cache/youtube-posts-qa.json";
 			lStatus = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.ListingsAddress);
 			assertTrue(page.checkYoutubeOption(), "Unable to check Youtube checkbox..");
 			assertTrue(page.getPpPromoteListingForm().isChooseAListingForm(), "Promote Listing form is not visible after clicking youtube checkbox..");
@@ -241,6 +245,8 @@ public class PPSocialPageTest extends PageTest{
 
 		case "LinkedIn":
 			//Uncheck Facebook option
+			lFileToWriteProd = "/resources/cache/linkedin-posts-prod.json";
+			lFileToWriteStage = "/resources/cache/linkedin-posts-qa.json";
 			assertTrue(page.unCheckFacebookOption(), "Unable to check Facebook option..");
 			assertTrue(page.checkLinkedInOption(true), "Unable to check LinkedIn checkbox..");
 			lPlatformIcon = FrameworkConstants.LinkedInIconImage;
@@ -260,7 +266,9 @@ public class PPSocialPageTest extends PageTest{
 		default:
 			break;
 		}
-
+		
+		String lNewFileToWrite = getIsProd()?lFileToWriteProd:lFileToWriteStage;
+		
 		if(!lPhotoPath.isEmpty()) {
 			assertTrue(page.clickOnPhoto(), "Unable to click Photo tab button....");
 			assertTrue(page.uploadImage(System.getProperty("user.dir")+lPhotoPath), "Unable to upload the image..");
@@ -284,7 +292,7 @@ public class PPSocialPageTest extends PageTest{
 		}
 		
 		if(lPostSchedule.equalsIgnoreCase("Later")) {
-			lDate = getStartDateInFormat("");
+//			lDate = getStartDateInFormat("");
 			
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.clickOnScheduleLater(), "Unable to click on Schedule Later radio button..");
@@ -300,16 +308,16 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.isUpcomingPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime), "Post not found in Upcoming Post results..");
 
-			String lScheduleId = getScheduleId(lStatus,lPlatform);
-			forceLaterPost(lScheduleId);
+//			String lScheduleId = getScheduleId(lStatus,lPlatform);
+//			forceLaterPost(lScheduleId);
 			Posts postObject = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.PostObject);
 			writePojoToJsonFile(postObject,lNewFileToWrite);
 //			verifyLaterPost(postObject.getPostID().toString());
 			
 		}else if(lPostSchedule.equalsIgnoreCase("Recurring")) {
 			
-			lDate = getStartDateInFormat("");
-			lEndingDate = getStartDateInFormat(LocalDate.now().plusDays(7).toString());
+//			lDate = getStartDateInFormat("");
+//			lEndingDate = getStartDateInFormat(LocalDate.now().plusDays(7).toString());
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.clickOnScheduleRecurring(), "Unable to click on Schedule Recurring radio button..");
 			
@@ -325,8 +333,8 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.isUpcomingRecurringPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime,lEndingDate,lRepeatOnDays), "Post not found in Upcoming Post results..");
 			
 			HibernateUtil.setSessionFactoryEmpty();
-			String lScheduleId = getScheduleId(lStatus,lPlatform);
-			forceLaterPost(lScheduleId);
+//			String lScheduleId = getScheduleId(lStatus,lPlatform);
+//			forceLaterPost(lScheduleId);
 			Posts postObject = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.PostObject);
 			writePojoToJsonFile(postObject,lNewFileToWrite);
 //			verifyLaterPost(postObject.getPostID().toString());
@@ -463,19 +471,19 @@ public class PPSocialPageTest extends PageTest{
 		writePojoToJsonFile(postObj,pNewFileFile);
 		
 	}
-	private String getStartDateInFormat(String pDate) {
-		String lDate = "";
-		if(pDate.isEmpty()) {
-			LocalDate today = LocalDate.now();
-			LocalDate tomorrow = today.plusDays(1);
-			lDate = tomorrow.toString();
-		}else {
-			lDate = pDate;
-		}
-		String tempDate[] = lDate.split("-");
-		lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
-		return lDate;
-	}
+//	private String getStartDateInFormat(String pDate) {
+//		String lDate = "";
+//		if(pDate.isEmpty()) {
+//			LocalDate today = LocalDate.now();
+//			LocalDate tomorrow = today.plusDays(1);
+//			lDate = tomorrow.toString();
+//		}else {
+//			lDate = pDate;
+//		}
+//		String tempDate[] = lDate.split("-");
+//		lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
+//		return lDate;
+//	}
 	
 	private void forceLaterPost(String pScheduleId) {
 		PPForceExecuteSchedulePost forceSchedulePost = new PPForceExecuteSchedulePost(driver);

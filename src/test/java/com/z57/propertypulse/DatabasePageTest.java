@@ -385,9 +385,156 @@ public class DatabasePageTest extends PageTest{
 		}
 	}
 	
+	@Test
+	public void testVerifyLaterAndRecurringPostFacebook() {
+		getPage();
+		boolean isFileEmpty = false;
+		String lFileToReadProd = "/resources/cache/facebook-posts-prod.json";
+		String lFileToReadStage = "/resources/cache/facebook-posts-qa.json";
+		String lBackupFileName = "fb-";
+		String lFileToRead = getIsProd()?System.getProperty("user.dir")+lFileToReadProd:System.getProperty("user.dir")+lFileToReadStage;
+		try {
+			JSONArray lJArray = new JSONArray(getDataFileContentJsonArray(lFileToRead));
+			isFileEmpty = lJArray.length()==0?true:false;
+			for(int i = 0 ;i<lJArray.length();i++) {
+				JSONObject jObj = lJArray.getJSONObject(i);
+				Posts lPost = getEnvironment().getPostByParentPostId(jObj.opt("postID").toString());
+				if(lPost!=null) {
+					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
+				}else {
+					assertTrue(false,"Unable to verify the following post \n"+lPost);
+				}
+			}
+		} catch (JSONException e) {
+			assertTrue(false, "Unable to verify the posts..");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			assertTrue(false, "Unable to verify the posts..");
+		}
+		assertTrue(renameAndCreateNewFile(lFileToRead, lBackupFileName), "Unable to rename or create new file");
+		if(isFileEmpty) {
+			assertTrue(false, "JSON Data File is empty...");
+		}
+	}
+	
+	@Test
+	public void testVerifyLaterAndRecurringPostTwitter() {
+		getPage();
+		boolean isFileEmpty = false;
+		String lFileToReadProd = "/resources/cache/twitter-posts-prod.json";
+		String lFileToReadStage = "/resources/cache/twitter-posts-qa.json";
+		String lBackupFileName = "twitter-";
+		String lFileToRead = getIsProd()?System.getProperty("user.dir")+lFileToReadProd:System.getProperty("user.dir")+lFileToReadStage;
+		try {
+			JSONArray lJArray = new JSONArray(getDataFileContentJsonArray(lFileToRead));
+			isFileEmpty = lJArray.length()==0?true:false;
+			for(int i = 0 ;i<lJArray.length();i++) {
+				JSONObject jObj = lJArray.getJSONObject(i);
+				Posts lPost = getEnvironment().getPostByParentPostId(jObj.opt("postID").toString());
+				if(lPost!=null) {
+					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
+				}else {
+					assertTrue(false,"Unable to verify the following post \n"+lPost);
+				}
+			}
+		} catch (JSONException e) {
+			assertTrue(false, "Unable to verify the posts..");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			assertTrue(false, "Unable to verify the posts..");
+		}
+		assertTrue(renameAndCreateNewFile(lFileToRead,lBackupFileName), "Unable to rename or create new file");
+		if(isFileEmpty) {
+			assertTrue(false, "JSON Data File is empty...");
+		}
+	}
+	
+	@Test
+	public void testVerifyLaterAndRecurringPostYoutube() {
+		getPage();
+		boolean isFileEmpty = false;
+		String lFileToReadProd = "/resources/cache/youtube-posts-prod.json";
+		String lFileToReadStage = "/resources/cache/youtube-posts-qa.json";
+		String lBackupFileName = "yt-";
+		String lFileToRead = getIsProd()?System.getProperty("user.dir")+lFileToReadProd:System.getProperty("user.dir")+lFileToReadStage;
+		try {
+			JSONArray lJArray = new JSONArray(getDataFileContentJsonArray(lFileToRead));
+			isFileEmpty = lJArray.length()==0?true:false;
+			for(int i = 0 ;i<lJArray.length();i++) {
+				JSONObject jObj = lJArray.getJSONObject(i);
+				Posts lPost = getEnvironment().getPostByParentPostId(jObj.opt("postID").toString());
+				if(lPost!=null) {
+					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
+				}else {
+					assertTrue(false,"Unable to verify the following post \n"+lPost);
+				}
+			}
+		} catch (JSONException e) {
+			assertTrue(false, "Unable to verify the posts..");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			assertTrue(false, "Unable to verify the posts..");
+		}
+		assertTrue(renameAndCreateNewFile(lFileToRead,lBackupFileName), "Unable to rename or create new file");
+		if(isFileEmpty) {
+			assertTrue(false, "JSON Data File is empty...");
+		}
+	}
+	
+	@Test
+	public void testVerifyLaterAndRecurringPostLinkedIn() {
+		getPage();
+		boolean isFileEmpty = false;
+		String lFileToReadProd = "/resources/cache/linkedin-posts-prod.json";
+		String lFileToReadStage = "/resources/cache/linkedin-posts-qa.json";
+		String lBackupFileName = "linkedin-";
+		String lFileToRead = getIsProd()?System.getProperty("user.dir")+lFileToReadProd:System.getProperty("user.dir")+lFileToReadStage;
+		try {
+			JSONArray lJArray = new JSONArray(getDataFileContentJsonArray(lFileToRead));
+			isFileEmpty = lJArray.length()==0?true:false;
+			for(int i = 0 ;i<lJArray.length();i++) {
+				JSONObject jObj = lJArray.getJSONObject(i);
+				Posts lPost = getEnvironment().getPostByParentPostId(jObj.opt("postID").toString());
+				if(lPost!=null) {
+					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
+				}else {
+					assertTrue(false,"Unable to verify the following post \n"+lPost);
+				}
+			}
+		} catch (JSONException e) {
+			assertTrue(false, "Unable to verify the posts..");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			assertTrue(false, "Unable to verify the posts..");
+		}
+		assertTrue(renameAndCreateNewFile(lFileToRead, lBackupFileName), "Unable to rename or create new file");
+		if(isFileEmpty) {
+			assertTrue(false, "JSON Data File is empty...");
+		}
+	}
 	private boolean renameAndCreateNewFile(String pFilePath) {
 		boolean isFileNameAndCreated = true;
 		String lNewFileName = getIsProd()?System.getProperty("user.dir")+"/resources/cache/"+"Prod-"+getCurrentPSTTime()+".json":System.getProperty("user.dir")+"/resources/cache/"+"QA-"+getCurrentPSTTime()+".json";
+		File fileToRename = new File(pFilePath);
+		File newFile = new File(lNewFileName);
+		try {
+			Files.copy(fileToRename.toPath(), newFile.toPath());
+			fileToRename.delete();
+			fileToRename.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			isFileNameAndCreated = false;
+		}
+
+
+		return isFileNameAndCreated;
+
+	}
+	private boolean renameAndCreateNewFile(String pFilePath, String pBackupFileName) {
+		boolean isFileNameAndCreated = true;
+		String lNewFileName = getIsProd()?System.getProperty("user.dir")+"/resources/cache/"+"Prod-"+pBackupFileName+getCurrentPSTTime()+".json":System.getProperty("user.dir")+"/resources/cache/"+"QA-"+pBackupFileName+getCurrentPSTTime()+".json";
 		File fileToRename = new File(pFilePath);
 		File newFile = new File(lNewFileName);
 		try {
