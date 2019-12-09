@@ -216,19 +216,24 @@ public abstract class AbstractPageTest extends AbstractTest
     //12/24/2019
     protected String getTodaysDate() {
     	
-    	Instant timeStamp= Instant.now();
-        System.out.println("Machine Time Now:" + timeStamp);
-     
-        //timeStamp in zone - "America/Los_Angeles"
-        ZonedDateTime LAZone= timeStamp.atZone(ZoneId.of("America/Los_Angeles"));
-        System.out.println("In Los Angeles(America) Time Zone:"+ LAZone);
-        
-    	String lDate = "";
-  
-    	String tempDate[] = LAZone.toString().split("T")[0].split("-");
-    	lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    	dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
+    	String formattedDate = dateFormat.format(new Date(System.currentTimeMillis() + 7200000)).toString().toLowerCase();
     	
-    	return lDate;
+//    	Instant timeStamp= Instant.now();
+//        System.out.println("Machine Time Now:" + timeStamp);
+//     
+//        //timeStamp in zone - "America/Los_Angeles"
+//        ZonedDateTime LAZone= timeStamp.atZone(ZoneId.of("America/Los_Angeles"));
+//        System.out.println("In Los Angeles(America) Time Zone:"+ LAZone);
+//        
+//    	String lDate = "";
+//  
+//    	String tempDate[] = LAZone.toString().split("T")[0].split("-");
+//    	lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
+//    	
+//    	return lDate;
+    	return formattedDate;
     }
   //Month/Day/Year
     //12/24/2019
