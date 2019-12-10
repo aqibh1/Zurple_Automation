@@ -308,7 +308,7 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.isUpcomingPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime), "Post not found in Upcoming Post results..");
 
-//			String lScheduleId = getScheduleId(lStatus,lPlatform);
+			String lScheduleId = getScheduleId(lStatus,lPlatform);
 //			forceLaterPost(lScheduleId);
 			Posts postObject = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.PostObject);
 			writePojoToJsonFile(postObject,lNewFileToWrite);
@@ -333,7 +333,7 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.isUpcomingRecurringPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime,lEndingDate,lRepeatOnDays), "Post not found in Upcoming Post results..");
 			
 			HibernateUtil.setSessionFactoryEmpty();
-//			String lScheduleId = getScheduleId(lStatus,lPlatform);
+			String lScheduleId = getScheduleId(lStatus,lPlatform);
 //			forceLaterPost(lScheduleId);
 			Posts postObject = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.PostObject);
 			writePojoToJsonFile(postObject,lNewFileToWrite);
