@@ -116,6 +116,8 @@ public class PPListingPageTest extends PageTest{
 		PropertyListingPage propertyListingPage = new PropertyListingPage(driver);
 		assertTrue(propertyListingPage.isListingDetailPage(), "Listing Detail Page is not visible");
 		
+		closeBootStrapModal();
+		
 		if(!lStatus.isEmpty()) {
 			assertTrue(propertyListingPage.getPropertyStatusFromHeader().equalsIgnoreCase(lStatus), "Status of Listing does not match.. Expected ["+lStatus+"]");
 			assertTrue(listingObject.getStatusId().equals(valueMapper.getListingStatus(lStatus)), "DB Verification :: Status of Listing does not match.. Expected ["+lStatus+"]");
