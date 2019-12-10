@@ -6,7 +6,7 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
-<!--  
+
 	<test name="Verify social Integration Facebook">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -46,7 +46,7 @@
 				</class>
 			</classes>
 	</test>
-	-->
+	
 	<test name="Verify social Integration LinkedIn">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
