@@ -18,35 +18,35 @@ import resources.utility.AutomationLogger;
  *
  */
 public class ZBOSocialIntegrationAndSettingsPage extends Page{
-	
+
 	@FindBy(xpath="//h3[text()='Integrations & Settings']")
 	WebElement integrationAndSettings_heading;
-	
+
 	@FindBy(xpath="//div[@class='row row-center']/descendant::img[@src='/img/zurple/Facebook_connected_200.png']")
 	WebElement facebookConnected_image;
-	
+
 	@FindBy(xpath="//button[@data-social-network='facebook' and text()='Disconnect']")
 	WebElement facebookDisConnect_button;
-	
+
 	@FindBy(xpath="//button[text()='OK']")
 	WebElement successOk_button;
-	
+
 	@FindBy(xpath="//button[@data-social-network='facebook' and text()='Connect']")
 	WebElement facebookConnect_button;
-	
+
 	//Facebook Elements
 	@FindBy(id="email")
 	WebElement email;
-	
+
 	@FindBy(id="pass")
 	WebElement password;
-	
+
 	@FindBy(id="loginbutton")
 	WebElement loginButton;
-	
+
 	@FindBy(xpath="//span[contains(text(),'Continue as')]")
 	WebElement continueAsButton;
-	
+
 	@FindBy(xpath="//div[@class='row row-center']/descendant::img[@src='/img/zurple/Twitter_connected_200.png']")
 	WebElement twitterConnected_image;
 	@FindBy(xpath="//button[@data-social-network='twitter' and text()='Disconnect']")
@@ -60,7 +60,7 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 	WebElement twitter_password_input;
 	@FindBy(id="allow")
 	WebElement twitter_signin_button;
-	
+
 	//Linkedin xpaths
 	@FindBy(id="username")
 	WebElement linkedin_username;
@@ -76,10 +76,39 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 	WebElement linkedinDisConnect_button;
 	@FindBy(xpath="//button[@data-social-network='linkedin' and text()='Connect']")
 	WebElement linkedinConnect_button;
+
+	//Linkedin xpaths
+	@FindBy(id="identifierId")
+	WebElement youtube_username;
+	@FindBy(xpath="//input[@name='password']")
+	WebElement youtube_password;
+	@FindBy(xpath="//button[@aria-label='Sign in']")
+	WebElement youtube_signin_button;
+	@FindBy(id="oauth__auth-form__submit-btn")
+	WebElement youtube_allow_button;
+	@FindBy(xpath="//div[@class='row row-center']/descendant::img[@src='/img/zurple/Youtube_connected_200.png']")
+	WebElement youtubeConnected_image;
+	@FindBy(xpath="//button[@data-social-network='youtube' and text()='Disconnect']")
+	WebElement youtubeDisConnect_button;
+	@FindBy(xpath="//button[@data-social-network='youtube' and text()='Connect']")
+	WebElement youtubeConnect_button;
+	@FindBy(xpath="//div[@id='identifierNext']/descendant::span[text()='Next']")
+	WebElement youtubeNext_button;
+	@FindBy(xpath="//div[@id='passwordNext']/descendant::span[text()='Next']")
+	WebElement youtubePasswordNext_button;
+	@FindBy(xpath="//div[@id='oauthScopeDialog']/descendant::span[text()='Allow'][2]")
+	WebElement youtube_grantpermission_allow_button;
+	@FindBy(xpath="//div[@id='submit_approve_access']/descendant::span[text()='Allow']")
+	WebElement youtube_confirmyourchoice_allow_button;
+	@FindBy(xpath="//a[text()='Advanced']")
+	WebElement advanced_button;
+	@FindBy(xpath="//a[text()='Go to thesocialapi.com (unsafe)']")
+	WebElement gotoSocialApi_button;
 	
-	
+
+
 	public ZBOSocialIntegrationAndSettingsPage() {
-		
+
 	}
 	public ZBOSocialIntegrationAndSettingsPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -88,7 +117,7 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 	public boolean isSocialIntegrationPage() {
 		return ActionHelper.isElementVisible(driver, integrationAndSettings_heading);
 	}
-	
+
 	public boolean connectToLinkedIn(boolean pForceConnection) {
 		boolean isConnected = false;
 		if(ActionHelper.isElementVisible(driver, linkedinConnected_image)) {
@@ -103,7 +132,7 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 		}
 		return isConnected;
 	}
-	
+
 	public boolean connectToTwitter(boolean pForceConnection) {
 		boolean isConnected = false;
 		if(ActionHelper.isElementVisible(driver, twitterConnected_image)) {
@@ -132,7 +161,7 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 		}
 		return isConnected;
 	}
-	
+
 	public boolean disconnectLinkedin() {
 		boolean isLinkedinDisconnected = false;
 		if(ActionHelper.isElementVisible(driver, linkedinConnected_image)) {
@@ -146,7 +175,7 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 		}
 		return isLinkedinDisconnected;
 	}
-	
+
 	public boolean disconnectFacebook() {
 		boolean isFacebookDisconnected = false;
 		if(ActionHelper.isElementVisible(driver, facebookConnected_image)) {
@@ -160,7 +189,7 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 		}
 		return isFacebookDisconnected;
 	}
-	
+
 	public boolean disconnectTwitter() {
 		boolean isTwitterDisconnected = false;
 		if(ActionHelper.isElementVisible(driver, twitterConnected_image)) {
@@ -174,7 +203,7 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 		}
 		return isTwitterDisconnected;
 	}
-	
+
 	private boolean connectToTwitter() {
 		boolean isConnected = false;
 		if(ActionHelper.Click(driver, twitterConnect_button)) {
@@ -189,7 +218,7 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 		}
 		return isConnected;
 	}
-	
+
 	private boolean connectToLinkedin() {
 		boolean isConnected = false;
 		if(ActionHelper.Click(driver, linkedinConnect_button)) {
@@ -263,6 +292,81 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 			}
 			if(ActionHelper.waitForElementToBeVisible(driver, linkedin_allow_button, 30)) {
 				isSuccess = ActionHelper.Click(driver, linkedin_allow_button);
+			}else {
+				isSuccess = true;
+			}
+
+			if(isSuccess && ActionHelper.isElementVisible(driver, successOk_button)) {
+				isSuccess = ActionHelper.Click(driver, successOk_button);
+			}
+
+		}else {
+			return false;
+		}
+		return isSuccess;
+	}
+	
+	public boolean connectToYoutube(boolean pForceConnection) {
+		boolean isConnected = false;
+		if(ActionHelper.isElementVisible(driver, youtubeConnected_image)) {
+			if(pForceConnection) {
+				disconnectYoutube();
+				isConnected = connectToYoutube();
+			}else {
+				AutomationLogger.info("Youtube is already connected..");
+			}
+		}else {
+			isConnected = connectToYoutube();
+		}
+		return isConnected;
+	}
+
+	public boolean disconnectYoutube() {
+		boolean isYoutubeDisconnected = false;
+		if(ActionHelper.isElementVisible(driver, youtubeConnected_image)) {
+			ActionHelper.Click(driver, youtubeDisConnect_button);
+			if(ActionHelper.waitForElementToBeVisible(driver, successOk_button, 30)) {
+				isYoutubeDisconnected = ActionHelper.Click(driver, successOk_button);
+			}
+		}else {
+			AutomationLogger.info("Youtube is already disconnected..");
+			isYoutubeDisconnected = true;
+		}
+		return isYoutubeDisconnected;
+	}
+	
+	private boolean connectToYoutube() {
+		boolean isConnected = false;
+		if(ActionHelper.Click(driver, youtubeConnect_button)) {
+			isConnected = filloutYoutubeForm();
+		}
+		return isConnected;
+	}
+	
+	private boolean filloutYoutubeForm() {
+		boolean isSuccess = true;
+		String lUsername = "z57testuser@gmail.com";
+		String lPassword = "Bcsf08m020@";
+		if(ActionHelper.waitForElementToBeVisible(driver, youtubeNext_button, 30)) {
+			if(!ActionHelper.ClearAndType(driver, youtube_username, lUsername)) {
+				return false;
+			}
+			if(!ActionHelper.Click(driver, youtubeNext_button)) {
+				return false;
+			}
+			if(!ActionHelper.ClearAndType(driver, youtube_password, lPassword)) {
+				return false;
+			}
+			if(!ActionHelper.Click(driver, youtubePasswordNext_button)) {
+				return false;
+			}
+			if(ActionHelper.isElementVisible(driver, advanced_button)) {
+				ActionHelper.Click(driver, advanced_button);
+				ActionHelper.staticWait(2);
+				ActionHelper.Click(driver, gotoSocialApi_button);
+			}
+			if(ActionHelper.waitForElementToBeVisible(driver, youtube_confirmyourchoice_allow_button, 30)) {
+				isSuccess = ActionHelper.Click(driver, youtube_confirmyourchoice_allow_button);
 			}else {
 				isSuccess = true;
 			}

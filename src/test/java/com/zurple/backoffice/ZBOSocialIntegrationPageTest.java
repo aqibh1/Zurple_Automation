@@ -64,6 +64,13 @@ public class ZBOSocialIntegrationPageTest extends PageTest{
 		assertTrue(page.connectToLinkedIn(true), "Unable to connect to Linkedin..");
 		
 	}
+	@Test
+	public void testConnectToYoutube() {
+		getPage("/social/integrations-and-settings");
+		assertTrue(page.isSocialIntegrationPage(), "Social Integration Page is not visible..");
+		assertTrue(page.connectToYoutube(true), "Unable to connect to Linkedin..");
+		
+	}
 
 	@Override
 	public void clearPage() {
