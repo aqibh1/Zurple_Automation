@@ -9,11 +9,41 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
  
-  <test name="Verify Later and Recurring Posts">
+  <test name="Verify Later and Recurring Posts Facebook">
 	<classes>
       <class name="com.z57.propertypulse.DatabasePageTest" >
       <methods>
-      	<include name="testVerifyLaterAndRecurringPost" />
+      	<include name="testVerifyLaterAndRecurringPostFacebook" />
+      </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+	
+	<test name="Verify Later and Recurring Posts Twitter">
+	<classes>
+      <class name="com.z57.propertypulse.DatabasePageTest" >
+      <methods>
+      	<include name="testVerifyLaterAndRecurringPostTwitter" />
+      </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+	
+	<test name="Verify Later and Recurring Posts LinkedIn">
+	<classes>
+      <class name="com.z57.propertypulse.DatabasePageTest" >
+      <methods>
+      	<include name="testVerifyLaterAndRecurringPostLinkedIn" />
       </methods>
       </class>
        <class name="resources.CurrentPageTest">
