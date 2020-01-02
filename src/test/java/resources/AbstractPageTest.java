@@ -131,19 +131,23 @@ public abstract class AbstractPageTest extends AbstractTest
     
     
     protected String updateEmail(String pEmail) {
-    	Date dateObj = new Date();
-		long date_to_append=dateObj.getTime()/3600;
+//    	Date dateObj = new Date();
+//		long date_to_append=dateObj.getTime()/3600;
+		String date_to_append = getCurrentPSTTime().replace("-", "");
 		int at = pEmail.indexOf('@');
 		String firstPart = pEmail.substring(0, at);
 		String lastPart = pEmail.substring(at);
-		pEmail=firstPart+"_"+Long.toString(date_to_append)+lastPart;
+//		pEmail=firstPart+"_"+Long.toString(date_to_append)+lastPart;
+		pEmail=date_to_append+"-"+firstPart+lastPart;
 		return pEmail;
     }
     
     protected String updateName(String pName) {
-    	Date dateObj = new Date();
-		long date_to_append=dateObj.getTime()/3600;
-		pName=pName+" "+Long.toString(date_to_append);
+//    	Date dateObj = new Date();
+//		long date_to_append=dateObj.getTime()/3600;
+    	String date_to_append = getCurrentPSTTime().replace("-", "");
+//		pName=pName+" "+Long.toString(date_to_append);
+		pName=date_to_append+" "+pName;
 		return pName;
     }
     public void closeBootStrapModal() {

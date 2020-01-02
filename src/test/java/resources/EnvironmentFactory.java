@@ -69,7 +69,8 @@ public class EnvironmentFactory {
                 if (Boolean.parseBoolean(System.getProperty("headless")))
                 {
                     options.addArguments("headless");
-                    options.addArguments("window-size=1920x1080");
+//                    options.addArguments("window-size=1920x1080");
+                    options.addArguments("start-maximized");
                     options.addArguments("--no-sandbox");
                     options.addArguments("disable-gpu");
 //                    options.addArguments("--proxy-server='direct://'");

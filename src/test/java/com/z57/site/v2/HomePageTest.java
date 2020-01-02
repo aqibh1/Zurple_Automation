@@ -89,7 +89,7 @@ public class HomePageTest extends PageTest
     	closeBootStrapModal();
     	
     	LoginForm loginFormObj = new LoginForm(page.getWebDriver());
-    	assertEquals("Sign In",getPage().getUserMenu().getText());
+//    	assertEquals("Sign In",getPage().getUserMenu().getText());
     	
     	AutomationLogger.info("Clicking On SignIn button");
     	assertTrue(loginFormObj.clickOnSignInButton(),"Sign In button not visible on Home Page");

@@ -1,6 +1,8 @@
 package com.z57.site.v2;
 
 import java.util.ArrayList;
+
+import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -12,7 +14,9 @@ import resources.classes.SearchResult;
 import resources.data.z57.EmailListingFormData;
 import resources.data.z57.SaveSearchFormData;
 import resources.data.z57.SearchFormData;
+import resources.forms.z57.EmailListingForm;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -437,5 +441,100 @@ public class HomeSearchPageTest extends PageTest{
 		Pagination pagination = new Pagination(driver);
 		assertTrue(pagination.verifyAllPaginationButtonsWorking(),"Pagination buttons not working on Listing Page");
 		
+	}
+	
+	@Test
+	@Parameters({"dataFile","dataFile2"})
+	public void testHomeSearchEmailListing(String pDataFile, String pDataFile2) {
+		AutomationLogger.startTestCase("Home search Email listing");
+		searchFormData = new SearchFormData(pDataFile).getSearchFormData();
+		JSONObject lJsonDataObj = getDataFile(pDataFile2);
+		getPage("/idx");
+		searchHomes();
+		assertTrue(page.clickOnEmailListingButton(), "Unable to click on email listing button..");
+		emailThisListingFormFill(lJsonDataObj);
+		AutomationLogger.endTestCase();
+		
+	}
+	
+	private void emailThisListingFormFill(JSONObject pDataObject) {
+		String lLeadName = updateName(pDataObject.optString("lead_name"));
+		String lLeadEmail = updateEmail(pDataObject.optString("lead_email"));
+		String lLeadPhone = pDataObject.optString("lead_phone_number");
+		String lR1Name = updateName(pDataObject.optString("recipient_one_name"));
+		String lR1Email = updateEmail(pDataObject.optString("recipient_one_email"));
+		String lR2Name = updateName(pDataObject.optString("recipient_two_name"));
+		String lR2Email = updateEmail(pDataObject.optString("recipient_two_email"));
+		String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
+		boolean changeEmail = false;
+		
+		EmailListingForm emailListingForm = new EmailListingForm(driver);
+		//closeBootStrapModal();
+		
+		assertTrue(emailListingForm.isListingEmailModalVisible(), "Email This Listing modal is not visible..");
+		
+		PageHeader pageHeader = new PageHeader(driver);
+		
+		boolean isLeadLoggedIn=pageHeader.isLeadLoggedIn();
+		
+
+		String lSenderEmail = lLeadEmail;
+		
+		if(isLeadLoggedIn) { 
+			//Verify the name of the lead is in respective fields 
+			lSenderEmail = lLeadEmail = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
+			assertTrue(emailListingForm.getLeadName().isEmpty(), "Lead is logged in but No Name in Email Listing form" );
+			assertTrue(emailListingForm.getLeadEmail().isEmpty(), "Lead is logged in but No Name in Email Listing form" );
+
+		}else {
+			assertTrue(emailListingForm.typeLeadName(lLeadName),"Unable to type name in Lead Name field");
+
+			//#5895
+			if (changeEmail )
+			{
+				lSenderEmail = "changed_"+lLeadEmail;
+			}
+
+			assertTrue(emailListingForm.typeEmailAddress(lSenderEmail),"Unable to type email in Lead email field");
+			if(!lLeadPhone.isEmpty()) {
+				assertTrue(emailListingForm.typePhoneNumber(lLeadPhone),"Unable to type phone in Lead phone number field"); 
+			} 
+		}
+
+		assertTrue(emailListingForm.typeR1Name(lR1Name),"Unable to write the name oof Recipient 1");
+		assertTrue(emailListingForm.typeR1Email(lR1Email),"Unable to write the email of Recepient 1");
+		
+		
+		assertTrue(emailListingForm.typeR2Name(lR2Name),"Unable to write the name oof Recipient 2");
+		assertTrue(emailListingForm.typeR2Email(lR2Email),"Unable to write the email of Recepient 2");
+		
+		ActionHelper.staticWait(5);
+		
+		assertTrue(emailListingForm.clickOnSendButton(),"Unable to click on Send button");
+		assertTrue(emailListingForm.isEmailSent(),"After clicking Send button 'Email this Listing' modal is still visible");
+
+		DBHelperMethods dbHelper = new DBHelperMethods(getEnvironment());
+		
+		assertTrue(dbHelper.verifyLeadByEmailInDB(lLeadEmail), "User is not added as Lead in PP ->" + lLeadEmail);
+		assertTrue(dbHelper.verifyLeadByEmailInDB(lR1Email), "Recipient1 is not added as Lead in PP ->" + lR1Email);
+		assertTrue(dbHelper.verifyLeadByEmailInDB(lR2Email), "Recipient2 is not added as Lead in PP ->" + lR2Email);
+
+		// Verifies the email has been sent on respective email addresses.
+		if(!isLeadLoggedIn) {
+			assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Sender");
+			assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a New lead' to Agent for ->" + lLeadEmail);
+
+		}
+		assertTrue(dbHelper.verifyEmailIsSent(lR1Email, FrameworkConstants.CheckoutThisListing),"Unable to sent email to Recipient1");
+		assertTrue(dbHelper.verifyEmailIsSent(lR2Email, FrameworkConstants.CheckoutThisListing),"Unable to sent email to Recipient2");
+
+		if ( !lSenderEmail.equals(lLeadEmail) )
+		{
+			assertTrue(dbHelper.verifyEmailIsSentToLead(lSenderEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Changed Sender");
+		}
+
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR1Email),"Unable to sent email 'You have a New lead' to Agent for ->" + lR1Email);
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR2Email),"Unable to sent email 'You have a New lead' to Agent for ->" + lR2Email);
+
 	}
 }
