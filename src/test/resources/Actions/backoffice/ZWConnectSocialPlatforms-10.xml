@@ -6,7 +6,7 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
-
+ 
 	<test name="Verify social Integration Facebook">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -66,5 +66,25 @@
 				</class>
 			</classes>
 	</test>
-	
+	<!-- 
+		<test name="Verify social Integration Youtube">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOSocialIntegrationPageTest">
+					<methods>
+						<include name="testConnectToYoutube" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	-->
 </suite>
