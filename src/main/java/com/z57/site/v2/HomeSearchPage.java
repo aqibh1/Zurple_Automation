@@ -38,7 +38,10 @@ public class HomeSearchPage extends Page{
 	
 	String scheduleShowingButton = "//i[@class='fa fa-calendar']";
 	
-
+	String favoriteButton = "//i[@class='fa fa-heart-o']"; 
+	
+	String favoriteListings = "//div[@class='featured_div']";
+	
 	public HomeSearchPage(WebDriver pWebDriver) {
 		driver=pWebDriver;
 		searchForm = new SearchForm(pWebDriver);
@@ -136,6 +139,21 @@ public class HomeSearchPage extends Page{
 
 	public boolean clickOnScheduleShowingButton() {
 		return clickOnListingButton(scheduleShowingButton);
+	}
+	public boolean clickOnFavoriteButton() {
+		return clickOnListingButton(favoriteButton);
+	}
+	public boolean isListingMarkedFavorite() {
+		boolean lListingMarked = false;
+		List<WebElement> list_of_fav_listings = ActionHelper.getListOfElementByXpath(driver, favoriteListings);
+		for(WebElement element: list_of_fav_listings) {
+			
+			if(ActionHelper.isElementVisible(driver, element)) {
+				lListingMarked = true;
+				break;
+			}
+		}
+		return lListingMarked;
 	}
 
 }

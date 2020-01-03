@@ -471,8 +471,34 @@ public class HomeSearchPageTest extends PageTest{
 		searchHomes();
 		assertTrue(page.clickOnRequestInfoButton(), "Unable to click on Request Info button...");
 		requestInfoFormFill(lJsonDataObj);
+		AutomationLogger.endTestCase();
 	}
 	
+	@Parameters({"dataFile","dataFile2"})
+	@Test
+	public void testHomeSearchFavoriteListing(String pDataFile, String pDataFile2) {
+		AutomationLogger.startTestCase("Home search Favorite Listing");
+		searchFormData = new SearchFormData(pDataFile).getSearchFormData();
+		JSONObject lJsonDataObj = getDataFile(pDataFile2);
+		getPage("/idx");
+		searchHomes();
+		
+		PageHeader pageHeader = new PageHeader(driver);
+		boolean isLeadLoggedIn=pageHeader.isLeadLoggedIn();
+		
+		assertTrue(page.clickOnFavoriteButton(), "Unable to click on Favorite button...");
+		
+		if(!isLeadLoggedIn) {
+			registrationFormFill(lJsonDataObj);
+		}else {
+			ActionHelper.RefreshPage(driver);
+		}
+		assertTrue(page.isListingMarkedFavorite(), "Listing is not marked as Favorite...");
+		if(isLeadLoggedIn) {
+			assertTrue(page.clickOnFavoriteButton(), "Unable to unfavorite the listing...");
+		}
+		AutomationLogger.endTestCase();
+	}
 
 	@Parameters({"dataFile","dataFile2"})
 	@Test
@@ -484,6 +510,7 @@ public class HomeSearchPageTest extends PageTest{
 		searchHomes();
 		assertTrue(page.clickOnScheduleShowingButton(), "Unable to click on Request Info button...");
 		scheduleShowingFormFill(lJsonDataObj);
+		AutomationLogger.endTestCase();
 	}
 	
 	private void emailThisListingFormFill(JSONObject pDataObject) {
@@ -672,4 +699,16 @@ public class HomeSearchPageTest extends PageTest{
 		assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail,FrameworkConstants.InformationIsOnTheWay),"Unable to sent email to Lead");
 		
 	}
+
+	private void registrationFormFill(JSONObject lJsonDataObj) {
+		// TODO Auto-generated method stub
+		HomePageTest homePageTest = new HomePageTest();
+		homePageTest.setDriver(driver);
+		String lName = updateName(lJsonDataObj.optString("user_name"));
+		String lEmail = updateEmail(lJsonDataObj.optString("user_email"));
+		homePageTest.registerLead(lName,lEmail, lJsonDataObj.optString("user_phone_number"));
+		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
+    	assertTrue(dbHelperMethods.verifyLeadInDB(lEmail,getLeadId()),"Lead not verified in DB");
+	}
+
 }

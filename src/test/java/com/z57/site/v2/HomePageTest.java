@@ -65,6 +65,9 @@ public class HomePageTest extends PageTest
         }
         return page;
     }
+    public void setDriver(WebDriver pWebDriver) {
+    	driver = pWebDriver;
+    }
 
     public void testTitle() {
         assertEquals("San Diego Homes for Sale | zengtest1.us", getPage().getTitle());
@@ -221,8 +224,9 @@ public class HomePageTest extends PageTest
     }
     
     //All the leads register related test cases will use this method.
-    private boolean registerLead(String pName, String pUserEmail, String pPUserPhoneNumber) {
-    	RegisterForm registerFormObj = new RegisterForm(page.getWebDriver());
+    public boolean registerLead(String pName, String pUserEmail, String pPUserPhoneNumber) {
+    	RegisterForm registerFormObj = new RegisterForm(driver);
+    	assertTrue(registerFormObj.isRegisterFormDisplayed(), "Register form is not displayed..");
     	if(!pName.isEmpty()) {
     		assertTrue(registerFormObj.setName(pName),"Unable to type Name in input field");
     	}
