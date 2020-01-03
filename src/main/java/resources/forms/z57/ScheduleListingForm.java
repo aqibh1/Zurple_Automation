@@ -56,5 +56,12 @@ public class ScheduleListingForm extends AbstractForm{
 		}
 		return status;
 	}
+	
+	public String getLeadName() {
+		return ActionHelper.getText(driver,getDynamicElement(input_fields_xpath, "schedule_showing_form[name]"));
+	}
+	public String getLeadEmail() {
+		return ActionHelper.getText(driver,getDynamicElement(input_fields_xpath, "schedule_showing_form[email]"));
+	}
 
 }

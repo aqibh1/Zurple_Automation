@@ -12,9 +12,13 @@ import resources.EnvironmentFactory;
 import resources.blocks.z57.Pagination;
 import resources.classes.SearchResult;
 import resources.data.z57.EmailListingFormData;
+import resources.data.z57.RequestInfoFormData;
 import resources.data.z57.SaveSearchFormData;
+import resources.data.z57.ScheduleListingFormData;
 import resources.data.z57.SearchFormData;
 import resources.forms.z57.EmailListingForm;
+import resources.forms.z57.RequestInfoForm;
+import resources.forms.z57.ScheduleListingForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
@@ -457,6 +461,31 @@ public class HomeSearchPageTest extends PageTest{
 		
 	}
 	
+	@Parameters({"dataFile","dataFile2"})
+	@Test
+	public void testHomeSearchRequestInfo(String pDataFile, String pDataFile2) {
+		AutomationLogger.startTestCase("Home search Request Info");
+		searchFormData = new SearchFormData(pDataFile).getSearchFormData();
+		JSONObject lJsonDataObj = getDataFile(pDataFile2);
+		getPage("/idx");
+		searchHomes();
+		assertTrue(page.clickOnRequestInfoButton(), "Unable to click on Request Info button...");
+		requestInfoFormFill(lJsonDataObj);
+	}
+	
+
+	@Parameters({"dataFile","dataFile2"})
+	@Test
+	public void testHomeSearchScheduleShowing(String pDataFile, String pDataFile2) {
+		AutomationLogger.startTestCase("Home search Request Info");
+		searchFormData = new SearchFormData(pDataFile).getSearchFormData();
+		JSONObject lJsonDataObj = getDataFile(pDataFile2);
+		getPage("/idx");
+		searchHomes();
+		assertTrue(page.clickOnScheduleShowingButton(), "Unable to click on Request Info button...");
+		scheduleShowingFormFill(lJsonDataObj);
+	}
+	
 	private void emailThisListingFormFill(JSONObject pDataObject) {
 		String lLeadName = updateName(pDataObject.optString("lead_name"));
 		String lLeadEmail = updateEmail(pDataObject.optString("lead_email"));
@@ -536,5 +565,111 @@ public class HomeSearchPageTest extends PageTest{
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR1Email),"Unable to sent email 'You have a New lead' to Agent for ->" + lR1Email);
 		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lR2Email),"Unable to sent email 'You have a New lead' to Agent for ->" + lR2Email);
 
+	}
+	
+	private void requestInfoFormFill(JSONObject pDataObject) {
+	
+		String lLeadName = updateName(pDataObject.optString("lead_name"));
+		String lLeadEmail =updateEmail(pDataObject.optString("lead_email"));
+		String lLeadPhoneNumber =pDataObject.optString("lead_phone_number");
+		String lComments = pDataObject.optString("comments");
+
+		RequestInfoForm reqInfoForm = new RequestInfoForm(driver);
+		PageHeader pageHeader = new PageHeader(driver);
+
+		boolean isLeadLoggedIn=pageHeader.isLeadLoggedIn();
+
+		if(isLeadLoggedIn) { 
+			//Verify the name of the lead is in respective fields 
+			lLeadEmail = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
+			lLeadName = EnvironmentFactory.configReader.getPropertyByName("z57_user_name_v2");
+			assertTrue(reqInfoForm.getLeadName().isEmpty(), "Lead is logged in but No Name in Request Info form" );
+			assertTrue(reqInfoForm.getLeadEmail().isEmpty(), "Lead is logged in but No Name in Request Info form" );
+
+		}else {
+			assertTrue(reqInfoForm.typeLeadName(lLeadName),"Unable to type name in Lead Name field");
+			assertTrue(reqInfoForm.typeLeadEmail(lLeadEmail),"Unable to type email in Lead email field"); 
+			if(!lLeadPhoneNumber.isEmpty()) {
+				assertTrue(reqInfoForm.typeLeadPhoneNumber(lLeadPhoneNumber),"Unable to type phone in Lead phone number field"); 
+			} 
+			if(!lComments.isEmpty()) {
+				assertTrue(reqInfoForm.typeComments(lComments),"Unable to type comments in the field"); 
+			} 
+		}
+
+		assertTrue(reqInfoForm.clickOnSaveButton(),"Unable to click on Save button");
+		assertTrue(reqInfoForm.isRequestInfoSent(),"After clicking Save button 'Request Info' modal is still visible");
+
+		String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
+
+		DBHelperMethods dbHelper = new DBHelperMethods(getEnvironment());
+		//Verifies if Lead is added in the DB
+		assertTrue(dbHelper.verifyLeadByEmailInDB(lLeadEmail), "User is not added as Lead in PP ->" + lLeadEmail);
+
+		//Verifies Agent has received a email with subject 'You have a new lead'
+		if(!isLeadLoggedIn) {
+			assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a new lead' to Agent for ->" + lLeadEmail);
+			//Verify welcome email is sent to Lead
+			assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Sender");
+		}	
+		//Verifies Agent has received the email with subject 'Inquired about Listing'
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email,lLeadEmail,lLeadName+" "+FrameworkConstants.InquiredAboutListing),"Unable to sent email [Information is on the Way] to Agent");
+
+		// Verifies the email has been sent to lead with subject 'Information is on the way!'.
+		assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail,FrameworkConstants.InformationIsOnTheWay),"Unable to sent email to Lead");
+
+	}
+	
+	private void scheduleShowingFormFill(JSONObject pDataObject) {		
+		String lLeadName = updateName(pDataObject.optString("lead_name"));
+		String lLeadEmail =updateEmail(pDataObject.optString("lead_email"));
+		String lLeadPhoneNumber =pDataObject.optString("lead_phone_number");
+		String lComments = pDataObject.optString("comments");
+		
+		PageHeader pageHeader = new PageHeader(driver);
+		
+		boolean isLeadLoggedIn=pageHeader.isLeadLoggedIn();
+		
+		ScheduleListingForm scheduleListingForm = new ScheduleListingForm(driver);
+		
+		if(isLeadLoggedIn) { 
+			//Verify the name of the lead is in respective fields 
+			lLeadEmail = EnvironmentFactory.configReader.getPropertyByName("z57_user_v2");
+			lLeadName = EnvironmentFactory.configReader.getPropertyByName("z57_user_name_v2");
+			assertTrue(scheduleListingForm.getLeadName().isEmpty(), "Lead is logged in but No Name in Schedule Shwoing form" );
+			assertTrue(scheduleListingForm.getLeadEmail().isEmpty(), "Lead is logged in but No Name in Schedule Shwoing form" );
+
+		}else {
+			assertTrue(scheduleListingForm.typeLeadName(lLeadName),"Unable to type name in Lead Name field");
+			assertTrue(scheduleListingForm.typeLeadEmail(lLeadEmail),"Unable to type email in Lead email field"); 
+			if(!lLeadPhoneNumber.isEmpty()) {
+				assertTrue(scheduleListingForm.typeLeadPhoneNumber(lLeadPhoneNumber),"Unable to type phone in Lead phone number field"); 
+			} 
+			if(!lComments.isEmpty()) {
+				assertTrue(scheduleListingForm.typeComments(lComments),"Unable to type comments in the field"); 
+			} 
+		}
+		
+		assertTrue(scheduleListingForm.clickOnSaveButton(),"Unable to click on Save button");
+		assertTrue(scheduleListingForm.isScheduleShowingRequestSent(),"After clicking Save button 'Schedule Showing' modal is still visible");
+		
+		String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
+
+		DBHelperMethods dbHelper = new DBHelperMethods(getEnvironment());
+		//Verifies if Lead is added in the DB
+		assertTrue(dbHelper.verifyLeadByEmailInDB(lLeadEmail), "User is not added as Lead in PP ->" + lLeadEmail);
+		
+		//Verifies Agent has received a email with subject 'You have a new lead'
+		if(!isLeadLoggedIn) {
+			assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email, lLeadEmail),"Unable to sent email 'You have a new lead' to Agent for ->" + lLeadEmail);
+			//Verify welcome email is sent to Lead
+            assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail, FrameworkConstants.ThanksForConnecting),"Unable to sent 'Thanks for connecting' email to Sender");
+		}	
+		//Verifies Agent has received the email with subject 'Inquired about A Showing'
+		assertTrue(dbHelper.verifyEmailIsSentToAgent(lAgent_email,lLeadEmail,lLeadName+" "+FrameworkConstants.InquiredAboutShowing),"Unable to sent email to Agent. Subject [Inquired About A Showing]");
+
+		// Verifies the email has been sent to lead with subject 'Information is on the way!'.
+		assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail,FrameworkConstants.InformationIsOnTheWay),"Unable to sent email to Lead");
+		
 	}
 }

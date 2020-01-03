@@ -33,6 +33,11 @@ public class HomeSearchPage extends Page{
 	WebElement save_search_button;
 	
 	String emailListingButtons = "//div[@class='property_listing']/descendant::button[@data-original-title='Email Listing']";
+	
+	String requestInfoButton = "//i[@class='fa fa-info-circle']";
+	
+	String scheduleShowingButton = "//i[@class='fa fa-calendar']";
+	
 
 	public HomeSearchPage(WebDriver pWebDriver) {
 		driver=pWebDriver;
@@ -113,6 +118,24 @@ public class HomeSearchPage extends Page{
 		}
 		return isClicked;
 	}
+	public boolean clickOnRequestInfoButton() {
+		return clickOnListingButton(requestInfoButton);
+	}
 	
+	private boolean clickOnListingButton(String pButtonXpath) {
+		boolean isClicked = false;
+		List<WebElement> list_of_email_listings = ActionHelper.getListOfElementByXpath(driver, pButtonXpath);
+		if(list_of_email_listings.size()<1) {
+			AutomationLogger.info("Unable to fetch Email Listing buttons..");
+			isClicked = false;
+		}else {
+			isClicked = ActionHelper.Click(driver, list_of_email_listings.get(1));
+		}
+		return isClicked;
+	}
+
+	public boolean clickOnScheduleShowingButton() {
+		return clickOnListingButton(scheduleShowingButton);
+	}
 
 }
