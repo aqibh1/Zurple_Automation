@@ -1,6 +1,8 @@
 package com.z57.site.v2;
 
 import static org.testng.Assert.assertTrue;
+
+import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.SkipException;
 import org.testng.annotations.Optional;
@@ -14,6 +16,7 @@ import resources.data.z57.RequestInfoFormData;
 import resources.data.z57.ScheduleListingFormData;
 import resources.data.z57.SearchFormData;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
 public class PropertyListingPageTest extends PageTest {
@@ -423,5 +426,41 @@ public class PropertyListingPageTest extends PageTest {
 		// Verifies the email has been sent to lead with subject 'Information is on the way!'.
 		assertTrue(dbHelper.verifyEmailIsSentToLead(lLeadEmail,FrameworkConstants.InformationIsOnTheWay),"Unable to sent email to Lead");
 		
+	}
+	
+	@Parameters({"dataFile"})
+	@Test
+	public void testListingDetailsFavoriteListing(String pDataFile) {
+		AutomationLogger.startTestCase("Home search Favorite Listing");
+		JSONObject lJsonDataObj = getDataFile(pDataFile);
+		getPage("/idx/listings/cws/1098/190021873/san-diego-san-diego-county-ca-91941");
+		
+		PageHeader pageHeader = new PageHeader(driver);
+		boolean isLeadLoggedIn=pageHeader.isLeadLoggedIn();
+		
+		assertTrue(page.clickOnFavoriteButton(), "Unable to click on Favorite button...");
+		
+		if(!isLeadLoggedIn) {
+			registrationFormFill(lJsonDataObj);
+		}else {
+			ActionHelper.RefreshPage(driver);
+		}
+		assertTrue(page.isListingMarkedFavorite(), "Listing is not marked as Favorite...");
+		if(isLeadLoggedIn) {
+			assertTrue(page.clickOnRemoveFavoriteButton(), "Unable to unfavorite the listing...");
+			ActionHelper.staticWait(5);
+		}
+		AutomationLogger.endTestCase();
+	}
+	
+	private void registrationFormFill(JSONObject lJsonDataObj) {
+		// TODO Auto-generated method stub
+		HomePageTest homePageTest = new HomePageTest();
+		homePageTest.setDriver(driver);
+		String lName = updateName(lJsonDataObj.optString("user_name"));
+		String lEmail = updateEmail(lJsonDataObj.optString("user_email"));
+		homePageTest.registerLead(lName,lEmail, lJsonDataObj.optString("user_phone_number"));
+		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
+    	assertTrue(dbHelperMethods.verifyLeadInDB(lEmail,getLeadId()),"Lead not verified in DB");
 	}
 }

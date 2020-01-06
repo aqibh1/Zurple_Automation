@@ -147,6 +147,14 @@ public class PropertyListingPage extends Page{
 	
 	String propertyFeatures_xapth="//div[@id='listing-features']/descendant::strong";
 	
+	@FindBy(xpath="//i[@class='fa fa-heart-o']")
+	WebElement addToFavorite_button;
+	
+	@FindBy(xpath="//button[@data-fav-state='on']")
+	WebElement removeFavorite_button;
+	
+	
+	
 	public PropertyListingPage(WebDriver pWebDriver){
 		driver=pWebDriver;
 		wait=new WebDriverWait(driver, 20);
@@ -459,5 +467,15 @@ public class PropertyListingPage extends Page{
 			}
 		}
 		return true;
+	}
+	public boolean clickOnFavoriteButton() {
+		return ActionHelper.Click(driver, addToFavorite_button);
+	}
+	public boolean isListingMarkedFavorite() {
+		return !ActionHelper.isElementVisible(driver, addToFavorite_button);
+	}
+	public boolean clickOnRemoveFavoriteButton() {
+		ActionHelper.staticWait(5);
+		return ActionHelper.Click(driver, removeFavorite_button);
 	}
 }
