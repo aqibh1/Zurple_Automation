@@ -67,7 +67,9 @@ public class HomeSearchPageTest extends PageTest{
 		}
 		return page;
 	}
-
+	public void setPageDriver(WebDriver pWebDriver) {
+		driver = pWebDriver;
+	}
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
@@ -594,7 +596,7 @@ public class HomeSearchPageTest extends PageTest{
 
 	}
 	
-	private void requestInfoFormFill(JSONObject pDataObject) {
+	public void requestInfoFormFill(JSONObject pDataObject) {
 	
 		String lLeadName = updateName(pDataObject.optString("lead_name"));
 		String lLeadEmail =updateEmail(pDataObject.optString("lead_email"));

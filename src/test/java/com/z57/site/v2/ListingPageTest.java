@@ -2,11 +2,14 @@ package com.z57.site.v2;
 
 import static org.testng.Assert.assertTrue;
 
+import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import resources.data.z57.RegisterUserData;
+import resources.data.z57.SearchFormData;
+import resources.utility.AutomationLogger;
 
 public class ListingPageTest extends PageTest{
 	ListingPage page;
@@ -85,6 +88,21 @@ public class ListingPageTest extends PageTest{
 		}else {
 			assertTrue(true,"Pagination actions are not applicable on current page.");
 		}
+	}
+	
+	@Parameters({"dataFile"})
+	@Test
+	public void testListingsRequestInfo(String pDataFile) {
+		AutomationLogger.startTestCase("Home search Request Info");
+		JSONObject lJsonDataObj = getDataFile(pDataFile);
+		getPage("/listings");
+		closeBootStrapModal();
+		HomeSearchPage homeSearchPage = new HomeSearchPage(driver);
+		assertTrue(homeSearchPage.clickOnRequestInfoButton(), "Unable to click on Request Info button...");
+		HomeSearchPageTest homeSearchPageTest = new HomeSearchPageTest();
+		homeSearchPageTest.setPageDriver(driver);
+		homeSearchPageTest.requestInfoFormFill(lJsonDataObj);
+		AutomationLogger.endTestCase();
 	}
 
 }

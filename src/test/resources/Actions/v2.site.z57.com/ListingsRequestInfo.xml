@@ -1,0 +1,49 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Home Search Email Listing">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.TestListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+    </listeners>
+ 
+  <test name="Listing Request Info">
+   <parameter name="dataFile" value="/resources/data/listings-request-info-data.json">
+    <classes>
+     <class name="com.z57.site.v2.ListingPageTest" >
+        <methods>
+          <include name="testListingsRequestInfo" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+  </test>
+
+  <test name="Listing Request Info with User logged in">
+    <parameter name="dataFile" value="/resources/data/listings-request-info-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.ListingPageTest" >
+        <methods>
+          <include name="testListingsRequestInfo" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+  </test>
+
+</suite>
