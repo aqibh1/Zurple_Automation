@@ -318,7 +318,7 @@ public class ZBOLeadDetailPage extends Page{
 					if(alertVerified) {
 						if(ActionHelper.getText(driver, driver.findElement(By.xpath("//span[@class='z-alert-datetime']")))!=null) {
 							String lDate = ActionHelper.getText(driver, driver.findElement(By.xpath("//span[@class='z-alert-datetime']")));
-							dateVerified = lDate.contains(getTodaysDate().replace("2019", "19"))?true:false;
+							dateVerified = lDate.contains(getTodaysDate().replace("2020", "20"))?true:false;
 						}
 					}
 				}
@@ -331,7 +331,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = element.getText().trim().contains("Requested Showing");
 					if(alertVerified) {
 						alertVerified = element.findElement(By.tagName("a")).getText().trim().contains(pAlertValueToVerify);
-						dateVerified = element.getText().trim().contains(getTodaysDate().replace("2019", "19"));
+						dateVerified = element.getText().trim().contains(getTodaysDate().replace("2020", "20"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -353,7 +353,7 @@ public class ZBOLeadDetailPage extends Page{
 								break;
 							}
 						}
-						dateVerified = list_lead_activity_pref.get(i).getText().trim().contains(getTodaysDate().replace("2019", "19"));
+						dateVerified = list_lead_activity_pref.get(i).getText().trim().contains(getTodaysDate().replace("2020", "20"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
