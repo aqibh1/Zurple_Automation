@@ -104,5 +104,20 @@ public class ListingPageTest extends PageTest{
 		homeSearchPageTest.requestInfoFormFill(lJsonDataObj);
 		AutomationLogger.endTestCase();
 	}
+	
+	@Parameters({"dataFile"})
+	@Test
+	public void testListingsScheduleShowing(String pDataFile) {
+		AutomationLogger.startTestCase("Home search Request Info");
+		JSONObject lJsonDataObj = getDataFile(pDataFile);
+		getPage("/listings");
+		closeBootStrapModal();
+		HomeSearchPage homeSearchPage = new HomeSearchPage(driver);
+		assertTrue(homeSearchPage.clickOnScheduleShowingButton(), "Unable to click on Schedule Showing button...");
+		HomeSearchPageTest homeSearchPageTest = new HomeSearchPageTest();
+		homeSearchPageTest.setPageDriver(driver);
+		homeSearchPageTest.scheduleShowingFormFill(lJsonDataObj);
+		AutomationLogger.endTestCase();
+	}
 
 }

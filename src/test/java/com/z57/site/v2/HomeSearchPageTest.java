@@ -649,7 +649,7 @@ public class HomeSearchPageTest extends PageTest{
 
 	}
 	
-	private void scheduleShowingFormFill(JSONObject pDataObject) {		
+	public void scheduleShowingFormFill(JSONObject pDataObject) {		
 		String lLeadName = updateName(pDataObject.optString("lead_name"));
 		String lLeadEmail =updateEmail(pDataObject.optString("lead_email"));
 		String lLeadPhoneNumber =pDataObject.optString("lead_phone_number");
