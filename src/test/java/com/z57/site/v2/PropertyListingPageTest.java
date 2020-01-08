@@ -453,7 +453,7 @@ public class PropertyListingPageTest extends PageTest {
 		AutomationLogger.endTestCase();
 	}
 	
-	private void registrationFormFill(JSONObject lJsonDataObj) {
+	public void registrationFormFill(JSONObject lJsonDataObj) {
 		// TODO Auto-generated method stub
 		HomePageTest homePageTest = new HomePageTest();
 		homePageTest.setDriver(driver);
