@@ -203,7 +203,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		AutomationLogger.startTestCase("Contact Agent from listing detail page");
 		String lEnvironment = System.getProperty("environment");
 		if(lEnvironment.equalsIgnoreCase("prod")) {
-			getPage("CA/San_Diego/50057517");
+			getPage("/CA/San_Diego/52138475");
 		}else {
 			getPage("/CA/Carlsbad/34209050");
 		}
@@ -239,7 +239,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 	public void testScheduleShowingUserNotLoggedIn() {
 		AutomationLogger.startTestCase("Schedule Showing User not logged in");
 		if(getIsProd()) {
-			getPage("/CA/San_Diego/50057517");
+			getPage("/CA/San_Diego/52138475");
 		}else {
 			getPage("/CA/Carlsbad/34118489");
 		}
