@@ -8,7 +8,7 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
-<!--  
+ 
 	<test name="Search and Verify property by Price City Features">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-01.json">
@@ -544,7 +544,7 @@
 			</classes>
 		</parameter>
 	</test>
-	-->
+	
 
 	
 	<test name="Track Property in Lead Details">
