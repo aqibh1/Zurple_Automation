@@ -12,7 +12,9 @@ import com.z57.site.v2.SEMIDXAndNonIDXPage;
 
 import resources.AbstractPage;
 import resources.DBHelperMethods;
+import resources.EnvironmentFactory;
 import resources.forms.z57.SEMRegisterForm;
+import resources.utility.FrameworkConstants;
 
 public class PPCMAAdPageTest extends PageTest{
 	
@@ -87,6 +89,9 @@ public class PPCMAAdPageTest extends PageTest{
 		registerLead(lName,lEmail, lJsonDataObj.optString("user_phone_number"));
 		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
     	assertTrue(dbHelperMethods.verifyLeadByEmailInDB(lEmail),"Lead not verified in DB");
+    	assertTrue(dbHelperMethods.verifyEmailIsSentToLead(lEmail, FrameworkConstants.HomeValueAssesment),"Unable to sent email to Lead with subject "+FrameworkConstants.HomeValueAssesment+"\n Lead Email: "+lEmail);
+    	assertTrue(dbHelperMethods.verifyEmailIsSentToAgent(EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email"), lEmail, FrameworkConstants.YouHaveANewLead), "Unable to sent email to Agent with subject "+FrameworkConstants.YouHaveANewLead);
+
 	}
 	
 	  //All the leads register related test cases will use this method.
