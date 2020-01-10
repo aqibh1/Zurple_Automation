@@ -261,35 +261,7 @@
     </classes>
     </parameter>
   </test>
-	
-   <test name="Signup with Facebook from Home Page">
-  <parameter name="page" value="Home">
-    <classes>
-      <class name="com.z57.site.v2.HomePageTest" >
-        <methods>
-          <include name="testSignUpWithFacebook" />
-        </methods>
-      </class>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPLeadPageTest" >
-      <methods>
-      	<include name="testSearchAndDeleteLead" />
-      </methods>
-      </class>
-       <class name="resources.CurrentPageTest">
-        <methods>
-          <include name="closeBrowser" />
-        </methods>
-      </class>
-    </classes>
-	</parameter>
- 	</test>
  	
-  
   <test name="Verify Email Search">
   <parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
    <parameter name="dataFile2" value="/resources/data/email-listing-data.json">
@@ -332,33 +304,6 @@
     </parameter>
     </parameter>
   </test>
-  
-  <test name="Signup with Facebook from Home Search Page">
-  <parameter name="page" value="Home Search">
-    <classes>
-      <class name="com.z57.site.v2.HomePageTest" >
-        <methods>
-          <include name="testSignUpWithFacebook" />
-        </methods>
-      </class>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPLeadPageTest" >
-      <methods>
-      	<include name="testSearchAndDeleteLead" />
-      </methods>
-      </class>
-       <class name="resources.CurrentPageTest">
-        <methods>
-          <include name="closeBrowser" />
-        </methods>
-      </class>
-    </classes>
-	</parameter>
- </test>
   
   <test name="Capture lead from seller landing page">
    <parameter name="dataFile" value="/resources/data/CMA-seller-landing-page-capture-lead.json">
