@@ -237,7 +237,7 @@ public class HomePageTest extends PageTest
     		assertTrue(registerFormObj.setPhoneNumber(pPUserPhoneNumber),"Unable to type Phone Number in input field");
     	}
     	assertTrue(registerFormObj.clickOnRegisterButton(),"Unable to click on Register button");
-    	return registerFormObj.isUserSuccessfullyRegistered();
+    	return !registerFormObj.isRegisterFormDisplayed();
     }
     
     
