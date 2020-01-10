@@ -26,4 +26,5 @@ public class FrameworkConstants {
 	public static final String LinkedInIconImage = "icon_post_linkedin_32.png";
 	public static final String YoutubeIconImage = "icon_post_youtube_32.png";
 	public static final String HomeValueAssesment = "Home Value Assessment";
+	public static final String ThanksForRegistering = "Thank You for Registering";
 }

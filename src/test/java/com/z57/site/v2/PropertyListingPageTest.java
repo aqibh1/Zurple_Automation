@@ -453,6 +453,16 @@ public class PropertyListingPageTest extends PageTest {
 		AutomationLogger.endTestCase();
 	}
 	
+	@Parameters({"dataFile"})
+	@Test
+	public void testCaptureLeadFromListingDetailPage(String pDataFile) {
+		JSONObject lJsonDataObj = getDataFile(pDataFile);
+		getPage("/idx/listings/cws/1098/190021873/san-diego-san-diego-county-ca-91941");
+		ActionHelper.RefreshPage(driver);
+//		captureLead(lJsonDataObj.optString("user_name"), lJsonDataObj.optString("user_email"), lJsonDataObj.optString("user_phone_number"), lJsonDataObj.optString("comments"));
+		registrationFormFill(lJsonDataObj);
+	}
+	@Parameters
 	public void registrationFormFill(JSONObject lJsonDataObj) {
 		// TODO Auto-generated method stub
 		HomePageTest homePageTest = new HomePageTest();
@@ -462,5 +472,8 @@ public class PropertyListingPageTest extends PageTest {
 		homePageTest.registerLead(lName,lEmail, lJsonDataObj.optString("user_phone_number"));
 		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
     	assertTrue(dbHelperMethods.verifyLeadInDB(lEmail,getLeadId()),"Lead not verified in DB");
+       	assertTrue(dbHelperMethods.verifyEmailIsSentToLead(lEmail, FrameworkConstants.ThanksForRegistering),"Unable to sent email to Lead with subject "+FrameworkConstants.ThanksForRegistering+"\n Lead Email: "+lEmail);
+    	assertTrue(dbHelperMethods.verifyEmailIsSentToAgent(EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email"), lEmail, FrameworkConstants.YouHaveANewLead), "Unable to sent email to Agent with subject "+FrameworkConstants.YouHaveANewLead);
+
 	}
 }

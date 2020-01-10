@@ -711,6 +711,9 @@ public class HomeSearchPageTest extends PageTest{
 		homePageTest.registerLead(lName,lEmail, lJsonDataObj.optString("user_phone_number"));
 		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
     	assertTrue(dbHelperMethods.verifyLeadInDB(lEmail,getLeadId()),"Lead not verified in DB");
+    	assertTrue(dbHelperMethods.verifyEmailIsSentToLead(lEmail, FrameworkConstants.ThanksForRegistering),"Unable to sent email to Lead with subject "+FrameworkConstants.ThanksForRegistering+"\n Lead Email: "+lEmail);
+    	assertTrue(dbHelperMethods.verifyEmailIsSentToAgent(EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email"), lEmail, FrameworkConstants.YouHaveANewLead), "Unable to sent email to Agent with subject "+FrameworkConstants.YouHaveANewLead);
+
 	}
 
 }
