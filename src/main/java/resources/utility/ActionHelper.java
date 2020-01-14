@@ -618,9 +618,13 @@ public class ActionHelper {
 		   boolean isSuccess = false;
 		   boolean lElementVal = pElement.isSelected();
 		   if(lElementVal && !pSelect) {
-			   isSuccess = ActionHelper.Click(pWebDriver, pElement);
+			   isSuccess =  ActionHelper.Click(pWebDriver, pElement);
 		   }else if(!lElementVal && pSelect) {
 			   isSuccess = ActionHelper.Click(pWebDriver, pElement);
+		   }else if(lElementVal && pSelect) {
+			   isSuccess = true;
+		   }else if (!lElementVal && !pSelect) {
+			   isSuccess = true;
 		   }
 		   return isSuccess;
 	   }
@@ -704,6 +708,22 @@ public class ActionHelper {
 		   }
 		   return isDisappeared;
 	   }
+	 
+	   public static boolean ClickForAds(WebDriver pWebDriver,WebElement pElementToBeClicked) {
+		   boolean isSuccessfull=true;
+		   wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+		   AutomationLogger.info("Clicking on button -> "+pElementToBeClicked);
+		   try {
+			   pElementToBeClicked.click();
+			   
+			   AutomationLogger.info("Clicked on button successful..");
 
+		   }catch(Exception ex) {
+			   isSuccessfull=false;
+			   AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return isSuccessfull;
+	   }
 	   
 }
