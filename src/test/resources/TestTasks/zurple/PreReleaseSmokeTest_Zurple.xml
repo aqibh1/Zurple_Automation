@@ -836,4 +836,251 @@
 			</classes>
 	</parameter>
 	</test>
+	
+	<test name="Update Lead in Back office and verify on Web">	 
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-update-lead-info.json">
+	<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-capture-lead-search-city.json" >
+	<parameter name="userSettings" value="/resources/data/zurple/zurple-user-settings-bo.json" >
+	
+			<classes>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+							<include name="testSearchPropoerty" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+							<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWRegisterUserPageTest">
+					<methods>
+							<include name="testRegisterUserFromLoginPage" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadPageTest">
+					<methods>
+						<include name="testSearchAndVerifyLead" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyLeadIsAddedInBackOffice" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadEmailPreferencesPageTest">
+					<methods>
+						<include name="testUpdateLeadInfo" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWAccountSettingsPageTest">
+					<methods>
+						<include name="testVerifyAccountSettings" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</parameter>
+	</parameter>
+	</test>
+	
+	<test name="Create lead and verify details">	
+	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+					<methods>
+						<include name="testAddLead" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+							<include name="testVerifyLeadDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>
+	
+	<test name="Create lead by Zip and verify details">	
+	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-by-zip.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+					<methods>
+						<include name="testAddLead" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+							<include name="testVerifyLeadDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>
+	
+	<test name="Export Leads">	
+	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-by-zip.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadExportPageTest">
+					<methods>
+						<include name="testExportLead" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>
+	
+	<test name="Preview Lead Email">	
+	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-preview.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+					<methods>
+						<include name="testAddLead" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOSendEmailPageTest">
+					<methods>
+						<include name="testVerifyPreview" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>
+	
+	<test name="Verify Welcome Email">	
+	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-verify-welcome.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+					<methods>
+						<include name="testAddLead" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+							<include name="testVerifyLeadDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>
+	
+	<test name="Verify social Integration Facebook">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOSocialIntegrationPageTest">
+					<methods>
+						<include name="testConnectToFacebook" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+	<test name="Verify social Integration Twitter">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOSocialIntegrationPageTest">
+					<methods>
+						<include name="testConnectToTwitter" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+	<test name="Verify social Integration LinkedIn">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOSocialIntegrationPageTest">
+					<methods>
+						<include name="testConnectToLinkedin" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
 </suite>
