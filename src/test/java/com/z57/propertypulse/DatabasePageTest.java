@@ -512,6 +512,11 @@ public class DatabasePageTest extends PageTest{
 			assertTrue(false, "JSON Data File is empty...");
 		}
 	}
+	
+	@Test
+	public void testDBConnectionVerification() {
+		assertTrue(new DBHelperMethods(getEnvironment()).verifyLeadByEmailInDB("autoadmin@mailinator.com"), "Unable to connect to Database");
+	}
 	private boolean renameAndCreateNewFile(String pFilePath) {
 		boolean isFileNameAndCreated = true;
 		String lNewFileName = getIsProd()?System.getProperty("user.dir")+"/resources/cache/"+"Prod-"+getCurrentPSTTime()+".json":System.getProperty("user.dir")+"/resources/cache/"+"QA-"+getCurrentPSTTime()+".json";
