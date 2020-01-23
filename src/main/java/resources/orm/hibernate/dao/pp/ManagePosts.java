@@ -8,6 +8,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import resources.orm.hibernate.models.pp.Posts;
+import resources.utility.AutomationLogger;
 
 public class ManagePosts {
 	private Session session;
@@ -137,6 +138,8 @@ public class ManagePosts {
 		String date = sdf.format(new Date());
 		List<Posts> postObjList = new ArrayList<Posts>();
 		try {
+			AutomationLogger.info("EXECUTING QUERY :::: "+"FROM Posts WHERE source='accelerator' AND postType='link' AND postTwitter IS NOT NULL AND status='1' AND dateAdded>='"+date+"'");
+
 			Query q = session.createQuery("FROM Posts WHERE source='accelerator' AND postType='link' AND postTwitter IS NOT NULL AND status='1' AND dateAdded>='"+date+"'");
 			
 			postObjList = q.list();
@@ -160,6 +163,8 @@ public class ManagePosts {
 		String date = sdf.format(new Date());
 		List<Posts> postObjList = new ArrayList<Posts>();
 		try {
+			AutomationLogger.info("EXECUTING QUERY :::: "+"FROM Posts WHERE source='accelerator' AND postType='link' AND postFacebook IS NOT NULL AND status='1' AND dateAdded>='"+date+"'");
+
 			Query q = session.createQuery("FROM Posts WHERE source='accelerator' AND postType='link' AND postFacebook IS NOT NULL AND status='1' AND dateAdded>='"+date+"'");
 			
 			postObjList = q.list();
@@ -183,6 +188,8 @@ public class ManagePosts {
 		String date = sdf.format(new Date());
 		List<Posts> postObjList = new ArrayList<Posts>();
 		try {
+			AutomationLogger.info("EXECUTING QUERY :::: "+"FROM Posts WHERE source='accelerator' AND postType='facebook_listing_video_post' AND postFacebook IS NOT NULL AND status='1' AND dateAdded>='"+date+"'");
+
 			Query q = session.createQuery("FROM Posts WHERE source='accelerator' AND postType='facebook_listing_video_post' AND postFacebook IS NOT NULL AND status='1' AND dateAdded>='"+date+"'");
 			
 			postObjList = q.list();
@@ -204,6 +211,7 @@ public class ManagePosts {
 		String date = sdf.format(new Date());
 		List<Posts> postObjList = new ArrayList<Posts>();
 		try {
+			AutomationLogger.info("EXECUTING QUERY :::: "+"FROM Posts WHERE source='accelerator' AND postType='youtube_listing_post' AND status='1' AND dateAdded>='"+date+"'");
 			Query q = session.createQuery("FROM Posts WHERE source='accelerator' AND postType='youtube_listing_post' AND status='1' AND dateAdded>='"+date+"'");
 			
 			postObjList = q.list();
