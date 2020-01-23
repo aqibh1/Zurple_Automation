@@ -86,6 +86,14 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(xpath="//div[@id='z-activity-details-alert-emails-grid']/descendant::td[@headers='yui-dt4-th-messageDateTime ']/div")
 	WebElement date_time_email;
 	
+	@FindBy(id="lead_status")
+	WebElement lead_prospect_dropdown;
+	
+	@FindBy(id="z-activity-details-sent")
+	WebElement myMessages_tab_button;
+	
+	String myMessages_emails_xpath = "//div[@id='z-activity-details-sent-grid']/descendant::div[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	
 	public ZBOLeadDetailPage() {
 		
 	}
@@ -303,6 +311,9 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isVerified;
 	}
+	public boolean clickAndSelectLeadProspect(String pOption) {
+		return ActionHelper.selectDropDownOption(driver, lead_prospect_dropdown, "", pOption);
+	}
 	private boolean verifyAlerts(String pAlertToVerify, String pAlertValueToVerify) {
 
 		boolean isVerified = false;
@@ -388,5 +399,30 @@ public class ZBOLeadDetailPage extends Page{
 		return isVerified;
 	}
 	
+	public boolean verifyMyMessages(String pEmailToVerify) {
+		boolean isEmailReceived = false;
+		if(ActionHelper.Click(driver, myMessages_tab_button)) {
+			isEmailReceived = checkStatusAfterReg(pEmailToVerify, myMessages_emails_xpath);
+		}
+		return isEmailReceived;
+	}
+	
+	public boolean checkStatusAfterReg(String pEmailToVerify, String pXpath) {
+		isRefreshPageRequired = true;
+		int counter = 0;
+		boolean isVerified = false;
+		while(!isVerified && counter<15) {
+			isVerified = ActionHelper.getDynamicElement(driver, pXpath, pEmailToVerify)!=null?true:false;
+			if(!isRefreshPageRequired) {
+				break;
+			}else {
+				ActionHelper.staticWait(30);
+				ActionHelper.RefreshPage(driver);
+				ActionHelper.ScrollDownByPixels(driver, "400");
+			}
+			counter++;
+		}
+		return isVerified;
+	}
 	
 }

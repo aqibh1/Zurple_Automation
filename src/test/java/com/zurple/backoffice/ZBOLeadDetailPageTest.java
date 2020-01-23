@@ -223,10 +223,31 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	}
 	
 	@Test 
-	public void testVerifyZurpleMessages() {
+	@Parameters({"addLeadData"})
+	public void testUpdateLeadDetails(String pDataFile) {
+		JSONObject lDataObject = getDataFile(pDataFile);
 		getPage();
+		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
+		assertTrue(page.clickAndSelectLeadProspect(lDataObject.optString("lead_prospect")));
 		
 	}
+	
+	@Test 
+	public void testVerifyMassEmailInMyMessages() {
+		AutomationLogger.startTestCase("Verify Alerts");
+		getPage();
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page = null;
+		if(!getIsProd()) {
+			//Process email queue
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+			page =null;
+		}
+		getPage("/lead/"+lLeadId);
+		assertTrue(page.verifyMyMessages(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail)));
+	}
+
 	
 
 }
