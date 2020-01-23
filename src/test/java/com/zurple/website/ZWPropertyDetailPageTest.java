@@ -18,6 +18,7 @@ import resources.ModuleCommonCache;
 import resources.forms.zurple.website.ZWLeadCaptureForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.ZurpleListingConstants;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
 
@@ -241,7 +242,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		if(getIsProd()) {
 			getPage("/CA/San_Diego/52138475");
 		}else {
-			getPage("/CA/Carlsbad/34118489");
+			getPage(ZurpleListingConstants.zurple_staging_listing);
 		}
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleProp, page.getPropHeading().split(",")[0]);
 		assertTrue(page.clickOnScheduleShowingButton(),"Unable to click on Schedule Showing button..");
@@ -264,7 +265,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		if(getIsProd()) {
 			getPage("/CA/San_Diego/50057517");
 		}else {
-			getPage("/CA/Carlsbad/34118489");
+			getPage(ZurpleListingConstants.zurple_staging_listing);
 		}
 		assertTrue(page.isScheduleShowingButtonVisible(),"Schedule Showing button is not visible..");
 		assertTrue(page.clickOnScheduleShowingButton(),"Unable to click on Schedule Showing button..");
