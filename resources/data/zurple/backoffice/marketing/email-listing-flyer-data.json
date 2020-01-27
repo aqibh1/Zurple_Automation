@@ -1,4 +1,5 @@
 {
-	"recipients":"All Leads with Status of Prospect - New",
+	"recipients":"Individual Lead with any Status other than Inactive",
 	"mls_id":"190020375",
+	"subject":"This could be your new house"
 }

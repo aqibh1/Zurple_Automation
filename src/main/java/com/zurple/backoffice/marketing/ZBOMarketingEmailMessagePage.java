@@ -141,7 +141,7 @@ public class ZBOMarketingEmailMessagePage extends Page{
 		return isListingFound;
 	}
 	public boolean typeToSubject(String pSubject) {
-		return ActionHelper.Type(driver, subject_input, pSubject);
+		return ActionHelper.ClearAndType(driver, subject_input, pSubject);
 	}
 	public boolean clickOnPreviewButton() {
 		return ActionHelper.Click(driver, preview_button);

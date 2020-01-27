@@ -17,6 +17,7 @@ import resources.DBHelperMethods;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;
+import resources.utility.DataConstants;
 
 /**
  * @author adar
@@ -84,7 +85,7 @@ public class ZBOAddLeadPageTest extends PageTest{
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadName, lLeadName);
 		String lLeadId = driver.getCurrentUrl().split("user_id/")[1];
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), lLeadEmail, lLeadId);
-		
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadId, lLeadId);
 //		int lLead_id = new DBHelperMethods(getEnvironment()).getZurpleLeadId(lLeadEmail);
 //		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), lLeadEmail, lLead_id);
 

@@ -408,17 +408,20 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	
 	public boolean checkStatusAfterReg(String pEmailToVerify, String pXpath) {
-		isRefreshPageRequired = true;
 		int counter = 0;
+		boolean lIsEmailVisible = false;
 		boolean isVerified = false;
-		while(!isVerified && counter<15) {
-			isVerified = ActionHelper.getDynamicElement(driver, pXpath, pEmailToVerify)!=null?true:false;
-			if(!isRefreshPageRequired) {
+		while(!lIsEmailVisible && counter<15) {
+			WebElement dynamicEmail = ActionHelper.getDynamicElement(driver, pXpath, pEmailToVerify);
+			isVerified = dynamicEmail!=null?true:false;
+			if(isVerified && ActionHelper.isElementVisible(driver, dynamicEmail)) {
+				lIsEmailVisible = true;
 				break;
 			}else {
 				ActionHelper.staticWait(30);
 				ActionHelper.RefreshPage(driver);
 				ActionHelper.ScrollDownByPixels(driver, "400");
+				ActionHelper.Click(driver, myMessages_tab_button);
 			}
 			counter++;
 		}

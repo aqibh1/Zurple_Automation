@@ -16,6 +16,7 @@ import com.zurple.my.PageTest;
 import resources.AbstractPage;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 import resources.utility.ZurpleListingConstants;
 
 /**
@@ -50,7 +51,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	}
 	
 	@Test
-	@Parameters({"addLeadData"})
+	@Parameters({"listingEmailFlyerData"})
 	public void testSendEmailListingFlyer(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
 		getPage("/marketing/massemail");
@@ -62,16 +63,26 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
 		String lToEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");
+		ActionHelper.staticWait(2);
 		assertTrue(page.typeMLSId(ZurpleListingConstants.zurple_mls_listing_id), "Unable to type MLS id..");
+		ActionHelper.staticWait(2);
 		assertTrue(page.clickOnFindListingButton(), "Unable to click on find listing button...");
+		ActionHelper.staticWait(2);
 		assertTrue(page.typeToSubject(pDataObject.optString("subject")), "Unable to type subject..");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject, pDataObject.optString("subject"));
+		ActionHelper.staticWait(2);
 		assertTrue(page.typeToEmail(lToEmail), "Unable to type subject..");
+		ActionHelper.staticWait(2);
 		
 		assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
+		ActionHelper.staticWait(2);
 		assertTrue(page.isPreviewHeadingVisible(), "Preview is not visible..");
+		ActionHelper.staticWait(2);
 		assertTrue(page.closePreviewWindow(), "Unable to close Preview window..");
+		ActionHelper.staticWait(2);
 		
 		assertTrue(page.clickOnSendButton(), "Unable to click on Send button...");
+		ActionHelper.staticWait(2);
 		assertTrue(page.isSuccessMessage(), "Unable to send email, success message is not displayed...");
 			
 	}

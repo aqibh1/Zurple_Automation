@@ -238,14 +238,20 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage();
 		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
 		page = null;
-		if(!getIsProd()) {
-			//Process email queue
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-			page =null;
-		}
 		getPage("/lead/"+lLeadId);
-		assertTrue(page.verifyMyMessages(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail)));
+		if(page.isEmailVerified()) {
+			if(!getIsProd()) {
+				page = null;
+				//Process email queue
+				getPage("/admin/processemailqueue");
+				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+				page =null;
+				getPage("/lead/"+lLeadId);
+			}
+			assertTrue(page.verifyMyMessages(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject)));
+		}else {
+			assertTrue(false, "Unable to verify email...");
+		}
 	}
 
 	

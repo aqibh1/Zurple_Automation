@@ -7,8 +7,9 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
 
-	<test name="Create lead and verify details">	
+	<test name="Send and Verify Email Listing Flyer">	
 	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-email-listing-flyer.json"> 
+	<parameter name="listingEmailFlyerData" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json"> 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -18,11 +19,6 @@
 				<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
 					<methods>
 						<include name="testAddLead" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-							<include name="testUpdateLeadDetails" />
 					</methods>
 				</class>
 				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
@@ -41,6 +37,7 @@
 					</methods>
 				</class>
 			</classes>
+	</parameter>
 	</parameter>
 	</test>
 </suite>
