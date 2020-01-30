@@ -3,14 +3,27 @@
 <suite name="Checking phone number text on dashboard">
 
   <test name="Checking phone number text on dashboard">
-    <parameter name="email_domain" value="test.com"/>
+   
+    <parameter name="registerUserDataFile"
+			value="/resources/data/zurple/register_user/register-user-track-search.json">
     <classes>
-      <class name="com.zurple.backoffice.ZBODashboardTest" >
+      <class name="com.zurple.website.ZWRegisterUserPageTest">
+		<methods>
+		<include name="testRegisterUser" />
+		</methods>
+		</class>
+		<class name="com.zurple.backoffice.ZBOLoginPageTest">
+		<methods>
+		<include name="testBackOfficeLogin" />
+		</methods>
+		</class>
+        <class name="com.zurple.backoffice.ZBODashboardTest" >
         <methods>
-          <include name="testCreateNewRegularLead" />
+          <include name="testPhoneNumber" />
         </methods>
-      </class>
+      	</class>
     </classes>
-  </test>
+  </parameter>
+   </test>
 
 </suite>

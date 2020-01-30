@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.zurple.my.Page;
 
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 public class ZBODashboard extends Page{
 	@FindBy(className="z-lead-phone")
@@ -18,8 +19,9 @@ public class ZBODashboard extends Page{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public String getPhoneNumberText() {
+	public boolean getPhoneNumberText(String pPhoneNumber) {
 		String pNumText = ActionHelper.getText(driver, phoneNumber);
-		return pNumText;
+		AutomationLogger.info("Fetching phone number");
+		return pNumText.equalsIgnoreCase(pPhoneNumber);
 	}
 }
