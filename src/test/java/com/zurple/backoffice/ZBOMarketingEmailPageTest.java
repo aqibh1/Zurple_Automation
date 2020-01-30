@@ -60,6 +60,15 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		verifyEmailListingFlyer(lDataObject);
 	}
 	
+	@Test
+	public void testSendStandardEmail(String pDataFile) {
+		JSONObject lDataObject = getDataFile(pDataFile);
+		getPage("/marketing/massemail");
+		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
+		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
+		fillStandardEmailForm(lDataObject);
+	}
+	
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
 		String lToEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");
@@ -85,6 +94,36 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		ActionHelper.staticWait(2);
 		assertTrue(page.isSuccessMessage(), "Unable to send email, success message is not displayed...");
 			
+	}
+	
+	private void fillStandardEmailForm(JSONObject pDataObject) {
+		String lToEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
+		assertTrue(page.clickOnSendStandardEmailButton(), "Unable to click on standard email button..");
+		ActionHelper.staticWait(2);
+		assertTrue(page.typeToSubject(pDataObject.optString("subject")), "Unable to type subject..");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleStandardEmailSubject, pDataObject.optString("subject"));
+		ActionHelper.staticWait(2);
+		assertTrue(page.typeToEmail(lToEmail), "Unable to type subject..");
+		ActionHelper.staticWait(2);
+		
+		if(!pDataObject.optString("file_path").isEmpty()) {
+			assertTrue(page.clickOnAttachFileButton(), "Unable to click on attach file button..");
+			ActionHelper.staticWait(2);
+			
+			assertTrue(page.getAttachFileForm().isUploadFileFormVisible(), "Upload file form is not visible..");
+			assertTrue(page.getAttachFileForm().clickAndSelectFile(), "Unable to select the file from upload form ..");
+			assertTrue(page.isAttachmentRemoveButtonVisible(), "Remove button after attaching file is not visible..");
+		}
+		assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
+		ActionHelper.staticWait(2);
+		assertTrue(page.isPreviewHeadingVisible(), "Preview is not visible..");
+		ActionHelper.staticWait(2);
+		assertTrue(page.closePreviewWindow(), "Unable to close Preview window..");
+		ActionHelper.staticWait(2);
+		
+		assertTrue(page.clickOnSendButton(), "Unable to click on Send button...");
+		ActionHelper.staticWait(2);
+		assertTrue(page.isSuccessMessage(), "Unable to send email, success message is not displayed...");
 	}
 
 }

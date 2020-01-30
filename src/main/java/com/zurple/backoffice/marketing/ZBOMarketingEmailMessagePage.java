@@ -10,6 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.forms.zurple.backoffice.ZBOAttachFileForm;
+import resources.forms.zurple.backoffice.ZBOInsertImageForm;
 import resources.utility.ActionHelper;
 
 /**
@@ -76,9 +78,35 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	WebElement success_message;
 //	String success_message = "//div[@class='alert alert-success ']/strong[text()='Your email will be sent within the next 5 minutes.']";
 	
+	@FindBy(id="send_standard_email")
+	WebElement send_standard_email_button;
+	
+	@FindBy(xpath="//label[@for='attachment']")
+	WebElement attachFile_button;
+	
+	@FindBy(id="attachment-remove")
+	WebElement attachment_remove_button;
+	
+	private ZBOInsertImageForm zboInsertImageForm;
+	private ZBOAttachFileForm zbAttachFileForm;
+	
 	public ZBOMarketingEmailMessagePage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		setInsertImageForm();
+		setAttachFileForm();
 		PageFactory.initElements(driver, this);
+	}
+	private void setAttachFileForm() {
+		zbAttachFileForm = new ZBOAttachFileForm(driver);
+	}
+	public ZBOAttachFileForm getAttachFileForm() {
+		return zbAttachFileForm;
+	}
+	private void setInsertImageForm() {
+		zboInsertImageForm = new ZBOInsertImageForm(driver);
+	}
+	public ZBOInsertImageForm getInsertImageForm() {
+		return zboInsertImageForm;
 	}
 	public boolean isMarketingEmailPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, email_heading, 30);
@@ -158,5 +186,13 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	public boolean isSuccessMessage() {
 		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver,success_message , 20, 10);
 	}
-	
+	public boolean clickOnSendStandardEmailButton() {
+		return ActionHelper.Click(driver, send_standard_email_button);
+	}
+	public boolean clickOnAttachFileButton() {
+		return ActionHelper.Click(driver, attachFile_button);
+	}
+	public boolean isAttachmentRemoveButtonVisible() {
+		return ActionHelper.isElementVisible(driver, attachment_remove_button);
+	}
 }
