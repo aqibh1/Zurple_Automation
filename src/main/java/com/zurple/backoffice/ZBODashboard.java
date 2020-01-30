@@ -1,5 +1,7 @@
 package com.zurple.backoffice;
 
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,5 +26,19 @@ public class ZBODashboard extends Page{
 		pNumText = pNumText.replace(' ', '-');
 		AutomationLogger.info("Fetching phone number");
 		return pNumText.equalsIgnoreCase(pPhoneNumber);
+	}
+	
+	public boolean phoneAlert() {
+		driver.manage().window().setSize(new Dimension(444, 562));
+		driver.navigate().refresh();
+		try 
+		{ 
+		    driver.switchTo().alert(); 
+		    return true; 
+		}   
+		catch (NoAlertPresentException Ex) 
+		{ 
+		    return false; 
+		}  
 	}
 }

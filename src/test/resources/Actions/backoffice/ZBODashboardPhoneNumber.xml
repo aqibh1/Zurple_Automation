@@ -20,6 +20,7 @@
         <class name="com.zurple.backoffice.ZBODashboardTest" >
         <methods>
           <include name="testPhoneNumber" />
+          <include name="testPhoneAlert" />
         </methods>
       	</class>
     </classes>
