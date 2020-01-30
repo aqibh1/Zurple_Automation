@@ -5,7 +5,7 @@
   <test name="Checking phone number text on dashboard">
    
     <parameter name="registerUserDataFile"
-			value="/resources/data/zurple/register_user/register-user-track-search.json">
+			value="/resources/data/zurple/register_user/register-user-track-phoneNumber.json">
     <classes>
       <class name="com.zurple.website.ZWRegisterUserPageTest">
 		<methods>

@@ -50,6 +50,6 @@ public class ZBODashboardTest extends PageTest
     @Test
     public void testPhoneNumber(){
     	getPage("/dashboard");
-        assertTrue(page.getPhoneNumberText("202-555-0149"),"Phone numbers didn't match..");
+        assertTrue(page.getPhoneNumberText("202-555-0149"), "Phone numbers didn't match..");
     }
 }

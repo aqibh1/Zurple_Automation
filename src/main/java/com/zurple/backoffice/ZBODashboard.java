@@ -21,6 +21,7 @@ public class ZBODashboard extends Page{
 	
 	public boolean getPhoneNumberText(String pPhoneNumber) {
 		String pNumText = ActionHelper.getText(driver, phoneNumber);
+		pNumText = pNumText.replace(' ', '-');
 		AutomationLogger.info("Fetching phone number");
 		return pNumText.equalsIgnoreCase(pPhoneNumber);
 	}
