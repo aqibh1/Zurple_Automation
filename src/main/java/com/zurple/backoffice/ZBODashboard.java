@@ -21,24 +21,21 @@ public class ZBODashboard extends Page{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public boolean getPhoneNumberText(String pPhoneNumber) {
+	public boolean verifyPhoneNumberText(String pPhoneNumber) {
 		String pNumText = ActionHelper.getText(driver, phoneNumber);
-		pNumText = pNumText.replace(' ', '-');
+		// pNumText = pNumText.replace(' ', '-');
 		AutomationLogger.info("Fetching phone number");
 		return pNumText.equalsIgnoreCase(pPhoneNumber);
 	}
 	
-	public boolean phoneAlert() {
-		driver.manage().window().setSize(new Dimension(444, 562));
-		driver.navigate().refresh();
-		try 
-		{ 
-		    driver.switchTo().alert(); 
-		    return true; 
-		}   
-		catch (NoAlertPresentException Ex) 
-		{ 
-		    return false; 
-		}  
+	public boolean verifyPhoneAlert() {
+		boolean isVerified = false;
+		
+		ActionHelper.resizeWindow(driver, 444, 562);
+		ActionHelper.RefreshPage(driver);
+		ActionHelper.Click(driver, phoneNumber);
+
+		isVerified = ActionHelper.isAlertPresent(driver);
+		return isVerified;
 	}
 }

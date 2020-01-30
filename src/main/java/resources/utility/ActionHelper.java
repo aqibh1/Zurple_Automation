@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -705,5 +706,26 @@ public class ActionHelper {
 		   return isDisappeared;
 	   }
 
+	   public static boolean isAlertPresent(WebDriver pWebDriver) {
+		   boolean isSuccess = true;
+		   try {
+			   if(ExpectedConditions.alertIsPresent()!=null) {
+				   isSuccess= true;	   
+			   }
+		   }catch(Exception ex) {
+			   isSuccess = false;
+		   }
+		   return isSuccess;
+	   }
 	   
+	   public static boolean resizeWindow(WebDriver pWebDriver, int length, int width) {
+		   boolean isSuccess = true;
+		   try {
+			   pWebDriver.manage().window().setSize(new Dimension(length, width));
+			   isSuccess = true;
+		   } catch(Exception ex) {
+			   isSuccess = false;
+		   }
+		   return isSuccess;
+	   }
 }
