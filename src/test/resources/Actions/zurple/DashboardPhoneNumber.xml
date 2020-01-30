@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Checking phone number text on dashboard">
+
+  <test name="Checking phone number text on dashboard">
+    <parameter name="email_domain" value="test.com"/>
+    <classes>
+      <class name="com.zurple.backoffice.ZBODashboardTest" >
+        <methods>
+          <include name="testCreateNewRegularLead" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>
