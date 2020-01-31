@@ -87,6 +87,9 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	@FindBy(id="attachment-remove")
 	WebElement attachment_remove_button;
 	
+	@FindBy(id="attachment_label")
+	WebElement attachment_label_preview;
+	
 	private ZBOInsertImageForm zboInsertImageForm;
 	private ZBOAttachFileForm zbAttachFileForm;
 	
@@ -194,5 +197,8 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	}
 	public boolean isAttachmentRemoveButtonVisible() {
 		return ActionHelper.isElementVisible(driver, attachment_remove_button);
+	}
+	public boolean isAttachmentLabelVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, attachment_label_preview, 30);
 	}
 }

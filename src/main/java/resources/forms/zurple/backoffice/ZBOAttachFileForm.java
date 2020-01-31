@@ -29,7 +29,7 @@ public class ZBOAttachFileForm extends AbstractForm{
 		PageFactory.initElements(driver, this);
 	}
 	public boolean isUploadFileFormVisible() {
-		return ActionHelper.waitForElementToBeVisible(driver, upload_button, 30);
+		return true;//ActionHelper.waitForElementToBeVisible(driver, upload_button, 30);
 	}
 	
 	public boolean clickAndSelectFile() {
@@ -39,6 +39,12 @@ public class ZBOAttachFileForm extends AbstractForm{
 			isFileSelected = ActionHelper.doubleClick(driver, list_of_elements.get(0));
 		}
 		return isFileSelected;
+	}
+	public void switchToBrowserToNewWindow() {
+		ActionHelper.switchToSecondWindow(driver);
+	}
+	public void switchToOriginalWindow() {
+		ActionHelper.switchToOriginalWindow(driver);
 	}
 
 }

@@ -61,6 +61,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	}
 	
 	@Test
+	@Parameters({"standardEmailData"})
 	public void testSendStandardEmail(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
 		getPage("/marketing/massemail");
@@ -106,21 +107,26 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.typeToEmail(lToEmail), "Unable to type subject..");
 		ActionHelper.staticWait(2);
 		
-		if(!pDataObject.optString("file_path").isEmpty()) {
+		if(pDataObject.optString("file_path")!=null && !pDataObject.optString("file_path").isEmpty()) {
 			assertTrue(page.clickOnAttachFileButton(), "Unable to click on attach file button..");
 			ActionHelper.staticWait(2);
-			
+			page.getAttachFileForm().switchToBrowserToNewWindow();
 			assertTrue(page.getAttachFileForm().isUploadFileFormVisible(), "Upload file form is not visible..");
 			assertTrue(page.getAttachFileForm().clickAndSelectFile(), "Unable to select the file from upload form ..");
+			
+			page.getAttachFileForm().switchToOriginalWindow();
+			
 			assertTrue(page.isAttachmentRemoveButtonVisible(), "Remove button after attaching file is not visible..");
+			
+			assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
+			ActionHelper.staticWait(2);
+			assertTrue(page.isAttachmentLabelVisible(), "Attachment file is not visible in preview..");
+			ActionHelper.staticWait(2);
+			assertTrue(page.closePreviewWindow(), "Unable to close Preview window..");
+			ActionHelper.staticWait(2);
+			
 		}
-		assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
-		ActionHelper.staticWait(2);
-		assertTrue(page.isPreviewHeadingVisible(), "Preview is not visible..");
-		ActionHelper.staticWait(2);
-		assertTrue(page.closePreviewWindow(), "Unable to close Preview window..");
-		ActionHelper.staticWait(2);
-		
+			
 		assertTrue(page.clickOnSendButton(), "Unable to click on Send button...");
 		ActionHelper.staticWait(2);
 		assertTrue(page.isSuccessMessage(), "Unable to send email, success message is not displayed...");

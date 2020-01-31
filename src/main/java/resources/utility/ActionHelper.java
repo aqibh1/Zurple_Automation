@@ -1,7 +1,9 @@
 package resources.utility;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -724,6 +726,26 @@ public class ActionHelper {
 			   AutomationLogger.error(ex.getMessage());
 		   }
 		   return isSuccessfull;
+	   }
+	   public static void switchToSecondWindow(WebDriver pWebDriver) {
+		   int counter = 0;
+		   Set<String> handle= pWebDriver.getWindowHandles();
+		   for(String lWindowHandle: handle) {
+			   AutomationLogger.info(lWindowHandle);
+			   if(counter>0) {
+				   pWebDriver.switchTo().window(lWindowHandle);
+			   }
+			   counter++;
+		   }
+	   }
+	   public static void switchToOriginalWindow(WebDriver pWebDriver) {
+		   Set<String> handle= pWebDriver.getWindowHandles();
+		   for(String lWindowHandle: handle) {
+			   AutomationLogger.info(lWindowHandle);
+
+			   pWebDriver.switchTo().window(lWindowHandle);
+
+		   }
 	   }
 	   
 }
