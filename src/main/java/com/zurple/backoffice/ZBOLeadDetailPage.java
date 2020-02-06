@@ -1,7 +1,10 @@
 package com.zurple.backoffice;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -93,6 +96,18 @@ public class ZBOLeadDetailPage extends Page{
 	WebElement myMessages_tab_button;
 	
 	String myMessages_emails_xpath = "//div[@id='z-activity-details-sent-grid']/descendant::div[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	
+	@FindBy(id="text_area_note")
+	WebElement note_text_area;
+	
+	@FindBy(id="submit_save_note")
+	WebElement save_note_button;
+	
+	@FindBy(xpath="//button[text()='OK']")
+	WebElement ok_button_notes;
+	
+	String notes_Added_xpath = "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-note ']/div";
+	String notes_date_xpath = "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-date ']/div";
 	
 	public ZBOLeadDetailPage() {
 		
@@ -428,4 +443,49 @@ public class ZBOLeadDetailPage extends Page{
 		return isVerified;
 	}
 	
+	public boolean typeComment(String pComment) {
+		return ActionHelper.Type(driver, note_text_area, pComment);
+	}
+	public boolean clickOnSaveNotesButton() {
+		boolean isSuccessful = false;
+		if(ActionHelper.Click(driver, save_note_button)) {
+			if(ActionHelper.waitForElementToBeVisible(driver, ok_button_notes, 20)) {
+				isSuccessful = ActionHelper.Click(driver, ok_button_notes);
+			}
+		}
+		ActionHelper.staticWait(5);
+		return isSuccessful;
+	}
+	public boolean verifyNoteAndTime(String pNoteToVerify) {
+		boolean isVerified = false;
+		boolean isNoteFound = false;
+		int counter = 0;
+		List<WebElement> list_of_notes = ActionHelper.getListOfElementByXpath(driver, notes_Added_xpath);
+		for(int i =0;i<list_of_notes.size();i++) {
+			if(ActionHelper.getText(driver, list_of_notes.get(i)).equalsIgnoreCase(pNoteToVerify)) {
+				isNoteFound = true;
+			}
+	
+			if(isNoteFound) {
+				counter = i;
+				break;
+			}
+		}
+		if(isNoteFound) {
+			List<WebElement> list_of_notes_dates = ActionHelper.getListOfElementByXpath(driver, notes_date_xpath);
+			String lTodaysDate = getCurrentPSTDate();
+			String lNotesDate = ActionHelper.getText(driver,list_of_notes_dates.get(counter));
+			isVerified = lNotesDate.contains(lTodaysDate);
+		}
+		
+		return isVerified;
+	}
+	
+	private String getCurrentPSTDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
+		String formattedDate = dateFormat.format(new Date(System.currentTimeMillis())).toString().toLowerCase();
+		return formattedDate;
+
+	}
 }

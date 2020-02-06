@@ -254,6 +254,19 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		}
 	}
 
-	
+	@Test
+	public void testAddAndVerifyLeadNotes() {
+		getPage();
+		String lComment = "This is lead detail note$#";
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page = null;
+		getPage("/lead/"+lLeadId);
+//		getPage("/lead/3016673");
+		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
+		assertTrue(page.typeComment(lComment), "Unable to type note..");
+		assertTrue(page.clickOnSaveNotesButton(), "Unable to click on save notes button..");
+		assertTrue(page.verifyNoteAndTime(lComment), "Unable to verify note and time..");
+		
+	}
 
 }
