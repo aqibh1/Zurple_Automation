@@ -4,7 +4,7 @@
 
   <test name="Manage agents page label">
     <classes>
-      <class name="com.zurple.backoffice.testAgentsPageLabel" >
+      <class name="com.zurple.backoffice.ZBOAgentsPageTest" >
         <methods>
           <include name="testAgentsPageLabel" />
         </methods>
