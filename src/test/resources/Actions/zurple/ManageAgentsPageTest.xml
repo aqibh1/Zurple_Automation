@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Manage Agents">
+
+  <test name="Manage agents page label">
+    <classes>
+      <class name="com.zurple.backoffice.testAgentsPageLabel" >
+        <methods>
+          <include name="testAgentsPageLabel" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+
+</suite>
