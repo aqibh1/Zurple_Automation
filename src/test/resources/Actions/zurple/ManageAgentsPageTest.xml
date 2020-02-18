@@ -4,6 +4,11 @@
 
   <test name="Manage agents page label">
     <classes>
+    <class name="com.zurple.backoffice.ZBOLoginPageTest">
+	<methods>
+		<include name="testBackOfficeLogin" />
+	</methods>
+	</class>
       <class name="com.zurple.backoffice.ZBOAgentsPageTest" >
         <methods>
           <include name="testAgentsPageLabel" />

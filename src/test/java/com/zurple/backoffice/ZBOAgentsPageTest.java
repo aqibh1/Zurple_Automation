@@ -1,5 +1,6 @@
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
@@ -20,8 +21,12 @@ public class ZBOAgentsPageTest extends PageTest {
 
 	@Override
 	public AbstractPage getPage() {
-		// TODO Auto-generated method stub
-		return null;
+		if(page==null) {
+			driver = getDriver();
+			page = new ZBOAgents(driver);
+			page.setUrl("");
+		}
+		return page;
 	}
 
 	public AbstractPage getPage(String pUrl) {
@@ -39,10 +44,11 @@ public class ZBOAgentsPageTest extends PageTest {
 		// TODO Auto-generated method stub	
 	}
 	
+	@Test
 	public void testAgentsPageLabel() {
 		AutomationLogger.startTestCase("Manage Agents");
 		getPage("/agents");
-		assertTrue(page.verifyPageTitle(), "Agents page is not visible..");
+		assertEquals("Manage Agents", page.verifyPageTitle());
 		AutomationLogger.endTestCase();
 	}
 }

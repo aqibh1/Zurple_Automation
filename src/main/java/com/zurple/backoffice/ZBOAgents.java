@@ -23,7 +23,8 @@ public class ZBOAgents extends Page{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public boolean verifyPageTitle(){
-		return ActionHelper.waitForElementToBeVisible(driver, manage_agents_label, 30);
+	public String verifyPageTitle(){
+		ActionHelper.waitForElementToBeVisible(driver, manage_agents_label, 30);
+		return ActionHelper.getText(driver, manage_agents_label).trim();
 	}
 }
