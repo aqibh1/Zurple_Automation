@@ -51,4 +51,14 @@ public class ZBOAgentsPageTest extends PageTest {
 		assertEquals("Manage Agents", page.verifyPageTitle());
 		AutomationLogger.endTestCase();
 	}
+	
+	@Test
+	public void testAgentsCount() {
+		AutomationLogger.startTestCase("Agents count");
+		getPage("/agents");
+		
+		assertTrue(page.verifyAgentsCount(19));
+		AutomationLogger.endTestCase();
+	}
+	
 }

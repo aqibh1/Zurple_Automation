@@ -13,6 +13,9 @@
         <methods>
           <include name="testAgentsPageLabel" />
         </methods>
+        <methods>
+        	<include name="testAgentsCount" />
+        </methods>
       </class>
     </classes>
   </test>
