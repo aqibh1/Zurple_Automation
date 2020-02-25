@@ -1417,33 +1417,6 @@
     </parameter>
 	</test>
 	
-    <test name="Create an Ad for Listing on PP">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
-      <methods>
-      	<include name="testAddListingForAd" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
-      <methods>
-      <include name="testCreateAnAd" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
 	 <test name="Post status on Facebook now">
  	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-now-data-01.json" >
 	<classes>
@@ -1604,7 +1577,34 @@
     </classes>
     </parameter>
 	</test>
-
+	<!--  
+    <test name="Create an Ad for Listing on PP">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPListingPageTest" >
+      <methods>
+      	<include name="testAddListingForAd" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateAnAd" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
 	 <test name="Create Customize Ad for Listing on PP">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-for-customize-ad.json" >
 	<classes>
@@ -1653,7 +1653,7 @@
     </classes>
     </parameter>
 	</test>
-	
+	-->
 	  <test name="Verify analytics stats for facebook page">
 	<classes>
 	<class name="com.z57.propertypulse.LoginPageTest" >
@@ -2137,7 +2137,7 @@
     </classes>
     </parameter>
 	</test>
-	
+	<!--  
 	<test name="Create Facebook and Instagram ad for Listing on PP">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
  	<parameter name="dataFile2" value="/resources/data/propertypulse/ads/ads-data.json" >
@@ -2166,7 +2166,7 @@
     </parameter>
     </parameter>
 	</test>
-	
+	-->
     <test name="Disable all the ads">
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
