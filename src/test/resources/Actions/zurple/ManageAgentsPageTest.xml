@@ -16,6 +16,9 @@
         <methods>
         	<include name="testAgentsCount" />
         </methods>
+        <methods>
+        	<include name="testCreateAgents" />
+        </methods>
       </class>
     </classes>
   </test>

@@ -62,6 +62,22 @@ public class ActionHelper {
 			return isSuccessfull;
 		}
 	   
+	   public static boolean ClickByIndex(WebDriver pWebDriver, String pElementToBeClicked, int index) {
+			boolean isSuccessfull=false;
+			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			AutomationLogger.info("Clicking on button -> "+pElementToBeClicked);
+			try {
+					pWebDriver.findElements(By.className(pElementToBeClicked)).get(index).click();
+					isSuccessfull=true;
+					AutomationLogger.info("Clicked on button successful..");
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessfull;
+		}
+	   
 	   public static boolean MouseHoverOnElement(WebDriver pWebDriver, WebElement pElementToBeHoveredOn) {
 		   boolean status = true;
 		   if(isElementVisible(pWebDriver, pElementToBeHoveredOn)) {

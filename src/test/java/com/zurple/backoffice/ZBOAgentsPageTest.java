@@ -61,4 +61,12 @@ public class ZBOAgentsPageTest extends PageTest {
 		AutomationLogger.endTestCase();
 	}
 	
+	@Test
+	public void testCreateAgents() {
+		AutomationLogger.startTestCase("Create Agents");
+		getPage("/agent/create");
+		page.addAgent();
+		AutomationLogger.endTestCase();
+	}
+	
 }
