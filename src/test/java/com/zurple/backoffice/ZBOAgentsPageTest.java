@@ -54,9 +54,7 @@ public class ZBOAgentsPageTest extends PageTest {
 	
 	@Test
 	public void testAgentsCount() {
-		AutomationLogger.startTestCase("Agents count");
-		getPage("/agents");
-		
+		AutomationLogger.startTestCase("Agents count");	
 		assertTrue(page.verifyAgentsCount(19));
 		AutomationLogger.endTestCase();
 	}
@@ -64,8 +62,12 @@ public class ZBOAgentsPageTest extends PageTest {
 	@Test
 	public void testCreateAgents() {
 		AutomationLogger.startTestCase("Create Agents");
+		page=null;
 		getPage("/agent/create");
 		page.addAgent();
+		page=null;
+		getPage("/agents");
+		assertTrue(page.verifyAgentsCount(20));
 		AutomationLogger.endTestCase();
 	}
 	

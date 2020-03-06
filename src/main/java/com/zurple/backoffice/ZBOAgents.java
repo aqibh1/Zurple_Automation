@@ -42,10 +42,8 @@ public class ZBOAgents extends Page{
 	@FindBy(id="add-agent-button")
 	WebElement add_agent;
 	
-	@FindBy(className="ui-button-text")
-	// WebElement confirmAdd;
 	String confirmAdd = "ui-button-text-only";
-	
+		
 	public ZBOAgents() {
 		
 	}
@@ -71,12 +69,13 @@ public class ZBOAgents extends Page{
 	}
 	
 	public boolean addAgent() {
+		ActionHelper.waitForElementToBeVisible(driver, agent_first_name , 30);
 		ActionHelper.Type(driver, agent_first_name, "Automated");
 		ActionHelper.Type(driver, agent_last_name, "Agent");
-		ActionHelper.Type(driver, agent_email, "automated_agent@mailinator.com");
+		ActionHelper.Type(driver, agent_email, "automated_agent"+getTodaysDate()+"@mailinator.com");
 		ActionHelper.Type(driver, agent_password, "12345");
 		ActionHelper.Type(driver, agent_confirmPassword, "12345");
-		// ActionHelper.Type(driver, agent_aliasEmail, "automated_agent");
+		ActionHelper.Type(driver, agent_aliasEmail, getTodaysDate());
 		ActionHelper.waitForElementToBeVisible(driver, add_agent , 30);
 		ActionHelper.Click(driver, add_agent);
 		ActionHelper.ClickByIndex(driver, confirmAdd, 0);

@@ -12,11 +12,7 @@
       <class name="com.zurple.backoffice.ZBOAgentsPageTest" >
         <methods>
           <include name="testAgentsPageLabel" />
-        </methods>
-        <methods>
         	<include name="testAgentsCount" />
-        </methods>
-        <methods>
         	<include name="testCreateAgents" />
         </methods>
       </class>
