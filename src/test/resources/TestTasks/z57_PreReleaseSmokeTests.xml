@@ -2166,7 +2166,7 @@
     </parameter>
     </parameter>
 	</test>
-	-->
+	
     <test name="Disable all the ads">
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
@@ -2186,4 +2186,6 @@
       </class>
     </classes>
 	</test>
+	
+	-->
 </suite>
