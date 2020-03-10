@@ -1,5 +1,6 @@
 package com.zurple.backoffice;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -12,7 +13,7 @@ import com.zurple.my.Page;
 
 import resources.utility.ActionHelper;
 
-public class ZBOAgents extends Page{
+public class ZBOAgentsPage extends Page{
 
 	@FindBy(className="col-sm-4")
 	WebElement manage_agents_label;
@@ -42,13 +43,16 @@ public class ZBOAgents extends Page{
 	@FindBy(id="add-agent-button")
 	WebElement add_agent;
 	
-	String confirmAdd = "ui-button-text-only";
-		
-	public ZBOAgents() {
+	@FindBy(xpath="//div[contains(@class,'ui-dialog-buttonset')]//span[@class='ui-button-text']")
+	WebElement confirmAdd;
+	
+	Calendar calendar = Calendar.getInstance();
+	
+	public ZBOAgentsPage() {
 		
 	}
 	
-	public ZBOAgents(WebDriver pWebDriver) {
+	public ZBOAgentsPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
 	}
@@ -68,17 +72,25 @@ public class ZBOAgents extends Page{
 		return isSuccessfull;
 	}
 	
-	public boolean addAgent() {
-		ActionHelper.waitForElementToBeVisible(driver, agent_first_name , 30);
-		ActionHelper.Type(driver, agent_first_name, "Automated");
-		ActionHelper.Type(driver, agent_last_name, "Agent");
-		ActionHelper.Type(driver, agent_email, "automated_agent"+getTodaysDate()+"@mailinator.com");
-		ActionHelper.Type(driver, agent_password, "12345");
-		ActionHelper.Type(driver, agent_confirmPassword, "12345");
-		ActionHelper.Type(driver, agent_aliasEmail, getTodaysDate());
-		ActionHelper.waitForElementToBeVisible(driver, add_agent , 30);
-		ActionHelper.Click(driver, add_agent);
-		ActionHelper.ClickByIndex(driver, confirmAdd, 0);
-		return true;
+	public boolean typeAgentFirstName(String pAgentName) {
+		return ActionHelper.Type(driver, agent_first_name, pAgentName);
+	}
+	public boolean typeAgentLastName(String pAgentName) {
+		return ActionHelper.Type(driver, agent_last_name, pAgentName);
+	}
+	public boolean typeAgentEmail(String pAgentEmail) {
+		return ActionHelper.Type(driver, agent_email, pAgentEmail);
+	}
+	public boolean typeAgentPassword(String pAgentPassword) {
+		return ActionHelper.Type(driver, agent_password, pAgentPassword);
+	}
+	public boolean typeAgentConfirmPassword(String pAgentConfirmPassword) {
+		return ActionHelper.Type(driver, agent_first_name, pAgentConfirmPassword);
+	}
+	public boolean addAgentButton(String pAddAgent) {
+		return ActionHelper.Click(driver, add_agent);
+	}
+	public boolean confirmAgent(String pConfirmAgent) {
+		return ActionHelper.Type(driver, agent_aliasEmail, pConfirmAgent);
 	}
 }

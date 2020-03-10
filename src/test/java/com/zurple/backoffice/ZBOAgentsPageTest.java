@@ -17,13 +17,13 @@ import resources.utility.AutomationLogger;
 
 public class ZBOAgentsPageTest extends PageTest {
 	WebDriver driver;
-	ZBOAgents page;
+	ZBOAgentsPage page;
 
 	@Override
 	public AbstractPage getPage() {
 		if(page==null) {
 			driver = getDriver();
-			page = new ZBOAgents(driver);
+			page = new ZBOAgentsPage(driver);
 			page.setUrl("");
 		}
 		return page;
@@ -32,7 +32,7 @@ public class ZBOAgentsPageTest extends PageTest {
 	public AbstractPage getPage(String pUrl) {
 		if(page==null) {
 			driver = getDriver();
-			page = new ZBOAgents(driver);
+			page = new ZBOAgentsPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
 		}
@@ -61,14 +61,27 @@ public class ZBOAgentsPageTest extends PageTest {
 	
 	@Test
 	public void testCreateAgents() {
+		String lAgentName = "";
+		lAgentName = updateName(lAgentName);
+		updateEmail("");
 		AutomationLogger.startTestCase("Create Agents");
 		page=null;
 		getPage("/agent/create");
-		page.addAgent();
-		page=null;
-		getPage("/agents");
+		assertTrue(page.typeAgentFirstName(lAgentName), "Unable to type Agent Name..");
+		addUpdateAgent();
+//		page=null;
+//		getPage("/agents");
 		assertTrue(page.verifyAgentsCount(20));
 		AutomationLogger.endTestCase();
 	}
 	
+	private void addUpdateAgent() {
+		page.typeAgentFirstName();
+		page.typeAgentLastName();
+		page.typeAgentEmail();
+		page.typeAgentPassword();
+		page.typeAgentConfirmPassword();
+		page.addAgentButton();
+		page.confirmAgent();
+	}
 }
