@@ -33,5 +33,9 @@ public class DataConstants {
 	public static final String Views = "views";
 	public static final String Style = "style";
 	public static final String PropertyTypes = "property_type";
-
+	public static final String FirstName = "first_name";
+	public static final String LastName = "last_name";
+	public static final String Password = "password";
+	public static final String ConfirmPassword = "confirm_password";
+	public static final String AliasEmail = "alias_email";
 }

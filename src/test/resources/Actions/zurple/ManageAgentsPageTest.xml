@@ -3,6 +3,9 @@
 <suite name="Manage Agents">
 
   <test name="Manage agents page label">
+  <parameter name="manageAgentsDataFile" 
+  		value="/resources/data/create-agent-data.json">
+  	</parameter>
     <classes>
     <class name="com.zurple.backoffice.ZBOLoginPageTest">
 	<methods>
