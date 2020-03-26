@@ -17,6 +17,7 @@
           <include name="testAgentsPageLabel" />
         	<include name="testAgentsCount" />
         	<include name="testCreateAgents" />
+        	<include name="testDelAgent" />
         </methods>
       </class>
     </classes>

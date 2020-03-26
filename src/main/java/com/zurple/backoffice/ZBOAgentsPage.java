@@ -45,13 +45,8 @@ public class ZBOAgentsPage extends Page{
 	@FindBy(xpath="//div[contains(@class,'ui-dialog-buttonset')]//span[@class='ui-button-text']")
 	WebElement confirmAdd;
 	
-	@FindBy(id="delete-agent-button")
+	@FindBy(className="btn-danger")
 	WebElement del_agent;
-	
-//	@FindBy(xpath="//div[contains(@class,'ui-dialog-buttonset')]//span[@class='ui-button-text']")
-//	WebElement confirmDel;
-	
-	String confirmDel = "//div[contains(@class,'ui-dialog-buttonset')]//span[@class='ui-button-text']";
 	
 	public List<WebElement> agentsList;
 	
@@ -73,6 +68,11 @@ public class ZBOAgentsPage extends Page{
 		boolean isSuccessfull = false;
 			ActionHelper.waitForStringXpathToBeVisible(driver, agents_count_xpath, 30);
 			agentsList = ActionHelper.getListOfElementByXpath(driver, agents_count_xpath);
+			try{
+				Thread.sleep(5000);
+				}
+				catch(InterruptedException ie){
+				}
 			isSuccessfull = pExpectedElements==agentsList.size();
 		return isSuccessfull;
 	}
@@ -80,6 +80,11 @@ public class ZBOAgentsPage extends Page{
 	public String getURL() {
 		String yourText = driver.getCurrentUrl();
 		String cleartext = yourText.replaceAll("https://my.stage01.zurple.com", " ");
+		try{
+			Thread.sleep(5000);
+			}
+			catch(InterruptedException ie){
+			}
 		return cleartext.trim();
 	}
 	
@@ -111,7 +116,7 @@ public class ZBOAgentsPage extends Page{
 		return ActionHelper.Click(driver, del_agent);
 	}
 	public boolean confirmDelAgent() {
-		ActionHelper.waitForStringXpathToBeVisible(driver, confirmDel, 30);
-		return ActionHelper.ClickStringXpathElement(driver, confirmDel);
+		ActionHelper.waitForElementToBeVisible(driver, confirmAdd , 30);
+		return ActionHelper.Click(driver, confirmAdd);
 	}
 }

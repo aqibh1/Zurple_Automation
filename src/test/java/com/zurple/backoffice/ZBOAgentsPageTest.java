@@ -23,6 +23,7 @@ public class ZBOAgentsPageTest extends PageTest {
 	ZBOAgentsPage page;
 	JSONObject dataObject;
 	int currentAgentsCount;
+	String agentURL = "";
 	
 	@Override
 	public AbstractPage getPage() {
@@ -54,35 +55,49 @@ public class ZBOAgentsPageTest extends PageTest {
 	}
 	
 	@Test
-	public void testAgentsPageLabel() throws InterruptedException {
-		AutomationLogger.startTestCase("Manage Agents");
+	public void testAgentsPageLabel() {
+		AutomationLogger.startTestCase("Manage Agent");
 		getPage("/agents");
+		try{
+			Thread.sleep(5000);
+			}
+		catch(InterruptedException ie){
+			}
 		assertEquals("Manage Agents", page.verifyPageTitle());
 		currentAgentsCount = page.agentsList.size();
 		testAgentsCount(currentAgentsCount);
-		Thread.sleep(4000);
+		
 		AutomationLogger.endTestCase();
 	}
-	
 	
 	@Test
 	@Parameters({"manageAgentsDataFile"})
 	public void testCreateAgents(String pDataFile) {
 		AutomationLogger.startTestCase("Create Agents");
+		
 		page=null;
 		getPage("/agent/create");
 		addUpdateAgent(pDataFile);
-		String agentURL = page.getURL();
-		page=null;
-		getPage("/agents");
-		testAgentsCount(currentAgentsCount+1);
-		page=null;
-		getPage(agentURL);
-		deleteAgent();
-		testAgentsCount(currentAgentsCount-1);
+		agentURL = page.getURL();
+		
 		AutomationLogger.endTestCase();
 	}
 	
+	@Test
+	private void testDelAgent() {
+		AutomationLogger.startTestCase("Create Agents");
+		
+		page=null;
+		getPage(agentURL);
+		deleteAgent();
+		try{
+			Thread.sleep(5000);
+			}
+		catch(InterruptedException ie){
+			}
+		testAgentsCount(currentAgentsCount);
+		AutomationLogger.endTestCase();
+	}
 	
 	private void addUpdateAgent(String pDataFile) {
 		dataObject = getDataFile(pDataFile);
