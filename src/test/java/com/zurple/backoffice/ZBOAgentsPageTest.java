@@ -22,7 +22,7 @@ public class ZBOAgentsPageTest extends PageTest {
 	WebDriver driver;
 	ZBOAgentsPage page;
 	JSONObject dataObject;
-	int currentAgentsCount;
+	int currentAgentsCount = 0;
 	String agentURL = "";
 	
 	@Override
@@ -58,16 +58,14 @@ public class ZBOAgentsPageTest extends PageTest {
 	public void testAgentsPageLabel() {
 		AutomationLogger.startTestCase("Manage Agent");
 		getPage("/agents");
-		try{
-			Thread.sleep(5000);
-			}
-		catch(InterruptedException ie){
-			}
-		assertEquals("Manage Agents", page.verifyPageTitle());
-		currentAgentsCount = page.agentsList.size();
-		testAgentsCount(currentAgentsCount);
+		assertTrue(page.verifyPageTitle(), "Agents page title not found..");
 		
 		AutomationLogger.endTestCase();
+	}
+	
+	@Test
+	public void testAgentsListCount() {
+		testAgentsCount(17);
 	}
 	
 	@Test
@@ -95,7 +93,7 @@ public class ZBOAgentsPageTest extends PageTest {
 			}
 		catch(InterruptedException ie){
 			}
-		testAgentsCount(currentAgentsCount);
+		testAgentsCount(17);
 		AutomationLogger.endTestCase();
 	}
 	

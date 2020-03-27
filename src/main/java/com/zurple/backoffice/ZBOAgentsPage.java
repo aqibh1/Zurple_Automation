@@ -59,9 +59,14 @@ public class ZBOAgentsPage extends Page{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public String verifyPageTitle(){
+	public boolean verifyPageTitle(){
+		boolean isSuccessfull = false;
 		ActionHelper.waitForElementToBeVisible(driver, manage_agents_label, 30);
-		return ActionHelper.getText(driver, manage_agents_label).trim();
+		String pageTitle = ActionHelper.getText(driver, manage_agents_label).trim();
+		if(pageTitle.equals("Manage Agents")) {
+			isSuccessfull = true;
+		}
+		return isSuccessfull;
 	}
 	
 	public boolean verifyAgentsCount(int pExpectedElements) {

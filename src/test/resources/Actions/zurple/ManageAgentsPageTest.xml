@@ -15,7 +15,7 @@
       <class name="com.zurple.backoffice.ZBOAgentsPageTest" >
         <methods>
           <include name="testAgentsPageLabel" />
-        	<include name="testAgentsCount" />
+          <include name="testAgentsListCount" />
         	<include name="testCreateAgents" />
         	<include name="testDelAgent" />
         </methods>
