@@ -1316,7 +1316,7 @@
     </classes>
      </parameter>
   </test>
-  
+  <!--  
   <test name="Update and Verify Lead Capture Settings">
     <parameter name="addNewPageDataFile" value="/resources/data/propertypulse/website/add-lead-capture-data-01.json" >
 	<classes>
@@ -1365,7 +1365,7 @@
     </classes>
     </parameter>
 	</test>
-	
+	-->
 	<test name="Update And Veify User Settings">
     <parameter name="dataFileSettings" value="/resources/data/propertypulse/settings/user-settings-data.json" >
 	<classes>
