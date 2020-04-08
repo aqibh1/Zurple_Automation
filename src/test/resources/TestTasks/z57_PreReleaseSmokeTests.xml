@@ -1674,7 +1674,7 @@
     </classes>
 	</test>
 	
-	 
+	<!--   
     <test name="Create Edit and Delete Page">
     <parameter name="addNewPageDataFile" value="/resources/data/propertypulse/website/add-page-data-01.json" >
 	<classes>
@@ -1701,7 +1701,7 @@
     </classes>
     </parameter>
 	</test>
-	
+	-->
 	 
 	
     <test name="Add Delete Widget from Default Sidebar">
