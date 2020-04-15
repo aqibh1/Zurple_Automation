@@ -115,7 +115,8 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.getPpPromoteListingForm().clickOnSelect(), "Unable to click on Select button...");
 			assertTrue(page.getPpPromoteListingForm().isSelectButtonDisappeared(), "Select button is not disappeared...");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
-			lStatus = lStatus.split("details! ")[0]+"details!";
+			assertTrue(page.typeStatus(lStatus), "Unable to type status in text area..");
+//			lStatus = lStatus.split("details! ")[0]+"details!";
 		}
 		
 		if(lLinkToProperty!=null && !lLinkToProperty.isEmpty()) {
