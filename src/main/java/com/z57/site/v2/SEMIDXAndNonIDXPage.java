@@ -52,8 +52,11 @@ public class SEMIDXAndNonIDXPage extends Page{
 	public boolean isSEMNonIDXPageVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, max_price_select, 20);
 	}
-	public boolean isSEMIDXPageIsVisible() {
+	public boolean isSEMNonIDXPageIsVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, search_button2, 10);
+	}
+	public boolean isSEMIDXPageIsVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, search_button, 10);
 	}
 	public boolean clickOnViewButton() {
 		boolean isClicked = false;

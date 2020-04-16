@@ -75,7 +75,7 @@ public class SEMIDXAndNonIDXPageTest extends PageTest{
 		AutomationLogger.startTestCase("");
 		getPage("/idx/sem-non-idx");
 		JSONObject lJsonDataObj = getDataFile(pDataFile);
-		assertTrue(page.isSEMIDXPageIsVisible(), "SEM non IDX page is not visible..");
+		assertTrue(page.isSEMNonIDXPageIsVisible(), "SEM non IDX page is not visible..");
 		assertTrue(page.clickOnViewButton(), "Unable to click on view button..");
 		registrationFormFill(lJsonDataObj);		
 	}

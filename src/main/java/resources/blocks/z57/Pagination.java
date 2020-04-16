@@ -197,9 +197,10 @@ public class Pagination {
 	}
 	
 	private String getCurrentPageRHS(List<WebElement> pElementList) {
+		pElementList = ActionHelper.getListOfElementByXpath(driver, "//div[@id='ic_search_results_paginate']/descendant::li");
 		String lCurrentPage="";
 		for(WebElement element: pElementList) {
-			if(element.getAttribute("class").contains("paginate_button current") &&
+			if(element.getAttribute("class").contains("paginate_button active") &&
 					!element.getText().equalsIgnoreCase("Previous") && !element.getText().equalsIgnoreCase("Next")) {
 				lCurrentPage=element.getText();
 				break;

@@ -103,11 +103,11 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
     		
     		assertTrue(leadCaptureForm.isLeadCaptureFormVisible(), "Lead Capture Form was not visible for ");
         	
-    		pName=updateName(pName);
-        	assertTrue(leadCaptureForm.typeName(pName), "Name input field not visible. Unable to type");
-        	
         	pEmail=updateEmail(pEmail);
         	assertTrue(leadCaptureForm.typeEmail(pEmail), "Email input field not visible. Unable to type");
+        	
+        	pName=updateName(pName);
+        	assertTrue(leadCaptureForm.typeName(pName), "Name input field not visible. Unable to type");
         	
         	if(!pPhone.isEmpty()) {
         		assertTrue(leadCaptureForm.typePhoneNumber(pPhone), "Phone input field not visible. Unable to type");
