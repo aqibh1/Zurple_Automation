@@ -102,6 +102,7 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
     		LeadCaptureForm leadCaptureForm = new LeadCaptureForm(getDriver());
     		
     		assertTrue(leadCaptureForm.isLeadCaptureFormVisible(), "Lead Capture Form was not visible for ");
+        	ActionHelper.staticWait(5);
         	
         	pEmail=updateEmail(pEmail);
         	assertTrue(leadCaptureForm.typeEmail(pEmail), "Email input field not visible. Unable to type");
