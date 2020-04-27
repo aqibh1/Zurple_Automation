@@ -112,6 +112,9 @@ public class ZWHomeSearchPage extends Page{
 	@FindBy(xpath="//div[@id='jSuggestContainer']")
 	WebElement suggestion_container;
 	
+	@FindBy(xpath="//nav[@class='top-pagination-block']/descendant::li/a[@title='next page']")
+	WebElement next_page;
+	
 	public ZWHomeSearchPage() {
 		
 	}
@@ -124,7 +127,7 @@ public class ZWHomeSearchPage extends Page{
 		boolean isSuccess = true;
 		try {
 			if(ActionHelper.ClearAndType(driver, search_input, pInputString)) {
-				ActionHelper.staticWait(25);
+				ActionHelper.staticWait(15);
 				ActionHelper.getDynamicElement(driver,select_input, pInputString).click();;
 //				isSuccess = ActionHelper.Click(driver, suggested_element);
 			}
@@ -317,5 +320,28 @@ public class ZWHomeSearchPage extends Page{
 	public WebElement getTopMenu() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public boolean clickOnNextButton() {
+		boolean isSuccessful = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, next_page, 30)) {
+			WebElement webElement = driver.findElement(By.xpath("//nav[@class='top-pagination-block']/descendant::li/a[@title='next page']"));
+			while(webElement!=null) {
+				closeModal();
+				ActionHelper.waitForElementToBeClickAble(driver, webElement);
+				isSuccessful = ActionHelper.Click(driver, webElement);
+				ActionHelper.staticWait(2);
+				webElement = ActionHelper.getElementByXpath(driver,"//nav[@class='top-pagination-block']/descendant::li/a[@title='next page']");
+			}
+		}
+		return isSuccessful;
+	}
+	public void closeModal() {
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, "//button[@class='close']/span[@aria-hidden='true']");
+		if(list!=null && list.size()>1) {
+			if(ActionHelper.isElementVisible(driver, list.get(1))) {
+				ActionHelper.Click(driver, list.get(1));
+			}
+		}
 	}
 }

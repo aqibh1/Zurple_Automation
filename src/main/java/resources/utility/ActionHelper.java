@@ -22,7 +22,7 @@ import org.openqa.selenium.support.ui.Wait;
 
 public class ActionHelper {
 	protected static WebDriverWait wait;
-	private static long GLOBAL_WAIT_COUNT=15;
+	private static long GLOBAL_WAIT_COUNT=3;
 	
 	public static boolean Type(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
 			boolean isSuccessfull=false;
@@ -747,5 +747,17 @@ public class ActionHelper {
 
 		   }
 	   }
+	   
+	   public static WebElement getElementByXpath(WebDriver pWebDriver,String pElementXpath){
+			WebElement element = null;
+			try {
+				element = pWebDriver.findElement(By.xpath(pElementXpath));
+			}catch(Exception ex) {
+				AutomationLogger.error("Element list not found -> "+pElementXpath);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return element;
+			
+		}
 	   
 }

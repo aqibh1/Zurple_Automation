@@ -447,7 +447,8 @@ public class PPSocialPageTest extends PageTest{
 	}
 	
 	private void createCacheFile(String pStatus, String pNewFileFile, String pFacebookPage) {
-		String forLikeQuery = pStatus.split(" ")[pStatus.split(" ").length-1];
+//		String forLikeQuery = pStatus.split(" ")[pStatus.split(" ").length-1];
+		String forLikeQuery = pStatus.split(" ")[0];
 		//Writing cache files for verification of recurring posts are success
 //		JSONObject lCurrentObject = getDataFile(pNewFileFile);
 //		writeJsonToFile(pPreviousFile, lCurrentObject);
