@@ -402,7 +402,7 @@ public class DatabasePageTest extends PageTest{
 				if(lPost!=null) {
 					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
 				}else {
-					assertTrue(false,"Unable to verify the following post \n"+lPost);
+					assertTrue(false,"Unable to verify the following post as Post object is null \n");
 				}
 			}
 		} catch (JSONException e) {
@@ -411,7 +411,9 @@ public class DatabasePageTest extends PageTest{
 			// TODO Auto-generated catch block
 			assertTrue(false, "Unable to verify the posts..");
 		}
-		assertTrue(renameAndCreateNewFile(lFileToRead, lBackupFileName), "Unable to rename or create new file");
+		finally {
+			assertTrue(renameAndCreateNewFile(lFileToRead,lBackupFileName), "Unable to rename or create new file");
+		}
 		if(isFileEmpty) {
 			assertTrue(false, "JSON Data File is empty...");
 		}
@@ -434,7 +436,7 @@ public class DatabasePageTest extends PageTest{
 				if(lPost!=null) {
 					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
 				}else {
-					assertTrue(false,"Unable to verify the following post \n"+lPost);
+					assertTrue(false,"Unable to verify the following post as Post object is null \n");
 				}
 			}
 		} catch (JSONException e) {
@@ -443,10 +445,13 @@ public class DatabasePageTest extends PageTest{
 			// TODO Auto-generated catch block
 			assertTrue(false, "Unable to verify the posts..");
 		}
-		assertTrue(renameAndCreateNewFile(lFileToRead,lBackupFileName), "Unable to rename or create new file");
+		finally {
+			assertTrue(renameAndCreateNewFile(lFileToRead,lBackupFileName), "Unable to rename or create new file");
+		}
 		if(isFileEmpty) {
 			assertTrue(false, "JSON Data File is empty...");
 		}
+
 	}
 	
 	@Test
@@ -466,7 +471,7 @@ public class DatabasePageTest extends PageTest{
 				if(lPost!=null) {
 					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
 				}else {
-					assertTrue(false,"Unable to verify the following post \n"+lPost);
+					assertTrue(false,"Unable to verify the following post as Post object is null \n");
 				}
 			}
 		} catch (JSONException e) {
@@ -475,7 +480,9 @@ public class DatabasePageTest extends PageTest{
 			// TODO Auto-generated catch block
 			assertTrue(false, "Unable to verify the posts..");
 		}
-		assertTrue(renameAndCreateNewFile(lFileToRead,lBackupFileName), "Unable to rename or create new file");
+		finally {
+			assertTrue(renameAndCreateNewFile(lFileToRead,lBackupFileName), "Unable to rename or create new file");
+		}
 		if(isFileEmpty) {
 			assertTrue(false, "JSON Data File is empty...");
 		}
@@ -498,7 +505,7 @@ public class DatabasePageTest extends PageTest{
 				if(lPost!=null) {
 					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
 				}else {
-					assertTrue(false,"Unable to verify the following post \n"+lPost);
+					assertTrue(false,"Unable to verify the following post as Post object is null \n");
 				}
 			}
 		} catch (JSONException e) {
@@ -507,7 +514,9 @@ public class DatabasePageTest extends PageTest{
 			// TODO Auto-generated catch block
 			assertTrue(false, "Unable to verify the posts..");
 		}
-		assertTrue(renameAndCreateNewFile(lFileToRead, lBackupFileName), "Unable to rename or create new file");
+		finally {
+			assertTrue(renameAndCreateNewFile(lFileToRead,lBackupFileName), "Unable to rename or create new file");
+		}
 		if(isFileEmpty) {
 			assertTrue(false, "JSON Data File is empty...");
 		}

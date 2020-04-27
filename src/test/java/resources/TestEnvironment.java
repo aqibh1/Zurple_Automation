@@ -437,6 +437,7 @@ public class TestEnvironment
     public Posts getPostByParentPostId(String pParentPostId) {
     	 String project = System.getProperty("project");
     	 Posts posts = null;
+    	 try {
          if (project.equals("z57"))
          {
              ManagePosts postObject = new ManagePosts(getSession());
@@ -449,6 +450,10 @@ public class TestEnvironment
          }else {
         	 
          }
+    	 }catch(Exception ex) {
+    		 AutomationLogger.error("Post object return an error");
+    		 posts = null;
+    	 }
          
          return posts;
     }
