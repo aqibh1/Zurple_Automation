@@ -1182,13 +1182,13 @@
      </parameter>
   </test>
 
-  <test name="Listing Detail Favorite Listing with User logged in">
+ <test name="Listing Detail Favorite Listing with User logged in">
     <parameter name="dataFile" value="/resources/data/listingdetails-favorite-data.json">
     <classes>
-      <class name="com.z57.site.v2.HomePageTest" >
-        <methods>
-          <include name="testSignInWithValidEmail" />
-        </methods>
+       <class name="com.z57.site.v2.ContactMePageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromContactMePage" />
+      </methods>
       </class>
       <class name="com.z57.site.v2.PropertyListingPageTest" >
         <methods>
@@ -1316,7 +1316,7 @@
     </classes>
      </parameter>
   </test>
-  
+  <!--  
   <test name="Update and Verify Lead Capture Settings">
     <parameter name="addNewPageDataFile" value="/resources/data/propertypulse/website/add-lead-capture-data-01.json" >
 	<classes>
@@ -1365,7 +1365,7 @@
     </classes>
     </parameter>
 	</test>
-	
+	-->
 	<test name="Update And Veify User Settings">
     <parameter name="dataFileSettings" value="/resources/data/propertypulse/settings/user-settings-data.json" >
 	<classes>
@@ -1414,33 +1414,6 @@
       </class>
     </classes>
     </parameter>
-    </parameter>
-	</test>
-	
-    <test name="Create an Ad for Listing on PP">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
-      <methods>
-      	<include name="testAddListingForAd" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
-      <methods>
-      <include name="testCreateAnAd" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
     </parameter>
 	</test>
 	
@@ -1604,7 +1577,34 @@
     </classes>
     </parameter>
 	</test>
-
+	<!--  
+    <test name="Create an Ad for Listing on PP">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPListingPageTest" >
+      <methods>
+      	<include name="testAddListingForAd" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateAnAd" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
 	 <test name="Create Customize Ad for Listing on PP">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-for-customize-ad.json" >
 	<classes>
@@ -1653,7 +1653,7 @@
     </classes>
     </parameter>
 	</test>
-	
+	-->
 	  <test name="Verify analytics stats for facebook page">
 	<classes>
 	<class name="com.z57.propertypulse.LoginPageTest" >
@@ -1674,7 +1674,7 @@
     </classes>
 	</test>
 	
-	 
+	<!--   
     <test name="Create Edit and Delete Page">
     <parameter name="addNewPageDataFile" value="/resources/data/propertypulse/website/add-page-data-01.json" >
 	<classes>
@@ -1701,7 +1701,7 @@
     </classes>
     </parameter>
 	</test>
-	
+	-->
 	 
 	
     <test name="Add Delete Widget from Default Sidebar">
@@ -2137,7 +2137,7 @@
     </classes>
     </parameter>
 	</test>
-	
+	<!--  
 	<test name="Create Facebook and Instagram ad for Listing on PP">
  	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
  	<parameter name="dataFile2" value="/resources/data/propertypulse/ads/ads-data.json" >
@@ -2186,4 +2186,6 @@
       </class>
     </classes>
 	</test>
+	
+	-->
 </suite>

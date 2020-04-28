@@ -38,6 +38,9 @@ public class SEMIDXAndNonIDXPage extends Page{
 	@FindBy(id="main_search_submit")
 	WebElement search_button;
 	
+	@FindBy(id="search_button")
+	WebElement search_button2;
+	
 	public SEMIDXAndNonIDXPage() {
 		
 	}
@@ -48,6 +51,9 @@ public class SEMIDXAndNonIDXPage extends Page{
 
 	public boolean isSEMNonIDXPageVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, max_price_select, 20);
+	}
+	public boolean isSEMNonIDXPageIsVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, search_button2, 10);
 	}
 	public boolean isSEMIDXPageIsVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, search_button, 10);

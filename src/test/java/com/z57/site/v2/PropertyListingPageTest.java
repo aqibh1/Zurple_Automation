@@ -18,6 +18,7 @@ import resources.data.z57.SearchFormData;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
+import resources.utility.Z57ListingConstants;
 
 public class PropertyListingPageTest extends PageTest {
 
@@ -208,7 +209,7 @@ public class PropertyListingPageTest extends PageTest {
 		String lR1Email = updateEmail(emailListingFormData.getRecipientOneEmail());
 		
 		
-		getPage("/idx/listings/cws/1098/46062964/821-portsmouth-ct-ct-san-diego-san-diego-county-ca-92109");
+		getPage(Z57ListingConstants.z57_listing);
 		
 		String lAgent_email = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email");
 		
@@ -300,7 +301,7 @@ public class PropertyListingPageTest extends PageTest {
 		String lLeadEmail =updateEmail(requestInfoFormData.getLeadEmail());
 		String lLeadPhoneNumber =requestInfoFormData.getLeadPhoneNumber();
 		String lComments = requestInfoFormData.getComments();
-		String lListingUrl = requestInfoFormData.getListingUrl();//"/idx/listings/cws/1098/46062964/821-portsmouth-ct-ct-san-diego-san-diego-county-ca-92109";
+		String lListingUrl = Z57ListingConstants.z57_listing;
 		
 		if(!lListingUrl.isEmpty()) {
 			getPage(lListingUrl);
@@ -369,7 +370,7 @@ public class PropertyListingPageTest extends PageTest {
 		String lLeadEmail =updateEmail(scheduleListingFormData.getLeadEmail());
 		String lLeadPhoneNumber =scheduleListingFormData.getLeadPhoneNumber();
 		String lComments = scheduleListingFormData.getComments();
-		String lListingUrl = scheduleListingFormData.getListingUrl();//"/idx/listings/cws/1098/46062964/821-portsmouth-ct-ct-san-diego-san-diego-county-ca-92109";
+		String lListingUrl = Z57ListingConstants.z57_listing;
 		
 		if(!lListingUrl.isEmpty()) {
 			getPage(lListingUrl);
@@ -433,7 +434,7 @@ public class PropertyListingPageTest extends PageTest {
 	public void testListingDetailsFavoriteListing(String pDataFile) {
 		AutomationLogger.startTestCase("Home search Favorite Listing");
 		JSONObject lJsonDataObj = getDataFile(pDataFile);
-		getPage("/idx/listings/cws/1098/190021873/san-diego-san-diego-county-ca-91941");
+		getPage(Z57ListingConstants.z57_listing);
 		
 		PageHeader pageHeader = new PageHeader(driver);
 		boolean isLeadLoggedIn=pageHeader.isLeadLoggedIn();
@@ -457,7 +458,7 @@ public class PropertyListingPageTest extends PageTest {
 	@Test
 	public void testCaptureLeadFromListingDetailPage(String pDataFile) {
 		JSONObject lJsonDataObj = getDataFile(pDataFile);
-		getPage("/idx/listings/cws/1098/190021873/san-diego-san-diego-county-ca-91941");
+		getPage(Z57ListingConstants.z57_listing);
 		ActionHelper.RefreshPage(driver);
 //		captureLead(lJsonDataObj.optString("user_name"), lJsonDataObj.optString("user_email"), lJsonDataObj.optString("user_phone_number"), lJsonDataObj.optString("comments"));
 		registrationFormFill(lJsonDataObj);

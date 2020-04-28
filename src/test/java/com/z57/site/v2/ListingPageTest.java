@@ -60,7 +60,7 @@ public class ListingPageTest extends PageTest{
 	@Parameters({"dataFile"})
 	@Test
 	public void testCaptureLeadFromListingPage(String pFolderLocation) {
-		getPage();
+		getPage("/listings");
 		RegisterUserData registerUserData = new RegisterUserData();
     	registerUserData = registerUserData.setRegisterUserData(pFolderLocation);
 
@@ -69,9 +69,6 @@ public class ListingPageTest extends PageTest{
     	String lPhone=registerUserData.getUserPhoneNumber();
     	String lComments=registerUserData.getComments();
     	
-		closeBootStrapModal();
-		PageHeader pageHeader = new PageHeader(driver);
-		assertTrue(pageHeader.clickOnFeaturedProperties(), "Unable to click on Featured Properties");
 		captureLead(lName, lEmail, lPhone, lComments);
 		
 		assertTrue(page.isGoogleMapDisplayed(), "The Google Map is not displayed on Listing Page");

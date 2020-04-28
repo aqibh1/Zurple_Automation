@@ -6,12 +6,62 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
 
-  
-    <test name="Verify Later and Recuuring Posts">
+  <test name="Verify Later and Recurring Posts Twitter">
 	<classes>
       <class name="com.z57.propertypulse.DatabasePageTest" >
       <methods>
-      	<include name="testVerifyLaterAndRecurringPost" />
+      	<include name="testVerifyLaterAndRecurringPostTwitter" />
+      </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+	
+	 <test name="Verify Later and Recurring Posts Facebook">
+	<classes>
+      <class name="com.z57.propertypulse.DatabasePageTest" >
+      <methods>
+      	<include name="testVerifyLaterAndRecurringPostFacebook" />
+      </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+	
+	 <test name="Verify Later and Recurring Posts LinkedIn">
+	<classes>
+      <class name="com.z57.propertypulse.DatabasePageTest" >
+      <methods>
+      	<include name="testVerifyLaterAndRecurringPostLinkedIn" />
+      </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+	 <!--  
+	 <test name="Post on Twitter Later">
+ 	<parameter name="dataFileSocial" value="/resources/data/propertypulse/social/social-post-later-twitter-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPSocialPageTest" >
+      <methods>
+      	<include name="testPostOnSocialPlatform" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
@@ -20,8 +70,7 @@
       </methods>
       </class>
     </classes>
-
+    </parameter>
 	</test>
-	
-	
+	-->
 </suite>
