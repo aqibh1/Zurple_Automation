@@ -67,7 +67,7 @@ public class PPWebsitePageTest extends PageTest{
 		//Drag the widget from Default Side bar to available Widget 
 		setWidgetToDefaultSidebar(true,lWidgetType);
 		navigateToUrl(lWPSite_Url+"/category/real-estate-news");
-		closeBootStrapModal();
+//		closeBootStrapModal();
 		assertFalse(verifyWidgetsOnWebsite(lWidgetType),"Unable to verify widget on website "+lWidgetType);	
 	}
 	

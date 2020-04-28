@@ -1,7 +1,10 @@
 package com.zurple.backoffice;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -85,6 +88,26 @@ public class ZBOLeadDetailPage extends Page{
 	
 	@FindBy(xpath="//div[@id='z-activity-details-alert-emails-grid']/descendant::td[@headers='yui-dt4-th-messageDateTime ']/div")
 	WebElement date_time_email;
+	
+	@FindBy(id="lead_status")
+	WebElement lead_prospect_dropdown;
+	
+	@FindBy(id="z-activity-details-sent")
+	WebElement myMessages_tab_button;
+	
+	String myMessages_emails_xpath = "//div[@id='z-activity-details-sent-grid']/descendant::div[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	
+	@FindBy(id="text_area_note")
+	WebElement note_text_area;
+	
+	@FindBy(id="submit_save_note")
+	WebElement save_note_button;
+	
+	@FindBy(xpath="//button[text()='OK']")
+	WebElement ok_button_notes;
+	
+	String notes_Added_xpath = "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-note ']/div";
+	String notes_date_xpath = "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-date ']/div";
 	
 	public ZBOLeadDetailPage() {
 		
@@ -268,7 +291,7 @@ public class ZBOLeadDetailPage extends Page{
 			ActionHelper.staticWait(3);
 			isEmailExists = ActionHelper.waitForElementToBeVisible(driver, quick_question_subject, 30);
 			if(isEmailExists) {
-				isTimeDateCorrect = ActionHelper.getText(driver, date_time_email).contains(getTodaysDate().replace("2019", "19"));
+				isTimeDateCorrect = ActionHelper.getText(driver, date_time_email).contains(getTodaysDate().replace("2020", "20"));
 			}
 			isVerified = (isEmailExists && isTimeDateCorrect)?true:false;
 		}
@@ -302,6 +325,9 @@ public class ZBOLeadDetailPage extends Page{
 			counter++;
 		}
 		return isVerified;
+	}
+	public boolean clickAndSelectLeadProspect(String pOption) {
+		return ActionHelper.selectDropDownOption(driver, lead_prospect_dropdown, "", pOption);
 	}
 	private boolean verifyAlerts(String pAlertToVerify, String pAlertValueToVerify) {
 
@@ -388,5 +414,78 @@ public class ZBOLeadDetailPage extends Page{
 		return isVerified;
 	}
 	
+	public boolean verifyMyMessages(String pEmailToVerify) {
+		boolean isEmailReceived = false;
+		if(ActionHelper.Click(driver, myMessages_tab_button)) {
+			isEmailReceived = checkStatusAfterReg(pEmailToVerify, myMessages_emails_xpath);
+		}
+		return isEmailReceived;
+	}
 	
+	public boolean checkStatusAfterReg(String pEmailToVerify, String pXpath) {
+		int counter = 0;
+		boolean lIsEmailVisible = false;
+		boolean isVerified = false;
+		while(!lIsEmailVisible && counter<15) {
+			WebElement dynamicEmail = ActionHelper.getDynamicElement(driver, pXpath, pEmailToVerify);
+			isVerified = dynamicEmail!=null?true:false;
+			if(isVerified && ActionHelper.isElementVisible(driver, dynamicEmail)) {
+				lIsEmailVisible = true;
+				break;
+			}else {
+				ActionHelper.staticWait(30);
+				ActionHelper.RefreshPage(driver);
+				ActionHelper.ScrollDownByPixels(driver, "400");
+				ActionHelper.Click(driver, myMessages_tab_button);
+			}
+			counter++;
+		}
+		return isVerified;
+	}
+	
+	public boolean typeComment(String pComment) {
+		return ActionHelper.Type(driver, note_text_area, pComment);
+	}
+	public boolean clickOnSaveNotesButton() {
+		boolean isSuccessful = false;
+		if(ActionHelper.Click(driver, save_note_button)) {
+			if(ActionHelper.waitForElementToBeVisible(driver, ok_button_notes, 20)) {
+				isSuccessful = ActionHelper.Click(driver, ok_button_notes);
+			}
+		}
+		ActionHelper.staticWait(5);
+		return isSuccessful;
+	}
+	public boolean verifyNoteAndTime(String pNoteToVerify) {
+		boolean isVerified = false;
+		boolean isNoteFound = false;
+		int counter = 0;
+		List<WebElement> list_of_notes = ActionHelper.getListOfElementByXpath(driver, notes_Added_xpath);
+		for(int i =0;i<list_of_notes.size();i++) {
+			if(ActionHelper.getText(driver, list_of_notes.get(i)).equalsIgnoreCase(pNoteToVerify)) {
+				isNoteFound = true;
+			}
+	
+			if(isNoteFound) {
+				counter = i;
+				break;
+			}
+		}
+		if(isNoteFound) {
+			List<WebElement> list_of_notes_dates = ActionHelper.getListOfElementByXpath(driver, notes_date_xpath);
+			String lTodaysDate = getCurrentPSTDate();
+			String lNotesDate = ActionHelper.getText(driver,list_of_notes_dates.get(counter));
+			isVerified = lNotesDate.contains(lTodaysDate);
+		}
+		
+		return isVerified;
+	}
+	
+	private String getCurrentPSTDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
+		dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
+		String formattedDate = dateFormat.format(new Date(System.currentTimeMillis())).toString().toLowerCase();
+		return formattedDate;
+
+	}
 }

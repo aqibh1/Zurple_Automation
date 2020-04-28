@@ -1,7 +1,9 @@
 package resources.utility;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -21,7 +23,7 @@ import org.openqa.selenium.support.ui.Wait;
 
 public class ActionHelper {
 	protected static WebDriverWait wait;
-	private static long GLOBAL_WAIT_COUNT=15;
+	private static long GLOBAL_WAIT_COUNT=10;
 	
 	public static boolean Type(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
 			boolean isSuccessfull=false;
@@ -619,9 +621,13 @@ public class ActionHelper {
 		   boolean isSuccess = false;
 		   boolean lElementVal = pElement.isSelected();
 		   if(lElementVal && !pSelect) {
-			   isSuccess = ActionHelper.Click(pWebDriver, pElement);
+			   isSuccess =  ActionHelper.Click(pWebDriver, pElement);
 		   }else if(!lElementVal && pSelect) {
 			   isSuccess = ActionHelper.Click(pWebDriver, pElement);
+		   }else if(lElementVal && pSelect) {
+			   isSuccess = true;
+		   }else if (!lElementVal && !pSelect) {
+			   isSuccess = true;
 		   }
 		   return isSuccess;
 	   }
@@ -705,6 +711,42 @@ public class ActionHelper {
 		   }
 		   return isDisappeared;
 	   }
+	 
+	   public static boolean ClickForAds(WebDriver pWebDriver,WebElement pElementToBeClicked) {
+		   boolean isSuccessfull=true;
+		   wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+		   AutomationLogger.info("Clicking on button -> "+pElementToBeClicked);
+		   try {
+			   pElementToBeClicked.click();
+			   
+			   AutomationLogger.info("Clicked on button successful..");
+
+		   }catch(Exception ex) {
+			   isSuccessfull=false;
+			   AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return isSuccessfull;
+	   }
+	   public static void switchToSecondWindow(WebDriver pWebDriver) {
+		   int counter = 0;
+		   Set<String> handle= pWebDriver.getWindowHandles();
+		   for(String lWindowHandle: handle) {
+			   AutomationLogger.info(lWindowHandle);
+			   if(counter>0) {
+				   pWebDriver.switchTo().window(lWindowHandle);
+			   }
+			   counter++;
+		   }
+	   }
+	   public static void switchToOriginalWindow(WebDriver pWebDriver) {
+		   Set<String> handle= pWebDriver.getWindowHandles();
+		   for(String lWindowHandle: handle) {
+			   AutomationLogger.info(lWindowHandle);
+
+			   pWebDriver.switchTo().window(lWindowHandle);
+		   }
+	   }
 
 	   public static boolean isAlertPresent(WebDriver pWebDriver) {
 		   boolean isSuccess = true;
@@ -718,6 +760,18 @@ public class ActionHelper {
 		   return isSuccess;
 	   }
 	   
+	   public static WebElement getElementByXpath(WebDriver pWebDriver,String pElementXpath){
+			WebElement element = null;
+			try {
+				element = pWebDriver.findElement(By.xpath(pElementXpath));
+			}catch(Exception ex) {
+				AutomationLogger.error("Element list not found -> "+pElementXpath);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return element;
+			
+		}
+	 
 	   public static boolean resizeWindow(WebDriver pWebDriver, int length, int width) {
 		   boolean isSuccess = true;
 		   try {

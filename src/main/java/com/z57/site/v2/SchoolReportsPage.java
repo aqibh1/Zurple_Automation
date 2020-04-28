@@ -27,10 +27,10 @@ public class SchoolReportsPage extends Page{
 	@FindBy(xpath="//div[@id='z57_schools_map_canvas']")
 	WebElement googleMap;
 	
-	@FindBy(xpath="//a[@id='z57_schools_table_next']")
+	@FindBy(xpath="//li[@id='z57_schools_table_next']/a")
 	WebElement next_button;
 	
-	@FindBy(xpath="//a[@class='paginate_button previous' and @id='z57_schools_table_previous']")
+	@FindBy(xpath="//li[@class='paginate_button previous' and @id='z57_schools_table_previous']/a")
 	WebElement previous_button;
 	
 	@FindBy(xpath="//div[@id='z57_schools_table_info']")
@@ -38,7 +38,7 @@ public class SchoolReportsPage extends Page{
 	
 	String list_of_Schools="//table[@id='z57_schools_table']/descendant::tbody/tr";
 	String pin_popup_info_table ="//table[@class='table table-condensed table-striped']/descendant::tbody/tr";
-	String list_of_pages_pagination="//div[@id='z57_schools_table_paginate']/span/a[@data-dt-idx='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	String list_of_pages_pagination="//div[@id='z57_schools_table_paginate']/descendant::a[@data-dt-idx='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
 	public SchoolReportsPage(WebDriver pWebDriver) {
 		driver=pWebDriver;

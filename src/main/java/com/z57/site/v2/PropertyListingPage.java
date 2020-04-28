@@ -472,6 +472,7 @@ public class PropertyListingPage extends Page{
 		return ActionHelper.Click(driver, addToFavorite_button);
 	}
 	public boolean isListingMarkedFavorite() {
+		ActionHelper.ScrollDownByPixels(driver, "400");
 		return !ActionHelper.isElementVisible(driver, addToFavorite_button);
 	}
 	public boolean clickOnRemoveFavoriteButton() {

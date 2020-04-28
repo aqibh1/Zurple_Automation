@@ -1,0 +1,624 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Z57 Pre Release Smoke Tests" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+    </listeners>
+   
+   <test name="Capture Lead From About Me" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-11.json">
+	<classes>
+      <class name="com.z57.site.v2.AboutMePageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromAboutMePage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Capture Lead From Community Reports" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-6.json">
+	<classes>
+      <class name="com.z57.site.v2.CommunityReportsPageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromCommunityReportsPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Capture Lead From Contact Me" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-10.json">
+	<classes>
+      <class name="com.z57.site.v2.ContactMePageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromContactMePage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+    <test name="Capture Lead From Featured Properties" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-3.json">
+	<classes>
+      <class name="com.z57.site.v2.ListingPageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromListingPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Capture Lead From Local Home Values" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-5.json">
+	<classes>
+      <class name="com.z57.site.v2.RecentHomeSalesPageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromRecentHomeSalesPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Capture Lead From School Reports" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-7.json">
+	<classes>
+      <class name="com.z57.site.v2.SchoolReportsPageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromSchoolReportsPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Capture Lead From Sold Listings" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-2.json">
+	<classes>
+      <class name="com.z57.site.v2.SoldListingsPageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromSoldListingPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Capture Lead From Whats Nearby" preserve-order="true">
+	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-8.json">
+	<classes>
+      <class name="com.z57.site.v2.WhatsNearbyPageTest" >
+      <methods>
+      	<include name="testCaptureLeadFromWhatsNearbyPage" />
+      </methods>
+      </class>
+        <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+<test name="Verify Email Listing">
+  <parameter name="dataFile" value="/resources/data/email-listing-data.json">
+    <classes>
+      <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testEmailListing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+  </test>
+  
+  <test name="Verify Email Listing with User logged in">
+    <parameter name="dataFile" value="/resources/data/email-listing-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testEmailListing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+  </test>
+  
+  <test name="Verify Request Info">
+  <parameter name="dataFile" value="/resources/data/request-info-data.json">
+    <classes>
+      <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testRequestInfo" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+  </test>
+  
+  <test name="Verify Request Info with User logged in">
+    <parameter name="dataFile" value="/resources/data/request-info-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testRequestInfo" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+  </test>
+  
+  <test name="Verify Schedule Showing">
+  <parameter name="dataFile" value="/resources/data/request-info-data.json">
+    <classes>
+      <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testScheduleShowing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+  </test>
+  
+  <test name="Verify Schedule Showing with User logged in">
+    <parameter name="dataFile" value="/resources/data/request-info-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testScheduleShowing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+  </test>
+ 	
+  <test name="Verify Email Search">
+  <parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
+   <parameter name="dataFile2" value="/resources/data/email-listing-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testEmailSearch" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+    </parameter>
+  </test>
+  
+  <test name="Verify Email Search with User logged in">
+    <parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
+    <parameter name="dataFile2" value="/resources/data/email-listing-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+       <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testEmailSearch" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+    </parameter>
+  </test>
+  
+  <test name="Capture lead from seller landing page">
+   <parameter name="dataFile" value="/resources/data/CMA-seller-landing-page-capture-lead.json">
+    <classes>
+       <class name="com.z57.propertypulse.PPCMAAdPageTest" >
+        <methods>
+          <include name="testCaptureLeadFromSellerLandingPage" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+  </test>
+  
+  <test name="Home Serach email listing">
+  <parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
+   <parameter name="dataFile2" value="/resources/data/homesearch-email-listing-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testHomeSearchEmailListing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+     </parameter>
+  </test>
+
+  <test name="Home Serach email listing with User logged in">
+    <parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
+    <parameter name="dataFile2" value="/resources/data/homesearch-email-listing-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+       <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testHomeSearchEmailListing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+    </parameter>
+  </test>
+  
+   <test name="Home Serach request info">
+  <parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
+   <parameter name="dataFile2" value="/resources/data/homesearch-request-info-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testHomeSearchRequestInfo" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+     </parameter>
+  </test>
+
+  <test name="Home Serach request info with User logged in">
+    <parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
+    <parameter name="dataFile2" value="/resources/data/homesearch-request-info-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+       <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testHomeSearchRequestInfo" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+    </parameter>
+  </test>
+  
+  <test name="Home Search Schedule Showing">
+  <parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
+   <parameter name="dataFile2" value="/resources/data/homesearch-scheduleshowing-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testHomeSearchScheduleShowing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+     </parameter>
+  </test>
+
+  <test name="Home Search Schedule Showing with User logged in">
+    <parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
+    <parameter name="dataFile2" value="/resources/data/homesearch-scheduleshowing-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+       <class name="com.z57.site.v2.HomeSearchPageTest" >
+        <methods>
+          <include name="testHomeSearchScheduleShowing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+    </parameter>
+  </test>
+  
+  <test name="Listing Detail capture lead">
+   <parameter name="dataFile" value="/resources/data/listingdetails-capture-lead-data.json">
+    <classes>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testCaptureLeadFromListingDetailPage" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+  </test>
+  
+   <test name="Listing Detail Favorite Listing">
+   <parameter name="dataFile" value="/resources/data/listingdetails-favorite-data.json">
+    <classes>
+       <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testListingDetailsFavoriteListing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+  </test>
+
+  <test name="Listing Detail Favorite Listing with User logged in">
+    <parameter name="dataFile" value="/resources/data/listingdetails-favorite-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.PropertyListingPageTest" >
+        <methods>
+          <include name="testListingDetailsFavoriteListing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+  </test>
+  
+   <test name="Listing Request Info">
+   <parameter name="dataFile" value="/resources/data/listings-request-info-data.json">
+    <classes>
+     <class name="com.z57.site.v2.ListingPageTest" >
+        <methods>
+          <include name="testListingsRequestInfo" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+  </test>
+
+  <test name="Listing Request Info with User logged in">
+    <parameter name="dataFile" value="/resources/data/listings-request-info-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+      <class name="com.z57.site.v2.ListingPageTest" >
+        <methods>
+          <include name="testListingsRequestInfo" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+  </test>
+  
+   <test name="Listings Schedule Showing">
+   <parameter name="dataFile" value="/resources/data/listings-scheduleshowing-data.json">
+    <classes>
+      <class name="com.z57.site.v2.ListingPageTest" >
+        <methods>
+          <include name="testListingsScheduleShowing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+  </test>
+
+  <test name="Listings Schedule Showing with User logged in">
+   
+    <parameter name="dataFile" value="/resources/data/listings-scheduleshowing-data.json">
+    <classes>
+      <class name="com.z57.site.v2.HomePageTest" >
+        <methods>
+          <include name="testSignInWithValidEmail" />
+        </methods>
+      </class>
+       <class name="com.z57.site.v2.ListingPageTest" >
+        <methods>
+          <include name="testListingsScheduleShowing" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+    </parameter>
+  </test>
+  
+  <test name="SEM Non IDX lead capture">
+   <parameter name="dataFile" value="/resources/data/semnonidx-register-lead-data.json">
+    <classes>
+     <class name="com.z57.site.v2.SEMIDXAndNonIDXPageTest" >
+        <methods>
+          <include name="testCaptureLeadFromSEMNonIDXPage" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+  </test>
+
+  <test name="SEM IDX lead capture">
+   <parameter name="dataFile" value="/resources/data/semidx-register-lead-data.json">
+    <classes>
+     <class name="com.z57.site.v2.SEMIDXAndNonIDXPageTest" >
+        <methods>
+          <include name="testCaptureLeadFromSEMIDXPage" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+  </test>
+  
+ 
+</suite>

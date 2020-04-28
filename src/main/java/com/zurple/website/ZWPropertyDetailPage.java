@@ -137,6 +137,8 @@ public class ZWPropertyDetailPage extends Page{
 	@FindBy(xpath="//a[@title='view address']")
 	WebElement viewAddress;
 	
+	String propertyNotes_xpath = "//div[@class='row top-buffer']/descendant::p";
+	
 	private ZWContactAgentForm contactAgentForm;
 	private ZWScheduleShowingAlert scheduleShowingAlert;
 	
@@ -422,6 +424,17 @@ public class ZWPropertyDetailPage extends Page{
 	public WebElement getTopMenu() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	public boolean verifyNotes(String pNote) {
+		boolean isVerified = false;
+		List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, propertyNotes_xpath);
+		for (WebElement element: list_of_elements) {
+			if(pNote.equalsIgnoreCase(ActionHelper.getText(driver, element))) {
+				isVerified = true;
+				break;
+			}
+		}
+		return isVerified;
 	}
 
 }

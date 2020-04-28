@@ -649,7 +649,7 @@ public class HomeSearchPageTest extends PageTest{
 
 	}
 	
-	private void scheduleShowingFormFill(JSONObject pDataObject) {		
+	public void scheduleShowingFormFill(JSONObject pDataObject) {		
 		String lLeadName = updateName(pDataObject.optString("lead_name"));
 		String lLeadEmail =updateEmail(pDataObject.optString("lead_email"));
 		String lLeadPhoneNumber =pDataObject.optString("lead_phone_number");
@@ -702,7 +702,7 @@ public class HomeSearchPageTest extends PageTest{
 		
 	}
 
-	private void registrationFormFill(JSONObject lJsonDataObj) {
+	public void registrationFormFill(JSONObject lJsonDataObj) {
 		// TODO Auto-generated method stub
 		HomePageTest homePageTest = new HomePageTest();
 		homePageTest.setDriver(driver);
@@ -711,6 +711,9 @@ public class HomeSearchPageTest extends PageTest{
 		homePageTest.registerLead(lName,lEmail, lJsonDataObj.optString("user_phone_number"));
 		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
     	assertTrue(dbHelperMethods.verifyLeadInDB(lEmail,getLeadId()),"Lead not verified in DB");
+    	assertTrue(dbHelperMethods.verifyEmailIsSentToLead(lEmail, FrameworkConstants.ThanksForRegistering),"Unable to sent email to Lead with subject "+FrameworkConstants.ThanksForRegistering+"\n Lead Email: "+lEmail);
+    	assertTrue(dbHelperMethods.verifyEmailIsSentToAgent(EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_email"), lEmail, FrameworkConstants.YouHaveANewLead), "Unable to sent email to Agent with subject "+FrameworkConstants.YouHaveANewLead);
+
 	}
 
 }

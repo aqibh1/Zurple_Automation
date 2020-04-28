@@ -98,9 +98,12 @@ public class HomePageTest extends PageTest
     	assertTrue(loginFormObj.clickOnSignInButton(),"Sign In button not visible on Home Page");
     	
     	RegisterForm registerFormObj = new RegisterForm(page.getWebDriver());
-    	//Clicks on Already Registered
-    	assertTrue(registerFormObj.clickOnAlreadyRegistered(),"Already registered link is not visible");
-
+    	
+    	if(registerFormObj.isRegisterFormDisplayed()) {
+    		//Clicks on Already Registered
+        	assertTrue(registerFormObj.clickOnAlreadyRegistered(),"Already registered link is not visible");
+    	}
+    	
     	assertTrue(loginFormObj.setEmail(EnvironmentFactory.configReader.getPropertyByName("z57_user_v2")),"Unable to type email address");
     	assertTrue(loginFormObj.clickLoginButton(),"Unable to click on Login button");
     
@@ -237,7 +240,8 @@ public class HomePageTest extends PageTest
     		assertTrue(registerFormObj.setPhoneNumber(pPUserPhoneNumber),"Unable to type Phone Number in input field");
     	}
     	assertTrue(registerFormObj.clickOnRegisterButton(),"Unable to click on Register button");
-    	return registerFormObj.isUserSuccessfullyRegistered();
+    	ActionHelper.staticWait(15);
+    	return !registerFormObj.isRegisterFormDisplayed();
     }
     
     

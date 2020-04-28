@@ -1,0 +1,27 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Home Search Email Listing">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.TestListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+    </listeners>
+ 
+  <test name="Capture lead from seller landing page">
+   <parameter name="dataFile" value="/resources/data/CMA-seller-landing-page-capture-lead.json">
+    <classes>
+       <class name="com.z57.propertypulse.PPCMAAdPageTest" >
+        <methods>
+          <include name="testCaptureLeadFromSellerLandingPage" />
+        </methods>
+      </class>
+       <class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+     </parameter>
+  </test>
+
+</suite>

@@ -419,6 +419,7 @@ public class PPSocialPage extends Page{
 							if(tdElement.getText().equalsIgnoreCase(pDate)) {
 								AutomationLogger.info("Post Date verified");
 								date_verified = true;
+								break;
 							}
 						}
 						if(date_verified) {
@@ -427,19 +428,23 @@ public class PPSocialPage extends Page{
 								if(tdElement.getText().equalsIgnoreCase(pTime)) {
 									AutomationLogger.info("Post Time verified");
 									time_verified = true;
+									
 								}
 								if(tdElement.getText().equalsIgnoreCase(pEndDate)) {
 									AutomationLogger.info("Post End Date verified");
 									endDate_verified = true;
+									
 								}
 								if(tdElement.getText().equalsIgnoreCase("Recurring")) {
 									AutomationLogger.info("Post is recurring verified");
 									isRecurring = true;
+									
 								}
 								for(String days: pRepeatDays.split(",")) {
 									if(tdElement.getText().contains(new ValueMapper().getDays(days))){
 										AutomationLogger.info("Day verified: "+days);
 										repeatOnDays = true;
+										
 									}
 								}
 							}

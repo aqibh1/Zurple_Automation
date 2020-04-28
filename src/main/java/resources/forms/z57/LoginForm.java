@@ -23,7 +23,7 @@ public class LoginForm extends AbstractForm{
 
 	WebDriverWait wait;
 	//Email Login xpath 
-	@FindBy(xpath="./descendant::*[@id=\"login_user_topbar\"]")
+	@FindBy(id="login_user_topbar")
 	WebElement email_input;
 	
 	//Login Xpath button

@@ -223,10 +223,50 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	}
 	
 	@Test 
-	public void testVerifyZurpleMessages() {
+	@Parameters({"addLeadData"})
+	public void testUpdateLeadDetails(String pDataFile) {
+		JSONObject lDataObject = getDataFile(pDataFile);
 		getPage();
+		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
+		assertTrue(page.clickAndSelectLeadProspect(lDataObject.optString("lead_prospect")));
 		
 	}
 	
+	@Test 
+	public void testVerifyMassEmailInMyMessages() {
+		AutomationLogger.startTestCase("Verify Alerts");
+		getPage();
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page = null;
+		getPage("/lead/"+lLeadId);
+		if(page.isEmailVerified()) {
+			if(!getIsProd()) {
+				page = null;
+				//Process email queue
+				getPage("/admin/processemailqueue");
+				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+				page =null;
+				getPage("/lead/"+lLeadId);
+			}
+			assertTrue(page.verifyMyMessages(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject)));
+		}else {
+			assertTrue(false, "Unable to verify email...");
+		}
+	}
+
+	@Test
+	public void testAddAndVerifyLeadNotes() {
+		getPage();
+		String lComment = "This is lead detail note$#";
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page = null;
+		getPage("/lead/"+lLeadId);
+//		getPage("/lead/3016673");
+		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
+		assertTrue(page.typeComment(lComment), "Unable to type note..");
+		assertTrue(page.clickOnSaveNotesButton(), "Unable to click on save notes button..");
+		assertTrue(page.verifyNoteAndTime(lComment), "Unable to verify note and time..");
+		
+	}
 
 }

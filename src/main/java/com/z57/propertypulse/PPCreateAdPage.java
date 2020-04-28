@@ -54,6 +54,39 @@ public class PPCreateAdPage extends Page{
 	@FindBy(xpath="//a[text()='Place Ad' and @data-lsid='cma1']")
 	WebElement place_ad_button_1;
 	
+	@FindBy(id="fb_ad_select_ad_format")
+	WebElement adFormat_dropDown;
+	
+	@FindBy(id="fb_ad_edit_url")
+	WebElement editUrl_button;
+	
+	@FindBy(id="fb_ad_url")
+	WebElement url_input;
+	
+	@FindBy(id="fb_ad_select_ad_format")
+	WebElement adformat_dropdown;
+	
+	@FindBy(id="fb_ad_reach_30")
+	WebElement adAmount25;
+	
+	@FindBy(id="fb_ad_reach_31")
+	WebElement adAmount45;
+	
+	@FindBy(id="fb_ad_reach_32")
+	WebElement adAmount60;
+	
+	@FindBy(xpath="//input[@id='facebook_platform']")
+	WebElement faceBookPlatform_input;
+	
+	@FindBy(xpath="//input[@id='instagram_platform']")
+	WebElement instagramPlatform_input;
+	
+	@FindBy(xpath="//label[@for='instagram_platform']")
+	WebElement instagram_label;
+	
+	@FindBy(xpath="//label[@for='facebook_platform']")
+	WebElement facebook_label;
+	
 	public PPCreateAdPage() {
 		
 	}
@@ -132,4 +165,56 @@ public class PPCreateAdPage extends Page{
 		AutomationLogger.info("Clicking on Place Ad button 01");
 		return ActionHelper.Click(driver, place_ad_button_1);
 	}
+	public boolean selectAdFormat(String pAdFormat) {
+		return ActionHelper.selectDropDownOption(driver, adFormat_dropDown, "", pAdFormat);
+	}
+	public boolean typeListingUrl(String pUrl) {
+		boolean isUrlTyped = false;
+		if(ActionHelper.Click(driver, editUrl_button)) {
+			isUrlTyped = ActionHelper.Type(driver, url_input, pUrl);
+		}
+		return isUrlTyped;
+	}
+	public boolean selectAdAmount(String pAmount) {
+		boolean isClicked = false;
+		if(pAmount.equalsIgnoreCase("25")) {
+			isClicked = ActionHelper.Click(driver, adAmount25);
+		}else if(pAmount.equalsIgnoreCase("45")) {
+			isClicked = ActionHelper.Click(driver, adAmount45);
+		}else {
+			isClicked = ActionHelper.Click(driver, adAmount60);
+		}
+		return isClicked;
+	}
+	public boolean selectPlatforms(String pPlatForms) {
+		boolean isChecked = false;
+		String[] lPlatforms = pPlatForms.split(",");
+		for(String lPlatform: lPlatforms) {
+			if(lPlatform.equalsIgnoreCase("Facebook")) {
+				isChecked = checkUncheckInputBox(driver,facebook_label, faceBookPlatform_input, true);
+			}else {
+				isChecked = checkUncheckInputBox(driver,instagram_label,instagramPlatform_input, true);
+			}
+			if(!isChecked) {
+				break;
+			}
+			
+		}
+		return isChecked;
+	}
+	
+	 public static boolean checkUncheckInputBox(WebDriver pWebDriver, WebElement pElementToClicked,WebElement pElementToCheck, boolean pSelect) {
+		   boolean isSuccess = false;
+		   boolean lElementVal = pElementToCheck.isSelected();
+		   if(lElementVal && !pSelect) {
+			   isSuccess =  ActionHelper.ClickForAds(pWebDriver, pElementToClicked);
+		   }else if(!lElementVal && pSelect) {
+			   isSuccess = ActionHelper.ClickForAds(pWebDriver, pElementToClicked);
+		   }else if(lElementVal && pSelect) {
+			   isSuccess = true;
+		   }else if (!lElementVal && !pSelect) {
+			   isSuccess = true;
+		   }
+		   return isSuccess;
+	   }
 }

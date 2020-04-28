@@ -21,7 +21,7 @@ import resources.utility.AutomationLogger;
 public class RegisterForm extends AbstractForm{
 
 
-	@FindBy(xpath="//div[@class='login-links']/a[@id='widget_login_topbar']")
+	@FindBy(id="widget_login_topbar")
 	WebElement alreadyregistered_link;
 	
 	@FindBy(xpath="//input[@id='top_bar_lead_reg_name']")
@@ -53,6 +53,7 @@ public class RegisterForm extends AbstractForm{
 		boolean isSuccess = false;
 		if(ActionHelper.waitForElementToBeVisible(driver, alreadyregistered_link, 15)) {
 			isSuccess = ActionHelper.Click(driver, alreadyregistered_link);
+			ActionHelper.staticWait(3);
 		}
 		return isSuccess;
 	}
