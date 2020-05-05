@@ -89,8 +89,8 @@ public class PPSocialPageTest extends PageTest{
 		String lRepeatOnDays=getCurrentAndNextDayOfTheWeek();//socialData.getRepeatDays();
 		String lPromoteListing = socialData.getPromoteListing();
 		String lLinkToProperty = socialData.getPropertyLink();
-		String lFileToWriteProd = "/resources/cache/facebook-prod.json";
-		String lFileToWriteStage = "/resources/cache/facebook-qa.json";
+		String lFileToWriteProd = "/resources/cache/facebook-posts-prod.json";
+		String lFileToWriteStage = "/resources/cache/facebook-posts-qa.json";
 		
 		getPage("/content/marketing/social");
 		
@@ -209,8 +209,8 @@ public class PPSocialPageTest extends PageTest{
 
 		case "Twitter":
 			//Uncheck Facebook option
-			lFileToWriteProd = "/resources/cache/twitter-prod.json";
-			lFileToWriteStage = "/resources/cache/twitter-qa.json";
+			lFileToWriteProd = "/resources/cache/twitter-posts-prod.json";
+			lFileToWriteStage = "/resources/cache/twitter-posts-qa.json";
 			assertTrue(page.unCheckFacebookOption(), "Unable to check Facebook option..");
 			assertTrue(page.checkTwitterOption(true), "Unable to check Twitter checkbox..");
 			lPlatformIcon = FrameworkConstants.TwitterIconImage;
@@ -218,8 +218,8 @@ public class PPSocialPageTest extends PageTest{
 			break;
 
 		case "YouTube":
-			lFileToWriteProd = "/resources/cache/youtube-prod.json";
-			lFileToWriteStage = "/resources/cache/youtube-qa.json";
+			lFileToWriteProd = "/resources/cache/youtube-posts-prod.json";
+			lFileToWriteStage = "/resources/cache/youtube-posts-qa.json";
 			lStatus = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.ListingsAddress);
 			assertTrue(page.checkYoutubeOption(), "Unable to check Youtube checkbox..");
 			assertTrue(page.getPpPromoteListingForm().isChooseAListingForm(), "Promote Listing form is not visible after clicking youtube checkbox..");
@@ -230,8 +230,8 @@ public class PPSocialPageTest extends PageTest{
 
 		case "LinkedIn":
 			//Uncheck Facebook option
-			lFileToWriteProd = "/resources/cache/linkedin-prod.json";
-			lFileToWriteStage = "/resources/cache/linkedin-qa.json";
+			lFileToWriteProd = "/resources/cache/linkedin-posts-prod.json";
+			lFileToWriteStage = "/resources/cache/linkedin-posts-qa.json";
 			assertTrue(page.unCheckFacebookOption(), "Unable to check Facebook option..");
 			assertTrue(page.checkLinkedInOption(true), "Unable to check LinkedIn checkbox..");
 			lPlatformIcon = FrameworkConstants.LinkedInIconImage;
