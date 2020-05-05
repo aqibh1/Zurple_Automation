@@ -398,6 +398,7 @@ public class DatabasePageTest extends PageTest{
 			isFileEmpty = lJArray.length()==0?true:false;
 			for(int i = 0 ;i<lJArray.length();i++) {
 				JSONObject jObj = lJArray.getJSONObject(i);
+				AutomationLogger.info(jObj.toString());
 				Posts lPost = getEnvironment().getPostByParentPostId(jObj.opt("postID").toString());
 				if(lPost!=null) {
 					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
@@ -432,6 +433,7 @@ public class DatabasePageTest extends PageTest{
 			isFileEmpty = lJArray.length()==0?true:false;
 			for(int i = 0 ;i<lJArray.length();i++) {
 				JSONObject jObj = lJArray.getJSONObject(i);
+				AutomationLogger.info(jObj.toString());
 				Posts lPost = getEnvironment().getPostByParentPostId(jObj.opt("postID").toString());
 				if(lPost!=null) {
 					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
@@ -467,6 +469,7 @@ public class DatabasePageTest extends PageTest{
 			isFileEmpty = lJArray.length()==0?true:false;
 			for(int i = 0 ;i<lJArray.length();i++) {
 				JSONObject jObj = lJArray.getJSONObject(i);
+				AutomationLogger.info(jObj.toString());
 				Posts lPost = getEnvironment().getPostByParentPostId(jObj.opt("postID").toString());
 				if(lPost!=null) {
 					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
@@ -501,6 +504,7 @@ public class DatabasePageTest extends PageTest{
 			isFileEmpty = lJArray.length()==0?true:false;
 			for(int i = 0 ;i<lJArray.length();i++) {
 				JSONObject jObj = lJArray.getJSONObject(i);
+				AutomationLogger.info(jObj.toString());
 				Posts lPost = getEnvironment().getPostByParentPostId(jObj.opt("postID").toString());
 				if(lPost!=null) {
 					assertTrue(lPost.getStatus()==1, "Unable to post scheduled post on the platform..\n"+lPost);
