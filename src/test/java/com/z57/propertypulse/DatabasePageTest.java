@@ -414,9 +414,9 @@ public class DatabasePageTest extends PageTest{
 		finally {
 			assertTrue(renameAndCreateNewFile(lFileToRead,lBackupFileName), "Unable to rename or create new file");
 		}
-		if(isFileEmpty) {
-			assertTrue(false, "JSON Data File is empty...");
-		}
+//		if(isFileEmpty) {
+//			assertTrue(false, "JSON Data File is empty...");
+//		}
 	}
 	
 	@Test
@@ -448,9 +448,9 @@ public class DatabasePageTest extends PageTest{
 		finally {
 			assertTrue(renameAndCreateNewFile(lFileToRead,lBackupFileName), "Unable to rename or create new file");
 		}
-		if(isFileEmpty) {
-			assertTrue(false, "JSON Data File is empty...");
-		}
+//		if(isFileEmpty) {
+//			assertTrue(false, "JSON Data File is empty...");
+//		}
 
 	}
 	
@@ -483,9 +483,9 @@ public class DatabasePageTest extends PageTest{
 		finally {
 			assertTrue(renameAndCreateNewFile(lFileToRead,lBackupFileName), "Unable to rename or create new file");
 		}
-		if(isFileEmpty) {
-			assertTrue(false, "JSON Data File is empty...");
-		}
+//		if(isFileEmpty) {
+//			assertTrue(false, "JSON Data File is empty...");
+//		}
 	}
 	
 	@Test
@@ -517,9 +517,9 @@ public class DatabasePageTest extends PageTest{
 		finally {
 			assertTrue(renameAndCreateNewFile(lFileToRead,lBackupFileName), "Unable to rename or create new file");
 		}
-		if(isFileEmpty) {
-			assertTrue(false, "JSON Data File is empty...");
-		}
+//		if(isFileEmpty) {
+//			assertTrue(false, "JSON Data File is empty...");
+//		}
 	}
 	
 	@Test
