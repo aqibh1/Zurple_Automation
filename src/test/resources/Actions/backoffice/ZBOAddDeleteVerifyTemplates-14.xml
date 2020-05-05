@@ -9,21 +9,21 @@
 	</listeners>
 
 	<test name="Add and Verify notes in Lead Details page">
-
+<parameter name="templateData"
+				value="/resources/data/zurple/backoffice/marketing/create-template-data.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOLoginPageTest">
 				<methods>
 					<include name="testBackOfficeLogin" />
 				</methods>
 			</class>
-			<parameter name="templateData"
-				value="/resources/data/zurple/backoffice/marketing/create-template-data.json">
+			
 				<class name="com.zurple.backoffice.ZBOCreateTemplatePageTest">
 					<methods>
 						<include name="testCreateTemplate" />
 					</methods>
 				</class>
-			</parameter>
+			
 			<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
 				<methods>
 					<include name="testVerifyTemplateExists" />
@@ -45,7 +45,7 @@
 				</methods>
 			</class>
 		</classes>
-
+</parameter>
 	</test>
 </suite>
 
