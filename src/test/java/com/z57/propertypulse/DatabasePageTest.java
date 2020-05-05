@@ -389,8 +389,8 @@ public class DatabasePageTest extends PageTest{
 	public void testVerifyLaterAndRecurringPostFacebook() {
 		getPage();
 		boolean isFileEmpty = false;
-		String lFileToReadProd = "/resources/cache/facebook-posts-prod.json";
-		String lFileToReadStage = "/resources/cache/facebook-posts-qa.json";
+		String lFileToReadProd = "/resources/cache/facebook-prod.json";
+		String lFileToReadStage = "/resources/cache/facebook-qa.json";
 		String lBackupFileName = "fb-";
 		String lFileToRead = getIsProd()?System.getProperty("user.dir")+lFileToReadProd:System.getProperty("user.dir")+lFileToReadStage;
 		try {
@@ -423,8 +423,8 @@ public class DatabasePageTest extends PageTest{
 	public void testVerifyLaterAndRecurringPostTwitter() {
 		getPage();
 		boolean isFileEmpty = false;
-		String lFileToReadProd = "/resources/cache/twitter-posts-prod.json";
-		String lFileToReadStage = "/resources/cache/twitter-posts-qa.json";
+		String lFileToReadProd = "/resources/cache/twitter-prod.json";
+		String lFileToReadStage = "/resources/cache/twitter-qa.json";
 		String lBackupFileName = "twitter-";
 		String lFileToRead = getIsProd()?System.getProperty("user.dir")+lFileToReadProd:System.getProperty("user.dir")+lFileToReadStage;
 		try {
@@ -458,8 +458,8 @@ public class DatabasePageTest extends PageTest{
 	public void testVerifyLaterAndRecurringPostYoutube() {
 		getPage();
 		boolean isFileEmpty = false;
-		String lFileToReadProd = "/resources/cache/youtube-posts-prod.json";
-		String lFileToReadStage = "/resources/cache/youtube-posts-qa.json";
+		String lFileToReadProd = "/resources/cache/youtube-prod.json";
+		String lFileToReadStage = "/resources/cache/youtube-qa.json";
 		String lBackupFileName = "yt-";
 		String lFileToRead = getIsProd()?System.getProperty("user.dir")+lFileToReadProd:System.getProperty("user.dir")+lFileToReadStage;
 		try {
@@ -492,8 +492,8 @@ public class DatabasePageTest extends PageTest{
 	public void testVerifyLaterAndRecurringPostLinkedIn() {
 		getPage();
 		boolean isFileEmpty = false;
-		String lFileToReadProd = "/resources/cache/linkedin-posts-prod.json";
-		String lFileToReadStage = "/resources/cache/linkedin-posts-qa.json";
+		String lFileToReadProd = "/resources/cache/linkedin-prod.json";
+		String lFileToReadStage = "/resources/cache/linkedin-qa.json";
 		String lBackupFileName = "linkedin-";
 		String lFileToRead = getIsProd()?System.getProperty("user.dir")+lFileToReadProd:System.getProperty("user.dir")+lFileToReadStage;
 		try {
