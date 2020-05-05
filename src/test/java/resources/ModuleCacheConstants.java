@@ -15,5 +15,7 @@ public class ModuleCacheConstants {
 	public static final String ZurpleProp = "zurple.property";
 	public static final String ZurpleEmailFlyerSubject = "zurple.marketing.emailflyer.subject";
 	public static final String ZurpleStandardEmailSubject = "zurple.marketing.standardemail.subject";
+	public static final String ZurpleTemplateName = "zurple.marketing.template.name";
+	public static final String ZurpleTemplateSubject = "zurple.marketing.template.subject";
 
 }

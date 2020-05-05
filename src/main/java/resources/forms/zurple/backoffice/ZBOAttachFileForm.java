@@ -3,6 +3,8 @@
  */
 package resources.forms.zurple.backoffice;
 
+import static org.testng.Assert.assertTrue;
+
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
@@ -46,5 +48,13 @@ public class ZBOAttachFileForm extends AbstractForm{
 	public void switchToOriginalWindow() {
 		ActionHelper.switchToOriginalWindow(driver);
 	}
-
+	
+	public void uploadAndVerifyFileIsAttached(String pFilePath) {
+		if(pFilePath!=null && !pFilePath.isEmpty()) {
+			switchToBrowserToNewWindow();
+			assertTrue(isUploadFileFormVisible(), "Upload file form is not visible..");
+			assertTrue(clickAndSelectFile(), "Unable to select the file from upload form ..");
+			switchToOriginalWindow();
+		}
+	}
 }

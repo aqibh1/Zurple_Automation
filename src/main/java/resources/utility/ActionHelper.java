@@ -738,6 +738,17 @@ public class ActionHelper {
 			   counter++;
 		   }
 	   }
+	   public static void switchToSecondWindowByIndex(WebDriver pWebDriver, int pIndex) {
+		   int counter = 0;
+		   Set<String> handle= pWebDriver.getWindowHandles();
+		   for(String lWindowHandle: handle) {
+			   AutomationLogger.info(lWindowHandle);
+			   if(counter==pIndex) {
+				   pWebDriver.switchTo().window(lWindowHandle);
+			   }
+			   counter++;
+		   }
+	   }
 	   public static void switchToOriginalWindow(WebDriver pWebDriver) {
 		   Set<String> handle= pWebDriver.getWindowHandles();
 		   for(String lWindowHandle: handle) {

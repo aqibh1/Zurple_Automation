@@ -1,0 +1,8 @@
+{
+	"template_name":"Automation Template",
+	"template_subject":"Template with Image Place Holder",
+	"template_body":"This is my domain %{site_domain}%",
+	"file_path":"true",
+	"image_path":"https://s3.amazonaws.com/email.dev.pictures/5277dcf551239efd85e6eea62e7e6978",
+	"template_placeholder":""
+}

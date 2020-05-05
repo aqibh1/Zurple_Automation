@@ -70,6 +70,14 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		fillStandardEmailForm(lDataObject);
 	}
 	
+	@Test(dependsOnGroups = {"com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate"})
+	public void testVerifyTemplateExists() {
+		getPage("/marketing/massemail");
+		String lTemplateName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleTemplateName);
+		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
+		assertTrue(page.isTemplateExists(lTemplateName), "Template does not exist in Mass email drop down..");
+		
+	}
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
 		String lToEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");
