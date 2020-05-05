@@ -34,7 +34,7 @@ public class GetMaximumListingExposureModal {
 	}
 	
 	public boolean closeAlert() {
-		boolean close=false;
+		boolean close=true;
 		if(isGextMaximumListingExposureAlert()) {
 			close = ActionHelper.Click(driver, close_button);
 		}
