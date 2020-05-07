@@ -34,8 +34,11 @@ public class TXBOLoginPage extends Page{
 	@FindBy(xpath="//img[@src='img/torchx/torchx_logo.png']")
 	WebElement torchX_logo;
 	
-	@FindBy(xpath="//p[@class='alert alert-danger']")
+	@FindBy(xpath="//p[@class='alert alert-danger' and contains(text(),'This Admin account is not active')]")
 	WebElement incorrect_error_alert;
+	
+	@FindBy(id="footer")
+	WebElement footer;
 	
 	public TXBOLoginPage() {
 		
@@ -66,6 +69,13 @@ public class TXBOLoginPage extends Page{
 	public boolean isLoginSuccessful() {
 		return !ActionHelper.waitForElementToBeVisible(driver, incorrect_error_alert, 10);
 		
+	}
+	public boolean verifyTorchXYellowIsDisplayed() {
+		String lColorValue = footer.getCssValue("background-color");
+		return lColorValue.equalsIgnoreCase("rgba(250, 160, 26, 1)");
+	}
+	public boolean clickOnForgotPasswordLink() {
+		return ActionHelper.Click(driver, forgot_password_link);
 	}
 
 }
