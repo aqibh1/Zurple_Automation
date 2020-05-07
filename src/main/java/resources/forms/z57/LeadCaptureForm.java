@@ -48,7 +48,7 @@ public class LeadCaptureForm extends AbstractForm{
 	}
 	
 	public boolean isLeadCaptureFormVisible() {
-		return ActionHelper.waitForElementToBeVisible(driver, modal_header_title,20);
+		return ActionHelper.waitForElementToBeVisible(driver, modal_header_title,30);
 	}
 	
 }

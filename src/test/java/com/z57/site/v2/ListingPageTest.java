@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import resources.data.z57.RegisterUserData;
 import resources.data.z57.SearchFormData;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 public class ListingPageTest extends PageTest{
@@ -93,6 +94,7 @@ public class ListingPageTest extends PageTest{
 		AutomationLogger.startTestCase("Home search Request Info");
 		JSONObject lJsonDataObj = getDataFile(pDataFile);
 		getPage("/listings");
+		ActionHelper.staticWait(5);
 		closeBootStrapModal();
 		HomeSearchPage homeSearchPage = new HomeSearchPage(driver);
 		assertTrue(homeSearchPage.clickOnRequestInfoButton(), "Unable to click on Request Info button...");
