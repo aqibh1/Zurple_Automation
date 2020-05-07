@@ -206,7 +206,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		if(lEnvironment.equalsIgnoreCase("prod")) {
 			getPage("/CA/San_Diego/52138475");
 		}else {
-			getPage("/CA/Carlsbad/34209050");
+			getPage(ZurpleListingConstants.zurple_staging_listing);
 		}
 		
 		dataObject = getDataFile(pDataFile);
