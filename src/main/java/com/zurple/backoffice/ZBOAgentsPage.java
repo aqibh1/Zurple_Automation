@@ -73,23 +73,19 @@ public class ZBOAgentsPage extends Page{
 		boolean isSuccessfull = false;
 			ActionHelper.waitForStringXpathToBeVisible(driver, agents_count_xpath, 30);
 			agentsList = ActionHelper.getListOfElementByXpath(driver, agents_count_xpath);
-			try{
-				Thread.sleep(5000);
-				}
-				catch(InterruptedException ie){
-				}
+			ActionHelper.staticWait(5);
 			isSuccessfull = pExpectedElements==agentsList.size();
 		return isSuccessfull;
+	}
+	
+	public int getAgentsCount() {
+		return ActionHelper.getListOfElementByXpath(driver, agents_count_xpath).size();
 	}
 	
 	public String getURL() {
 		String yourText = driver.getCurrentUrl();
 		String cleartext = yourText.replaceAll("https://my.stage01.zurple.com", " ");
-		try{
-			Thread.sleep(5000);
-			}
-			catch(InterruptedException ie){
-			}
+		ActionHelper.staticWait(5);
 		return cleartext.trim();
 	}
 	

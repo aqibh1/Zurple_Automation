@@ -15,6 +15,7 @@ import com.zurple.my.PageTest;
 import resources.AbstractPage;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.DataConstants;
 
@@ -24,6 +25,7 @@ public class ZBOAgentsPageTest extends PageTest {
 	JSONObject dataObject;
 	int currentAgentsCount = 0;
 	String agentURL = "";
+	int count=0;
 	
 	@Override
 	public AbstractPage getPage() {
@@ -50,22 +52,23 @@ public class ZBOAgentsPageTest extends PageTest {
 		// TODO Auto-generated method stub	
 	}
 	
-	public void testAgentsCount(int count) {
-		assertTrue(page.verifyAgentsCount(count));
-	}
-	
 	@Test
 	public void testAgentsPageLabel() {
 		AutomationLogger.startTestCase("Manage Agent");
 		getPage("/agents");
 		assertTrue(page.verifyPageTitle(), "Agents page title not found..");
-		
 		AutomationLogger.endTestCase();
 	}
 	
 	@Test
 	public void testAgentsListCount() {
-		testAgentsCount(17);
+		AutomationLogger.startTestCase("Create Agents");
+		ActionHelper.staticWait(10);
+		int lAgentCount = page.getAgentsCount();
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.Zurple_Agents_Count, lAgentCount);
+		count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.Zurple_Agents_Count);
+		assertTrue(page.verifyAgentsCount(count));
+		AutomationLogger.endTestCase();
 	}
 	
 	@Test
@@ -82,19 +85,30 @@ public class ZBOAgentsPageTest extends PageTest {
 	}
 	
 	@Test
+	public void testCountAfterAddAgent() {
+		page=null;
+		getPage("/agents");
+		ActionHelper.staticWait(10);
+		assertTrue(page.verifyAgentsCount(count+1));
+	}
+	
+	@Test
 	private void testDelAgent() {
 		AutomationLogger.startTestCase("Create Agents");
 		
 		page=null;
 		getPage(agentURL);
 		deleteAgent();
-		try{
-			Thread.sleep(5000);
-			}
-		catch(InterruptedException ie){
-			}
-		testAgentsCount(17);
+		ActionHelper.staticWait(5);
 		AutomationLogger.endTestCase();
+	}
+	
+	@Test
+	public void testCountAfterDelAgent() {
+		page=null;
+		getPage("/agents");
+		ActionHelper.staticWait(10);
+		assertTrue(page.verifyAgentsCount(count));
 	}
 	
 	private void addUpdateAgent(String pDataFile) {
@@ -115,8 +129,8 @@ public class ZBOAgentsPageTest extends PageTest {
 		String confirmPass = dataObject.optString(DataConstants.ConfirmPassword);
 		assertTrue(page.typeAgentConfirmPassword(confirmPass), "Unable to type Agent confirm password..");
 
-		page.addAgentButton();
-		page.confirmAgent();
+		assertTrue(page.addAgentButton(), "Unable to click add agent button..");
+		assertTrue(page.confirmAgent(), "Unable to confirm agent from confirmation modal..");
 	}
 	
 	private void deleteAgent() {
