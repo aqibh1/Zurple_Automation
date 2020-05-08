@@ -143,7 +143,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		if(!dataObject.optString("zip_criteria").isEmpty()) {
 			assertTrue(page.verifyEmailPreferences("Location", dataObject.optString("city_criteria")),"Unable to verify email preferences.."+dataObject.optString("city_criteria"));
 		}
-		boolean isWelcomeEmail = dataObject.optString("welcome_Email")!=null?true:false;
+		boolean isWelcomeEmail = !dataObject.optString("welcome_Email").isEmpty()?true:false;
 		if(isWelcomeEmail) {
 			assertTrue(page.isWelcomeEmailSent(), "Unable to send welcome email..");
 		}
