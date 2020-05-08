@@ -793,7 +793,7 @@
 		</parameter>
 		</parameter>
 	</test>
-	
+	<!-- Back Office test cases -->
 	<test name="Verify Sorting works on Leads Page">	 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -1152,6 +1152,34 @@
 	</parameter>
 	</test>
 	
+	<test name="Add and Verify notes in Lead Details page">	
+	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-notes.json"> 
+				<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+			
+				<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+					<methods>
+						<include name="testAddLead" />
+					</methods>
+				</class>
+			
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+							<include name="testAddAndVerifyLeadNotes" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>
 	
 	<test name="Add and Verify template">
 	<parameter name="templateData" value="/resources/data/zurple/backoffice/marketing/create-template-data.json">
