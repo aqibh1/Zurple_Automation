@@ -56,7 +56,7 @@ public class ZBOLeadPageTest extends PageTest{
 	
 	@Test
 	public void testVerifySortingIsWorking() {
-		AutomationLogger.startTestCase("Veifying Sorting on Leads page");
+		AutomationLogger.startTestCase("Verifying Sorting on Leads page");
 		getPage("/leads");
 		assertTrue(page.isLeadPage(), "Lead Page is not visible..");
 		assertTrue(page.isProcessingComplete(), "Processing is not completed..");
@@ -74,7 +74,7 @@ public class ZBOLeadPageTest extends PageTest{
 	@Test
 	@Parameters({"filterDataFile"})
 	public void testVerifyFilterIsWorking(String pDataFile) throws JSONException, ParseException {
-		AutomationLogger.startTestCase("Veifying filters on Leads page");
+		AutomationLogger.startTestCase("Verifying filters on Leads page");
 		getPage("/leads");
 		JSONObject jObject = getDataFile(pDataFile);
 		JSONArray jArray = jObject.getJSONArray("filterNameVals");

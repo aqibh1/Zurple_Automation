@@ -63,6 +63,40 @@ public class ActionHelper {
 			return isSuccessfull;
 		}
 	   
+	   public static boolean ClickStringXpathElement(WebDriver pWebDriver,String pElementToBeClicked) {
+			boolean isSuccessfull=false;
+			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			AutomationLogger.info("Clicking on button -> "+pElementToBeClicked);
+			try {
+				if(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(pElementToBeClicked)))!=null) {
+					pWebDriver.findElement(By.xpath(pElementToBeClicked)).click();
+					isSuccessfull=true;
+					AutomationLogger.info("Clicked on button successful..");
+				}
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessfull;
+		}
+	   
+	   public static boolean ClickByIndex(WebDriver pWebDriver, String pElementToBeClicked, int index) {
+			boolean isSuccessfull=false;
+			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			AutomationLogger.info("Clicking on button -> "+pElementToBeClicked);
+			try {
+					pWebDriver.findElements(By.className(pElementToBeClicked)).get(index).click();
+					isSuccessfull=true;
+					AutomationLogger.info("Clicked on button successful..");
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessfull;
+		}
+	   
 	   public static boolean MouseHoverOnElement(WebDriver pWebDriver, WebElement pElementToBeHoveredOn) {
 		   boolean status = true;
 		   if(isElementVisible(pWebDriver, pElementToBeHoveredOn)) {
@@ -121,6 +155,19 @@ public class ActionHelper {
 		   boolean isElementVisible = false;
 		   try {
 			   isElementVisible=wait.until(ExpectedConditions.visibilityOf(pElement))!=null;
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Element is not visible.  -> "+pElement);
+			   AutomationLogger.error("Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return isElementVisible;
+	   }
+	   
+	   public static boolean waitForStringXpathToBeVisible(WebDriver pWebDriver, String pElement, long pWaitInSecnds) {
+		   boolean isElementVisible = false;
+		   try {
+			   WebDriverWait wait = new WebDriverWait(pWebDriver, pWaitInSecnds); // Wait for seconds.
+			   wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(pElement)));
 		   }catch(Exception ex) {
 			   AutomationLogger.error("Element is not visible.  -> "+pElement);
 			   AutomationLogger.error("Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
