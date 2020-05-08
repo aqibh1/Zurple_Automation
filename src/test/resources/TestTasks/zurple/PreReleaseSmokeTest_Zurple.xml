@@ -1245,4 +1245,27 @@
     </classes>
   </parameter>
    </test>
+   
+   <test name="Manage agents page label">
+  <parameter name="manageAgentsDataFile" 
+  		value="/resources/data/create-agent-data.json">
+  	</parameter>
+    <classes>
+    <class name="com.zurple.backoffice.ZBOLoginPageTest">
+	<methods>
+		<include name="testBackOfficeLogin" />
+	</methods>
+	</class>
+      <class name="com.zurple.backoffice.ZBOAgentsPageTest" >
+        <methods>
+          <include name="testAgentsPageLabel" />
+          <include name="testAgentsListCount" />
+        	<include name="testCreateAgents" />
+        	<include name="testCountAfterAddAgent" />
+        	<include name="testDelAgent" />
+        	<include name="testCountAfterDelAgent" />
+        </methods>
+      </class>
+    </classes>
+  </test>
 </suite>
