@@ -90,6 +90,9 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	@FindBy(id="attachment_label")
 	WebElement attachment_label_preview;
 	
+	@FindBy(id="campaign_template")
+	WebElement campaign_template_dropdown;
+	
 	private ZBOInsertImageForm zboInsertImageForm;
 	private ZBOAttachFileForm zbAttachFileForm;
 	
@@ -200,5 +203,8 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	}
 	public boolean isAttachmentLabelVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, attachment_label_preview, 30);
+	}
+	public boolean isTemplateExists(String pTemplateName) {
+		return ActionHelper.selectDropDownOption(driver,campaign_template_dropdown , "", pTemplateName);
 	}
 }

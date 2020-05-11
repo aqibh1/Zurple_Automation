@@ -263,7 +263,7 @@ public class ZBOLeadDetailPage extends Page{
 		return ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_email_xpath, pEmail));
 	}
 	public boolean isWelcomeEmailSent() {
-		return ActionHelper.waitForElementToBeVisible(driver, welcome_email, 20);
+		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, welcome_email, 30, 30);
 	}
 	public boolean isEmailVerified() {
 		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, verified_email_tick, 30, 30);

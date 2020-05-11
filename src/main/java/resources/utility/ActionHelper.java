@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -785,14 +786,36 @@ public class ActionHelper {
 			   counter++;
 		   }
 	   }
+	   public static void switchToSecondWindowByIndex(WebDriver pWebDriver, int pIndex) {
+		   int counter = 0;
+		   Set<String> handle= pWebDriver.getWindowHandles();
+		   for(String lWindowHandle: handle) {
+			   AutomationLogger.info(lWindowHandle);
+			   if(counter==pIndex) {
+				   pWebDriver.switchTo().window(lWindowHandle);
+			   }
+			   counter++;
+		   }
+	   }
 	   public static void switchToOriginalWindow(WebDriver pWebDriver) {
 		   Set<String> handle= pWebDriver.getWindowHandles();
 		   for(String lWindowHandle: handle) {
 			   AutomationLogger.info(lWindowHandle);
 
 			   pWebDriver.switchTo().window(lWindowHandle);
-
 		   }
+	   }
+
+	   public static boolean isAlertPresent(WebDriver pWebDriver) {
+		   boolean isSuccess = true;
+		   try {
+			   if(ExpectedConditions.alertIsPresent()!=null) {
+				   isSuccess= true;	   
+			   }
+		   }catch(Exception ex) {
+			   isSuccess = false;
+		   }
+		   return isSuccess;
 	   }
 	   
 	   public static WebElement getElementByXpath(WebDriver pWebDriver,String pElementXpath){
@@ -806,5 +829,15 @@ public class ActionHelper {
 			return element;
 			
 		}
-	   
+	 
+	   public static boolean resizeWindow(WebDriver pWebDriver, int length, int width) {
+		   boolean isSuccess = true;
+		   try {
+			   pWebDriver.manage().window().setSize(new Dimension(length, width));
+			   isSuccess = true;
+		   } catch(Exception ex) {
+			   isSuccess = false;
+		   }
+		   return isSuccess;
+	   }
 }

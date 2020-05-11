@@ -4,11 +4,14 @@ import static org.testng.Assert.assertTrue;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.text.WordUtils;
 import org.openqa.selenium.By;
@@ -243,19 +246,19 @@ public class ZBOLeadPage extends Page{
 		HashMap<String,String> dataRowMap = rowDataMap.get(randomInt);
 		String lDateOnPage = dataRowMap.get(pFilterName).split("at")[0].trim();
 		
-		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
-		Date dateOnPage = null;
-		Date curretDate = null;
-		dateOnPage = format.parse(lDateOnPage);
+		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
 		String currentDateStr = format.format(new Date());
-		curretDate = format.parse(currentDateStr);
-		
-		long diff = curretDate.getTime() - dateOnPage.getTime();
-		long lDiffInDays = diff / (24 * 60 * 60 * 1000);
+		Date dateOnPage = format.parse(lDateOnPage);
+		Date curretDate = format.parse(currentDateStr);
+		     
+		long diff = Math.abs(dateOnPage.getTime() - curretDate.getTime() );
+		long lDiffInDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);;//diff / (24 * 60 * 60 * 1000);
 		
 		return lDiffInDays<=days;
 	}
-	
+	public int daysBetween(Date d1, Date d2){
+        return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));
+}
 	public boolean selectLead(String pLeadName) {
 		boolean isLeadExist= false;
 		pLeadName = WordUtils.capitalizeFully(pLeadName);
@@ -350,24 +353,24 @@ public class ZBOLeadPage extends Page{
 		for(WebElement element: list_of_data) {
 			List<WebElement> list_of_single_row = element.findElements(By.tagName("td"));
 			dataSingleRowMap.put("Name", list_of_single_row.get(2).findElement(By.tagName("a")).getText());
-			dataSingleRowMap.put("Email", list_of_single_row.get(3).findElement(By.tagName("a")).getText());
-			dataSingleRowMap.put("Lead Id", list_of_single_row.get(3).findElement(By.tagName("a")).getAttribute("href"));
-			List<WebElement> list_of_email_status = list_of_single_row.get(3).findElements(By.tagName("span"));
+			dataSingleRowMap.put("Email", list_of_single_row.get(4).findElement(By.tagName("a")).getText());
+			dataSingleRowMap.put("Lead Id", list_of_single_row.get(4).findElement(By.tagName("a")).getAttribute("href"));
+			List<WebElement> list_of_email_status = list_of_single_row.get(4).findElements(By.tagName("span"));
 			String isValidEmail = list_of_email_status.size()>0?"false":"true";
 			dataSingleRowMap.put("Email Status",isValidEmail);
-			dataSingleRowMap.put("Search Location", list_of_single_row.get(4).getText());
-			dataSingleRowMap.put("Max Price", list_of_single_row.get(5).getText());
-			dataSingleRowMap.put("Date Created", list_of_single_row.get(6).getText());
-			dataSingleRowMap.put("Agent", list_of_single_row.get(7).getText());
-			dataSingleRowMap.put("Last Modified", list_of_single_row.get(8).getText());
-			dataSingleRowMap.put("Last Visit", list_of_single_row.get(9).getText());
-			List<WebElement> lHotBehaviors = list_of_single_row.get(10).findElements(By.tagName("li"));
+			dataSingleRowMap.put("Search Location", list_of_single_row.get(5).getText());
+			dataSingleRowMap.put("Max Price", list_of_single_row.get(6).getText());
+			dataSingleRowMap.put("Date Created", list_of_single_row.get(8).getText());
+			dataSingleRowMap.put("Agent", list_of_single_row.get(9).getText());
+			dataSingleRowMap.put("Last Modified", list_of_single_row.get(10).getText());
+			dataSingleRowMap.put("Last Visit", list_of_single_row.get(7).getText());
+			List<WebElement> lHotBehaviors = list_of_single_row.get(11).findElements(By.tagName("li"));
 			dataSingleRowMap.put("hot_behavior_preffered", lHotBehaviors.get(0).getText());
 			dataSingleRowMap.put("hot_behavior_browsing", lHotBehaviors.get(1).getText());
 			dataSingleRowMap.put("hot_behavior_expensive", lHotBehaviors.get(2).getText());
 			dataSingleRowMap.put("hot_behavior_favorites", lHotBehaviors.get(3).getText());
 			dataSingleRowMap.put("hot_behavior_return", lHotBehaviors.get(4).getText());
-			dataSingleRowMap.put("Priority Rank", list_of_single_row.get(11).findElement(By.tagName("span")).getText());
+			dataSingleRowMap.put("Priority Rank", list_of_single_row.get(10).findElement(By.tagName("span")).getText());
 			rowDataMap.put(counter, dataSingleRowMap);
 			counter++;
 		}

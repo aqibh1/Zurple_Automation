@@ -1,0 +1,51 @@
+<suite name="Update and Verify User Settings suite"
+	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+	<test name="Add and Verify notes in Lead Details page">
+<parameter name="templateData"
+				value="/resources/data/zurple/backoffice/marketing/create-template-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+			
+				<class name="com.zurple.backoffice.ZBOCreateTemplatePageTest">
+					<methods>
+						<include name="testCreateTemplate" />
+					</methods>
+				</class>
+			
+			<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+				<methods>
+					<include name="testVerifyTemplateExists" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+				<methods>
+					<include name="testVerifyTemplateIsAddedInCampaignsPage" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.ZACampaignTemplatesPageTest">
+				<methods>
+					<include name="testInActiveTemplate" />
+				</methods>
+			</class>
+			<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+		</classes>
+</parameter>
+	</test>
+</suite>
+

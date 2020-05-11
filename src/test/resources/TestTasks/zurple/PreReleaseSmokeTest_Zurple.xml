@@ -793,7 +793,7 @@
 		</parameter>
 		</parameter>
 	</test>
-	
+	<!-- Back Office test cases -->
 	<test name="Verify Sorting works on Leads Page">	 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -1151,4 +1151,121 @@
 	</parameter>
 	</parameter>
 	</test>
+	
+	<test name="Add and Verify notes in Lead Details page">	
+	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-notes.json"> 
+				<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+			
+				<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+					<methods>
+						<include name="testAddLead" />
+					</methods>
+				</class>
+			
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+							<include name="testAddAndVerifyLeadNotes" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>
+	
+	<test name="Add and Verify template">
+	<parameter name="templateData" value="/resources/data/zurple/backoffice/marketing/create-template-data.json">
+	<classes>
+		<class name="com.zurple.backoffice.ZBOLoginPageTest">
+			<methods>
+				<include name="testBackOfficeLogin" />
+			</methods>
+		</class>
+			<class name="com.zurple.backoffice.ZBOCreateTemplatePageTest">
+				<methods>
+					<include name="testCreateTemplate" />
+				</methods>
+			</class>
+		
+		<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+			<methods>
+				<include name="testVerifyTemplateExists" />
+			</methods>
+		</class>
+		<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+			<methods>
+				<include name="testVerifyTemplateIsAddedInCampaignsPage" />
+			</methods>
+		</class>
+		<class name="com.zurple.backoffice.ZACampaignTemplatesPageTest">
+			<methods>
+				<include name="testInActiveTemplate" />
+			</methods>
+		</class>
+		<class name="resources.CurrentPageTest">
+			<methods>
+				<include name="closeBrowser" />
+			</methods>
+		</class>
+	</classes>
+	</parameter>
+	</test>
+	
+	<test name="Checking phone number text on dashboard">
+    <parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-track-phoneNumber.json">
+    <classes>
+      <class name="com.zurple.website.ZWRegisterUserPageTest">
+		<methods>
+		<include name="testRegisterUser" />
+		</methods>
+		</class>
+		<class name="com.zurple.backoffice.ZBOLoginPageTest">
+		<methods>
+		<include name="testBackOfficeLogin" />
+		</methods>
+		</class>
+        <class name="com.zurple.backoffice.ZBODashboardTest" >
+        <methods>
+          <include name="testPhoneNumber" />
+        </methods>
+      	</class>
+      	<class name="resources.CurrentPageTest">
+        <methods>
+          <include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </parameter>
+   </test>
+   
+   <test name="Manage agents page label">
+  <parameter name="manageAgentsDataFile" 
+  		value="/resources/data/create-agent-data.json">
+  	</parameter>
+    <classes>
+    <class name="com.zurple.backoffice.ZBOLoginPageTest">
+	<methods>
+		<include name="testBackOfficeLogin" />
+	</methods>
+	</class>
+      <class name="com.zurple.backoffice.ZBOAgentsPageTest" >
+        <methods>
+          <include name="testAgentsPageLabel" />
+          <include name="testAgentsListCount" />
+        	<include name="testCreateAgents" />
+        	<include name="testCountAfterAddAgent" />
+        	<include name="testDelAgent" />
+        	<include name="testCountAfterDelAgent" />
+        </methods>
+      </class>
+    </classes>
+  </test>
 </suite>

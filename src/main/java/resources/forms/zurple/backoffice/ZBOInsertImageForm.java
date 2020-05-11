@@ -3,6 +3,8 @@
  */
 package resources.forms.zurple.backoffice;
 
+import static org.testng.Assert.assertTrue;
+
 import java.awt.print.PageFormat;
 
 import org.openqa.selenium.WebDriver;
@@ -27,10 +29,10 @@ public class ZBOInsertImageForm extends AbstractForm{
 	@FindBy(xpath="//span[text()='Browse Images']")
 	WebElement browseImages_button;
 	
-	@FindBy(id="cke_50_textInput")
+	@FindBy(xpath="//div[@class='cke_dialog_ui_input_text']/input[@aria-required='true']")
 	WebElement url_input;
 	
-	@FindBy(id="cke_89_label")
+	@FindBy(xpath="//span[text()='OK']")
 	WebElement ok_button;
 	
 	String image_xpath= "//img[@src='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
@@ -51,5 +53,10 @@ public class ZBOInsertImageForm extends AbstractForm{
 	}
 	public boolean clickOkButton() {
 		return ActionHelper.Click(driver, ok_button);
+	}
+	public void insertImage(String pImageUrl) {
+		assertTrue(isImageFormVisible(), "Image form is not visible..");
+		assertTrue(typeImageUrl(pImageUrl), "Unable to type image url..");
+		assertTrue(clickOkButton(), "Unable to click on Ok button..");
 	}
 }

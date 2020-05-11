@@ -83,10 +83,13 @@ public class RecentHomeSalesPageTest extends PageTest{
     	String lPhone=registerUserData.getUserPhoneNumber();
     	String lComments=registerUserData.getComments();
     	
+    	ActionHelper.staticWait(5);
 		closeBootStrapModal();
+		
 		PageHeader pageHeader = new PageHeader(driver);
 		assertTrue(pageHeader.clickOnLocalHomeValues(), "Unable to click on Local Home Values");
 		
+		ActionHelper.staticWait(5);
 		closeBootStrapModal();
 		
 		assertTrue(page.isGoogleMapDisplayed(), "The Google Map is not displayed on Listing Page");

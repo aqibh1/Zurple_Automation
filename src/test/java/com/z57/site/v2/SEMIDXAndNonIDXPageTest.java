@@ -73,7 +73,7 @@ public class SEMIDXAndNonIDXPageTest extends PageTest{
 	@Parameters({"dataFile"})
 	public void testCaptureLeadFromSEMNonIDXPage(String pDataFile) {
 		AutomationLogger.startTestCase("");
-		getPage("/search-homes");
+		getPage("/idx/sem-non-idx");
 		JSONObject lJsonDataObj = getDataFile(pDataFile);
 		assertTrue(page.isSEMNonIDXPageIsVisible(), "SEM non IDX page is not visible..");
 		assertTrue(page.clickOnViewButton(), "Unable to click on view button..");
