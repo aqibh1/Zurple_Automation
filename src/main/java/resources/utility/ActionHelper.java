@@ -840,4 +840,19 @@ public class ActionHelper {
 		   }
 		   return isSuccess;
 	   }
+	   //Pass the pExpand value true or false if you want to expand the dropdown accordingly
+	   public static boolean expandUnexpandDropdown(WebDriver pWebDriver,WebElement pElement, boolean pExpand) {
+		   boolean isExpanded = Boolean.parseBoolean(pElement.getAttribute("aria-expanded"));
+		   if(isExpanded && pExpand) {
+			   AutomationLogger.info("Element is already expanded");
+			   return true;
+		   }else if(isExpanded && !pExpand) {
+			   return ActionHelper.Click(pWebDriver, pElement);
+		   }else if(!isExpanded && pExpand) {
+			   return ActionHelper.Click(pWebDriver, pElement);
+		   }else {
+			   AutomationLogger.info("Element is already not expanded");
+			   return true;
+		   }
+	   }
 }
