@@ -114,7 +114,7 @@ public class ZBOAgentsPage extends Page{
 	}
 	public boolean delAgent() {
 		ActionHelper.waitForElementToBeVisible(driver, del_agent, 30);
-		return ActionHelper.Click(driver, del_agent);
+		return ActionHelper.doubleClick(driver, del_agent);
 	}
 	public boolean confirmDelAgent() {
 		ActionHelper.waitForElementToBeVisible(driver, confirmAdd , 30);

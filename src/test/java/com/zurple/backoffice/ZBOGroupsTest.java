@@ -3,8 +3,10 @@ package com.zurple.backoffice;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
@@ -51,6 +53,11 @@ public void testGroupTags() {
 	page.justTesting2();
 	page.justTesting3();
 	page.justTesting4();
+	page.justTesting5();
+	assertEquals(page.justTesting6(), "The Lead Tag Groups have successfully saved.");
+	page.justTesting7();
+	ActionHelper.RefreshPage(driver);
+	assertEquals(page.justTesting8(), "Auto-Tag");
 	AutomationLogger.endTestCase();
 }
 
