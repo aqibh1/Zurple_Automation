@@ -14,6 +14,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.blocks.zurple.ZBOLeadDetailsSearchBlock;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
@@ -109,15 +110,32 @@ public class ZBOLeadDetailPage extends Page{
 	String notes_Added_xpath = "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-note ']/div";
 	String notes_date_xpath = "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-date ']/div";
 	
+	@FindBy(id="z-activity-details-searches")
+	WebElement lead_searches;
+	
+	@FindBy(id="z-activity-details-searches-tab")
+	WebElement search_block;
+	
+	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
+	
 	public ZBOLeadDetailPage() {
 		
 	}
 	
 	public ZBOLeadDetailPage(WebDriver pWebdriver) {
 		driver = pWebdriver;
+		setLeadDetailSearchBlock();
 		PageFactory.initElements(driver, this);
 	}
 	
+	public ZBOLeadDetailsSearchBlock getLeadDetailSearchBlock() {
+		return leadDetailSearchBlock;
+	}
+
+	public void setLeadDetailSearchBlock() {
+		this.leadDetailSearchBlock = new ZBOLeadDetailsSearchBlock(driver);
+	}
+
 	public boolean isLeadDetailPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, leadDetailHeading, 30);
 	}
@@ -480,7 +498,13 @@ public class ZBOLeadDetailPage extends Page{
 		
 		return isVerified;
 	}
-	
+	public boolean clickOnSearchTabButton() {
+		boolean isSuccess = false;
+		if(ActionHelper.Click(driver,lead_searches)) {
+			isSuccess = ActionHelper.waitForElementToBeVisible(driver, search_block, 10);
+		}
+		return isSuccess;
+	}
 	private String getCurrentPSTDate() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
 		dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));

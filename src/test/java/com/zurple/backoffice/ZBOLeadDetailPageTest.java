@@ -13,6 +13,7 @@ import com.zurple.my.PageTest;
 import resources.AbstractPage;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.DataConstants;
 
@@ -269,6 +270,29 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.clickOnSaveNotesButton(), "Unable to click on save notes button..");
 		assertTrue(page.verifyNoteAndTime(lComment), "Unable to verify note and time..");
 		
+	}
+	
+	@Test
+	@Parameters({"searchPropertyDataFile"})
+	public void testVerifyLeadBuyersSearch(String pDataFile) {
+		getPage();
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		dataObject = getDataFile(pDataFile);
+		page = null;
+		getPage("/lead/"+lLeadId);
+		assertTrue(page.isLeadDetailPage(), "Lead Detail page is not displayed..");
+		assertTrue(page.clickOnSearchTabButton(), "Unable to lick on search tab button..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchLocation(dataObject.optString("input_search")), "Unable to verify buyer search location..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchDate(), "Unable to verify buyer search date..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchPriceRange(dataObject.optString("minimum_price")), "Unable to verify buyer search price range..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchPriceRange(dataObject.optString("maximum_price")), "Unable to verify buyer search price range..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchBedCount(dataObject.optString("number_of_beds")), "Unable to verify buyer search beds count..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchBathCount(dataObject.optString("number_of_baths")), "Unable to verify buyer search baths count..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchSqFeet(dataObject.optString("square_feet")), "Unable to verify buyer search square feet..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchLotSize(dataObject.optString("lot_size")), "Unable to verify buyer search baths lot size..");
+
+
 	}
 
 }
