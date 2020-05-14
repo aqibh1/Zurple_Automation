@@ -110,7 +110,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.clickOnSendStandardEmailButton(), "Unable to click on standard email button..");
 		ActionHelper.staticWait(2);
 		assertTrue(page.typeToSubject(pDataObject.optString("subject")), "Unable to type subject..");
-		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleStandardEmailSubject, pDataObject.optString("subject"));
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject, pDataObject.optString("subject"));
 		ActionHelper.staticWait(2);
 		assertTrue(page.typeToEmail(lToEmail), "Unable to type subject..");
 		ActionHelper.staticWait(2);
@@ -121,7 +121,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			page.getAttachFileForm().switchToBrowserToNewWindow();
 			assertTrue(page.getAttachFileForm().isUploadFileFormVisible(), "Upload file form is not visible..");
 			assertTrue(page.getAttachFileForm().clickAndSelectFile(), "Unable to select the file from upload form ..");
-			
+			ActionHelper.staticWait(5);
 			page.getAttachFileForm().switchToOriginalWindow();
 			
 			assertTrue(page.isAttachmentRemoveButtonVisible(), "Remove button after attaching file is not visible..");
