@@ -265,6 +265,17 @@ public class ActionHelper {
 			AutomationLogger.error(ex.getMessage());
 		}
 		return lList_of_Elements;
+	}
+	
+	public static List<WebElement> getListOfElementByClassName(WebDriver pWebDriver,String pElementXpath){
+		List<WebElement> lList_of_Elements = null;
+		try {
+			lList_of_Elements = pWebDriver.findElements(By.className(pElementXpath));
+		}catch(Exception ex) {
+			AutomationLogger.error("Element list not found -> "+pElementXpath);
+			AutomationLogger.error(ex.getMessage());
+		}
+		return lList_of_Elements;
 		
 	}
 	   

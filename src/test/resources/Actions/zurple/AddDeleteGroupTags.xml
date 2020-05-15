@@ -9,9 +9,10 @@
 		<include name="testBackOfficeLogin" />
 	</methods>
 	</class>
-      <class name="com.zurple.backoffice.ZBOGroupsTest" >
+      <class name="com.zurple.backoffice.ZBOLeadTagsTest" >
         <methods>
-          <include name="testGroupTags" />
+          <include name="addRemoveTagFromLeadsCRM" />
+          <include name="addRemoveTagFromLeadDetails" />
         </methods>
       </class>
     </classes>
