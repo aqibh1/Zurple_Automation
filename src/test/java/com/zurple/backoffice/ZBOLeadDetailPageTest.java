@@ -291,6 +291,31 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchBathCount(dataObject.optString("number_of_baths")), "Unable to verify buyer search baths count..");
 		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchSqFeet(dataObject.optString("square_feet")), "Unable to verify buyer search square feet..");
 		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchLotSize(dataObject.optString("lot_size")), "Unable to verify buyer search baths lot size..");
+	}
+	
+	@Test
+	@Parameters({"searchPropertyDataFile"})
+	public void testVerifyLeadSoldHomesSearch(String pDataFile) {
+		getPage();
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		dataObject = getDataFile(pDataFile);
+		page = null;
+		getPage("/lead/"+lLeadId);
+	
+		String lMinPrice = dataObject.optString("minimum_price").isEmpty()?"All Price":dataObject.optString("minimum_price");
+		String lMaxPrice = dataObject.optString("maximum_price").isEmpty()?"All Price":dataObject.optString("maximum_price");
+		String lBedCount = dataObject.optString("number_of_beds").isEmpty()?"0":dataObject.optString("number_of_beds");
+		String lSqFeet = dataObject.optString("square_feet").isEmpty()?"0":dataObject.optString("square_feet");
+
+		assertTrue(page.isLeadDetailPage(), "Lead Detail page is not displayed..");
+		assertTrue(page.clickOnSearchTabButton(), "Unable to lick on search tab button..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesLocation(dataObject.optString("input_search")), "Unable to verify Sold Homes search location..");
+		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesDate(), "Unable to verify Sold Homes search date..");
+		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesPriceRange(lMinPrice), "Unable to verify buyer search price range..");
+		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesPriceRange(lMaxPrice), "Unable to verify buyer search price range..");
+		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesBedCount(lBedCount), "Unable to verify buyer search beds count..");
+		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesLotSize(lSqFeet), "Unable to verify buyer search square feet..");
 
 
 	}

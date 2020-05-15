@@ -29,12 +29,12 @@ public class ZBOLeadDetailsSearchBlock extends AbstractBlock{
 	String buyersearch_sqfeet = "//div[@id='z-activity-details-searches-grid']/descendant::td[contains(@class,'yui-dt-col-sqft')]/div";
 	String buyersearch_lotsize = "//div[@id='z-activity-details-searches-grid']/descendant::td[contains(@class,'yui-dt-col-lot_sqft')]/div";
 	
-	String soldhomes_location_list = "//div[@id='z-activity-details-searches-grid']/descendant::td[contains(@class,'yui-dt-col-location')]/div";
-	String soldhomes_date = "//div[@id='z-activity-details-searches-grid']/descendant::td[contains(@class,'yui-dt-col-date')]/div";
-	String soldhomes_pricerange = "//div[@id='z-activity-details-searches-grid']/descendant::td[contains(@class,'yui-dt-col-price_range')]/div";
-	String soldhomes_bed = "//div[@id='z-activity-details-searches-grid']/descendant::td[contains(@class,'yui-dt-col-bedrooms')]/div";
-	String soldhomes_bath = "//div[@id='z-activity-details-searches-grid']/descendant::td[contains(@class,'yui-dt-col-bathrooms')]/div";
-	String soldhomes_sqfeet = "//div[@id='z-activity-details-searches-grid']/descendant::td[contains(@class,'yui-dt-col-sqft')]/div";
+	String soldhomes_location_list = "//div[@id='z-activity-details-sold-homes-grid']/descendant::td[contains(@class,'yui-dt-col-location')]/div";
+	String soldhomes_date = "//div[@id='z-activity-details-sold-homes-grid']/descendant::td[contains(@class,'yui-dt-col-date')]/div";
+	String soldhomes_pricerange = "//div[@id='z-activity-details-sold-homes-grid']/descendant::td[contains(@class,'yui-dt-col-price_range')]/div";
+	String soldhomes_bed = "//div[@id='z-activity-details-sold-homes-grid']/descendant::td[contains(@class,'yui-dt-col-bedrooms')]/div";
+	String soldhomes_bath = "//div[@id='z-activity-details-sold-homes-grid']/descendant::td[contains(@class,'yui-dt-col-bathrooms')]/div";
+	String soldhomes_sqfeet = "//div[@id='z-activity-details-sold-homes-grid']/descendant::td[contains(@class,'yui-dt-col-sqft')]/div";
 	
 	String localinfo_location_list = "//div[@id='z-activity-details-local-information-searches-grid']/descendant::td[contains(@class,'yui-dt-col-location')]/div";
 	String localinfo_date = "//div[@id='z-activity-details-local-information-searches-grid']/descendant::td[contains(@class,'yui-dt-col-date')]/div";
