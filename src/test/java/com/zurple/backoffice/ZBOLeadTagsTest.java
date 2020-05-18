@@ -48,7 +48,7 @@ public void clearPage() {
 public void addRemoveTagFromLeadsCRM() {
 	AutomationLogger.startTestCase("Lead Tags");
 	getPage("/leads/crm");
-	addLeadTag();
+	addLeadTag(1);
 	removeConfirmationModal();
 	ActionHelper.RefreshPage(driver);
 	assertEquals(page.tagNameText(), "Auto-Tag");
@@ -64,24 +64,21 @@ public void addRemoveTagFromLeadDetails() {
 	page.selectLeadName();
 	driver.close();
 	ActionHelper.switchToOriginalWindow(driver);
-	page.addTagFromLeadDetails();
-	page.addEmptyTag();
-	page.typeTagName();
-	page.selectingTag();
-	page.savingTag();
-	assertEquals(page.confirmationModalText(), "The Lead Tag Groups have successfully saved.");
-	page.confirmationModalClose();
+	addLeadTag(2);
+	removeConfirmationModal();
 	ActionHelper.RefreshPage(driver);
 	assertEquals(page.tagNameText(), "Auto-Tag");
-	page.removingTag();
-	assertEquals(page.confirmationModalRemoveTagText(), "This will remove this lead from " +page.tagNameText()+ " group");
-	page.confirmRemoveTag();
+	deleteTag();
 	ActionHelper.RefreshPage(driver);
 	AutomationLogger.endTestCase();
 }
 
-public void addLeadTag() {
-	assertTrue(page.addTagFromLeadsCRM(), "Unable to add Tag...");
+public void addLeadTag(int choice) {
+	if(choice==1) {
+		assertTrue(page.addTagFromLeadsCRM(), "Unable to add Tag...");
+	} else {
+		assertTrue(page.addTagFromLeadDetails(), "Unable to add Tag...");
+	}
 	assertTrue(page.addEmptyTag(), "Unable to add Empty Tag...");
 	assertTrue(page.typeTagName(), "Unable to type Tag Name...");
 	assertTrue(page.selectingTag(), "Unable to select Tag...");
