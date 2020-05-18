@@ -18,4 +18,7 @@ public class ModuleCacheConstants {
 	public static final String ZurpleTemplateName = "zurple.marketing.template.name";
 	public static final String ZurpleTemplateSubject = "zurple.marketing.template.subject";
 	public static final String Zurple_Agents_Count = "zurple.agents.count";
+	public static final String ZurpleCommunityReportsZip = "zurple.community.reports.zip";
+	public static final String ZurpleSchoolsReportsZip = "zurple.schools.reports.zip";
+	public static final String ZurplePOIReportsZip = "zurple.poi.reports.zip";
 }

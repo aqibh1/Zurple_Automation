@@ -316,6 +316,22 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesPriceRange(lMaxPrice), "Unable to verify buyer search price range..");
 		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesBedCount(lBedCount), "Unable to verify buyer search beds count..");
 		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesLotSize(lSqFeet), "Unable to verify buyer search square feet..");
+	}
+	
+	@Test
+	public void testVerifyLeadLocalInfoSearch() {
+		getPage();
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page = null;
+		getPage("/lead/"+lLeadId);
+	
+		assertTrue(page.isLeadDetailPage(), "Lead Detail page is not displayed..");
+		assertTrue(page.clickOnSearchTabButton(), "Unable to lick on search tab button..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.getLeadDetailSearchBlock().verifyLocalInformationSearches("Points of Interest", ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePOIReportsZip)), "Unable to verify Points of Interest data..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyLocalInformationSearches("Schools", ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleSchoolsReportsZip)), "Unable to verify Schools data..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyLocalInformationSearches("Community", ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCommunityReportsZip)), "Unable to verify community reports data..");
+
 
 
 	}
