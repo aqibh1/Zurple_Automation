@@ -123,7 +123,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			assertTrue(page.getAttachFileForm().clickAndSelectFile(), "Unable to select the file from upload form ..");
 			ActionHelper.staticWait(5);
 			page.getAttachFileForm().switchToOriginalWindow();
-			
+			ActionHelper.staticWait(5);
 			assertTrue(page.isAttachmentRemoveButtonVisible(), "Remove button after attaching file is not visible..");
 			
 			assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
