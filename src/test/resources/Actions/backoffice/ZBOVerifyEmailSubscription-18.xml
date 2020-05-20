@@ -7,7 +7,7 @@
 		<listener class-name="resources.CustomTestNGReporter" />
 	</listeners>
 
-	<test name="Verify Sold Homes search">
+	<test name="Verify Mass Email subscription">
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-localinfo-search.json">
 		<classes>
 			<class name="com.zurple.website.ZWRegisterUserPageTest">
