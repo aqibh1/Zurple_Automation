@@ -116,6 +116,11 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(id="z-activity-details-searches-tab")
 	WebElement search_block;
 	
+	String list_of_disabled_nav_bts = "//ul[@id='lead_detail_navbar']/descendant::a[contains(@class,'lead-btn-disabled') and @title='This lead is currently unsubscribed from direct agent communications (Mass Email)']";
+	
+	@FindBy(xpath="//div[@id='z-activity-details-sent-tab']/descendant::input[contains(@class,'lead-btn-disabled') and @title='This lead is currently unsubscribed from direct agent communications (Mass Email)']")
+	WebElement enrollInCampaign_button;
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	
 	public ZBOLeadDetailPage() {
@@ -511,5 +516,22 @@ public class ZBOLeadDetailPage extends Page{
 		String formattedDate = dateFormat.format(new Date(System.currentTimeMillis())).toString().toLowerCase();
 		return formattedDate;
 
+	}
+	public boolean verifyNavButtonIsDisabled(String pButtonToVerify) {
+		boolean isButtonDisabled = false;
+		List<WebElement> list_of_disabled_buttons = ActionHelper.getListOfElementByXpath(driver, list_of_disabled_nav_bts);
+		for(WebElement element: list_of_disabled_buttons) {
+			if(ActionHelper.getText(driver, element).equalsIgnoreCase(pButtonToVerify)) {
+				isButtonDisabled = true;
+				break;
+			}
+		}
+		return isButtonDisabled;
+	}
+	public boolean clickOnMyMessagesTab() {
+		return ActionHelper.Click(driver, myMessages_tab_button);
+	}
+	public boolean isEnrollInCampaignButtonDisabled() {
+		return ActionHelper.waitForElementToBeVisible(driver, enrollInCampaign_button, 10);
 	}
 }

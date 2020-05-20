@@ -855,4 +855,19 @@ public class ActionHelper {
 			   return true;
 		   }
 	   }
+	   
+	   public static boolean checkUncheckInputBox(WebDriver pWebDriver, WebElement pElementToCheck,WebElement pElementToClick, boolean pSelect) {
+		   boolean isSuccess = false;
+		   boolean lElementVal = pElementToCheck.isSelected();
+		   if(lElementVal && !pSelect) {
+			   isSuccess =  ActionHelper.Click(pWebDriver, pElementToClick);
+		   }else if(!lElementVal && pSelect) {
+			   isSuccess = ActionHelper.Click(pWebDriver, pElementToClick);
+		   }else if(lElementVal && pSelect) {
+			   isSuccess = true;
+		   }else if (!lElementVal && !pSelect) {
+			   isSuccess = true;
+		   }
+		   return isSuccess;
+	   }
 }

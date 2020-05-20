@@ -146,4 +146,11 @@ public class ZWAccountSettingsPageTest extends PageTest{
 				dataObject.optString(DataConstants.Zip)), "address not changed successfully..");
 	}
 	
+	@Test
+	public void testVerifyEmailsSubscriptionStatus() {
+		getPage("/my");
+		assertTrue(page.isMyAccountPage(), "Account Setting page is not visible..");
+		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Agent Emails", "Unsubscribed"));
+	}
+	
 }
