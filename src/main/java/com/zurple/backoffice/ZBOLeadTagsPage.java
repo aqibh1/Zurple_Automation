@@ -1,7 +1,15 @@
 package com.zurple.backoffice;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Scanner;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,14 +25,18 @@ public class ZBOLeadTagsPage extends Page{
 	@FindBy(className="fa-tags")
 	WebElement groupTag;
 	
-	@FindBy(className="lead-assign")
-	WebElement selectTag;
+	String selectTag = "lead-assign";
 	
-	@FindBy(xpath="//div[@id='lead-groups']/descendant::input[@value]")
+	@FindBy(xpath="//div[@id='lead-groups']/descendant::input[@type='text']")
 	WebElement typeTagName;
+
+	String leadTagFields = "//div[@id='lead-groups']/descendant::input[@type='text']";
 	
 	@FindBy(xpath="//div[@class='lead-tag-group-controls']/button[contains(@class,'plus-button') and not(contains(@style,'display: none'))]")
 	WebElement plusTag;
+	
+	@FindBy(xpath="//div[@class='lead-tag-group-controls']/button[contains(@class,'minus-button') and not(contains(@style,'display: none'))]")
+	WebElement minusTag;
 	
 	@FindBy(id="save-lead-groups")
 	WebElement saveTag;
@@ -54,7 +66,7 @@ public class ZBOLeadTagsPage extends Page{
 	@FindBy(id="tag-lead-groups-button")
 	WebElement addTagFromLeadDetails;
 	
-	public List<WebElement> agentsList;
+	public List<WebElement> groupTagsList;
 	
 	public ZBOLeadTagsPage() {
 	}
@@ -66,9 +78,9 @@ public class ZBOLeadTagsPage extends Page{
 	
 	public int countTags() {
 		ActionHelper.staticWait(2);
-		agentsList = ActionHelper.getListOfElementByClassName(driver, countTags);
+		groupTagsList = ActionHelper.getListOfElementByClassName(driver, countTags);
 		ActionHelper.staticWait(2);
-		int count = agentsList.size();
+		int count = groupTagsList.size();
 		return count;
 	}
 	
@@ -93,16 +105,16 @@ public class ZBOLeadTagsPage extends Page{
 		return ActionHelper.Click(driver, plusTag);
 	}
 	
-	public boolean typeTagName() {
-		ActionHelper.waitForElementToBeVisible(driver, typeTagName, 30);		
-		return ActionHelper.ClearAndType(driver, typeTagName, "Auto-Tag");
+	public boolean removeUsedTag() {
+		ActionHelper.waitForElementToBeVisible(driver, minusTag, 30);
+		return ActionHelper.Click(driver, minusTag);
 	}
 		
 	public boolean selectingTag() {
-		ActionHelper.waitForElementToBeVisible(driver, selectTag, 30);
-		return ActionHelper.Click(driver, selectTag);
+		ActionHelper.staticWait(2);
+		return ActionHelper.ClickByIndex(driver, selectTag, 2);
 	}
-	
+
 	public boolean savingTag() {
 		ActionHelper.waitForElementToBeVisible(driver, saveTag, 30);
 		return ActionHelper.Click(driver, saveTag);
@@ -141,6 +153,20 @@ public class ZBOLeadTagsPage extends Page{
 	public boolean confirmRemoveTag() {
 		ActionHelper.waitForElementToBeVisible(driver, confirmRemoveTag, 30);
 		return ActionHelper.Click(driver, confirmRemoveTag);
+	}
+	
+	public boolean typeTagName(String tagNameText) {
+		ActionHelper.waitForElementToBeVisible(driver, typeTagName, 30);
+		String str = "";
+		List<WebElement> tagsList = ActionHelper.getListOfElementByXpath(driver, leadTagFields);
+		ActionHelper.staticWait(2);
+		for(WebElement element:tagsList) {
+			str = ActionHelper.getTextByValue(driver, element);
+			if(str.equals("")) {
+				return ActionHelper.Type(driver, element, tagNameText);
+			}
+		}
+		return false;
 	}
 	
 }

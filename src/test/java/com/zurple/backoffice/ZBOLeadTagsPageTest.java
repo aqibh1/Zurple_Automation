@@ -13,7 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
 
-public class ZBOLeadTagsTest extends PageTest{
+public class ZBOLeadTagsPageTest extends PageTest{
 WebDriver driver;
 ZBOLeadTagsPage page;
 
@@ -49,11 +49,13 @@ public void addRemoveTagFromLeadsCRM() {
 	AutomationLogger.startTestCase("Lead Tags");
 	getPage("/leads/crm");
 	addLeadTag(1);
+	createLeadTag();
 	removeConfirmationModal();
 	ActionHelper.RefreshPage(driver);
-	assertEquals(page.tagNameText(), "Auto-Tag");
+	assertEquals(page.tagNameText(), "Auto-Tag-1");
 	deleteTag();
 	ActionHelper.RefreshPage(driver);
+	removeUsedTag(1);
 	AutomationLogger.endTestCase();
 }
 
@@ -65,11 +67,13 @@ public void addRemoveTagFromLeadDetails() {
 	driver.close();
 	ActionHelper.switchToOriginalWindow(driver);
 	addLeadTag(2);
+	createLeadTag();
 	removeConfirmationModal();
 	ActionHelper.RefreshPage(driver);
-	assertEquals(page.tagNameText(), "Auto-Tag");
+	assertEquals(page.tagNameText(), "Auto-Tag-1");
 	deleteTag();
 	ActionHelper.RefreshPage(driver);
+	removeUsedTag(2);
 	AutomationLogger.endTestCase();
 }
 
@@ -79,8 +83,11 @@ public void addLeadTag(int choice) {
 	} else {
 		assertTrue(page.addTagFromLeadDetails(), "Unable to add Tag...");
 	}
+}
+
+public void createLeadTag() {
 	assertTrue(page.addEmptyTag(), "Unable to add Empty Tag...");
-	assertTrue(page.typeTagName(), "Unable to type Tag Name...");
+	assertTrue(page.typeTagName("Auto-Tag-1"), "Unable to type Tag Name...");
 	assertTrue(page.selectingTag(), "Unable to select Tag...");
 	assertTrue(page.savingTag(), "Unable to save Tag...");
 }
@@ -93,6 +100,13 @@ public void removeConfirmationModal() {
 public void deleteTag() {
 	assertTrue(page.removingTag(), "Unable to remove Tag...");
 	assertEquals(page.confirmationModalRemoveTagText(), "This will remove this lead from " +page.tagNameText()+ " group");
+	assertTrue(page.confirmRemoveTag(), "Unable to confirm Tag Removal...");
+}
+
+public void removeUsedTag(int choice) {
+	addLeadTag(choice);
+	assertTrue(page.removeUsedTag(), "Unable to remove Tag...");
+	assertEquals(page.confirmationModalRemoveTagText(), "You are about to delete your group. Please cancel if you do not wish to do this.");
 	assertTrue(page.confirmRemoveTag(), "Unable to confirm Tag Removal...");
 }
 

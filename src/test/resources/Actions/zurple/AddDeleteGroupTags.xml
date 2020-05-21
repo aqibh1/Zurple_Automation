@@ -9,7 +9,7 @@
 		<include name="testBackOfficeLogin" />
 	</methods>
 	</class>
-      <class name="com.zurple.backoffice.ZBOLeadTagsTest" >
+      <class name="com.zurple.backoffice.ZBOLeadTagsPageTest" >
         <methods>
           <include name="addRemoveTagFromLeadsCRM" />
           <include name="addRemoveTagFromLeadDetails" />
