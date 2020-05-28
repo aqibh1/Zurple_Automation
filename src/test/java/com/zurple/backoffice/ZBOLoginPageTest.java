@@ -50,13 +50,16 @@ public class ZBOLoginPageTest extends PageTest{
 		
 		String lZurpleUserName = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_user");
 		String lZurplePassword =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_pass");
-		
-		assertTrue(page.isLoginPage(),"Zurple Back office login page is not visible..");
-		assertTrue(page.typeUserName(lZurpleUserName),"Unable to type the user name");
-		assertTrue(page.typePassword(lZurplePassword),"Unable to type the user name");
-		assertTrue(page.isForgotPasswordLinkExists(),"Forgot password link doesn't exist on login page..");
-		assertTrue(page.clickLoginButton(),"Unable to click on Login button..");
-		assertTrue(page.isLoginSuccessful(),"Login Failed..");
+		if(page.isLoginPage()) {
+			//		assertTrue(page.isLoginPage(),"Zurple Back office login page is not visible..");
+			assertTrue(page.typeUserName(lZurpleUserName),"Unable to type the user name");
+			assertTrue(page.typePassword(lZurplePassword),"Unable to type the user name");
+			assertTrue(page.isForgotPasswordLinkExists(),"Forgot password link doesn't exist on login page..");
+			assertTrue(page.clickLoginButton(),"Unable to click on Login button..");
+			assertTrue(page.isLoginSuccessful(),"Login Failed..");
+		}else {
+			assertTrue(page.isLoginSuccessful(),"Login is not successful..");
+		}
 		
 		AutomationLogger.endTestCase();
 		

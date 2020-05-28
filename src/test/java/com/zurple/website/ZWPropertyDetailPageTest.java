@@ -204,7 +204,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		AutomationLogger.startTestCase("Contact Agent from listing detail page");
 		String lEnvironment = System.getProperty("environment");
 		if(lEnvironment.equalsIgnoreCase("prod")) {
-			getPage("/CA/San_Diego/52138475");
+			getPage(ZurpleListingConstants.zurple_production_listing);
 		}else {
 			getPage(ZurpleListingConstants.zurple_staging_listing);
 		}
@@ -240,7 +240,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 	public void testScheduleShowingUserNotLoggedIn() {
 		AutomationLogger.startTestCase("Schedule Showing User not logged in");
 		if(getIsProd()) {
-			getPage("/CA/San_Diego/52138475");
+			getPage(ZurpleListingConstants.zurple_production_listing);
 		}else {
 			getPage(ZurpleListingConstants.zurple_staging_listing);
 		}

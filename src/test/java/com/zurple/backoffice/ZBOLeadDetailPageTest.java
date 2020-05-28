@@ -313,6 +313,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		String lSqFeet = dataObject.optString("square_feet").isEmpty()?"0":dataObject.optString("square_feet");
 
 		assertTrue(page.isLeadDetailPage(), "Lead Detail page is not displayed..");
+		ActionHelper.staticWait(5);
 		assertTrue(page.clickOnSearchTabButton(), "Unable to lick on search tab button..");
 		ActionHelper.staticWait(5);
 		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesLocation(dataObject.optString("input_search")), "Unable to verify Sold Homes search location..");
@@ -331,7 +332,8 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage("/lead/"+lLeadId);
 	
 		assertTrue(page.isLeadDetailPage(), "Lead Detail page is not displayed..");
-		assertTrue(page.clickOnSearchTabButton(), "Unable to lick on search tab button..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.clickOnSearchTabButton(), "Unable to click on search tab button..");
 		ActionHelper.staticWait(5);
 		assertTrue(page.getLeadDetailSearchBlock().verifyLocalInformationSearches("Points of Interest", ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePOIReportsZip)), "Unable to verify Points of Interest data..");
 		assertTrue(page.getLeadDetailSearchBlock().verifyLocalInformationSearches("Schools", ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleSchoolsReportsZip)), "Unable to verify Schools data..");
