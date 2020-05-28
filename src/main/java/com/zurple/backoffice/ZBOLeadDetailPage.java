@@ -121,6 +121,15 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(xpath="//div[@id='z-activity-details-sent-tab']/descendant::input[contains(@class,'lead-btn-disabled') and @title='This lead is currently unsubscribed from direct agent communications (Mass Email)']")
 	WebElement enrollInCampaign_button;
 	
+	@FindBy(id="text_area_reminder")
+	WebElement text_area_reminder;
+	
+	@FindBy(id="task_reminder_date_1")
+	WebElement taskReminder_date_input;
+	
+	@FindBy(id="submit_save_reminder")
+	WebElement save_reminder_button;
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	
 	public ZBOLeadDetailPage() {
@@ -533,5 +542,14 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean isEnrollInCampaignButtonDisabled() {
 		return ActionHelper.waitForElementToBeVisible(driver, enrollInCampaign_button, 10);
+	}
+	public boolean clickOnDateReminder() {
+		return ActionHelper.Click(driver, taskReminder_date_input);
+	}
+	public boolean typeReminderNote(String pReminder) {
+		return ActionHelper.ClearAndType(driver, text_area_reminder, pReminder);
+	}
+	public boolean clickOnSaveButton() {
+		return ActionHelper.Click(driver, save_reminder_button);
 	}
 }

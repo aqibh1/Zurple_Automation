@@ -11,11 +11,14 @@ import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.DataConstants;
+import resources.utility.Mailinator;
 
 public class ZBOLeadDetailPageTest extends PageTest{
 
@@ -111,8 +114,10 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.verifyProp("Sq. Ft.", lSqFeet), "Unable to verify Square Feet from title..");
 		
 		//Verification from notes
-		assertTrue(page.verifyMinPrice(dataObject.optString(DataConstants.MinPrice)), "Unable to verify minimum price in Notes..");
-		assertTrue(page.verifyMaxPrice(dataObject.optString(DataConstants.MaxPrice)), "Unable to verify maximum price in Notes..");
+		String lMinPrice = dataObject.optString(DataConstants.MinPrice).replace(",", "").replace("$", "");
+		String lMaxPrice = dataObject.optString(DataConstants.MaxPrice).replace(",", "").replace("$", "");
+		assertTrue(page.verifyMinPrice(lMinPrice), "Unable to verify minimum price in Notes..");
+		assertTrue(page.verifyMaxPrice(lMaxPrice), "Unable to verify maximum price in Notes..");
 		assertTrue(page.verifyMinBeds(dataObject.optString(DataConstants.Beds_Criteria)), "Unable to verify Beds in Notes..");
 		assertTrue(page.verifyMinBathrooms(dataObject.optString(DataConstants.Baths_Criteria)), "Unable to verify Baths in Notes..");
 		assertTrue(page.verifyMinSqFeet(dataObject.optString(DataConstants.Squarefeet_Criteria)), "Unable to verify Square Feet in Notes..");
@@ -331,9 +336,32 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.getLeadDetailSearchBlock().verifyLocalInformationSearches("Points of Interest", ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePOIReportsZip)), "Unable to verify Points of Interest data..");
 		assertTrue(page.getLeadDetailSearchBlock().verifyLocalInformationSearches("Schools", ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleSchoolsReportsZip)), "Unable to verify Schools data..");
 		assertTrue(page.getLeadDetailSearchBlock().verifyLocalInformationSearches("Community", ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCommunityReportsZip)), "Unable to verify community reports data..");
-
-
-
 	}
-
+	
+	@Test
+	public void testAddAndVerifyReminder() {
+		getPage();
+		Mailinator mailinatorObj = new Mailinator(driver);
+		if(getIsProd()) {
+			mailinatorObj.activateProductionInbox();
+		}else {
+			mailinatorObj.activateStagingInbox();
+		}
+		
+		String lLeadId = "4744411";//ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		String lLeadName = "0520202021 Buyersearch";
+		String lSubjectToVerify = "Task Reminder - "+lLeadName;
+		page = null;
+		getPage("/lead/"+lLeadId);
+		
+		assertTrue(page.isLeadDetailPage(), "Lead Detail page is not displayed..");
+		assertTrue(page.clickOnDateReminder(), "Unable to click on page reminder..");
+		assertTrue(page.typeReminderNote("Call this lead"), "Unable to type in lead reminder section..");
+		assertTrue(page.clickOnSaveButton(), "Unable to click on save button..");
+		assertTrue(new ZBOSucessAlert(driver).isReminderSuccessAlertVisible(), "Reminder success alert is not visible..");
+		assertTrue(new ZBOSucessAlert(driver).clickOnOkButton(), "Unable to click OK button..");
+		String lAgentEmail = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_user").split("@")[0];
+		
+		assertTrue(mailinatorObj.verifyEmail(lAgentEmail, lSubjectToVerify, 15), "Unable to verify reminder email");
+	}
 }

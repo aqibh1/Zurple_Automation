@@ -870,4 +870,21 @@ public class ActionHelper {
 		   }
 		   return isSuccess;
 	   }
+	   
+	   public static boolean getDynamicElementAfterRegularIntervals(WebDriver pWebDriver,String pXpath,String pDynamicVariable, int pTotalAttempts) {
+		   WebElement element = null;
+		   int counter = 0;
+		   while (counter<pTotalAttempts && element==null) {
+			   try {
+				   element = pWebDriver.findElement(By.xpath(pXpath.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable)));
+			   }catch(Exception ex) {
+				   AutomationLogger.error("Unable to get dynamic webelement for xpath "+pXpath);
+				   AutomationLogger.error(ex.getMessage());
+				   element = null;
+				   ActionHelper.RefreshPage(pWebDriver);
+				   staticWait(60);
+			   }
+		   }
+		   return element!=null;
+	   }
 }
