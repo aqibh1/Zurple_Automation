@@ -7,7 +7,7 @@
 		<listener class-name="resources.CustomTestNGReporter" />
 	</listeners>
 
-	<test name="Verify Mass Email subscription">
+	<test name="Add and Verify reminder email">
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-reminder.json">
 		
 		<classes>
