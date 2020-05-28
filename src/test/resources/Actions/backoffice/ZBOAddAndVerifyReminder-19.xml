@@ -8,10 +8,14 @@
 	</listeners>
 
 	<test name="Verify Mass Email subscription">
-	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-localinfo-search.json">
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-reminder.json">
 		
 		<classes>
-			
+			<class name="com.zurple.website.ZWRegisterUserPageTest">
+				<methods>
+					<include name="testRegisterUser" />
+				</methods>
+			</class>
 			<class name="com.zurple.backoffice.ZBOLoginPageTest">
 				<methods>
 					<include name="testBackOfficeLogin" />

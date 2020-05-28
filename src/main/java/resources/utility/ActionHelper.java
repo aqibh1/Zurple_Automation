@@ -881,7 +881,7 @@ public class ActionHelper {
 				   AutomationLogger.error("Unable to get dynamic webelement for xpath "+pXpath);
 				   AutomationLogger.error(ex.getMessage());
 				   element = null;
-				   ActionHelper.RefreshPage(pWebDriver);
+				   pWebDriver.navigate().refresh();
 				   staticWait(60);
 			   }
 		   }

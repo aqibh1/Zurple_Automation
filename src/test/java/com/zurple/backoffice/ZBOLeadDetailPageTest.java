@@ -348,8 +348,8 @@ public class ZBOLeadDetailPageTest extends PageTest{
 			mailinatorObj.activateStagingInbox();
 		}
 		
-		String lLeadId = "4744411";//ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
-		String lLeadName = "0520202021 Buyersearch";
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);//"4744411";//
+		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);//"0520202021 Buyersearch";
 		String lSubjectToVerify = "Task Reminder - "+lLeadName;
 		page = null;
 		getPage("/lead/"+lLeadId);

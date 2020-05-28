@@ -23,6 +23,8 @@ public class Mailinator {
 	@FindBy(xpath="//a[contains(text(), 'Task Reminder -')]")
 	WebElement email_subject_xpath;
 	
+	String dynamic_xpath = "//a[contains(text(), '"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
+	
 	public WebDriver getDriver() {
 		return driver;
 	}
@@ -44,7 +46,9 @@ public class Mailinator {
 		String lMailinatorUrl = "https://www.mailinator.com/v3/index.jsp?zone=public&query="+pMailinatorInbox+"#/#inboxpane";
 		driver.navigate().to(lMailinatorUrl);
 		if(ActionHelper.waitForElementToBeVisible(driver, input_field, 30)) {
-			isEmailVerified = ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, email_subject_xpath, 60, pAttempts);
+//			isEmailVerified = ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, email_subject_xpath, 60, pAttempts);
+			isEmailVerified = ActionHelper.getDynamicElementAfterRegularIntervals(driver, dynamic_xpath, pEmailSubject, 20);
+
 		}
 		driver.navigate().to(lCurrentUrl);
 		return isEmailVerified;
