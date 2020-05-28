@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,7 +30,9 @@ public class ZBOLeadTagsPage extends Page{
 	
 	@FindBy(xpath="//div[@id='lead-groups']/descendant::input[@type='text']")
 	WebElement typeTagName;
-
+	
+	String s = "//div[@id='lead-groups']/descendant::input[@type='text']";
+	
 	String leadTagFields = "//div[@id='lead-groups']/descendant::input[@type='text']";
 	
 	@FindBy(xpath="//div[@class='lead-tag-group-controls']/button[contains(@class,'plus-button') and not(contains(@style,'display: none'))]")
@@ -112,7 +115,9 @@ public class ZBOLeadTagsPage extends Page{
 		
 	public boolean selectingTag() {
 		ActionHelper.staticWait(2);
-		return ActionHelper.ClickByIndex(driver, selectTag, 2);
+		By xpath = By.xpath(s);
+		int position = driver.findElements(xpath).size()-1;
+		return ActionHelper.ClickByIndex(driver, selectTag, position);
 	}
 
 	public boolean savingTag() {
