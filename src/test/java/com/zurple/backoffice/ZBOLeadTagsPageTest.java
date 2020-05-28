@@ -52,7 +52,7 @@ public void addRemoveTagFromLeadsCRM() {
 	createLeadTag();
 	removeConfirmationModal();
 	ActionHelper.RefreshPage(driver);
-	assertEquals(page.tagNameText(), "Auto-Tag-1");
+	tagNameText();
 	deleteTag();
 	ActionHelper.RefreshPage(driver);
 	removeUsedTag(1);
@@ -70,7 +70,7 @@ public void addRemoveTagFromLeadDetails() {
 	createLeadTag();
 	removeConfirmationModal();
 	ActionHelper.RefreshPage(driver);
-	assertEquals(page.tagNameText(), "Auto-Tag-1");
+	tagNameText();
 	deleteTag();
 	ActionHelper.RefreshPage(driver);
 	removeUsedTag(2);
@@ -87,13 +87,17 @@ public void addLeadTag(int choice) {
 
 public void createLeadTag() {
 	assertTrue(page.addEmptyTag(), "Unable to add Empty Tag...");
-	assertTrue(page.typeTagName("Auto-Tag-1"), "Unable to type Tag Name...");
+	assertTrue(page.typeTagName((updateName("Auto")).replaceAll("\\s+","")), "Unable to type Tag Name...");
 	try {
 		assertTrue(page.selectingTag(), "Unable to select Tag...");
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
 	assertTrue(page.savingTag(), "Unable to save Tag...");
+}
+
+public void tagNameText() {
+	page.tagNameText();
 }
 
 public void removeConfirmationModal() {
@@ -104,14 +108,14 @@ public void removeConfirmationModal() {
 public void deleteTag() {
 	assertTrue(page.removingTag(), "Unable to remove Tag...");
 	assertEquals(page.confirmationModalRemoveTagText(), "This will remove this lead from " +page.tagNameText()+ " group");
-	assertTrue(page.confirmRemoveTag(), "Unable to confirm Tag Removal...");
+	page.confirmRemoveTag();
 }
 
 public void removeUsedTag(int choice) {
 	addLeadTag(choice);
 	assertTrue(page.removeUsedTag(), "Unable to remove Tag...");
 	assertEquals(page.confirmationModalRemoveTagText(), "You are about to delete your group. Please cancel if you do not wish to do this.");
-	assertTrue(page.confirmRemoveTag(), "Unable to confirm Tag Removal...");
+	page.confirmRemoveTag();
 }
 
 }

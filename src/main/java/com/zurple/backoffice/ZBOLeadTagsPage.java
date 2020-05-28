@@ -90,7 +90,7 @@ public class ZBOLeadTagsPage extends Page{
 	public boolean addTagFromLeadDetails() {
 		ActionHelper.waitForElementToBeVisible(driver, addTagFromLeadDetails, 30);
 		if(countTags()>0) {
-			removingTag();
+			confirmRemoveTag();
 		}
 		return ActionHelper.Click(driver, addTagFromLeadDetails);
 	}
@@ -98,7 +98,7 @@ public class ZBOLeadTagsPage extends Page{
 	public boolean addTagFromLeadsCRM() {
 		ActionHelper.waitForElementToBeVisible(driver, groupTag, 30);
 		if(countTags()>0) {
-			removingTag();
+			confirmRemoveTag();
 		}
 		return ActionHelper.Click(driver, groupTag);
 	}
@@ -155,9 +155,9 @@ public class ZBOLeadTagsPage extends Page{
 		return ActionHelper.getText(driver, removeTagMessage).trim();
 	}
 	
-	public boolean confirmRemoveTag() {
+	public void confirmRemoveTag() {
 		ActionHelper.waitForElementToBeVisible(driver, confirmRemoveTag, 30);
-		return ActionHelper.Click(driver, confirmRemoveTag);
+		ActionHelper.Click(driver, confirmRemoveTag);
 	}
 	
 	public boolean typeTagName(String tagNameText) {
