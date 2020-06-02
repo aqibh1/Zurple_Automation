@@ -94,10 +94,8 @@ public class ZBOAgentsPageTest extends PageTest {
 	
 	@Test
 	private void testDelAgent() {
-		AutomationLogger.startTestCase("Create Agents");
-		
-		page=null;
-		getPage(agentURL);
+		AutomationLogger.startTestCase("Create Agents");	
+		driver.navigate().to(agentURL);
 		deleteAgent();
 		ActionHelper.staticWait(5);
 		AutomationLogger.endTestCase();
@@ -135,6 +133,7 @@ public class ZBOAgentsPageTest extends PageTest {
 	
 	private void deleteAgent() {
 		page.delAgent();
+		ActionHelper.staticWait(5);
 		page.confirmDelAgent();
 	}
 }

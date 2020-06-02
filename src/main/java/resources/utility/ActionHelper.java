@@ -63,6 +63,22 @@ public class ActionHelper {
 			return isSuccessfull;
 		}
 	   
+	   public static boolean ClickByStringElement(WebDriver pWebDriver,String pElementToBeClicked) {
+		   boolean isSuccessfull=false;
+			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			AutomationLogger.info("Clicking on button -> "+pElementToBeClicked);
+			try {
+					pWebDriver.findElement(By.className(pElementToBeClicked)).click();
+					isSuccessfull=true;
+					AutomationLogger.info("Clicked on button successful..");
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessfull;
+		}
+	   
 	   public static boolean ClickStringXpathElement(WebDriver pWebDriver,String pElementToBeClicked) {
 			boolean isSuccessfull=false;
 			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
@@ -185,6 +201,21 @@ public class ActionHelper {
 		   }
 		   return ltext;
 	   }
+	   
+	   public static String getTextByStringElement(WebDriver pWebDriver,String pElement) {
+			String text = "";
+		   	wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			AutomationLogger.info("Clicking on button -> "+pElement);
+			try {
+					pWebDriver.findElement(By.className(pElement)).getText();
+					AutomationLogger.info("Clicked on button successful..");
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to Click on "+pElement);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return text;
+		}
 
 	   public static String getValue(WebDriver pWebDriver,WebElement pElement) {
 		   String ltext="";
@@ -265,6 +296,17 @@ public class ActionHelper {
 			AutomationLogger.error(ex.getMessage());
 		}
 		return lList_of_Elements;
+	}
+	
+	public static List<WebElement> getListOfElementByClassName(WebDriver pWebDriver,String pElementXpath){
+		List<WebElement> lList_of_Elements = null;
+		try {
+			lList_of_Elements = pWebDriver.findElements(By.className(pElementXpath));
+		}catch(Exception ex) {
+			AutomationLogger.error("Element list not found -> "+pElementXpath);
+			AutomationLogger.error(ex.getMessage());
+		}
+		return lList_of_Elements;
 		
 	}
 	   
@@ -297,7 +339,24 @@ public class ActionHelper {
 				AutomationLogger.error(ex.getMessage());
 			}
 			return isSuccessfull;
+		} 
+	   
+	   public static boolean TypeByStringElement(WebDriver pWebDriver, String pElementToBeClicked, String pStringToType, int index) {
+			boolean isSuccessfull=false;
+			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			AutomationLogger.info("Clicking on button -> "+pElementToBeClicked);
+			try {
+					pWebDriver.findElements(By.className(pElementToBeClicked)).get(index).sendKeys(pStringToType);
+					isSuccessfull=true;
+					AutomationLogger.info("Clicked on button successful..");
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessfull;
 		}
+	  
 	   public static void ScrollToElement(WebDriver pWebDriver,WebElement pScrollToElement) {
 		   try {
 			   JavascriptExecutor js = (JavascriptExecutor) pWebDriver;
