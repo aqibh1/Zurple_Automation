@@ -1,5 +1,8 @@
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,9 +21,10 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.AbstractPage;
 import resources.utility.ActionHelper;
 
-public class ZBOLeadTagsPage extends Page{
+public class ZBOLeadTagsPage extends Page {
 	boolean isRefreshPageRequired = true;
 	
 	@FindBy(className="fa-tags")
@@ -31,7 +35,7 @@ public class ZBOLeadTagsPage extends Page{
 	@FindBy(xpath="//div[@id='lead-groups']/descendant::input[@type='text']")
 	WebElement typeTagName;
 	
-	String s = "//div[@id='lead-groups']/descendant::input[@type='text']";
+	String selectingTag = "//div[@id='lead-groups']/descendant::input[@type='text']";
 	
 	String leadTagFields = "//div[@id='lead-groups']/descendant::input[@type='text']";
 	
@@ -40,6 +44,8 @@ public class ZBOLeadTagsPage extends Page{
 	
 	@FindBy(xpath="//div[@class='lead-tag-group-controls']/button[contains(@class,'minus-button') and not(contains(@style,'display: none'))]")
 	WebElement minusTag;
+		
+	String removeTagMinusButton = "minus-button";
 	
 	@FindBy(id="save-lead-groups")
 	WebElement saveTag;
@@ -103,14 +109,14 @@ public class ZBOLeadTagsPage extends Page{
 	}
 	
 	public boolean removeUsedTag() {
-		ActionHelper.waitForElementToBeVisible(driver, minusTag, 30);
-		return ActionHelper.Click(driver, minusTag);
+		ActionHelper.waitForStringXpathToBeVisible(driver, selectingTag, 30);
+		int position = ActionHelper.getListOfElementByXpath(driver, selectingTag).size()-1;
+		return ActionHelper.ClickByIndex(driver, removeTagMinusButton, position);
 	}
 		
 	public boolean selectingTag() {
-		ActionHelper.staticWait(2);
-		By xpath = By.xpath(s);
-		int position = driver.findElements(xpath).size()-1;
+		ActionHelper.waitForStringXpathToBeVisible(driver, selectingTag, 30);
+		int position = ActionHelper.getListOfElementByXpath(driver, selectingTag).size()-1;
 		return ActionHelper.ClickByIndex(driver, selectTag, position);
 	}
 
@@ -137,6 +143,18 @@ public class ZBOLeadTagsPage extends Page{
 	public boolean selectLeadName() {
 		ActionHelper.staticWait(2);
 		return ActionHelper.ClickByIndex(driver, leadName, 0);
+	}
+	
+	public boolean switchToLeadDetailsPage() {
+		try {
+			selectLeadName();
+			driver.close();
+			ActionHelper.switchToOriginalWindow(driver);
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}		
 	}
 	
 	public boolean removingTag() {
@@ -168,6 +186,65 @@ public class ZBOLeadTagsPage extends Page{
 		return false;
 	}
 	
-	
-	
+	public void addLeadTag(int choice) {
+		if(choice==1) {
+			assertTrue(addTagFromLeadsCRM(), "Unable to add Tag...");
+		} else {
+			assertTrue(addTagFromLeadDetails(), "Unable to add Tag...");
+		}
+		
+	}
+
+	public boolean createLeadTag(String updatedTagname, int choice) {
+		try {
+			addLeadTag(choice);
+			assertTrue(addEmptyTag(), "Unable to add Empty Tag...");
+			assertTrue(typeTagName(updatedTagname), "Unable to type Tag Name...");
+			assertTrue(selectingTag(), "Unable to select Tag...");
+			assertTrue(savingTag(), "Unable to save Tag...");
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean addTagConfirmationModal() {
+		try {
+			assertEquals(confirmationModalText(), "The Lead Tag Groups have successfully saved.");
+			assertTrue(confirmationModalClose(), "Unable to confirm Tag Addition...");
+			ActionHelper.RefreshPage(driver);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean deleteTag() {
+		try {
+			assertTrue(removingTag(), "Unable to remove Tag...");
+			assertEquals(confirmationModalRemoveTagText(), "This will remove this lead from " +tagNameText()+ " group");
+			assertTrue(confirmRemoveTag(), "Unable to confirm remove Tag...");
+			ActionHelper.RefreshPage(driver);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+
+	public boolean removeUsedTag(int choice) {
+		try {
+			addLeadTag(choice);
+			assertTrue(removeUsedTag(), "Unable to remove Tag...");
+			assertEquals(confirmationModalRemoveTagText(), "You are about to delete your group. Please cancel if you do not wish to do this.");
+			assertTrue(confirmRemoveTag(), "Unable to confirm remove Tag...");
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

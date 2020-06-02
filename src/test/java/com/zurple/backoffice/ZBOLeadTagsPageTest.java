@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
 public class ZBOLeadTagsPageTest extends PageTest{
 WebDriver driver;
 ZBOLeadTagsPage page;
-String updatedTagname = "";
+String updatedTagName = updateName("Auto").replaceAll("\\s+","");
 
 @Override
 public AbstractPage getPage() {
@@ -51,14 +51,11 @@ public void clearPage() {
 public void addRemoveTagFromLeadsCRM() {
 	AutomationLogger.startTestCase("Lead Tags");
 	getPage("/leads/crm");
-	assertTrue(page.addTagFromLeadsCRM(), "Unable to add Tag...");
-	createLeadTag();
-	addTagConfirmationModal();
-	ActionHelper.RefreshPage(driver);
-	assertEquals(page.tagNameText(), updatedTagname);
-	deleteTag();
-	ActionHelper.RefreshPage(driver);
-	removeUsedTag(1);
+	assertTrue(page.createLeadTag(updatedTagName,1), "unable to create a new lead tag");
+	assertTrue(page.addTagConfirmationModal(),"unable to confirm and close confirmation modal");
+	assertEquals(page.tagNameText(), updatedTagName);
+	assertTrue(page.deleteTag(),"unable to delete added tag to a lead");
+	assertTrue(page.removeUsedTag(1),"unable to remove used tag");
 	AutomationLogger.endTestCase();
 }
 
@@ -66,56 +63,13 @@ public void addRemoveTagFromLeadsCRM() {
 public void addRemoveTagFromLeadDetails() {
 	AutomationLogger.startTestCase("Lead Tags");
 	getPage("/leads/crm");
-	page.selectLeadName();
-	driver.close();
-	ActionHelper.switchToOriginalWindow(driver);
-	assertTrue(page.addTagFromLeadDetails(), "Unable to add Tag...");
-	createLeadTag();
-	addTagConfirmationModal();
-	ActionHelper.RefreshPage(driver);
-	assertEquals(page.tagNameText(), updatedTagname);
-	deleteTag();
-	ActionHelper.RefreshPage(driver);
-	removeUsedTag(2);
+	assertTrue(page.switchToLeadDetailsPage(),"unable to switch to lead details page from lead details");
+	assertTrue(page.createLeadTag(updatedTagName,2),"unable to create a new lead tag from lead details");
+	assertTrue(page.addTagConfirmationModal(),"unable to confirm and close confirmation modal from lead details");
+	assertEquals(page.tagNameText(), updatedTagName);
+	assertTrue(page.deleteTag(),"unable to delete added tag to a lead from lead details");
+	assertTrue(page.removeUsedTag(2),"unable to remove used tag from lead details");
 	AutomationLogger.endTestCase();
-}
-
-public void addLeadTag(int choice) {
-	if(choice==1) {
-		assertTrue(page.addTagFromLeadsCRM(), "Unable to add Tag...");
-	} else {
-		assertTrue(page.addTagFromLeadDetails(), "Unable to add Tag...");
-	}
-}
-
-public void createLeadTag() {
-	assertTrue(page.addEmptyTag(), "Unable to add Empty Tag...");
-	updatedTagname = updateName("Auto").replaceAll("\\s+","");
-	assertTrue(page.typeTagName(updatedTagname), "Unable to type Tag Name...");
-	try {
-		assertTrue(page.selectingTag(), "Unable to select Tag...");
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-	assertTrue(page.savingTag(), "Unable to save Tag...");
-}
-
-public void addTagConfirmationModal() {
-	assertEquals(page.confirmationModalText(), "The Lead Tag Groups have successfully saved.");
-	assertTrue(page.confirmationModalClose(), "Unable to confirm Tag Addition...");
-}
-
-public void deleteTag() {
-	assertTrue(page.removingTag(), "Unable to remove Tag...");
-	assertEquals(page.confirmationModalRemoveTagText(), "This will remove this lead from " +page.tagNameText()+ " group");
-	assertTrue(page.confirmRemoveTag(), "Unable to confirm remove Tag...");
-}
-
-public void removeUsedTag(int choice) {
-	addLeadTag(choice);
-	assertTrue(page.removeUsedTag(), "Unable to remove Tag...");
-	assertEquals(page.confirmationModalRemoveTagText(), "You are about to delete your group. Please cancel if you do not wish to do this.");
-	assertTrue(page.confirmRemoveTag(), "Unable to confirm remove Tag...");
 }
 
 }
