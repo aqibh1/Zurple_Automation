@@ -1268,4 +1268,21 @@
       </class>
     </classes>
   </test>
+  
+    <test name="Adding Deleting Group Tags">
+    <classes>
+    <class name="com.zurple.backoffice.ZBOLoginPageTest">
+	<methods>
+		<include name="testBackOfficeLogin" />
+	</methods>
+	</class>
+      <class name="com.zurple.backoffice.ZBOLeadTagsPageTest" >
+        <methods>
+          <include name="addRemoveTagFromLeadsCRM" />
+          <include name="addRemoveTagFromLeadDetails" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+  
 </suite>
