@@ -151,6 +151,9 @@ public class ZWAccountSettingsPage extends Page{
 	
 	String changeCriteria_text_xpath="//div[@id='change_criteria_text']/descendant::div";
 	
+	String list_of_email_subscriptions = "//div[@id='change_email_subscriptions_text']/descendant::div[contains(@class,'zurple-tinted-text')]";
+	String list_of_email_subscriptions_status = "//div[@id='change_email_subscriptions_text']/descendant::div[contains(@class,'zurple-tinted-text')]/following-sibling::div";
+
 	public ZWAccountSettingsPage() {
 		// TODO Auto-generated constructor stub
 	}
@@ -401,5 +404,19 @@ public class ZWAccountSettingsPage extends Page{
 			}	
 		}
 		return (isStreet && isCity && isState && isZip);
+	}
+	
+	public boolean verifySubscriptionUnsubscriptionStatus(String pSubscriptionToVerify, String pSubscriptionStatusToVerify) {
+		boolean status = false;
+		List<WebElement> list_of_subscriptions = ActionHelper.getListOfElementByXpath(driver, list_of_email_subscriptions);
+		List<WebElement> list_of_subscriptions_status = ActionHelper.getListOfElementByXpath(driver, list_of_email_subscriptions_status);;
+
+		for(int i =0;i<list_of_subscriptions.size();i++) {
+			if(ActionHelper.getText(driver, list_of_subscriptions.get(i)).equalsIgnoreCase(pSubscriptionToVerify)){
+				status = ActionHelper.getText(driver,list_of_subscriptions_status.get(i)).equalsIgnoreCase(pSubscriptionStatusToVerify)?true:false;
+
+			}
+		}
+		return status;
 	}
 }

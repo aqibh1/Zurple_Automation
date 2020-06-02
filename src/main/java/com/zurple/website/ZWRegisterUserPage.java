@@ -60,7 +60,7 @@ public class ZWRegisterUserPage extends Page{
 		return ActionHelper.Click(driver, register_button);
 	}
 	public boolean isRegisterSuccessfully() {
-		return ActionHelper.waitForElementToBeVisible(driver, thankyouForRegistering, 30);
+		return ActionHelper.waitForElementToBeVisible(driver, thankyouForRegistering, 60);
 	}
 
 	@Override

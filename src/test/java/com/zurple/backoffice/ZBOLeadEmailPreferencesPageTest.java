@@ -12,6 +12,7 @@ import com.zurple.my.PageTest;
 import resources.AbstractPage;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.DataConstants;
 
@@ -129,6 +130,27 @@ public class ZBOLeadEmailPreferencesPageTest extends PageTest{
 		assertTrue(new ZBOLeadDetailPage(driver).isNotesEmpty(), "Lead notes are not empty..");
 		
 		AutomationLogger.endTestCase();
+	}
+	
+	@Test
+	public void testVerifySubscriptionUnsubscription() {
+		getPage();
+//		String lLead = "3015660"
+		String lLead = ModuleCommonCache.getElement(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId);
+		getPage("/lead/edit/user_id/"+lLead);
+		assertTrue(page.toggleMassEmail(false), "Unable to toggle mass email checkbox..");
+		assertTrue(page.toggleAgentEmail(false), "Unable to toggle Receive Agent email checkbox..");
+		assertTrue(page.clickOnSaveButton(), "Unable to click on save button..");
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send Email"), "Send Email button is not disabled..");
+		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send Text Message"), "Send Text Message button is not disabled..");
+		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Enroll in Campaign"), "Enroll in Campaign button is not disabled..");
+		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send CMA Report"), "Send CMA Report button is not disabled..");
+		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
+		ActionHelper.staticWait(5);
+		assertTrue(leadDetailPage.isEnrollInCampaignButtonDisabled(), "Enroll in campaign button is not disabled in my messages tab..");
+
+
 	}
 
 

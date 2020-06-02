@@ -914,4 +914,36 @@ public class ActionHelper {
 			   return true;
 		   }
 	   }
+	   
+	   public static boolean checkUncheckInputBox(WebDriver pWebDriver, WebElement pElementToCheck,WebElement pElementToClick, boolean pSelect) {
+		   boolean isSuccess = false;
+		   boolean lElementVal = pElementToCheck.isSelected();
+		   if(lElementVal && !pSelect) {
+			   isSuccess =  ActionHelper.Click(pWebDriver, pElementToClick);
+		   }else if(!lElementVal && pSelect) {
+			   isSuccess = ActionHelper.Click(pWebDriver, pElementToClick);
+		   }else if(lElementVal && pSelect) {
+			   isSuccess = true;
+		   }else if (!lElementVal && !pSelect) {
+			   isSuccess = true;
+		   }
+		   return isSuccess;
+	   }
+	   
+	   public static boolean getDynamicElementAfterRegularIntervals(WebDriver pWebDriver,String pXpath,String pDynamicVariable, int pTotalAttempts) {
+		   WebElement element = null;
+		   int counter = 0;
+		   while (counter<pTotalAttempts && element==null) {
+			   try {
+				   element = pWebDriver.findElement(By.xpath(pXpath.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable)));
+			   }catch(Exception ex) {
+				   AutomationLogger.error("Unable to get dynamic webelement for xpath "+pXpath);
+				   AutomationLogger.error(ex.getMessage());
+				   element = null;
+				   pWebDriver.navigate().refresh();
+				   staticWait(60);
+			   }
+		   }
+		   return element!=null;
+	   }
 }

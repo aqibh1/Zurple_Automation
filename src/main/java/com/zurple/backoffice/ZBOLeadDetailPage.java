@@ -14,6 +14,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.blocks.zurple.ZBOLeadDetailsSearchBlock;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
@@ -109,15 +110,46 @@ public class ZBOLeadDetailPage extends Page{
 	String notes_Added_xpath = "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-note ']/div";
 	String notes_date_xpath = "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-date ']/div";
 	
+	@FindBy(id="z-activity-details-searches")
+	WebElement lead_searches;
+	
+	@FindBy(id="z-activity-details-searches-tab")
+	WebElement search_block;
+	
+	String list_of_disabled_nav_bts = "//ul[@id='lead_detail_navbar']/descendant::a[contains(@class,'lead-btn-disabled') and @title='This lead is currently unsubscribed from direct agent communications (Mass Email)']";
+	
+	@FindBy(xpath="//div[@id='z-activity-details-sent-tab']/descendant::input[contains(@class,'lead-btn-disabled') and @title='This lead is currently unsubscribed from direct agent communications (Mass Email)']")
+	WebElement enrollInCampaign_button;
+	
+	@FindBy(id="text_area_reminder")
+	WebElement text_area_reminder;
+	
+	@FindBy(id="task_reminder_date_1")
+	WebElement taskReminder_date_input;
+	
+	@FindBy(id="submit_save_reminder")
+	WebElement save_reminder_button;
+	
+	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
+	
 	public ZBOLeadDetailPage() {
 		
 	}
 	
 	public ZBOLeadDetailPage(WebDriver pWebdriver) {
 		driver = pWebdriver;
+		setLeadDetailSearchBlock();
 		PageFactory.initElements(driver, this);
 	}
 	
+	public ZBOLeadDetailsSearchBlock getLeadDetailSearchBlock() {
+		return leadDetailSearchBlock;
+	}
+
+	public void setLeadDetailSearchBlock() {
+		this.leadDetailSearchBlock = new ZBOLeadDetailsSearchBlock(driver);
+	}
+
 	public boolean isLeadDetailPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, leadDetailHeading, 30);
 	}
@@ -480,12 +512,44 @@ public class ZBOLeadDetailPage extends Page{
 		
 		return isVerified;
 	}
-	
+	public boolean clickOnSearchTabButton() {
+		boolean isSuccess = false;
+		if(ActionHelper.Click(driver,lead_searches)) {
+			isSuccess = ActionHelper.waitForElementToBeVisible(driver, search_block, 10);
+		}
+		return isSuccess;
+	}
 	private String getCurrentPSTDate() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
 		dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
 		String formattedDate = dateFormat.format(new Date(System.currentTimeMillis())).toString().toLowerCase();
 		return formattedDate;
 
+	}
+	public boolean verifyNavButtonIsDisabled(String pButtonToVerify) {
+		boolean isButtonDisabled = false;
+		List<WebElement> list_of_disabled_buttons = ActionHelper.getListOfElementByXpath(driver, list_of_disabled_nav_bts);
+		for(WebElement element: list_of_disabled_buttons) {
+			if(ActionHelper.getText(driver, element).equalsIgnoreCase(pButtonToVerify)) {
+				isButtonDisabled = true;
+				break;
+			}
+		}
+		return isButtonDisabled;
+	}
+	public boolean clickOnMyMessagesTab() {
+		return ActionHelper.Click(driver, myMessages_tab_button);
+	}
+	public boolean isEnrollInCampaignButtonDisabled() {
+		return ActionHelper.waitForElementToBeVisible(driver, enrollInCampaign_button, 10);
+	}
+	public boolean clickOnDateReminder() {
+		return ActionHelper.Click(driver, taskReminder_date_input);
+	}
+	public boolean typeReminderNote(String pReminder) {
+		return ActionHelper.ClearAndType(driver, text_area_reminder, pReminder);
+	}
+	public boolean clickOnSaveButton() {
+		return ActionHelper.Click(driver, save_reminder_button);
 	}
 }

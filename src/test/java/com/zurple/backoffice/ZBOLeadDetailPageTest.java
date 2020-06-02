@@ -11,10 +11,14 @@ import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.alerts.zurple.backoffice.ZBOSucessAlert;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.DataConstants;
+import resources.utility.Mailinator;
 
 public class ZBOLeadDetailPageTest extends PageTest{
 
@@ -110,8 +114,10 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.verifyProp("Sq. Ft.", lSqFeet), "Unable to verify Square Feet from title..");
 		
 		//Verification from notes
-		assertTrue(page.verifyMinPrice(dataObject.optString(DataConstants.MinPrice)), "Unable to verify minimum price in Notes..");
-		assertTrue(page.verifyMaxPrice(dataObject.optString(DataConstants.MaxPrice)), "Unable to verify maximum price in Notes..");
+		String lMinPrice = dataObject.optString(DataConstants.MinPrice).replace(",", "").replace("$", "");
+		String lMaxPrice = dataObject.optString(DataConstants.MaxPrice).replace(",", "").replace("$", "");
+		assertTrue(page.verifyMinPrice(lMinPrice), "Unable to verify minimum price in Notes..");
+		assertTrue(page.verifyMaxPrice(lMaxPrice), "Unable to verify maximum price in Notes..");
 		assertTrue(page.verifyMinBeds(dataObject.optString(DataConstants.Beds_Criteria)), "Unable to verify Beds in Notes..");
 		assertTrue(page.verifyMinBathrooms(dataObject.optString(DataConstants.Baths_Criteria)), "Unable to verify Baths in Notes..");
 		assertTrue(page.verifyMinSqFeet(dataObject.optString(DataConstants.Squarefeet_Criteria)), "Unable to verify Square Feet in Notes..");
@@ -270,5 +276,95 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.verifyNoteAndTime(lComment), "Unable to verify note and time..");
 		
 	}
+	
+	@Test
+	@Parameters({"searchPropertyDataFile"})
+	public void testVerifyLeadBuyersSearch(String pDataFile) {
+		getPage();
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		dataObject = getDataFile(pDataFile);
+		page = null;
+		getPage("/lead/"+lLeadId);
+		assertTrue(page.isLeadDetailPage(), "Lead Detail page is not displayed..");
+		assertTrue(page.clickOnSearchTabButton(), "Unable to lick on search tab button..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchLocation(dataObject.optString("input_search")), "Unable to verify buyer search location..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchDate(), "Unable to verify buyer search date..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchPriceRange(dataObject.optString("minimum_price")), "Unable to verify buyer search price range..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchPriceRange(dataObject.optString("maximum_price")), "Unable to verify buyer search price range..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchBedCount(dataObject.optString("number_of_beds")), "Unable to verify buyer search beds count..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchBathCount(dataObject.optString("number_of_baths")), "Unable to verify buyer search baths count..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchSqFeet(dataObject.optString("square_feet")), "Unable to verify buyer search square feet..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchLotSize(dataObject.optString("lot_size")), "Unable to verify buyer search baths lot size..");
+	}
+	
+	@Test
+	@Parameters({"searchPropertyDataFile"})
+	public void testVerifyLeadSoldHomesSearch(String pDataFile) {
+		getPage();
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		dataObject = getDataFile(pDataFile);
+		page = null;
+		getPage("/lead/"+lLeadId);
+	
+		String lMinPrice = dataObject.optString("minimum_price").isEmpty()?"All Price":dataObject.optString("minimum_price");
+		String lMaxPrice = dataObject.optString("maximum_price").isEmpty()?"All Price":dataObject.optString("maximum_price");
+		String lBedCount = dataObject.optString("number_of_beds").isEmpty()?"0":dataObject.optString("number_of_beds");
+		String lSqFeet = dataObject.optString("square_feet").isEmpty()?"0":dataObject.optString("square_feet");
 
+		assertTrue(page.isLeadDetailPage(), "Lead Detail page is not displayed..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.clickOnSearchTabButton(), "Unable to lick on search tab button..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesLocation(dataObject.optString("input_search")), "Unable to verify Sold Homes search location..");
+		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesDate(), "Unable to verify Sold Homes search date..");
+		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesPriceRange(lMinPrice), "Unable to verify buyer search price range..");
+		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesPriceRange(lMaxPrice), "Unable to verify buyer search price range..");
+		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesBedCount(lBedCount), "Unable to verify buyer search beds count..");
+		assertTrue(page.getLeadDetailSearchBlock().verifySoldHomesLotSize(lSqFeet), "Unable to verify buyer search square feet..");
+	}
+	
+	@Test
+	public void testVerifyLeadLocalInfoSearch() {
+		getPage();
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page = null;
+		getPage("/lead/"+lLeadId);
+	
+		assertTrue(page.isLeadDetailPage(), "Lead Detail page is not displayed..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.clickOnSearchTabButton(), "Unable to click on search tab button..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.getLeadDetailSearchBlock().verifyLocalInformationSearches("Points of Interest", ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePOIReportsZip)), "Unable to verify Points of Interest data..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyLocalInformationSearches("Schools", ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleSchoolsReportsZip)), "Unable to verify Schools data..");
+		assertTrue(page.getLeadDetailSearchBlock().verifyLocalInformationSearches("Community", ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCommunityReportsZip)), "Unable to verify community reports data..");
+	}
+	
+	@Test
+	public void testAddAndVerifyReminder() {
+		getPage();
+		Mailinator mailinatorObj = new Mailinator(driver);
+		if(getIsProd()) {
+			mailinatorObj.activateProductionInbox();
+		}else {
+			mailinatorObj.activateStagingInbox();
+		}
+		
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);//"4744411";//
+		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);//"0520202021 Buyersearch";
+		String lSubjectToVerify = "Task Reminder - "+lLeadName;
+		page = null;
+		getPage("/lead/"+lLeadId);
+		
+		assertTrue(page.isLeadDetailPage(), "Lead Detail page is not displayed..");
+		assertTrue(page.clickOnDateReminder(), "Unable to click on page reminder..");
+		ActionHelper.staticWait(3);
+		assertTrue(page.typeReminderNote("Call this lead"), "Unable to type in lead reminder section..");
+		assertTrue(page.clickOnSaveButton(), "Unable to click on save button..");
+		assertTrue(new ZBOSucessAlert(driver).isReminderSuccessAlertVisible(), "Reminder success alert is not visible..");
+		assertTrue(new ZBOSucessAlert(driver).clickOnOkButton(), "Unable to click OK button..");
+		String lAgentEmail = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_user").split("@")[0];
+		
+		assertTrue(mailinatorObj.verifyEmail(lAgentEmail, lSubjectToVerify, 15), "Unable to verify reminder email");
+	}
 }

@@ -115,6 +115,19 @@ public class ZBOLeadEmailPreferencesPage extends Page{
 	@FindBy(id="add-agent-button")
 	WebElement save_button;
 	
+	@FindBy(xpath="//div[@id='form-element-receive_notification']/descendant::span")
+	WebElement receiveMassEmail_notification;
+	
+	@FindBy(xpath="//div[@id='form-element-receive_autoresponder']/descendant::span")
+	WebElement receiveAutoresponder_notification;
+	
+	@FindBy(id="receive_notification")
+	WebElement receiveMassEmail_notification_checkbox;
+	
+	@FindBy(id="receive_autoresponder")
+	WebElement receiveAutoresponder_notification_checkbox;
+	
+	
 	public ZBOLeadEmailPreferencesPage(){
 		
 	}
@@ -290,6 +303,10 @@ public class ZBOLeadEmailPreferencesPage extends Page{
 		return isVerified;
 	}
 	
-	
-
+	public boolean toggleMassEmail(boolean pToggle) {
+		return ActionHelper.checkUncheckInputBox(driver, receiveMassEmail_notification_checkbox,receiveMassEmail_notification, pToggle);
+	}
+	public boolean toggleAgentEmail(boolean pToggle) {
+		return ActionHelper.checkUncheckInputBox(driver, receiveAutoresponder_notification_checkbox,receiveAutoresponder_notification, pToggle);
+	}
 }
