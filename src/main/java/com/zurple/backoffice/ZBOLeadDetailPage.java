@@ -34,6 +34,10 @@ public class ZBOLeadDetailPage extends Page{
 	
 	String lead_email_xpath = "//span[@class='lead-details-detail']/descendant::a[@title='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
+	String email_subject = "yui-dt5-col-subject";
+	
+	String email_date_time = "yui-dt5-col-messageDateTime";
+	
 	@FindBy(xpath="//span[@class='lead-details-detail wrap']")
 	WebElement lead_address;
 	
@@ -294,6 +298,22 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyLeadEmail(String pEmail) {
 		return ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_email_xpath, pEmail));
 	}
+	
+	public String verifyEmailSubject() {
+		ActionHelper.waitForStringClassNameToBeVisible(driver, email_subject, 30);
+		return ActionHelper.getTextByIndex(driver, email_subject,1).replace("Subject","").trim();
+	}
+	
+	public boolean verifyEmailDateTime() {
+		boolean isSuccess = false;
+		ActionHelper.waitForStringClassNameToBeVisible(driver, email_date_time, 30);
+		String emailDateTime = ActionHelper.getTextByIndex(driver, email_date_time,1);
+		if(!emailDateTime.equals("")) {
+			isSuccess = true;
+		}
+		return isSuccess;
+	}
+	
 	public boolean isWelcomeEmailSent() {
 		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, welcome_email, 30, 30);
 	}

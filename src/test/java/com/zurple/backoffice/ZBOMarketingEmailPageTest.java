@@ -3,6 +3,7 @@
  */
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
@@ -10,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
 import com.zurple.my.PageTest;
 
@@ -17,6 +19,7 @@ import resources.AbstractPage;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 import resources.utility.ZurpleListingConstants;
 
 /**
@@ -27,6 +30,8 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 
 	ZBOMarketingEmailMessagePage page;
 	private WebDriver driver;
+	ZBOLeadDetailPage p;
+	String lToEmail;
 	
 	@Override
 	public AbstractPage getPage() {
@@ -40,6 +45,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			page = new ZBOMarketingEmailMessagePage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
+			p = new ZBOLeadDetailPage(driver);
 		}
 		return page;
 	}
@@ -58,6 +64,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
 		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
 		verifyEmailListingFlyer(lDataObject);
+		testVerifyEmailInMyMessages(lDataObject);
 	}
 	
 	@Test
@@ -79,7 +86,9 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		
 	}
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
-		String lToEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
+	//	ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail, pDataObject.optString("toemail"));
+		lToEmail = pDataObject.optString("toemail");
+		//= ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");
 		ActionHelper.staticWait(2);
 		assertTrue(page.typeMLSId(ZurpleListingConstants.zurple_mls_listing_id), "Unable to type MLS id..");
@@ -106,7 +115,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	}
 	
 	private void fillStandardEmailForm(JSONObject pDataObject) {
-		String lToEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
+		//String lToEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
 		assertTrue(page.clickOnSendStandardEmailButton(), "Unable to click on standard email button..");
 		ActionHelper.staticWait(2);
 		assertTrue(page.typeToSubject(pDataObject.optString("subject")), "Unable to type subject..");
@@ -139,5 +148,32 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		ActionHelper.staticWait(2);
 		assertTrue(page.isSuccessMessage(), "Unable to send email, success message is not displayed...");
 	}
+	
+	public void testVerifyEmailInMyMessages(JSONObject pDataObject) {
+		AutomationLogger.startTestCase("Verify Alerts");
+		getPage();
+		String lLeadId = null;		
+			if(!getIsProd()) {
+				lLeadId = pDataObject.optString("leadidstage");
+				//Process email queue
+				page=null;
+				getPage("/admin/processemailqueue");
+				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+				page = null;
+				getPage("/lead/"+lLeadId);
+			} else {
+				lLeadId = null;
+				lLeadId = pDataObject.optString("leadid");
+				page = null;
+				getPage("/lead/"+lLeadId);
+				page = null;
+			}
+			p.clickOnMyMessagesTab();
+		//	assertTrue(p.verifyMyMessages(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject)));
+			if(p.verifyMyMessages(ModuleCacheConstants.ZurpleEmailFlyerSubject)) {
+				assertEquals(p.verifyEmailSubject(), "This could be your new house");
+				assertTrue(p.verifyEmailDateTime(),"Unable to verify date/time");
+			}
+}
 
 }
