@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -290,6 +291,22 @@ public abstract class AbstractPageTest extends AbstractTest
     	dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
     	String formattedDate = dateFormat.format(new Date(System.currentTimeMillis())).toString().toLowerCase();
     	return formattedDate;
+    	
+    }
+    //Give 0 if you dont want to add days in todays date
+    protected String getTodaysDate(int pDays) {
+    	Date date = new Date();
+    	SimpleDateFormat df  = new SimpleDateFormat("MM/dd/YYYY");
+    	Calendar c1 = Calendar.getInstance();
+    	String currentDate = df.format(date);// get current date here
+    	
+    	if(pDays>0) {
+        	c1.add(Calendar.DAY_OF_YEAR, pDays);
+        	df = new SimpleDateFormat("MM/dd/YYYY");
+        	Date resultDate = c1.getTime();
+        	currentDate = df.format(resultDate);
+    	}
+    	return currentDate;
     	
     }
     

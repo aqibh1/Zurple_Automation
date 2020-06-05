@@ -21,4 +21,6 @@ public class ModuleCacheConstants {
 	public static final String ZurpleCommunityReportsZip = "zurple.community.reports.zip";
 	public static final String ZurpleSchoolsReportsZip = "zurple.schools.reports.zip";
 	public static final String ZurplePOIReportsZip = "zurple.poi.reports.zip";
+	public static final String AdCity = "pp.ad.create.city";
+	public static final String PPADID = "pp.ad.id";
 }

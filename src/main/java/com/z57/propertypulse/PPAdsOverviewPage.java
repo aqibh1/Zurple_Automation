@@ -5,13 +5,12 @@ package com.z57.propertypulse;
 
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.FindBy;
 
 import resources.utility.ActionHelper;
-import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author adar
@@ -19,95 +18,121 @@ import resources.utility.AutomationLogger;
  */
 public class PPAdsOverviewPage extends Page{
 	
-	String adOverviewPageTitle = "//h2[@class='z57-theme-page-topic' and text()='Paid Ads']";
-	String tableDataContent = "//table[@id='campaign_table']/descendant::td";
-	String disable_button = "//table[@id='campaign_table']/descendant::td/button[text()='Disable Ad']";
+	String listing_address = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::h2";
 	
-	public PPAdsOverviewPage(WebDriver pWebDriver) {
-		driver = pWebDriver;
-		PageFactory.initElements(driver, this);
+	@FindBy(xpath="//h2[text()='Active Ads']")
+	WebElement active_Ads_heading;
+	
+	String adType = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::p/strong";
+	
+	String toggle_button = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::span[@class='ad_toggle_input']";
+	
+	String ad_status = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::span[@class='ad_status']";
+	
+	String ad_platforms = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::aside[@class='platform_icons']/img";
+	
+	String ad_City = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::span[@class='adcity']";
+	
+	String ad_plan = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::div[@class='further_details']/span";
+	
+	String isSlideShow = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::div[@class='slide-image']";
+	
+	String ad_description_overview = "//div[@id='21419']/descendant::div[@class='fb_ad_preview_details Mpreview']";
+	
+	@FindBy(xpath="//div[@class='fb_ad_preview_domain']")
+	WebElement ad_domain_step2;
+	
+	@FindBy(xpath="//div[@class='fb_ad_preview_title']/a")
+	WebElement ad_title_step2;
+	
+	public PPAdsOverviewPage(){
+		
 	}
-
+	public PPAdsOverviewPage(WebDriver pWebDriver){
+		
+	}
+	
+	public boolean verifyListingAddress(String pAddress, String lAdId) {
+		boolean isVerified = false;
+		WebElement element = ActionHelper.getDynamicElement(driver, listing_address, lAdId);
+		if(element!=null) {
+			isVerified = ActionHelper.getText(driver, element).equalsIgnoreCase(pAddress);
+		}
+		return isVerified;
+	}
 	public boolean isAdsOverviewPage() {
-		return ActionHelper.waitForElementToBeLocated(driver, adOverviewPageTitle, 60);
+		return ActionHelper.waitForElementToBeVisible(driver, active_Ads_heading, 60);
 	}
-	
-	public boolean isAdPlacedSuccessfully(String pListingTitle) {
-		int index = 0;
-		boolean isFound = false;
-		List<WebElement> list_of_table_contents = ActionHelper.getListOfElementByXpath(driver, tableDataContent);
-		for(WebElement element: list_of_table_contents) {
-			if(element.getText().trim().contains(pListingTitle)) {
-//				element.findElement(By.xpath("/descendant::span[text()='Live (Paused)']"));
-				isFound = waitForElementToVisibleAfterRegularIntervals(driver, "following-sibling::td/span[text()='Live (Paused)']","following-sibling::td/span[text()='FAILED']", 50, 40,index);
-				break;
-			}
-			index++;
+	public boolean verifyAdType(String pAdType, String lAdId) {
+		boolean isVerified = false;
+		WebElement element = ActionHelper.getDynamicElement(driver, listing_address, lAdId);
+		if(element!=null) {
+			isVerified = ActionHelper.getText(driver, element).equalsIgnoreCase(pAdType);
 		}
-		return isFound;
+		return isVerified;
 	}
-	
-	public boolean disableAllTheAds() {
-		boolean isSuccess = false;
-		List<WebElement> list_of_disable_button = ActionHelper.getListOfElementByXpath(driver, disable_button);
-		for(WebElement disableButton: list_of_disable_button) {
-			isSuccess = disableAd();
-			if(!isSuccess) {
-				AutomationLogger.error("Unable to disable the ad..");
-				break;
-			}
+	public boolean isAdDisableButtonDisplayed(String lAdId) {
+		boolean isVerified = false;
+		WebElement element = ActionHelper.getDynamicElement(driver, toggle_button, lAdId);
+		if(element!=null) {
+			isVerified = true;
 		}
-		return isSuccess;
+		return isVerified;
 	}
-	
-	private boolean disableAd() {
-		boolean isSuccess = false;
-		List<WebElement> list_of_disable_button = ActionHelper.getListOfElementByXpath(driver, disable_button);
-		if(list_of_disable_button.size()>0) {
-			isSuccess = ActionHelper.Click(driver, list_of_disable_button.get(0));
-			ActionHelper.staticWait(3);
-			isSuccess = ActionHelper.handleDisableAdAlert(driver);
-			ActionHelper.staticWait(10);
-		}else {
-			AutomationLogger.info("No ad to disable...");
-			isSuccess = true;
-		}
-		return isSuccess;
+	public boolean verifyAdStatus(String lAdId) {
+		return ActionHelper.getDynamicElementAfterRegularIntervals(driver,ad_status,lAdId,20);
 	}
-	private boolean waitForElementToVisibleAfterRegularIntervals(WebDriver pWebDriver, String pXpathToAppend,String pXpathToAppend2, long pWaitIntervalInSeconds, int pTotalAttempts,int pIndex) {
-		List<WebElement> list_of_table_contents;
-		pXpathToAppend2 = "following-sibling::td/span[text()='FAILED']";
-		boolean displayed = false;
-		int counter = 0;
-		while (!displayed && counter<pTotalAttempts) {
-			list_of_table_contents = ActionHelper.getListOfElementByXpath(driver, tableDataContent);
-			try {
-				List<WebElement> elementFundList = list_of_table_contents.get(pIndex).findElements(By.xpath(pXpathToAppend));
-				List<WebElement> postingFailedList = list_of_table_contents.get(pIndex).findElements(By.xpath(pXpathToAppend2));
-				if (elementFundList.size()>0) {
-					// Element is found so set the boolean as true
-					displayed = ActionHelper.isElementVisible(driver, elementFundList.get(0));
+	public boolean verifyPlatforms(String pPlatforms, String pAdId) {
+		boolean isVerified = false;
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_platforms, pAdId));
+		String [] lPlatforms = pPlatforms.split(",");
+		for(String lPlat: lPlatforms) {
+			for(WebElement element: list) {
+				if(ActionHelper.getAttribute(element, "alt").equalsIgnoreCase(lPlat)) {
+					isVerified = true;
 					break;
-				} else if(postingFailedList.size()>0) {
-					if(ActionHelper.isElementVisible(driver, postingFailedList.get(0))) {
-						AutomationLogger.info("Unable to post ad. Posting Failed.");
-						break;
-					}
 				}
-				try {
-					Thread.sleep(pWaitIntervalInSeconds*1000);
-					ActionHelper.RefreshPage(pWebDriver);
-					AutomationLogger.info("Attempt number "+counter+" of "+pTotalAttempts);
-					counter++;
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}catch(Exception ex) {
-				
+			}
+			if(!isVerified) {
+				break;
 			}
 		}
-		return displayed;
-
+		return isVerified;
+	}
+	public boolean verifyAdCity(String pAdCity, String pAdId) {
+		boolean isVerified = false;
+		WebElement element = ActionHelper.getDynamicElement(driver, ad_City, pAdId);
+		if(element!=null) {
+			isVerified = ActionHelper.getText(driver, element).equalsIgnoreCase(pAdCity);
+		}
+		return isVerified;
+	}
+	public boolean verifyAdPlanAndRenewalDate(String pPlan, String pAdId) {
+		boolean isVerified = false;
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_plan, pAdId));
+		for(WebElement element: list) {
+			if(ActionHelper.getText(driver, element).contains(pPlan)) {
+				isVerified = true;
+				break;
+			}
+		}
+		return isVerified;
+	}
+	
+	public boolean isSlideShowAtStep2() {
+		boolean isSuccess = false;
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, isSlideShow);
+		if(list!=null) {
+			isSuccess = list.size()>=3;
+		}
+		return isSuccess;
+	}
+	public boolean isAdDescOnStep2(String pAdDesc, String pAdId) {
+		boolean isVerified = false;
+		WebElement element = ActionHelper.getDynamicElement(driver, ad_description_overview, pAdId);
+		if(element!=null) {
+			isVerified = ActionHelper.getText(driver, element).contains(pAdDesc);
+		}
+		return isVerified;
 	}
 }
