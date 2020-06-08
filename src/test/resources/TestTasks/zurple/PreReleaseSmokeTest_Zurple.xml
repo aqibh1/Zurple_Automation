@@ -1083,43 +1083,8 @@
 				</class>
 			</classes>
 	</test>
-	
-	<test name="Send and Verify Email Listing Flyer">	
-	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-email-listing-flyer.json"> 
+	<test name="Send and Verify standard and flyer email">	
 	<parameter name="listingEmailFlyerData" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json"> 
-			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeLogin" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
-					<methods>
-						<include name="testAddLead" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
-					<methods>
-							<include name="testSendEmailListingFlyer" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-							<include name="testVerifyMassEmailInMyMessages" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
-			</classes>
-	</parameter>
-	</parameter>
-	</test>
-	
-	<test name="Send and Verify standard email">	
-	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-standard-email-data.json"> 
 	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/standard-email-data.json"> 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -1127,19 +1092,10 @@
 						<include name="testBackOfficeLogin" />
 					</methods>
 				</class>
-				<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
-					<methods>
-						<include name="testAddLead" />
-					</methods>
-				</class>
 				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
 					<methods>
+							<include name="testSendEmailListingFlyer" />
 							<include name="testSendStandardEmail" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-							<include name="testVerifyMassEmailInMyMessages" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
@@ -1150,8 +1106,7 @@
 			</classes>
 	</parameter>
 	</parameter>
-	</test>
-	
+	</test>	
 	<test name="Add and Verify notes in Lead Details page">	
 	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-notes.json"> 
 				<classes>
