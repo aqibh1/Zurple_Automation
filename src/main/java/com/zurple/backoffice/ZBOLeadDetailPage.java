@@ -1,5 +1,8 @@
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -34,6 +37,11 @@ public class ZBOLeadDetailPage extends Page{
 	
 	String lead_email_xpath = "//span[@class='lead-details-detail']/descendant::a[@title='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
+	String email_subject = ".yui-dt-col-subject";
+	
+	@FindBy(className="yui-dt5-col-subject")
+	WebElement email_Subject;
+		
 	@FindBy(xpath="//span[@class='lead-details-detail wrap']")
 	WebElement lead_address;
 	
@@ -129,7 +137,15 @@ public class ZBOLeadDetailPage extends Page{
 	
 	@FindBy(id="submit_save_reminder")
 	WebElement save_reminder_button;
+		
+	String xpathForTestingSubject = "//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div";
 	
+	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div")
+	WebElement flyer_email;
+	
+	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-messageDateTime ']/div")
+	WebElement xpathForTestingDate;
+		
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	
 	public ZBOLeadDetailPage() {
@@ -294,6 +310,17 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyLeadEmail(String pEmail) {
 		return ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_email_xpath, pEmail));
 	}
+	
+	public boolean verifyEmailDateTime() {
+		boolean isSuccess = false;
+		ActionHelper.waitForElementToBeVisible(driver, xpathForTestingDate, 30);
+		String emailDateTime = ActionHelper.getText(driver, xpathForTestingDate);
+		if(!emailDateTime.equals("")) {
+			isSuccess = true;
+		}
+		return isSuccess;
+	}
+	
 	public boolean isWelcomeEmailSent() {
 		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, welcome_email, 30, 30);
 	}
@@ -454,6 +481,14 @@ public class ZBOLeadDetailPage extends Page{
 		return isEmailReceived;
 	}
 	
+	public boolean verifyMyMessagesEmails(String pEmailToVerify) {
+		boolean isEmailReceived = false;
+		if(ActionHelper.Click(driver, myMessages_tab_button)) {
+			isEmailReceived = checkStatusAfterSendingEmail(pEmailToVerify);
+		}
+		return isEmailReceived;
+	}
+	
 	public boolean checkStatusAfterReg(String pEmailToVerify, String pXpath) {
 		int counter = 0;
 		boolean lIsEmailVisible = false;
@@ -475,9 +510,42 @@ public class ZBOLeadDetailPage extends Page{
 		return isVerified;
 	}
 	
+	public void waitForMessageAppearance() {
+		ActionHelper.staticWait(30);
+		ActionHelper.RefreshPage(driver);
+		ActionHelper.ScrollDownByPixels(driver, "400");
+		ActionHelper.Click(driver, myMessages_tab_button);
+	}
+	
+	public boolean checkStatusAfterSendingEmail(String pEmailToVerify) {
+		String str = "";
+		int counter = 0;
+		boolean lIsEmailVisible = false;
+		while(!lIsEmailVisible && counter<15) {
+			if(ActionHelper.isElementVisible(driver, flyer_email)) {
+				List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, xpathForTestingSubject);
+				ActionHelper.staticWait(2);
+				for(WebElement element:subjectList) {
+					str = ActionHelper.getText(driver, element);
+					if(str.equals(pEmailToVerify)) {
+						assertTrue(verifyEmailDateTime(), "unable to verify date");
+						lIsEmailVisible = true;
+						break;
+					}
+				}
+			} 
+			if(!lIsEmailVisible) {
+				waitForMessageAppearance();
+			}
+			counter++;
+		}
+		return lIsEmailVisible;
+	}
+	
 	public boolean typeComment(String pComment) {
 		return ActionHelper.Type(driver, note_text_area, pComment);
 	}
+	
 	public boolean clickOnSaveNotesButton() {
 		boolean isSuccessful = false;
 		if(ActionHelper.Click(driver, save_note_button)) {

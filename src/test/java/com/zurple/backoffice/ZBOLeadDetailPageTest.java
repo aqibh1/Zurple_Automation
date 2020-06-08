@@ -240,27 +240,27 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		
 	}
 	
-	@Test 
-	public void testVerifyMassEmailInMyMessages() {
-		AutomationLogger.startTestCase("Verify Alerts");
-		getPage();
-		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
-		page = null;
-		getPage("/lead/"+lLeadId);
-		if(page.isEmailVerified()) {
-			if(!getIsProd()) {
-				page = null;
-				//Process email queue
-				getPage("/admin/processemailqueue");
-				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-				page =null;
-				getPage("/lead/"+lLeadId);
-			}
-			assertTrue(page.verifyMyMessages(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject)));
-		}else {
-			assertTrue(false, "Unable to verify email...");
-		}
-	}
+//	@Test 
+//	public void testVerifyMassEmailInMyMessages() {
+//		AutomationLogger.startTestCase("Verify Alerts");
+//		getPage();
+//		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+//		page = null;
+//		getPage("/lead/"+lLeadId);
+//		if(page.isEmailVerified()) {
+//			if(!getIsProd()) {
+//				page = null;
+//				//Process email queue
+//				getPage("/admin/processemailqueue");
+//				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+//				page =null;
+//				getPage("/lead/"+lLeadId);
+//			}
+//			assertTrue(page.verifyMyMessages(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject)));
+//		}else {
+//			assertTrue(false, "Unable to verify email...");
+//		}
+//	}
 
 	@Test
 	public void testAddAndVerifyLeadNotes() {

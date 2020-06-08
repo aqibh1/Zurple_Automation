@@ -192,6 +192,19 @@ public class ActionHelper {
 		   return isElementVisible;
 	   }
 	   
+	   public static boolean waitForStringClassNameToBeVisible(WebDriver pWebDriver, String pElement, long pWaitInSecnds) {
+		   boolean isElementVisible = false;
+		   try {
+			   WebDriverWait wait = new WebDriverWait(pWebDriver, pWaitInSecnds); // Wait for seconds.
+			   wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(pElement)));
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Element is not visible.  -> "+pElement);
+			   AutomationLogger.error("Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return isElementVisible;
+	   }
+	   
 	   public static String getText(WebDriver pWebDriver,WebElement pElement) {
 		   String ltext="";
 		   if(isElementVisible(pWebDriver, pElement)) {
@@ -208,6 +221,21 @@ public class ActionHelper {
 			AutomationLogger.info("Clicking on button -> "+pElement);
 			try {
 					pWebDriver.findElement(By.className(pElement)).getText();
+					AutomationLogger.info("Clicked on button successful..");
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to Click on "+pElement);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return text;
+		}
+	   
+	   public static String getTextByIndex(WebDriver pWebDriver, String pElement, int index) {
+		   String text = "";
+		   	wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			AutomationLogger.info("Clicking on button -> "+pElement);
+			try {
+					pWebDriver.findElements(By.className(pElement)).get(index).getText();
 					AutomationLogger.info("Clicked on button successful..");
 				
 			}catch(Exception ex) {
