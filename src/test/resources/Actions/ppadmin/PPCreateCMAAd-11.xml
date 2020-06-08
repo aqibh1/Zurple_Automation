@@ -5,7 +5,7 @@
     </listeners>
    
     <test name="Create CMA Ad on PP">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-for-customize-ad.json" >
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/ads/cma-ads-data.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>

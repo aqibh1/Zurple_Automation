@@ -3,7 +3,8 @@
  */
 package com.z57.propertypulse;
 
-import java.util.ArrayList;
+import static org.testng.Assert.assertTrue;
+
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -12,8 +13,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.messages.Z57MessagesHeadingLibrary;
 import resources.utility.ActionHelper;
-import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author adar
@@ -21,71 +23,145 @@ import resources.utility.AutomationLogger;
  */
 public class PPCreateAdPage extends Page{
 	
-	@FindBy(xpath="//h1[@class='z57-theme-page-topic']")
-	WebElement pageTitle;
+	@FindBy(xpath="//a[@id='ListngCardbtn']/div")
+	WebElement promote_listing_goal_box;
 	
-	@FindBy(xpath="//div[@id='fb_ad_preview_url']/a")
-	WebElement fbPreviewLink;
+	@FindBy(xpath="//a[@id='createCMAbtn']/div")
+	WebElement cma_goal_box;
+	
+	@FindBy(xpath="//a[@id='openHousebtn']/div")
+	WebElement open_house_goal_box;
+	
+	@FindBy(xpath="//a[@id='justSoldbtn']/div")
+	WebElement just_sold_goal_box;
+	
+	@FindBy(xpath="//a[@id='priceReducedBtn']/div")
+	WebElement price_reduced_goal_box;
+	
+	@FindBy(xpath="//a[@id='neighborhoodExpertBtn']/div")
+	WebElement neighborhood_expert_goal_box;
+	
+	@FindBy(xpath="//a[@id='incompleteGoalBtn']/div")
+	WebElement incomplete_goal_box;
+	
+	@FindBy(xpath="//div[@id='cma_ads_cont']/h2[text()='2. Select your Ad']")
+	WebElement select_your_ad_cma;
+	
+	String cma_customize_button = "//a[@data-lsid='"+FrameworkConstants.DYNAMIC_VARIABLE+"' and text()='Customize']";
+	String cma_placeAd_button = "//a[@data-lsid='"+FrameworkConstants.DYNAMIC_VARIABLE+"' and text()='Place Ad']";
+	
+	String cma_thumbnails_section2 = "//div[@id='cma_ads_cont']/descendant::img[@src='/images/mcc/socialposter/fbad_thumb.jpg']";
+	String cma_hot_properties_section2 = "//div[@id='cma_ads_cont']/descendant::div[text()='Hot Properties ']";
+	
+	String cma_pp_preview_url = "//div[@id='cma_ads_cont']/descendant::div[@class='fb_ad_preview_domain']";
+	String learn_more_button_cma = "//div[@id='cma_ads_cont']/descendant::a[contains(text(),'Learn')]";
+	
+	@FindBy(xpath="//div[@id='cma_ads_cont']/descendant::a[contains(text(),'Is Now the Time to Sell?')]")
+	WebElement cma1_heading;
+	
+	@FindBy(xpath="//div[@id='cma_ads_cont']/descendant::a[contains(text(),'Your Home Worth?')]")
+	WebElement cma2_heading;
+	
+	@FindBy(xpath="//h2[text()='3. Customize your Ad']")
+	WebElement section3_heading;
+	
+	@FindBy(xpath="//label[text()='Slideshow' and @disabled='disabled']")
+	WebElement slideShow_label_disabled;
+	@FindBy(xpath="//label[text()='Image']")
+	WebElement image_label;
 	
 	@FindBy(id="fb_ad_title")
-	WebElement fbAdTitle;
+	WebElement headline_section3;
 	
 	@FindBy(id="fb_ad_details")
-	WebElement fbAdDetails;
+	WebElement description_section3;
+	
+	@FindBy(xpath="//div[@id='fb_ad_preview_url']/a")
+	WebElement previewUrl_section3;
+	
+	@FindBy(xpath="//h2[text()='Ad Preview']")
+	WebElement adPreview_heading_section3;
+	
+	@FindBy(id="fb_ad_preview_details")
+	WebElement fb_ad_preview_section3;
+	
+	@FindBy(id="fb_ad_preview_image")
+	WebElement fb_ad_preview_image_section3;
 	
 	@FindBy(id="fb_ad_next_step")
-	WebElement next_button;
+	WebElement next_step_button;
 	
-	@FindBy(id="fb_ad_zip_codes")
-	WebElement fbAdZipCodes;
+	@FindBy(xpath="//h1[text()=' Featured Advertisements on Facebook and Instagram']")
+	WebElement createAd_page_heading;
+	
+	//Step2 Xpaths//
+	///////////////
+	
+	@FindBy(xpath="//div[@class='statusbar_box selected ']/span[text()='Step 2: Choose Placement']")
+	WebElement step2_progress_bar;
+	
+	@FindBy(xpath="//h1[@class='z57-theme-page-topic']")
+	WebElement step2_heading;
+	
+	@FindBy(xpath="//div[@class='tab-content']/h2")
+	WebElement step2_h2_heading;
+	
+	@FindBy(xpath="//li[@class='select2-selection__choice']")
+	WebElement step2_ad_city;
+	
+	String select_target_reach = "//span[@class='ad_reach_content']/small[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
+	
+	String target_reach_count = "//span[@class='ad_reach_content']/strong";
+	
+	@FindBy(id="facebook_platform")
+	WebElement facebook_platform;
+	
+	@FindBy(id="instagram_platform")
+	WebElement instagram_platform;
+	
+	String isSlideShow = "//div[@id='fb_ad_preview_slider']/descendant::div[@class='slide-image']";
+	
+	@FindBy(xpath="//div[@class='fb_ad_preview_details Mpreview']")
+	WebElement ad_description_step2;
+	
+	@FindBy(xpath="//div[@class='fb_ad_preview_domain']")
+	WebElement ad_domain_step2;
+	
+	@FindBy(xpath="//div[@class='fb_ad_preview_title']/a")
+	WebElement ad_title_step2;
+	
+	//Step 3 xpaths
+	String ad_values = "//td[@class='table_fb_ad_create_value']";
+	
+	@FindBy(xpath="//div[@class='statusbar_box selected']/span[text()='Step 3: Confirm Details']")
+	WebElement step3_confirmdetails_progress_bar;
+	
+	@FindBy(xpath="//h1[@class='z57-theme-page-topic']")
+	WebElement step3_heading;
+	
+	@FindBy(xpath="//h2[text()='Step 3 – Confirm Details']")
+	WebElement step3_heading2;
+	
+	@FindBy(xpath="//form[@id='form_fb_ad_create']/div/h2")
+	WebElement ad_heading_step3;
+	
+	@FindBy(xpath="//div[contains(text(),'Your ad will renew on')]")
+	WebElement ad_renew_text;
 	
 	@FindBy(id="ad_payment_confirmation")
-	WebElement adPaymentConfirmation_checkbox;
+	WebElement termsAndCond_checkbox;
 	
-	String step2_heading = "//h2[text()='Step 2 - Select Ad Visibility Options & Placement']";
-	String step3_heading = "//h2[text()='Step 3 - Place Order']";
+	@FindBy(id="ad_payment_confirmation_frame")
+	WebElement termsAndCond_checkbox_text;
 	
-	@FindBy(xpath="//input[@type='checkbox' and @name='fb_test_ad']")
-	WebElement fbTestAd_checkbox;
+	@FindBy(xpath="//input[@name='fb_test_ad']")
+	WebElement test_ad_checkbox;
 	
-	@FindBy(id="fb_ad_select_listing")
-	WebElement select_listing_dropdown;
+	@FindBy(id="fb_ad_final_confirmation_modal")
+	WebElement success_dialog;
 	
-	@FindBy(xpath="//a[text()='Place Ad' and @data-lsid='cma1']")
-	WebElement place_ad_button_1;
-	
-	@FindBy(id="fb_ad_select_ad_format")
-	WebElement adFormat_dropDown;
-	
-	@FindBy(id="fb_ad_edit_url")
-	WebElement editUrl_button;
-	
-	@FindBy(id="fb_ad_url")
-	WebElement url_input;
-	
-	@FindBy(id="fb_ad_select_ad_format")
-	WebElement adformat_dropdown;
-	
-	@FindBy(id="fb_ad_reach_30")
-	WebElement adAmount25;
-	
-	@FindBy(id="fb_ad_reach_31")
-	WebElement adAmount45;
-	
-	@FindBy(id="fb_ad_reach_32")
-	WebElement adAmount60;
-	
-	@FindBy(xpath="//input[@id='facebook_platform']")
-	WebElement faceBookPlatform_input;
-	
-	@FindBy(xpath="//input[@id='instagram_platform']")
-	WebElement instagramPlatform_input;
-	
-	@FindBy(xpath="//label[@for='instagram_platform']")
-	WebElement instagram_label;
-	
-	@FindBy(xpath="//label[@for='facebook_platform']")
-	WebElement facebook_label;
+	@FindBy(xpath="//a[text()='Go to Ads Overview']")
+	WebElement ads_overview_button;
 	
 	public PPCreateAdPage() {
 		
@@ -94,127 +170,265 @@ public class PPCreateAdPage extends Page{
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
 	}
-
-	public boolean isCreateAdPage() {
-		boolean isPageVisible=false;
-		if(ActionHelper.waitForElementToBeVisible(driver, pageTitle, 15)) {
-			isPageVisible = ActionHelper.getText(driver, pageTitle).equalsIgnoreCase("Featured Listings on Facebook and Instagram");
+	
+	public boolean selectYourGoal(String pSelectGoad) {
+		boolean isSuccess = false;
+		switch(pSelectGoad) {
+		case "Promote Listing":
+			isSuccess = ActionHelper.Click(driver, promote_listing_goal_box);
+			break;
+		case "Find Sellers":
+			isSuccess = ActionHelper.Click(driver, cma_goal_box);
+			break;
+		case "Announce Open House":
+			isSuccess = ActionHelper.Click(driver,open_house_goal_box);
+			break;
+		case "Toot Your Horn":
+			isSuccess = ActionHelper.Click(driver, just_sold_goal_box);
+			break;
+		case "Market Price Reduction":
+			isSuccess = ActionHelper.Click(driver, price_reduced_goal_box);
+			break;
+		case "Be the Expert":
+			isSuccess = ActionHelper.Click(driver, neighborhood_expert_goal_box);
+			break;
+		case "Finish an Incomplete Ad":
+			isSuccess = ActionHelper.Click(driver, incomplete_goal_box);
+			break;
 		}
-		return isPageVisible;
+		return isSuccess;
 	}
 	
-	public boolean isValidPreviewLink(String pDomain) {
-		//Currently not comparing https
-		pDomain = pDomain.split(":")[1];
-		String lPreviewLink = ActionHelper.getText(driver,fbPreviewLink).split(":")[1];
-//		return ActionHelper.getText(driver,fbPreviewLink).contains(pDomain);	
-		return pDomain.equalsIgnoreCase(lPreviewLink);
-	}
-	
-	public boolean typeAdTitle(String pTitle) {
-		return ActionHelper.ClearAndType(driver, fbAdTitle, pTitle);
-	}
-	public boolean isValidTitle() {
-		return !ActionHelper.getTextByValue(driver, fbAdTitle).isEmpty();
-	}
-	
-	public boolean typeAdDescription(String pDescription) {
-		return ActionHelper.ClearAndType(driver, fbAdDetails, pDescription);
-	}
-	public boolean isValidDescription() {
-		return !ActionHelper.getTextByValue(driver, fbAdDetails).isEmpty();
-	}
-	public boolean clickOnNextButton() {
-		return ActionHelper.Click(driver, next_button);
-	}
-	public boolean isSelectAdVisibilityOptionsPage() {
-		return ActionHelper.waitForElementToBeLocated(driver, step2_heading, 60);
-	}
-	public boolean isValidZip() {
-		return !ActionHelper.getTextByValue(driver, fbAdZipCodes).isEmpty();
-	}
-	public boolean typeAdZipCode(String pZip) {
-		return ActionHelper.ClearAndType(driver, fbAdZipCodes, pZip);
-	}	
-	public boolean isStep3PlaceOrderPage() {
-		return ActionHelper.waitForElementToBeLocated(driver, step3_heading, 60);
-	}
-	public boolean clickOnPaymentCheckBox() {
-		return ActionHelper.Click(driver, adPaymentConfirmation_checkbox);
-	}
-	public boolean clickOnFBTestAdCheckBox() {
-		return ActionHelper.Click(driver, fbTestAd_checkbox);
-	}
-	public boolean selectListingFromDropDown(String pListing) {
-		boolean isSuccessful=false;
-		List<WebElement> list_of_options = new ArrayList<WebElement>();
-		 if(ActionHelper.Click(driver, select_listing_dropdown)) {
-			 list_of_options = select_listing_dropdown.findElements(By.tagName("option"));
-			 for(WebElement element: list_of_options) {
-				 System.out.println(element.getText().trim());
-				 if(element.getText().trim().contains(pListing)) {
-					 isSuccessful = ActionHelper.Click(driver, element);
-					 ActionHelper.Click(driver,select_listing_dropdown);
-					 break;
-				 }
-			 }
-		 }
-		return isSuccessful;	
-	}
-	public boolean clickOnPlaceAdButton() {
-		AutomationLogger.info("Clicking on Place Ad button 01");
-		return ActionHelper.Click(driver, place_ad_button_1);
-	}
-	public boolean selectAdFormat(String pAdFormat) {
-		return ActionHelper.selectDropDownOption(driver, adFormat_dropDown, "", pAdFormat);
-	}
-	public boolean typeListingUrl(String pUrl) {
-		boolean isUrlTyped = false;
-		if(ActionHelper.Click(driver, editUrl_button)) {
-			isUrlTyped = ActionHelper.Type(driver, url_input, pUrl);
-		}
-		return isUrlTyped;
-	}
-	public boolean selectAdAmount(String pAmount) {
-		boolean isClicked = false;
-		if(pAmount.equalsIgnoreCase("25")) {
-			isClicked = ActionHelper.Click(driver, adAmount25);
-		}else if(pAmount.equalsIgnoreCase("45")) {
-			isClicked = ActionHelper.Click(driver, adAmount45);
-		}else {
-			isClicked = ActionHelper.Click(driver, adAmount60);
-		}
-		return isClicked;
-	}
-	public boolean selectPlatforms(String pPlatForms) {
-		boolean isChecked = false;
-		String[] lPlatforms = pPlatForms.split(",");
-		for(String lPlatform: lPlatforms) {
-			if(lPlatform.equalsIgnoreCase("Facebook")) {
-				isChecked = checkUncheckInputBox(driver,facebook_label, faceBookPlatform_input, true);
+	public boolean selectYourAdCMA(String pSelectCMAAd, String pCustomizeOrPlaceAd) {
+		boolean isSuccess = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, select_your_ad_cma, 20)) {
+			if(pSelectCMAAd.equalsIgnoreCase("CMA1")) {
+				isSuccess = clickCustomizeOrPlace("cma1",pCustomizeOrPlaceAd);
 			}else {
-				isChecked = checkUncheckInputBox(driver,instagram_label,instagramPlatform_input, true);
+				isSuccess = clickCustomizeOrPlace("cma2",pCustomizeOrPlaceAd);
+			}
+		}
+		return isSuccess;
+	}
+
+	public void verificationOfStep2CMAAds() {
+		assertTrue(isCMAElementsDisplayed(cma_thumbnails_section2), "CMA Thumbnail icons are not displayed..");
+		assertTrue(isCMAElementsDisplayed(cma_hot_properties_section2), "CMA hot properties heading not displayed..");
+		assertTrue(verifyCMAAdPreviewUrl("propertypulse.z57.com "), "CMA ads preview URL is not correct..");
+		assertTrue(isCMAElementsDisplayed(learn_more_button_cma),"Learn More button is not visible..");
+		assertTrue(verifyCMALearnMoreUrl(learn_more_button_cma),"Learn More button URL is not correct..");
+		assertTrue(ActionHelper.isElementVisible(driver, cma1_heading),"CMA 1 heading is not displayed");
+		assertTrue(ActionHelper.isElementVisible(driver, cma2_heading),"CMA 2 heading is not displayed");
+	}
+	
+	
+	private boolean clickCustomizeOrPlace(String pSelectCMAAd, String pCustomizeOrPlaceAd) {
+		boolean isSuccess = false;
+		if(pCustomizeOrPlaceAd.equalsIgnoreCase("Place Ad")) {
+			isSuccess = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, cma_placeAd_button, pSelectCMAAd));
+		}else {
+			isSuccess = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, cma_customize_button, pSelectCMAAd));
+		}
+		return isSuccess;
+	}
+	
+	private boolean isCMAElementsDisplayed(String pXpath) {
+		boolean isSuccess = true;
+		List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, pXpath);
+		if(list_of_elements.size()==2) {
+			for(WebElement element: list_of_elements) {
+				if(!ActionHelper.isElementVisible(driver, element)) {
+					isSuccess = false;
+					break;
+				}
+			}
+		}
+		return isSuccess;
+	}
+	private boolean verifyCMAAdPreviewUrl(String pUrl) {
+		boolean isSuccess = true;
+		List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, cma_pp_preview_url);
+		if(list_of_elements.size()==2) {
+			for(WebElement element: list_of_elements) {
+				if(!ActionHelper.getText(driver, element).equalsIgnoreCase(pUrl.trim())) {
+					isSuccess = false;
+					break;
+				}
+			}
+		}
+		return isSuccess;
+	}
+	private boolean verifyCMALearnMoreUrl(String pXpath) {
+		boolean isSuccess = true;
+		List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, pXpath);
+		if(list_of_elements.size()==2) {
+			for(WebElement element: list_of_elements) {
+				if(!ActionHelper.getAttribute(element, "href").contains("?type=cma")) {
+					isSuccess = false;
+					break;
+				}
+			}
+		}
+		return isSuccess;
+	}
+	
+	public boolean isSlideShowButtonDisabled() {
+		return ActionHelper.isElementVisible(driver, slideShow_label_disabled);
+	}
+	public boolean isImageButtonVisible() {
+		return ActionHelper.isElementVisible(driver, image_label);
+	}
+	public boolean verifyAdHeading(String pHeading) {
+		return ActionHelper.getTextByValue(driver, headline_section3).equalsIgnoreCase(pHeading);
+	}
+	public boolean verifyAdDescription(String pDesc) {
+		return ActionHelper.getTextByValue(driver, description_section3).contains(pDesc);
+	}
+	public boolean verifyAdPreviewUrl(String pUrl) {
+		return ActionHelper.getText(driver, previewUrl_section3).contains(pUrl);
+	}
+	public boolean verifyAdPreviewHeadingIsVisible() {
+		return ActionHelper.isElementVisible(driver, adPreview_heading_section3);
+	}
+	public boolean verifyAdDescriptionInAdPreviewSection3(String pDesc) {
+		return ActionHelper.getText(driver, fb_ad_preview_section3).contains(pDesc);
+	}
+	public boolean verifyAdPreviewImageIsVisibleSection3() {
+		return ActionHelper.isElementVisible(driver, fb_ad_preview_image_section3);
+	}
+	public boolean isCreateAdPageVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, createAd_page_heading, 30);
+	}
+	public boolean isSection2Step1Visible() {
+		return ActionHelper.waitForElementToBeVisible(driver, select_your_ad_cma, 20);
+	}
+	public boolean isSection3Step1Visible() {
+		return ActionHelper.waitForElementToBeVisible(driver, section3_heading, 10);
+	}
+	public boolean clickOnNextStepButton() {
+		return ActionHelper.Click(driver, next_step_button);
+	}
+	
+	public boolean isStep2ProgressBar() {
+		return ActionHelper.waitForElementToBeVisible(driver, step2_progress_bar, 30);
+	}
+	public boolean isStep2HeadingDisplayed() {
+		boolean isSuccess = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, step2_heading, 20)) {
+			isSuccess = ActionHelper.getText(driver, step2_heading).equalsIgnoreCase(Z57MessagesHeadingLibrary.ad_step2_heading);
+		}
+		return isSuccess;
+	}
+	public boolean isStep2Heading2Displayed() {
+		boolean isSuccess = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, step2_h2_heading, 20)) {
+			isSuccess = ActionHelper.getText(driver, step2_h2_heading).equalsIgnoreCase(Z57MessagesHeadingLibrary.ad_step2_heading2);
+		}
+		return isSuccess;
+	}
+	public boolean isStep2AdCityDisplayed() {
+		boolean isSuccess = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, step2_ad_city, 10)) {
+			isSuccess = !ActionHelper.getText(driver, step2_ad_city).isEmpty();
+		}
+		return isSuccess;
+	}
+	public String getTargetCity() {
+		String lCity = "";
+		if(ActionHelper.waitForElementToBeVisible(driver, step2_ad_city, 10)) {
+			lCity = ActionHelper.getText(driver, step2_ad_city);
+		}
+		return lCity;
+	}
+	public boolean selectTargetReach(String pBudget) {
+		return ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, select_target_reach, pBudget));
+	}
+	public boolean verifyTargetReachIsDisplayed() {
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, target_reach_count);
+		for(WebElement element: list) {
+			if(ActionHelper.getText(driver, element).isEmpty()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	public boolean verifyDefaultPlatformsSelected() {
+		return ActionHelper.isElementSelected(driver, facebook_platform) && ActionHelper.isElementSelected(driver, instagram_platform);
+	}
+	public boolean selectPlatform(String pPlatform) {
+		boolean isChecked = false;
+		String [] lPlatforms = pPlatform.split(",");
+		for(String lPlatformSingle: lPlatforms) {
+			isChecked = false;
+			if(lPlatformSingle.equalsIgnoreCase("Facebook")) {
+				isChecked = ActionHelper.checkUncheckInputBox(driver, facebook_platform, true);
+			}else {
+				isChecked = ActionHelper.checkUncheckInputBox(driver, instagram_platform, true);
 			}
 			if(!isChecked) {
 				break;
 			}
-			
 		}
+
 		return isChecked;
 	}
-	
-	 public static boolean checkUncheckInputBox(WebDriver pWebDriver, WebElement pElementToClicked,WebElement pElementToCheck, boolean pSelect) {
-		   boolean isSuccess = false;
-		   boolean lElementVal = pElementToCheck.isSelected();
-		   if(lElementVal && !pSelect) {
-			   isSuccess =  ActionHelper.ClickForAds(pWebDriver, pElementToClicked);
-		   }else if(!lElementVal && pSelect) {
-			   isSuccess = ActionHelper.ClickForAds(pWebDriver, pElementToClicked);
-		   }else if(lElementVal && pSelect) {
-			   isSuccess = true;
-		   }else if (!lElementVal && !pSelect) {
-			   isSuccess = true;
-		   }
-		   return isSuccess;
-	   }
+	public boolean isSlideShowAtStep2() {
+		boolean isSuccess = false;
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, isSlideShow);
+		if(list!=null) {
+			isSuccess = list.size()>=3;
+		}
+		return isSuccess;
+	}
+	public boolean isAdDescOnStep2(String pAdDesc) {
+		return ActionHelper.getText(driver, ad_description_step2).contains(pAdDesc);
+	}
+	public boolean isAdDomainOnStep2(String pAdDomain) {
+		return ActionHelper.getText(driver, ad_domain_step2).contains(pAdDomain.toUpperCase());
+	}
+	public boolean verifyAdTitleStep2(String pTitle) {
+		return ActionHelper.getText(driver, ad_title_step2).contains(pTitle);
+	}
+	public boolean verifyAdSpecificationsStep3(String pSpecification) {
+		boolean isFound = false;
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, ad_values);
+		for(WebElement element: list) {
+			isFound = ActionHelper.getText(driver, element).equalsIgnoreCase(pSpecification);
+			if(isFound) {
+				break;
+			}
+		}
+		return isFound;
+	}
+	public boolean isStep3ProgressbarDisplayed() {
+		return ActionHelper.waitForElementToBeVisible(driver, step3_confirmdetails_progress_bar, 30);
+	}
+	public boolean isStep3Heading() {
+		return ActionHelper.getText(driver, step3_heading).equalsIgnoreCase(Z57MessagesHeadingLibrary.ad_step3_heading);
+	}
+	public boolean isStep3Heading2Displayed() {
+		return ActionHelper.waitForElementToBeVisible(driver, step3_heading2, 30);
+	}
+	public boolean isValidAdHeadingStep3(String pAdHeading) {
+		return ActionHelper.getText(driver, ad_heading_step3).contains(pAdHeading);
+	}
+	public boolean verifyAdRenewDate(String pDate) {
+		return ActionHelper.getText(driver, ad_renew_text).contains(pDate);
+	}
+	public boolean clickOnTermsAndCondCheckbox() {
+		boolean isClicked = false;
+		if(ActionHelper.getText(driver, termsAndCond_checkbox_text).contains("I agree to the")) {
+			isClicked = ActionHelper.Click(driver, termsAndCond_checkbox);
+		}
+		return isClicked;
+	}
+	public boolean clickOnTestAd() {
+		return ActionHelper.Click(driver, test_ad_checkbox);
+	}
+	public boolean isAdPlacedSuccessfully() {
+		return ActionHelper.waitForElementToBeVisible(driver, success_dialog, 20);
+	}
+	public boolean clickOnAdsOverviewPage() {
+		return ActionHelper.Click(driver, ads_overview_button);
+	}
 }
