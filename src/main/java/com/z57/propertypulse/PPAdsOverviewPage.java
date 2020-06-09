@@ -37,13 +37,13 @@ public class PPAdsOverviewPage extends Page{
 	
 	String isSlideShow = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::div[@class='slide-image']";
 	
-	String ad_description_overview = "//div[@id='21419']/descendant::div[@class='fb_ad_preview_details Mpreview']";
+	String ad_description_overview = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::div[@class='fb_ad_preview_details Mpreview']";
 	
-	@FindBy(xpath="//div[@class='fb_ad_preview_domain']")
-	WebElement ad_domain_step2;
+	String ad_image_preview = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::div[@class='fb_ad_preview_info']/img";
 	
-	@FindBy(xpath="//div[@class='fb_ad_preview_title']/a")
-	WebElement ad_title_step2;
+	String ad_domain_step2 = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::div[@class='fb_ad_preview_domain']";
+	
+	String ad_title_step2 = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::div[@class='fb_ad_preview_title']/a";
 	
 	public PPAdsOverviewPage(){
 		
@@ -65,7 +65,7 @@ public class PPAdsOverviewPage extends Page{
 	}
 	public boolean verifyAdType(String pAdType, String lAdId) {
 		boolean isVerified = false;
-		WebElement element = ActionHelper.getDynamicElement(driver, listing_address, lAdId);
+		WebElement element = ActionHelper.getDynamicElement(driver, adType, lAdId);
 		if(element!=null) {
 			isVerified = ActionHelper.getText(driver, element).equalsIgnoreCase(pAdType);
 		}
@@ -79,8 +79,13 @@ public class PPAdsOverviewPage extends Page{
 		}
 		return isVerified;
 	}
-	public boolean verifyAdStatus(String lAdId) {
-		return ActionHelper.getDynamicElementAfterRegularIntervals(driver,ad_status,lAdId,20);
+	public boolean verifyAdStatus(String lAdId, String pAdStatusToVerify) {
+		boolean isVerified = false;
+		if(ActionHelper.getDynamicElementAfterRegularIntervals(driver,ad_status,lAdId,20)) {
+			WebElement element = ActionHelper.getDynamicElement(driver, ad_status, lAdId);
+			isVerified = ActionHelper.verifyTextAfterRegularIntervals(driver, element, pAdStatusToVerify, 20);
+		}
+		return isVerified;
 	}
 	public boolean verifyPlatforms(String pPlatforms, String pAdId) {
 		boolean isVerified = false;
@@ -119,9 +124,10 @@ public class PPAdsOverviewPage extends Page{
 		return isVerified;
 	}
 	
-	public boolean isSlideShowAtStep2() {
+	public boolean isSlideShowAtStep2(String pAdId) {
 		boolean isSuccess = false;
-		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, isSlideShow);
+		String element = ActionHelper.getDynamicElementXpath(driver, isSlideShow, pAdId);
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, element);
 		if(list!=null) {
 			isSuccess = list.size()>=3;
 		}
@@ -132,6 +138,30 @@ public class PPAdsOverviewPage extends Page{
 		WebElement element = ActionHelper.getDynamicElement(driver, ad_description_overview, pAdId);
 		if(element!=null) {
 			isVerified = ActionHelper.getText(driver, element).contains(pAdDesc);
+		}
+		return isVerified;
+	}
+	public boolean isPreviewImageDisplayed(String pAdId) {
+		boolean isVerified = false;
+		WebElement element = ActionHelper.getDynamicElement(driver, ad_image_preview, pAdId);
+		if(element!=null) {
+			isVerified = ActionHelper.isElementVisible(driver, element);
+		}
+		return isVerified;
+	}
+	public boolean isAdDomainOnStep2(String pAdDomain, String pAdId) {
+		boolean isVerified = false;
+		WebElement element = ActionHelper.getDynamicElement(driver, ad_domain_step2, pAdId);
+		if(element!=null) {
+			isVerified = ActionHelper.getText(driver, element).contains(pAdDomain.toUpperCase());
+		}
+		return isVerified;
+	}
+	public boolean verifyAdTitleStep2(String pTitle, String pAdId) {
+		boolean isVerified = false;
+		WebElement element = ActionHelper.getDynamicElement(driver, ad_title_step2, pAdId);
+		if(element!=null) {
+			isVerified = ActionHelper.getText(driver, element).contains(pTitle);
 		}
 		return isVerified;
 	}

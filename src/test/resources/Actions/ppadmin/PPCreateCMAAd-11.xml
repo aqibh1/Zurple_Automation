@@ -12,9 +12,16 @@
       	<include name="testPPLogin" />
       </methods>
       </class>
+      <!--  
       <class name="com.z57.propertypulse.PPCreateAdPageTest" >
       <methods>
       <include name="testCreateCMAAd" />
+      </methods>
+      </class>
+      -->
+      <class name="com.z57.propertypulse.PPAdsOverviewPageTest" >
+      <methods>
+      <include name="testVerifyAdDetailsOnAdsOverviewPage" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">

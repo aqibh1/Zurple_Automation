@@ -113,6 +113,7 @@ public class PPCreateAdPageTest extends PageTest{
 		assertTrue(page.isStep2AdCityDisplayed(), "Target City is not populated on Step 2..");
 		
 		lTargetCity = page.getTargetCity();
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdCity, lTargetCity);
 		
 		assertTrue(page.selectTargetReach(pBudget), "Unable to select target reach..");
 		assertTrue(page.verifyTargetReachIsDisplayed(), "Estimated reach numbers are not populated..");
@@ -132,7 +133,10 @@ public class PPCreateAdPageTest extends PageTest{
 	
 	//Step 3 verifications
 	private void adCreationStep3() {
-		String lAdDuration = "Monthly";//dataObject.optString("ad_duration");
+		String lAdDuration = dataObject.optString("ad_duration");
+		String lAdStartDate = "";
+		String lAdEndDate ="";
+		
 		assertTrue(page.isStep3ProgressbarDisplayed(), "Step 3 progress bar is not displayed..");
 		assertTrue(page.isStep3Heading(), "Step 3 heading is not displayed..");
 		assertTrue(page.isStep3Heading2Displayed(), "Step 3 heading2 is not displayed..");
@@ -151,19 +155,27 @@ public class PPCreateAdPageTest extends PageTest{
 		String lRenewalDate = "";
 		if(lAdDuration.equalsIgnoreCase("Monthly")) {
 			int lAdBudget = Integer.parseInt(dataObject.optString("ad_amount"))*4;
+			lAdStartDate = getTodaysDate(0);
+			lAdEndDate = getTodaysDate(29);
 			lPlan ="$"+String.valueOf(lAdBudget)+".00 per month";
 			assertTrue(page.verifyAdSpecificationsStep3(lPlan), "Unable to verify target city on step 3..");
 			assertTrue(page.verifyAdSpecificationsStep3(lAdDuration), "Unable to verify Frequency on step 3..");
-			assertTrue(page.verifyAdSpecificationsStep3(getTodaysDate(0)+" - "+getTodaysDate(29)), "Unable to verify Schedule start date on step 3..");
+			assertTrue(page.verifyAdSpecificationsStep3(lAdStartDate+" - "+lAdEndDate), "Unable to verify Schedule start date on step 3..");
 			lRenewalDate = getTodaysDate(30);
 		}else {
 			lPlan ="$"+dataObject.optString("ad_amount")+".00 per month";
+			lAdStartDate = getTodaysDate(0);
+			lAdEndDate = getTodaysDate(7);
 			assertTrue(page.verifyAdSpecificationsStep3(lPlan), "Unable to verify target city on step 3..");
 			assertTrue(page.verifyAdSpecificationsStep3(lAdDuration), "Unable to verify Frequency on step 3..");
-			assertTrue(page.verifyAdSpecificationsStep3(getTodaysDate(0)), "Unable to verify Schedule start date on step 3..");
-			assertTrue(page.verifyAdSpecificationsStep3(getTodaysDate(7)), "Unable to verify Schedule end date on step 3..");
+			assertTrue(page.verifyAdSpecificationsStep3(lAdStartDate), "Unable to verify Schedule start date on step 3..");
+			assertTrue(page.verifyAdSpecificationsStep3(lAdEndDate), "Unable to verify Schedule end date on step 3..");
 			lRenewalDate = getTodaysDate(8);
 		}
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdRenwalDate, lRenewalDate);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdStartDate, lAdStartDate);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdEndDate, lAdEndDate);
+		
 		String lPlatforms = dataObject.optString("platforms").contains(",")?dataObject.optString("platforms").replace(",", " &"):dataObject.optString("platforms");
 		assertTrue(page.verifyAdSpecificationsStep3(lPlatforms), "Unable to verify platforms on step 3..");
 		assertTrue(page.verifyAdRenewDate(lRenewalDate), "Unable to verify ad renewal date on step 3..");

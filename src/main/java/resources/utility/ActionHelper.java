@@ -989,4 +989,16 @@ public class ActionHelper {
 		   }
 		   return isVerified;
 	   }
+	   //Give xpath of of elements which return number of elements in list
+	   public static boolean findTextInListOfElements(WebDriver pWebDriver, String pListXpaths, String pTextToFind) {
+		   boolean isFound = false;
+		   List<WebElement> list = getListOfElementByXpath(pWebDriver, pListXpaths);
+		   for(WebElement element: list) {
+			   isFound = getText(pWebDriver, element).contains(pTextToFind)?true:false;
+			   if(isFound) {
+				   break;
+			   }
+		   }
+		   return isFound;
+	   }
 }

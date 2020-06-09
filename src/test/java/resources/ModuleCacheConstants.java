@@ -23,4 +23,7 @@ public class ModuleCacheConstants {
 	public static final String ZurplePOIReportsZip = "zurple.poi.reports.zip";
 	public static final String AdCity = "pp.ad.create.city";
 	public static final String PPADID = "pp.ad.id";
+	public static final String AdRenwalDate = "pp.ad.renewal.date";
+	public static final String AdStartDate = "pp.ad.start.date";
+	public static final String AdEndDate = "pp.ad.end.date";;
 }
