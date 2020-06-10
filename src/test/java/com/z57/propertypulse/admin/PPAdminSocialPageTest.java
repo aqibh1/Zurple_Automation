@@ -81,8 +81,17 @@ public class PPAdminSocialPageTest extends PageTest {
 	@Parameters({"dataFile"})
 	public void testVerifyAdDetails(String pDataFile) {
 		getPage();
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdRenwalDate, "07/10/2020");
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdStartDate, "06/10/2020");
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdEndDate, "07/09/2020");
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.PPADID, "2322");
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdBudget, 240);
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdCity, "San Diego, CA");
+	
+		
 		String lAdId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.PPADID);
 		String lUrl = "/admin/social?account=&ad_id="+lAdId+"&num_billed=&ad_type=0&ad_billed=0&ui_step=4&ad_state=0&api_status=0&test_ads=0&date_start=06%2F01%2F2020&date_end=&limit=100";
+		page = null;
 		getPage(lUrl);
 		dataObject = getDataFile(pDataFile);
 		String lAdFrequencey = dataObject.optString("ad_duration");
@@ -91,7 +100,7 @@ public class PPAdminSocialPageTest extends PageTest {
 		String lPlatforms = dataObject.optString("platforms");
 		String lTitle = dataObject.optString("ad_title");
 		String lDesc = dataObject.optString("ad_description");
-		String lBudget = dataObject.optString("ad_amount");
+		String lBudget = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdBudget).toString();
 		String lLocation = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdCity);
 		String lFBAd_Start_Date = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdStartDate);
 		String lFBAd_End_Date = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdEndDate);
@@ -108,7 +117,8 @@ public class PPAdminSocialPageTest extends PageTest {
 		assertTrue(page.verifyAdLocation(lLocation), "Unable to verify ad location..");
 		assertTrue(page.verifyBudget(lBudget), "Unable to verify ad desc..");
 		assertTrue(page.verifyAdFBStartDate(lFBAd_Start_Date), "Unable to verify ad start date..");
-		assertTrue(page.verifyAdFBEndDate(lFBAd_End_Date), "Unable to verify ad end date..");
 		assertTrue(page.verifyFBAdStatus(), "Unable to verify ad status..");
+		assertTrue(page.verifyAdFBEndDate(lFBAd_End_Date), "Unable to verify ad end date..");
+		
 	}
 }

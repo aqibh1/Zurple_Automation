@@ -8,6 +8,7 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
@@ -49,7 +50,8 @@ public class PPAdsOverviewPage extends Page{
 		
 	}
 	public PPAdsOverviewPage(WebDriver pWebDriver){
-		
+		driver = pWebDriver;
+		PageFactory.initElements(driver, this);
 	}
 	
 	public boolean verifyListingAddress(String pAddress, String lAdId) {
@@ -81,8 +83,8 @@ public class PPAdsOverviewPage extends Page{
 	}
 	public boolean verifyAdStatus(String lAdId, String pAdStatusToVerify) {
 		boolean isVerified = false;
-		if(ActionHelper.getDynamicElementAfterRegularIntervals(driver,ad_status,lAdId,20)) {
-			WebElement element = ActionHelper.getDynamicElement(driver, ad_status, lAdId);
+		WebElement element = ActionHelper.getDynamicElement(driver, ad_status, lAdId);
+		if(element!=null) {
 			isVerified = ActionHelper.verifyTextAfterRegularIntervals(driver, element, pAdStatusToVerify, 20);
 		}
 		return isVerified;
@@ -92,8 +94,9 @@ public class PPAdsOverviewPage extends Page{
 		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_platforms, pAdId));
 		String [] lPlatforms = pPlatforms.split(",");
 		for(String lPlat: lPlatforms) {
+			isVerified = false;
 			for(WebElement element: list) {
-				if(ActionHelper.getAttribute(element, "alt").equalsIgnoreCase(lPlat)) {
+				if(ActionHelper.getAttribute(element, "alt").trim().equalsIgnoreCase(lPlat.trim())) {
 					isVerified = true;
 					break;
 				}
@@ -108,7 +111,7 @@ public class PPAdsOverviewPage extends Page{
 		boolean isVerified = false;
 		WebElement element = ActionHelper.getDynamicElement(driver, ad_City, pAdId);
 		if(element!=null) {
-			isVerified = ActionHelper.getText(driver, element).equalsIgnoreCase(pAdCity);
+			isVerified = ActionHelper.getText(driver, element).contains(pAdCity);
 		}
 		return isVerified;
 	}

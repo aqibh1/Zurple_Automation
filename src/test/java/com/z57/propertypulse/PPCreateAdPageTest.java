@@ -6,6 +6,8 @@ package com.z57.propertypulse;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import java.util.concurrent.TimeUnit;
+
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
@@ -14,6 +16,7 @@ import org.testng.annotations.Test;
 import resources.AbstractPage;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 
 /**
  * @author adar
@@ -62,6 +65,7 @@ public class PPCreateAdPageTest extends PageTest{
 	public AbstractPage getPage(String pUrl) {
 		if(page == null) {
 			driver = getDriver();
+			driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.MINUTES);
 			page = new PPCreateAdPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
@@ -84,6 +88,7 @@ public class PPCreateAdPageTest extends PageTest{
 		assertTrue(page.isSection2Step1Visible(), "Section 2 step 1 is not visible..");
 		//Verfications of section 2 for CMA ads
 		page.verificationOfStep2CMAAds();
+		ActionHelper.staticWait(3);
 		assertTrue(page.selectYourAdCMA(dataObject.optString("ad_type"), dataObject.optString("customize_place")), "Unable to select CMA Ad");
 		if(dataObject.optString("customize_place").equalsIgnoreCase("customize")) {
 			assertTrue(page.isSection3Step1Visible(), "Section 3 Step1 is not visible..");
@@ -112,7 +117,7 @@ public class PPCreateAdPageTest extends PageTest{
 		assertTrue(page.isStep2Heading2Displayed(), "Step 2 h2 heading is not displayed..");
 		assertTrue(page.isStep2AdCityDisplayed(), "Target City is not populated on Step 2..");
 		
-		lTargetCity = page.getTargetCity();
+		lTargetCity = page.getTargetCity().split("\n")[1];
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdCity, lTargetCity);
 		
 		assertTrue(page.selectTargetReach(pBudget), "Unable to select target reach..");
@@ -134,6 +139,7 @@ public class PPCreateAdPageTest extends PageTest{
 	//Step 3 verifications
 	private void adCreationStep3() {
 		String lAdDuration = dataObject.optString("ad_duration");
+		int lAdBudget = dataObject.optString("ad_duration").equalsIgnoreCase("Monthly")?Integer.parseInt(dataObject.optString("ad_amount"))*4:Integer.parseInt(dataObject.optString("ad_amount"));
 		String lAdStartDate = "";
 		String lAdEndDate ="";
 		
@@ -150,11 +156,10 @@ public class PPCreateAdPageTest extends PageTest{
 		assertTrue(page.isAdDescOnStep2(dataObject.optString("ad_description")), "Step 3 ad description does not match..");
 		assertTrue(page.isAdDomainOnStep2(dataObject.optString("ad_domain")), "Step 3 ad domain does not match");
 		assertTrue(page.verifyAdTitleStep2(dataObject.optString("ad_title")), "Step 3 ad title does not match..");
-		assertTrue(page.verifyAdSpecificationsStep3(lTargetCity.split("\n")[1]), "Unable to verify target city on step 3..");
+		assertTrue(page.verifyAdSpecificationsStep3(lTargetCity), "Unable to verify target city on step 3..");
 		String lPlan = "";
 		String lRenewalDate = "";
 		if(lAdDuration.equalsIgnoreCase("Monthly")) {
-			int lAdBudget = Integer.parseInt(dataObject.optString("ad_amount"))*4;
 			lAdStartDate = getTodaysDate(0);
 			lAdEndDate = getTodaysDate(29);
 			lPlan ="$"+String.valueOf(lAdBudget)+".00 per month";
@@ -175,6 +180,7 @@ public class PPCreateAdPageTest extends PageTest{
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdRenwalDate, lRenewalDate);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdStartDate, lAdStartDate);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdEndDate, lAdEndDate);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdBudget, lAdBudget);
 		
 		String lPlatforms = dataObject.optString("platforms").contains(",")?dataObject.optString("platforms").replace(",", " &"):dataObject.optString("platforms");
 		assertTrue(page.verifyAdSpecificationsStep3(lPlatforms), "Unable to verify platforms on step 3..");

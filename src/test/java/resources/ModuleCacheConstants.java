@@ -25,5 +25,6 @@ public class ModuleCacheConstants {
 	public static final String PPADID = "pp.ad.id";
 	public static final String AdRenwalDate = "pp.ad.renewal.date";
 	public static final String AdStartDate = "pp.ad.start.date";
-	public static final String AdEndDate = "pp.ad.end.date";;
+	public static final String AdEndDate = "pp.ad.end.date";
+	public static final String AdBudget = "pp.ad.budget";;
 }
