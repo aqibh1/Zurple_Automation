@@ -201,7 +201,7 @@ public class PPCreateAdPage extends Page{
 	
 	public boolean selectYourAdCMA(String pSelectCMAAd, String pCustomizeOrPlaceAd) {
 		boolean isSuccess = false;
-		if(ActionHelper.waitForElementToBeVisible(driver, select_your_ad_cma, 20)) {
+		if(ActionHelper.waitForElementToBeVisible(driver, select_your_ad_cma, 60)) {
 			if(pSelectCMAAd.equalsIgnoreCase("CMA1")) {
 				isSuccess = clickCustomizeOrPlace("cma1",pCustomizeOrPlaceAd);
 			}else {
@@ -310,7 +310,7 @@ public class PPCreateAdPage extends Page{
 	}
 	
 	public boolean isStep2ProgressBar() {
-		return ActionHelper.waitForElementToBeVisible(driver, step2_progress_bar, 30);
+		return ActionHelper.waitForElementToBeVisible(driver, step2_progress_bar, 60);
 	}
 	public boolean isStep2HeadingDisplayed() {
 		boolean isSuccess = false;
@@ -358,12 +358,13 @@ public class PPCreateAdPage extends Page{
 	public boolean selectPlatform(String pPlatform) {
 		boolean isChecked = false;
 		String [] lPlatforms = pPlatform.split(",");
+		ActionHelper.checkUncheckInputBox(driver, instagram_platform,driver.findElement(By.id("label_instagram")), false);
 		for(String lPlatformSingle: lPlatforms) {
 			isChecked = false;
 			if(lPlatformSingle.equalsIgnoreCase("Facebook")) {
 				isChecked = ActionHelper.checkUncheckInputBox(driver, facebook_platform, true);
 			}else {
-				isChecked = ActionHelper.checkUncheckInputBox(driver, instagram_platform, true);
+				isChecked = ActionHelper.checkUncheckInputBox(driver, instagram_platform,driver.findElement(By.id("label_instagram")), false);
 			}
 			if(!isChecked) {
 				break;
@@ -401,7 +402,7 @@ public class PPCreateAdPage extends Page{
 		return isFound;
 	}
 	public boolean isStep3ProgressbarDisplayed() {
-		return ActionHelper.waitForElementToBeVisible(driver, step3_confirmdetails_progress_bar, 30);
+		return ActionHelper.waitForElementToBeVisible(driver, step3_confirmdetails_progress_bar, 60);
 	}
 	public boolean isStep3Heading() {
 		return ActionHelper.getText(driver, step3_heading).equalsIgnoreCase(Z57MessagesHeadingLibrary.ad_step3_heading);

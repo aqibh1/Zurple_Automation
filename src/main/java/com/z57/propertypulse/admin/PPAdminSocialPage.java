@@ -101,13 +101,13 @@ public class PPAdminSocialPage extends Page{
 		return ActionHelper.findTextInListOfElements(driver, fb_start_end, pEndDate);
 	}
 	public boolean verifyFBAdStatus() {
-		boolean verifyPPStatus = false;
 		boolean verifyFBStatus = false;
-		if(ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, test_Ad_paused, 60, 20)) {
-			verifyPPStatus = ActionHelper.findTextInListOfElements(driver, fb_status, "LIVE");
-			verifyFBStatus = ActionHelper.findTextInListOfElements(driver, fb_status, "PAUSED");
+		boolean isTestPausedAd = false;
+		if(ActionHelper.waitForElementToBeFoundAfterRegularIntervals(driver, fb_status, "PP: LIVE", 20)) {
+			isTestPausedAd = ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, test_Ad_paused, 60, 20);
+			verifyFBStatus = ActionHelper.waitForElementToBeFoundAfterRegularIntervals(driver, fb_status, "FB: PAUSED", 20);
 		}
-		return verifyFBStatus && verifyPPStatus;
+		return verifyFBStatus && isTestPausedAd;
 	}
 	public boolean verifyBudget(String pBudget) {
 		return ActionHelper.findTextInListOfElements(driver, fb_start_end, pBudget);

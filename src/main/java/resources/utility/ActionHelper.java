@@ -1001,4 +1001,18 @@ public class ActionHelper {
 		   }
 		   return isFound;
 	   }
+	   public static boolean waitForElementToBeFoundAfterRegularIntervals(WebDriver pWebDriver,String pListXpaths, String pTextToFind, int pTotalAttempts) {
+		   boolean isVerified = false;
+		   int counter = 0;
+		   while (counter<pTotalAttempts && !isVerified) {
+			   if(findTextInListOfElements(pWebDriver, pListXpaths,pTextToFind)) {
+				   isVerified = true;
+			   }else {
+				   pWebDriver.navigate().refresh();
+				   staticWait(60);
+				   counter++;
+			   }
+		   }
+		   return isVerified;
+	   }
 }
