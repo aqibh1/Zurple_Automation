@@ -80,6 +80,12 @@ public class PPAdsOverviewPageTest extends PageTest{
 	public void testVerifyAdDetailsOnAdsOverviewPage(String pDataFile) {
 		getPage("/content/marketing/ads");
 		dataObject = getDataFile(pDataFile);
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdRenwalDate, "06/19/2020");
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdStartDate, "06/12/2020");
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdEndDate, "06/18/2020");
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.PPADID, "2342");
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdBudget, 25);
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdCity, "La Jolla, CA");
 		
 		String lAdId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.PPADID);
 		String lTargetCity = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdCity);

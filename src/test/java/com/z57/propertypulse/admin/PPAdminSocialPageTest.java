@@ -98,8 +98,8 @@ public class PPAdminSocialPageTest extends PageTest {
 		String lAdType = dataObject.optString("ad_type");
 		String lAdFormat = dataObject.optString("slideshow_or_image");
 		String lPlatforms = dataObject.optString("platforms");
-		String lTitle = dataObject.optString("ad_title");
-		String lDesc = dataObject.optString("ad_description");
+		String lTitle = dataObject.optString("ad_title").isEmpty()?ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.PPADTitle):dataObject.optString("ad_title");
+		String lDesc = dataObject.optString("ad_description").isEmpty()?ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.PPADDesc):dataObject.optString("ad_description");
 		String lBudget = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdBudget).toString();
 		String lLocation = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdCity);
 		String lFBAd_Start_Date = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdStartDate);

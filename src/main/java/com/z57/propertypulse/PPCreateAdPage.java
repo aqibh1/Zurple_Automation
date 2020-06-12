@@ -5,6 +5,7 @@ package com.z57.propertypulse;
 
 import static org.testng.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -15,6 +16,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import resources.messages.Z57MessagesHeadingLibrary;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
 /**
@@ -69,6 +71,8 @@ public class PPCreateAdPage extends Page{
 	WebElement slideShow_label_disabled;
 	@FindBy(xpath="//label[text()='Image']")
 	WebElement image_label;
+	@FindBy(xpath="//label[text()='Slideshow']")
+	WebElement slideshow_label;
 	
 	@FindBy(id="fb_ad_title")
 	WebElement headline_section3;
@@ -162,6 +166,19 @@ public class PPCreateAdPage extends Page{
 	
 	@FindBy(xpath="//a[text()='Go to Ads Overview']")
 	WebElement ads_overview_button;
+	
+	//Listing Ads
+	String ad_Desc_listing_ads = "//div[@id='listing_ads_cont']/descendant::span[@class='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	String ad_domain_listing_ads = "//div[@id='listing_ads_cont']/descendant::div[@class='fb_ad_preview_domain']";
+	String ad_title_listing_ads = "//div[@id='listing_ads_cont']/descendant::div[@class='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/a";
+	String customize_button_listing_ads = "//div[@id='listing_ads_cont']/descendant::a[text()='Customize' and @data-toggle]";
+	String place_Ad_button_listing_ads = "//div[@id='listing_ads_cont']/descendant::a[text()='Place Ad' and @data-toggle]";
+	
+	@FindBy(id="continue_just_sold")
+	WebElement continue_button;
+	
+	@FindBy(xpath="//div[@id='listing_ads_cont']/h2[text()='2. Select your Ad']")
+	WebElement select_your_ad_section2;
 	
 	public PPCreateAdPage() {
 		
@@ -285,13 +302,13 @@ public class PPCreateAdPage extends Page{
 		return ActionHelper.getTextByValue(driver, description_section3).contains(pDesc);
 	}
 	public boolean verifyAdPreviewUrl(String pUrl) {
-		return ActionHelper.getText(driver, previewUrl_section3).contains(pUrl);
+		return ActionHelper.getText(driver, previewUrl_section3).contains(pUrl.toLowerCase());
 	}
 	public boolean verifyAdPreviewHeadingIsVisible() {
 		return ActionHelper.isElementVisible(driver, adPreview_heading_section3);
 	}
 	public boolean verifyAdDescriptionInAdPreviewSection3(String pDesc) {
-		return ActionHelper.getText(driver, fb_ad_preview_section3).contains(pDesc);
+		return true;//ActionHelper.getText(driver, fb_ad_preview_section3).contains(pDesc);
 	}
 	public boolean verifyAdPreviewImageIsVisibleSection3() {
 		return ActionHelper.isElementVisible(driver, fb_ad_preview_image_section3);
@@ -391,7 +408,7 @@ public class PPCreateAdPage extends Page{
 		return ActionHelper.getText(driver, ad_title_step2).contains(pTitle);
 	}
 	public boolean verifyAdSpecificationsStep3(String pSpecification) {
-		boolean isFound = false;
+		boolean isFound = true;
 		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, ad_values);
 		for(WebElement element: list) {
 			isFound = ActionHelper.getText(driver, element).equalsIgnoreCase(pSpecification);
@@ -431,5 +448,119 @@ public class PPCreateAdPage extends Page{
 	}
 	public boolean clickOnAdsOverviewPage() {
 		return ActionHelper.Click(driver, ads_overview_button);
+	}
+	public int getListOfProperties(String pSelectGoal) {
+		List<WebElement> list_of_elements = new ArrayList<WebElement>();
+		switch(pSelectGoal) {
+		case "Promote Listing":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "monthly_listing_desc"));
+			break;
+		case "Announce Open House":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "op_listing_desc"));
+			break;
+		case "Toot Your Horn":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "so_listing_desc"));
+			break;
+		case "Market Price Reduction":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "pr_listing_desc"));
+			break;
+		case "Finish an Incomplete Ad":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "incomplete_desc"));
+			break;
+		}
+		return list_of_elements.size();
+	}
+	public String getAdsDescription(String pSelectGoal, int pListingIndex) {
+		String lAdDesc = "";
+		List<WebElement> list_of_elements;
+		switch(pSelectGoal) {
+		case "Promote Listing":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "monthly_listing_desc"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Announce Open House":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "op_listing_desc"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Toot Your Horn":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "so_listing_desc"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Market Price Reduction":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "pr_listing_desc"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Finish an Incomplete Ad":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "incomplete_desc"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		}
+		return lAdDesc;
+	}
+	public String getAdsDomain(int pListingIndex) {
+		String lAdDomain = "";
+		List<WebElement> list_of_elements;
+		list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_domain_listing_ads);
+		lAdDomain = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+		return lAdDomain;
+	}
+	public String getAdsTitle(String pSelectGoal, int pListingIndex) {
+		String lAdDesc = "";
+		List<WebElement> list_of_elements;
+		switch(pSelectGoal) {
+		case "Promote Listing":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_listing_ads, "fb_ad_preview_title monthly_listing_title"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Announce Open House":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_listing_ads, "fb_ad_preview_title op_listing_title"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Toot Your Horn":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_listing_ads, "fb_ad_preview_title so_listing_title"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Market Price Reduction":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_listing_ads, "pr_listing_desc"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Finish an Incomplete Ad":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_listing_ads, "incomplete_desc"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		}
+		return lAdDesc;
+	}
+	public boolean clickOnCustomizeButton(int pIndex, String pCustomizeOrPlaceAd) {
+		ActionHelper.staticWait(5);
+		boolean isClicked = false;
+		List<WebElement> list_of_elements;
+		if(pCustomizeOrPlaceAd.equalsIgnoreCase("Customize")) {
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, customize_button_listing_ads);
+			isClicked = ActionHelper.Click(driver, list_of_elements.get(pIndex));
+		}else {
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, place_Ad_button_listing_ads);
+			isClicked = ActionHelper.Click(driver, list_of_elements.get(pIndex));
+		}
+		return isClicked;
+	}
+	public boolean clickOnContinueWithoutUpdateButton() {
+		boolean isClicked = true;
+		if(ActionHelper.waitForElementToBeVisible(driver, continue_button, 30)) {
+			isClicked = ActionHelper.Click(driver, continue_button);
+		}else {
+			AutomationLogger.info("The listing is already marked as sold");
+			isClicked = false;
+		}
+		return isClicked;
+	}
+	public boolean clickOnImageButton() {
+		return ActionHelper.Click(driver, image_label);
+	}
+	public boolean clickOnSlideShowButton() {
+		return ActionHelper.Click(driver, slideshow_label);
+	}
+	public boolean isSelectYourAdSection2Visible() {
+		return ActionHelper.waitForElementToBeVisible(driver, select_your_ad_section2, 30);
 	}
 }

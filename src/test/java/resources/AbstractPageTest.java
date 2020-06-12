@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -309,7 +310,14 @@ public abstract class AbstractPageTest extends AbstractTest
     	return currentDate;
     	
     }
-    
+    protected static int generateRandomInt(int pUpperRange){
+    	Random random = new Random();
+    	int lNum = random.nextInt(pUpperRange);
+    	if(lNum==pUpperRange) {
+    		lNum = lNum - 1;
+    	}
+    	return lNum;
+}
     
 
 }
