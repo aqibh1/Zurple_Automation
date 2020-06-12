@@ -122,6 +122,7 @@ public class PPCreateAdPageTest extends PageTest{
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.PPADID, lAdId);
 		assertTrue(page.clickOnNextStepButton(), "Unable to click on Place button step 3");
 	}
+	
 	@Test
 	@Parameters({"dataFile"})
 	public void testCreateListingAds(String pDataFile) {
@@ -131,10 +132,7 @@ public class PPCreateAdPageTest extends PageTest{
 		lSelectGoal = dataObject.optString("goal");
 		lCustomizeOrPlaceAd = dataObject.optString("customize_place");
 		lSlideShowOrImage = dataObject.optString("slideshow_or_image");
-		lTitle = "";
-		lDesc = "";
-		lDomain = "";
-		
+	
 		assertTrue(page.isCreateAdPageVisible(), "Create ad page is not visible..");
 		
 		switch(lSelectGoal) {
@@ -142,7 +140,17 @@ public class PPCreateAdPageTest extends PageTest{
 			
 			break;
 		case "Announce Open House":
-		
+			assertTrue(page.selectYourGoal(lSelectGoal), "Unable to select the goal.. Section1 Step 1");
+			assertTrue(page.isSelectYourAdSection2Visible(), "Section 2 step 1 is not visible..");
+			lListing_count = generateRandomInt(page.getListOfProperties(lSelectGoal));
+			lTitle = page.getAdsTitle(lSelectGoal, lListing_count);
+			lDesc = page.getAdsDescription(lSelectGoal, lListing_count);
+			lDomain = page.getAdsDomain(lListing_count);
+			assertTrue(lTitle.contains("Open House in"), "Title doesn't contain Just Sold in keywords..");
+			assertTrue(lDesc.contains("Open House at"), "Description doesn't contain Listing Just Sold in keywords..");
+			//Place Ad button should not be visible for Open House Ads
+			assertFalse(page.clickOnOpenHouseCustomizeButton(lListing_count, "Place Ad"), "Unable to click on Customize button");
+			assertTrue(page.clickOnOpenHouseCustomizeButton(lListing_count, lCustomizeOrPlaceAd), "Unable to click on Customize button");
 			break;
 		case "Toot Your Horn":
 			assertTrue(page.selectYourGoal(lSelectGoal), "Unable to select the goal.. Section1 Step 1");
@@ -172,17 +180,20 @@ public class PPCreateAdPageTest extends PageTest{
 			//Check slide show button is disabled because of CMA ad
 			if(lSlideShowOrImage.equalsIgnoreCase("slideshow")) {
 				assertTrue(page.clickOnSlideShowButton(), "Unable to click on slideshow button..");
+				ActionHelper.staticWait(5);
+				assertFalse(page.verifyAdPreviewImageIsVisibleSection3(), "Ad preview Image is not visible in section 3 step 1..");
 			}else {
 				assertTrue(page.clickOnImageButton(), "Unable to click on slideshow button..");
+				ActionHelper.staticWait(5);
+				assertTrue(page.verifyAdPreviewImageIsVisibleSection3(), "Ad preview Image is not visible in section 3 step 1..");
 			}
-			ActionHelper.staticWait(10);
-			
+				
 			assertTrue(page.verifyAdHeading(lTitle), "Unable to verify ad headline..");
 			assertTrue(page.verifyAdDescription(lDesc), "Unable to verify ad description..");
 			assertTrue(page.verifyAdPreviewUrl(lDomain), "Unable to verify ad preview URL..");
 			assertTrue(page.verifyAdPreviewHeadingIsVisible(), "Ad preview heading is not visible in section 3 step 1..");
-			assertTrue(page.verifyAdDescriptionInAdPreviewSection3(lDomain), "Ad preview description is not visible in section 3 step 1..");
-			assertTrue(page.verifyAdPreviewImageIsVisibleSection3(), "Ad preview Image is not visible in section 3 step 1..");
+			assertTrue(page.verifyAdDescriptionInAdPreviewSection3(lDesc), "Ad preview description is not visible in section 3 step 1..");
+			
 			assertTrue(page.clickOnNextStepButton(), "Unable to click on Next button step 1");
 		}
 		

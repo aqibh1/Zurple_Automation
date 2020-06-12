@@ -173,6 +173,7 @@ public class PPCreateAdPage extends Page{
 	String ad_title_listing_ads = "//div[@id='listing_ads_cont']/descendant::div[@class='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/a";
 	String customize_button_listing_ads = "//div[@id='listing_ads_cont']/descendant::a[text()='Customize' and @data-toggle]";
 	String place_Ad_button_listing_ads = "//div[@id='listing_ads_cont']/descendant::a[text()='Place Ad' and @data-toggle]";
+	String customize_button_open_house = "//div[@id='listing_ads_cont']/descendant::a[text()='Customize' and contains(@class,'cust_open_house_btn')]";
 	
 	@FindBy(id="continue_just_sold")
 	WebElement continue_button;
@@ -299,7 +300,8 @@ public class PPCreateAdPage extends Page{
 		return ActionHelper.getTextByValue(driver, headline_section3).equalsIgnoreCase(pHeading);
 	}
 	public boolean verifyAdDescription(String pDesc) {
-		return ActionHelper.getTextByValue(driver, description_section3).contains(pDesc);
+		String lText = ActionHelper.getTextByValue(driver, description_section3).replace("  ", " ");
+		return lText.contains(pDesc);
 	}
 	public boolean verifyAdPreviewUrl(String pUrl) {
 		return ActionHelper.getText(driver, previewUrl_section3).contains(pUrl.toLowerCase());
@@ -308,7 +310,7 @@ public class PPCreateAdPage extends Page{
 		return ActionHelper.isElementVisible(driver, adPreview_heading_section3);
 	}
 	public boolean verifyAdDescriptionInAdPreviewSection3(String pDesc) {
-		return true;//ActionHelper.getText(driver, fb_ad_preview_section3).contains(pDesc);
+		return ActionHelper.getText(driver, fb_ad_preview_section3).contains(pDesc);
 	}
 	public boolean verifyAdPreviewImageIsVisibleSection3() {
 		return ActionHelper.isElementVisible(driver, fb_ad_preview_image_section3);
@@ -562,5 +564,19 @@ public class PPCreateAdPage extends Page{
 	}
 	public boolean isSelectYourAdSection2Visible() {
 		return ActionHelper.waitForElementToBeVisible(driver, select_your_ad_section2, 30);
+	}
+	
+	public boolean clickOnOpenHouseCustomizeButton(int pIndex, String pCustomizeOrPlaceAd) {
+		ActionHelper.staticWait(5);
+		boolean isClicked = false;
+		List<WebElement> list_of_elements;
+		if(pCustomizeOrPlaceAd.equalsIgnoreCase("Customize")) {
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, customize_button_open_house);
+			isClicked = ActionHelper.Click(driver, list_of_elements.get(pIndex));
+		}else {
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, place_Ad_button_listing_ads);
+			isClicked = ActionHelper.Click(driver, list_of_elements.get(pIndex));
+		}
+		return isClicked;
 	}
 }
