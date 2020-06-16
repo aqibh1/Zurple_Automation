@@ -4,8 +4,8 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
     </listeners>
    
-    <test name="Create Sold Listings Ad">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/ads/just-sold-ads-data.json" >
+    <test name="Create Market Price Reduce Ads">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/ads/price-reduced-ads-data.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
