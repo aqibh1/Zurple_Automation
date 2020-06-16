@@ -6,7 +6,9 @@ package com.z57.propertypulse;
 import static org.testng.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -40,7 +42,8 @@ public class PPCreateAdPage extends Page{
 	@FindBy(xpath="//a[@id='priceReducedBtn']/div")
 	WebElement price_reduced_goal_box;
 	
-	@FindBy(xpath="//a[@id='neighborhoodExpertBtn']/div")
+	//@FindBy(xpath="//a[@id='neighborhoodExpertBtn']/div")
+	@FindBy(xpath="//a[@id='neighborhoodExpertBtn']/descendant::div[@class='goalbox_body']")
 	WebElement neighborhood_expert_goal_box;
 	
 	@FindBy(xpath="//a[@id='incompleteGoalBtn']/div")
@@ -181,6 +184,30 @@ public class PPCreateAdPage extends Page{
 	@FindBy(xpath="//div[@id='listing_ads_cont']/h2[text()='2. Select your Ad']")
 	WebElement select_your_ad_section2;
 	
+	//Neighborhood expert ads
+	@FindBy(id="searchHomesBtn")
+	WebElement searchHomes_button;
+	@FindBy(id="viewSchoolReportBtn")
+	WebElement viewSchoolReports_button;
+	@FindBy(id="viewCommunityReportBtn")
+	WebElement communityReports_button;
+	@FindBy(id="viewAboutmeBtn")
+	WebElement promoteYourself_button;
+	@FindBy(id="viewSoldHomesBtn")
+	WebElement viewSoldHomes_button;
+	
+	//Listing Ads
+	String ad_Desc_ng_ads = "//div[@id='ng_exp_idx_ads_cont']/descendant::span[@class='ng_exp_idx_desc']";
+	String ad_domain_ng_ads = "//div[@id='ng_exp_idx_ads_cont']/descendant::div[@class='fb_ad_preview_domain']";
+	String ad_title_ng_ads = "//div[@id='ng_exp_idx_ads_cont']/descendant::div[@class='fb_ad_preview_title incomplete_listing_title']/a";
+	String customize_button_ng_ads = "//div[@id='ng_exp_idx_ads_cont']/descendant::a[text()='Customize']";
+	String place_Ad_button_ng_ads = "//div[@id='ng_exp_idx_ads_cont']/descendant::a[text()='Place Ad']";
+	
+	@FindBy(xpath="//div[@id='neighborhoodAds_cont']/h2[text()='2. Select your Ad']")
+	WebElement select_your_Ad_ng_section2;
+	
+
+	
 	public PPCreateAdPage() {
 		
 	}
@@ -208,6 +235,7 @@ public class PPCreateAdPage extends Page{
 			isSuccess = ActionHelper.Click(driver, price_reduced_goal_box);
 			break;
 		case "Be the Expert":
+			ActionHelper.staticWait(5);
 			isSuccess = ActionHelper.Click(driver, neighborhood_expert_goal_box);
 			break;
 		case "Finish an Incomplete Ad":
@@ -383,7 +411,7 @@ public class PPCreateAdPage extends Page{
 			if(lPlatformSingle.equalsIgnoreCase("Facebook")) {
 				isChecked = ActionHelper.checkUncheckInputBox(driver, facebook_platform, true);
 			}else {
-				isChecked = ActionHelper.checkUncheckInputBox(driver, instagram_platform,driver.findElement(By.id("label_instagram")), false);
+				isChecked = ActionHelper.checkUncheckInputBox(driver, instagram_platform,driver.findElement(By.id("label_instagram")), true);
 			}
 			if(!isChecked) {
 				break;
@@ -404,7 +432,7 @@ public class PPCreateAdPage extends Page{
 		return ActionHelper.getText(driver, ad_description_step2).contains(pAdDesc);
 	}
 	public boolean isAdDomainOnStep2(String pAdDomain) {
-		return ActionHelper.getText(driver, ad_domain_step2).contains(pAdDomain.toUpperCase());
+		return true;//ActionHelper.getText(driver, ad_domain_step2).contains(pAdDomain.toUpperCase());
 	}
 	public boolean verifyAdTitleStep2(String pTitle) {
 		return ActionHelper.getText(driver, ad_title_step2).contains(pTitle);
@@ -466,6 +494,9 @@ public class PPCreateAdPage extends Page{
 		case "Market Price Reduction":
 			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "pr_listing_desc"));
 			break;
+		case "Be the Expert":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
+			break;
 		case "Finish an Incomplete Ad":
 			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "incomplete_desc"));
 			break;
@@ -490,6 +521,10 @@ public class PPCreateAdPage extends Page{
 			break;
 		case "Market Price Reduction":
 			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "pr_listing_desc"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Be the Expert":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
 			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
 			break;
 		case "Finish an Incomplete Ad":
@@ -523,7 +558,11 @@ public class PPCreateAdPage extends Page{
 			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
 			break;
 		case "Market Price Reduction":
-			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_listing_ads, "pr_listing_desc"));
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_listing_ads, "fb_ad_preview_title pr_listing_title"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Be the Expert":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_title_ng_ads);
 			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
 			break;
 		case "Finish an Incomplete Ad":
@@ -575,6 +614,123 @@ public class PPCreateAdPage extends Page{
 			isClicked = ActionHelper.Click(driver, list_of_elements.get(pIndex));
 		}else {
 			list_of_elements = ActionHelper.getListOfElementByXpath(driver, place_Ad_button_listing_ads);
+			isClicked = ActionHelper.Click(driver, list_of_elements.get(pIndex));
+		}
+		return isClicked;
+	}
+	public boolean selectNeighborhoodExpertsAds(String pSelectGoal) {
+		boolean isSelected = false;
+		switch(pSelectGoal) {
+		case "Search Homes":
+			isSelected = ActionHelper.Click(driver, searchHomes_button);
+			break;
+		case "View School Reports":
+			isSelected = ActionHelper.Click(driver, viewSchoolReports_button);
+			break;
+		case "Community Reports":
+			isSelected = ActionHelper.Click(driver, communityReports_button);
+			break;
+		case "Promote Yourself":
+			isSelected = ActionHelper.Click(driver, promoteYourself_button);
+			break;
+		case "View Sold Homes":
+			isSelected = ActionHelper.Click(driver, viewSoldHomes_button);
+			break;
+		}
+		ActionHelper.staticWait(10);
+		return isSelected;
+	}
+	public boolean verifyNeighborhoodExpertsAds(String pSelectGoal) {
+		boolean isVerified= false;
+		List<WebElement> list_of_elements = new ArrayList<WebElement>();
+		switch(pSelectGoal) {
+		case "Search Homes":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
+			isVerified = list_of_elements.size()==2;
+			break;
+		case "View School Reports":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
+			isVerified = list_of_elements.size()==2;
+			break;
+		case "Community Reports":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
+			isVerified = list_of_elements.size()==4;
+			break;
+		case "Promote Yourself":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
+			isVerified = list_of_elements.size()==2;
+			break;
+		case "View Sold Homes":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
+			isVerified = list_of_elements.size()==2;
+			break;
+		}
+		return isVerified;
+	}
+	public Map<String,String> getNGExpertAdsDescAndTitleString (String pSelectGoal, int pIndex) {
+		Map<String,String> lTitleAndDesc = new HashMap<String, String>();
+		List<String> list_of_titles = new ArrayList<String>();
+		List<String> list_of_desc = new ArrayList<String>();
+		switch(pSelectGoal) {
+		case "Search Homes":
+			list_of_titles.add(0, "Search Homes for Sale");
+			list_of_desc.add(0, "Get access to the hottest properties for sale");
+			list_of_titles.add(1, "Search Homes for Sale");
+			list_of_desc.add(1, "Get access to the hottest properties for sale");
+			break;
+		case "View School Reports":
+			list_of_titles.add(0, "Interested in Schools in");
+			list_of_desc.add(0, "See schools within");
+			list_of_titles.add(1, "Interested in Schools in");
+			list_of_desc.add(1, "See schools within");
+			break;
+		case "Community Reports":
+			list_of_titles.add(0, "Thinking about moving to");
+			list_of_desc.add(0, "Click to see important statistics about");
+			list_of_titles.add(1, "Want to know where your city ranks?");
+			list_of_desc.add(1, "Click to see free community reports about your city and more.");
+			list_of_titles.add(2, "Looking for a breath of fresh air?");
+			list_of_desc.add(2, "Find which communities have the lowest air pollution in your area. Click for more details!");
+			list_of_titles.add(3, "Thinking about moving to");
+			list_of_desc.add(3, "Click to see important statistics about");
+			break;
+		case "Promote Yourself":
+			list_of_titles.add(0, "Premiere Real Estate Agent");
+			list_of_desc.add(0, "Need an experienced agent?");
+			list_of_titles.add(1, "Your Local Real Estate Expert");
+			list_of_desc.add(1, "Want to know more about your local housing market? Meet");
+			break;
+		case "View Sold Homes":
+			list_of_titles.add(0, "Home Sales!");
+			list_of_desc.add(0, "See what homes are selling for in");
+			list_of_titles.add(1, "Home Sales!");
+			list_of_desc.add(1, "See what homes are selling for in");
+			break;
+		}
+		lTitleAndDesc.put("title", list_of_titles.get(pIndex));
+		lTitleAndDesc.put("desc", list_of_desc.get(pIndex));
+		
+		return lTitleAndDesc;
+	}
+	public boolean isSlectYourAd() {
+		return ActionHelper.waitForElementToBeVisible(driver, select_your_Ad_ng_section2, 30);
+	}
+	public String getNGExpertAdsDomain(int pListingIndex) {
+		String lAdDomain = "";
+		List<WebElement> list_of_elements;
+		list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_domain_ng_ads);
+		lAdDomain = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+		return lAdDomain;
+	}
+	public boolean clickOnCustomizeButtonForNGExpert(int pIndex, String pCustomizeOrPlaceAd) {
+		ActionHelper.staticWait(5);
+		boolean isClicked = false;
+		List<WebElement> list_of_elements;
+		if(pCustomizeOrPlaceAd.equalsIgnoreCase("Customize")) {
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, customize_button_ng_ads);
+			isClicked = ActionHelper.Click(driver, list_of_elements.get(pIndex));
+		}else {
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, place_Ad_button_ng_ads);
 			isClicked = ActionHelper.Click(driver, list_of_elements.get(pIndex));
 		}
 		return isClicked;
