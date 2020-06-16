@@ -181,17 +181,17 @@ public class PPCreateAdPageTest extends PageTest{
 			assertTrue(page.selectYourGoal(lSelectGoal), "Unable to select the goal.. Section1 Step 1");
 			assertTrue(page.isSlectYourAd(), "Section 2 step 1 is not visible..");
 			assertTrue(page.selectNeighborhoodExpertsAds(lNGAdType), "Unable to select the NG Expert ad typr..");
-			lListing_count = generateRandomInt(page.getListOfProperties(lSelectGoal));
+			lListing_count = generateRandomInt(page.getListOfNGExpertProperties(lNGAdType));
 			assertTrue(page.verifyNeighborhoodExpertsAds(lNGAdType), "Unable to verify the count of NG Expert ads..");
-			lTitle = page.getAdsTitle(lSelectGoal, lListing_count);
-			lDesc = page.getAdsDescription(lSelectGoal, lListing_count);
-			lDomain = page.getNGExpertAdsDomain(lListing_count);
+			lTitle = page.getNGExpertAdsTitle(lNGAdType, lListing_count);
+			lDesc = page.getNGExpertAdsDescription(lNGAdType, lListing_count);
+			lDomain = page.getNGExpertAdsDomain(lListing_count,lNGAdType);
 			lDomain = lDomain.contains("HTTPS://")?lDomain.replace("HTTPS://", ""):lDomain.replace("https://", "");
 			String lTitleToVerify = page.getNGExpertAdsDescAndTitleString(lNGAdType,lListing_count).get("title");
 			String lDescToVerify = page.getNGExpertAdsDescAndTitleString(lNGAdType,lListing_count).get("desc");
 			assertTrue(lTitle.contains(lTitleToVerify), "Unable to verify Title "+lTitleToVerify);
 			assertTrue(lDesc.contains(lDescToVerify), "Unable to verify Desc "+lDescToVerify);
-			assertTrue(page.clickOnCustomizeButtonForNGExpert(lListing_count, lCustomizeOrPlaceAd), "Unable to click on Customize button");
+			assertTrue(page.clickOnCustomizeButtonForNGExpert(lListing_count, lCustomizeOrPlaceAd,lNGAdType), "Unable to click on Customize button");
 			
 			break;
 		case "Finish an Incomplete Ad":
@@ -318,4 +318,12 @@ public class PPCreateAdPageTest extends PageTest{
 
 	}
 
+	private String getDomain(String pDomain) {
+		if(pDomain.contains("HTTPS://")) {
+			pDomain = pDomain.replace("HTTPS://", "");
+		}else if(pDomain.contains("https://")){
+			pDomain = pDomain.replace("https://", "");
+		}
+		return pDomain;
+	}
 }

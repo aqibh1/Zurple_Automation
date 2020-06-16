@@ -43,7 +43,7 @@ public class PPCreateAdPage extends Page{
 	WebElement price_reduced_goal_box;
 	
 	//@FindBy(xpath="//a[@id='neighborhoodExpertBtn']/div")
-	@FindBy(xpath="//a[@id='neighborhoodExpertBtn']/descendant::div[@class='goalbox_body']")
+	@FindBy(xpath="//div[contains(@class,'goalbox_title')]/h2[contains(text(),'Be the Expert')]")
 	WebElement neighborhood_expert_goal_box;
 	
 	@FindBy(xpath="//a[@id='incompleteGoalBtn']/div")
@@ -197,15 +197,17 @@ public class PPCreateAdPage extends Page{
 	WebElement viewSoldHomes_button;
 	
 	//Listing Ads
-	String ad_Desc_ng_ads = "//div[@id='ng_exp_idx_ads_cont']/descendant::span[@class='ng_exp_idx_desc']";
-	String ad_domain_ng_ads = "//div[@id='ng_exp_idx_ads_cont']/descendant::div[@class='fb_ad_preview_domain']";
-	String ad_title_ng_ads = "//div[@id='ng_exp_idx_ads_cont']/descendant::div[@class='fb_ad_preview_title incomplete_listing_title']/a";
-	String customize_button_ng_ads = "//div[@id='ng_exp_idx_ads_cont']/descendant::a[text()='Customize']";
-	String place_Ad_button_ng_ads = "//div[@id='ng_exp_idx_ads_cont']/descendant::a[text()='Place Ad']";
+	String ad_Desc_ng_ads = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::span[contains(@class,'desc')]";
+	String ad_domain_ng_ads = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::div[@class='fb_ad_preview_domain']";
+	String ad_title_ng_ads = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::div[contains(@class,'fb_ad_preview_title')]/a";
+	String customize_button_ng_ads = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::a[text()='Customize']";
+	String place_Ad_button_ng_ads = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::a[text()='Place Ad']";
 	
 	@FindBy(xpath="//div[@id='neighborhoodAds_cont']/h2[text()='2. Select your Ad']")
 	WebElement select_your_Ad_ng_section2;
 	
+	//School Reports
+	String ad_Desc_vsr_cr_ng_ads = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::div[contains(@class,'fb_ad_preview_details')]";
 
 	
 	public PPCreateAdPage() {
@@ -235,6 +237,8 @@ public class PPCreateAdPage extends Page{
 			isSuccess = ActionHelper.Click(driver, price_reduced_goal_box);
 			break;
 		case "Be the Expert":
+			ActionHelper.staticWait(10);
+			ActionHelper.ScrollDownByPixels(driver, "150");
 			ActionHelper.staticWait(5);
 			isSuccess = ActionHelper.Click(driver, neighborhood_expert_goal_box);
 			break;
@@ -458,7 +462,7 @@ public class PPCreateAdPage extends Page{
 		return ActionHelper.waitForElementToBeVisible(driver, step3_heading2, 30);
 	}
 	public boolean isValidAdHeadingStep3(String pAdHeading) {
-		return ActionHelper.getText(driver, ad_heading_step3).contains(pAdHeading);
+		return ActionHelper.getText(driver, ad_heading_step3).contains(pAdHeading.trim());
 	}
 	public boolean verifyAdRenewDate(String pDate) {
 		return ActionHelper.getText(driver, ad_renew_text).contains(pDate);
@@ -620,6 +624,7 @@ public class PPCreateAdPage extends Page{
 	}
 	public boolean selectNeighborhoodExpertsAds(String pSelectGoal) {
 		boolean isSelected = false;
+		ActionHelper.staticWait(5);
 		switch(pSelectGoal) {
 		case "Search Homes":
 			isSelected = ActionHelper.Click(driver, searchHomes_button);
@@ -645,23 +650,23 @@ public class PPCreateAdPage extends Page{
 		List<WebElement> list_of_elements = new ArrayList<WebElement>();
 		switch(pSelectGoal) {
 		case "Search Homes":
-			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_ng_ads, "ng_exp_idx_ads_cont"));
 			isVerified = list_of_elements.size()==2;
 			break;
 		case "View School Reports":
-			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_ng_ads, "school_report_cont"));
 			isVerified = list_of_elements.size()==2;
 			break;
 		case "Community Reports":
-			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_ng_ads, "community_report_cont"));
 			isVerified = list_of_elements.size()==4;
 			break;
 		case "Promote Yourself":
-			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_ng_ads, "ng_about_me_ads_cont"));
 			isVerified = list_of_elements.size()==2;
 			break;
 		case "View Sold Homes":
-			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_ng_ads, "ng_sold_homes_ads_cont"));
 			isVerified = list_of_elements.size()==2;
 			break;
 		}
@@ -715,17 +720,59 @@ public class PPCreateAdPage extends Page{
 	public boolean isSlectYourAd() {
 		return ActionHelper.waitForElementToBeVisible(driver, select_your_Ad_ng_section2, 30);
 	}
-	public String getNGExpertAdsDomain(int pListingIndex) {
+	public String getNGExpertAdsDomain(int pListingIndex, String pSelectGoal) {
 		String lAdDomain = "";
 		List<WebElement> list_of_elements;
-		list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_domain_ng_ads);
-		lAdDomain = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+		switch(pSelectGoal) {
+		case "Search Homes":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver,ActionHelper.getDynamicElementXpath(driver, ad_domain_ng_ads, "ng_exp_idx_ads_cont") );
+			lAdDomain = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));break;
+		case "View School Reports":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_domain_ng_ads, "school_report_cont"));
+			lAdDomain = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Community Reports":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_domain_ng_ads, "community_report_cont"));
+			lAdDomain = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Promote Yourself":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_domain_ng_ads, "ng_about_me_ads_cont"));
+			lAdDomain = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "View Sold Homes":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver,ActionHelper.getDynamicElementXpath(driver, ad_domain_ng_ads, "ng_sold_homes_ads_cont") );
+			lAdDomain = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		}
 		return lAdDomain;
 	}
-	public boolean clickOnCustomizeButtonForNGExpert(int pIndex, String pCustomizeOrPlaceAd) {
+	public boolean clickOnCustomizeButtonForNGExpert(int pIndex, String pCustomizeOrPlaceAd, String pNGExpertAdType) {
 		ActionHelper.staticWait(5);
 		boolean isClicked = false;
 		List<WebElement> list_of_elements;
+
+		switch(pNGExpertAdType) {
+		case "Search Homes":
+			customize_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, customize_button_ng_ads, "ng_exp_idx_ads_cont");
+			place_Ad_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, place_Ad_button_ng_ads, "ng_exp_idx_ads_cont");
+			break;
+		case "View School Reports":
+			customize_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, customize_button_ng_ads, "school_report_cont");
+			place_Ad_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, place_Ad_button_ng_ads, "school_report_cont");
+			break;
+		case "Community Reports":
+			customize_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, customize_button_ng_ads, "community_report_cont");
+			place_Ad_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, place_Ad_button_ng_ads, "community_report_cont");
+			break;
+		case "Promote Yourself":
+			customize_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, customize_button_ng_ads, "ng_about_me_ads_cont");
+			place_Ad_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, place_Ad_button_ng_ads, "ng_about_me_ads_cont");
+			break;
+		case "View Sold Homes":
+			customize_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, customize_button_ng_ads, "ng_sold_homes_ads_cont");
+			place_Ad_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, place_Ad_button_ng_ads, "ng_sold_homes_ads_cont");
+			break;
+		}	
 		if(pCustomizeOrPlaceAd.equalsIgnoreCase("Customize")) {
 			list_of_elements = ActionHelper.getListOfElementByXpath(driver, customize_button_ng_ads);
 			isClicked = ActionHelper.Click(driver, list_of_elements.get(pIndex));
@@ -734,5 +781,79 @@ public class PPCreateAdPage extends Page{
 			isClicked = ActionHelper.Click(driver, list_of_elements.get(pIndex));
 		}
 		return isClicked;
+	}
+	public String getNGExpertAdsDescription(String pSelectGoal, int pListingIndex) {
+		String lAdDesc = "";
+		List<WebElement> list_of_elements;
+		switch(pSelectGoal) {
+		case "Search Homes":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver,ActionHelper.getDynamicElementXpath(driver, ad_Desc_ng_ads, "ng_exp_idx_ads_cont") );
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));break;
+		case "View School Reports":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_vsr_cr_ng_ads, "school_report_cont"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Community Reports":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_vsr_cr_ng_ads, "community_report_cont"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Promote Yourself":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_ng_ads, "ng_about_me_ads_cont"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "View Sold Homes":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver,ActionHelper.getDynamicElementXpath(driver, ad_Desc_ng_ads, "ng_sold_homes_ads_cont") );
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		}
+		return lAdDesc;
+	}
+
+	public String getNGExpertAdsTitle(String pSelectGoal, int pListingIndex) {
+		String lAdDesc = "";
+		List<WebElement> list_of_elements;
+		switch(pSelectGoal) {
+		case "Search Homes":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver,ActionHelper.getDynamicElementXpath(driver, ad_title_ng_ads, "ng_exp_idx_ads_cont") );
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));break;
+		case "View School Reports":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_ng_ads, "school_report_cont"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Community Reports":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_ng_ads, "community_report_cont"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "Promote Yourself":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_ng_ads, "ng_about_me_ads_cont"));
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		case "View Sold Homes":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver,ActionHelper.getDynamicElementXpath(driver, ad_title_ng_ads, "ng_sold_homes_ads_cont") );
+			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
+		}
+		return lAdDesc;
+	}
+	public int getListOfNGExpertProperties(String pSelectGoal) {
+		List<WebElement> list_of_elements = new ArrayList<WebElement>();
+		switch(pSelectGoal) {
+		case "Search Homes":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver,ActionHelper.getDynamicElementXpath(driver, ad_Desc_ng_ads, "ng_exp_idx_ads_cont") );
+			break;
+		case "View School Reports":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_vsr_cr_ng_ads, "school_report_cont"));
+			break;
+		case "Community Reports":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_vsr_cr_ng_ads, "community_report_cont"));
+			break;
+		case "Promote Yourself":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_ng_ads, "ng_about_me_ads_cont"));
+			break;
+		case "View Sold Homes":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver,ActionHelper.getDynamicElementXpath(driver, ad_Desc_ng_ads, "ng_sold_homes_ads_cont") );
+			break;
+		}
+		return list_of_elements.size();
 	}
 }
