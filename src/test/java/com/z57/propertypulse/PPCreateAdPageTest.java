@@ -132,6 +132,7 @@ public class PPCreateAdPageTest extends PageTest{
 		lSelectGoal = dataObject.optString("goal");
 		lCustomizeOrPlaceAd = dataObject.optString("customize_place");
 		lSlideShowOrImage = dataObject.optString("slideshow_or_image");
+		String lNGAdType ="";
 	
 		assertTrue(page.isCreateAdPageVisible(), "Create ad page is not visible..");
 		
@@ -177,7 +178,7 @@ public class PPCreateAdPageTest extends PageTest{
 			assertTrue(page.clickOnCustomizeButton(lListing_count, lCustomizeOrPlaceAd), "Unable to click on Customize button");
 			break;
 		case "Be the Expert":
-			String lNGAdType = dataObject.optString("ng_exp_ad_type");
+			lNGAdType = dataObject.optString("ng_exp_ad_type");
 			assertTrue(page.selectYourGoal(lSelectGoal), "Unable to select the goal.. Section1 Step 1");
 			assertTrue(page.isSlectYourAd(), "Section 2 step 1 is not visible..");
 			assertTrue(page.selectNeighborhoodExpertsAds(lNGAdType), "Unable to select the NG Expert ad typr..");
@@ -221,7 +222,9 @@ public class PPCreateAdPageTest extends PageTest{
 			assertTrue(page.verifyAdPreviewUrl(lDomain), "Unable to verify ad preview URL..");
 			assertTrue(page.verifyAdPreviewHeadingIsVisible(), "Ad preview heading is not visible in section 3 step 1..");
 			assertTrue(page.verifyAdDescriptionInAdPreviewSection3(lDesc), "Ad preview description is not visible in section 3 step 1..");
-
+			if(!lNGAdType.isEmpty() && lNGAdType.equalsIgnoreCase("Promote Yourself")) {
+				assertTrue(page.editAndUpdateUrl("https://aqibdar-17975.sites.z57.com/about-me"), "Unable to update the URL of the ad");
+			}
 			assertTrue(page.clickOnNextStepButton(), "Unable to click on Next button step 1");
 		}
 		

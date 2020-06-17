@@ -1013,6 +1013,23 @@ public class ActionHelper {
 				   counter++;
 			   }
 		   }
+		   return true;
+	   }
+	   public static boolean waitForElementToBeFoundAfterRegularIntervals(WebDriver pWebDriver,String pListXpaths, String pTextToFind, String pTextToFind2, int pTotalAttempts) {
+		   boolean isVerified = false;
+		   int counter = 0;
+		   while (counter<pTotalAttempts && !isVerified) {
+			   if(findTextInListOfElements(pWebDriver, pListXpaths,pTextToFind)) {
+				   isVerified = true;
+			   }else if(findTextInListOfElements(pWebDriver, pListXpaths,pTextToFind2)) {
+				   isVerified = false;
+				   break;
+			   }else {
+				   pWebDriver.navigate().refresh();
+				   staticWait(60);
+				   counter++;
+			   }
+		   }
 		   return isVerified;
 	   }
 }

@@ -209,6 +209,11 @@ public class PPCreateAdPage extends Page{
 	//School Reports
 	String ad_Desc_vsr_cr_ng_ads = "//div[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::div[contains(@class,'fb_ad_preview_details')]";
 
+	@FindBy(id="fb_ad_edit_url")
+	WebElement edit_button;
+	
+	@FindBy(id="fb_ad_url")
+	WebElement edit_url_input;
 	
 	public PPCreateAdPage() {
 		
@@ -855,5 +860,12 @@ public class PPCreateAdPage extends Page{
 			break;
 		}
 		return list_of_elements.size();
+	}
+	public boolean editAndUpdateUrl(String pUrl) {
+		boolean isUrlUpdated = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, edit_button, 20) && ActionHelper.Click(driver, edit_button)) {
+			isUrlUpdated = ActionHelper.ClearAndType(driver, edit_url_input, pUrl);
+		}
+		return isUrlUpdated;
 	}
 }

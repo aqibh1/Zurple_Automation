@@ -103,9 +103,9 @@ public class PPAdminSocialPage extends Page{
 	public boolean verifyFBAdStatus() {
 		boolean verifyFBStatus = false;
 		boolean isTestPausedAd = false;
-		if(ActionHelper.waitForElementToBeFoundAfterRegularIntervals(driver, fb_status, "PP: LIVE", 20)) {
+		if(ActionHelper.waitForElementToBeFoundAfterRegularIntervals(driver, fb_status, "PP: LIVE","ERROR", 20)) {
 			isTestPausedAd = ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, test_Ad_paused, 60, 20);
-			verifyFBStatus = ActionHelper.waitForElementToBeFoundAfterRegularIntervals(driver, fb_status, "FB: PAUSED", 30);
+			verifyFBStatus = ActionHelper.waitForElementToBeFoundAfterRegularIntervals(driver, fb_status, "FB: PAUSED","ERROR", 30);
 		}
 		return verifyFBStatus && isTestPausedAd;
 	}
