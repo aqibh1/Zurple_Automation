@@ -30,4 +30,6 @@ public class ModuleCacheConstants {
 	public static final String PPADTitle = "pp.ad.title";
 	public static final String PPADDesc = "pp.ad.desc";
 	public static final String PPADDomain = "pp.ad.domain";
+	public static final String PPADDuration = "pp.ad.duration";
+	public static final String PPADImageSlideshow = "pp.ad.slideshow.image";
 }

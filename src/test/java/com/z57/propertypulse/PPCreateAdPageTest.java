@@ -120,6 +120,7 @@ public class PPCreateAdPageTest extends PageTest{
 		adCreationStep3();
 		String lAdId = driver.getCurrentUrl().split("=")[1];
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.PPADID, lAdId);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.PPADImageSlideshow, lSlideShowOrImage);
 		assertTrue(page.clickOnNextStepButton(), "Unable to click on Place button step 3");
 	}
 	
@@ -138,12 +139,20 @@ public class PPCreateAdPageTest extends PageTest{
 		
 		switch(lSelectGoal) {
 		case "Promote Listing":
-			
+			assertTrue(page.selectYourGoal(lSelectGoal), "Unable to select the goal.. Section1 Step 1");
+			assertTrue(page.isSelectYourAdSection2Visible(), "Section 2 step 1 is not visible..");
+			lListing_count = generateRandomInt(page.getListOfProperties(lSelectGoal));
+			lTitle = page.getAdsTitle(lSelectGoal, lListing_count);
+			lDesc = page.getAdsDescription(lSelectGoal, lListing_count);
+			lDomain = page.getAdsDomain(lListing_count);
+			assertTrue(lTitle.contains("Hot Property in"), "Title doesn't contain Price reduced on keywords..");
+			assertTrue(lDesc.contains("Click for more details and photos!"), "Description doesn't contain Listing Price reduced on keywords..");
+			assertTrue(page.clickOnCustomizeButton(lListing_count, lCustomizeOrPlaceAd), "Unable to click on Customize button");
 			break;
 		case "Announce Open House":
 			assertTrue(page.selectYourGoal(lSelectGoal), "Unable to select the goal.. Section1 Step 1");
 			assertTrue(page.isSelectYourAdSection2Visible(), "Section 2 step 1 is not visible..");
-			lListing_count = generateRandomInt(page.getListOfProperties(lSelectGoal));
+			lListing_count = 1;//generateRandomInt(page.getListOfProperties(lSelectGoal));
 			lTitle = page.getAdsTitle(lSelectGoal, lListing_count);
 			lDesc = page.getAdsDescription(lSelectGoal, lListing_count);
 			lDomain = page.getAdsDomain(lListing_count);
@@ -196,6 +205,17 @@ public class PPCreateAdPageTest extends PageTest{
 			
 			break;
 		case "Finish an Incomplete Ad":
+			assertTrue(page.selectYourGoal(lSelectGoal), "Unable to select the goal.. Section1 Step 1");
+			assertTrue(page.isSlectYourAdHeadingVisisbleIncompleteAds(), "Section 2 step 1 is not visible..");
+			ActionHelper.staticWait(10);
+			lListing_count = generateRandomInt(page.getListOfProperties(lSelectGoal));
+			lTitle = page.getAdsTitle(lSelectGoal, lListing_count);
+			lDesc = page.getAdsDescription(lSelectGoal, lListing_count);
+			lDomain = page.getNGExpertAdsDomain(lListing_count,lSelectGoal);
+			lDomain = lDomain.contains("HTTPS://")?lDomain.replace("HTTPS://", ""):lDomain.replace("https://", "");
+			
+			assertTrue(page.clickOnCustomizeButtonForNGExpert(lListing_count, lCustomizeOrPlaceAd,lSelectGoal), "Unable to click on Customize button");
+			
 			break;
 		}
 		//SECTION 3 STEP 1
@@ -204,10 +224,15 @@ public class PPCreateAdPageTest extends PageTest{
 			//Check slide show button is disabled because of CMA ad
 			if(!lSelectGoal.equalsIgnoreCase("Be the Expert")) {
 				if(lSlideShowOrImage.equalsIgnoreCase("slideshow")) {
-					assertTrue(page.clickOnSlideShowButton(), "Unable to click on slideshow button..");
+					if(page.verifyAdPreviewImageIsVisibleSection3()) {
+						lSlideShowOrImage = "image";
+					}else {
+						assertTrue(page.clickOnSlideShowButton(), "Unable to click on slideshow button..");
+					}
+					
 					ActionHelper.staticWait(5);
 
-				}else {
+				}else{
 					assertTrue(page.clickOnImageButton(), "Unable to click on slideshow button..");
 					ActionHelper.staticWait(5);
 					assertTrue(page.verifyAdPreviewImageIsVisibleSection3(), "Ad preview Image is not visible in section 3 step 1..");
@@ -237,6 +262,7 @@ public class PPCreateAdPageTest extends PageTest{
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.PPADTitle, lTitle);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.PPADDesc, lDesc);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.PPADDomain, lDomain);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.PPADImageSlideshow, lSlideShowOrImage);
 
 		assertTrue(page.clickOnNextStepButton(), "Unable to click on Place button step 3");
 		assertTrue(page.isAdPlacedSuccessfully(), "Ads overview dialog is not displayed..");
@@ -252,11 +278,13 @@ public class PPCreateAdPageTest extends PageTest{
 		lTargetCity = page.getTargetCity().split("\n")[1];
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdCity, lTargetCity);
 		
+		ActionHelper.staticWait(10);
+		
 		assertTrue(page.selectTargetReach(pBudget), "Unable to select target reach..");
 		assertTrue(page.verifyTargetReachIsDisplayed(), "Estimated reach numbers are not populated..");
 		assertTrue(page.verifyDefaultPlatformsSelected(), "Instagram and Facebook default platforms are not selected..");
 		assertTrue(page.selectPlatform(pPlatforms), "Unable to select the platforms..");
-		if(dataObject.optString("slideshow_or_image").equalsIgnoreCase("slideshow")) {
+		if(lSlideShowOrImage.equalsIgnoreCase("slideshow")) {
 			assertTrue(page.isSlideShowAtStep2(), "Slid Show is not displayed at step 2 of ad craetion");
 		}else {
 			assertFalse(page.isSlideShowAtStep2(), "Image selection is shown as slide show in the step 2");
@@ -271,15 +299,17 @@ public class PPCreateAdPageTest extends PageTest{
 	//Step 3 verifications
 	private void adCreationStep3() {
 		String lAdDuration = dataObject.optString("ad_duration");
-		int lAdBudget = dataObject.optString("ad_duration").equalsIgnoreCase("Monthly")?Integer.parseInt(dataObject.optString("ad_amount"))*4:Integer.parseInt(dataObject.optString("ad_amount"));
 		String lAdStartDate = "";
 		String lAdEndDate ="";
-		
+		String lStep3AdHeading = dataObject.optString("ad_heading_step3");
+	
 		assertTrue(page.isStep3ProgressbarDisplayed(), "Step 3 progress bar is not displayed..");
 		assertTrue(page.isStep3Heading(), "Step 3 heading is not displayed..");
 		assertTrue(page.isStep3Heading2Displayed(), "Step 3 heading2 is not displayed..");
-		assertTrue(page.isValidAdHeadingStep3(dataObject.optString("ad_heading_step3")), "Ad heading title is not displayed.");
-		if(dataObject.optString("slideshow_or_image").equalsIgnoreCase("slideshow")) {
+		if(!lStep3AdHeading.isEmpty()) {
+			assertTrue(page.isValidAdHeadingStep3(lStep3AdHeading), "Ad heading title is not displayed.");
+		}
+		if(lSlideShowOrImage.equalsIgnoreCase("slideshow")) {
 			assertTrue(page.isSlideShowAtStep2(), "Slid Show is not displayed at step 3 of ad craetion");
 		}else {
 			assertFalse(page.isSlideShowAtStep2(), "Image selection is shown as slide show in the step 3");
@@ -291,6 +321,12 @@ public class PPCreateAdPageTest extends PageTest{
 		assertTrue(page.verifyAdSpecificationsStep3(lTargetCity), "Unable to verify target city on step 3..");
 		String lPlan = "";
 		String lRenewalDate = "";
+		if(lAdDuration.isEmpty()) {
+			lAdDuration = page.getAdPlanStep3();
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.PPADDuration, lAdDuration);
+		}
+		int lAdBudget = dataObject.optString("ad_duration").equalsIgnoreCase("Monthly")?Integer.parseInt(dataObject.optString("ad_amount"))*4:Integer.parseInt(dataObject.optString("ad_amount"));
+
 		if(lAdDuration.equalsIgnoreCase("Monthly")) {
 			lAdStartDate = getTodaysDate(0);
 			lAdEndDate = getTodaysDate(29);

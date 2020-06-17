@@ -215,6 +215,9 @@ public class PPCreateAdPage extends Page{
 	@FindBy(id="fb_ad_url")
 	WebElement edit_url_input;
 	
+	@FindBy(xpath="//div[@id='incompleteAds_cont']/h2[text()='2. Select your Ad']")
+	WebElement select_your_Ad_section2_incomplete_ads;
+	
 	public PPCreateAdPage() {
 		
 	}
@@ -507,7 +510,7 @@ public class PPCreateAdPage extends Page{
 			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
 			break;
 		case "Finish an Incomplete Ad":
-			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "incomplete_desc"));
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_ng_ads, "incompleteAds_cont"));
 			break;
 		}
 		return list_of_elements.size();
@@ -537,7 +540,7 @@ public class PPCreateAdPage extends Page{
 			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
 			break;
 		case "Finish an Incomplete Ad":
-			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "incomplete_desc"));
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_ng_ads, "incompleteAds_cont"));
 			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
 			break;
 		}
@@ -575,7 +578,7 @@ public class PPCreateAdPage extends Page{
 			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
 			break;
 		case "Finish an Incomplete Ad":
-			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_listing_ads, "incomplete_desc"));
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_title_ng_ads, "incompleteAds_cont"));
 			lAdDesc = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
 			break;
 		}
@@ -748,6 +751,10 @@ public class PPCreateAdPage extends Page{
 			list_of_elements = ActionHelper.getListOfElementByXpath(driver,ActionHelper.getDynamicElementXpath(driver, ad_domain_ng_ads, "ng_sold_homes_ads_cont") );
 			lAdDomain = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
 			break;
+		case "Finish an Incomplete Ad":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver,ActionHelper.getDynamicElementXpath(driver, ad_domain_ng_ads, "incompleteAds_cont") );
+			lAdDomain = ActionHelper.getText(driver, list_of_elements.get(pListingIndex));
+			break;
 		}
 		return lAdDomain;
 	}
@@ -776,6 +783,10 @@ public class PPCreateAdPage extends Page{
 		case "View Sold Homes":
 			customize_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, customize_button_ng_ads, "ng_sold_homes_ads_cont");
 			place_Ad_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, place_Ad_button_ng_ads, "ng_sold_homes_ads_cont");
+			break;
+		case "Finish an Incomplete Ad":
+			customize_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, customize_button_ng_ads, "incompleteAds_cont");
+			place_Ad_button_ng_ads = ActionHelper.getDynamicElementXpath(driver, place_Ad_button_ng_ads, "incompleteAds_cont");
 			break;
 		}	
 		if(pCustomizeOrPlaceAd.equalsIgnoreCase("Customize")) {
@@ -867,5 +878,47 @@ public class PPCreateAdPage extends Page{
 			isUrlUpdated = ActionHelper.ClearAndType(driver, edit_url_input, pUrl);
 		}
 		return isUrlUpdated;
+	}
+	public boolean isSlectYourAdHeadingVisisbleIncompleteAds() {
+		return ActionHelper.waitForElementToBeVisible(driver, select_your_Ad_section2_incomplete_ads, 30);
+	}
+	public String getAdPlanStep3() {
+		boolean isFound = true;
+		String lPlan = "Monthly";
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, ad_values);
+		for(WebElement element: list) {
+			isFound = ActionHelper.getText(driver, element).contains("per week");
+			if(isFound) {
+				lPlan = "Weekly";
+				break;
+			}
+		}
+	
+		return lPlan;
+	}
+	
+	public int getListOfProperties(String pSelectGoal, String pSlideshowOrImage) {
+		List<WebElement> list_of_elements = new ArrayList<WebElement>();
+		switch(pSelectGoal) {
+		case "Promote Listing":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "monthly_listing_desc"));
+			break;
+		case "Announce Open House":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "op_listing_desc"));
+			break;
+		case "Toot Your Horn":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "so_listing_desc"));
+			break;
+		case "Market Price Reduction":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_listing_ads, "pr_listing_desc"));
+			break;
+		case "Be the Expert":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ad_Desc_ng_ads);
+			break;
+		case "Finish an Incomplete Ad":
+			list_of_elements = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_Desc_ng_ads, "incompleteAds_cont"));
+			break;
+		}
+		return list_of_elements.size();
 	}
 }

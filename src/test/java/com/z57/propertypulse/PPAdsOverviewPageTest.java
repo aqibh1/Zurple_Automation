@@ -91,17 +91,21 @@ public class PPAdsOverviewPageTest extends PageTest{
 		String lTargetCity = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdCity);
 		String lRenewalDate = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdRenwalDate);
 		String lBudget = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdBudget).toString();
+		String lSlideshowOrImage = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.PPADImageSlideshow);
 		String lDomain = dataObject.optString("ad_type_ao").equalsIgnoreCase("CMA")?EnvironmentFactory.configReader.getPropertyByName("z57_pp_base_url"):EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url");
 		lDomain = lDomain.replace("https://", "");
+		String lAdType = dataObject.optString("ad_type_ao");
 		
 		assertTrue(page.isAdsOverviewPage(), "Ads Overview page is not displayed..");
-		assertTrue(page.verifyAdType(dataObject.optString("ad_type_ao"), lAdId), "Unable to verify ad type.");
+		if(!lAdType.isEmpty()) {
+			assertTrue(page.verifyAdType(lAdType, lAdId), "Unable to verify ad type.");
+		}
 		assertTrue(page.isAdDisableButtonDisplayed(lAdId), "Disable ad button is not visible.");
 		assertTrue(page.verifyPlatforms(dataObject.optString("platforms"),lAdId), "Unable to verify the platforms..");
 		assertTrue(page.verifyAdCity(lTargetCity,lAdId), "Unable to verify the platforms..");
 		assertTrue(page.verifyAdPlanAndRenewalDate(lBudget,lAdId), "Unable to verify ad plan..");
 		assertTrue(page.verifyAdPlanAndRenewalDate(lRenewalDate,lAdId), "Unable to verify ad renewal date..");
-		if(dataObject.optString("slideshow_or_image").equalsIgnoreCase("slideshow")) {
+		if(lSlideshowOrImage.equalsIgnoreCase("slideshow")) {
 			assertTrue(page.isSlideShowAtStep2(lAdId), "Unable to verify slide show..");
 		}else {
 			assertFalse(page.isSlideShowAtStep2(lAdId), "Unable to verify slide show..");

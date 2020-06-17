@@ -69,7 +69,7 @@ public class PPAdsOverviewPage extends Page{
 		boolean isVerified = false;
 		WebElement element = ActionHelper.getDynamicElement(driver, adType, lAdId);
 		if(element!=null) {
-			isVerified = ActionHelper.getText(driver, element).equalsIgnoreCase(pAdType);
+			isVerified = ActionHelper.getText(driver, element).contains(pAdType);
 		}
 		return isVerified;
 	}

@@ -96,7 +96,8 @@ public class PPAdminSocialPageTest extends PageTest {
 		dataObject = getDataFile(pDataFile);
 		String lAdFrequencey = dataObject.optString("ad_duration");
 		String lAdType = dataObject.optString("ad_type");
-		String lAdFormat = dataObject.optString("slideshow_or_image");
+		//String lAdFormat = dataObject.optString("slideshow_or_image");
+		String lAdFormat = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.PPADImageSlideshow);
 		String lPlatforms = dataObject.optString("platforms");
 		String lTitle = dataObject.optString("ad_title").isEmpty()?ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.PPADTitle):dataObject.optString("ad_title");
 		String lDesc = dataObject.optString("ad_description").isEmpty()?ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.PPADDesc):dataObject.optString("ad_description");
@@ -107,8 +108,12 @@ public class PPAdminSocialPageTest extends PageTest {
 		
 		assertTrue(page.isAdminSocialPage(), "Admin Social Page is not visible..");
 		assertTrue(page.verifyAdId(lAdId), "Unable to verify ad id..");
-		assertTrue(page.verifyAdFrequency(lAdFrequencey), "Unable to verify ad frequency..");
-		assertTrue(page.verifyAdType(lAdType), "Unable to verify ad type..");
+		if(!lAdFrequencey.isEmpty()) {
+			assertTrue(page.verifyAdFrequency(lAdFrequencey), "Unable to verify ad frequency..");
+		}
+		if(!lAdType.isEmpty()) {
+			assertTrue(page.verifyAdType(lAdType), "Unable to verify ad type..");
+		}
 		assertTrue(page.verifyAdFormat(lAdFormat), "Unable to verify ad format..");
 		assertTrue(page.verifyAdPlatforms(lPlatforms), "Unable to verify ad platforms..");
 		assertTrue(page.verifyThumbnail(), "Unable to verify ad thumbnail image..");
