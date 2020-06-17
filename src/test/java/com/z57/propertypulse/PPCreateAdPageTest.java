@@ -152,7 +152,7 @@ public class PPCreateAdPageTest extends PageTest{
 		case "Announce Open House":
 			assertTrue(page.selectYourGoal(lSelectGoal), "Unable to select the goal.. Section1 Step 1");
 			assertTrue(page.isSelectYourAdSection2Visible(), "Section 2 step 1 is not visible..");
-			lListing_count = 1;//generateRandomInt(page.getListOfProperties(lSelectGoal));
+			lListing_count = generateRandomInt(page.getListOfProperties(lSelectGoal));
 			lTitle = page.getAdsTitle(lSelectGoal, lListing_count);
 			lDesc = page.getAdsDescription(lSelectGoal, lListing_count);
 			lDomain = page.getAdsDomain(lListing_count);
