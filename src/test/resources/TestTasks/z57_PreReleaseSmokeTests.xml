@@ -2136,28 +2136,6 @@
     </parameter>
 	</test>
 	
-	 <test name="Add Listing by MLS">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/mls-listing-data-01.json" >
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
-      <methods>
-      	<include name="testAddListingByMLS" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
 	<test name="Create Promote Listing Ads">
  	<parameter name="dataFile" value="/resources/data/propertypulse/ads/promote-listing-ads-data.json" >
 	<classes>
@@ -2478,10 +2456,8 @@
     </parameter>
 	</test>
 	
-	<!--  
-	<test name="Create Facebook and Instagram ad for Listing on PP">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
- 	<parameter name="dataFile2" value="/resources/data/propertypulse/ads/ads-data.json" >
+	<test name="Add Listing by MLS">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/mls-listing-data-01.json" >
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
@@ -2490,12 +2466,7 @@
       </class>
       <class name="com.z57.propertypulse.PPListingPageTest" >
       <methods>
-      	<include name="testAddListingForAd" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
-      <methods>
-      <include name="testCreateAnAdForFacebookAndInsta" />
+      	<include name="testAddListingByMLS" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
@@ -2505,8 +2476,5 @@
       </class>
     </classes>
     </parameter>
-    </parameter>
 	</test>
-	
-	-->
 </suite>
