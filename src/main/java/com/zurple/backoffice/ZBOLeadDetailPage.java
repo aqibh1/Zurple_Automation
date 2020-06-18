@@ -148,6 +148,11 @@ public class ZBOLeadDetailPage extends Page{
 	
 	@FindBy(xpath="//button[text()='Done']")
 	WebElement done_date_button;
+	
+	@FindBy(xpath="//button[text()='Now']")
+	WebElement now_date_button;
+	
+	
 		
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	
@@ -624,6 +629,11 @@ public class ZBOLeadDetailPage extends Page{
 		return ActionHelper.Click(driver, save_reminder_button);
 	}
 	public boolean clickOnDateDoneButton() {
-		return ActionHelper.Click(driver, done_date_button);
+		boolean isTimeSelected = false;
+		if(ActionHelper.Click(driver, now_date_button)) {
+			ActionHelper.staticWait(2);
+			isTimeSelected = ActionHelper.Click(driver, done_date_button);
+		}
+		return isTimeSelected;
 	}
 }
