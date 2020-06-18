@@ -436,7 +436,7 @@ public class PPCreateAdPage extends Page{
 		boolean isSuccess = false;
 		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, isSlideShow);
 		if(list!=null) {
-			isSuccess = list.size()>=3;
+			isSuccess = list.size()>=2;
 		}
 		return isSuccess;
 	}
