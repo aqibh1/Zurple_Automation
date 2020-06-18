@@ -975,16 +975,15 @@ public class ActionHelper {
 		   return element!=null;
 	   }
 	   public static boolean verifyTextAfterRegularIntervals(WebDriver pWebDriver,WebElement pXpath,String pTextToVerify, int pTotalAttempts) {
-		  boolean isVerified = false;
+		   boolean isVerified = false;
 		   int counter = 0;
 		   while (counter<pTotalAttempts && !isVerified) {
-			   try {
-				   isVerified = getText(pWebDriver, pXpath).equalsIgnoreCase(pTextToVerify);
-			   }catch(Exception ex) {
-				   AutomationLogger.error("Unable to get dynamic webelement for xpath "+pXpath);
-				   AutomationLogger.error(ex.getMessage());
+			   isVerified = getText(pWebDriver, pXpath).equalsIgnoreCase(pTextToVerify);
+			   if(!isVerified) {
+				   AutomationLogger.info("Unable to get dynamic webelement for xpath "+pXpath);
 				   pWebDriver.navigate().refresh();
 				   staticWait(60);
+				   counter++;
 			   }
 		   }
 		   return isVerified;
