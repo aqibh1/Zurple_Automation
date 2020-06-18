@@ -358,6 +358,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		
 		assertTrue(page.isLeadDetailPage(), "Lead Detail page is not displayed..");
 		assertTrue(page.clickOnDateReminder(), "Unable to click on page reminder..");
+		assertTrue(page.clickOnDateDoneButton(), "Unable to click on date Done button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.typeReminderNote("Call this lead"), "Unable to type in lead reminder section..");
 		assertTrue(page.clickOnSaveButton(), "Unable to click on save button..");

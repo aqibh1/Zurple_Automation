@@ -145,6 +145,9 @@ public class ZBOLeadDetailPage extends Page{
 	
 	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-messageDateTime ']/div")
 	WebElement xpathForTestingDate;
+	
+	@FindBy(xpath="//button[text()='Done']")
+	WebElement done_date_button;
 		
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	
@@ -619,5 +622,8 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean clickOnSaveButton() {
 		return ActionHelper.Click(driver, save_reminder_button);
+	}
+	public boolean clickOnDateDoneButton() {
+		return ActionHelper.Click(driver, done_date_button);
 	}
 }
