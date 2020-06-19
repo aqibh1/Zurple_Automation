@@ -84,7 +84,7 @@ public class PPCreateAdPageTest extends PageTest{
 		// TODO Auto-generated method stub
 		
 	}
-	@Test
+	@Test(groups = { "AD_CREATE.CMA" })
 	@Parameters({"dataFile"})
 	public void testCreateCMAAd(String pDataFile) {
 		getPage("/content/marketing/create-ad");
@@ -124,7 +124,7 @@ public class PPCreateAdPageTest extends PageTest{
 		assertTrue(page.clickOnNextStepButton(), "Unable to click on Place button step 3");
 	}
 	
-	@Test
+	@Test(groups = { "AD_CREATE" })
 	@Parameters({"dataFile"})
 	public void testCreateListingAds(String pDataFile) {
 		getPage("/content/marketing/create-ad");

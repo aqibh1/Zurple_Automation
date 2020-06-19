@@ -75,7 +75,7 @@ public class PPAdsOverviewPageTest extends PageTest{
 		// TODO Auto-generated method stub
 		
 	}
-	@Test
+	@Test(dependsOnGroups = { "AD_DETAILS" })
 	@Parameters({"dataFile"})
 	public void testVerifyAdDetailsOnAdsOverviewPage(String pDataFile) {
 		getPage("/content/marketing/ads");

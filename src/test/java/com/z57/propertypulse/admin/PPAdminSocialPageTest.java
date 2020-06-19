@@ -77,7 +77,7 @@ public class PPAdminSocialPageTest extends PageTest {
 		
 	}
 	
-	@Test
+	@Test(groups = { "AD_DETAILS" }, dependsOnGroups = { "AD_CREATE.*" })
 	@Parameters({"dataFile"})
 	public void testVerifyAdDetails(String pDataFile) {
 		getPage();
