@@ -970,6 +970,7 @@ public class ActionHelper {
 				   element = null;
 				   pWebDriver.navigate().refresh();
 				   staticWait(60);
+				   counter++;
 			   }
 		   }
 		   return element!=null;
