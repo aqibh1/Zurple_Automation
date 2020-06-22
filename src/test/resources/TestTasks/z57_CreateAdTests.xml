@@ -1,0 +1,332 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Z57 Pre Release Ad Creation Tests" preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+    </listeners>
+   
+  <test name="Create Promote Listing Ads">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/ads/promote-listing-ads-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>     
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateListingAds" />
+      </methods>
+       </class>     
+      <class name="com.z57.propertypulse.admin.PPAdminSocialPageTest" >
+      <methods>
+      <include name="testVerifyAdDetails" />
+      </methods>
+      </class> 
+      <class name="com.z57.propertypulse.PPAdsOverviewPageTest" >
+      <methods>
+      <include name="testVerifyAdDetailsOnAdsOverviewPage" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Create Open House Ads">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/ads/open-house-ads-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>     
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateListingAds" />
+      </methods>
+       </class>     
+      <class name="com.z57.propertypulse.admin.PPAdminSocialPageTest" >
+      <methods>
+      <include name="testVerifyAdDetails" />
+      </methods>
+      </class> 
+      <class name="com.z57.propertypulse.PPAdsOverviewPageTest" >
+      <methods>
+      <include name="testVerifyAdDetailsOnAdsOverviewPage" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Create CMA Ad on PP">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/ads/cma-ads-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>     
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateCMAAd" />
+      </methods>
+       </class>     
+      <class name="com.z57.propertypulse.admin.PPAdminSocialPageTest" >
+      <methods>
+      <include name="testVerifyAdDetails" />
+      </methods>
+      </class>  
+      <class name="com.z57.propertypulse.PPAdsOverviewPageTest" >
+      <methods>
+      <include name="testVerifyAdDetailsOnAdsOverviewPage" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+    <test name="Create CMA2 Ad on PP">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/ads/cma2-ads-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>     
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateCMAAd" />
+      </methods>
+       </class>     
+      <class name="com.z57.propertypulse.admin.PPAdminSocialPageTest" >
+      <methods>
+      <include name="testVerifyAdDetails" />
+      </methods>
+      </class>  
+      <class name="com.z57.propertypulse.PPAdsOverviewPageTest" >
+      <methods>
+      <include name="testVerifyAdDetailsOnAdsOverviewPage" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+    <test name="Create Market Price Reduce Ads">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/ads/price-reduced-ads-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>     
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateListingAds" />
+      </methods>
+       </class>     
+      <class name="com.z57.propertypulse.admin.PPAdminSocialPageTest" >
+      <methods>
+      <include name="testVerifyAdDetails" />
+      </methods>
+      </class> 
+      <class name="com.z57.propertypulse.PPAdsOverviewPageTest" >
+      <methods>
+      <include name="testVerifyAdDetailsOnAdsOverviewPage" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Create Neighborhood Experts Community Reports Ads">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/ads/ng-expert-community-reports-ads-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>     
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateListingAds" />
+      </methods>
+       </class>     
+      <class name="com.z57.propertypulse.admin.PPAdminSocialPageTest" >
+      <methods>
+      <include name="testVerifyAdDetails" />
+      </methods>
+      </class> 
+      <class name="com.z57.propertypulse.PPAdsOverviewPageTest" >
+      <methods>
+      <include name="testVerifyAdDetailsOnAdsOverviewPage" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Create Neighborhood Experts Promote Yourself Ads">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/ads/ng-expert-promote-yourself-ads-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>     
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateListingAds" />
+      </methods>
+       </class>     
+      <class name="com.z57.propertypulse.admin.PPAdminSocialPageTest" >
+      <methods>
+      <include name="testVerifyAdDetails" />
+      </methods>
+      </class> 
+      <class name="com.z57.propertypulse.PPAdsOverviewPageTest" >
+      <methods>
+      <include name="testVerifyAdDetailsOnAdsOverviewPage" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Create Neighborhood Experts School Reports Ads">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/ads/ng-expert-school-reports-ads-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>     
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateListingAds" />
+      </methods>
+       </class>     
+      <class name="com.z57.propertypulse.admin.PPAdminSocialPageTest" >
+      <methods>
+      <include name="testVerifyAdDetails" />
+      </methods>
+      </class> 
+      <class name="com.z57.propertypulse.PPAdsOverviewPageTest" >
+      <methods>
+      <include name="testVerifyAdDetailsOnAdsOverviewPage" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	 <test name="Create Neighborhood Experts Search Homes Ads">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/ads/ng-expert-search-homes-ads-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>     
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateListingAds" />
+      </methods>
+       </class>     
+      <class name="com.z57.propertypulse.admin.PPAdminSocialPageTest" >
+      <methods>
+      <include name="testVerifyAdDetails" />
+      </methods>
+      </class> 
+      <class name="com.z57.propertypulse.PPAdsOverviewPageTest" >
+      <methods>
+      <include name="testVerifyAdDetailsOnAdsOverviewPage" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+	<test name="Create Neighborhood Experts View Sold Homes Ads">
+ 	<parameter name="dataFile" value="/resources/data/propertypulse/ads/ng-expert-view-sold-homes-ads-data.json" >
+	<classes>
+      <class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>     
+      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
+      <methods>
+      <include name="testCreateListingAds" />
+      </methods>
+       </class>     
+      <class name="com.z57.propertypulse.admin.PPAdminSocialPageTest" >
+      <methods>
+      <include name="testVerifyAdDetails" />
+      </methods>
+      </class> 
+      <class name="com.z57.propertypulse.PPAdsOverviewPageTest" >
+      <methods>
+      <include name="testVerifyAdDetailsOnAdsOverviewPage" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+    </parameter>
+	</test>
+	
+</suite>
