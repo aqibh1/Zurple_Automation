@@ -1,5 +1,6 @@
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
@@ -7,11 +8,13 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
 import com.zurple.backoffice.marketing.ZBOCreateCampaignPage;
+import com.zurple.backoffice.marketing.ZBOCreateTemplatePage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 
 public class ZBOCreateCampaignPageTest extends PageTest{
 
@@ -51,6 +54,12 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertTrue(page.clickOnAddTemplateButton(), "Unable to click on Add template button..");
 		assertTrue(page.getZboAddTemplateForm().isCampaignAddTemplateFormVisible(), "Add template form is not displayed..");
 		assertTrue(page.getZboAddTemplateForm().isTemplateExist(lTemplateName), "Template not found on campaigns manager page..");
+		assertTrue(page.getZboAddTemplateForm().clickOnUpdateButton(), "Unaable to click on update button..");
+		assertTrue(page.clickOnTemplateLink(lTemplateName), "Unable to click on template link button..");
+		ZBOCreateTemplatePage createTemplatePageObject = new ZBOCreateTemplatePage(driver);
+		ActionHelper.switchToSecondWindowByIndex(driver, 2);
+		assertTrue(createTemplatePageObject.isCreateTemplatePage(), "Create template page is not visible..");
+		assertEquals(createTemplatePageObject.getTemplateName(), lTemplateName, "Template name is not equal..");
 	}
 
 }

@@ -140,4 +140,7 @@ public class ZBOCreateTemplatePage extends Page {
 	public boolean clickOnSaveTemplateButton() {
 		return ActionHelper.Click(driver, save_template_button);
 	}
+	public String getTemplateName() {
+		return ActionHelper.getTextByValue(driver, templateName_input);
+	}
 }

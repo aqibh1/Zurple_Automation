@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.AbstractForm;
 import resources.utility.ActionHelper;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author adar
@@ -22,6 +23,9 @@ public class ZBOAddTemplateForm extends AbstractForm{
 	
 	@FindBy(id="templates-select")
 	WebElement template_dropdown;
+	
+	@FindBy(xpath="//button[text()='Update']")
+	WebElement updateButton;
 	
 	public ZBOAddTemplateForm() {
 		
@@ -37,4 +41,8 @@ public class ZBOAddTemplateForm extends AbstractForm{
 	public boolean isTemplateExist(String pTemplateName) {
 		return ActionHelper.selectDropDownOption(driver, template_dropdown, "", pTemplateName);
 	}
+	public boolean clickOnUpdateButton() {
+		return ActionHelper.Click(driver, updateButton);
+	}
+	
 }
