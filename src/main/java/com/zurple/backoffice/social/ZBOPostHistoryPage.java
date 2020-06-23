@@ -184,5 +184,18 @@ public class ZBOPostHistoryPage extends Page{
 		}
 		return isVisible;
 	}
+	public boolean verifyDuplicatePostButtonIsWorking(String pPostToVerify) {
+		boolean isVisible = false;	
+		WebElement element;
+		element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
+		if(element!=null) {
+			ActionHelper.waitForElementToBeVisible(driver, element.findElement(By.id("duplicate-post")), 30);
+			ActionHelper.Click(driver, element.findElement(By.id("duplicate-post")));
+			ActionHelper.staticWait(5);
+			isVisible = driver.getCurrentUrl().contains("duplicatepost");
+			
+		}
+		return isVisible;
+	}
 	
 }

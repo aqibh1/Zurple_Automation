@@ -11,6 +11,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.zurple.backoffice.social.ZBOCreatePostPage;
+import com.zurple.backoffice.social.ZBODuplicatePage;
 import com.zurple.backoffice.social.ZBOPostHistoryPage;
 import com.zurple.my.PageTest;
 
@@ -84,6 +85,10 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(!page.getPostPageTime(lPostText).isEmpty(), "Unable to verify post time..");
 		assertTrue(page.isManualPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 		assertTrue(page.verifyViewPostButtonIsWorking(ld_platform, lPostText), "View post button is not working...");
+		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
+		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
+		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 
 }
