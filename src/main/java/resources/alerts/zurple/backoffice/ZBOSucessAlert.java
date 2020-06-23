@@ -26,6 +26,9 @@ public class ZBOSucessAlert extends AbstractAlert{
 	@FindBy(xpath="//h2[@id='swal2-title' and text()='New reminder has been added.']")
 	WebElement reminder_success_message;
 	
+	@FindBy(xpath="//button[text()='Post History']")
+	WebElement post_history_button;
+	
 	public ZBOSucessAlert() {
 		
 	}
@@ -43,6 +46,9 @@ public class ZBOSucessAlert extends AbstractAlert{
 	}
 	public boolean isReminderSuccessAlertVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, reminder_success_message, 10);
+	}
+	public boolean clickOnPostHistoryButton() {
+		return ActionHelper.Click(driver, post_history_button);
 	}
 
 }

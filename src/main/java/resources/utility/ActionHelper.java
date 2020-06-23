@@ -969,6 +969,7 @@ public class ActionHelper {
 				   AutomationLogger.error(ex.getMessage());
 				   element = null;
 				   pWebDriver.navigate().refresh();
+				   AutomationLogger.info("Waiting for 1 minute before refreshing the page");
 				   staticWait(60);
 				   counter++;
 			   }
