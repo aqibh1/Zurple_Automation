@@ -1,0 +1,93 @@
+<suite name="Update and Verify User Settings suite"
+	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+ <!-- 
+	<test name="Create and Verify Facebook Photo post Now">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/zurple-social-fb-photo-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.ZBOCreatePostPageTest">
+				<methods>
+					<include name="testCreatePost" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+					<include name="testVerifyPostOnPostHistoryPage" />
+				</methods>
+			</class>
+			<class name="resources.CurrentPageTest">
+			<methods>
+					<include name="closeBrowser" />
+			</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	
+	<test name="Create and Verify Twitter Photo post Now">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/zurple-social-tw-photo-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.ZBOCreatePostPageTest">
+				<methods>
+					<include name="testCreatePost" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+					<include name="testVerifyPostOnPostHistoryPage" />
+				</methods>
+			</class>
+			<class name="resources.CurrentPageTest">
+			<methods>
+					<include name="closeBrowser" />
+			</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	-->
+	
+	<test name="Create and Verify Linkedin Photo post Now">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/zurple-social-li-photo-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.ZBOCreatePostPageTest">
+				<methods>
+					<include name="testCreatePost" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+					<include name="testVerifyPostOnPostHistoryPage" />
+				</methods>
+			</class>
+			<class name="resources.CurrentPageTest">
+			<methods>
+					<include name="closeBrowser" />
+			</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	 
+</suite>
+

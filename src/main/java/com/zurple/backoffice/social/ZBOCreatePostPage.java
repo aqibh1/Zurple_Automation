@@ -49,6 +49,10 @@ public class ZBOCreatePostPage extends Page{
 	@FindBy(xpath="//span[@class='schedule-label']")
 	WebElement scheduled_label;
 	
+	@FindBy(id="post_image")
+	WebElement post_image;
+	
+	
 	public ZBOCreatePostPage() {
 		
 	}
@@ -262,5 +266,43 @@ public class ZBOCreatePostPage extends Page{
 	}
 	public boolean isScheduled() {
 		return ActionHelper.waitForElementToBeVisible(driver, scheduled_label, 5);
+	}
+
+	public boolean uploadPhoto(String pPlatform, String pPhotoPath) {
+		boolean isTyped = false;
+		String lImage_path = "";
+		switch(pPlatform) {
+		case "Facebook":
+			if(ActionHelper.waitForElementToBeVisible(driver, fb_new_post_template_element, 15)) {
+				isTyped = ActionHelper.TypeForUploadImage(driver, fb_new_post_template_element.findElement(By.id("post_image")),pPhotoPath);
+				if(isTyped) {
+					ActionHelper.staticWait(30);
+					lImage_path = ActionHelper.getAttribute(fb_new_post_template_element.findElement(By.xpath("/descendant::div[@class='post-image']/img")),"src");
+					isTyped = lImage_path.isEmpty()?false:true;
+				}
+			}
+			break;
+		case "Twitter":
+			if(ActionHelper.waitForElementToBeVisible(driver, tw_new_post_template_element, 15)) {
+				isTyped = ActionHelper.TypeForUploadImage(driver, tw_new_post_template_element.findElement(By.id("post_image")),pPhotoPath);
+				if(isTyped) {
+					ActionHelper.staticWait(30);
+					lImage_path = ActionHelper.getAttribute(tw_new_post_template_element.findElement(By.xpath("/descendant::div[@class='post-image']/img")),"src");
+					isTyped = lImage_path.isEmpty()?false:true;
+				}
+			}
+			break;
+		case "LinkedIn":
+			if(ActionHelper.waitForElementToBeVisible(driver, li_new_post_template_element, 15)) {
+				isTyped = ActionHelper.TypeForUploadImage(driver, li_new_post_template_element.findElement(By.id("post_image")),pPhotoPath);
+				if(isTyped) {
+					ActionHelper.staticWait(30);
+					lImage_path = ActionHelper.getAttribute(li_new_post_template_element.findElement(By.xpath("/descendant::div[@class='post-image']/img")),"src");
+					isTyped = lImage_path.isEmpty()?false:true;
+				}
+			}
+			break;
+		}
+		return isTyped;
 	}
 }

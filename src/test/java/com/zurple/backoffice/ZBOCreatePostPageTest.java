@@ -64,6 +64,7 @@ public class ZBOCreatePostPageTest extends PageTest{
 		String ld_posttype = dataObject.optString("post_type");
 		String ld_post_text = updateName(dataObject.optString("post_text"));
 		String ld_post_schedule = dataObject.optString("post_schedule");
+		String ld_post_photo = System.getProperty("user.dir")+dataObject.optString("post_image");
 		
 		assertTrue(page.isCreatePostPage(), "Create Post Page is not visible..");
 		assertTrue(page.verifyIfPlatformIsConnected(ld_platform), "Platform is not connected "+ld_platform);
@@ -78,6 +79,8 @@ public class ZBOCreatePostPageTest extends PageTest{
 			assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 			break;
 		case "post_image":
+			assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
+			assertTrue(page.uploadPhoto(ld_platform, ld_post_photo), "Unable to type text..");
 			break;
 		case "post_listing":
 			break;

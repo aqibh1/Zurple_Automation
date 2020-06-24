@@ -1033,4 +1033,18 @@ public class ActionHelper {
 		   }
 		   return isVerified;
 	   }
+	   public static boolean TypeForUploadImage(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
+		   boolean isSuccessfull=false;
+		   try {
+			   pInputField.sendKeys(pStringToType);
+			   AutomationLogger.info("String typed ->"+pStringToType);
+			   isSuccessfull=true;
+			   staticWait(1);
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Unable to type in input field "+pInputField.getAttribute("xpath"));
+			   AutomationLogger.error("String to type : "+pStringToType);
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return isSuccessfull;
+	   }
 }

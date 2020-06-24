@@ -70,8 +70,13 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		switch(ld_posttype) {
 		case "post_text":
 			assertTrue(page.isTextPostIconVisible(lPostText), "Unable to verify post icon");
+			assertTrue(page.isManualPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			break;
 		case "post_image":
+			assertTrue(page.isPostProcessingiconVisible(lPostText), "The post processing icon is still visble after 3 minutes");
+			assertTrue(page.isPhotoPostIconVisible(lPostText), "Photo post icon is not visible on post history page..");
+			assertTrue(page.isImageDisplaying(ld_platform, lPostText), "Image is not displaying on post history page..");
+			assertTrue(page.isManualPhotPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			break;
 		case "post_listing":
 			break;
@@ -83,7 +88,6 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		
 		assertTrue(!page.getPostPageDate(lPostText).isEmpty(), "Unable to verify post date on history page...");
 		assertTrue(!page.getPostPageTime(lPostText).isEmpty(), "Unable to verify post time..");
-		assertTrue(page.isManualPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 		assertTrue(page.verifyViewPostButtonIsWorking(ld_platform, lPostText), "View post button is not working...");
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);

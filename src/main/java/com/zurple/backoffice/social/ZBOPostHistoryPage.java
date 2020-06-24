@@ -55,6 +55,9 @@ public class ZBOPostHistoryPage extends Page{
 //	String fb_post_time = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'post-time')]";
 
 	String fb_manual_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Status Post']";
+	String post_processing_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::span[contains(@class,'post-processing-icon')]";
+	String camera_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'camera-icon')]";
+	String photo_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Photo Post']";
 
 	public ZBOPostHistoryPage() {
 		
@@ -197,5 +200,56 @@ public class ZBOPostHistoryPage extends Page{
 		}
 		return isVisible;
 	}
-	
+	public boolean isPostProcessingiconVisible(String pPostToVerify) {
+		boolean isDisappeared = false;	
+		WebElement element;
+		element = ActionHelper.getDynamicElement(driver, post_processing_icon, pPostToVerify);
+		if(element!=null) {
+			isDisappeared = ActionHelper.waitforElementToBeDisappearedByRegularIntervals(driver, element, 20, 10);
+		}
+		return isDisappeared;
+	}
+	public boolean isPhotoPostIconVisible(String pPostToVerify) {
+		boolean isVisible = false;	
+		WebElement element;
+		element = ActionHelper.getDynamicElement(driver, camera_icon, pPostToVerify);
+		if(element!=null) {
+			isVisible = ActionHelper.isElementVisible(driver, element);
+		}
+		return isVisible;
+	}
+	public boolean isImageDisplaying(String pPlatform, String pPostToVerify) {
+		boolean isVisible = false;	
+		WebElement element;
+		switch(pPlatform) {
+		case "Facebook":
+			element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
+			if(element!=null) {
+				isVisible = ActionHelper.getAttribute(element.findElement(By.xpath("/descendant::div/img")), "src").contains("fbcdn");
+			}
+			break;
+		case "Twitter":
+			element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
+			if(element!=null) {
+				isVisible = ActionHelper.getAttribute(element.findElement(By.xpath("/descendant::div/img")), "src").contains("s3.amazonaws");
+			}
+			break;
+		case "LinkedIn":
+			element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
+			if(element!=null) {
+				isVisible = ActionHelper.getAttribute(element.findElement(By.xpath("/descendant::div/img")), "src").contains("s3.amazonaws");
+			}
+			break;
+		}
+		return isVisible;
+	}
+	public boolean isManualPhotPostTextVisible(String pPostToVerify) {
+		boolean isVisible = false;	
+		WebElement element;
+		element = ActionHelper.getDynamicElement(driver, photo_post_text, pPostToVerify);
+		if(element!=null) {
+			isVisible = ActionHelper.isElementVisible(driver, element);
+		}
+		return isVisible;
+	}
 }

@@ -38,14 +38,14 @@ public class ZBOSucessAlert extends AbstractAlert{
 	}
 	
 	public boolean isSuccessMessageVisible() {
-		return ActionHelper.isElementVisible(driver, success_text);
+		return ActionHelper.waitForElementToBeVisible(driver, success_text, 30);
 	}
 	
 	public boolean clickOnOkButton() {
 		return ActionHelper.Click(driver, ok_button);
 	}
 	public boolean isReminderSuccessAlertVisible() {
-		return ActionHelper.waitForElementToBeVisible(driver, reminder_success_message, 10);
+		return ActionHelper.waitForElementToBeVisible(driver, reminder_success_message, 30);
 	}
 	public boolean clickOnPostHistoryButton() {
 		return ActionHelper.Click(driver, post_history_button);
