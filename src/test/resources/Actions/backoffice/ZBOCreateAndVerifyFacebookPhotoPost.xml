@@ -6,7 +6,7 @@
 		<listener class-name="resources.ZurpleReporter.ScreenshotTaker" />
 		<listener class-name="resources.CustomTestNGReporter" />
 	</listeners>
- <!-- 
+
 	<test name="Create and Verify Facebook Photo post Now">
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/zurple-social-fb-photo-data.json">
 		<classes>
@@ -60,7 +60,7 @@
 		</classes>
 		</parameter>
 	</test>
-	-->
+	
 	
 	<test name="Create and Verify Linkedin Photo post Now">
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/zurple-social-li-photo-data.json">
