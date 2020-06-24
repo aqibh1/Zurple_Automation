@@ -483,7 +483,7 @@ public class PPCreateAdPage extends Page{
 		return isClicked;
 	}
 	public boolean clickOnTestAd() {
-		return ActionHelper.Click(driver, test_ad_checkbox);
+		return ActionHelper.checkUncheckInputBox(driver, test_ad_checkbox,true);
 	}
 	public boolean isAdPlacedSuccessfully() {
 		return ActionHelper.waitForElementToBeVisible(driver, success_dialog, 20);
