@@ -408,4 +408,49 @@ public class ZBOCreatePostPage extends Page{
 		}
 		return isTyped;
 	}
+	
+	public boolean clickOnPostLinkButton(String pPlatform) {
+		boolean isClicked = false;
+		switch(pPlatform) {
+		case "Facebook":
+			if(ActionHelper.waitForElementToBeVisible(driver, fb_new_post_template_element, 15)) {
+				isClicked = ActionHelper.Click(driver, fb_new_post_template_element.findElement(By.xpath("/descendant::button[text()='Post Link']")));
+			}
+			break;
+		case "Twitter":
+			if(ActionHelper.waitForElementToBeVisible(driver, tw_new_post_template_element, 15)) {
+				isClicked = ActionHelper.Click(driver, tw_new_post_template_element.findElement(By.xpath("/descendant::button[text()='Post Link']")));
+				
+			}
+			break;
+		case "LinkedIn":
+			if(ActionHelper.waitForElementToBeVisible(driver, li_new_post_template_element, 15)) {
+				isClicked = ActionHelper.Click(driver, li_new_post_template_element.findElement(By.xpath("/descendant::button[text()='Post Link']")));
+			}
+			break;
+	
+		}
+		return isClicked;
+	}
+	public boolean typeLinkUrl(String pPlatform, String pUrl) {
+		boolean isTyped = false;	
+		switch(pPlatform) {
+		case "Facebook":
+			if(ActionHelper.waitForElementToBeVisible(driver, fb_new_post_template_element, 15)) {
+				isTyped = ActionHelper.ClearAndType(driver, fb_new_post_template_element.findElement(By.id("link_to_share")), pUrl);
+			}
+			break;
+		case "Twitter":
+			if(ActionHelper.waitForElementToBeVisible(driver, tw_new_post_template_element, 15)) {
+				isTyped = ActionHelper.ClearAndType(driver, tw_new_post_template_element.findElement(By.id("link_to_share")), pUrl);
+			}
+			break;
+		case "LinkedIn":
+			if(ActionHelper.waitForElementToBeVisible(driver, li_new_post_template_element, 15)) {
+				isTyped = ActionHelper.ClearAndType(driver, li_new_post_template_element.findElement(By.id("link_to_share")), pUrl);
+			}
+			break;
+		}
+		return isTyped;
+	}
 }

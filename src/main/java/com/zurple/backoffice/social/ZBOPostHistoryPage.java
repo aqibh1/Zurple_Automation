@@ -62,6 +62,8 @@ public class ZBOPostHistoryPage extends Page{
 	String listing_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Listing Post']";
 	String listing_video_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Listing Video Post']";
 	String video_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'listing-video-icon')]";
+	String computer_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'computer-icon')]";
+	String link_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Link Post']";
 
 	public ZBOPostHistoryPage() {
 		
@@ -315,6 +317,24 @@ public class ZBOPostHistoryPage extends Page{
 		boolean isVisible = false;	
 		WebElement element;
 		element = ActionHelper.getDynamicElement(driver, listing_video_post_text, pPostToVerify);
+		if(element!=null) {
+			isVisible = ActionHelper.isElementVisible(driver, element);
+		}
+		return isVisible;
+	}
+	public boolean isPostComputerIconVisible(String pPostToVerify) {
+		boolean isVisible = false;	
+		WebElement element;
+		element = ActionHelper.getDynamicElement(driver, computer_icon, pPostToVerify);
+		if(element!=null) {
+			isVisible = ActionHelper.isElementVisible(driver, element);
+		}
+		return isVisible;
+	}
+	public boolean isManualLinkPostTextVisible(String pPostToVerify) {
+		boolean isVisible = false;	
+		WebElement element;
+		element = ActionHelper.getDynamicElement(driver, link_post_text, pPostToVerify);
 		if(element!=null) {
 			isVisible = ActionHelper.isElementVisible(driver, element);
 		}

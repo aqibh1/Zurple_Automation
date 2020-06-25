@@ -16,10 +16,12 @@ import com.zurple.backoffice.social.ZBOCreatePostPage;
 import com.zurple.backoffice.social.ZBOPostHistoryPage;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
+import resources.utility.ZurpleListingConstants;
 
 /**
  * @author adar
@@ -101,6 +103,10 @@ public class ZBOCreatePostPageTest extends PageTest{
 			ld_post_text = ld_post_text.split(" ")[0];
 			break;
 		case "post_link":
+			assertTrue(page.clickOnPostLinkButton(ld_platform), "Unable to click on Post Link button..");
+			assertTrue(page.typeLinkUrl(ld_platform, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")+ZurpleListingConstants.zurple_production_listing), "Unable to type listing URL");
+			ActionHelper.staticWait(10);
+			assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 			break;
 		}
 		if(ld_post_schedule.equalsIgnoreCase("Later")) {

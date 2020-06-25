@@ -149,7 +149,7 @@ public abstract class AbstractPageTest extends AbstractTest
 //		long date_to_append=dateObj.getTime()/3600;
     	String date_to_append = getCurrentPSTTime().replace("-", "");
 //		pName=pName+" "+Long.toString(date_to_append);
-		pName=date_to_append+" "+pName;
+		pName=date_to_append+generateRandomInt(1000)+" "+pName;
 		return pName;
     }
     public void closeBootStrapModal() {
