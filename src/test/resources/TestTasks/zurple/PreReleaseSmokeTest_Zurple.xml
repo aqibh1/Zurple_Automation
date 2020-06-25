@@ -1136,7 +1136,7 @@
 	</parameter>
 	</test>
 	
-	<test name="Add and Verify template">
+	<test name="Add Verify and Delete template">
 	<parameter name="templateData" value="/resources/data/zurple/backoffice/marketing/create-template-data.json">
 	<classes>
 		<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -1164,6 +1164,11 @@
 			<methods>
 				<include name="testInActiveTemplate" />
 			</methods>
+		</class>
+		<class name="com.zurple.backoffice.ZBOCreateTemplatePageTest">
+				<methods>
+					<include name="testDeleteTemplate" />
+				</methods>
 		</class>
 		<class name="resources.CurrentPageTest">
 			<methods>
