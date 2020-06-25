@@ -29,6 +29,9 @@ public class ZBOSucessAlert extends AbstractAlert{
 	@FindBy(xpath="//button[text()='Post History']")
 	WebElement post_history_button;
 	
+	@FindBy(xpath="//button[text()='Confirm']")
+	WebElement confirm_button;
+	
 	public ZBOSucessAlert() {
 		
 	}
@@ -49,6 +52,13 @@ public class ZBOSucessAlert extends AbstractAlert{
 	}
 	public boolean clickOnPostHistoryButton() {
 		return ActionHelper.Click(driver, post_history_button);
+	}
+	public boolean clickOnConfirmButton() {
+		boolean isClicked = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, confirm_button, 30)) {
+			isClicked = ActionHelper.Click(driver, confirm_button);
+		}
+		return isClicked;
 	}
 
 }

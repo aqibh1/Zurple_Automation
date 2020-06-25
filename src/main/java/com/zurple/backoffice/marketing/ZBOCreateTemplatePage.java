@@ -53,6 +53,9 @@ public class ZBOCreateTemplatePage extends Page {
 	@FindBy(id="save-template")
 	WebElement save_template_button;
 	
+	@FindBy(xpath="//label[contains(text(),'Delete Template')]")
+	WebElement delete_template;
+	
 	ZBOPlaceHolderForm zboPlaceholderForm;
 	ZBOPreviewForm zboPreviewForm;
 	ZBOInsertImageForm zboInsertImageForm;
@@ -142,5 +145,16 @@ public class ZBOCreateTemplatePage extends Page {
 	}
 	public String getTemplateName() {
 		return ActionHelper.getTextByValue(driver, templateName_input);
+	}
+	public boolean clickOnDeleteTemplateButton() {
+		boolean isDeleted = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, delete_template, 30) && ActionHelper.Click(driver, delete_template)) {
+			isDeleted = zboSuccessAlert.clickOnConfirmButton();
+		}
+		return isDeleted;
+	}
+	public boolean isDeletedSuccessfully() {
+		ActionHelper.staticWait(10);
+		return !driver.getCurrentUrl().contains("/edit");
 	}
 }

@@ -39,6 +39,11 @@
 					<include name="testInActiveTemplate" />
 				</methods>
 			</class>
+			<class name="com.zurple.backoffice.ZBOCreateTemplatePageTest">
+					<methods>
+						<include name="testDeleteTemplate" />
+					</methods>
+				</class>
 			<class name="resources.CurrentPageTest">
 				<methods>
 					<include name="closeBrowser" />

@@ -116,4 +116,16 @@ public class ZBOCreateTemplatePageTest extends PageTest{
 		assertTrue(page.getZboSuccessAlert().isSuccessMessageVisible(), "Success alert message is not visible..");
 		assertTrue(page.getZboSuccessAlert().clickOnOkButton(), "Unable to click on OK button..");
 	}
+	
+	@Test(dependsOnGroups="com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate")
+	public void testDeleteTemplate() {
+		page = null;
+		getPage("/marketing/templates");
+		String lTemplate_Name = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleTemplateName);
+		
+		ZBOTemplateManagerPage templateManagerPage = new ZBOTemplateManagerPage(driver);
+		
+		assertTrue(templateManagerPage.searchAndClickEditButton(lTemplate_Name), "Unable to find template..");
+		assertTrue(page.clickOnDeleteTemplateButton(), "Unable to delete the template..");
+	}
 }
