@@ -1050,4 +1050,25 @@ public class ActionHelper {
 		   }
 		   return isSuccessfull;
 	   }
+	  
+	   public static boolean appendAtStart(WebDriver pWebDriver,WebElement pInputField, String pStringToType) {
+			boolean isSuccessfull=false;
+			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			try {
+				AutomationLogger.info("Waiting for the visibility of element ->"+pInputField);
+				if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
+					pInputField.sendKeys(Keys.CONTROL,Keys.HOME);
+					pInputField.sendKeys(pStringToType);
+					AutomationLogger.info("String typed ->"+pStringToType);
+					isSuccessfull=true;
+					staticWait(1);
+				}
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to type in input field "+pInputField.getAttribute("xpath"));
+				AutomationLogger.error("String to type : "+pStringToType);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessfull;
+		}
 }

@@ -374,4 +374,38 @@ public class ZBOCreatePostPage extends Page{
 		}
 		return listing_text;
 	}
+	
+	public boolean clickOnPostListingVideoButton(String pPlatform) {
+		boolean isClicked = false;
+		switch(pPlatform) {
+		case "Facebook":
+			if(ActionHelper.waitForElementToBeVisible(driver, fb_new_post_template_element, 15)) {
+				isClicked = ActionHelper.Click(driver, fb_new_post_template_element.findElement(By.xpath("/descendant::button[text()='Post Listing Video']")));
+			}
+			break;
+		
+		case "YouTube":
+			if(ActionHelper.waitForElementToBeVisible(driver, yt_new_post_template_element, 15)) {
+				isClicked = ActionHelper.Click(driver, yt_new_post_template_element.findElement(By.xpath("/descendant::button[text()='Post Listing Video']")));
+			}
+			break;
+		}
+		return isClicked;
+	}
+	public boolean appendTextAtStart(String pPlatform, String pTextTtoType) {
+		boolean isTyped = false;	
+		switch(pPlatform) {
+		case "Facebook":
+			if(ActionHelper.waitForElementToBeVisible(driver, fb_new_post_template_element, 15)) {
+				isTyped = ActionHelper.appendAtStart(driver, fb_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
+			}
+			break;
+		case "YouTube":
+			if(ActionHelper.waitForElementToBeVisible(driver, yt_new_post_template_element, 15)) {
+				isTyped = ActionHelper.appendAtStart(driver, yt_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
+			}
+			break;
+		}
+		return isTyped;
+	}
 }

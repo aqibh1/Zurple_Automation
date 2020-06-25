@@ -60,6 +60,8 @@ public class ZBOPostHistoryPage extends Page{
 	String photo_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Photo Post']";
 	String home_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'home-icon')]";
 	String listing_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Listing Post']";
+	String listing_video_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Listing Video Post']";
+	String video_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'listing-video-icon')]";
 
 	public ZBOPostHistoryPage() {
 		
@@ -77,7 +79,7 @@ public class ZBOPostHistoryPage extends Page{
 		WebElement element;
 		switch(pPlatform) {
 		case "Facebook":
-			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, fb_post_platform_icon, pPostToVerify,5)) {
+			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, fb_post_platform_icon, pPostToVerify,10)) {
 				element = ActionHelper.getDynamicElement(driver, fb_post_platform_icon, pPostToVerify);
 				if(element!=null) {
 					isVisible = ActionHelper.isElementVisible(driver, element);
@@ -85,7 +87,7 @@ public class ZBOPostHistoryPage extends Page{
 			}
 			break;
 		case "Twitter":
-			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, tw_post_platform_icon, pPostToVerify,5)) {
+			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, tw_post_platform_icon, pPostToVerify,10)) {
 				element = ActionHelper.getDynamicElement(driver, tw_post_platform_icon, pPostToVerify);
 				if(element!=null) {
 					isVisible = ActionHelper.isElementVisible(driver, element);
@@ -93,7 +95,7 @@ public class ZBOPostHistoryPage extends Page{
 			}
 			break;
 		case "LinkedIn":
-			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, li_post_platform_icon, pPostToVerify,5)) {
+			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, li_post_platform_icon, pPostToVerify,10)) {
 				element = ActionHelper.getDynamicElement(driver, li_post_platform_icon, pPostToVerify);
 				if(element!=null) {
 					isVisible = ActionHelper.isElementVisible(driver, element);
@@ -101,11 +103,12 @@ public class ZBOPostHistoryPage extends Page{
 			}
 			break;
 		case "YouTube":
-			element = ActionHelper.getDynamicElement(driver, yt_post_platform_icon, pPostToVerify);
-			if(element!=null) {
-				isVisible = ActionHelper.isElementVisible(driver, element);
+			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, yt_post_platform_icon, pPostToVerify,10)) {
+				element = ActionHelper.getDynamicElement(driver, yt_post_platform_icon, pPostToVerify);
+				if(element!=null) {
+					isVisible = ActionHelper.isElementVisible(driver, element);
+				}
 			}
-			break;
 		}
 		return isVisible;
 	}
@@ -298,5 +301,23 @@ public class ZBOPostHistoryPage extends Page{
 			isVisible = ActionHelper.getText(driver, element.findElement(By.xpath("/descendant::p[contains(@class,'link-preview-description')]")));
 		}
 		return isVisible.contains("Check out this listing");
+	}
+	public boolean isHomePostListingVideoIconVisible(String pPostToVerify) {
+		boolean isVisible = false;	
+		WebElement element;
+		element = ActionHelper.getDynamicElement(driver, video_icon, pPostToVerify);
+		if(element!=null) {
+			isVisible = ActionHelper.isElementVisible(driver, element);
+		}
+		return isVisible;
+	}
+	public boolean isManualListingVideoPostTextVisible(String pPostToVerify) {
+		boolean isVisible = false;	
+		WebElement element;
+		element = ActionHelper.getDynamicElement(driver, listing_video_post_text, pPostToVerify);
+		if(element!=null) {
+			isVisible = ActionHelper.isElementVisible(driver, element);
+		}
+		return isVisible;
 	}
 }

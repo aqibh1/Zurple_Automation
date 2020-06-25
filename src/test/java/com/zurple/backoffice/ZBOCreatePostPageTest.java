@@ -91,6 +91,14 @@ public class ZBOCreatePostPageTest extends PageTest{
 			ld_post_text = ld_post_text.split(" ")[0];
 			break;
 		case "post_listing_video":
+			if(!ld_platform.equalsIgnoreCase("YouTube")) {
+				assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
+			}
+			assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
+			ActionHelper.staticWait(10);
+			ld_post_text = updateName("");
+			assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
+			ld_post_text = ld_post_text.split(" ")[0];
 			break;
 		case "post_link":
 			break;

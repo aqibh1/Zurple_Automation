@@ -89,6 +89,10 @@ public class ZBOPostHistoryPageTest extends PageTest{
 			assertTrue(page.isListingDescVisible(lPostText), "Unable to verify listing description..");
 			break;
 		case "post_listing_video":
+			assertTrue(page.isPostProcessingiconVisible(lPostText), "The post processing icon is still visble after 3 minutes");
+			assertTrue(page.isHomePostListingVideoIconVisible(lPostText), "Home post icon is not visible on post history page..");
+			assertTrue(page.isManualListingVideoPostTextVisible(lPostText), "Manual Page Post text is not visible...");
+			assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")), "Unable to verify listing website Url");
 			break;
 		case "post_link":
 			break;
@@ -97,10 +101,12 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(!page.getPostPageDate(lPostText).isEmpty(), "Unable to verify post date on history page...");
 		assertTrue(!page.getPostPageTime(lPostText).isEmpty(), "Unable to verify post time..");
 		assertTrue(page.verifyViewPostButtonIsWorking(ld_platform, lPostText), "View post button is not working...");
-		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
-		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
-		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		if(!ld_platform.equalsIgnoreCase("YouTube")) {
+			assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
+			ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
+			assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
+			assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		}
 	}
 
 }
