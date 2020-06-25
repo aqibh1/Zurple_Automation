@@ -83,6 +83,12 @@ public class ZBOCreatePostPageTest extends PageTest{
 			assertTrue(page.uploadPhoto(ld_platform, ld_post_photo), "Unable to type text..");
 			break;
 		case "post_listing":
+			assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
+			assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
+			ActionHelper.staticWait(10);
+			ld_post_text = updateName(page.getTextFromTextArea(ld_platform));
+			assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
+			ld_post_text = ld_post_text.split(" ")[0];
 			break;
 		case "post_listing_video":
 			break;

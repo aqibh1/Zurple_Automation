@@ -58,6 +58,8 @@ public class ZBOPostHistoryPage extends Page{
 	String post_processing_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::span[contains(@class,'post-processing-icon')]";
 	String camera_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'camera-icon')]";
 	String photo_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Photo Post']";
+	String home_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'home-icon')]";
+	String listing_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Listing Post']";
 
 	public ZBOPostHistoryPage() {
 		
@@ -251,5 +253,50 @@ public class ZBOPostHistoryPage extends Page{
 			isVisible = ActionHelper.isElementVisible(driver, element);
 		}
 		return isVisible;
+	}
+	public boolean isHomePostIconVisible(String pPostToVerify) {
+		boolean isVisible = false;	
+		WebElement element;
+		element = ActionHelper.getDynamicElement(driver, home_icon, pPostToVerify);
+		if(element!=null) {
+			isVisible = ActionHelper.isElementVisible(driver, element);
+		}
+		return isVisible;
+	}
+	public boolean isManualListingPostTextVisible(String pPostToVerify) {
+		boolean isVisible = false;	
+		WebElement element;
+		element = ActionHelper.getDynamicElement(driver, listing_post_text, pPostToVerify);
+		if(element!=null) {
+			isVisible = ActionHelper.isElementVisible(driver, element);
+		}
+		return isVisible;
+	}
+	public boolean isListingWebsiteUrlDisplaying(String pPostToVerify, String pDomainToVerify) {
+		String isVisible = "";	
+		WebElement element;
+		element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
+		if(element!=null) {
+			isVisible = ActionHelper.getText(driver, element.findElement(By.xpath("/descendant::a[contains(@class,'link-preview-hostname')]")));
+		}
+		return pDomainToVerify.contains(isVisible.toLowerCase());
+	}
+	public boolean isListingHeadingVisible(String pPostToVerify) {
+		String isVisible = "";	
+		WebElement element;
+		element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
+		if(element!=null) {
+			isVisible = ActionHelper.getText(driver, element.findElement(By.xpath("/descendant::p[contains(@class,'link-preview-title')]")));
+		}
+		return isVisible.equalsIgnoreCase("New Listing on the Market");
+	}
+	public boolean isListingDescVisible(String pPostToVerify) {
+		String isVisible = "";	
+		WebElement element;
+		element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
+		if(element!=null) {
+			isVisible = ActionHelper.getText(driver, element.findElement(By.xpath("/descendant::p[contains(@class,'link-preview-description')]")));
+		}
+		return isVisible.contains("Check out this listing");
 	}
 }

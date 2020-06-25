@@ -11,6 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.alerts.zurple.backoffice.ZBOSelectListingAlert;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
@@ -52,14 +53,24 @@ public class ZBOCreatePostPage extends Page{
 	@FindBy(id="post_image")
 	WebElement post_image;
 	
+	private ZBOSelectListingAlert selectListingAlert;
 	
 	public ZBOCreatePostPage() {
 		
 	}
 	public ZBOCreatePostPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		setSelectListingAlert();
 		PageFactory.initElements(driver, this);
 	}
+	
+	public ZBOSelectListingAlert getSelectListingAlert() {
+		return selectListingAlert;
+	}
+	private void setSelectListingAlert() {
+		this.selectListingAlert = new ZBOSelectListingAlert(driver);
+	}
+	
 	public boolean isCreatePostPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, create_post_heading, 30);
 	}
@@ -135,22 +146,22 @@ public class ZBOCreatePostPage extends Page{
 		switch(pPlatform) {
 		case "Facebook":
 			if(ActionHelper.waitForElementToBeVisible(driver, fb_new_post_template_element, 15)) {
-				isTyped = ActionHelper.Type(driver, fb_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
+				isTyped = ActionHelper.ClearAndType(driver, fb_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
 			}
 			break;
 		case "Twitter":
 			if(ActionHelper.waitForElementToBeVisible(driver, tw_new_post_template_element, 15)) {
-				isTyped = ActionHelper.Type(driver, tw_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
+				isTyped = ActionHelper.ClearAndType(driver, tw_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
 			}
 			break;
 		case "LinkedIn":
 			if(ActionHelper.waitForElementToBeVisible(driver, li_new_post_template_element, 15)) {
-				isTyped = ActionHelper.Type(driver, li_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
+				isTyped = ActionHelper.ClearAndType(driver, li_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
 			}
 			break;
 		case "YouTube":
 			if(ActionHelper.waitForElementToBeVisible(driver, yt_new_post_template_element, 15)) {
-				isTyped = ActionHelper.Type(driver, yt_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
+				isTyped = ActionHelper.ClearAndType(driver, yt_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
 			}
 			break;
 		}
@@ -304,5 +315,63 @@ public class ZBOCreatePostPage extends Page{
 			break;
 		}
 		return isTyped;
+	}
+	public boolean clickOnPostListingButton(String pPlatform) {
+		boolean isClicked = false;
+		switch(pPlatform) {
+		case "Facebook":
+			if(ActionHelper.waitForElementToBeVisible(driver, fb_new_post_template_element, 15)) {
+				isClicked = ActionHelper.Click(driver, fb_new_post_template_element.findElement(By.xpath("/descendant::button[text()='Post Listing']")));
+			}
+			break;
+		case "Twitter":
+			if(ActionHelper.waitForElementToBeVisible(driver, tw_new_post_template_element, 15)) {
+				isClicked = ActionHelper.Click(driver, tw_new_post_template_element.findElement(By.xpath("/descendant::button[text()='Post Listing']")));
+				
+			}
+			break;
+		case "LinkedIn":
+			if(ActionHelper.waitForElementToBeVisible(driver, li_new_post_template_element, 15)) {
+				isClicked = ActionHelper.Click(driver, li_new_post_template_element.findElement(By.xpath("/descendant::button[text()='Post Listing']")));
+			}
+			break;
+		case "YouTube":
+			if(ActionHelper.waitForElementToBeVisible(driver, yt_new_post_template_element, 15)) {
+				isClicked = ActionHelper.Click(driver, yt_new_post_template_element.findElement(By.xpath("/descendant::button[text()='Post Listing']")));
+			}
+			break;
+		}
+		return isClicked;
+	}
+	public boolean selectTheListing() {
+		boolean isListingSelected = false;
+		if(selectListingAlert.isSelectListingAlert()) {
+			isListingSelected = selectListingAlert.selectTheListingFromDropdown();
+			if(isListingSelected) {
+				isListingSelected = selectListingAlert.clickOnOkButton();
+			}
+		}
+		return isListingSelected;
+	}
+	public String getTextFromTextArea(String pPlatform) {
+		String listing_text = "";	
+		switch(pPlatform) {
+		case "Facebook":
+			if(ActionHelper.waitForElementToBeVisible(driver, fb_new_post_template_element, 15)) {
+				listing_text = ActionHelper.getTextByValue(driver, fb_new_post_template_element.findElement(By.id("post_text")));
+			}
+			break;
+		case "Twitter":
+			if(ActionHelper.waitForElementToBeVisible(driver, tw_new_post_template_element, 15)) {
+				listing_text = ActionHelper.getTextByValue(driver, tw_new_post_template_element.findElement(By.id("post_text")));
+			}
+			break;
+		case "LinkedIn":
+			if(ActionHelper.waitForElementToBeVisible(driver, li_new_post_template_element, 15)) {
+				listing_text = ActionHelper.getTextByValue(driver, li_new_post_template_element.findElement(By.id("post_text")));
+			}
+			break;
+		}
+		return listing_text;
 	}
 }

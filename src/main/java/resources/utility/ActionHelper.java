@@ -841,7 +841,10 @@ public class ActionHelper {
 		   int count = 0;
 		   while(!isDisappeared && count<pAttempts) {
 			   isDisappeared = !isElementVisible(pWebDriver, pElement);
-			   staticWait(pTime);
+			   if(!isDisappeared) {
+				   staticWait(pTime);
+				   ActionHelper.RefreshPage(pWebDriver);
+			   }
 		   }
 		   return isDisappeared;
 	   }
