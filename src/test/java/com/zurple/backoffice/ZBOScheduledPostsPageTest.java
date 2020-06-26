@@ -66,7 +66,7 @@ public class ZBOScheduledPostsPageTest extends PageTest{
 		String ld_posttype = dataObject.optString("post_type");
 		
 		assertTrue(page.isShceduledPostsPage(), "Scheduled post Page is not visible..");
-		assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post Platform icon is not visible on Post History page.");
+		assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post Platform icon is not visible on scheduled posts page.");
 		assertTrue(!page.getPostPageTitle(lPostText).isEmpty(), "Platform title is not visible...");
 		assertTrue(!page.getPostAccountName(lPostText, ld_platform).isEmpty(), "Unable to verify account name...");
 
@@ -76,26 +76,26 @@ public class ZBOScheduledPostsPageTest extends PageTest{
 			assertTrue(page.isManualPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			break;
 		case "post_image":
-			assertTrue(page.isPhotoPostIconVisible(lPostText), "Photo post icon is not visible on post history page..");
-			assertTrue(page.isImageDisplaying(ld_platform, lPostText), "Image is not displaying on post history page..");
+			assertTrue(page.isPhotoPostIconVisible(lPostText), "Photo post icon is not visible on post scheduled posts page..");
+			assertTrue(page.isImageDisplaying(ld_platform, lPostText), "Image is not displaying on post scheduled posts page..");
 			assertTrue(page.isManualPhotPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			break;
 		case "post_listing":
-			assertTrue(page.isHomePostIconVisible(lPostText), "Home post icon is not visible on post history page..");
-			assertTrue(page.isImageDisplaying(ld_platform, lPostText), "Image is not displaying on post history page..");
+			assertTrue(page.isHomePostIconVisible(lPostText), "Home post icon is not visible on post scheduled posts page..");
+			assertTrue(page.isImageDisplaying(ld_platform, lPostText), "Image is not displaying on post scheduled posts page..");
 			assertTrue(page.isManualListingPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")), "Unable to verify listing website Url");
 			assertTrue(page.isListingHeadingVisible(lPostText), "Unable to verify listing title..");
 			assertTrue(page.isListingDescVisible(lPostText), "Unable to verify listing description..");
 			break;
 		case "post_listing_video":
-			assertTrue(page.isHomePostListingVideoIconVisible(lPostText), "Home post icon is not visible on post history page..");
+			assertTrue(page.isHomePostListingVideoIconVisible(lPostText), "Home post icon is not visible on post scheduled posts page..");
 			assertTrue(page.isManualListingVideoPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")), "Unable to verify listing website Url");
 			break;
 		case "post_link":
-			assertTrue(page.isPostComputerIconVisible(lPostText), "Home post icon is not visible on post history page..");
-			assertTrue(page.isImageDisplaying(ld_platform, lPostText), "Image is not displaying on post history page..");
+			assertTrue(page.isPostComputerIconVisible(lPostText), "Home post icon is not visible on post scheduled posts page..");
+			assertTrue(page.isImageDisplaying(ld_platform, lPostText), "Image is not displaying on post scheduled posts page..");
 			assertTrue(page.isManualLinkPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")), "Unable to verify listing website Url");
 			assertTrue(page.isListingHeadingVisible(lPostText), "Unable to verify listing title..");

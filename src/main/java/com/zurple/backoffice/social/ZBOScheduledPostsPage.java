@@ -174,7 +174,7 @@ public class ZBOScheduledPostsPage extends Page{
 		case "Facebook":
 			element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
 			if(element!=null) {
-				isVisible = ActionHelper.getAttribute(element.findElement(By.xpath("/descendant::div/img")), "src").contains("fbcdn");
+				isVisible = ActionHelper.getAttribute(element.findElement(By.xpath("/descendant::div/img")), "src").contains("s3.amazonaws");
 			}
 			break;
 		case "Twitter":

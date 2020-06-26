@@ -197,7 +197,7 @@ public class ZBOCreatePostPage extends Page{
 		}
 		ActionHelper.staticWait(5);
 		minutes_slider = ActionHelper.getDynamicElement(driver, "//div[@id='ui-datepicker-div']/descendant::div[contains(@class,'ui_tpicker_minute_slider')]/a[@class='ui-slider-handle ui-state-default ui-corner-all']", "");
-		if(isClicked && ActionHelper.dragAndDropByPixels(driver, minutes_slider, 20, 0)) {
+		if(isClicked && ActionHelper.dragAndDropByPixels(driver, minutes_slider, 15, 0)) {
 			isScheduleSelected = ActionHelper.Click(driver, datePicker_done_button);
 		}
 		
