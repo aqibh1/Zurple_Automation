@@ -1071,4 +1071,16 @@ public class ActionHelper {
 			}
 			return isSuccessfull;
 		}
+	   public static boolean dragAndDropByPixels(WebDriver pWebDriver, WebElement pFrom, int pXAxis, int pYAxis) {
+		   boolean result = true;
+		   try {
+			   Actions action=new Actions(pWebDriver);
+			   action.dragAndDropBy(pFrom, pXAxis, pYAxis).build().perform();
+			   staticWait(5);
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Drag and Drop failed for "+pFrom);
+			   result = false;
+		   }
+		   return result;
+	   }
 }

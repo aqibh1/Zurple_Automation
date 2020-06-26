@@ -32,6 +32,9 @@ public class ZBOSucessAlert extends AbstractAlert{
 	@FindBy(xpath="//button[text()='Confirm']")
 	WebElement confirm_button;
 	
+	@FindBy(xpath="//button[text()='Scheduled Posts']")
+	WebElement scheduled_posts_button;
+	
 	public ZBOSucessAlert() {
 		
 	}
@@ -60,5 +63,7 @@ public class ZBOSucessAlert extends AbstractAlert{
 		}
 		return isClicked;
 	}
-
+	public boolean clickOnScheduledPostButton() {
+		return ActionHelper.Click(driver, scheduled_posts_button);
+	}
 }

@@ -67,15 +67,15 @@ public class ZBOCreatePostPageTest extends PageTest{
 		String ld_post_text = updateName(dataObject.optString("post_text"));
 		String ld_post_schedule = dataObject.optString("post_schedule");
 		String ld_post_photo = System.getProperty("user.dir")+dataObject.optString("post_image");
-		
+
 		assertTrue(page.isCreatePostPage(), "Create Post Page is not visible..");
 		assertTrue(page.verifyIfPlatformIsConnected(ld_platform), "Platform is not connected "+ld_platform);
 		assertTrue(page.clickOnPlatformIcon(ld_platform), "Platform is not connected "+ld_platform);
-		
+
 		assertTrue(!page.getTitle(ld_platform).isEmpty(), "Title of the create post is empty..");
 		assertTrue(!page.getUsername(ld_platform).isEmpty(), "Username of the create post is empty..");
 		assertTrue(page.verifyPlatformProfilePicsAreVisible(ld_platform), "Profile picture is not correct for "+ld_platform);
-		
+
 		switch(ld_posttype) {
 		case "post_text":
 			assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
@@ -111,13 +111,20 @@ public class ZBOCreatePostPageTest extends PageTest{
 		}
 		if(ld_post_schedule.equalsIgnoreCase("Later")) {
 			assertTrue(page.selectSchedule(ld_platform), "Unable to select the date and time..");
-		}	
-		assertTrue(page.clickOnPostButton(), "Unable to click on Post button");
-		ZBOSucessAlert zboSuccessAlert = new ZBOSucessAlert(driver);
-		assertTrue(zboSuccessAlert.isSuccessMessageVisible(), "Success message is not visible...");
-		assertTrue(zboSuccessAlert.clickOnPostHistoryButton(), "Success message is not visible...");
-		ZBOPostHistoryPage postHistoryPageObject = new ZBOPostHistoryPage(driver);
-		assertTrue(postHistoryPageObject.isPostingHistoryPageIsVisible(), "Post History page button is not working on success dialog..");
+			assertTrue(page.isScheduled(), "Scheduled label is not visible on create post..");
+			assertTrue(page.clickOnPostButton(), "Unable to click on Post button");
+			ZBOSucessAlert zboSuccessAlert = new ZBOSucessAlert(driver);
+			assertTrue(zboSuccessAlert.isSuccessMessageVisible(), "Success message is not visible...");
+			assertTrue(zboSuccessAlert.clickOnScheduledPostButton(), "Unable to click on scheduled posts button...");
+		}else {
+			assertTrue(page.clickOnPostButton(), "Unable to click on Post button");
+			ZBOSucessAlert zboSuccessAlert = new ZBOSucessAlert(driver);
+			assertTrue(zboSuccessAlert.isSuccessMessageVisible(), "Success message is not visible...");
+			assertTrue(zboSuccessAlert.clickOnPostHistoryButton(), "Unable to click on post history button...");
+			ZBOPostHistoryPage postHistoryPageObject = new ZBOPostHistoryPage(driver);
+			assertTrue(postHistoryPageObject.isPostingHistoryPageIsVisible(), "Post History page button is not working on success dialog..");
+
+		}
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleSocialPost, ld_post_text);
 	}
 

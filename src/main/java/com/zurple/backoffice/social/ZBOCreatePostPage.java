@@ -53,6 +53,9 @@ public class ZBOCreatePostPage extends Page{
 	@FindBy(id="post_image")
 	WebElement post_image;
 	
+	@FindBy(xpath="//div[contains(@class,'ui_tpicker_minute_slider')]/a[@class='ui-slider-handle ui-state-default ui-corner-all']")
+	WebElement minutes_slider;
+	
 	private ZBOSelectListingAlert selectListingAlert;
 	
 	public ZBOCreatePostPage() {
@@ -192,7 +195,9 @@ public class ZBOCreatePostPage extends Page{
 			}
 			break;
 		}
-		if(isClicked && ActionHelper.Click(driver, datePicker_now_button)) {
+		ActionHelper.staticWait(5);
+		minutes_slider = ActionHelper.getDynamicElement(driver, "//div[@id='ui-datepicker-div']/descendant::div[contains(@class,'ui_tpicker_minute_slider')]/a[@class='ui-slider-handle ui-state-default ui-corner-all']", "");
+		if(isClicked && ActionHelper.dragAndDropByPixels(driver, minutes_slider, 20, 0)) {
 			isScheduleSelected = ActionHelper.Click(driver, datePicker_done_button);
 		}
 		
