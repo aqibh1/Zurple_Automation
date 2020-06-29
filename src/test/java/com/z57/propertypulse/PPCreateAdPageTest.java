@@ -224,6 +224,7 @@ public class PPCreateAdPageTest extends PageTest{
 			//Check slide show button is disabled because of CMA ad
 			if(!lSelectGoal.equalsIgnoreCase("Be the Expert")) {
 				if(lSlideShowOrImage.equalsIgnoreCase("slideshow")) {
+					ActionHelper.staticWait(3);
 					if(page.verifyAdPreviewImageIsVisibleSection3()) {
 						lSlideShowOrImage = "image";
 					}else {
