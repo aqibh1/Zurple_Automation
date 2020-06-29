@@ -409,7 +409,17 @@ public class ZBOCreatePostPage extends Page{
 			if(ActionHelper.waitForElementToBeVisible(driver, yt_new_post_template_element, 15)) {
 				isTyped = ActionHelper.appendAtStart(driver, yt_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
 			}
+		case "Twitter":
+			if(ActionHelper.waitForElementToBeVisible(driver, tw_new_post_template_element, 15)) {
+				isTyped = ActionHelper.ClearAndType(driver, tw_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
+			}
 			break;
+		case "LinkedIn":
+			if(ActionHelper.waitForElementToBeVisible(driver, li_new_post_template_element, 15)) {
+				isTyped = ActionHelper.ClearAndType(driver, li_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
+			}
+			break;
+			
 		}
 		return isTyped;
 	}
