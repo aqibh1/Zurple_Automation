@@ -140,7 +140,7 @@ public abstract class AbstractPageTest extends AbstractTest
 		String firstPart = pEmail.substring(0, at);
 		String lastPart = pEmail.substring(at);
 //		pEmail=firstPart+"_"+Long.toString(date_to_append)+lastPart;
-		pEmail=date_to_append+"-"+firstPart+lastPart;
+		pEmail=date_to_append+generateRandomInt(1000)+"-"+firstPart+lastPart;
 		return pEmail;
     }
     

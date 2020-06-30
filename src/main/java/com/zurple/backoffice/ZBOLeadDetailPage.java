@@ -636,4 +636,7 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isTimeSelected;
 	}
+	public String getLeadProspectSelectedOption() {
+		return ActionHelper.getSelectedOption(driver, lead_prospect_dropdown, "");
+	}
 }

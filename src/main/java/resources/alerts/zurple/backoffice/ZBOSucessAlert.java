@@ -35,6 +35,15 @@ public class ZBOSucessAlert extends AbstractAlert{
 	@FindBy(xpath="//button[text()='Scheduled Posts']")
 	WebElement scheduled_posts_button;
 	
+	@FindBy(xpath="//button[text()='Temporary']")
+	WebElement temporary_button;
+	
+	@FindBy(xpath="leads-table_processing")
+	WebElement processing;
+	
+	@FindBy(xpath="//h2[text()='Status has been updated.']")
+	WebElement status_updated_text;
+	
 	public ZBOSucessAlert() {
 		
 	}
@@ -65,5 +74,14 @@ public class ZBOSucessAlert extends AbstractAlert{
 	}
 	public boolean clickOnScheduledPostButton() {
 		return ActionHelper.Click(driver, scheduled_posts_button);
+	}
+	public boolean clickOnTemporaryButton() {
+		return ActionHelper.Click(driver, temporary_button);
+	}
+	public boolean waitForProcessing() {
+		return ActionHelper.waitforElementToBeDisappearedByRegularIntervals(driver, processing, 5,20);
+	}
+	public boolean isStatusUpdatedMessageVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, status_updated_text, 30);
 	}
 }

@@ -1,11 +1,13 @@
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.my.PageTest;
@@ -235,32 +237,51 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	public void testUpdateLeadDetails(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
 		getPage();
-		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
-		assertTrue(page.clickAndSelectLeadProspect(lDataObject.optString("lead_prospect")));
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		String lLeadEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
+		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
 		
-	}
+		SoftAssert softAssert = new SoftAssert();
+		String [] ld_lead_prospects = lDataObject.optString("lead_prospect").split(",");
+		
+		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
+		
+		for(String lead_prospect: ld_lead_prospects) {
+			assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
+			assertTrue(page.clickAndSelectLeadProspect(lead_prospect), "Unable to select the status -> "+lead_prospect);
+			assertTrue(successAlert.clickOnTemporaryButton(), "Unable to click on Temporary button..");
+			if(lead_prospect.equalsIgnoreCase("Client - Sold")) {
+				assertTrue(successAlert.isStatusUpdatedMessageVisible(), "Status updated message is not visible..");	
+			}else if(lead_prospect.equalsIgnoreCase("Inactive - Stop All Communications")){
+				ActionHelper.staticWait(1);
+			}else {
+				assertTrue(successAlert.isSuccessMessageVisible(), "Success message is not visible..");
+			}
+			assertTrue(successAlert.clickOnOkButton(), "Unable to click on OK button..");
+			ActionHelper.staticWait(5);
+			assertEquals(page.getLeadProspectSelectedOption(), lead_prospect, lead_prospect+ "is not selected..");
+			page = null;
+			getPage("/leads/crm");
+			ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+			assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
+			assertTrue(successAlert.waitForProcessing(), "Waiting for processing..");
+			assertTrue(leadCRMPage.typeLeadNameOrEmail(lLeadEmail), "Unable to type lead email..");
+			assertTrue(leadCRMPage.clickOnSearchButton(), "Unable to click on Search button..");
+			assertTrue(successAlert.waitForProcessing(), "Waiting for processing..");
+			ActionHelper.staticWait(5);
+			assertEquals(leadCRMPage.getLeadProsepctSelectedValue(), lead_prospect, lead_prospect+ "is not selected..");
+			page = null;
+			getPage("/lead/"+lLeadId);
+		}
+		assertTrue(page.verifyEmailPreferences("Mass Email", "No"), "Unable to verify Mass email");
+		assertTrue(page.verifyEmailPreferences("Property Updates", "No"), "Unable to verify Property Updates");
+		assertTrue(page.verifyEmailPreferences("Sold Property Updates", "No"), "Unable to verify Sold Property Updates");
+		assertTrue(page.verifyEmailPreferences("Automated Agent Emails", "No"), "Unable to verify Automated Agent Emails");
+		assertTrue(page.verifyEmailPreferences("Market Snapshot Emails", "No"), "Unable to verify Market Snapshot Emails");
 	
-//	@Test 
-//	public void testVerifyMassEmailInMyMessages() {
-//		AutomationLogger.startTestCase("Verify Alerts");
-//		getPage();
-//		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
-//		page = null;
-//		getPage("/lead/"+lLeadId);
-//		if(page.isEmailVerified()) {
-//			if(!getIsProd()) {
-//				page = null;
-//				//Process email queue
-//				getPage("/admin/processemailqueue");
-//				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-//				page =null;
-//				getPage("/lead/"+lLeadId);
-//			}
-//			assertTrue(page.verifyMyMessages(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject)));
-//		}else {
-//			assertTrue(false, "Unable to verify email...");
-//		}
-//	}
+	}
+
+
 
 	@Test
 	public void testAddAndVerifyLeadNotes() {
@@ -367,5 +388,14 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		String lAgentEmail = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_user").split("@")[0];
 		
 		assertTrue(mailinatorObj.verifyEmail(lAgentEmail, lSubjectToVerify, 15), "Unable to verify reminder email");
+	}
+	
+	public void testAndVerifyLeadStatus() {
+		getPage();	
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);//"4744411";//
+		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);//"0520202021 Buyersearch";
+		page = null;
+		getPage("/lead/"+lLeadId);
+		
 	}
 }

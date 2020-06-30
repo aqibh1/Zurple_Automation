@@ -1083,4 +1083,25 @@ public class ActionHelper {
 		   }
 		   return result;
 	   }
+	   public static String getSelectedOption(WebDriver pWebDriver, WebElement pElementToBeClicked,String pDropdownOptionsXpath) {
+			String isSuccessful="";
+			List<WebElement> list_of_options = new ArrayList<WebElement>();
+			 AutomationLogger.info("Clicking on button "+pElementToBeClicked);
+			if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+				if(pDropdownOptionsXpath.isEmpty()) {
+					 list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
+				}else {
+					 list_of_options = pWebDriver.findElements(By.xpath(pDropdownOptionsXpath));
+				}	
+				AutomationLogger.info("Selecting a option from Dropdown "+pDropdownOptionsXpath);
+				for(WebElement element: list_of_options) {
+					System.out.println(element.getText().trim());
+					if(element.isSelected()) {
+						isSuccessful = ActionHelper.getText(pWebDriver, element);
+						break;
+					}
+				}
+			}
+			return isSuccessful;
+		}
 }
