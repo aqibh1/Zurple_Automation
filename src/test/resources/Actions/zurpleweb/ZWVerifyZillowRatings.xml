@@ -5,11 +5,6 @@
   <test name="Checking zillow ratings on agents page">
    
     <classes>
-<!--  <class name="com.zurple.website.ZWRegisterUserPageTest">
-		<methods>
-		<include name="testRegisterUser" />
-		</methods>
-		</class>-->
 		<class name="com.zurple.website.ZWZillowRatingsAgentsPageTest">
 		<methods>
 		<include name="testZillowRatings" />

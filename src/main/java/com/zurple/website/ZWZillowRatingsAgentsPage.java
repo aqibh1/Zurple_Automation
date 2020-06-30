@@ -21,8 +21,14 @@ public class ZWZillowRatingsAgentsPage extends Page{
 	
 	String agent_name = "media-heading";
 	
-	@FindBy(className="rating_container rating_4_75")
+	@FindBy(className="rating_container")
 	WebElement zillow_rating;
+	
+	@FindBy(xpath="//div[@style='float:right;']/descendant::a")
+	WebElement zillow_logo;
+	
+	@FindBy(xpath="//div[@style='float:right;']/descendant::a/descendant::img")
+	WebElement zillowLogo_image;
 		
 	public ZWZillowRatingsAgentsPage() {
 		
@@ -65,7 +71,15 @@ public class ZWZillowRatingsAgentsPage extends Page{
 		return ActionHelper.isElementVisible(driver, zillow_rating);
 	}
 	
+	public String zillowLogo() {
+		ActionHelper.waitForElementToBeVisible(driver, zillow_logo, 30);
+		return ActionHelper.getAttribute(zillow_logo, "href").trim();
+	}
 	
-	
+	public String zillowLogoImage() {
+		ActionHelper.waitForElementToBeVisible(driver, zillow_logo, 30);
+		System.out.println("src is"+ActionHelper.getAttribute(zillowLogo_image, "src").trim());
+		return ActionHelper.getAttribute(zillowLogo_image, "src").trim();
+	}
 	
 }

@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
 import com.zurple.admin.ZAProcessEmailQueuesPage;
+import com.zurple.backoffice.social.ZBOPostHistoryPage;
 
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
@@ -43,8 +44,13 @@ public class ZWZillowRatingsAgentsPageTest extends PageTest {
 
 	@Override
 	public Page getPage() {
-		// TODO Auto-generated method stub
-		return null;
+		page = null;
+		if(page==null) {
+			driver = getDriver();
+			page = new ZWZillowRatingsAgentsPage(driver);
+			page.setDriver(driver);
+		}
+		return page;
 	}
 	
 	private Page getPage(String pUrl) {
@@ -65,17 +71,16 @@ public class ZWZillowRatingsAgentsPageTest extends PageTest {
 	}
 	@Test
 	public void testZillowRatings() {
-		getPage("");
-			if(!getIsProd()) {
-				//page=null;
-				driver.get("https://www.stage01.zengtest4.us/agents");
-			//	driver.navigate().to("https://www.stage01.zengtest4.us/agents");
-			} else {
-				//page=null;
-				driver.navigate().to("https://zengtest4.us/agents");
-			}
-		
+		getPage();
+		if(!getIsProd()) {
+			driver.get("https://www.stage01.zengtest4.us/agents");
+		} else {
+			driver.navigate().to("https://zengtest4.us/agents");
+		}
 		assertEquals(page.headerText(),"Agents");
 		assertTrue(page.clickAgentName(),"Unable to click on agents name");
+		assertEquals(page.zillowLogo(),"https://www.zillow.com/");
+		assertTrue(page.zillowRating(),"Unable to find zillow rating");
+		assertTrue(!page.zillowLogoImage().isEmpty(),"Zillow Logo image is empty");
 	}
 }
