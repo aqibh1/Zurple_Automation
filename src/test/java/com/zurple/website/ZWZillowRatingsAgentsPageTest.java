@@ -74,11 +74,14 @@ public class ZWZillowRatingsAgentsPageTest extends PageTest {
 		getPage();
 		if(!getIsProd()) {
 			driver.get("https://www.stage01.zengtest4.us/agents");
+			assertEquals(page.headerText(),"Agents");
+			driver.get("https://www.stage01.zengtest4.us/insider/11458");
 		} else {
 			driver.navigate().to("https://zengtest4.us/agents");
+			assertEquals(page.headerText(),"Agents");
+			driver.get("https://zengtest4.us/insider/11458");
 		}
-		assertEquals(page.headerText(),"Agents");
-		assertTrue(page.clickAgentName(),"Unable to click on agents name");
+//		assertTrue(page.clickAgentName(),"Unable to click on agents name");
 		assertEquals(page.zillowLogo(),"https://www.zillow.com/");
 		assertTrue(page.zillowRating(),"Unable to find zillow rating");
 		assertTrue(!page.zillowLogoImage().isEmpty(),"Zillow Logo image is empty");

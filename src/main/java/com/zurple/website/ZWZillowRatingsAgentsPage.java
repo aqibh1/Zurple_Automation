@@ -58,14 +58,14 @@ public class ZWZillowRatingsAgentsPage extends Page{
 	}
 	
 	public String headerText() {
-	ActionHelper.waitForElementToBeVisible(driver, page_header,30);	
-	return ActionHelper.getText(driver, page_header);	
+		ActionHelper.waitForElementToBeVisible(driver, page_header,30);	
+		return ActionHelper.getText(driver, page_header);	
 	}
 	
-	public boolean clickAgentName() {
-		ActionHelper.waitForStringClassNameToBeVisible(driver, agent_name,30);
-		return ActionHelper.ClickByIndex(driver, agent_name, 0);
-	}
+//	public boolean clickAgentName() {
+//		ActionHelper.waitForStringClassNameToBeVisible(driver, agent_name,30);
+//		return ActionHelper.ClickByIndex(driver, agent_name, 0);
+//	}
 	
 	public boolean zillowRating() {
 		return ActionHelper.isElementVisible(driver, zillow_rating);
