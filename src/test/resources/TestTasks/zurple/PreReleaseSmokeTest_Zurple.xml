@@ -1416,4 +1416,20 @@
     </classes>
   </test>
   
+  <test name="Checking zillow ratings on agents page">
+   
+    <classes>
+		<class name="com.zurple.website.ZWZillowRatingsAgentsPageTest">
+			<methods>
+				<include name="testZillowRatings" />
+			</methods>
+		</class>
+		<class name="resources.CurrentPageTest">
+			<methods>
+				<include name="closeBrowser" />
+			</methods>
+		</class>
+    </classes>
+   </test>
+  
 </suite>
