@@ -3,5 +3,5 @@
 	"last_name":"Agent",
 	"email":"automated_agent@mailinator.com",
 	"password": "12345",
-	"confirm_password":"12345",
+	"confirm_password":"12345"
 }
