@@ -71,7 +71,7 @@ public class ZWZillowRatingsAgentsPageTest extends PageTest {
 	}
 	@Test
 	public void testZillowRatings() {
-		getPage();
+		getPage("");
 		if(!getIsProd()) {
 			driver.get("https://www.stage01.zengtest4.us/agents");
 			assertEquals(page.headerText(),"Agents");
