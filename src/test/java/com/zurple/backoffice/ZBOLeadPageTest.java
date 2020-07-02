@@ -3,6 +3,7 @@ package com.zurple.backoffice;
 import static org.testng.Assert.assertTrue;
 
 import java.text.ParseException;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +18,8 @@ import resources.AbstractPage;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.alerts.zurple.backoffice.ZBOReassignLeadAlert;
+import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
@@ -95,6 +98,65 @@ public class ZBOLeadPageTest extends PageTest{
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), lLeadName, lLeadId);
 		AutomationLogger.endTestCase();
 		
+	}
+	
+	@Test
+	public void testAssignLeadToAgent() {
+		getPage("/leads");
+		ZBOReassignLeadAlert reassignlead_alert = new ZBOReassignLeadAlert(driver);
+		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
+		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
+		HashMap<String,String> agent_info_map  = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAgentsInfo);
+		String lAgentName = agent_info_map.get("agent_name");
+		
+		assertTrue(page.isLeadPage(), "Lead page is not visible..");
+		assertTrue(page.checkInputLead(lLeadName), "Unable to find lead on lead page..");
+		
+		assertTrue(page.selectAction("Reassign Leads"), "Unable to select resassign leads");
+		assertTrue(reassignlead_alert.isReassignAlert(), "Reassign alert is not visible..");
+		assertTrue(reassignlead_alert.clickAndSelectAgent(lAgentName), "Unable to select the agent");
+		assertTrue(reassignlead_alert.clickOnReassignLeadButton(), "Unable to click on reassign button..");
+		assertTrue(successAlert.clickOnAssignButton(), "Unable to click on assign button..");
+		assertTrue(successAlert.isSuccessMessageVisible(), "Success message is not visible..");
+		assertTrue(successAlert.clickOnOkButton(), "Unable to click on OK button..");		
+	}
+	
+	@Test
+	public void testVerifyLeadAssignment() {
+		getPage("/leads");
+		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
+		HashMap<String,String> agent_info_map  = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAgentsInfo);
+		String lAgentName = agent_info_map.get("agent_name");
+		String lLeadCount = agent_info_map.get("agent_lead_count");
+		
+		//Verification from Leads Page
+		assertTrue(page.isLeadPage(), "Lead page is not visible..");
+		assertTrue(page.checkInputLead(lLeadName), "Unable to find lead on lead page..");
+		assertTrue(page.isLeadAssignedToAgent(lAgentName), "Agent is not assigned to lead on Leads Page");
+		
+		//Verification from leads detail page
+		page=null;
+		getPage("/leads");
+		assertTrue(page.isLeadPage(), "Lead page is not visible..");
+		assertTrue(page.selectLead(lLeadName), "Unable to find lead on lead page..");
+		ZBOLeadDetailPage lead_detail_page = new ZBOLeadDetailPage(driver);
+		assertTrue(lead_detail_page.isLeadDetailPage(), "Lead detail page is not visible..");
+		assertTrue(lead_detail_page.verifyLeadAssignedToAgent(lAgentName), "Agent not assigned to lead.."+lAgentName);
+		
+		//Verification from CRM page
+		page=null;
+		getPage("/leads/crm");
+		assertTrue(page.isLeadPage(), "Lead page is not visible..");
+		assertTrue(page.checkInputLead(lLeadName), "Unable to find lead on lead page..");
+		assertTrue(lead_detail_page.verifyLeadAssignedToAgentCRM(lAgentName), "Agent not assigned to lead on CRM .."+lAgentName);
+		
+		//Verification from Manage agents page
+		page = null;
+		getPage("/agents");
+		ZBOAgentsPage manageAgentsPage = new ZBOAgentsPage(driver);
+		assertTrue(manageAgentsPage.verifyPageTitle(), "Manage agents page is not visible..");
+		assertTrue(!manageAgentsPage.getAgentLeadCount(lAgentName).equalsIgnoreCase(lLeadCount), "Lead count has not changed..");
+
 	}
 	
 	private boolean applyAndVerifyFilter(String pFilterName, String pFilterValue) throws ParseException {

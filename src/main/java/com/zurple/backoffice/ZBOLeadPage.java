@@ -69,7 +69,17 @@ public class ZBOLeadPage extends Page{
 	
 	String lZurpleBOUrl = "";
 	
+	@FindBy(id="leadActionDropDown")
+	WebElement action_button;
+	@FindBy(id="reassign-leads-button")
+	WebElement reassign_lead_action_button;
+	
 	private Map<Integer, HashMap<String,String>> rowDataMap = new HashMap<Integer, HashMap<String,String>>(); 
+	
+	String agent_assigned_to_lead= "//div[@id='DataTables_Table_0_wrapper']/descendant::td[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
+	
+	@FindBy(xpath="//table[@id='DataTables_Table_0']/descendant::input[@class='lead-check']")
+	WebElement lead_input_checkbox;
 	
 	public ZBOLeadPage() {
 		
@@ -276,7 +286,42 @@ public class ZBOLeadPage extends Page{
 		}
 		return isLeadExist;
 	}
-	
+	public boolean selectAction(String pActionName) {
+		boolean isClicked = false;
+		ActionHelper.MouseHoverOnElement(driver, action_button);
+		switch(pActionName) {
+		case "Tag Lead Groups":
+			break;
+		case "Reassign Leads":
+			isClicked = ActionHelper.Click(driver, reassign_lead_action_button);
+			break;
+		case "Customize Columns":
+			break;
+		case "Update Lead Status":
+			break;
+		case "Enroll in Campaign":
+			break;
+		}
+		return isClicked;
+	}
+	public boolean isLeadAssignedToAgent(String pAgentName) {
+		return ActionHelper.getDynamicElementAfterRegularIntervals(driver, agent_assigned_to_lead, pAgentName, 2);
+	}
+	public boolean checkInputLead(String pLeadName) {
+		boolean isLeadExist= false;
+		pLeadName = WordUtils.capitalizeFully(pLeadName);
+		if(!typeLeadNameToSearch(pLeadName)) {
+			return false;
+		}
+		if(!clickOnSearchButton()) {
+			return false;
+		}
+		if(ActionHelper.waitForElementToBeDisappeared(driver, procession_notfication,30)) {
+			ActionHelper.staticWait(5);
+			isLeadExist = ActionHelper.Click(driver, lead_input_checkbox);		
+		}
+		return isLeadExist;
+	}
 	private boolean verifyEmailStatus(String pFilterName, String pFilterValue) {
 		boolean isVerified = false;
 		int randomInt = (int)(rowDataMap.size() * Math.random());

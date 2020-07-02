@@ -33,4 +33,5 @@ public class ModuleCacheConstants {
 	public static final String PPADDuration = "pp.ad.duration";
 	public static final String PPADImageSlideshow = "pp.ad.slideshow.image";
 	public static final String ZurpleSocialPost = "zurple.social.post";
+	public static final String ZurpleAgentsInfo = "zurple.manageagents";
 }
