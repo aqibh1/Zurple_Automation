@@ -3,6 +3,7 @@ package com.zurple.backoffice;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONObject;
@@ -107,6 +108,26 @@ public class ZBOAgentsPageTest extends PageTest {
 		getPage("/agents");
 		ActionHelper.staticWait(10);
 		assertTrue(page.verifyAgentsCount(count));
+	}
+	
+	@Test
+	public void testVerifyLeadCount() {
+		getPage("/agents");
+		boolean isVerify = false;
+		assertTrue(page.verifyPageTitle(), "Manage agents page title is not visible..");
+		//Fetch the hash map of agent info
+		
+		if(isVerify) {
+		
+		}else {
+			HashMap<String,String>  agent_info = page.getAgentNameAndLeadCount();
+			driver.navigate().to(agent_info.get("agent_url"));
+			ZBOEditAgentPage editAgentPage = new ZBOEditAgentPage(driver);
+			assertTrue(editAgentPage.isEditAgentPage(), "Edit Agent Page is not visible..");
+			String lAgentEmail = editAgentPage.getAgentEmail();
+			agent_info.put("agent_email", lAgentEmail);
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAgentsInfo, agent_info);
+		}
 	}
 	
 	private void addUpdateAgent(String pDataFile) {

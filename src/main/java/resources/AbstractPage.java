@@ -3,6 +3,7 @@ package resources;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -113,4 +114,13 @@ public abstract class AbstractPage
 		lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
 		return lDate;
 	}
+    
+    protected static int generateRandomInt(int pUpperRange){
+    	Random random = new Random();
+    	int lNum = random.nextInt(pUpperRange);
+    	if(lNum==pUpperRange) {
+    		lNum = lNum - 1;
+    	}
+    	return lNum;
+}
 }

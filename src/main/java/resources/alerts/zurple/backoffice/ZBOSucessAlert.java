@@ -43,6 +43,10 @@ public class ZBOSucessAlert extends AbstractAlert{
 	
 	@FindBy(xpath="//h2[text()='Status has been updated.']")
 	WebElement status_updated_text;
+
+	@FindBy(xpath="//button[text()='Assign']")
+	WebElement assign_button;
+
 	
 	public ZBOSucessAlert() {
 		
@@ -75,6 +79,7 @@ public class ZBOSucessAlert extends AbstractAlert{
 	public boolean clickOnScheduledPostButton() {
 		return ActionHelper.Click(driver, scheduled_posts_button);
 	}
+
 	public boolean clickOnTemporaryButton() {
 		return ActionHelper.Click(driver, temporary_button);
 	}
@@ -83,5 +88,9 @@ public class ZBOSucessAlert extends AbstractAlert{
 	}
 	public boolean isStatusUpdatedMessageVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, status_updated_text, 30);
+	}
+
+	public boolean clickOnAssignButton() {
+		return ActionHelper.Click(driver, assign_button);
 	}
 }

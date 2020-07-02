@@ -22,150 +22,154 @@ import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 public class ZBOLeadDetailPage extends Page{
-	
+
 	boolean isRefreshPageRequired = true;
-	
+
 	@FindBy(xpath="//div[@class='row']/descendant::h3[text()='Lead Detail']")
 	WebElement leadDetailHeading;
-	
+
 	String propertyViewed = "//div[@id='property-views-stats']/descendant::td";
-	
+
 	@FindBy(xpath="//div[@id='property-views-stats']/descendant::td/div[text()='Loading...']")
 	WebElement loading;
-	
+
 	String lead_name = "//div[@id='lead-details-main']/descendant::h2";
-	
+
 	String lead_email_xpath = "//span[@class='lead-details-detail']/descendant::a[@title='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
-	
+
 	String email_subject = ".yui-dt-col-subject";
-	
+
 	@FindBy(className="yui-dt5-col-subject")
 	WebElement email_Subject;
-		
+
 	@FindBy(xpath="//span[@class='lead-details-detail wrap']")
 	WebElement lead_address;
-	
+
 	String prop_details_xpath = "//span[@class='lead-details-detail']";
-	
+
 	@FindBy(xpath="//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-note ']/div[@class='yui-dt-liner']")
 	WebElement notes_text;
-	
+
 	//Sorting Headers
-	
+
 	String sorting_column_ascending_xpath = "//th[@aria-label='"+FrameworkConstants.DYNAMIC_VARIABLE+": activate to sort column ascending']";
-	
+
 	String sorting_column_descending_xpath = "//th[@aria-label='"+FrameworkConstants.DYNAMIC_VARIABLE+": activate to sort column descending']";
 
 	String lead_details_xpath = "//span[@class='lead-details-title' and text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/following::span[1]";
-	
+
 	@FindBy(xpath="//div[@class='detail-row-inline bottom-small-padd']/descendant::i[@title='Phone']/parent::span/parent::span")
 	WebElement phoneNumber;
-	
+
 	@FindBy(xpath="//span[@class='lead-details-title' and text()='Website:']/following::a[1]")
 	WebElement website_element;
-	
+
 	@FindBy(xpath="//ul[@class='z-lead-preferences z-grid-view-content']")
 	WebElement email_preferences;
-	
+
 	@FindBy(xpath="//div[@id='z-lead-notes']/descendant::div[text()='No records found.']")
 	WebElement lead_notes_no_record;
-	
+
 	String email_prefernces_xpath = "//ul[@class='z-lead-preferences z-grid-view-content']/descendant::span";
 	String leadName_xpath = "//div[@id='lead-details-main']/descendant::h2[@class='panel-title']";
-	
+
 	@FindBy(xpath="//div[@id='z-activity-details-alert-emails-grid']/descendant::div[text()='Welcome to our new site']")
 	WebElement welcome_email;
-	
+
 	@FindBy(xpath="//span[@class='glyphicon email-validation-glyph glyphicon-ok-circle verified']")
 	WebElement verified_email_tick;
-	
+
 	@FindBy(xpath="//span[@class='z-lead-primary']")
 	WebElement lead_primary_alerts;
-	
+
 	@FindBy(id="z-activity-details-alerts")
 	WebElement alerts_tab_button;
-	
+
 	String alerts_type_xpath="//span[@class='z-alert-type']";
-	
+
 	String lead_activity_xpath="//span[@class='z-lead-activity']/span";
-	
+
 	@FindBy(id="z-activity-details-alert-emails")
 	WebElement zurple_messages_tab_button;
-	
+
 	@FindBy(xpath="//div[@id='z-activity-details-alert-emails-grid']/descendant::div[text()='Quick Question']")
 	WebElement quick_question_subject;
-	
+
 	@FindBy(xpath="//div[@id='z-activity-details-alert-emails-grid']/descendant::td[@headers='yui-dt4-th-messageDateTime ']/div")
 	WebElement date_time_email;
-	
+
 	@FindBy(id="lead_status")
 	WebElement lead_prospect_dropdown;
-	
+
 	@FindBy(id="z-activity-details-sent")
 	WebElement myMessages_tab_button;
-	
+
 	String myMessages_emails_xpath = "//div[@id='z-activity-details-sent-grid']/descendant::div[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
-	
+
 	@FindBy(id="text_area_note")
 	WebElement note_text_area;
-	
+
 	@FindBy(id="submit_save_note")
 	WebElement save_note_button;
-	
+
 	@FindBy(xpath="//button[text()='OK']")
 	WebElement ok_button_notes;
-	
+
 	String notes_Added_xpath = "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-note ']/div";
 	String notes_date_xpath = "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-date ']/div";
-	
+
 	@FindBy(id="z-activity-details-searches")
 	WebElement lead_searches;
-	
+
 	@FindBy(id="z-activity-details-searches-tab")
 	WebElement search_block;
-	
+
 	String list_of_disabled_nav_bts = "//ul[@id='lead_detail_navbar']/descendant::a[contains(@class,'lead-btn-disabled') and @title='This lead is currently unsubscribed from direct agent communications (Mass Email)']";
-	
+
 	@FindBy(xpath="//div[@id='z-activity-details-sent-tab']/descendant::input[contains(@class,'lead-btn-disabled') and @title='This lead is currently unsubscribed from direct agent communications (Mass Email)']")
 	WebElement enrollInCampaign_button;
-	
+
 	@FindBy(id="text_area_reminder")
 	WebElement text_area_reminder;
-	
+
 	@FindBy(id="task_reminder_date_1")
 	WebElement taskReminder_date_input;
-	
+
 	@FindBy(id="submit_save_reminder")
 	WebElement save_reminder_button;
-		
+
 	String xpathForTestingSubject = "//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div";
-	
+
 	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div")
 	WebElement flyer_email;
-	
+
 	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-messageDateTime ']/div")
 	WebElement xpathForTestingDate;
-	
+
 	@FindBy(xpath="//button[text()='Done']")
 	WebElement done_date_button;
-	
+
 	@FindBy(xpath="//button[text()='Now']")
 	WebElement now_date_button;
-	
-	
-		
+
+	@FindBy(id="assigned-to")
+	WebElement lead_assigned_to_agent;
+
+	@FindBy(xpath="//table[@id='leads-table']/descendant::div[@class='lead-owner']")
+	WebElement lead_owner_crm;
+
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
-	
+
 	public ZBOLeadDetailPage() {
-		
+
 	}
-	
+
 	public ZBOLeadDetailPage(WebDriver pWebdriver) {
 		driver = pWebdriver;
 		setLeadDetailSearchBlock();
 		PageFactory.initElements(driver, this);
 	}
-	
+
 	public ZBOLeadDetailsSearchBlock getLeadDetailSearchBlock() {
 		return leadDetailSearchBlock;
 	}
@@ -177,7 +181,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean isLeadDetailPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, leadDetailHeading, 30);
 	}
-	
+
 	public boolean isPropertyTracked(String pPropTitle) {
 		isLoading();
 		boolean isPropTracked = false;
@@ -189,7 +193,7 @@ public class ZBOLeadDetailPage extends Page{
 			}
 		}
 		return isPropTracked;
-		
+
 	}
 	private boolean isLoading() {
 		return ActionHelper.waitForElementToBeDisappeared(driver, loading);
@@ -220,7 +224,7 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isSuccess;
 	}
-	
+
 	public boolean verifyProp(String pPropToVerify, String pPropValue) {
 		boolean isVerified = false;
 		List<WebElement> list_pf_element = ActionHelper.getListOfElementByXpath(driver, prop_details_xpath);
@@ -304,11 +308,11 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean isNotesEmpty() {
 		return ActionHelper.isElementVisible(driver, lead_notes_no_record);
 	}
-	
+
 	public HashMap<String,String> populateEmailPreferencesMap() {
 		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, email_prefernces_xpath);
 		HashMap<String,String> email_pref_Map = new HashMap<String,String>();
-		
+
 		for(int i=0; i<list_element.size();i++) {
 			email_pref_Map.put(list_element.get(i).getText().trim().replace("", "").trim(), list_element.get(i+1).getText().trim());
 			i++;
@@ -318,7 +322,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyLeadEmail(String pEmail) {
 		return ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_email_xpath, pEmail));
 	}
-	
+
 	public boolean verifyEmailDateTime() {
 		boolean isSuccess = false;
 		ActionHelper.waitForElementToBeVisible(driver, xpathForTestingDate, 30);
@@ -328,7 +332,7 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isSuccess;
 	}
-	
+
 	public boolean isWelcomeEmailSent() {
 		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, welcome_email, 30, 30);
 	}
@@ -432,7 +436,7 @@ public class ZBOLeadDetailPage extends Page{
 					}
 				}
 				break;
-				
+
 			case "Modified Search Preferences":
 				List<WebElement> list_lead_activity_pref = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]");
 				for(int i=0;i<list_lead_activity_pref.size();i++) {
@@ -480,7 +484,7 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isVerified;
 	}
-	
+
 	public boolean verifyMyMessages(String pEmailToVerify) {
 		boolean isEmailReceived = false;
 		if(ActionHelper.Click(driver, myMessages_tab_button)) {
@@ -488,7 +492,7 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isEmailReceived;
 	}
-	
+
 	public boolean verifyMyMessagesEmails(String pEmailToVerify) {
 		boolean isEmailReceived = false;
 		if(ActionHelper.Click(driver, myMessages_tab_button)) {
@@ -496,7 +500,7 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isEmailReceived;
 	}
-	
+
 	public boolean checkStatusAfterReg(String pEmailToVerify, String pXpath) {
 		int counter = 0;
 		boolean lIsEmailVisible = false;
@@ -517,14 +521,14 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isVerified;
 	}
-	
+
 	public void waitForMessageAppearance() {
 		ActionHelper.staticWait(30);
 		ActionHelper.RefreshPage(driver);
 		ActionHelper.ScrollDownByPixels(driver, "400");
 		ActionHelper.Click(driver, myMessages_tab_button);
 	}
-	
+
 	public boolean checkStatusAfterSendingEmail(String pEmailToVerify) {
 		String str = "";
 		int counter = 0;
@@ -549,11 +553,11 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return lIsEmailVisible;
 	}
-	
+
 	public boolean typeComment(String pComment) {
 		return ActionHelper.Type(driver, note_text_area, pComment);
 	}
-	
+
 	public boolean clickOnSaveNotesButton() {
 		boolean isSuccessful = false;
 		if(ActionHelper.Click(driver, save_note_button)) {
@@ -573,7 +577,7 @@ public class ZBOLeadDetailPage extends Page{
 			if(ActionHelper.getText(driver, list_of_notes.get(i)).equalsIgnoreCase(pNoteToVerify)) {
 				isNoteFound = true;
 			}
-	
+
 			if(isNoteFound) {
 				counter = i;
 				break;
@@ -585,7 +589,7 @@ public class ZBOLeadDetailPage extends Page{
 			String lNotesDate = ActionHelper.getText(driver,list_of_notes_dates.get(counter));
 			isVerified = lNotesDate.contains(lTodaysDate);
 		}
-		
+
 		return isVerified;
 	}
 	public boolean clickOnSearchTabButton() {
@@ -636,7 +640,22 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isTimeSelected;
 	}
+
 	public String getLeadProspectSelectedOption() {
 		return ActionHelper.getSelectedOption(driver, lead_prospect_dropdown, "");
+	}
+	public boolean verifyLeadAssignedToAgent(String pAgentName) {
+		if(ActionHelper.getTextByValue(driver, lead_assigned_to_agent).contains(pAgentName)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	public boolean verifyLeadAssignedToAgentCRM(String pAgentName) {
+		if(ActionHelper.getTextByValue(driver, lead_owner_crm).contains(pAgentName)) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
