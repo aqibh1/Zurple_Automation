@@ -155,9 +155,6 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(id="assigned-to")
 	WebElement lead_assigned_to_agent;
 
-	@FindBy(xpath="//table[@id='leads-table']/descendant::div[@class='lead-owner']")
-	WebElement lead_owner_crm;
-
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 
 	public ZBOLeadDetailPage() {
@@ -645,14 +642,7 @@ public class ZBOLeadDetailPage extends Page{
 		return ActionHelper.getSelectedOption(driver, lead_prospect_dropdown, "");
 	}
 	public boolean verifyLeadAssignedToAgent(String pAgentName) {
-		if(ActionHelper.getTextByValue(driver, lead_assigned_to_agent).contains(pAgentName)) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-	public boolean verifyLeadAssignedToAgentCRM(String pAgentName) {
-		if(ActionHelper.getTextByValue(driver, lead_owner_crm).contains(pAgentName)) {
+		if(ActionHelper.getText(driver, lead_assigned_to_agent).contains(pAgentName)) {
 			return true;
 		}else {
 			return false;

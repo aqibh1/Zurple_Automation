@@ -19,7 +19,7 @@ import resources.utility.AutomationLogger;
  * @author adar
  *
  */
-public class ZBOLoginPageTest extends PageTest{
+public class ZBOCustomizeLoginPageTest extends PageTest{
 	
 	ZBOLoginPage page;
 	private WebDriver driver;
@@ -41,11 +41,12 @@ public class ZBOLoginPageTest extends PageTest{
 		
 	}
 	
-	@Test(priority=-1,groups="testBackOfficeLogin")
-	public void testBackOfficeLogin() {
-		getPage();	
-		String lZurpleUserName = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_user");
-		String lZurplePassword =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_pass");
+	@Test
+	public void testAgentBackOfficeLogin() {
+		getPage();
+		HashMap<String,String> agent_info_map  = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAgentsInfo);
+		String lZurpleUserName = agent_info_map.get("agent_email");
+		String lZurplePassword ="12345";
 		if(page.isLoginPage()) {
 			//		assertTrue(page.isLoginPage(),"Zurple Back office login page is not visible..");
 			assertTrue(page.typeUserName(lZurpleUserName),"Unable to type the user name");
@@ -55,9 +56,7 @@ public class ZBOLoginPageTest extends PageTest{
 			assertTrue(page.isLoginSuccessful(),"Login Failed..");
 		}else {
 			assertTrue(page.isLoginSuccessful(),"Login is not successful..");
-		}
-		AutomationLogger.endTestCase();
+		}			
 	}
-	
 
 }

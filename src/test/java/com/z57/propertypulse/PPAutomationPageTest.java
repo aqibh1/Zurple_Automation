@@ -3,7 +3,6 @@
  */
 package com.z57.propertypulse;
 
-import static org.testng.Assert.assertThrows;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;

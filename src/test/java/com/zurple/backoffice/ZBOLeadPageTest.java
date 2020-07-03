@@ -123,6 +123,7 @@ public class ZBOLeadPageTest extends PageTest{
 	
 	@Test
 	public void testVerifyLeadAssignment() {
+		page = null;
 		getPage("/leads");
 		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
 		HashMap<String,String> agent_info_map  = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAgentsInfo);
@@ -138,7 +139,7 @@ public class ZBOLeadPageTest extends PageTest{
 		page=null;
 		getPage("/leads");
 		assertTrue(page.isLeadPage(), "Lead page is not visible..");
-		assertTrue(page.selectLead(lLeadName), "Unable to find lead on lead page..");
+		assertTrue(page.clickOnLead(lLeadName), "Unable to find lead on lead page..");
 		ZBOLeadDetailPage lead_detail_page = new ZBOLeadDetailPage(driver);
 		assertTrue(lead_detail_page.isLeadDetailPage(), "Lead detail page is not visible..");
 		assertTrue(lead_detail_page.verifyLeadAssignedToAgent(lAgentName), "Agent not assigned to lead.."+lAgentName);
@@ -146,9 +147,10 @@ public class ZBOLeadPageTest extends PageTest{
 		//Verification from CRM page
 		page=null;
 		getPage("/leads/crm");
-		assertTrue(page.isLeadPage(), "Lead page is not visible..");
-		assertTrue(page.checkInputLead(lLeadName), "Unable to find lead on lead page..");
-		assertTrue(lead_detail_page.verifyLeadAssignedToAgentCRM(lAgentName), "Agent not assigned to lead on CRM .."+lAgentName);
+		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
+		assertTrue(leadCRMPage.searchLead(lLeadName), "Unable to find lead on lead page..");
+		assertTrue(leadCRMPage.verifyAgentName(lAgentName), "Agent not assigned to lead on CRM .."+lAgentName);
 		
 		//Verification from Manage agents page
 		page = null;
@@ -158,7 +160,20 @@ public class ZBOLeadPageTest extends PageTest{
 		assertTrue(!manageAgentsPage.getAgentLeadCount(lAgentName).equalsIgnoreCase(lLeadCount), "Lead count has not changed..");
 
 	}
-	
+	@Test
+	public void testVerifyAndSearchLead() {
+		page = null;
+		getPage("/leads");
+		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
+
+		//Verification from CRM page
+		page=null;
+		getPage("/leads/crm");
+		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
+		assertTrue(leadCRMPage.searchLead(lLeadName), "Unable to find lead on lead page..");
+		
+	}
 	private boolean applyAndVerifyFilter(String pFilterName, String pFilterValue) throws ParseException {
 		boolean isSuccess = false;
 		assertTrue(page.isLeadPage(),"Lead Page is not found..");

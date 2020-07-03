@@ -33,8 +33,14 @@ public class ZBODashboardTest extends PageTest
     private JSONObject dataObject;
     
     public AbstractPage getPage() {
-		// TODO Auto-generated method stub
-		return null;
+    	page=null;
+    	if(page == null){
+        	driver = getDriver();
+			page = new ZBODashboard(driver);
+			page.setUrl("");
+			page.setDriver(driver);
+        }
+        return page;
 	}
     
     public AbstractPage getPage(String pUrl){
@@ -63,6 +69,12 @@ public class ZBODashboardTest extends PageTest
     	
         assertTrue(page.verifyPhoneNumberText(pNum), "Phone numbers didn't match..");
         assertTrue(page.verifyPhoneAlert(), "Phone tap Alert not present..");
+    }
+    
+    @Test
+    public void testLogoutFromBackOffice() {
+    	getPage();
+    	assertTrue(page.doLogout(), "Logout failed");
     }
 
 }

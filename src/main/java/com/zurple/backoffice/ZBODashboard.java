@@ -16,6 +16,15 @@ public class ZBODashboard extends Page{
 	@FindBy(className="z-lead-phone")
 	WebElement phoneNumber;
 	
+	@FindBy(xpath="//li[@class='menu-main-item dropdown' and @role='presentation']/a[@role='button'  and not(@id)]")
+	WebElement siteOwner_dropdown;
+	
+	@FindBy(xpath="//ul[@class='dropdown-menu']/li/a[text()='Logout']")
+	WebElement logout_button;
+	
+	@FindBy(id="username")
+	WebElement username_input;
+	
 	public ZBODashboard(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -37,5 +46,12 @@ public class ZBODashboard extends Page{
 
 		isVerified = ActionHelper.isAlertPresent(driver);
 		return isVerified;
+	}
+	public boolean doLogout() {
+		boolean isLogoutSuccessful = false;
+		if(ActionHelper.MouseHoverOnElement(driver, siteOwner_dropdown) && ActionHelper.Click(driver, logout_button)) {
+			isLogoutSuccessful = ActionHelper.waitForElementToBeVisible(driver, username_input, 60);
+		}
+		return isLogoutSuccessful;
 	}
 }

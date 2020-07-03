@@ -99,7 +99,7 @@ public class ZBOLeadPage extends Page{
 	}
 	
 	public boolean typeLeadNameToSearch(String pName) {
-		return ActionHelper.Type(driver, lead_input, pName);
+		return ActionHelper.ClearAndType(driver, lead_input, pName);
 	}
 
 	public boolean clickOnSearchButton() {
@@ -319,6 +319,22 @@ public class ZBOLeadPage extends Page{
 		if(ActionHelper.waitForElementToBeDisappeared(driver, procession_notfication,30)) {
 			ActionHelper.staticWait(5);
 			isLeadExist = ActionHelper.Click(driver, lead_input_checkbox);		
+		}
+		return isLeadExist;
+	}
+	public boolean clickOnLead(String pLeadName) {
+		boolean isLeadExist= false;
+		if(!typeLeadNameToSearch(pLeadName)) {
+			return false;
+		}
+		if(!clickOnSearchButton()) {
+			return false;
+		}
+		if(ActionHelper.waitForElementToBeDisappeared(driver, procession_notfication,30)) {
+			ActionHelper.staticWait(5);
+			WebElement element = ActionHelper.getDynamicElement(driver, lead_row,pLeadName);
+			isLeadExist = ActionHelper.isElementVisible(driver, element);
+			ActionHelper.Click(driver, element);
 		}
 		return isLeadExist;
 	}
