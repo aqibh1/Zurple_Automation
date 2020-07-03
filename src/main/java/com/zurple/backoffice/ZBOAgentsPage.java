@@ -130,7 +130,7 @@ public class ZBOAgentsPage extends Page{
 	public HashMap<String,String> getAgentNameAndLeadCount(){
 		HashMap<String,String> agent_info_map = new HashMap<String,String>();
 		String lAgentName ="Aqib Site Owner";
-		while(lAgentName.equalsIgnoreCase("Aqib Site Owner")) {
+		while(lAgentName.equalsIgnoreCase("Aqib Site Owner") || lAgentName.equalsIgnoreCase("Aqib Production Testing")) {
 			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, agents_list, "", 2)) {
 				List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, agents_list);
 				List<WebElement> list_of_elements_2 = ActionHelper.getListOfElementByXpath(driver, agents_lead_count_list);

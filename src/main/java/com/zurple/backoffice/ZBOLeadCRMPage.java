@@ -40,6 +40,9 @@ public class ZBOLeadCRMPage extends Page{
 	
 	String lead_name_element = "//table[@id='leads-table']/descendant::div/a[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
 	
+	@FindBy(xpath="//table[@id='leads-table']/descendant::input[@class='lead-check']")
+	WebElement lead_input_checkbox;
+	
 	public ZBOLeadCRMPage() {
 		
 	}
@@ -70,6 +73,16 @@ public class ZBOLeadCRMPage extends Page{
 		if(typeLeadNameOrEmail(pLeadName) && clickOnSearchButton()) {
 			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
 			isLeadSelected = ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_name_element, pLeadName));
+		}
+		return isLeadSelected;
+	}
+	public boolean searchAndSelectLead(String pLeadName) {
+		boolean isLeadSelected = false;
+		if(typeLeadNameOrEmail(pLeadName) && clickOnSearchButton()) {
+			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
+			if(ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_name_element, pLeadName))) {
+				isLeadSelected = ActionHelper.Click(driver, lead_input_checkbox);
+			}
 		}
 		return isLeadSelected;
 	}

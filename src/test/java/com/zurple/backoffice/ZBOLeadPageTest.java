@@ -122,6 +122,27 @@ public class ZBOLeadPageTest extends PageTest{
 	}
 	
 	@Test
+	public void testAssignLeadToAgentFromCRMPage() {
+		getPage("/leads/crm");
+		ZBOReassignLeadAlert reassignlead_alert = new ZBOReassignLeadAlert(driver);
+		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
+		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
+		HashMap<String,String> agent_info_map  = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAgentsInfo);
+		String lAgentName = agent_info_map.get("agent_name");
+		ZBOLeadCRMPage leadCrmPage = new ZBOLeadCRMPage(driver);
+		assertTrue(page.isLeadPage(), "Lead page is not visible..");
+		assertTrue(leadCrmPage.searchAndSelectLead(lLeadName), "Unable to find lead on lead page..");
+		
+		assertTrue(page.selectAction("Reassign Leads"), "Unable to select resassign leads");
+		assertTrue(reassignlead_alert.isReassignAlert(), "Reassign alert is not visible..");
+		assertTrue(reassignlead_alert.clickAndSelectAgent(lAgentName), "Unable to select the agent");
+		assertTrue(reassignlead_alert.clickOnReassignLeadButton(), "Unable to click on reassign button..");
+		assertTrue(successAlert.clickOnAssignButton(), "Unable to click on assign button..");
+		assertTrue(successAlert.isSuccessMessageVisible(), "Success message is not visible..");
+		assertTrue(successAlert.clickOnOkButton(), "Unable to click on OK button..");		
+	}
+	
+	@Test
 	public void testVerifyLeadAssignment() {
 		page = null;
 		getPage("/leads");
