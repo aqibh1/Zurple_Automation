@@ -77,12 +77,14 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage();
 		String lLeadEmail = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.ZurpleLeadEmail);
 		String lLeadId = ModuleCommonCache.getElement(getThreadId().toString(), lLeadEmail);
-		String lUpdatedUrl = "";
-		if(driver.getCurrentUrl().contains("dashboard")) {
-			lUpdatedUrl = driver.getCurrentUrl().replace("dashboard", "lead/"+lLeadId+"");
-		}else {
-			lUpdatedUrl = driver.getCurrentUrl().replace("leads", "lead/"+lLeadId+"");
-		}
+//		String lUpdatedUrl = "";
+		String lUpdatedUrl = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
+
+//		if(driver.getCurrentUrl().contains("dashboard")) {
+//			lUpdatedUrl = driver.getCurrentUrl().replace("dashboard", "lead/"+lLeadId+"");
+//		}else {
+//			lUpdatedUrl = driver.getCurrentUrl().replace("leads", "lead/"+lLeadId+"");
+//		}
 		 
 		driver.navigate().to(lUpdatedUrl);
 		
