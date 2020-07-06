@@ -56,7 +56,7 @@ public class ZACampaignTemplatesPageTest extends PageTest{
 		String lTemplateSubject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleTemplateSubject);
 		assertTrue(page.isCampaignTemplatesPage(), "Campaign Template page is not visible..");
 		assertTrue(page.selectTemplateToDeActive(lTemplateSubject), "Unable to select the template..");
-		assertTrue(page.toggleCheckbox(false), "Unable to uncheck the Active checkbox..");
+//		assertTrue(page.toggleCheckbox(false), "Unable to uncheck the Active checkbox..");
 		assertTrue(page.clickOnSaveButton(), "Unable to click on save button..");
 	}
 }
