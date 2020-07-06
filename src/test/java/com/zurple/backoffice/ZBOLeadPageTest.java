@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -122,7 +123,8 @@ public class ZBOLeadPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testAssignLeadToAgentFromCRMPage() {
+	@Parameters({"column"})
+	public void testAssignLeadToAgentFromCRMPage(@Optional String pDataFile) {
 		getPage("/leads/crm");
 		ZBOReassignLeadAlert reassignlead_alert = new ZBOReassignLeadAlert(driver);
 		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
@@ -132,8 +134,11 @@ public class ZBOLeadPageTest extends PageTest{
 		ZBOLeadCRMPage leadCrmPage = new ZBOLeadCRMPage(driver);
 		assertTrue(page.isLeadPage(), "Lead page is not visible..");
 		assertTrue(leadCrmPage.searchAndSelectLead(lLeadName), "Unable to find lead on lead page..");
-		
-		assertTrue(page.selectAction("Reassign Leads"), "Unable to select resassign leads");
+		if(pDataFile!=null) {
+			assertTrue(leadCrmPage.clickOnAgentAssignmentButton(), "Unable to click on agent assignment button..");
+		}else {
+			assertTrue(page.selectAction("Reassign Leads"), "Unable to select resassign leads");
+		}
 		assertTrue(reassignlead_alert.isReassignAlert(), "Reassign alert is not visible..");
 		assertTrue(reassignlead_alert.clickAndSelectAgent(lAgentName), "Unable to select the agent");
 		assertTrue(reassignlead_alert.clickOnReassignLeadButton(), "Unable to click on reassign button..");

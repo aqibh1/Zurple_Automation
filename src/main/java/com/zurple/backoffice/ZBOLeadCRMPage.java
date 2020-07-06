@@ -43,6 +43,9 @@ public class ZBOLeadCRMPage extends Page{
 	@FindBy(xpath="//table[@id='leads-table']/descendant::input[@class='lead-check']")
 	WebElement lead_input_checkbox;
 	
+	@FindBy(xpath="//div[@class='lead-owner']/span[@data-lead-id]")
+	WebElement lead_agent_assignment_button;
+	
 	public ZBOLeadCRMPage() {
 		
 	}
@@ -88,5 +91,8 @@ public class ZBOLeadCRMPage extends Page{
 	}
 	public boolean verifyAgentName(String pAgentName) {
 		return ActionHelper.getText(driver, lead_owner_crm).contains(pAgentName);
+	}
+	public boolean clickOnAgentAssignmentButton() {
+		return ActionHelper.Click(driver, lead_agent_assignment_button);
 	}
 }
