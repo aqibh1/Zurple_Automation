@@ -154,7 +154,16 @@ public class ZBOLeadDetailPage extends Page{
 
 	@FindBy(id="assigned-to")
 	WebElement lead_assigned_to_agent;
+	
+	@FindBy(id="reassign-lead")
+	WebElement lead_reassign_button;
+	
+	@FindBy(id="admins_list")
+	WebElement admin_list_dropdown;
 
+	@FindBy(id="reassign-lead-save")
+	WebElement save_lead_Assignment_button;
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 
 	public ZBOLeadDetailPage() {
@@ -647,5 +656,15 @@ public class ZBOLeadDetailPage extends Page{
 		}else {
 			return false;
 		}
+	}
+	public boolean clickAndAssignAgentToLead(String pAgentName) {
+		boolean isClicked = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, lead_reassign_button, 10)) {
+			isClicked = ActionHelper.Click(driver, lead_reassign_button);
+			ActionHelper.staticWait(2);
+			if(isClicked && ActionHelper.selectDropDownOption(driver, admin_list_dropdown, "", pAgentName)) {
+				isClicked = ActionHelper.Click(driver, save_lead_Assignment_button);			}
+		}
+		return isClicked;
 	}
 }
