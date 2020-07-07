@@ -1104,4 +1104,18 @@ public class ActionHelper {
 			}
 			return isSuccessful;
 		}
+	   public static boolean ClickWithStaticWait(WebDriver pWebDriver,WebElement pElementToBeClicked) {
+		   boolean isSuccessfull=false;
+		   staticWait(5);
+		   AutomationLogger.info("Clicking on button -> "+pElementToBeClicked);
+		   try {
+			   pElementToBeClicked.click();
+			   isSuccessfull=true;
+			   AutomationLogger.info("Clicked on button successful..");
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return isSuccessfull;
+	   }
 }

@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
@@ -44,7 +45,7 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 	@FindBy(id="loginbutton")
 	WebElement loginButton;
 
-	@FindBy(xpath="//span[contains(text(),'Continue as')]")
+	@FindBy(xpath="//span[contains(text(),'Continue as') and @dir='auto']")
 	WebElement continueAsButton;
 
 	@FindBy(xpath="//div[@class='row row-center']/descendant::img[@src='/img/zurple/Twitter_connected_200.png']")
@@ -105,6 +106,21 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 	@FindBy(xpath="//a[text()='Go to thesocialapi.com (unsafe)']")
 	WebElement gotoSocialApi_button;
 	
+	@FindBy(xpath="//input[@id='allAssetsInput']")
+	WebElement check_box_All_fb;
+	@FindBy(xpath="//div[@role='heading' and contains(text(),'What Pages')]")
+	WebElement heading_fb;
+	
+	@FindBy(xpath="//span[text()='Next']")
+	WebElement next_button;
+	@FindBy(xpath="//span[text()='OK']")
+	WebElement ok_button;
+	
+	@FindBy(xpath="//span[text()='Done']")
+	WebElement done_button;
+	
+	@FindBy(id="default_fb_page")
+	WebElement default_fb_page;
 
 
 	public ZBOSocialIntegrationAndSettingsPage() {
@@ -218,6 +234,13 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 		}
 		return isConnected;
 	}
+	private boolean connectToFacebookSecond() {
+		boolean isConnected = false;
+		if(ActionHelper.Click(driver, facebookConnect_button)) {
+			isConnected = filloutFacebookFormSecond();
+		}
+		return isConnected;
+	}
 
 	private boolean connectToLinkedin() {
 		boolean isConnected = false;
@@ -265,10 +288,31 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 			}
 			if(!ActionHelper.waitForElementToBeVisible(driver, continueAsButton, 30)) {
 				return false;
-			}else {
-				isSuccess = ActionHelper.Click(driver, continueAsButton);
-				if(isSuccess && ActionHelper.isElementVisible(driver, successOk_button)) {
-					isSuccess = ActionHelper.Click(driver, successOk_button);
+			}
+			if(!ActionHelper.Click(driver, continueAsButton)) {
+				return false;
+			}
+			if(!ActionHelper.waitForElementToBeVisible(driver, heading_fb, 20)){
+				return false;
+			}
+			if(!ActionHelper.ClickWithStaticWait(driver, check_box_All_fb)) {
+				return false;
+			}
+			if(!ActionHelper.Click(driver, next_button)) {
+				return false;
+			}
+			if(!ActionHelper.Click(driver, done_button)) {
+				return false;
+			}
+			if(!ActionHelper.isElementVisible(driver, ok_button)) {
+				return false;
+			}
+			if(!ActionHelper.Click(driver, ok_button)) {
+				return false;
+			}
+			if(ActionHelper.waitForElementToBeVisible(driver, default_fb_page, 20)) {
+				if(ActionHelper.selectDropDownOption(driver, default_fb_page, "", "Aqib Automated Testing")) {
+					isSuccess = new ZBOSucessAlert(driver).clickOnOkButton();
 				}
 			}
 		}else {
@@ -375,6 +419,34 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 				isSuccess = ActionHelper.Click(driver, successOk_button);
 			}
 
+		}else {
+			return false;
+		}
+		return isSuccess;
+	}
+	
+	private boolean filloutFacebookFormSecond() {
+		boolean isSuccess = true;
+		String lUsername = "z57testuser@gmail.com";
+		String lPassword = "Bcsf08m020@";
+		if(ActionHelper.waitForElementToBeVisible(driver, loginButton, 30)) {
+			if(!ActionHelper.ClearAndType(driver, email, lUsername)) {
+				return false;
+			}
+			if(!ActionHelper.ClearAndType(driver, password, lPassword)) {
+				return false;
+			}
+			if(!ActionHelper.Click(driver, loginButton)) {
+				return false;
+			}
+			if(!ActionHelper.waitForElementToBeVisible(driver, continueAsButton, 30)) {
+				return false;
+			}else {
+				isSuccess = ActionHelper.Click(driver, continueAsButton);
+				if(isSuccess && ActionHelper.isElementVisible(driver, successOk_button)) {
+					isSuccess = ActionHelper.Click(driver, successOk_button);
+				}
+			}
 		}else {
 			return false;
 		}
