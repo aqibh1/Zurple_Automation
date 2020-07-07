@@ -48,7 +48,7 @@ public class TXBODashboardPageTest extends PageTest{
 		assertTrue(page.getSideMenuBlock().isTorchXLogoVisible(), "TorchX logo is not visible on side menu bar");
 		assertTrue(page.getSideMenuBlock().verifyNavigationbarColor(), "Navigation bar color is not as expected..");
 		assertTrue(page.getSideMenuBlock().expandAutomationMenu(), "Unable to click on Automation dropdown in side bar");
-		assertTrue(page.getSideMenuBlock().gotoMyProfile(), "My Profile link in side bar is not working");
+//		assertTrue(page.getSideMenuBlock().gotoMyProfile(), "My Profile link in side bar is not working");
 		assertTrue(page.getSideMenuBlock().goBackToDashboard(), "Dashboard page is not visible..");
 		assertTrue(page.getSideMenuBlock().expandAutomationMenu(), "Unable to click on Automation dropdown in side bar");
 		assertTrue(page.getSideMenuBlock().gotoBilling(), "Biling link in side bar is not working");
@@ -105,7 +105,7 @@ public class TXBODashboardPageTest extends PageTest{
 		assertTrue(page.getSideMenuBlock().isTorchXLogoVisible(), "TorchX logo is not visible on side menu bar");
 		assertTrue(page.getSideMenuBlock().verifyNavigationbarColor(), "Navigation bar color is not as expected..");
 		assertTrue(page.getSideMenuBlock().expandAutomationMenu(), "Unable to click on Automation dropdown in side bar");
-		assertTrue(page.getSideMenuBlock().gotoMyProfile(), "My Profile link in side bar is not working");
+//		assertTrue(page.getSideMenuBlock().gotoMyProfile(), "My Profile link in side bar is not working");
 		
 		assertTrue(page.clickOnNavToggleButton(), "Unable to click on navigation toggle button..");
 		assertTrue(page.getSideMenuBlock().goBackToDashboard(), "Dashboard page is not visible..");
