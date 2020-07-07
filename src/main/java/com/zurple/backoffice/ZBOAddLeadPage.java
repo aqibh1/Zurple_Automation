@@ -118,6 +118,9 @@ public class ZBOAddLeadPage extends Page{
 	@FindBy(xpath="//input[@id='welcome_email']/following-sibling::span")
 	WebElement welcome_email_toggle;
 	
+	@FindBy(id="admins")
+	WebElement select_admin;
+	
 	public ZBOAddLeadPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -170,5 +173,8 @@ public class ZBOAddLeadPage extends Page{
 	}
 	public boolean clickWelcomeEmailToggle() {
 		return ActionHelper.Click(driver, welcome_email_toggle);
+	}
+	public boolean clickAndSelectAgent(String pAgent) {
+		return ActionHelper.selectDropDownOption(driver, select_admin, "", pAgent);
 	}
 }

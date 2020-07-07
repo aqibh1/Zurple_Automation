@@ -5,6 +5,8 @@ package com.zurple.backoffice;
 
 import static org.testng.Assert.assertTrue;
 
+import java.util.HashMap;
+
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
@@ -16,6 +18,7 @@ import resources.AbstractPage;
 import resources.DBHelperMethods;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.DataConstants;
 
@@ -59,6 +62,15 @@ public class ZBOAddLeadPageTest extends PageTest{
 		AutomationLogger.startTestCase("Add lead /lead/create");
 		getPage("/lead/create");
 		dataObject = getDataFile(pDataFile);
+		String lAgentName = "";
+		String ld_assignLead = dataObject.optString("assign_lead");
+		if(!ld_assignLead.isEmpty()) {
+			HashMap<String,String> agent_info_map  = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAgentsInfo);
+			lAgentName = agent_info_map.get("agent_name");
+			assertTrue(page.clickAndSelectAgent(lAgentName), "Unable to select agent name from drop down");
+			ActionHelper.staticWait(3);
+		}
+				
 		String  lLeadEmail= updateEmail(dataObject.optString("email"));
 		String  lLeadName = updateName(dataObject.optString("first_name"));
 		assertTrue(page.typeEmail(lLeadEmail), "Unable to type email address..");
