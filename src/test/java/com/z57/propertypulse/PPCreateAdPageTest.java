@@ -358,6 +358,12 @@ public class PPCreateAdPageTest extends PageTest{
 
 	}
 
+	@Test
+	public void testDisAbleAllTheAds() {
+		getPage("/content/marketing/ads");
+		assertTrue(new PPAdsOverviewPageOld(driver).disableAllTheAds(), "Unable to disable all the ads");
+		
+	}
 	private String getDomain(String pDomain) {
 		if(pDomain.contains("HTTPS://")) {
 			pDomain = pDomain.replace("HTTPS://", "");
