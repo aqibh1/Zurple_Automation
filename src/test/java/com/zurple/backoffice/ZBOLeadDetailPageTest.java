@@ -3,6 +3,8 @@ package com.zurple.backoffice;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+import java.util.HashMap;
+
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
@@ -393,12 +395,19 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(mailinatorObj.verifyEmail(lAgentEmail, lSubjectToVerify, 15), "Unable to verify reminder email");
 	}
 	
-	public void testAndVerifyLeadStatus() {
+	@Test
+	public void testUpdateLeadAgentAssignment() {
 		getPage();	
 		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);//"4744411";//
-		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);//"0520202021 Buyersearch";
 		page = null;
 		getPage("/lead/"+lLeadId);
-		
+		String lAgentName = "";
+		HashMap<String,String> agent_info_map  = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAgentsInfo);
+		lAgentName = agent_info_map.get("agent_name");
+		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
+		assertTrue(page.clickAndAssignAgentToLead(lAgentName), "Unable to select agent name from drop down");
+		assertTrue(successAlert.clickOnAssignButton(), "Unable to click on assign button..");
+		assertTrue(successAlert.isSuccessMessageVisible(), "Success message is not visible..");
+		assertTrue(successAlert.clickOnOkButton(), "Unable to click on OK button..");
 	}
 }

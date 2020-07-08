@@ -64,7 +64,7 @@ public class ZBOScheduledPostsPageTest extends PageTest{
 		String lPostText = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleSocialPost);
 		String ld_platform = dataObject.optString("platform");
 		String ld_posttype = dataObject.optString("post_type");
-		
+		boolean lSpecialVerification = false;
 		assertTrue(page.isShceduledPostsPage(), "Scheduled post Page is not visible..");
 		assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post Platform icon is not visible on scheduled posts page.");
 		assertTrue(!page.getPostPageTitle(lPostText).isEmpty(), "Platform title is not visible...");
@@ -87,11 +87,13 @@ public class ZBOScheduledPostsPageTest extends PageTest{
 			assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")), "Unable to verify listing website Url");
 			assertTrue(page.isListingHeadingVisible(lPostText), "Unable to verify listing title..");
 			assertTrue(page.isListingDescVisible(lPostText), "Unable to verify listing description..");
+			lSpecialVerification = true;
 			break;
 		case "post_listing_video":
 			assertTrue(page.isHomePostListingVideoIconVisible(lPostText), "Home post icon is not visible on post scheduled posts page..");
 			assertTrue(page.isManualListingVideoPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")), "Unable to verify listing website Url");
+			lSpecialVerification = true;
 			break;
 		case "post_link":
 			assertTrue(page.isPostComputerIconVisible(lPostText), "Home post icon is not visible on post scheduled posts page..");
@@ -108,8 +110,12 @@ public class ZBOScheduledPostsPageTest extends PageTest{
 		assertTrue(page.verifyEditPostButtonIsWorking(lPostText), "Unable to verify edit post button is working..");
 		ZBOEditPostPage editPage = new ZBOEditPostPage(driver);
 		assertTrue(editPage.isEditPostPage(), "Edit post page is not visible..");
-		assertTrue(editPage.verifyPost(lPostText), "Unable to verify edit post..");
-		
+		//Handled listing and video posts
+		if(lSpecialVerification) {
+			assertTrue(editPage.verifyPost("Check out this"), "Unable to verify edit post..");
+		}else {
+			assertTrue(editPage.verifyPost(lPostText), "Unable to verify edit post..");
+		}	
 	}
 
 }
