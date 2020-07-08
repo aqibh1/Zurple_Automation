@@ -62,9 +62,10 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		String lPostText = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleSocialPost);
 		String ld_platform = dataObject.optString("platform");
 		String ld_posttype = dataObject.optString("post_type");
+		boolean lSpecialVerification = false;
 		
 		assertTrue(page.isPostingHistoryPageIsVisible(), "Post History Page is not visible..");
-		assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post Platform icon is not visible on Post History page.");
+		assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Post History page.");
 		assertTrue(!page.getPostPageTitle(lPostText).isEmpty(), "Platform title is not visible...");
 		assertTrue(!page.getPostAccountName(lPostText, ld_platform).isEmpty(), "Unable to verify account name...");
 
@@ -87,12 +88,14 @@ public class ZBOPostHistoryPageTest extends PageTest{
 			assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")), "Unable to verify listing website Url");
 			assertTrue(page.isListingHeadingVisible(lPostText), "Unable to verify listing title..");
 			assertTrue(page.isListingDescVisible(lPostText), "Unable to verify listing description..");
+			lSpecialVerification = true;
 			break;
 		case "post_listing_video":
 			assertTrue(page.isPostProcessingiconVisible(lPostText), "The post processing icon is still visble after 3 minutes");
 			assertTrue(page.isHomePostListingVideoIconVisible(lPostText), "Home post icon is not visible on post history page..");
 			assertTrue(page.isManualListingVideoPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")), "Unable to verify listing website Url");
+			lSpecialVerification = true;
 			break;
 		case "post_link":
 			assertTrue(page.isPostProcessingiconVisible(lPostText), "The post processing icon is still visble after 3 minutes");
@@ -112,7 +115,13 @@ public class ZBOPostHistoryPageTest extends PageTest{
 			assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 			ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 			assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-			assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+			//Handled listing and video posts
+			if(lSpecialVerification) {
+				assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
+			}else {
+				assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+			}	
+			
 		}
 	}
 
