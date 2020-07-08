@@ -179,6 +179,19 @@ public class ActionHelper {
 		   return isElementVisible;
 	   }
 	   
+	   public static boolean waitForStringIDToBeVisible(WebDriver pWebDriver, String pElement, long pWaitInSecnds) {
+		   boolean isElementVisible = false;
+		   try {
+			   WebDriverWait wait = new WebDriverWait(pWebDriver, pWaitInSecnds); // Wait for seconds.
+			   wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(pElement)));
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Element is not visible.  -> "+pElement);
+			   AutomationLogger.error("Wait max limit is "+GLOBAL_WAIT_COUNT+" seconds");
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return isElementVisible;
+	   }
+	   
 	   public static boolean waitForStringXpathToBeVisible(WebDriver pWebDriver, String pElement, long pWaitInSecnds) {
 		   boolean isElementVisible = false;
 		   try {
@@ -374,10 +387,26 @@ public class ActionHelper {
 			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
 			AutomationLogger.info("Clicking on button -> "+pElementToBeClicked);
 			try {
-					pWebDriver.findElements(By.className(pElementToBeClicked)).get(index).sendKeys(pStringToType);
-					isSuccessfull=true;
-					AutomationLogger.info("Clicked on button successful..");
-				
+				pWebDriver.findElements(By.className(pElementToBeClicked)).get(index).clear();
+				pWebDriver.findElements(By.className(pElementToBeClicked)).get(index).sendKeys(pStringToType);
+				isSuccessfull=true;
+				AutomationLogger.info("Clicked on button successful..");
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessfull;
+		}
+	   
+	   public static boolean ClearAndTypebyStringElement(WebDriver pWebDriver, String pElementToBeClicked, String pStringToType) {
+			boolean isSuccessfull=false;
+			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			AutomationLogger.info("Clicking on button -> "+pElementToBeClicked);
+			try {
+				pWebDriver.findElement(By.className(pElementToBeClicked)).clear();
+				pWebDriver.findElement(By.className(pElementToBeClicked)).sendKeys(pStringToType);
+				isSuccessfull=true;
+				AutomationLogger.info("Clicked on button successful..");
 			}catch(Exception ex) {
 				AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
 				AutomationLogger.error(ex.getMessage());

@@ -1,5 +1,7 @@
 package com.zurple.backoffice;
 
+import java.util.HashMap;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,8 +18,7 @@ public class ZBOEditDistributionPage extends Page{
 		@FindBy(id="distribution_type-percentage")
 		WebElement percentage_radio;
 		
-		@FindBy(id="percentage_12774")
-		WebElement percentage_agent;
+		String percentage_agent = "percentage_";
 		
 		@FindBy(id="saveDist")
 		WebElement save_edited;
@@ -25,12 +26,9 @@ public class ZBOEditDistributionPage extends Page{
 		@FindBy(className="ui-dialog-title")
 		WebElement confirmation_title;
 		
-//		@FindBy(css="ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only")
-//		WebElement confirm_update;
-		
 		@FindBy(xpath="//div[@class='ui-dialog-buttonset']/descendant::span[text()='Change Distribution Settings']")
 		WebElement confirm_update;
-		
+						
 		public ZBOEditDistributionPage(WebDriver pWebDriver) {
 			driver = pWebDriver;
 			PageFactory.initElements(driver, this);
@@ -46,9 +44,11 @@ public class ZBOEditDistributionPage extends Page{
 			return ActionHelper.Click(driver, percentage_radio);
 		}
 		
-		public boolean typeDistributionPercentage(String pStringToType) {
-			ActionHelper.waitForElementToBeVisible(driver, percentage_agent, 30);
-			return ActionHelper.ClearAndType(driver, percentage_agent, pStringToType);
+		public boolean typeDistributionPercentage(String appendedElement, String pStringToType) {
+			ActionHelper.waitForStringIDToBeVisible(driver, percentage_agent+appendedElement, 30);
+		//	ActionHelper.ClickByStringElement(driver, percentage_agent+appended_element);
+			//ActionHelper.ClearAndType(pWebDriver, pInputField, pStringToType)
+			return ActionHelper.ClearAndTypebyStringElement(driver, percentage_agent+appendedElement, pStringToType);
 		}
 		
 		public boolean saveEditedDistribution() {
