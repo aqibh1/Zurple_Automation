@@ -273,42 +273,44 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 		return isSuccess;
 	}
 	private boolean filloutFacebookForm() {
+		boolean isFBIntegrationSuccessFul = false;
 		boolean isSuccess = true;
+		boolean isVerified = true;
 		String lUsername = "z57testuser@gmail.com";
 		String lPassword = "Bcsf08m020@";
 		if(ActionHelper.waitForElementToBeVisible(driver, loginButton, 30)) {
 			if(!ActionHelper.ClearAndType(driver, email, lUsername)) {
-				return false;
+				isVerified = false;
 			}
 			if(!ActionHelper.ClearAndType(driver, password, lPassword)) {
-				return false;
+				isVerified = false;
 			}
 			if(!ActionHelper.Click(driver, loginButton)) {
-				return false;
+				isVerified = false;
 			}
 			if(!ActionHelper.waitForElementToBeVisible(driver, continueAsButton, 30)) {
-				return false;
+				isVerified = false;
 			}
 			if(!ActionHelper.Click(driver, continueAsButton)) {
-				return false;
+				isVerified = false;
 			}
 			if(!ActionHelper.waitForElementToBeVisible(driver, heading_fb, 20)){
-				return false;
+				isVerified = false;
 			}
 			if(!ActionHelper.ClickWithStaticWait(driver, check_box_All_fb)) {
-				return false;
+				isVerified = false;
 			}
 			if(!ActionHelper.Click(driver, next_button)) {
-				return false;
+				isVerified = false;
 			}
 			if(!ActionHelper.Click(driver, done_button)) {
-				return false;
+				isVerified = false;
 			}
 			if(!ActionHelper.isElementVisible(driver, ok_button)) {
-				return false;
+				isVerified = false;
 			}
 			if(!ActionHelper.Click(driver, ok_button)) {
-				return false;
+				isVerified = false;
 			}
 			if(ActionHelper.waitForElementToBeVisible(driver, default_fb_page, 20)) {
 				if(ActionHelper.selectDropDownOption(driver, default_fb_page, "", "Aqib Automated Testing")) {
@@ -316,9 +318,18 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 				}
 			}
 		}else {
-			return false;
+			isSuccess = false;
 		}
-		return isSuccess;
+		if(isVerified && isSuccess) {
+			isFBIntegrationSuccessFul = true;
+		}else if(isVerified && !isSuccess) {
+			isFBIntegrationSuccessFul = false;
+		}else if(!isVerified && isSuccess) {
+			isFBIntegrationSuccessFul = true;
+		}else if(!isVerified && !isSuccess) {
+			isFBIntegrationSuccessFul = false;
+		}
+		return isFBIntegrationSuccessFul;
 	}
 	private boolean filloutLinkedinForm() {
 		boolean isSuccess = true;
