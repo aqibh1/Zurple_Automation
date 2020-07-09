@@ -397,22 +397,6 @@ public class ActionHelper {
 			}
 			return isSuccessfull;
 		}
-	   
-	   public static boolean ClearAndTypebyStringElement(WebDriver pWebDriver, String pElementToBeClicked, String pStringToType) {
-			boolean isSuccessfull=false;
-			wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
-			AutomationLogger.info("Clicking on button -> "+pElementToBeClicked);
-			try {
-				pWebDriver.findElement(By.className(pElementToBeClicked)).clear();
-				pWebDriver.findElement(By.className(pElementToBeClicked)).sendKeys(pStringToType);
-				isSuccessfull=true;
-				AutomationLogger.info("Clicked on button successful..");
-			}catch(Exception ex) {
-				AutomationLogger.error("Unable to Click on "+pElementToBeClicked);
-				AutomationLogger.error(ex.getMessage());
-			}
-			return isSuccessfull;
-		}
 	  
 	   public static void ScrollToElement(WebDriver pWebDriver,WebElement pScrollToElement) {
 		   try {
@@ -452,6 +436,16 @@ public class ActionHelper {
 	  		return pWebDriver.findElement(By.xpath(pXpath.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable)));
 	  		}catch(Exception ex) {
 	  			AutomationLogger.error("Unable to get dynamic webelement for xpath "+pXpath);
+	  			AutomationLogger.error(ex.getMessage());
+	  			return null;
+	  		}
+	  	}
+	   
+	   public static WebElement getDynamicElementByID(WebDriver pWebDriver,String id,String pDynamicVariable) {
+	  		try {
+	  		return pWebDriver.findElement(By.id(id.replace(FrameworkConstants.DYNAMIC_VARIABLE, pDynamicVariable)));
+	  		}catch(Exception ex) {
+	  			AutomationLogger.error("Unable to get dynamic webelement for xpath "+id);
 	  			AutomationLogger.error(ex.getMessage());
 	  			return null;
 	  		}

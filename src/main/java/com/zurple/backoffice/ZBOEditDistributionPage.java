@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.zurple.my.Page;
 
 import resources.utility.ActionHelper;
+import resources.utility.FrameworkConstants;
 
 public class ZBOEditDistributionPage extends Page{
 		@FindBy(className="header")
@@ -18,13 +19,16 @@ public class ZBOEditDistributionPage extends Page{
 		@FindBy(id="distribution_type-percentage")
 		WebElement percentage_radio;
 		
-		String percentage_agent = "percentage_";
+		String percentage_agent = "percentage_"+FrameworkConstants.DYNAMIC_VARIABLE;
 		
 		@FindBy(id="saveDist")
 		WebElement save_edited;
 		
 		@FindBy(className="ui-dialog-title")
 		WebElement confirmation_title;
+		
+		@FindBy(id="distribution_type-all")
+		WebElement all_radio;
 		
 		@FindBy(xpath="//div[@class='ui-dialog-buttonset']/descendant::span[text()='Change Distribution Settings']")
 		WebElement confirm_update;
@@ -41,14 +45,35 @@ public class ZBOEditDistributionPage extends Page{
 		
 		public boolean clickOnByPercentage() {
 			ActionHelper.waitForElementToBeVisible(driver, percentage_radio, 30);
+			if(ActionHelper.isElementSelected(driver, percentage_radio)) {			
+				clickOnToMe();
+				saveEditedDistribution();
+				confirmationModalTitle();
+				confrimUpdate();
+				clickOnByPercentage();
+				return false;
+			}	
 			return ActionHelper.Click(driver, percentage_radio);
 		}
 		
+		public boolean clickOnToMe() {
+			ActionHelper.waitForElementToBeVisible(driver, all_radio, 30);
+			try {
+			ActionHelper.Click(driver, all_radio);
+			saveEditedDistribution();
+			confirmationModalTitle();
+			confrimUpdate();
+			return true;
+			} catch(Exception e) {
+				e.printStackTrace();
+				return false;
+			}
+		}
+		
 		public boolean typeDistributionPercentage(String appendedElement, String pStringToType) {
-			ActionHelper.waitForStringIDToBeVisible(driver, percentage_agent+appendedElement, 30);
-		//	ActionHelper.ClickByStringElement(driver, percentage_agent+appended_element);
-			//ActionHelper.ClearAndType(pWebDriver, pInputField, pStringToType)
-			return ActionHelper.ClearAndTypebyStringElement(driver, percentage_agent+appendedElement, pStringToType);
+			ActionHelper.waitForStringIDToBeVisible(driver, percentage_agent, 30);
+			WebElement element = ActionHelper.getDynamicElementByID(driver, percentage_agent, appendedElement);
+			return ActionHelper.ClearAndType(driver, element, pStringToType);
 		}
 		
 		public boolean saveEditedDistribution() {
