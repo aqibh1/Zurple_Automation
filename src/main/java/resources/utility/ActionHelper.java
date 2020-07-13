@@ -297,6 +297,7 @@ public class ActionHelper {
 			try {
 				AutomationLogger.info("Waiting for the visibility of element ->"+pInputField);
 				if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
+					pInputField.sendKeys(Keys.BACK_SPACE);
 					pInputField.clear();
 					pInputField.sendKeys(pStringToType);
 					AutomationLogger.info("String typed ->"+pStringToType);

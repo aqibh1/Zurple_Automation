@@ -14,6 +14,7 @@ import com.zurple.my.PageTest;
 import com.zurple.website.ZWRegisterUserPageTest;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
@@ -55,15 +56,10 @@ public class ZBOEditDistributionPageTest extends PageTest{
 		// TODO Auto-generated method stub
 	}
 	
-	@Test(priority=1)
+	@Test(groups="testVerifyAgentInfo")
 	public void testVerifyAgentInfo() {
-		if(agentPageObject==null) {
-			driver = getDriver();
-			agentPageObject = new ZBOAgentsPage(driver);
-			agentPageObject.setUrl("");
-			agentPageObject.setDriver(driver);
-		}
 		getPage("/agents");
+		agentPageObject = new ZBOAgentsPage(driver);
 		assertTrue(agentPageObject.verifyPageTitle(), "Manage agents page title is not visible..");
 		HashMap<String,String> agentInfo = agentPageObject.getAgentNameAndLeadCount();
 		lAgentId = agentInfo.get("agent_url").split("admin_id/")[1];
@@ -71,11 +67,13 @@ public class ZBOEditDistributionPageTest extends PageTest{
 		lAgentName = agentInfo.get("agent_name");
 	}
 	
-	@Test(priority=2)
+	@Test(dependsOnGroups="testVerifyAgentInfo", groups="testVerifyAndSelectAgentForDistribution")
 	public void testVerifyAndSelectAgentForDistribution() {
+		String siteURL=EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		siteURL = siteURL.split("stage01.")[1];
 		page=null;
 		getPage("/agents/distribution");
-		assertEquals(page.editDistributionPageTitle(),"Edit Distribution: zengtest6.us");
+		assertEquals(page.editDistributionPageTitle(),"Edit Distribution: "+siteURL);
 		if(page.clickOnByPercentage()==false) {
 			page=null;
 			getPage("/agents/distribution");
@@ -87,13 +85,13 @@ public class ZBOEditDistributionPageTest extends PageTest{
 		assertTrue(page.confrimUpdate(),"Unable to confirm update");
 	}
 	
-	@Test(priority=3)
+	@Test(dependsOnGroups="testVerifyAndSelectAgentForDistribution", groups="testRegister")
 	@Parameters({"registerUserDataFile"})
 	public void testRegister(String pDataFile) {
 		register.testRegisterUser(pDataFile);
 	}
 	
-	@Test(priority=4)
+	@Test(dependsOnGroups="testRegister")
 	public void testAgentCountAfterLeadRegister() {
 		page=null;
 		getPage("/agents");
