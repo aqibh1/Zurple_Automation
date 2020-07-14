@@ -13,6 +13,7 @@ import org.testng.asserts.SoftAssert;
 
 import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.my.PageTest;
+import com.zurple.website.ZWAccountSettingsPage;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
@@ -409,5 +410,29 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(successAlert.clickOnAssignButton(), "Unable to click on assign button..");
 		assertTrue(successAlert.isSuccessMessageVisible(), "Success message is not visible..");
 		assertTrue(successAlert.clickOnOkButton(), "Unable to click on OK button..");
+	}
+	
+	@Test
+	public void testVerifyBouncedEmail() {
+		getPage();
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page = null;
+		getPage("/lead/"+lLeadId);
+		assertTrue(page.isEmailBounced(), "Email is not bounced..");
+		assertTrue(page.isBouncedEmailErrorVisible(), "Bounced Email error is not visble..");
+		assertTrue(page.isBouncedEmailAttentionErrorVisible(), "Bounced email attention error is not visible..");
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send Email"), "Send Email button is not disabled..");
+		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send Text Message"), "Send Text Message button is not disabled..");
+		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Enroll in Campaign"), "Enroll in Campaign button is not disabled..");
+		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send CMA Report"), "Send CMA Report button is not disabled..");
+		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
+		ActionHelper.staticWait(5);
+		assertTrue(leadDetailPage.isEnrollInCampaignButtonDisabled(), "Enroll in campaign button is not disabled in my messages tab..");
+		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Mass Email", "No"), "Mass email value is not set to No");
+		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Property Updates", "No"), "Property Updates value is not set to No");
+		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Sold Property Updates", "No"), "Sold Property Updates value is not set to No");
+		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Automated Agent Emails", "No"), "Automated Agent Emails value is not set to No");
+		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Market Snapshot Emails", "No"), "Market Snapshot Emails value is not set to No");
 	}
 }

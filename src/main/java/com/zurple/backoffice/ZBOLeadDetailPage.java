@@ -124,7 +124,7 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(id="z-activity-details-searches-tab")
 	WebElement search_block;
 
-	String list_of_disabled_nav_bts = "//ul[@id='lead_detail_navbar']/descendant::a[contains(@class,'lead-btn-disabled') and @title='This lead is currently unsubscribed from direct agent communications (Mass Email)']";
+	String list_of_disabled_nav_bts = "//ul[@id='lead_detail_navbar']/descendant::a[contains(@class,'lead-btn-disabled') and @title]";
 
 	@FindBy(xpath="//div[@id='z-activity-details-sent-tab']/descendant::input[contains(@class,'lead-btn-disabled') and @title='This lead is currently unsubscribed from direct agent communications (Mass Email)']")
 	WebElement enrollInCampaign_button;
@@ -163,6 +163,18 @@ public class ZBOLeadDetailPage extends Page{
 
 	@FindBy(id="reassign-lead-save")
 	WebElement save_lead_Assignment_button;
+	
+	@FindBy(xpath="//div[@role='alert' and contains(text(),'email address has bounced')]")
+	WebElement bounced_email_error;
+	
+	@FindBy(xpath="//div[@role='alert' and contains(text(),'unable to send emails')]")
+	WebElement bounced_email_attention_error;
+	
+	@FindBy(xpath="//span[@class='glyphicon email-validation-glyph glyphicon-exclamation-sign rejected']")
+	WebElement bounced_exclamationmark;
+	
+	String email_preferences_label="//ul[@class='z-lead-preferences z-grid-view-content']/descendant::span[@class='z-lead-preferences-label']";
+	String email_preferences_value = "//ul[@class='z-lead-preferences z-grid-view-content']/descendant::span[@class='z-lead-preferences-data']";
 	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 
@@ -666,5 +678,27 @@ public class ZBOLeadDetailPage extends Page{
 				isClicked = ActionHelper.Click(driver, save_lead_Assignment_button);			}
 		}
 		return isClicked;
+	}
+	public boolean isEmailBounced() {
+		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, bounced_exclamationmark, 30, 30);
+	}
+	public boolean isBouncedEmailErrorVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, bounced_email_error, 15);
+	}
+	public boolean isBouncedEmailAttentionErrorVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, bounced_email_attention_error, 15);
+	}
+	public boolean verifySubscriptionUnsubscriptionStatus(String pSubscriptionToVerify, String pSubscriptionStatusToVerify) {
+		boolean status = false;
+		List<WebElement> list_of_subscriptions = ActionHelper.getListOfElementByXpath(driver, email_preferences_label);
+		List<WebElement> list_of_subscriptions_status = ActionHelper.getListOfElementByXpath(driver, email_preferences_value);;
+
+		for(int i =0;i<list_of_subscriptions.size();i++) {
+			if(ActionHelper.getText(driver, list_of_subscriptions.get(i)).contains(pSubscriptionToVerify)){
+				status = ActionHelper.getText(driver,list_of_subscriptions_status.get(i)).equalsIgnoreCase(pSubscriptionStatusToVerify)?true:false;
+				break;
+			}
+		}
+		return status;
 	}
 }
