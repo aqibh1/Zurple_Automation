@@ -16,9 +16,9 @@
       	<include name="testPPLogin" />
       </methods>
       </class>
-       <class name="com.z57.propertypulse.LoginPageTest" >
+       <class name="com.z57.propertypulse.PPCreateAdPageTest" >
       <methods>
-      	<include name="testDisableAdsFromAdmin" />
+      	<include name="testDisAbleAllTheAds" />
       </methods>
       </class>
     </classes>
