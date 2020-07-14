@@ -1600,6 +1600,31 @@
 			</classes>
 	</parameter>
 	</test>
+	
+	<test name="Verify Leads Distribution">
+	 <parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-localinfo-search.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.ZBOEditDistributionPageTest">
+				<methods>
+					<include name="testVerifyAgentInfo" />
+			 		<include name="testVerifyAndSelectAgentForDistribution" /> 
+			 		<include name="testRegister" />
+			 		<include name="testAgentCountAfterLeadRegister" />
+				</methods>
+			</class>
+	 		<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+		</classes>
+  	</parameter>
+	</test>
 	<!-- Social Test Cases -->
 	
 	<test name="Create and Verify Twitter Text post Now">
