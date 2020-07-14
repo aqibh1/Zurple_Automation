@@ -14,6 +14,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
@@ -360,8 +361,12 @@ public class PPCreateAdPageTest extends PageTest{
 
 	@Test
 	public void testDisAbleAllTheAds() {
-		getPage("/content/marketing/ads");
-		assertTrue(new PPAdsOverviewPageOld(driver).disableAllTheAds(), "Unable to disable all the ads");
+//		getPage("/content/marketing/ads");
+//		assertTrue(new PPAdsOverviewPageOld(driver).disableAllTheAds(), "Unable to disable all the ads");
+		String lAccount_ID = EnvironmentFactory.configReader.getPropertyByName("z57_propertypulse_user_account_id");
+		getPage("/admin/social?account="+lAccount_ID+"&ad_id=&num_billed=&ad_type=0&ad_billed=0&ui_step=4&ad_state=live&api_status=0&test_ads=0&date_start=&date_end=&limit=100");
+
+		assertTrue(new PPAdminAds(driver).disableAllAds(), "Unable to disable all the ads");;
 		
 	}
 	private String getDomain(String pDomain) {
