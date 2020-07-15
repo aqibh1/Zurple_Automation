@@ -151,7 +151,7 @@ public class ZBOAgentsPage extends Page{
 	}
 	public String getAgentLeadCount(String pAgentName) {
 		String lAgentLeadsCount = "";
-		lAgentLeadsCount = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, agent_lead_count, pAgentName));
+		lAgentLeadsCount = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, agent_lead_count, pAgentName.trim()));
 		return lAgentLeadsCount;
 	}
 }

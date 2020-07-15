@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
@@ -123,6 +124,40 @@ public class ZBOAgentsPageTest extends PageTest {
 		agent_info.put("agent_email", lAgentEmail);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAgentsInfo, agent_info);
 
+	}
+	@Test
+	public void testEditAgentProfile() {
+		getPage("/agents");
+		String lAgent_lastname = updateName("");
+		assertTrue(page.verifyPageTitle(), "Manage agents page title is not visible..");
+		//Fetch the hash map of agent info
+		HashMap<String,String>  agent_info = page.getAgentNameAndLeadCount();
+		driver.navigate().to(agent_info.get("agent_url"));
+		ZBOEditAgentPage editAgentPage = new ZBOEditAgentPage(driver);
+		assertTrue(editAgentPage.isEditAgentPage(), "Edit Agent Page is not visible..");
+		assertTrue(editAgentPage.typeAgentLastName(lAgent_lastname), "Unable to type agent last name..");
+		assertTrue(editAgentPage.clickOnSaveButton(), "Unable to click on save button....");
+		assertTrue(editAgentPage.isAgentInfoUpdated(), "Agent Info updated successfully message is not displayed....");
+		String lAgentNameToVerify = agent_info.get("agent_name").split(" ")[0];
+		lAgentNameToVerify = lAgentNameToVerify+" "+lAgent_lastname;
+		page = null;
+		getPage("/agents");
+		assertTrue(!page.getAgentLeadCount(lAgentNameToVerify).isEmpty(), "Agent updated successfully");
+	}
+	
+	@Test
+	public void testEditSitOwnerProfile() {
+		page=null;
+		getPage("/agent/edit/admin_id/"+EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id"));
+		String lAgentPhone = updateName("");
+		lAgentPhone = lAgentPhone.substring(1,11);
+		//Fetch the hash map of agent info
+		ZBOEditAgentPage editAgentPage = new ZBOEditAgentPage(driver);
+		assertTrue(editAgentPage.isEditAgentPage(), "Edit Agent Page is not visible..");
+		assertTrue(editAgentPage.updateAgentOfficePhone(lAgentPhone), "Edit Agent Page is not visible..");
+		assertTrue(editAgentPage.clickOnSaveButton(), "Unable to click on save button....");
+		assertTrue(editAgentPage.isAgentInfoUpdated(), "Agent Info updated successfully message is not displayed....");
+		assertTrue(editAgentPage.verifyOfficePhone(lAgentPhone), "Edit Agent Page is not visible..");
 	}
 	
 	private void addUpdateAgent(String pDataFile) {
