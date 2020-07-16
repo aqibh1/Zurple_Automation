@@ -12,7 +12,7 @@ import com.zurple.my.Page;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
-public class ZBODashboard extends Page{
+public class ZBODashboardPage extends Page{
 	@FindBy(className="z-lead-phone")
 	WebElement phoneNumber;
 	
@@ -25,7 +25,7 @@ public class ZBODashboard extends Page{
 	@FindBy(id="username")
 	WebElement username_input;
 	
-	public ZBODashboard(WebDriver pWebDriver) {
+	public ZBODashboardPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
 	}

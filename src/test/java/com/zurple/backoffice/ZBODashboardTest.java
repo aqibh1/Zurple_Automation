@@ -28,7 +28,7 @@ import static org.testng.Assert.assertFalse;
 public class ZBODashboardTest extends PageTest
 {
 
-    private ZBODashboard page;
+    private ZBODashboardPage page;
     private WebDriver driver;
     private JSONObject dataObject;
     
@@ -36,7 +36,7 @@ public class ZBODashboardTest extends PageTest
     	page=null;
     	if(page == null){
         	driver = getDriver();
-			page = new ZBODashboard(driver);
+			page = new ZBODashboardPage(driver);
 			page.setUrl("");
 			page.setDriver(driver);
         }
@@ -46,7 +46,7 @@ public class ZBODashboardTest extends PageTest
     public AbstractPage getPage(String pUrl){
         if(page == null){
         	driver = getDriver();
-			page = new ZBODashboard(driver);
+			page = new ZBODashboardPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
         }
