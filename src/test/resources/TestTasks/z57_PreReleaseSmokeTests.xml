@@ -53,7 +53,7 @@
       </class>
     </classes>
 	</test>
-   
+   <!--   
     <test name="Disable all the ads">
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
@@ -73,7 +73,7 @@
       </class>
     </classes>
 	</test>
-	
+	-->
 	<test name="Home Seacrh Test 01" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
 	<classes>
