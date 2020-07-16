@@ -76,5 +76,26 @@ public class ZBODashboardTest extends PageTest
     	getPage();
     	assertTrue(page.doLogout(), "Logout failed");
     }
+    
+    @Test
+    public void testVerifyDashboardStatsAreDisplayed() {
+    	getPage();
+//    	assertTrue(page.hardRefreshThePage(), "Unable to do hard refresh..");
+    	assertTrue(page.isKeyStatsVisible(), "Key stats are not displayed..");
+    	assertTrue(page.isLeadsManagedStatsVisible(), "Leads managed stats are not displayed..");
+    	assertTrue(page.isMessagesSentVisible(), "Messages sent are not displayed..");
+    	assertTrue(page.isMessagesOpenRateVisible(), "Messages open rate stats are not displayed..");
+    	assertTrue(page.allVisitesTodayWorking(), "All visits today graph is not working..");
+    	assertTrue(page.allVisitesPastWeekWorking(), "All visits past week graph is not working..");
+    	assertTrue(page.allVisitesPastMontWorking(), "All visits past month graph is not working..");
+    	assertTrue(page.allVisitesPastYearWorking(), "All visits past year graph is not working..");
+    	assertTrue(page.isZurpleUpdateVisible(), "Zurple updates are not displayed..");
+    	assertTrue(page.isZurpleUpdatesTextVisible(), "Zurple updates text is not displayed..");
+    	assertTrue(page.isNewLeadsHeadingAndStatsDisplayed(), "New leads heading and stats are not displayed..");
+    	assertTrue(page.isLeadNamesDisplayed(), "Lead names are not displayed..");
+    	assertTrue(page.isHotBehaviorsDisplayed(), "Hot Behaviors is not displayed..");
+    	assertTrue(page.clickOnViewLeadsButton(), "View leads button is not working..");
+    	
+    }
 
 }
