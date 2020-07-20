@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
@@ -18,6 +19,7 @@ import com.zurple.my.PageTest;
 import resources.AbstractPage;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.ZurpleListingConstants;
@@ -77,6 +79,21 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
 		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
 		fillStandardEmailForm(lDataObject);
+		System.out.println("This is email subject: "+emailSubject);
+		testVerifyEmailInMyMessages(lDataObject, emailSubject);
+	}
+	
+	@Test
+	@Parameters({"standardEmailData"})
+	public void testSendBulkEmail(String pDataFile) {
+		JSONObject lDataObject = getDataFile(pDataFile);
+		getPage();
+		leadStatus(lDataObject, 0);
+		page = null;
+		getPage("/marketing/massemail");
+		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
+		assertTrue(page.selectRecipients(lDataObject.optString("recipient_bulkemail")), "Unable to select the recipients...");
+		fillStandardEmailForm(null);
 		System.out.println("This is email subject: "+emailSubject);
 		testVerifyEmailInMyMessages(lDataObject, emailSubject);
 	}
@@ -147,7 +164,6 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			ActionHelper.staticWait(2);
 			
 		}
-			
 		assertTrue(page.clickOnSendButton(), "Unable to click on Send button...");
 		ActionHelper.staticWait(2);
 		assertTrue(page.isSuccessMessage(), "Unable to send email, success message is not displayed...");
@@ -158,7 +174,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		String lLeadId = null;		
 			if(!getIsProd()) {
 				lLeadId = pDataObject.optString("leadidstage");
-				//Process email queue
+			//	Process email queue
 				page=null;
 				getPage("/admin/processemailqueue");
 				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
@@ -173,5 +189,13 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			assertTrue(p.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
 			assertTrue(p.verifyMyMessagesEmails(pEmailSubject));
 }
-
+	
+	public void leadStatus(JSONObject pDataObject, int index) {
+		String lead_prospects = pDataObject.optString("lead_prospect").split(",")[index];
+		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
+		assertTrue(p.isLeadDetailPage(), "Lead detail page is not visible..");
+		assertTrue(p.clickAndSelectLeadProspect(lead_prospects), "Unable to select the status -> "+lead_prospects);
+		assertTrue(successAlert.clickOnTemporaryButton(), "Unable to click on Temporary button..");
+	}
 }
+//}
