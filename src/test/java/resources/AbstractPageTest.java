@@ -317,7 +317,13 @@ public abstract class AbstractPageTest extends AbstractTest
     		lNum = lNum - 1;
     	}
     	return lNum;
-}
+    }
+    protected String getCuurentTime() {
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
+    	String formattedDate = dateFormat.format(new Date(System.currentTimeMillis())).toString().toLowerCase();
+    	return formattedDate;
+    	
+    }
     
 
 }

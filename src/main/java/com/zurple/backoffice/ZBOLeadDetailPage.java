@@ -177,6 +177,11 @@ public class ZBOLeadDetailPage extends Page{
 	String email_preferences_label="//ul[@class='z-lead-preferences z-grid-view-content']/descendant::span[@class='z-lead-preferences-label']";
 	String email_preferences_value = "//ul[@class='z-lead-preferences z-grid-view-content']/descendant::span[@class='z-lead-preferences-data']";
 	
+	@FindBy(id="z-activity-details-scheduled-grid")
+	WebElement scheduledEmails;
+	
+	String scheduled_messages_list = "//div[@id='z-activity-details-scheduled-grid']/descendant::td[contains(@class,'subject')]/div[@class='yui-dt-liner']";
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 
 	public ZBOLeadDetailPage() {
@@ -701,5 +706,36 @@ public class ZBOLeadDetailPage extends Page{
 			}
 		}
 		return status;
+	}
+	public boolean verifyScheduledEmail(String pEmailToVerify) {
+		boolean isEmailReceived = false;
+		if(ActionHelper.Click(driver, myMessages_tab_button)) {
+			isEmailReceived = checkScheduledEmail(pEmailToVerify);
+		}
+		return isEmailReceived;
+	}
+	public boolean checkScheduledEmail(String pEmailToVerify) {
+		String str = "";
+		int counter = 0;
+		boolean lIsEmailVisible = false;
+		while(!lIsEmailVisible && counter<15) {
+			if(ActionHelper.isElementVisible(driver, scheduledEmails)) {
+				List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, scheduled_messages_list);
+				ActionHelper.staticWait(2);
+				for(WebElement element:subjectList) {
+					str = ActionHelper.getText(driver, element);
+					if(str.equals(pEmailToVerify)) {
+//						assertTrue(verifyEmailDateTime(), "unable to verify date");
+						lIsEmailVisible = true;
+						break;
+					}
+				}
+			} 
+			if(!lIsEmailVisible) {
+				waitForMessageAppearance();
+			}
+			counter++;
+		}
+		return lIsEmailVisible;
 	}
 }

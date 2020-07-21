@@ -6,6 +6,12 @@ package com.zurple.backoffice;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
@@ -30,11 +36,11 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 
 	ZBOMarketingEmailMessagePage page;
 	private WebDriver driver;
-	ZBOLeadDetailPage p;
+	ZBOLeadDetailPage leadDetailPage;
 	String lToEmail;
 	String flyerSubject;
 	String emailSubject;
-	
+	long lWaitTime = 0;
 	@Override
 	public AbstractPage getPage() {
 		// TODO Auto-generated method stub
@@ -47,7 +53,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			page = new ZBOMarketingEmailMessagePage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
-			p = new ZBOLeadDetailPage(driver);
+			leadDetailPage = new ZBOLeadDetailPage(driver);
 		}
 		return page;
 	}
@@ -88,6 +94,8 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
 		assertTrue(page.isTemplateExists(lTemplateName), "Template does not exist in Mass email drop down..");	
 	}
+	
+	
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
 		lToEmail = pDataObject.optString("toemail");
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");
@@ -117,7 +125,20 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			
 	}
 	
+	@Test
+	@Parameters({"standardEmailData"})
+	public void testSendScheduledStandardEmail(String pDataFile) {
+		JSONObject lDataObject = getDataFile(pDataFile);
+		getPage("/marketing/massemail");
+		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
+		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
+		fillStandardEmailForm(lDataObject);
+		System.out.println("This is email subject: "+emailSubject);
+		testVerifyScheduledEmailInMyMessages(lDataObject, emailSubject);
+	}
+	
 	private void fillStandardEmailForm(JSONObject pDataObject) {
+		boolean isScheduledEmail = false;
 		lToEmail = pDataObject.optString("toemail");
 		assertTrue(page.clickOnSendStandardEmailButton(), "Unable to click on standard email button..");
 		ActionHelper.staticWait(2);
@@ -132,7 +153,8 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			assertTrue(page.clickOnAttachFileButton(), "Unable to click on attach file button..");
 			ActionHelper.staticWait(2);
 			page.getAttachFileForm().switchToBrowserToNewWindow();
-			assertTrue(page.getAttachFileForm().isUploadFileFormVisible(), "Upload file form is not visible..");
+			ActionHelper.staticWait(10);
+//			assertTrue(page.getAttachFileForm().isUploadFileFormVisible(), "Upload file form is not visible..");
 			assertTrue(page.getAttachFileForm().clickAndSelectFile(), "Unable to select the file from upload form ..");
 			ActionHelper.staticWait(5);
 			page.getAttachFileForm().switchToOriginalWindow();
@@ -147,31 +169,80 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			ActionHelper.staticWait(2);
 			
 		}
-			
+		if(pDataObject.optString("schedule_email")!=null && !pDataObject.optString("schedule_email").isEmpty()) {
+			assertTrue(page.selectSchedule(), "Unable to schedule the email..");
+			isScheduledEmail = true;
+		}
 		assertTrue(page.clickOnSendButton(), "Unable to click on Send button...");
 		ActionHelper.staticWait(2);
-		assertTrue(page.isSuccessMessage(), "Unable to send email, success message is not displayed...");
+		if(isScheduledEmail) {
+			assertTrue(page.isScheduledMessageDisplayed(), "Unable to send email, scheduled email message is not displayed...");
+			String scheduledLabel = page.getScheduledLabel().split(" ")[4];
+			lWaitTime = getDifference(scheduledLabel);
+		}else {
+			assertTrue(page.isSuccessMessage(), "Unable to send email, success message is not displayed...");
+		}
+		
 	}
 	
 	public void testVerifyEmailInMyMessages(JSONObject pDataObject, String pEmailSubject) {
 		getPage();
-		String lLeadId = null;		
-			if(!getIsProd()) {
-				lLeadId = pDataObject.optString("leadidstage");
-				//Process email queue
-				page=null;
-				getPage("/admin/processemailqueue");
-				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-				page = null;
-				getPage("/lead/"+lLeadId);
-			} else {
-				lLeadId = pDataObject.optString("leadid");
-				page = null;
-				getPage("/lead/"+lLeadId);
-				page = null;
-			}
-			assertTrue(p.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
-			assertTrue(p.verifyMyMessagesEmails(pEmailSubject));
-}
-
+		String lLeadId = null;	
+		if(!getIsProd()) {
+			lLeadId = pDataObject.optString("leadidstage");
+			//Process email queue
+			page=null;
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+			page = null;
+			getPage("/lead/"+lLeadId);
+		} else {
+			lLeadId = pDataObject.optString("leadid");
+			page = null;
+			getPage("/lead/"+lLeadId);
+			page = null;
+		}
+		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
+		assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject));
+	}
+	
+	public void testVerifyScheduledEmailInMyMessages(JSONObject pDataObject, String pEmailSubject) {
+		getPage();
+		String lLeadId = null;	
+		AutomationLogger.info("Waiting for minutes "+lWaitTime);
+		ActionHelper.staticWait(lWaitTime*60);	
+		if(!getIsProd()) {
+			lLeadId = pDataObject.optString("leadidstage");
+			//Process email queue
+			page=null;
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+			page = null;
+			getPage("/lead/"+lLeadId);
+		} else {
+			lLeadId = pDataObject.optString("leadid");
+			page = null;
+			getPage("/lead/"+lLeadId);
+			page = null;
+		}
+		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
+		assertTrue(leadDetailPage.verifyScheduledEmail(pEmailSubject), "Unable to verify scheduled messages..");
+		assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject), "Unable to verify scheduled email under my messages..");
+	}
+	private long getDifference(String pEndTime) {
+		long duration = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+		Date startTime;
+		try {
+			startTime = sdf.parse(pEndTime);
+			Date now = sdf.parse(getCuurentTime());
+			duration = startTime.getTime() -now.getTime();
+		}
+		catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		duration =TimeUnit.MILLISECONDS.toMinutes(duration);
+		return duration+1;
+	}
 }

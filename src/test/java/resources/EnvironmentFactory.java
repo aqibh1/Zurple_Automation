@@ -112,7 +112,14 @@ public class EnvironmentFactory {
             webDrivers.remove(thread_id);
         }
     }
-
+    public static void quitDriver(long thread_id){
+        if ( webDrivers.containsKey(thread_id) )
+        {
+            WebDriver driver = webDrivers.get(thread_id);
+            driver.quit();
+            webDrivers.remove(thread_id);
+        }
+    }
     public static TestEnvironment getEnvironment(long thread_id){
 
         TestEnvironment environment;
