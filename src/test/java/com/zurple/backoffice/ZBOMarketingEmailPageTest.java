@@ -9,13 +9,13 @@ import static org.testng.Assert.assertTrue;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
@@ -24,6 +24,7 @@ import com.zurple.my.PageTest;
 import resources.AbstractPage;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.ZurpleListingConstants;
@@ -40,11 +41,20 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	String lToEmail;
 	String flyerSubject;
 	String emailSubject;
+	String bulkEmailSubject;
 	long lWaitTime = 0;
+	
 	@Override
 	public AbstractPage getPage() {
 		// TODO Auto-generated method stub
-		return null;
+		if(page==null) {
+			driver = getDriver();
+			page = new ZBOMarketingEmailMessagePage(driver);
+			page.setUrl("");
+			page.setDriver(driver);
+			leadDetailPage = new ZBOLeadDetailPage(driver);
+		}
+		return page;
 	}
 	
 	public AbstractPage getPage(String pUrl) {
@@ -87,6 +97,21 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		testVerifyEmailInMyMessages(lDataObject, emailSubject);
 	}
 	
+	@Test
+	@Parameters({"standardEmailData"})
+	public void testSendBulkEmail(String pDataFile) {
+		JSONObject lDataObject = getDataFile(pDataFile);
+		leadStatus(lDataObject, 0);
+		page = null;
+		getPage("/marketing/massemail");
+		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
+		assertTrue(page.selectRecipients(lDataObject.optString("recipient_bulkemail")), "Unable to select the recipients...");
+		fillStandardEmailForm(lDataObject);
+		System.out.println("This is bulk email subject: "+bulkEmailSubject);
+		testVerifyEmailInMyMessages(lDataObject, bulkEmailSubject);
+		leadStatus(lDataObject, 1);
+	}
+	
 	@Test(dependsOnGroups = {"com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate"})
 	public void testVerifyTemplateExists() {
 		getPage("/marketing/massemail");
@@ -94,8 +119,6 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
 		assertTrue(page.isTemplateExists(lTemplateName), "Template does not exist in Mass email drop down..");	
 	}
-	
-	
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
 		lToEmail = pDataObject.optString("toemail");
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");
@@ -125,30 +148,26 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			
 	}
 	
-	@Test
-	@Parameters({"standardEmailData"})
-	public void testSendScheduledStandardEmail(String pDataFile) {
-		JSONObject lDataObject = getDataFile(pDataFile);
-		getPage("/marketing/massemail");
-		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
-		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
-		fillStandardEmailForm(lDataObject);
-		System.out.println("This is email subject: "+emailSubject);
-		testVerifyScheduledEmailInMyMessages(lDataObject, emailSubject);
-	}
-	
 	private void fillStandardEmailForm(JSONObject pDataObject) {
 		boolean isScheduledEmail = false;
 		lToEmail = pDataObject.optString("toemail");
 		assertTrue(page.clickOnSendStandardEmailButton(), "Unable to click on standard email button..");
 		ActionHelper.staticWait(2);
-		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject, updateName(pDataObject.optString("subject")));
-		emailSubject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject);
-		assertTrue(page.typeToSubject(emailSubject), "Unable to type subject..");
-		ActionHelper.staticWait(2);
-		assertTrue(page.typeToEmail(lToEmail), "Unable to type subject..");
-		ActionHelper.staticWait(2);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleStandardEmailSubject, updateName(pDataObject.optString("subject")));
+		emailSubject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleStandardEmailSubject);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleBulkEmailSubject, updateName(pDataObject.optString("bulkEmailSubject")));
+		bulkEmailSubject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleBulkEmailSubject);
 		
+		if(page.checkSelectedRecipient()) { //Recipient is Individual lead
+			assertTrue(page.typeToSubject(emailSubject), "Unable to type subject..");
+		} else {
+			assertTrue(page.typeToSubject(bulkEmailSubject), "Unable to type bulk email subject..");
+		}
+		ActionHelper.staticWait(2);
+		if(page.checkSelectedRecipient()) { //Recipient is Individual lead
+			assertTrue(page.typeToEmail(lToEmail), "Unable to type lead email..");
+		}
+		ActionHelper.staticWait(2);
 		if(pDataObject.optString("file_path")!=null && !pDataObject.optString("file_path").isEmpty()) {
 			assertTrue(page.clickOnAttachFileButton(), "Unable to click on attach file button..");
 			ActionHelper.staticWait(2);
@@ -182,41 +201,56 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		}else {
 			assertTrue(page.isSuccessMessage(), "Unable to send email, success message is not displayed...");
 		}
-		
 	}
 	
 	public void testVerifyEmailInMyMessages(JSONObject pDataObject, String pEmailSubject) {
 		getPage();
-		String lLeadId = null;	
-		if(!getIsProd()) {
-			lLeadId = pDataObject.optString("leadidstage");
-			//Process email queue
-			page=null;
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-			page = null;
-			getPage("/lead/"+lLeadId);
-		} else {
-			lLeadId = pDataObject.optString("leadid");
-			page = null;
-			getPage("/lead/"+lLeadId);
-			page = null;
-		}
-		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
-		assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject));
-	}
-	
+		String lLeadId = null;		
+			if(!getIsProd()) {
+				lLeadId = pDataObject.optString("leadidstage");
+			//	Process email queue
+				page=null;
+				getPage("/admin/processemailqueue");
+				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+				page = null;
+				getPage("/lead/"+lLeadId);
+			} else {
+				lLeadId = pDataObject.optString("leadid");
+				page = null;
+				getPage("/lead/"+lLeadId);
+				page = null;
+			}
+			assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
+			assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject));
+}
 	public void testVerifyScheduledEmailInMyMessages(JSONObject pDataObject, String pEmailSubject) {
 		getPage();
 		String lLeadId = null;	
 		AutomationLogger.info("Waiting for minutes "+lWaitTime);
-		ActionHelper.staticWait(lWaitTime*60);	
+		ActionHelper.staticWait(lWaitTime*60);		
+			if(!getIsProd()) {
+				lLeadId = pDataObject.optString("leadidstage");
+			//	Process email queue
+				page=null;
+				getPage("/admin/processemailqueue");
+				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+				page = null;
+				getPage("/lead/"+lLeadId);
+			} else {
+				lLeadId = pDataObject.optString("leadid");
+				page = null;
+				getPage("/lead/"+lLeadId);
+				page = null;
+			}
+			assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
+			assertTrue(leadDetailPage.verifyScheduledEmail(pEmailSubject), "Unable to verify scheduled messages..");
+			assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject), "Unable to verify scheduled email under my messages..");
+}
+	public void leadStatus(JSONObject pDataObject, int index) {
+		getPage();
+		String lLeadId = null;		
 		if(!getIsProd()) {
 			lLeadId = pDataObject.optString("leadidstage");
-			//Process email queue
-			page=null;
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
 			page = null;
 			getPage("/lead/"+lLeadId);
 		} else {
@@ -225,24 +259,27 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			getPage("/lead/"+lLeadId);
 			page = null;
 		}
-		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
-		assertTrue(leadDetailPage.verifyScheduledEmail(pEmailSubject), "Unable to verify scheduled messages..");
-		assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject), "Unable to verify scheduled email under my messages..");
+		String lead_prospects = pDataObject.optString("lead_prospect").split(",")[index];
+		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
+		assertTrue(leadDetailPage.isLeadDetailPage(), "Lead detail page is not visible..");
+		assertTrue(leadDetailPage.clickAndSelectLeadProspect(lead_prospects), "Unable to select the status -> "+lead_prospects);
+		assertTrue(successAlert.clickOnTemporaryButton(), "Unable to click on Temporary button..");
 	}
-	private long getDifference(String pEndTime) {
-		long duration = 0;
-		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
-		Date startTime;
-		try {
-			startTime = sdf.parse(pEndTime);
-			Date now = sdf.parse(getCuurentTime());
-			duration = startTime.getTime() -now.getTime();
-		}
-		catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		duration =TimeUnit.MILLISECONDS.toMinutes(duration);
-		return duration+1;
+
+private long getDifference(String pEndTime) {
+	long duration = 0;
+	SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+	Date startTime;
+	try {
+		startTime = sdf.parse(pEndTime);
+		Date now = sdf.parse(getCuurentTime());
+		duration = startTime.getTime() -now.getTime();
 	}
+	catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	duration =TimeUnit.MILLISECONDS.toMinutes(duration);
+	return duration+1;
+}
 }

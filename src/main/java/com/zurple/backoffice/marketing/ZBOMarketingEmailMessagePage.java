@@ -104,6 +104,9 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	
 	@FindBy(xpath="//span[@id='scheduled-label']/span[1]")
 	WebElement scheduled_label;
+
+	@FindBy(id="massemail_type-lead")
+	WebElement individual_recipient;
 	
 	private ZBOInsertImageForm zboInsertImageForm;
 	private ZBOAttachFileForm zbAttachFileForm;
@@ -219,6 +222,7 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	public boolean isTemplateExists(String pTemplateName) {
 		return ActionHelper.selectDropDownOption(driver,campaign_template_dropdown , "", pTemplateName);
 	}
+
 	public boolean selectSchedule() {
 		boolean isScheduleSelected = false;
 		boolean isClicked = ActionHelper.Click(driver, schedule_button);
@@ -239,5 +243,8 @@ public class ZBOMarketingEmailMessagePage extends Page{
 			lSchedule = ActionHelper.getText(driver, scheduled_label);
 		}
 		return lSchedule;
+	}
+	public boolean checkSelectedRecipient() {
+		return ActionHelper.isElementSelected(driver, individual_recipient);
 	}
 }
