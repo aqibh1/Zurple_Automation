@@ -1,12 +1,12 @@
 {
 	"recipients":"Individual Lead with any Status other than Inactive",
 	"recipient_bulkemail":"All Leads with Status of Client - Active Opportunity, Client - Sold",
-	"mls_id":"190020375",
+	"mls_id":"190010171",
 	"subject":"Standard Email",
 	"bulkEmailSubject":"Bulk Email Subject",
 	"file_path":"true",
 	"toemail": "autoprod_zurpleqa@yahoo.com",
 	"leadid":"4768381",
-	"leadidstage": "3018034",
+	"leadidstage": "3018053",
 	"lead_prospect":"Client - Sold,Prospect - Unresponsive"
 }
