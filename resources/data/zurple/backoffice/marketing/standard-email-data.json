@@ -3,6 +3,7 @@
 	"recipient_bulkemail":"All Leads with Status of Client - Active Opportunity, Client - Sold",
 	"mls_id":"190020375",
 	"subject":"Standard Email",
+	"bulkEmailSubject":"Bulk Email Subject",
 	"file_path":"true",
 	"toemail": "autoprod_zurpleqa@yahoo.com",
 	"leadid":"4768381",

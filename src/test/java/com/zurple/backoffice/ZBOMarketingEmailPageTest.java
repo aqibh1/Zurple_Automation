@@ -36,11 +36,19 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	String lToEmail;
 	String flyerSubject;
 	String emailSubject;
+	String bulkEmailSubject;
 	
 	@Override
 	public AbstractPage getPage() {
 		// TODO Auto-generated method stub
-		return null;
+		if(page==null) {
+			driver = getDriver();
+			page = new ZBOMarketingEmailMessagePage(driver);
+			page.setUrl("");
+			page.setDriver(driver);
+			p = new ZBOLeadDetailPage(driver);
+		}
+		return page;
 	}
 	
 	public AbstractPage getPage(String pUrl) {
@@ -87,15 +95,15 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Parameters({"standardEmailData"})
 	public void testSendBulkEmail(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
-		getPage();
 		leadStatus(lDataObject, 0);
 		page = null;
 		getPage("/marketing/massemail");
 		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
 		assertTrue(page.selectRecipients(lDataObject.optString("recipient_bulkemail")), "Unable to select the recipients...");
-		fillStandardEmailForm(null);
-		System.out.println("This is email subject: "+emailSubject);
-		testVerifyEmailInMyMessages(lDataObject, emailSubject);
+		fillStandardEmailForm(lDataObject);
+		System.out.println("This is bulk email subject: "+bulkEmailSubject);
+		testVerifyEmailInMyMessages(lDataObject, bulkEmailSubject);
+		leadStatus(lDataObject, 1);
 	}
 	
 	@Test(dependsOnGroups = {"com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate"})
@@ -138,13 +146,21 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		lToEmail = pDataObject.optString("toemail");
 		assertTrue(page.clickOnSendStandardEmailButton(), "Unable to click on standard email button..");
 		ActionHelper.staticWait(2);
-		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject, updateName(pDataObject.optString("subject")));
-		emailSubject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject);
-		assertTrue(page.typeToSubject(emailSubject), "Unable to type subject..");
-		ActionHelper.staticWait(2);
-		assertTrue(page.typeToEmail(lToEmail), "Unable to type subject..");
-		ActionHelper.staticWait(2);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleStandardEmailSubject, updateName(pDataObject.optString("subject")));
+		emailSubject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleStandardEmailSubject);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleBulkEmailSubject, updateName(pDataObject.optString("bulkEmailSubject")));
+		bulkEmailSubject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleBulkEmailSubject);
 		
+		if(page.checkSelectedRecipient()) { //Recipient is Individual lead
+			assertTrue(page.typeToSubject(emailSubject), "Unable to type subject..");
+		} else {
+			assertTrue(page.typeToSubject(bulkEmailSubject), "Unable to type bulk email subject..");
+		}
+		ActionHelper.staticWait(2);
+		if(page.checkSelectedRecipient()) { //Recipient is Individual lead
+			assertTrue(page.typeToEmail(lToEmail), "Unable to type lead email..");
+		}
+		ActionHelper.staticWait(2);
 		if(pDataObject.optString("file_path")!=null && !pDataObject.optString("file_path").isEmpty()) {
 			assertTrue(page.clickOnAttachFileButton(), "Unable to click on attach file button..");
 			ActionHelper.staticWait(2);
@@ -191,6 +207,18 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 }
 	
 	public void leadStatus(JSONObject pDataObject, int index) {
+		getPage();
+		String lLeadId = null;		
+		if(!getIsProd()) {
+			lLeadId = pDataObject.optString("leadidstage");
+			page = null;
+			getPage("/lead/"+lLeadId);
+		} else {
+			lLeadId = pDataObject.optString("leadid");
+			page = null;
+			getPage("/lead/"+lLeadId);
+			page = null;
+		}
 		String lead_prospects = pDataObject.optString("lead_prospect").split(",")[index];
 		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
 		assertTrue(p.isLeadDetailPage(), "Lead detail page is not visible..");

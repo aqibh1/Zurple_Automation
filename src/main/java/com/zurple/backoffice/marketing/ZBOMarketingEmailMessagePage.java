@@ -93,6 +93,9 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	@FindBy(id="campaign_template")
 	WebElement campaign_template_dropdown;
 	
+	@FindBy(id="massemail_type-lead")
+	WebElement individual_recipient;
+	
 	private ZBOInsertImageForm zboInsertImageForm;
 	private ZBOAttachFileForm zbAttachFileForm;
 	
@@ -206,5 +209,8 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	}
 	public boolean isTemplateExists(String pTemplateName) {
 		return ActionHelper.selectDropDownOption(driver,campaign_template_dropdown , "", pTemplateName);
+	}
+	public boolean checkSelectedRecipient() {
+		return ActionHelper.isElementSelected(driver, individual_recipient);
 	}
 }
