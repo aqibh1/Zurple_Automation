@@ -119,6 +119,19 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
 		assertTrue(page.isTemplateExists(lTemplateName), "Template does not exist in Mass email drop down..");	
 	}
+	
+	@Test
+	@Parameters({"standardEmailData"})
+	public void testSendScheduledStandardEmail(String pDataFile) {
+		JSONObject lDataObject = getDataFile(pDataFile);
+		getPage("/marketing/massemail");
+		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
+		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
+		fillStandardEmailForm(lDataObject);
+		System.out.println("This is email subject: "+emailSubject);
+		testVerifyScheduledEmailInMyMessages(lDataObject, emailSubject);
+	}
+	
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
 		lToEmail = pDataObject.optString("toemail");
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");
@@ -226,24 +239,31 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	public void testVerifyScheduledEmailInMyMessages(JSONObject pDataObject, String pEmailSubject) {
 		getPage();
 		String lLeadId = null;	
-		AutomationLogger.info("Waiting for minutes "+lWaitTime);
-		ActionHelper.staticWait(lWaitTime*60);		
+		AutomationLogger.info("Waiting for minutes "+lWaitTime);	
 			if(!getIsProd()) {
 				lLeadId = pDataObject.optString("leadidstage");
+				page = null;
+				getPage("/lead/"+lLeadId);
+				assertTrue(leadDetailPage.verifyScheduledEmail(pEmailSubject), "Unable to verify scheduled messages..");
+				ActionHelper.staticWait(lWaitTime*60);	
 			//	Process email queue
 				page=null;
 				getPage("/admin/processemailqueue");
 				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
 				page = null;
 				getPage("/lead/"+lLeadId);
+				
+				
 			} else {
 				lLeadId = pDataObject.optString("leadid");
 				page = null;
 				getPage("/lead/"+lLeadId);
+				assertTrue(leadDetailPage.verifyScheduledEmail(pEmailSubject), "Unable to verify scheduled messages..");
+				ActionHelper.staticWait(lWaitTime*60);	
 				page = null;
+				getPage("/lead/"+lLeadId);
 			}
 			assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
-			assertTrue(leadDetailPage.verifyScheduledEmail(pEmailSubject), "Unable to verify scheduled messages..");
 			assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject), "Unable to verify scheduled email under my messages..");
 }
 	public void leadStatus(JSONObject pDataObject, int index) {

@@ -2009,4 +2009,24 @@
 		</classes>
 		</parameter>
 	</test>
+	
+	<test name="Verify Dashboard stats">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBODashboardTest">
+					<methods>
+						<include name="testVerifyDashboardStatsAreDisplayed" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
 </suite>

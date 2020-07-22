@@ -710,6 +710,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyScheduledEmail(String pEmailToVerify) {
 		boolean isEmailReceived = false;
 		if(ActionHelper.Click(driver, myMessages_tab_button)) {
+			ActionHelper.staticWait(2);
 			isEmailReceived = checkScheduledEmail(pEmailToVerify);
 		}
 		return isEmailReceived;
@@ -719,7 +720,7 @@ public class ZBOLeadDetailPage extends Page{
 		int counter = 0;
 		boolean lIsEmailVisible = false;
 		while(!lIsEmailVisible && counter<15) {
-			if(ActionHelper.isElementVisible(driver, scheduledEmails)) {
+			//if(ActionHelper.isElementVisible(driver, scheduledEmails)) {
 				List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, scheduled_messages_list);
 				ActionHelper.staticWait(2);
 				for(WebElement element:subjectList) {
@@ -729,7 +730,7 @@ public class ZBOLeadDetailPage extends Page{
 						lIsEmailVisible = true;
 						break;
 					}
-				}
+		//		}
 			} 
 			if(!lIsEmailVisible) {
 				waitForMessageAppearance();
