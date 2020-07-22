@@ -6,6 +6,11 @@ package com.zurple.backoffice;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
@@ -32,12 +37,13 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 
 	ZBOMarketingEmailMessagePage page;
 	private WebDriver driver;
-	ZBOLeadDetailPage p;
+	ZBOLeadDetailPage leadDetailPage;
 	String lToEmail;
 	String flyerSubject;
 	String emailSubject;
 	String bulkEmailSubject;
 	String mlsID;
+	long lWaitTime = 0;
 	
 	@Override
 	public AbstractPage getPage() {
@@ -47,7 +53,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			page = new ZBOMarketingEmailMessagePage(driver);
 			page.setUrl("");
 			page.setDriver(driver);
-			p = new ZBOLeadDetailPage(driver);
+			leadDetailPage = new ZBOLeadDetailPage(driver);
 		}
 		return page;
 	}
@@ -58,7 +64,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			page = new ZBOMarketingEmailMessagePage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
-			p = new ZBOLeadDetailPage(driver);
+			leadDetailPage = new ZBOLeadDetailPage(driver);
 		}
 		return page;
 	}
@@ -152,6 +158,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	}
 	
 	private void fillStandardEmailForm(JSONObject pDataObject) {
+		boolean isScheduledEmail = false;
 		lToEmail = pDataObject.optString("toemail");
 		assertTrue(page.clickOnSendStandardEmailButton(), "Unable to click on standard email button..");
 		ActionHelper.staticWait(2);
@@ -174,7 +181,8 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			assertTrue(page.clickOnAttachFileButton(), "Unable to click on attach file button..");
 			ActionHelper.staticWait(2);
 			page.getAttachFileForm().switchToBrowserToNewWindow();
-			assertTrue(page.getAttachFileForm().isUploadFileFormVisible(), "Upload file form is not visible..");
+			ActionHelper.staticWait(10);
+//			assertTrue(page.getAttachFileForm().isUploadFileFormVisible(), "Upload file form is not visible..");
 			assertTrue(page.getAttachFileForm().clickAndSelectFile(), "Unable to select the file from upload form ..");
 			ActionHelper.staticWait(5);
 			page.getAttachFileForm().switchToOriginalWindow();
@@ -189,9 +197,19 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			ActionHelper.staticWait(2);
 			
 		}
+		if(pDataObject.optString("schedule_email")!=null && !pDataObject.optString("schedule_email").isEmpty()) {
+			assertTrue(page.selectSchedule(), "Unable to schedule the email..");
+			isScheduledEmail = true;
+		}
 		assertTrue(page.clickOnSendButton(), "Unable to click on Send button...");
 		ActionHelper.staticWait(2);
-		assertTrue(page.isSuccessMessage(), "Unable to send email, success message is not displayed...");
+		if(isScheduledEmail) {
+			assertTrue(page.isScheduledMessageDisplayed(), "Unable to send email, scheduled email message is not displayed...");
+			String scheduledLabel = page.getScheduledLabel().split(" ")[4];
+			lWaitTime = getDifference(scheduledLabel);
+		}else {
+			assertTrue(page.isSuccessMessage(), "Unable to send email, success message is not displayed...");
+		}
 	}
 	
 	public void testVerifyEmailInMyMessages(JSONObject pDataObject, String pEmailSubject) {
@@ -211,10 +229,32 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 				getPage("/lead/"+lLeadId);
 				page = null;
 			}
-			assertTrue(p.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
-			assertTrue(p.verifyMyMessagesEmails(pEmailSubject));
+			assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
+			assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject));
 }
-	
+	public void testVerifyScheduledEmailInMyMessages(JSONObject pDataObject, String pEmailSubject) {
+		getPage();
+		String lLeadId = null;	
+		AutomationLogger.info("Waiting for minutes "+lWaitTime);
+		ActionHelper.staticWait(lWaitTime*60);		
+			if(!getIsProd()) {
+				lLeadId = pDataObject.optString("leadidstage");
+			//	Process email queue
+				page=null;
+				getPage("/admin/processemailqueue");
+				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+				page = null;
+				getPage("/lead/"+lLeadId);
+			} else {
+				lLeadId = pDataObject.optString("leadid");
+				page = null;
+				getPage("/lead/"+lLeadId);
+				page = null;
+			}
+			assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
+			assertTrue(leadDetailPage.verifyScheduledEmail(pEmailSubject), "Unable to verify scheduled messages..");
+			assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject), "Unable to verify scheduled email under my messages..");
+}
 	public void leadStatus(JSONObject pDataObject, int index) {
 		getPage();
 		String lLeadId = null;		
@@ -230,9 +270,25 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		}
 		String lead_prospects = pDataObject.optString("lead_prospect").split(",")[index];
 		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
-		assertTrue(p.isLeadDetailPage(), "Lead detail page is not visible..");
-		assertTrue(p.clickAndSelectLeadProspect(lead_prospects), "Unable to select the status -> "+lead_prospects);
+		assertTrue(leadDetailPage.isLeadDetailPage(), "Lead detail page is not visible..");
+		assertTrue(leadDetailPage.clickAndSelectLeadProspect(lead_prospects), "Unable to select the status -> "+lead_prospects);
 		assertTrue(successAlert.clickOnTemporaryButton(), "Unable to click on Temporary button..");
 	}
+
+private long getDifference(String pEndTime) {
+	long duration = 0;
+	SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+	Date startTime;
+	try {
+		startTime = sdf.parse(pEndTime);
+		Date now = sdf.parse(getCuurentTime());
+		duration = startTime.getTime() -now.getTime();
+	}
+	catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	duration =TimeUnit.MILLISECONDS.toMinutes(duration);
+	return duration+1;
 }
-//}
+}

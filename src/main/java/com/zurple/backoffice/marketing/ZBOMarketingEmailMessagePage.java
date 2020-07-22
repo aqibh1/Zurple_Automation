@@ -93,6 +93,18 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	@FindBy(id="campaign_template")
 	WebElement campaign_template_dropdown;
 	
+	@FindBy(xpath="//div[@id='ui-datepicker-div']/descendant::button[text()='Done']")
+	WebElement datePicker_done_button;
+	
+	@FindBy(id="new-post-schedule")
+	WebElement schedule_button;
+	
+	@FindBy(xpath="//div[@class='alert alert-success ']/strong[text()='Your email is scheduled']")
+	WebElement scheduled_message;
+	
+	@FindBy(xpath="//span[@id='scheduled-label']/span[1]")
+	WebElement scheduled_label;
+
 	@FindBy(id="massemail_type-lead")
 	WebElement individual_recipient;
 	
@@ -211,6 +223,28 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	}
 	public boolean isTemplateExists(String pTemplateName) {
 		return ActionHelper.selectDropDownOption(driver,campaign_template_dropdown , "", pTemplateName);
+	}
+
+	public boolean selectSchedule() {
+		boolean isScheduleSelected = false;
+		boolean isClicked = ActionHelper.Click(driver, schedule_button);
+		ActionHelper.staticWait(5);
+		WebElement minutes_slider = ActionHelper.getDynamicElement(driver, "//div[@id='ui-datepicker-div']/descendant::div[contains(@class,'ui_tpicker_minute_slider')]/a[@class='ui-slider-handle ui-state-default ui-corner-all']", "");
+		if(isClicked && ActionHelper.dragAndDropByPixels(driver, minutes_slider, 15, 0)) {
+			isScheduleSelected = ActionHelper.Click(driver, datePicker_done_button);
+		}
+		ActionHelper.staticWait(2);
+		return isScheduleSelected;
+	}
+	public boolean isScheduledMessageDisplayed() {
+		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver,scheduled_message , 20, 10);
+	}
+	public String getScheduledLabel() {
+		String lSchedule = "";
+		if(ActionHelper.waitForElementToBeVisible(driver, scheduled_label, 30)) {
+			lSchedule = ActionHelper.getText(driver, scheduled_label);
+		}
+		return lSchedule;
 	}
 	public boolean checkSelectedRecipient() {
 		return ActionHelper.isElementSelected(driver, individual_recipient);

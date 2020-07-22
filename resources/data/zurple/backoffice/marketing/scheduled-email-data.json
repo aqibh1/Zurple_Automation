@@ -1,0 +1,10 @@
+{
+	"recipients":"Individual Lead with any Status other than Inactive",
+	"mls_id":"190020375",
+	"subject":"Standard Scheduled Email",
+	"file_path":"true",
+	"toemail": "z57testuser_ZurpleQA@gmail.com",
+	"leadid":"4638020",
+	"leadidstage": "3018965",
+	"schedule_email":"true"
+}

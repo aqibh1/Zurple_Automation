@@ -31,7 +31,7 @@ public class ZBOAttachFileForm extends AbstractForm{
 		PageFactory.initElements(driver, this);
 	}
 	public boolean isUploadFileFormVisible() {
-		return true;//ActionHelper.waitForElementToBeVisible(driver, upload_button, 30);
+		return ActionHelper.waitForElementToBeVisible(driver, upload_button, 30);
 	}
 	
 	public boolean clickAndSelectFile() {
