@@ -42,6 +42,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	String flyerSubject;
 	String emailSubject;
 	String bulkEmailSubject;
+	String mlsID;
 	long lWaitTime = 0;
 	
 	@Override
@@ -136,9 +137,18 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		lToEmail = pDataObject.optString("toemail");
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");
 		ActionHelper.staticWait(2);
-		assertTrue(page.typeMLSId(ZurpleListingConstants.zurple_mls_listing_id), "Unable to type MLS id..");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleFlyerMLSId, pDataObject.optString("mls_id"));
+		mlsID = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleFlyerMLSId);
+		assertTrue(page.typeMLSId(mlsID), "Unable to type MLS id..");
 		ActionHelper.staticWait(2);
 		assertTrue(page.clickOnFindListingButton(), "Unable to click on find listing button...");
+		//assertTrue(page.waitForFlyerHeadingToAppear(), "Unable to find flyer heading...");
+		if(page.waitForFlyerHeadingToAppear()==false) {
+			ActionHelper.RefreshPage(driver);
+			assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");
+			assertTrue(page.typeMLSId(mlsID), "Unable to type MLS id..");
+			assertTrue(page.clickOnFindListingButton(), "Unable to click on find listing button...");
+		}
 		ActionHelper.staticWait(2);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject, updateName(pDataObject.optString("subject")));
 		flyerSubject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject);
@@ -147,7 +157,6 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		ActionHelper.staticWait(2);
 		assertTrue(page.typeToEmail(lToEmail), "Unable to type subject..");
 		ActionHelper.staticWait(2);
-		
 		assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
 		ActionHelper.staticWait(2);
 		assertTrue(page.isPreviewHeadingVisible(), "Preview is not visible..");

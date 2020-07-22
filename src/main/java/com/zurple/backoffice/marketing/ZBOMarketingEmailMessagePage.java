@@ -172,6 +172,7 @@ public class ZBOMarketingEmailMessagePage extends Page{
 
 	}	
 	public boolean clickOnEmailListingFlyer() {
+		ActionHelper.waitForElementToBeVisible(driver, emailListingFlyer_button, 30);
 		return ActionHelper.Click(driver, emailListingFlyer_button);
 	}
 	
@@ -182,12 +183,13 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	public boolean typeMLSId(String pMlsId) {
 		return ActionHelper.Type(driver,mlsId_input, pMlsId);
 	}
+	
 	public boolean clickOnFindListingButton() {
-		boolean isListingFound = false;
-		if(ActionHelper.Click(driver, findListing_button)) {
-			isListingFound = ActionHelper.waitForElementToBeVisible(driver, newHomeOnMarket_heading, 30);
-		}
-		return isListingFound;
+		ActionHelper.waitForElementToBeVisible(driver, findListing_button, 30);
+		return ActionHelper.Click(driver, findListing_button);
+	}
+	public boolean waitForFlyerHeadingToAppear() {
+		return ActionHelper.waitForElementToBeVisible(driver, newHomeOnMarket_heading, 30);
 	}
 	public boolean typeToSubject(String pSubject) {
 		return ActionHelper.ClearAndType(driver, subject_input, pSubject);
