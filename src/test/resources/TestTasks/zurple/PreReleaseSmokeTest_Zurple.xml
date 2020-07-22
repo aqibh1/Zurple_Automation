@@ -1096,6 +1096,7 @@
 					<methods>
 							<include name="testSendEmailListingFlyer" />
 							<include name="testSendStandardEmail" />
+							<include name="testSendBulkEmail"/>
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">

@@ -12,8 +12,9 @@
 				</class>
 				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
 					<methods>
-				<!--  	<include name="testSendStandardEmail" /> -->		
-						<include name="testSendBulkEmail"/>
+							<include name="testSendEmailListingFlyer" />
+							<include name="testSendStandardEmail" />
+							<include name="testSendBulkEmail"/>
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
@@ -24,5 +25,5 @@
 			</classes>
 	</parameter>
 	</parameter>
-	</test>
-	</suite>	
+	</test>	
+	</suite>

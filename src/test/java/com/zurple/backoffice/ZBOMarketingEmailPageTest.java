@@ -118,8 +118,8 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		lToEmail = pDataObject.optString("toemail");
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");
 		ActionHelper.staticWait(2);
-		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject, pDataObject.optString("mls_id"));
-		mlsID = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleFlyerMLSId, pDataObject.optString("mls_id"));
+		mlsID = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleFlyerMLSId);
 		assertTrue(page.typeMLSId(mlsID), "Unable to type MLS id..");
 		ActionHelper.staticWait(2);
 		assertTrue(page.clickOnFindListingButton(), "Unable to click on find listing button...");

@@ -35,4 +35,5 @@ public class ModuleCacheConstants {
 	public static final String ZurpleSocialPost = "zurple.social.post";
 	public static final String ZurpleAgentsInfo = "zurple.manageagents";
 	public static final String ZurpleBulkEmailSubject = "zurple.bulkemail";
+	public static final String ZurpleFlyerMLSId = "zurple.mls";
 }
