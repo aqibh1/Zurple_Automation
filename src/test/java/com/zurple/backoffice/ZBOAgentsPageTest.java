@@ -142,7 +142,7 @@ public class ZBOAgentsPageTest extends PageTest {
 		lAgentNameToVerify = lAgentNameToVerify+" "+lAgent_lastname;
 		page = null;
 		getPage("/agents");
-		assertTrue(!page.getAgentLeadCount(lAgentNameToVerify).isEmpty(), "Agent updated successfully");
+		assertTrue(!page.verifyAgentName(lAgentNameToVerify).isEmpty(), "Agent updated successfully");
 	}
 	
 	@Test
