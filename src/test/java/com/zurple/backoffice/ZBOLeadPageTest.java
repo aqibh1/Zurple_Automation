@@ -183,7 +183,7 @@ public class ZBOLeadPageTest extends PageTest{
 		getPage("/agents");
 		ZBOAgentsPage manageAgentsPage = new ZBOAgentsPage(driver);
 		assertTrue(manageAgentsPage.verifyPageTitle(), "Manage agents page is not visible..");
-		assertTrue(!manageAgentsPage.getAgentLeadCount(lAgentName).equalsIgnoreCase(lLeadCount), "Lead count has not changed..");
+		assertTrue(!manageAgentsPage.verifyAgentName(lAgentName).equalsIgnoreCase(lLeadCount), "Lead count has not changed..");
 
 	}
 	@Test

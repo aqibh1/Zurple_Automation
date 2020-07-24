@@ -96,7 +96,7 @@ public class ZBOEditDistributionPageTest extends PageTest{
 		page=null;
 		getPage("/agents");
 		assertTrue(agentPageObject.verifyPageTitle(), "Manage agents page title is not visible..");
-		assertTrue(!agentPageObject.getAgentLeadCount(lAgentName).equalsIgnoreCase(IAgentLeadCount), "Lead count has not changed..");
+		assertTrue(!agentPageObject.verifyAgentName(lAgentName).equalsIgnoreCase(IAgentLeadCount), "Lead count has not changed..");
 		page=null;
 		getPage("/agents/distribution");
 		assertTrue(page.clickOnToMe(),"Unable to click on by all radio button");
