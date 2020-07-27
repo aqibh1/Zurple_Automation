@@ -26,7 +26,7 @@ public class ZBOPropertyDetailPage extends Page{
 	}
 	
 	public boolean typeNote(String pNote) {
-		return ActionHelper.Type(driver, textArea, pNote);
+		return ActionHelper.ClearAndType(driver, textArea, pNote);
 	}
 	
 	public boolean clickOnSaveButton() {

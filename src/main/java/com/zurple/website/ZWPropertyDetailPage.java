@@ -138,7 +138,7 @@ public class ZWPropertyDetailPage extends Page{
 	WebElement viewAddress;
 	
 	String propertyNotes_xpath = "//div[@class='row top-buffer']/descendant::p";
-	
+
 	private ZWContactAgentForm contactAgentForm;
 	private ZWScheduleShowingAlert scheduleShowingAlert;
 	
@@ -425,16 +425,22 @@ public class ZWPropertyDetailPage extends Page{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public boolean verifyNotes(String pNote) {
+	public boolean verifyNotes(String pNote) { 
+		ActionHelper.waitForStringXpathToBeVisible(driver, propertyNotes_xpath, 30);
 		boolean isVerified = false;
+		String actualText = "";
+		String expectedtext = "";
 		List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, propertyNotes_xpath);
 		for (WebElement element: list_of_elements) {
-			if(pNote.equalsIgnoreCase(ActionHelper.getText(driver, element))) {
-				isVerified = true;
-				break;
+			if(ActionHelper.getText(driver, element).contains(pNote)) {
+				actualText = ActionHelper.getText(driver, element).trim().split("\n")[0];
+				expectedtext = pNote.trim();
+				if(actualText.equals(expectedtext)) {
+					isVerified = true;
+					break;
+				}
 			}
 		}
 		return isVerified;
 	}
-
 }
