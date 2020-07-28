@@ -42,6 +42,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	String flyerSubject;
 	String emailSubject;
 	String bulkEmailSubject;
+	String leadReplySubject;
 	String mlsID;
 	long lWaitTime = 0;
 	
@@ -113,14 +114,6 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		leadStatus(lDataObject, 1);
 	}
 	
-	@Test(dependsOnGroups = {"com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate"})
-	public void testVerifyTemplateExists() {
-		getPage("/marketing/massemail");
-		String lTemplateName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleTemplateName);
-		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
-		assertTrue(page.isTemplateExists(lTemplateName), "Template does not exist in Mass email drop down..");	
-	}
-	
 	@Test
 	@Parameters({"standardEmailData"})
 	public void testSendScheduledStandardEmail(String pDataFile) {
@@ -131,6 +124,21 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		fillStandardEmailForm(lDataObject);
 		System.out.println("This is email subject: "+emailSubject);
 		testVerifyScheduledEmailInMyMessages(lDataObject, emailSubject);
+	}
+	
+	@Test
+	@Parameters({"standardEmailData"})
+	public void testLeadReply(String pDataFile) {
+		JSONObject lDataObject = getDataFile(pDataFile);
+		testVerifyLeadMessages(lDataObject);
+	}
+	
+	@Test(dependsOnGroups = {"com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate"})
+	public void testVerifyTemplateExists() {
+		getPage("/marketing/massemail");
+		String lTemplateName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleTemplateName);
+		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
+		assertTrue(page.isTemplateExists(lTemplateName), "Template does not exist in Mass email drop down..");	
 	}
 	
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
@@ -295,20 +303,42 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(successAlert.clickOnTemporaryButton(), "Unable to click on Temporary button..");
 	}
 
-private long getDifference(String pEndTime) {
-	long duration = 0;
-	SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
-	Date startTime;
-	try {
-		startTime = sdf.parse(pEndTime);
-		Date now = sdf.parse(getCuurentTime());
-		duration = startTime.getTime() -now.getTime();
+	public void testVerifyLeadMessages(JSONObject pDataObject) {
+		getPage();
+		String lLeadId = null;		
+		if(!getIsProd()) {
+			lLeadId = pDataObject.optString("leadidstage_replies");
+			page = null;
+			getPage("/lead/"+lLeadId);
+		} else {
+			lLeadId = pDataObject.optString("leadid");
+			page = null;
+			getPage("/lead/"+lLeadId);
+			page = null;
+		}
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadMessageSubject, pDataObject.optString("leadMessageSubject"));
+		leadReplySubject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadMessageSubject);
+		ActionHelper.staticWait(5);
+		assertTrue(leadDetailPage.clickOnLeadMessagesTab(), "Unable to click on lead messages tab..");
+		assertTrue(leadDetailPage.verifyLeadMessagesEmails(leadReplySubject), "Unable to verify lead reply under my messages..");
+		assertTrue(page.clickOnLeadMessagesPreview(), "Unable to click on preview button..");
 	}
-	catch (ParseException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	
+	private long getDifference(String pEndTime) {
+		long duration = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+		Date startTime;
+		try {
+			startTime = sdf.parse(pEndTime);
+			Date now = sdf.parse(getCuurentTime());
+			duration = startTime.getTime() -now.getTime();
+		}
+		catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		duration =TimeUnit.MILLISECONDS.toMinutes(duration);
+		return duration+1;
 	}
-	duration =TimeUnit.MILLISECONDS.toMinutes(duration);
-	return duration+1;
-}
+
 }

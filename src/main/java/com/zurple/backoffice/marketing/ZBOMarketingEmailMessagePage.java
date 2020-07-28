@@ -65,6 +65,9 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	@FindBy(id="preview_button")
 	WebElement preview_button;
 	
+	@FindBy(className="z-grid-clickable")
+	WebElement preview_lead_message;
+	
 	@FindBy(xpath="//div[@id='preview']/descendant::h1[text()='New Home on the Market']")
 	WebElement newHomeOnMarket_preview_heading;
 	
@@ -196,6 +199,9 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	}
 	public boolean clickOnPreviewButton() {
 		return ActionHelper.Click(driver, preview_button);
+	}
+	public boolean clickOnLeadMessagesPreview() {
+		return ActionHelper.Click(driver, preview_lead_message);
 	}
 	public boolean isPreviewHeadingVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, newHomeOnMarket_preview_heading, 30);

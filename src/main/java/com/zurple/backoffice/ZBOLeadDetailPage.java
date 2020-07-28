@@ -103,6 +103,9 @@ public class ZBOLeadDetailPage extends Page{
 
 	@FindBy(id="z-activity-details-sent")
 	WebElement myMessages_tab_button;
+	
+	@FindBy(id="z-activity-details-messages-to-admin")
+	WebElement leadMessages_tab_button;
 
 	String myMessages_emails_xpath = "//div[@id='z-activity-details-sent-grid']/descendant::div[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 
@@ -141,8 +144,13 @@ public class ZBOLeadDetailPage extends Page{
 
 	String xpathForTestingSubject = "//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div";
 
+	String lead_messages_subject = "//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[@headers='yui-dt11-th-subject ']/div";
+	
 	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div")
 	WebElement flyer_email;
+	
+	@FindBy(xpath="//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[@headers='yui-dt11-th-subject ']/div")
+	WebElement reply_email;
 
 	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-messageDateTime ']/div")
 	WebElement xpathForTestingDate;
@@ -524,6 +532,14 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isEmailReceived;
 	}
+	
+	public boolean verifyLeadMessagesEmails(String pEmailToVerify) {
+		boolean isEmailReceived = false;
+		if(ActionHelper.Click(driver, leadMessages_tab_button)) {
+			isEmailReceived = checkLeadMessagesStatus(pEmailToVerify);
+		}
+		return isEmailReceived;
+	}
 
 	public boolean checkStatusAfterReg(String pEmailToVerify, String pXpath) {
 		int counter = 0;
@@ -572,6 +588,33 @@ public class ZBOLeadDetailPage extends Page{
 			} 
 			if(!lIsEmailVisible) {
 				waitForMessageAppearance();
+			}
+			counter++;
+		}
+		return lIsEmailVisible;
+	}
+	
+	public boolean checkLeadMessagesStatus(String pEmailToVerify) {
+		String str = "";
+		int counter = 0;
+		boolean lIsEmailVisible = false;
+		while(!lIsEmailVisible && counter<15) {
+			if(ActionHelper.isElementVisible(driver, reply_email)) {
+				List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, lead_messages_subject);
+				ActionHelper.staticWait(2);
+				for(WebElement element:subjectList) {
+					str = ActionHelper.getText(driver, element);
+					if(str.equals(pEmailToVerify)) {
+						lIsEmailVisible = true;
+						break;
+					}
+				}
+			} 
+			if(!lIsEmailVisible) {
+				ActionHelper.staticWait(30);
+				ActionHelper.RefreshPage(driver);
+				ActionHelper.ScrollDownByPixels(driver, "400");
+				ActionHelper.Click(driver, leadMessages_tab_button);
 			}
 			counter++;
 		}
@@ -643,6 +686,10 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean clickOnMyMessagesTab() {
 		return ActionHelper.Click(driver, myMessages_tab_button);
+	}
+	public boolean clickOnLeadMessagesTab() {
+		ActionHelper.waitForElementToBeClickAble(driver, leadMessages_tab_button);
+		return ActionHelper.Click(driver, leadMessages_tab_button);
 	}
 	public boolean isEnrollInCampaignButtonDisabled() {
 		return ActionHelper.waitForElementToBeVisible(driver, enrollInCampaign_button, 10);
