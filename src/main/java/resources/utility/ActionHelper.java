@@ -1142,4 +1142,20 @@ public class ActionHelper {
 		   }
 		   return isSuccessfull;
 	   }
+	   public static boolean clickAndSelectByIndex(WebDriver pWebDriver,WebElement pElementToBeClicked,String pOptions, int pIndex) {
+		   try {
+			   boolean isSuccessful=false;
+			   List<WebElement> list_of_options = new ArrayList<WebElement>();
+			   AutomationLogger.info("Clicking on button "+pElementToBeClicked);
+			   if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+				   AutomationLogger.info("Selecting a option from Dropdown "+pOptions);
+				   list_of_options = getListOfElementByXpath(pWebDriver, pOptions);
+				   isSuccessful = ActionHelper.Click(pWebDriver, list_of_options.get(pIndex));
+			   }
+			   
+			   return isSuccessful;
+		   }catch(Exception ex) {
+				return false;
+			}
+	   }
 }

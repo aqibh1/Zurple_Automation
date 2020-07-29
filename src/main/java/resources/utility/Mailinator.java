@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.ConfigReader;
+
 /**
  * @author adar
  * This will verify the email in mailinator inbox
@@ -56,14 +58,31 @@ public class Mailinator {
 	
 	public void activateStagingInbox() {
 		String lCurrentUrl = driver.getCurrentUrl();
-		String lMailinatorUrl = "https://www.mailinator.com/v3/index.jsp?zone=public&query=aqibstagetesting#/#inboxpane";
+		String lMailinatorUrl = "";
+		String lAdmin_email = "";
+		if(System.getProperty("project").equalsIgnoreCase("zurple")) {
+			lAdmin_email = ConfigReader.load().getPropertyByName("zurple_bo_user").split("@")[0];
+			lMailinatorUrl = "https://www.mailinator.com/v3/index.jsp?zone=public&query="+lAdmin_email+"#/#inboxpane";
+		}else {
+			lAdmin_email = ConfigReader.load().getPropertyByName("torchx_bo_user").split("@")[0];
+			lMailinatorUrl = "https://www.mailinator.com/v3/index.jsp?zone=public&query="+lAdmin_email+"#/#inboxpane";
+		}
 		driver.navigate().to(lMailinatorUrl);
 		ActionHelper.staticWait(10);
 		driver.navigate().to(lCurrentUrl);
 	}
 	public void activateProductionInbox() {
+		
 		String lCurrentUrl = driver.getCurrentUrl();
-		String lMailinatorUrl = "https://www.mailinator.com/v3/index.jsp?zone=public&query=aqib.zurple.production#/#inboxpane";
+		String lMailinatorUrl = "";
+		String lAdmin_email = "";
+		if(System.getProperty("project").equalsIgnoreCase("zurple")) {
+			lAdmin_email = ConfigReader.load().getPropertyByName("zurple_bo_user").split("@")[0];
+			lMailinatorUrl = "https://www.mailinator.com/v3/index.jsp?zone=public&query="+lAdmin_email+"#/#inboxpane";
+		}else {
+			lAdmin_email = ConfigReader.load().getPropertyByName("torchx_bo_user").split("@")[0];
+			lMailinatorUrl = "https://www.mailinator.com/v3/index.jsp?zone=public&query="+lAdmin_email+"#/#inboxpane";
+		}
 		driver.navigate().to(lMailinatorUrl);
 		ActionHelper.staticWait(10);
 		driver.navigate().to(lCurrentUrl);
