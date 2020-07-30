@@ -3,6 +3,8 @@
  */
 package com.zurple.backoffice;
 
+import java.util.List;
+
 import org.hamcrest.core.IsSame;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -45,6 +47,8 @@ public class ZBOLeadCRMPage extends Page{
 	
 	@FindBy(xpath="//div[@class='lead-owner']/span[@data-lead-id]")
 	WebElement lead_agent_assignment_button;
+	
+	String enrolled_text = "//p[@class='messages-label' and text()='Enrolled']";
 	
 	public ZBOLeadCRMPage() {
 		
@@ -94,5 +98,9 @@ public class ZBOLeadCRMPage extends Page{
 	}
 	public boolean clickOnAgentAssignmentButton() {
 		return ActionHelper.Click(driver, lead_agent_assignment_button);
+	}
+	public boolean isLeadEnrolledInCampaign() {
+		List<WebElement> elements = ActionHelper.getListOfElementByXpath(driver, enrolled_text);
+		return ActionHelper.waitForElementToBeVisible(driver, elements.get(1), 15);
 	}
 }
