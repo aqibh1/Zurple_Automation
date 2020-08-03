@@ -325,5 +325,14 @@ public abstract class AbstractPageTest extends AbstractTest
     	
     }
     
+    // Month/Day/Year
+    public String getYesterdaysDate() {
+		String lDate = "";
+		LocalDate today = LocalDate.now().minusDays(1);
+		String tempDate[] = today.toString().split("-");
+		lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
+		return lDate;
+	}
+    
 
 }

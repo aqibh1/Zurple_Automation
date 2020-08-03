@@ -143,17 +143,19 @@ public class ZBOLeadDetailPage extends Page{
 	WebElement save_reminder_button;
 
 	String xpathForTestingSubject = "//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div";
-
-	String lead_messages_subject = "//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[@headers='yui-dt11-th-subject ']/div";
 	
 	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div")
 	WebElement flyer_email;
 	
-	@FindBy(xpath="//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[@headers='yui-dt11-th-subject ']/div")
+	@FindBy(xpath="//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div")
 	WebElement reply_email;
+	
+	String lead_messages_subject = "//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div";
 
 	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-messageDateTime ']/div")
 	WebElement xpathForTestingDate;
+	
+	String lead_messages_date = "//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[@headers='yui-dt5-th-messageDateTime ']/div";
 
 	@FindBy(xpath="//button[text()='Done']")
 	WebElement done_date_button;
@@ -364,7 +366,23 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isSuccess;
 	}
-
+	
+	public boolean verifyLeadMessagesDateTime() {
+		String str; 
+		boolean isDateVisible = false;
+		ActionHelper.waitForStringXpathToBeVisible(driver, lead_messages_date, 30);
+		List<WebElement> dateList = ActionHelper.getListOfElementByXpath(driver, lead_messages_date);
+		
+		for(WebElement element:dateList) {
+			str = ActionHelper.getText(driver, element);
+			if(str.contains(getYesterdaysDate())) {
+				isDateVisible = true;
+				break;
+			}
+		} 
+		return isDateVisible;
+}
+	
 	public boolean isWelcomeEmailSent() {
 		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, welcome_email, 30, 30);
 	}
@@ -604,16 +622,17 @@ public class ZBOLeadDetailPage extends Page{
 				ActionHelper.staticWait(2);
 				for(WebElement element:subjectList) {
 					str = ActionHelper.getText(driver, element);
-					if(str.equals(pEmailToVerify)) {
+					if(str.equalsIgnoreCase(pEmailToVerify)) {
 						lIsEmailVisible = true;
 						break;
 					}
 				}
 			} 
 			if(!lIsEmailVisible) {
-				ActionHelper.staticWait(30);
+				ActionHelper.staticWait(5);
 				ActionHelper.RefreshPage(driver);
 				ActionHelper.ScrollDownByPixels(driver, "400");
+				ActionHelper.staticWait(2);
 				ActionHelper.Click(driver, leadMessages_tab_button);
 			}
 			counter++;

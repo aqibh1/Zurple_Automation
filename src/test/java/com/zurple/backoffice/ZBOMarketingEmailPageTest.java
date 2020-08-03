@@ -320,8 +320,10 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		leadReplySubject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadMessageSubject);
 		ActionHelper.staticWait(5);
 		assertTrue(leadDetailPage.clickOnLeadMessagesTab(), "Unable to click on lead messages tab..");
-		assertTrue(leadDetailPage.verifyLeadMessagesEmails(leadReplySubject), "Unable to verify lead reply under my messages..");
+		assertTrue(leadDetailPage.verifyLeadMessagesEmails(leadReplySubject), "Unable to verify lead reply under lead messages..");
+		assertTrue(leadDetailPage.verifyLeadMessagesDateTime(), "Unable to verify PUNs..");
 		assertTrue(page.clickOnLeadMessagesPreview(), "Unable to click on preview button..");
+		assertEquals(page.getPreviewText().trim(), "Updates for San Diego");
 	}
 	
 	private long getDifference(String pEndTime) {

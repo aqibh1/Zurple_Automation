@@ -13,6 +13,7 @@ import com.zurple.my.Page;
 import resources.forms.zurple.backoffice.ZBOAttachFileForm;
 import resources.forms.zurple.backoffice.ZBOInsertImageForm;
 import resources.utility.ActionHelper;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author adar
@@ -65,8 +66,13 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	@FindBy(id="preview_button")
 	WebElement preview_button;
 	
-	@FindBy(className="z-grid-clickable")
-	WebElement preview_lead_message;
+//	@FindBy(className="z-grid-clickable")
+//	WebElement preview_lead_message;
+	
+	String preview_lead_message = "//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[@headers='yui-dt5-th-body ']/div";
+	
+//	@FindBy(xpath="//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[@headers='yui-dt17-th-body ']/div")
+//	WebElement preview_lead_message;
 	
 	@FindBy(xpath="//div[@id='preview']/descendant::h1[text()='New Home on the Market']")
 	WebElement newHomeOnMarket_preview_heading;
@@ -104,6 +110,9 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	
 	@FindBy(xpath="//div[@class='alert alert-success ']/strong[text()='Your email is scheduled']")
 	WebElement scheduled_message;
+		
+	@FindBy(xpath="//h1[contains(text(),'Updates for San Diego')]")
+	WebElement puns_text;
 	
 	@FindBy(xpath="//span[@id='scheduled-label']/span[1]")
 	WebElement scheduled_label;
@@ -201,7 +210,10 @@ public class ZBOMarketingEmailMessagePage extends Page{
 		return ActionHelper.Click(driver, preview_button);
 	}
 	public boolean clickOnLeadMessagesPreview() {
-		return ActionHelper.Click(driver, preview_lead_message);
+		return ActionHelper.ClickByXpathIndex(driver, preview_lead_message,0);
+	}
+	public String getPreviewText() {
+		return ActionHelper.getText(driver, puns_text);
 	}
 	public boolean isPreviewHeadingVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, newHomeOnMarket_preview_heading, 30);
