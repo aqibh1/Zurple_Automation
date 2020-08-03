@@ -50,6 +50,9 @@ public class ZBOLeadCRMPage extends Page{
 	
 	String enrolled_text = "//p[@class='messages-label' and text()='Enrolled']";
 	
+	@FindBy(id="leads-table_info")
+	WebElement leads_info_table;
+	
 	public ZBOLeadCRMPage() {
 		
 	}
@@ -78,7 +81,7 @@ public class ZBOLeadCRMPage extends Page{
 	public boolean searchLead(String pLeadName) {
 		boolean isLeadSelected = false;
 		if(typeLeadNameOrEmail(pLeadName) && clickOnSearchButton()) {
-			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
+;			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
 			isLeadSelected = ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_name_element, pLeadName));
 		}
 		return isLeadSelected;
@@ -100,7 +103,21 @@ public class ZBOLeadCRMPage extends Page{
 		return ActionHelper.Click(driver, lead_agent_assignment_button);
 	}
 	public boolean isLeadEnrolledInCampaign() {
+		boolean isEnrolled = false;
 		List<WebElement> elements = ActionHelper.getListOfElementByXpath(driver, enrolled_text);
-		return ActionHelper.waitForElementToBeVisible(driver, elements.get(1), 15);
+		if(elements!=null && elements.size()>0) {
+			isEnrolled =  ActionHelper.waitForElementToBeVisible(driver, elements.get(1), 15);
+		}else {
+			isEnrolled = false;
+		}
+		return isEnrolled;
+	}
+	public boolean searchLeadByEmail(String pLeadEmail) {
+		boolean isLeadFound = false;
+		if(typeLeadNameOrEmail(pLeadEmail) && clickOnSearchButton()) {
+			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
+			isLeadFound = ActionHelper.getText(driver, leads_info_table).equalsIgnoreCase("Showing 1 to 1 of 1 entries");
+		}
+		return isLeadFound;
 	}
 }

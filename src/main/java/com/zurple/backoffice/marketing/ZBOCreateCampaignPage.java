@@ -92,6 +92,7 @@ public class ZBOCreateCampaignPage extends Page{
 			isSelected = ActionHelper.clickAndSelectByIndex(driver,template_options,"//select[@id='templates-select']/option",index);
 			if(isSelected) {
 				lTemplateName = ActionHelper.getText(driver, option.get(index));
+				clickOnUpdateButton();
 			}
 		}
 		return lTemplateName;
@@ -103,7 +104,7 @@ public class ZBOCreateCampaignPage extends Page{
 		return ActionHelper.Type(driver, campaign_name, pCampaignName);
 	}
 	public boolean typeCampaignDescription(String pCampaignDesc) {
-		return ActionHelper.Type(driver, campaign_name, pCampaignDesc);
+		return ActionHelper.Type(driver, campaign_desc, pCampaignDesc);
 	}
 	public boolean clickOnSaveButton() {
 		return ActionHelper.Click(driver, campaign_save);

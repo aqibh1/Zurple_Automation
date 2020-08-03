@@ -438,18 +438,25 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Market Snapshot Emails", "No"), "Market Snapshot Emails value is not set to No");
 	}
 	
-	@Test
+	@Test(groups= {"testEnrollLeadInCampaign"}, dependsOnGroups= {"testCreateCampaign"})
+	@Parameters({"dataFile"})
 	public void testEnrollLeadInCampaign(String pDataFile) {
 		dataObject = getDataFile(pDataFile);
 		String ld_leadId = "";
+		getPage();
 		if(getIsProd()) {
 			ld_leadId = dataObject.optString("leadid");
 		}else {
 			ld_leadId = dataObject.optString("leadid_stage");
 		}
+		page=null;
 		getPage("/lead/"+ld_leadId);
-		String lc_campaignName = "";
-		String ld_leadName ="";
+		
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignName, "AutoTestCampaign");
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignID, "99");
+		
+		String lc_campaignName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignName);
+		String ld_leadEmail =dataObject.optString("lead_email");
 		assertTrue(page.isLeadDetailPage(), "Lead detail page is not diplayed..");
 		assertTrue(page.enrollUnenrollInCampaign(lc_campaignName,true), "Unable to enroll in campaign");
 		assertTrue(page.isCampaignNameVisibleInMyMessages(lc_campaignName), "Campaign Name not visible in My Messages..");
@@ -457,7 +464,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage("/leads/crm");
 		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
 		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not displayed");
-		assertTrue(leadCRMPage.searchLead(ld_leadName), "Lead not found on CRM page...");
+		assertTrue(leadCRMPage.searchLeadByEmail(ld_leadEmail), "Lead not found on CRM page...");
 		assertTrue(leadCRMPage.isLeadEnrolledInCampaign(), "Lead enrollment is not displayed on CRM page");
 		page = null;
 		getPage("/campaigns");
@@ -465,8 +472,10 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(campaignPage.isLeadAddedInCampaign(lc_campaignName), "Lead is not added in campaign..");
 	}
 	
-	@Test
+	@Test(dependsOnGroups= {"testEnrollLeadInCampaign"}, groups= {"testUnenrollLeadFromCampaign"})
+	@Parameters({"dataFile"})
 	public void testUnenrollLeadFromCampaign(String pDataFile) {
+		page = null;
 		dataObject = getDataFile(pDataFile);
 		String ld_leadId = "";
 		if(getIsProd()) {
@@ -475,8 +484,8 @@ public class ZBOLeadDetailPageTest extends PageTest{
 			ld_leadId = dataObject.optString("leadid_stage");
 		}
 		getPage("/lead/"+ld_leadId);
-		String lc_campaignName = "";
-		String ld_leadName ="";
+		String lc_campaignName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignName);
+		String ld_leadEmail =dataObject.optString("lead_email");
 		assertTrue(page.isLeadDetailPage(), "Lead detail page is not diplayed..");
 		assertTrue(page.enrollUnenrollInCampaign(lc_campaignName,false), "Unable to enroll in campaign");
 		assertFalse(page.isCampaignNameVisibleInMyMessages(lc_campaignName), "Campaign Name not visible in My Messages..");
@@ -484,7 +493,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage("/leads/crm");
 		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
 		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not displayed");
-		assertTrue(leadCRMPage.searchLead(ld_leadName), "Lead not found on CRM page...");
+		assertTrue(leadCRMPage.searchLeadByEmail(ld_leadEmail), "Lead not found on CRM page...");
 		assertFalse(leadCRMPage.isLeadEnrolledInCampaign(), "Lead enrollment is not displayed on CRM page");
 		page = null;
 		getPage("/campaigns");

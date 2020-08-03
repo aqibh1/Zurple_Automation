@@ -18,6 +18,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.zurple.my.Page;
 
 import resources.alerts.zurple.backoffice.ZBOSelectCampaignAlert;
+import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.blocks.zurple.ZBOLeadDetailsSearchBlock;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
@@ -759,12 +760,18 @@ public class ZBOLeadDetailPage extends Page{
 		boolean isSuccess = false;
 		if(ActionHelper.Click(driver, myMessages_tab_button)) {
 			if(pEnrollInCampaign) {
+				ActionHelper.staticWait(2);
+				clickOnEnrollInCampaignButton();
 				assertTrue(getSelectCampaign().isSelectCampaignAlert(), "Campaign alert is not displayed");
 				assertTrue(getSelectCampaign().selectCampaignFromDropdown(pCampaignName), "Unable to select campaign from drop down");
 				assertTrue(getSelectCampaign().clickOnEnrollButton(), "Unable to click on enroll button..");
 				isSuccess = getSelectCampaign().clickOnOkButton();
 			}else {
-				
+				ActionHelper.staticWait(2);
+				clickOnEnrollInCampaignButton();
+				ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
+				assertTrue(successAlert.isUnenrollCampaignAlert(), "Unable to click on unenroll button..");
+				isSuccess = successAlert.clickOnUnEnrollButton();
 			}
 		}
 		return isSuccess;
@@ -776,5 +783,8 @@ public class ZBOLeadDetailPage extends Page{
 			isSuccess = ActionHelper.getDynamicElementAfterRegularIntervals(driver, enrollInCampaign, pCampaignName, 2);
 		}
 		return isSuccess;
+	}
+	public boolean clickOnEnrollInCampaignButton() {
+		return ActionHelper.Click(driver, ENROLL_IN_CAMPAIGN_BUTTON);
 	}
 }

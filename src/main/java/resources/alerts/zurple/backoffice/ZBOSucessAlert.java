@@ -47,6 +47,10 @@ public class ZBOSucessAlert extends AbstractAlert{
 	@FindBy(xpath="//button[text()='Assign']")
 	WebElement assign_button;
 
+	@FindBy(xpath="//h2[text()='Unenroll from Campaign']")
+	WebElement unenroll_from_campaign;;
+	@FindBy(xpath="//button[text()='Unenroll']")
+	WebElement Unenroll_button;
 	
 	public ZBOSucessAlert() {
 		
@@ -94,6 +98,16 @@ public class ZBOSucessAlert extends AbstractAlert{
 		boolean isClicked = false;
 		if(ActionHelper.waitForElementToBeVisible(driver, assign_button, 30)) {
 			isClicked = ActionHelper.Click(driver, assign_button);
+		}
+		return isClicked;
+	}
+	public boolean isUnenrollCampaignAlert() {
+		return ActionHelper.waitForElementToBeVisible(driver, unenroll_from_campaign, 15);
+	}
+	public boolean clickOnUnEnrollButton() {
+		boolean isClicked = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, Unenroll_button, 30)) {
+			isClicked = ActionHelper.Click(driver, Unenroll_button) && clickOnOkButton();
 		}
 		return isClicked;
 	}
