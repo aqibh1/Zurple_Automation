@@ -265,6 +265,8 @@ public class ZBOSocialIntegrationAndSettingsPage extends Page{
 			}
 			if(ActionHelper.waitForElementToBeVisible(driver, successOk_button,30)) {
 				isSuccess = ActionHelper.Click(driver, successOk_button);
+			}else {
+				return false;
 			}
 
 		}else {
