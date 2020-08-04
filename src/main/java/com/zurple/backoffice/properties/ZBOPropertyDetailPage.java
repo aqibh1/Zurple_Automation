@@ -24,7 +24,7 @@ public class ZBOPropertyDetailPage extends Page{
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
 	}
-	
+
 	public boolean typeNote(String pNote) {
 		return ActionHelper.ClearAndType(driver, textArea, pNote);
 	}
