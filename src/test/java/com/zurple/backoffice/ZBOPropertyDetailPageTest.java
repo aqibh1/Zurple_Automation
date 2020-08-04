@@ -59,7 +59,7 @@ public class ZBOPropertyDetailPageTest extends PageTest{
 	@Test
 	public void testAddAndVerifyPropertyNote() {
 		getPage();
-		String lNote = "Property note displayed on website";
+		String lNote = updateName("Property note displayed on website");
 		String lUrl = ZurpleListingConstants.zurple_bo_property_url_staging;
 		String lWebsiteUrl = ZurpleListingConstants.zurple_website_property_url_staging;
 		if(getIsProd()) {
