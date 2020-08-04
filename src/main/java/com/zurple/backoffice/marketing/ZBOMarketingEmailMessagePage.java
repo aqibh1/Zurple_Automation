@@ -65,15 +65,9 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	
 	@FindBy(id="preview_button")
 	WebElement preview_button;
-	
-//	@FindBy(className="z-grid-clickable")
-//	WebElement preview_lead_message;
-	
+		
 	String preview_lead_message = "//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[@headers='yui-dt5-th-body ']/div";
-	
-//	@FindBy(xpath="//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[@headers='yui-dt17-th-body ']/div")
-//	WebElement preview_lead_message;
-	
+
 	@FindBy(xpath="//div[@id='preview']/descendant::h1[text()='New Home on the Market']")
 	WebElement newHomeOnMarket_preview_heading;
 	

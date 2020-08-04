@@ -1,7 +1,12 @@
 package resources;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -115,13 +120,12 @@ public abstract class AbstractPage
 		return lDate;
 	}
     
-    // Month/Day/Year
+    // Month/Day/Year(2 digits)
     public String getYesterdaysDate() {
-		String lDate = "";
-		LocalDate today = LocalDate.now().minusDays(1);
-		String tempDate[] = today.toString().split("-");
-		lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
-		return lDate;
+    	 Calendar cal = Calendar.getInstance();
+    	 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
+    	 cal.add(Calendar.DATE, -1);
+    	 return dateFormat.format(cal.getTime());
 	}
     
     protected static int generateRandomInt(int pUpperRange){

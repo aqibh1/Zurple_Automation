@@ -129,7 +129,6 @@ public class ZBOLeadDetailPage extends Page{
 
 	String list_of_disabled_nav_bts = "//ul[@id='lead_detail_navbar']/descendant::a[contains(@class,'lead-btn-disabled') and @title]";
 
-	//@FindBy(xpath="//div[@id='z-activity-details-sent-tab']/descendant::input[contains(@class,'lead-btn-disabled') and @title='This lead is currently unsubscribed from direct agent communications (Mass Email)']")
 	@FindBy(id="disabled-enroll-campaign")
 	WebElement enrollInCampaign_button;
 
