@@ -310,20 +310,22 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			lLeadId = pDataObject.optString("leadidstage_replies");
 			page = null;
 			getPage("/lead/"+lLeadId);
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadMessageSubject, pDataObject.optString("leadMessageSubjectStage"));
+			leadReplySubject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadMessageSubject);
 		} else {
 			lLeadId = pDataObject.optString("leadid");
 			page = null;
 			getPage("/lead/"+lLeadId);
 			page = null;
-		}
-		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadMessageSubject, pDataObject.optString("leadMessageSubject"));
-		leadReplySubject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadMessageSubject);
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadMessageSubject, pDataObject.optString("leadMessageSubjectProd"));
+			leadReplySubject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadMessageSubject);
+		}		
 		ActionHelper.staticWait(5);
 		assertTrue(leadDetailPage.clickOnLeadMessagesTab(), "Unable to click on lead messages tab..");
 		assertTrue(leadDetailPage.verifyLeadMessagesEmails(leadReplySubject), "Unable to verify lead reply under lead messages..");
 		assertTrue(leadDetailPage.verifyLeadMessagesDateTime(), "Unable to verify PUNs..");
-		assertTrue(page.clickOnLeadMessagesPreview(), "Unable to click on preview button..");
-		assertEquals(page.getPreviewText().trim(), "Updates for San Diego");
+//		assertTrue(page.clickOnLeadMessagesPreview(), "Unable to click on preview button..");
+//		assertEquals(page.getPreviewText().trim(), "Updates for San Diego");			
 	}
 	
 	private long getDifference(String pEndTime) {

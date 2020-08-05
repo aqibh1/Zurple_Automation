@@ -11,5 +11,6 @@
 	"leadidstage": "3018053",
 	"leadidstage_replies":"3018990",
 	"lead_prospect":"Client - Sold,Prospect - Unresponsive",
-	"leadMessageSubject":"Re: [stage01] New Listing Updates for San Diego"
+	"leadMessageSubjectStage":"Auto Response: [stage01] New Listing Updates for San Diego",
+	"leadMessageSubjectProd":"Auto Response: New Listing Updates for San Diego"
 }
