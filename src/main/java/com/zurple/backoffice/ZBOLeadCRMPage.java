@@ -53,6 +53,9 @@ public class ZBOLeadCRMPage extends Page{
 	@FindBy(id="leads-table_info")
 	WebElement leads_info_table;
 	
+	@FindBy(xpath="//div[@class='campaign-icon' and @style='cursor: not-allowed;']")
+	WebElement enrollment_disable_button;
+	
 	public ZBOLeadCRMPage() {
 		
 	}
@@ -119,5 +122,8 @@ public class ZBOLeadCRMPage extends Page{
 			isLeadFound = ActionHelper.getText(driver, leads_info_table).equalsIgnoreCase("Showing 1 to 1 of 1 entries");
 		}
 		return isLeadFound;
+	}
+	public boolean isEnrollmentIconDisabled() {
+		return ActionHelper.waitForElementToBeVisible(driver, enrollment_disable_button, 15);
 	}
 }

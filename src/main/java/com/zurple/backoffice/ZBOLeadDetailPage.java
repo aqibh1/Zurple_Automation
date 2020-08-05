@@ -198,6 +198,12 @@ public class ZBOLeadDetailPage extends Page{
 	
 	String enrollInCampaign = "//span[@id='campaign-title']/a[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
+	@FindBy(xpath="//a[@class='btn lead-btn-disabled btn-sm' and text()='Send Email']")
+	WebElement sendEmail_disabled_button;
+	String sendTextMessage_disabled_button = "//a[@class='btn lead-btn-disabled btn-sm']";
+	@FindBy(id="disabled-assign-campaign-button")
+	WebElement campaign_disabled_button;
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
 
@@ -860,5 +866,21 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean clickOnEnrollInCampaignButton() {
 		return ActionHelper.Click(driver, ENROLL_IN_CAMPAIGN_BUTTON);
+	}
+	public boolean isSendEmailButtonDisabled() {
+		return ActionHelper.isElementVisible(driver, sendEmail_disabled_button);
+	}
+	public boolean isSendTextButtonDisabled() {
+		boolean isDisabled = false;
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, sendTextMessage_disabled_button);
+		for(WebElement element: list) {
+			if(ActionHelper.getText(driver, element).equalsIgnoreCase("Send Text Message")) {
+				isDisabled = ActionHelper.isElementVisible(driver, element);
+			}
+		}
+		return isDisabled;
+	}
+	public boolean isEnrollInCampaignTabButtonDisabled() {
+		return ActionHelper.isElementVisible(driver, campaign_disabled_button);
 	}
 }

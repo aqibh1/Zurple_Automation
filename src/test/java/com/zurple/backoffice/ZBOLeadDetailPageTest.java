@@ -500,4 +500,29 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		ZBOCampaignPage campaignPage = new ZBOCampaignPage(driver);
 		assertFalse(campaignPage.isLeadAddedInCampaign(lc_campaignName), "Lead is not added in campaign..");
 	}
+	@Test
+	public void testVerifyNewLeadEnrollmentInCampaign() {
+		getPage();
+		
+		String lc_leadEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
+		String lc_leadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		
+		page=null;
+		getPage("/lead/"+lc_leadId);
+		
+		assertTrue(page.isLeadDetailPage(), "Lead detail page is not diplayed..");
+		assertTrue(page.clickOnMyMessagesTab(), "Unable to click on my messages tab button");
+		assertTrue(page.isEnrollInCampaignButtonDisabled(), "Enroll in Campaign button is not disabled..");
+//		assertTrue(page.isSendEmailButtonDisabled(), "Send Email button is not disabled..");
+		assertTrue(page.isSendTextButtonDisabled(), "Send Text button is not disabled..");
+		assertTrue(page.isEnrollInCampaignTabButtonDisabled(), "Enrollment in campaign button is not disabled..");
+		
+		page = null;
+		getPage("/leads/crm");
+		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not displayed");
+		assertTrue(leadCRMPage.searchLeadByEmail(lc_leadEmail), "Lead not found on CRM page...");
+		assertTrue(leadCRMPage.isEnrollmentIconDisabled(), "Lead enrollment is not displayed on CRM page");
+	
+	}
 }
