@@ -5,8 +5,10 @@ import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.zurple.backoffice.marketing.ZBOCampaignPage;
 import com.zurple.backoffice.marketing.ZBOCreateCampaignPage;
 import com.zurple.backoffice.marketing.ZBOCreateTemplatePage;
 import com.zurple.my.PageTest;
@@ -14,6 +16,7 @@ import com.zurple.my.PageTest;
 import resources.AbstractPage;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
 
 public class ZBOCreateCampaignPageTest extends PageTest{
@@ -61,5 +64,42 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertTrue(createTemplatePageObject.isCreateTemplatePage(), "Create template page is not visible..");
 		assertEquals(createTemplatePageObject.getTemplateName(), lTemplateName, "Template name is not equal..");
 	}
-
+	
+	@Test(groups= {"testCreateCampaign"})
+	@Parameters({"dataFile"})
+	public void testCreateCampaign(String pDataFile) {
+		dataObject = getDataFile(pDataFile);
+		String ld_campaignName = updateName(dataObject.optString("campaign_name"));
+		String ld_campaignDesc = updateName(dataObject.optString("campaign_desc"));
+		getPage("/campaigns");
+		ZBOCampaignPage campaignPage = new ZBOCampaignPage(driver);
+		assertTrue(campaignPage.isCampaignPage(), "Campaign Page is not visible..");
+		assertTrue(campaignPage.clickOnCreateCampaignButton(), "Unable to click on create campaign button..");
+		ActionHelper.switchToSecondWindow(driver);
+		assertTrue(page.isCampaignPage(), "Create campaign page is not visible..");
+		String lc_templateName = page.clickAndSelectTemplate();
+		assertTrue(!lc_templateName.isEmpty(), "Unable to select the template..");
+		assertTrue(page.typeCampaignName(ld_campaignName), "Unable to type campaign name..");
+		assertTrue(page.typeCampaignDescription(ld_campaignDesc), "Unable to type campaign desc..");
+		assertTrue(page.isTemplatedAdded(lc_templateName), "Template is not added to campaign.");
+		assertTrue(page.clickOnSaveButton(), "Unable to click on save button...");
+		assertTrue(new ZBOSucessAlert(driver).isSuccessMessageVisible(), "Success message is not visible..");
+		String lCampaign_ID = driver.getCurrentUrl().split("enroll/")[1];
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignName, ld_campaignName);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignID, lCampaign_ID);
+	}
+	
+	@Test(dependsOnGroups= {"testUnenrollLeadFromCampaign"})
+	@Parameters({"dataFile"})
+	public void testDeleteCampaign(String pDataFile) {
+		dataObject = getDataFile(pDataFile);
+		getPage("/campaigns");
+		String lc_campaign_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignID);
+		page = null;
+		getPage("/campaigns/enroll/"+lc_campaign_id);
+		ZBOCampaignPage campaignPage = new ZBOCampaignPage(driver);
+		assertTrue(campaignPage.isCampaignDetailPage(), "Campaign Page is not visible..");
+		assertTrue(campaignPage.deleteCampaign(), "Unable to delete the campaign..");
+		
+	}
 }

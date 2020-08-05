@@ -17,6 +17,8 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.alerts.zurple.backoffice.ZBOSelectCampaignAlert;
+import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.blocks.zurple.ZBOLeadDetailsSearchBlock;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
@@ -191,7 +193,13 @@ public class ZBOLeadDetailPage extends Page{
 	
 	String scheduled_messages_list = "//div[@id='z-activity-details-scheduled-grid']/descendant::td[contains(@class,'subject')]/div[@class='yui-dt-liner']";
 	
+	@FindBy(id="enroll-campaign")
+	WebElement ENROLL_IN_CAMPAIGN_BUTTON;
+	
+	String enrollInCampaign = "//span[@id='campaign-title']/a[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
+	private ZBOSelectCampaignAlert selectCampaign;
 
 	public ZBOLeadDetailPage() {
 
@@ -200,6 +208,7 @@ public class ZBOLeadDetailPage extends Page{
 	public ZBOLeadDetailPage(WebDriver pWebdriver) {
 		driver = pWebdriver;
 		setLeadDetailSearchBlock();
+		setSelectCampaign();
 		PageFactory.initElements(driver, this);
 	}
 
@@ -209,6 +218,14 @@ public class ZBOLeadDetailPage extends Page{
 
 	public void setLeadDetailSearchBlock() {
 		this.leadDetailSearchBlock = new ZBOLeadDetailsSearchBlock(driver);
+	}
+
+	public ZBOSelectCampaignAlert getSelectCampaign() {
+		return selectCampaign;
+	}
+
+	public void setSelectCampaign() {
+		this.selectCampaign = new ZBOSelectCampaignAlert(driver);
 	}
 
 	public boolean isLeadDetailPage() {
@@ -812,5 +829,36 @@ public class ZBOLeadDetailPage extends Page{
 			counter++;
 		}
 		return lIsEmailVisible;
+	}
+	public boolean enrollUnenrollInCampaign(String pCampaignName, boolean pEnrollInCampaign) {
+		boolean isSuccess = false;
+		if(ActionHelper.Click(driver, myMessages_tab_button)) {
+			if(pEnrollInCampaign) {
+				ActionHelper.staticWait(2);
+				clickOnEnrollInCampaignButton();
+				assertTrue(getSelectCampaign().isSelectCampaignAlert(), "Campaign alert is not displayed");
+				assertTrue(getSelectCampaign().selectCampaignFromDropdown(pCampaignName), "Unable to select campaign from drop down");
+				assertTrue(getSelectCampaign().clickOnEnrollButton(), "Unable to click on enroll button..");
+				isSuccess = getSelectCampaign().clickOnOkButton();
+			}else {
+				ActionHelper.staticWait(2);
+				clickOnEnrollInCampaignButton();
+				ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
+				assertTrue(successAlert.isUnenrollCampaignAlert(), "Unable to click on unenroll button..");
+				isSuccess = successAlert.clickOnUnEnrollButton();
+			}
+		}
+		return isSuccess;
+	}
+	public boolean isCampaignNameVisibleInMyMessages(String pCampaignName) {
+		boolean isSuccess = false;
+		if(ActionHelper.Click(driver, myMessages_tab_button)) {
+			ActionHelper.staticWait(5);
+			isSuccess = ActionHelper.getDynamicElementAfterRegularIntervals(driver, enrollInCampaign, pCampaignName, 2);
+		}
+		return isSuccess;
+	}
+	public boolean clickOnEnrollInCampaignButton() {
+		return ActionHelper.Click(driver, ENROLL_IN_CAMPAIGN_BUTTON);
 	}
 }
