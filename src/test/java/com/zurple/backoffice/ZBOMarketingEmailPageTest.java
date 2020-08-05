@@ -322,8 +322,8 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		}		
 		ActionHelper.staticWait(5);
 		assertTrue(leadDetailPage.clickOnLeadMessagesTab(), "Unable to click on lead messages tab..");
-		assertTrue(leadDetailPage.verifyLeadMessagesEmails(leadReplySubject), "Unable to verify lead reply under lead messages..");
-		assertTrue(leadDetailPage.verifyLeadMessagesDateTime(), "Unable to verify PUNs..");
+		assertTrue(leadDetailPage.verifyLeadMessagesEmailsAndDate(leadReplySubject), "Unable to verify lead reply under lead messages..");
+//		assertTrue(leadDetailPage.verifyLeadMessagesDateTime(), "Unable to verify PUNs..");
 //		assertTrue(page.clickOnLeadMessagesPreview(), "Unable to click on preview button..");
 //		assertEquals(page.getPreviewText().trim(), "Updates for San Diego");			
 	}

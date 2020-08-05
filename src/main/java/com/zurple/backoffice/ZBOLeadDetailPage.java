@@ -550,7 +550,7 @@ public class ZBOLeadDetailPage extends Page{
 		return isEmailReceived;
 	}
 	
-	public boolean verifyLeadMessagesEmails(String pEmailToVerify) {
+	public boolean verifyLeadMessagesEmailsAndDate(String pEmailToVerify) {
 		boolean isEmailReceived = false;
 		if(ActionHelper.Click(driver, leadMessages_tab_button)) {
 			isEmailReceived = checkLeadMessagesStatus(pEmailToVerify);
@@ -614,29 +614,38 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean checkLeadMessagesStatus(String pEmailToVerify) {
 		String str = "";
 		int counter = 0;
-		boolean lIsEmailVisible = false;
-		while(!lIsEmailVisible && counter<15) {
+		int index = 0;
+		boolean lIsEmailAndDateVisible = false;
+		while(!lIsEmailAndDateVisible && counter<15) {
 			if(ActionHelper.isElementVisible(driver, reply_email)) {
 				List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, lead_messages_subject);
+				List<WebElement> dateList = ActionHelper.getListOfElementByXpath(driver, lead_messages_date);
+				
 				ActionHelper.staticWait(2);
 				for(WebElement element:subjectList) {
 					str = ActionHelper.getText(driver, element);
 					if(str.equalsIgnoreCase(pEmailToVerify)) {
-						lIsEmailVisible = true;
-						break;
+						index = subjectList.indexOf(element);
+						str = "";
+						str = ActionHelper.getText(driver, dateList.get(index));
+						if(str.contains(getYesterdaysDate())) {
+							lIsEmailAndDateVisible = true;
+							break;
 					}
 				}
-			} 
-			if(!lIsEmailVisible) {
+			}
+			}
+			if(!lIsEmailAndDateVisible) {
 				ActionHelper.staticWait(5);
 				ActionHelper.RefreshPage(driver);
 				ActionHelper.ScrollDownByPixels(driver, "400");
 				ActionHelper.staticWait(2);
 				ActionHelper.Click(driver, leadMessages_tab_button);
+				ActionHelper.staticWait(2);
 			}
 			counter++;
 		}
-		return lIsEmailVisible;
+		return lIsEmailAndDateVisible;
 	}
 
 	public boolean typeComment(String pComment) {
