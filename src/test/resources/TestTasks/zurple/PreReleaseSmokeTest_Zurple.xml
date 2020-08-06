@@ -2053,7 +2053,7 @@
 	</parameter>
 	</test>
 	
-	<test name="Send and Verify standard and flyer email">	
+	<test name="Verify Lead reply">	
 	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/standard-email-data.json"> 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
