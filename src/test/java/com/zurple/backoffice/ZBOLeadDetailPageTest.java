@@ -289,8 +289,6 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	
 	}
 
-
-
 	@Test
 	public void testAddAndVerifyLeadNotes() {
 		getPage();
@@ -524,5 +522,33 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(leadCRMPage.searchLeadByEmail(lc_leadEmail), "Lead not found on CRM page...");
 		assertTrue(leadCRMPage.isEnrollmentIconDisabled(), "Lead enrollment is not displayed on CRM page");
 	
+	}
+	
+	@Test
+	public void testVerifyLeadCaptureFromHomeEvaluationPage() {
+		getPage();
+		String lComment_one = "System subscribed lead to Sold Property Updates";
+		String lComment_two = "Please provide me with a home value estimate.";
+
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page = null;
+		getPage("/lead/"+lLeadId);
+//		getPage("/lead/3016673");
+		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
+		assertTrue(page.verifyNoteAndTime(lComment_one), "Unable to verify note and time..");
+		assertTrue(page.verifyNoteAndTime(lComment_two), "Unable to verify note and time..");
+		assertTrue(page.isEmailVerified(), "Email address is not verified..");
+		if(!getIsProd()) {
+			page = null;
+			//Process email queue
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
+			page =null;
+		}
+		getPage("/lead/"+lLeadId);
+		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
+		assertTrue(page.verifyHomeEvaluationAlert("Homeowner Asked for a CMA"), "Homeowner Asked for a CMA alert is not verified");
+		assertTrue(page.verifyEmailPreferences("Sold Property Updates", "Yes"), "Sold Property Updates is not set Yes");
+
 	}
 }

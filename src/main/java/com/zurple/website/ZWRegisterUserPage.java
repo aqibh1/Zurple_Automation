@@ -34,6 +34,9 @@ public class ZWRegisterUserPage extends Page{
 	@FindBy(xpath="//h1[contains(text(),'Thank you for registering')]")
 	WebElement thankyouForRegistering;
 	
+	@FindBy(xpath="//h1[contains(text(),'Thank you for submitting your request')]")
+	WebElement thankyouForSubmittingYourRequest;
+	
 	public ZWRegisterUserPage() {
 		
 	}
@@ -62,7 +65,10 @@ public class ZWRegisterUserPage extends Page{
 	public boolean isRegisterSuccessfully() {
 		return ActionHelper.waitForElementToBeVisible(driver, thankyouForRegistering, 60);
 	}
-
+	public boolean isRequestSubmittedSuccessfully() {
+		return ActionHelper.waitForElementToBeVisible(driver, thankyouForSubmittingYourRequest, 60);
+	}
+	
 	@Override
 	public WebElement getHeader() {
 		// TODO Auto-generated method stub

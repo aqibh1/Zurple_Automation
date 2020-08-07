@@ -530,6 +530,22 @@ public class ZBOLeadDetailPage extends Page{
 					}
 				}
 				break;
+			case "Homeowner Asked for a CMA":
+				List<WebElement> list_lead_activity_cma = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-type']");
+				List<WebElement> list_lead_activity_date_time = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-datetime']");
+
+				for(int i=0;i<list_lead_activity_cma.size();i++) {
+					alertVerified = ActionHelper.getText(driver, list_lead_activity_cma.get(i)).contains("Homeowner Asked for a CMA") ;
+					if(alertVerified) {
+
+						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time.get(i)).contains(getTodaysDate().replace("2020", "20"));
+					}
+					if(alertVerified && dateVerified) {
+						isVerified = true;
+						break;
+					}
+				}
+				break;
 
 			default:
 				break;
@@ -691,7 +707,7 @@ public class ZBOLeadDetailPage extends Page{
 		int counter = 0;
 		List<WebElement> list_of_notes = ActionHelper.getListOfElementByXpath(driver, notes_Added_xpath);
 		for(int i =0;i<list_of_notes.size();i++) {
-			if(ActionHelper.getText(driver, list_of_notes.get(i)).equalsIgnoreCase(pNoteToVerify)) {
+			if(ActionHelper.getText(driver, list_of_notes.get(i)).contains(pNoteToVerify)) {
 				isNoteFound = true;
 			}
 
@@ -882,5 +898,18 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean isEnrollInCampaignTabButtonDisabled() {
 		return ActionHelper.isElementVisible(driver, campaign_disabled_button);
+	}
+	
+	public boolean verifyHomeEvaluationAlert(String pText) {
+		int counter = 0;
+		boolean isVerified = false;
+		while(!isVerified && counter<15) {
+			ActionHelper.staticWait(45);
+			ActionHelper.RefreshPage(driver);
+			ActionHelper.ScrollDownByPixels(driver, "300");
+			isVerified = verifyAlerts("Homeowner Asked for a CMA", pText);
+			counter++;
+		}
+		return isVerified;
 	}
 }
