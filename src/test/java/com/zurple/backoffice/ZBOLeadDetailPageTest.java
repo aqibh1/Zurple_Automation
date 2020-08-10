@@ -512,7 +512,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.clickOnMyMessagesTab(), "Unable to click on my messages tab button");
 		assertTrue(page.isEnrollInCampaignButtonDisabled(), "Enroll in Campaign button is not disabled..");
 //		assertTrue(page.isSendEmailButtonDisabled(), "Send Email button is not disabled..");
-		assertTrue(page.isSendTextButtonDisabled(), "Send Text button is not disabled..");
+//		assertTrue(page.isSendTextButtonDisabled(), "Send Text button is not disabled..");
 		assertTrue(page.isEnrollInCampaignTabButtonDisabled(), "Enrollment in campaign button is not disabled..");
 		
 		page = null;
