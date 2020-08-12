@@ -13,6 +13,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
@@ -199,6 +200,19 @@ public class ZBOLeadPageTest extends PageTest{
 		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
 		assertTrue(leadCRMPage.searchLead(lLeadName), "Unable to find lead on lead page..");
 		
+	}
+	@Test
+	public void testMarkAllLeadAsInActive() {
+		page=null;
+		getPage("/leads/crm");
+		ZBOLeadCRMPage crm = new ZBOLeadCRMPage(driver);
+		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
+		assertTrue(crm.searchLeadByEmailForBulkUpdate("mailinator.com"),"Unable to search lead");
+		assertTrue(page.selectAction("Update Lead Status"), "Unable to select update status from Actions dropdown");
+		assertTrue(page.selectLeadProspect("Inactive - Stop All Communications"), "Unable to select the status -> Inactive");
+		assertTrue(page.updateLeadProspect(), "Unable to update lead status");
+		assertTrue(successAlert.clickOnPermanentStatusUpdate(), "Unable to click on Temporary button..");
+		ActionHelper.RefreshPage(driver);
 	}
 	private boolean applyAndVerifyFilter(String pFilterName, String pFilterValue) throws ParseException {
 		boolean isSuccess = false;

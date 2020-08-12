@@ -52,6 +52,9 @@ public class ZBOSucessAlert extends AbstractAlert{
 	@FindBy(xpath="//button[text()='Unenroll']")
 	WebElement Unenroll_button;
 	
+	@FindBy(className="swal2-cancel")
+	WebElement permanent_update;
+	
 	public ZBOSucessAlert() {
 		
 	}
@@ -86,6 +89,9 @@ public class ZBOSucessAlert extends AbstractAlert{
 
 	public boolean clickOnTemporaryButton() {
 		return ActionHelper.Click(driver, temporary_button);
+	}
+	public boolean clickOnPermanentStatusUpdate() {
+		return ActionHelper.Click(driver, permanent_update);
 	}
 	public boolean waitForProcessing() {
 		return ActionHelper.waitforElementToBeDisappearedByRegularIntervals(driver, processing, 5,20);

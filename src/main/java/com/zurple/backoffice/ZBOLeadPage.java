@@ -37,6 +37,9 @@ public class ZBOLeadPage extends Page{
 	@FindBy(id="leads-grid-filter-button")
 	WebElement lead_search_button;
 	
+	@FindBy(id="new_lead_status")
+	WebElement update_lead_status;
+	
 	@FindBy(id="DataTables_Table_0_processing")
 	WebElement procession_notfication;
 	
@@ -71,8 +74,15 @@ public class ZBOLeadPage extends Page{
 	
 	@FindBy(id="leadActionDropDown")
 	WebElement action_button;
+	
 	@FindBy(id="reassign-leads-button")
 	WebElement reassign_lead_action_button;
+	
+	@FindBy(id="update-lead-status-button")
+	WebElement update_lead_status_button;
+	
+	@FindBy(className="swal2-confirm")
+	WebElement update_status_from_modal;
 	
 	private Map<Integer, HashMap<String,String>> rowDataMap = new HashMap<Integer, HashMap<String,String>>(); 
 	
@@ -298,6 +308,7 @@ public class ZBOLeadPage extends Page{
 		case "Customize Columns":
 			break;
 		case "Update Lead Status":
+			isClicked = ActionHelper.Click(driver, update_lead_status_button);
 			break;
 		case "Enroll in Campaign":
 			break;
@@ -437,5 +448,12 @@ public class ZBOLeadPage extends Page{
 		}
 	}
 	
+	public boolean selectLeadProspect(String pOption) {
+		return ActionHelper.selectDropDownOption(driver, update_lead_status, "", pOption);
+	}
+	
+	public boolean updateLeadProspect() {
+		return ActionHelper.Click(driver, update_status_from_modal);
+	}
 	
 }

@@ -56,6 +56,15 @@ public class ZBOLeadCRMPage extends Page{
 	@FindBy(xpath="//div[@class='campaign-icon' and @style='cursor: not-allowed;']")
 	WebElement enrollment_disable_button;
 	
+	@FindBy(id="check_uncheck_all")
+	WebElement bulk_select;
+	
+	@FindBy(id="select-all-leads")
+	WebElement select_all;
+	
+	@FindBy(className="swal2-confirm")
+	WebElement confirm_select_all;
+	
 	public ZBOLeadCRMPage() {
 		
 	}
@@ -126,4 +135,18 @@ public class ZBOLeadCRMPage extends Page{
 	public boolean isEnrollmentIconDisabled() {
 		return ActionHelper.waitForElementToBeVisible(driver, enrollment_disable_button, 15);
 	}
+	
+	public boolean searchLeadByEmailForBulkUpdate(String pLeadEmail) {
+		boolean isLeadFound = false;
+		if(typeLeadNameOrEmail(pLeadEmail) && clickOnSearchButton()) {
+			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
+			ActionHelper.Click(driver, bulk_select);
+			ActionHelper.Click(driver, select_all);
+			ActionHelper.Click(driver, confirm_select_all);
+			isLeadFound = true;
+		}
+		return isLeadFound;
+	}
+	
+	
 }
