@@ -21,8 +21,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import com.opencsv.CSVWriter;
-
-import resources.HTTPSRequestConnector;
+import com.restapi.HTTPSRequestConnector;
 
 /**
  * @author adar
