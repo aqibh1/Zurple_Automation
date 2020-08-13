@@ -20,7 +20,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.restapi.HTTPConstants;
-import com.restapi.HTTPRequestClient;
 import com.z57.site.v2.HomePage;
 import com.z57.site.v2.PageHeader;
 import com.z57.site.v2.PropertyListingPage;
@@ -326,24 +325,24 @@ public class PPListingDetailPageTest extends PageTest{
 
 	}
 
-	private boolean uploadListingImages(String pListingId, String pBody){
-		boolean imagesUploadedSuccessfully= true;
-		try {
-			HTTPRequestClient request = new HTTPRequestClient();
-			request.setUrl("https://propertypulse.z57.com/media/listing_image_upload?lid="+pListingId+"");
-			request.setHeader(HTTPConstants.ContentType, ContentType.MULTIPART_FORM_DATA.toString());
-			request.setHeader(HTTPConstants.Cookie, getCookies());
-			request.setRequestType(HTTPConstants.POST);
-			request.setBody("file", pBody);
-			request.execute();
-			if(request.getStatus()==HttpStatus.SC_OK) {
-				AutomationLogger.info("Image uploaded successfully");
-			}
-		}catch(Exception ex) {
-			imagesUploadedSuccessfully = false;
-		}
-		return imagesUploadedSuccessfully;
-	}
+//	private boolean uploadListingImages(String pListingId, String pBody){
+//		boolean imagesUploadedSuccessfully= true;
+//		try {
+//			HTTPRequestClient request = new HTTPRequestClient();
+//			request.setUrl("https://propertypulse.z57.com/media/listing_image_upload?lid="+pListingId+"");
+//			request.setHeader(HTTPConstants.ContentType, ContentType.MULTIPART_FORM_DATA.toString());
+//			request.setHeader(HTTPConstants.Cookie, getCookies());
+//			request.setRequestType(HTTPConstants.POST);
+//			request.setBody("file", pBody);
+//			request.execute();
+//			if(request.getStatus()==HttpStatus.SC_OK) {
+//				AutomationLogger.info("Image uploaded successfully");
+//			}
+//		}catch(Exception ex) {
+//			imagesUploadedSuccessfully = false;
+//		}
+//		return imagesUploadedSuccessfully;
+//	}
 
 	private String getCookies() {
 		String cookieString ="";
