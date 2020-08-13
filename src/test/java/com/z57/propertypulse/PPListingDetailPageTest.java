@@ -19,6 +19,8 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.restapi.HTTPConstants;
+import com.restapi.HTTPRequestClient;
 import com.z57.site.v2.HomePage;
 import com.z57.site.v2.PageHeader;
 import com.z57.site.v2.PropertyListingPage;
@@ -26,7 +28,6 @@ import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
-import resources.HttpRequestClient;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.data.z57.PPListingData;
@@ -34,7 +35,6 @@ import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.models.z57.Listings;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
-import resources.utility.HTTPConstants;
 import resources.utility.ValueMapper;
 
 public class PPListingDetailPageTest extends PageTest{
@@ -329,7 +329,7 @@ public class PPListingDetailPageTest extends PageTest{
 	private boolean uploadListingImages(String pListingId, String pBody){
 		boolean imagesUploadedSuccessfully= true;
 		try {
-			HttpRequestClient request = new HttpRequestClient();
+			HTTPRequestClient request = new HTTPRequestClient();
 			request.setUrl("https://propertypulse.z57.com/media/listing_image_upload?lid="+pListingId+"");
 			request.setHeader(HTTPConstants.ContentType, ContentType.MULTIPART_FORM_DATA.toString());
 			request.setHeader(HTTPConstants.Cookie, getCookies());

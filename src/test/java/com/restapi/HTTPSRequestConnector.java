@@ -1,4 +1,4 @@
-package resources;
+package com.restapi;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
