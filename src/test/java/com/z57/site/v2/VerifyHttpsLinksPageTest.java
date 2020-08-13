@@ -21,7 +21,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import com.opencsv.CSVWriter;
-import com.restapi.HTTPSRequestConnector;
+
 
 /**
  * @author adar
@@ -180,19 +180,19 @@ public class VerifyHttpsLinksPageTest extends PageTest{
 	}
 	private void execute(String pUrl,String pSource, boolean pIsHttp) throws KeyManagementException, NoSuchAlgorithmException, IOException {
 		
-		URL lUrl = new URL(pUrl);
-		HTTPSRequestConnector httpConnector = new HTTPSRequestConnector();
-		httpConnector.setUrl(lUrl);
-		httpConnector.setRequestType("GET");
-		if(httpConnector.setConnection()) {
-
-			if(httpConnector.getStatus()!=200 && httpConnector.getStatus()!=403) {
-				String[] dataArray = {"Featured Properties",String.valueOf(!pIsHttp),pSource,pUrl,String.valueOf(httpConnector.getStatus())};
-				writeCSVFile(dataArray);
-			}
-		}else {
-			String[] dataArray = {"Featured Properties",String.valueOf(!pIsHttp),pUrl,"0"};
-			writeCSVFile(dataArray);
-		}
+//		URL lUrl = new URL(pUrl);
+//		HTTPSRequestConnector httpConnector = new HTTPSRequestConnector();
+//		httpConnector.setUrl(lUrl);
+//		httpConnector.setRequestType("GET");
+//		if(httpConnector.setConnection()) {
+//
+//			if(httpConnector.getStatus()!=200 && httpConnector.getStatus()!=403) {
+//				String[] dataArray = {"Featured Properties",String.valueOf(!pIsHttp),pSource,pUrl,String.valueOf(httpConnector.getStatus())};
+//				writeCSVFile(dataArray);
+//			}
+//		}else {
+//			String[] dataArray = {"Featured Properties",String.valueOf(!pIsHttp),pUrl,"0"};
+//			writeCSVFile(dataArray);
+//		}
 	}
 }
