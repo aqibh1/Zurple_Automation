@@ -89,9 +89,14 @@ public class ZBOCreateTemplatePageTest extends PageTest{
 		//For Attachment of the file
 		if(dataObject.optString("file_path")!=null && !dataObject.optString("file_path").isEmpty()) {
 			assertTrue(page.clickOnAttachFileButton(), "Unable to click on attach file button..");
-			ActionHelper.staticWait(10);
-			page.getZboAttachFileForm().uploadAndVerifyFileIsAttached(dataObject.optString("file_path"));
 			ActionHelper.staticWait(2);
+			page.getZboAttachFileForm().switchToBrowserToNewWindow();
+			ActionHelper.staticWait(10);
+			assertTrue(page.getZboAttachFileForm().clickAndSelectFile(), "Unable to select the file from upload form ..");
+			ActionHelper.staticWait(5);
+			page.getZboAttachFileForm().switchToOriginalWindow();
+			ActionHelper.staticWait(5);
+			
 			assertTrue(page.isAttachmentRemoveButtonVisible(), "Remove button after attaching file is not visible..");
 		}
 		//Inserting image in the body
