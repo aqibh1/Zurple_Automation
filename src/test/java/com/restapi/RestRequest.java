@@ -36,9 +36,6 @@ public class RestRequest {
 		//setUrl(url, true);
 		this.url = url;
 	}
-/*	public void setUrl(String url, boolean appendBaseUrl) {
-		this.url = appendBaseUrl ? FrameworkConfigs.ZDMProtocol + "://" + FrameworkConfigs.ZDMServerIP + ":" + FrameworkConfigs.ZDMPort + url : url;
-	}*/
 	public String getMethod() {
 		return method;
 	}
@@ -101,7 +98,7 @@ public class RestRequest {
 				builder.addPart(partName, new FileBody(new File(part.getContent())));
 				break;
 			case STRING:
-				builder.addTextBody(partName, part.getContent(), ContentType.TEXT_PLAIN);
+				builder.addTextBody(partName, part.getContent());
 				break;
 
 			default:
