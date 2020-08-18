@@ -1,0 +1,19 @@
+{
+	"post_message":"Scheduled - House for sale in your area !",
+	"social_network":"facebook",
+	"page_id":"472062480203994",
+	"operation":"create",
+	"post_type":"status",
+	"status_code":"200",
+	"post_scheduled_to":"2020-08-18 08:47",
+	"validation":[
+		{
+			"key":"ZBORestPostStatusTest",
+			"value":"CREATE"
+		},
+		{
+			"key":"ZBORestGetPostHistoryPageTest",
+			"value":"FOUND"
+		}
+	]
+}

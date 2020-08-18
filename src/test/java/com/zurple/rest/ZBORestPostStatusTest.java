@@ -53,6 +53,26 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		
 		assertTrue(validateMapResp(response),"Unable to verify the response..");
 	}
+	
+	@Test
+	@Parameters({"datafile"})
+	public void testScheduledPost(String pDataFile) throws Exception {
+		getDriver();
+		String lc_cookie = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.Cookie);
+		dataObject = getDataFile(pDataFile);
+		RestRequest request = new RestRequest();
+		String lUrl = getBaseUrl()+"/social/post";
+		
+		request.setUrl(lUrl);
+		request.setRestContent(getContent("scheduled"));
+		request.setHeaders(HeadersConfig.getMultipartFormDataHeaders(lc_cookie));
+		
+		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
+		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
+
+		assertTrue(validateMapResp(response,"scheduled"),"Unable to verify the response..");
+
+	}
 
 	@Override
 	public boolean validateMapResp(RestResponse httpCallResp) throws Exception {
@@ -73,11 +93,33 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		ActionHelper.staticWait(30);
 		return status;
 	}
+	
+	@Override
+	public boolean validateMapResp(RestResponse httpCallResp, String postType) throws Exception {
+
+		boolean status = false;
+		int statusCode = Integer.parseInt(dataObject.optString("status_code"));
+		String validationAction = getValidationAction(dataObject,this.getClass().getSimpleName());
+		if(httpCallResp.getStatus() == statusCode && statusCode == HttpStatus.SC_OK) {
+			if(validationAction.equals(RestValidationAction.CREATE)) {
+				status = httpCallResp.getJsonResponse().optString("status").equalsIgnoreCase("1");
+				if(postType.equalsIgnoreCase("scheduled")) {
+					String lc_post_id = httpCallResp.getJsonResponse().getJSONObject("data").get("post_schedule_id").toString();
+					ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostScheduleId, lc_post_id);
+				}
+			}
+		}
+		else {
+			status = false;
+		}
+		ActionHelper.staticWait(30);
+		return status;
+	}
 
 	private RestContent getContent() throws Exception {
 		RestContent restContent = new RestContent();
 		Map<String, Part> multiParts = new HashMap<String, Part>();
-
+		
 		multiParts.put("post_message", new Part(updateName(dataObject.optString("post_message")), PartType.STRING));
 		multiParts.put("social_network", new Part(dataObject.optString("social_network"), PartType.STRING));
 		multiParts.put("page_id", new Part(dataObject.optString("page_id"), PartType.STRING));
@@ -85,6 +127,27 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		multiParts.put("post_type", new Part(dataObject.optString("post_type"), PartType.STRING));
 		if(!dataObject.optString("image_path").isEmpty()) {
 			multiParts.put("post_image", new Part(dataObject.optString("image_path"), PartType.FILE));
+		}
+		restContent.setParts(multiParts);
+		restContent.setMultiPart(true);
+		AutomationLogger.info(restContent.getBody());
+		return restContent;
+	}
+	
+	private RestContent getContent(String postType) throws Exception {
+		RestContent restContent = new RestContent();
+		Map<String, Part> multiParts = new HashMap<String, Part>();
+		
+		multiParts.put("post_message", new Part(updateName(dataObject.optString("post_message")), PartType.STRING));
+		multiParts.put("social_network", new Part(dataObject.optString("social_network"), PartType.STRING));
+		multiParts.put("page_id", new Part(dataObject.optString("page_id"), PartType.STRING));
+		multiParts.put("operation", new Part(dataObject.optString("operation"), PartType.STRING));
+		multiParts.put("post_type", new Part(dataObject.optString("post_type"), PartType.STRING));
+		if(!dataObject.optString("image_path").isEmpty()) {
+			multiParts.put("post_image", new Part(dataObject.optString("image_path"), PartType.FILE));
+		}
+		if(postType.equalsIgnoreCase("scheduled")) {
+			multiParts.put("post_scheduled_to", new Part(dataObject.optString("post_scheduled_to"), PartType.STRING));
 		}
 		restContent.setParts(multiParts);
 		restContent.setMultiPart(true);
