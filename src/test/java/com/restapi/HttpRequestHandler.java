@@ -44,7 +44,10 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -59,11 +62,10 @@ public class HttpRequestHandler {
 	public RestResponse doPost(String testName, RestRequest request, boolean https) throws Exception {
 		
 		testName = testName.trim();
-		testName = StringUtils.rightPad(testName, 15);
 	
 		RestResponse callResponse = new RestResponse();
 
-		CloseableHttpClient httpClient=getSSLClient(https);
+		CloseableHttpClient httpClient= HttpClientBuilder.create().build();
 
 		HttpPost httpPost = new HttpPost(request.getUrl());
 		request.setMethod(HTTPConstants.POST);

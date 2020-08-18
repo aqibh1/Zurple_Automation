@@ -39,4 +39,6 @@ public class ModuleCacheConstants {
 	public static final String ZurpleLeadMessageSubject = "zurple.lead.subject";
 	public static final String ZurpleCampaignName = "zurple.campaign.name";
 	public static final String ZurpleCampaignID = "zurple.campaign.id";
+	public static final String ZurplePostId = "zurple.rest.post.id";
+	public static final String Cookie = "zurple.cookie";
 }
