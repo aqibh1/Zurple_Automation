@@ -16,11 +16,11 @@
 						<include name="testBackOfficeAPILogin" />
 					</methods>
 				</class>
- <!--  			<class name="com.zurple.rest.ZBORestPostStatusTest">
+  			<class name="com.zurple.rest.ZBORestPostStatusTest">
 					<methods>
 						<include name="testScheduledPost" />
 					</methods>
-				</class> -->
+				</class> 
   				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
 					<methods>
 						<include name="testGetScheduledPostHistory" />

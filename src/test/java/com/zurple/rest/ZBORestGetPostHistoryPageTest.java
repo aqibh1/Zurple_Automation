@@ -25,6 +25,7 @@ import com.restapi.RestValidationAction;
  */
 public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 	private JSONObject dataObject;
+	ZBORestPostStatusTest zbo = new ZBORestPostStatusTest();
 	
 	@Test
 	@Parameters({"datafile"})
@@ -56,6 +57,12 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 		
 		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
 		RestResponse response = httpRequestHandler.doGet(this.getClass().getName(), request, true);
+		
+		assertTrue(validateMapResp(response, "scheduled"), "Unable to verify the response..");
+		/////////////////////////////////////////////////////////////////////
+		String Url = getBaseUrl()+"/social/getposthistory?page_num=1";
+		
+		request.setUrl(Url);
 		
 		assertTrue(validateMapResp(response, "scheduled"), "Unable to verify the response..");
 	}
@@ -90,9 +97,10 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 		if(httpCallResp.getStatus() == statusCode && statusCode == HttpStatus.SC_OK) {
 			if(validationAction.equals(RestValidationAction.FOUND)) {
 				if(postType.equalsIgnoreCase("scheduled")) {
-					String lc_post_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePostScheduleId);
+					String lc_post_id = zbo.readFromFile();
+				//	String lc_post_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePostScheduleId);
 					status = lJsonResponse.optString("status").equalsIgnoreCase("1") && verifyPostResponse(lJsonResponse,lc_post_id);
-					ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostScheduleId, lc_post_id);
+				//	ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostScheduleId, lc_post_id);
 				}
 			}
 		}
@@ -106,7 +114,7 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 		boolean isVerified = false;
 		JSONArray jArray = 	lJsonResponse.getJSONArray("data");
 		JSONObject jObject = new JSONObject();
-		for(int i=0;i<jArray.length();i++) {
+		for(int i=0;i<jArray.length() ;i++) {
 			jObject = jArray.getJSONObject(i);
 			AutomationLogger.info("Post Schedule id to Verify :: "+pPostId);
 			AutomationLogger.info("Post Schedule ID :: "+jObject.get("post_schedule_id").toString());
@@ -116,7 +124,10 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 			}
 		}
 		if(isVerified) {
-			if(!jObject.optString("post_message").contains(dataObject.optString("post_message"))) {
+			getDriver();
+			String post_message = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePostMessage);
+			String x = jObject.optString("schedule_message");
+			if(!jObject.optString("schedule_message").equals(post_message)) {
 				AutomationLogger.error("Post message is not valid..");
 				isVerified = false;
 			}
@@ -128,12 +139,33 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 //				AutomationLogger.error("Post message is not valid..");
 //				isVerified = false;
 //			}
-			if(!dataObject.optString("post_type").equalsIgnoreCase(jObject.optString("post_type"))) {
+			if(!dataObject.optString("schedule_type").equalsIgnoreCase(jObject.optString("post_type"))) {
 				AutomationLogger.error("Post message is not valid..");
 				isVerified = false;
 			}
 		}
 		return isVerified;
-	}	
+	}
+	
+//	private boolean validatePostHistoryForScheduledPosts(RestResponse httpCallResp, String postType) throws Exception {
+//		boolean status = false;
+//		int statusCode = Integer.parseInt(dataObject.optString("status_code"));
+//		ZBORestPostStatusTest zbo = new ZBORestPostStatusTest();
+//		String validationAction = getValidationAction(dataObject,this.getClass().getSimpleName());
+//		JSONObject lJsonResponse = httpCallResp.getJsonResponse();
+//		AutomationLogger.info(lJsonResponse.toString());
+//		if(httpCallResp.getStatus() == statusCode && statusCode == HttpStatus.SC_OK) {
+//			if(validationAction.equals(RestValidationAction.FOUND)) {
+//				if(postType.equalsIgnoreCase("scheduled")) {
+//					String lc_post_id = zbo.readFromFile();
+//					status = lJsonResponse.optString("status").equalsIgnoreCase("1") && verifyPostResponse(lJsonResponse,lc_post_id);
+//				}
+//			}
+//		}
+//		else {
+//			status = false;
+//		}
+//		return status;
+//	}
 	
 }

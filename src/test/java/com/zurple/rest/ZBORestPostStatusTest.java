@@ -5,8 +5,15 @@ package com.zurple.rest;
 
 import static org.testng.Assert.assertTrue;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.apache.http.HttpStatus;
 import org.json.JSONObject;
@@ -104,8 +111,9 @@ public class ZBORestPostStatusTest extends RestAPITest{
 			if(validationAction.equals(RestValidationAction.CREATE)) {
 				status = httpCallResp.getJsonResponse().optString("status").equalsIgnoreCase("1");
 				if(postType.equalsIgnoreCase("scheduled")) {
-					String lc_post_id = httpCallResp.getJsonResponse().getJSONObject("data").get("post_schedule_id").toString();
-					ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostScheduleId, lc_post_id);
+					String lc_post_id = httpCallResp.getJsonResponse().getJSONObject("data").get("post_id").toString();
+					saveToFile(lc_post_id);
+				//	ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostScheduleId, lc_post_id);
 				}
 			}
 		}
@@ -137,8 +145,9 @@ public class ZBORestPostStatusTest extends RestAPITest{
 	private RestContent getContent(String postType) throws Exception {
 		RestContent restContent = new RestContent();
 		Map<String, Part> multiParts = new HashMap<String, Part>();
-		
-		multiParts.put("post_message", new Part(updateName(dataObject.optString("post_message")), PartType.STRING));
+		String postMessage = updateName(dataObject.optString("post_message"));
+		multiParts.put("post_message", new Part(postMessage, PartType.STRING));
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostMessage, postMessage);
 		multiParts.put("social_network", new Part(dataObject.optString("social_network"), PartType.STRING));
 		multiParts.put("page_id", new Part(dataObject.optString("page_id"), PartType.STRING));
 		multiParts.put("operation", new Part(dataObject.optString("operation"), PartType.STRING));
@@ -147,12 +156,58 @@ public class ZBORestPostStatusTest extends RestAPITest{
 			multiParts.put("post_image", new Part(dataObject.optString("image_path"), PartType.FILE));
 		}
 		if(postType.equalsIgnoreCase("scheduled")) {
-			multiParts.put("post_scheduled_to", new Part(dataObject.optString("post_scheduled_to"), PartType.STRING));
+			multiParts.put("post_scheduled_to", new Part(setScheduledPostDate(), PartType.STRING));
 		}
 		restContent.setParts(multiParts);
 		restContent.setMultiPart(true);
 		AutomationLogger.info(restContent.getBody());
 		return restContent;
 	}
+	
+	public boolean saveToFile(String postID) {
+		try {
+		      File myObj = new File("postids.txt");
+		      if (myObj.createNewFile()) {
+		        System.out.println("File created: " + myObj.getName());
+		      } else {
+		    	AutomationLogger.info("File already exists.");
+		      }
+		    } catch (IOException e) {
+		    	AutomationLogger.info("An error occurred.");
+		      e.printStackTrace();
+		    }
+		
+		try {
+			  boolean append = false;
+		      //FileWriter myWriter = new FileWriter("postids.txt", append);
+		      Writer output = new BufferedWriter(new FileWriter("postids.txt", true));
+		      output.append("\n");
+		      output.append(postID);
+		      
+		      output.close();
+		      AutomationLogger.info("Successfully wrote to the file.");
+		      return true;
+		    } catch (IOException e) {
+		    	AutomationLogger.info("An error occurred.");
+		      e.printStackTrace();
+		      return false;
+		    }
+	}
 
+	public String readFromFile() {
+		String data = "";
+		try {
+		      File myObj = new File("postids.txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        data = myReader.nextLine();
+		        AutomationLogger.info(data);
+		      }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		    	AutomationLogger.info("An error occurred.");
+		      e.printStackTrace();
+		    }
+		return data;
+	}
 }
