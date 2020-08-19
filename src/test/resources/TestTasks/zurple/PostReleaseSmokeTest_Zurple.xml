@@ -1,14 +1,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Zurple Website Post Release Somke Tests"
-	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+<suite name="Zurple Website Post Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	<listeners>		
 		<listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
- 
+ <!--  
 	<test name="Search and Verify property by Price City Features">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-01.json">
@@ -564,7 +563,7 @@
 				</class>
 			</classes>
 	</test>
-	<!--  
+
 	<test name="Verify social Integration Twitter">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -584,7 +583,7 @@
 				</class>
 			</classes>
 	</test>
-	-->
+	
 	<test name="Verify social Integration LinkedIn">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -851,7 +850,7 @@
 		</parameter>
 		</parameter>
 	</test>
-	<!-- Back Office test cases -->
+
 	<test name="Verify Sorting works on Leads Page">	 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -1463,7 +1462,7 @@
 			</classes>
 	</parameter>
 	</test>
-	
+	-->
 	<test name="Assignment of lead from Leads detail Page" >	
 	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-lead-assign-agent-data.json"> 
 			<classes>
@@ -2052,4 +2051,173 @@
 			</classes>
 	</parameter>
 	</test>
+	
+	<test name="Send standard scheduled email">	
+	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+							<include name="testSendScheduledStandardEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
+	
+	<test name="Verify bounced emails">
+
+		<parameter name="registerUserDataFile"
+			value="/resources/data/zurple/register_user/register-user-bounced-email-data.json">
+				<classes>
+					<class name="com.zurple.website.ZWRegisterUserPageTest">
+						<methods>
+							<include name="testRegisterUser" />
+						</methods>
+					</class>
+					<class name="com.zurple.backoffice.ZBOLoginPageTest">
+						<methods>
+							<include name="testBackOfficeLogin" />
+						</methods>
+					</class>
+					<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+						<methods>
+							<include name="testVerifyBouncedEmail" />
+						</methods>
+					</class>
+					<class name="resources.CurrentPageTest">
+						<methods>
+							<include name="closeBrowser" />
+						</methods>
+					</class>
+				</classes>
+			</parameter>
+	</test>
+	
+	<test name="Capture lead from Home Evaluation Page">
+		<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-home-evaluation.json">
+			<classes>
+				<class name="com.zurple.website.ZWHomeEvaluationPageTest">
+					<methods>
+						<include name="testCaptureLeadFromHomeEvaluationPage" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyLeadCaptureFromHomeEvaluationPage" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+	<!--  
+	<test name="Update Agent Profile" >	
+	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-lead-assign-agent-data.json"> 
+			<classes preserve-order="true">
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOAgentsPageTest">
+					<methods>
+						<include name="testEditAgentProfile" />
+						<include name="testEditSitOwnerProfile" />
+					</methods>
+				</class>
+				
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>
+	
+	<test name="Enroll and unenroll lead in campaign" >	
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/create-campaign-data.json"> 
+			<classes preserve-order="true">
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class> 
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testCreateCampaign" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testEnrollLeadInCampaign" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testUnenrollLeadFromCampaign" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testDeleteCampaign" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>
+	
+	<test name="Verify lead enrollment is disabled for new leads" >	
+	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-campaign.json"> 
+			<classes preserve-order="true">
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				
+				<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+					<methods>
+						<include name="testAddLead" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyNewLeadEnrollmentInCampaign" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>
+	
+	-->
 </suite>
