@@ -37,7 +37,7 @@ public class ZBORestPostStatusTest extends RestAPITest{
 	
 	@Test
 	@Parameters({"datafile"})
-	public void testGetPostStatus(String pDataFile) throws Exception {
+	public void testPostStatus(String pDataFile) throws Exception {
 		getDriver();
 		String lc_cookie = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.Cookie);
 		dataObject = getDataFile(pDataFile);
@@ -70,21 +70,31 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		else {
 			status = false;
 		}
-		ActionHelper.staticWait(30);
+		ActionHelper.staticWait(50);
 		return status;
 	}
 
 	private RestContent getContent() throws Exception {
 		RestContent restContent = new RestContent();
 		Map<String, Part> multiParts = new HashMap<String, Part>();
-
-		multiParts.put("post_message", new Part(updateName(dataObject.optString("post_message")), PartType.STRING));
+		String lPost_Message = "";
+		String lProp_id = getIsProd()?dataObject.optString("property_id"):dataObject.optString("property_id_stage");
+		if(dataObject.optString("post_message").isEmpty()) {
+			lPost_Message = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePostMessage);
+		}
+		multiParts.put("post_message", new Part(updateName(lPost_Message), PartType.STRING));
 		multiParts.put("social_network", new Part(dataObject.optString("social_network"), PartType.STRING));
 		multiParts.put("page_id", new Part(dataObject.optString("page_id"), PartType.STRING));
 		multiParts.put("operation", new Part(dataObject.optString("operation"), PartType.STRING));
 		multiParts.put("post_type", new Part(dataObject.optString("post_type"), PartType.STRING));
 		if(!dataObject.optString("image_path").isEmpty()) {
 			multiParts.put("post_image", new Part(dataObject.optString("image_path"), PartType.FILE));
+		}
+		if(!lProp_id.isEmpty()) {
+			multiParts.put("property_id", new Part(lProp_id, PartType.STRING));
+		}
+		if(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleListingURL)!=null) {
+			multiParts.put("link", new Part(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleListingURL), PartType.STRING));
 		}
 		restContent.setParts(multiParts);
 		restContent.setMultiPart(true);
