@@ -201,8 +201,7 @@ public abstract class AbstractPageTest extends AbstractTest
         return prettyJson;
     }
     protected void writePojoToJsonFile(Object pPojoObject, String pFileToWrite) {
-    	ObjectMapper mapper = new ObjectMapper();
-    	 
+    	ObjectMapper mapper = new ObjectMapper(); 
         /**
          * Write object to file
          */
@@ -331,7 +330,18 @@ public abstract class AbstractPageTest extends AbstractTest
 		LocalDate today = LocalDate.now().minusDays(1);
 		String tempDate[] = today.toString().split("-");
 		lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
-		return lDate;
+		return lDate; //08/18/2020
+	}
+    
+    public String setScheduledPostDate() {
+		String lDate = "";
+		LocalDate today = LocalDate.now();
+		String tempDate[] = today.toString().split("-");
+		Calendar now = Calendar.getInstance();
+		now.add(Calendar.MINUTE, 10);
+		SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+		lDate = tempDate[0]+"-"+tempDate[1]+"-"+tempDate[2]+" "+df.format(now.getTime());
+		return lDate; //2020-08-19 11:50
 	}
     
 

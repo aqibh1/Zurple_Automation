@@ -5,10 +5,18 @@ package com.zurple.rest;
 
 import static org.testng.Assert.assertTrue;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.apache.http.HttpStatus;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -32,9 +40,10 @@ import resources.utility.AutomationLogger;
  * @author adar
  *
  */
+
 public class ZBORestPostStatusTest extends RestAPITest{
 	private JSONObject dataObject;
-	
+
 	@Test
 	@Parameters({"datafile"})
 	public void testPostStatus(String pDataFile) throws Exception {
@@ -52,6 +61,24 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
 		
 		assertTrue(validateMapResp(response),"Unable to verify the response..");
+	}
+	
+	@Test
+	@Parameters({"datafile"})
+	public void testScheduledPost(String pDataFile) throws Exception {
+		getDriver();
+		String lc_cookie = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.Cookie);
+		dataObject = getDataFile(pDataFile);
+		RestRequest request = new RestRequest();
+		String lUrl = getBaseUrl()+"/social/post";
+		
+		request.setUrl(lUrl);
+		request.setRestContent(getContent("scheduled"));
+		request.setHeaders(HeadersConfig.getMultipartFormDataHeaders(lc_cookie));
+		
+		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
+		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
+		assertTrue(validateMapResp(response,"scheduled"),"Unable to verify the response..");
 	}
 
 	@Override
@@ -73,6 +100,33 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		ActionHelper.staticWait(50);
 		return status;
 	}
+	
+	@Override
+	public boolean validateMapResp(RestResponse httpCallResp, String postType) throws Exception {
+		boolean status = false;
+		int statusCode = Integer.parseInt(dataObject.optString("status_code"));
+		String validationAction = getValidationAction(dataObject,this.getClass().getSimpleName());
+		if(httpCallResp.getStatus() == statusCode && statusCode == HttpStatus.SC_OK) {
+			if(validationAction.equals(RestValidationAction.CREATE)) {
+				status = httpCallResp.getJsonResponse().optString("status").equalsIgnoreCase("1");
+				//if(postType.equalsIgnoreCase("scheduled")) {
+					String lc_post_id = httpCallResp.getJsonResponse().getJSONObject("data").get("post_id").toString();
+//					JSONObject lJsonResponse = httpCallResp.getJsonResponse();
+//					JSONArray jArray = 	lJsonResponse.getJSONArray("data");
+//					JSONObject jObject = new JSONObject();
+//					for(int i=0;i<jArray.length(); i++) {
+//						jObject = jArray.getJSONObject(i);
+//					writePojoToJsonFile(jObject,lNewFileToWrite);
+				//	saveToFile(lc_post_id);
+					ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostScheduleId, lc_post_id);
+			}
+		}
+		else {
+			status = false;
+		}
+		ActionHelper.staticWait(30);
+		return status;
+	}
 
 	private RestContent getContent() throws Exception {
 		RestContent restContent = new RestContent();
@@ -83,6 +137,8 @@ public class ZBORestPostStatusTest extends RestAPITest{
 			lPost_Message = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePostMessage);
 		}
 		multiParts.put("post_message", new Part(updateName(lPost_Message), PartType.STRING));
+		
+		multiParts.put("post_message", new Part(updateName(dataObject.optString("post_message")), PartType.STRING));
 		multiParts.put("social_network", new Part(dataObject.optString("social_network"), PartType.STRING));
 		multiParts.put("page_id", new Part(dataObject.optString("page_id"), PartType.STRING));
 		multiParts.put("operation", new Part(dataObject.optString("operation"), PartType.STRING));
@@ -101,5 +157,71 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		AutomationLogger.info(restContent.getBody());
 		return restContent;
 	}
+	
+	private RestContent getContent(String postType) throws Exception {
+		RestContent restContent = new RestContent();
+		Map<String, Part> multiParts = new HashMap<String, Part>();
+		String postMessage = updateName(dataObject.optString("post_message"));
+		multiParts.put("post_message", new Part(postMessage, PartType.STRING));
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostMessage, postMessage);
+		multiParts.put("social_network", new Part(dataObject.optString("social_network"), PartType.STRING));
+		multiParts.put("page_id", new Part(dataObject.optString("page_id"), PartType.STRING));
+		multiParts.put("operation", new Part(dataObject.optString("operation"), PartType.STRING));
+		multiParts.put("post_type", new Part(dataObject.optString("post_type"), PartType.STRING));
+		if(!dataObject.optString("image_path").isEmpty()) {
+			multiParts.put("post_image", new Part(dataObject.optString("image_path"), PartType.FILE));
+		}
+		if(postType.equalsIgnoreCase("scheduled")) {
+			multiParts.put("post_scheduled_to", new Part(setScheduledPostDate(), PartType.STRING));
+		}
+		restContent.setParts(multiParts);
+		restContent.setMultiPart(true);
+		AutomationLogger.info(restContent.getBody());
+		return restContent;
+	}
+	
+//	public boolean saveToFile(String postID) {
+//		try {
+//		      File myObj = new File("postids.txt");
+//		      if (myObj.createNewFile()) {
+//		        System.out.println("File created: " + myObj.getName());
+//		      } else {
+//		    	AutomationLogger.info("File already exists.");
+//		      }
+//		    } catch (IOException e) {
+//		    	AutomationLogger.info("An error occurred.");
+//		      e.printStackTrace();
+//		    }
+//		
+//		try {
+//		      //FileWriter myWriter = new FileWriter("postids.txt", append);
+//		      Writer output = new BufferedWriter(new FileWriter("postids.txt", true));
+//		      output.append("\n");
+//		      output.append(postID);
+//		      output.close();
+//		      AutomationLogger.info("Successfully wrote to the file.");
+//		      return true;
+//		    } catch (IOException e) {
+//		    	AutomationLogger.info("An error occurred.");
+//		      e.printStackTrace();
+//		      return false;
+//		    }
+//	}
 
+	public String readFromFile() {
+		String data = "";
+		try {
+		      File myObj = new File("postids.txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        data = myReader.nextLine();
+		        AutomationLogger.info(data);
+		      }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		    	AutomationLogger.info("An error occurred.");
+		      e.printStackTrace();
+		    }
+		return data;
+	}
 }
