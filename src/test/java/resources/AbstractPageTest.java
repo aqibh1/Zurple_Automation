@@ -201,8 +201,7 @@ public abstract class AbstractPageTest extends AbstractTest
         return prettyJson;
     }
     protected void writePojoToJsonFile(Object pPojoObject, String pFileToWrite) {
-    	ObjectMapper mapper = new ObjectMapper();
-    	 
+    	ObjectMapper mapper = new ObjectMapper(); 
         /**
          * Write object to file
          */
@@ -336,7 +335,7 @@ public abstract class AbstractPageTest extends AbstractTest
     
     public String setScheduledPostDate() {
 		String lDate = "";
-		LocalDate today = LocalDate.now().minusDays(1);
+		LocalDate today = LocalDate.now();
 		String tempDate[] = today.toString().split("-");
 		Calendar now = Calendar.getInstance();
 		now.add(Calendar.MINUTE, 10);

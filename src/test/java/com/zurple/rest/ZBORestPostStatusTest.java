@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import org.apache.http.HttpStatus;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -39,9 +40,10 @@ import resources.utility.AutomationLogger;
  * @author adar
  *
  */
+
 public class ZBORestPostStatusTest extends RestAPITest{
 	private JSONObject dataObject;
-	
+
 	@Test
 	@Parameters({"datafile"})
 	public void testGetPostStatus(String pDataFile) throws Exception {
@@ -76,9 +78,7 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		
 		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
 		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
-
 		assertTrue(validateMapResp(response,"scheduled"),"Unable to verify the response..");
-
 	}
 
 	@Override
@@ -103,18 +103,22 @@ public class ZBORestPostStatusTest extends RestAPITest{
 	
 	@Override
 	public boolean validateMapResp(RestResponse httpCallResp, String postType) throws Exception {
-
 		boolean status = false;
 		int statusCode = Integer.parseInt(dataObject.optString("status_code"));
 		String validationAction = getValidationAction(dataObject,this.getClass().getSimpleName());
 		if(httpCallResp.getStatus() == statusCode && statusCode == HttpStatus.SC_OK) {
 			if(validationAction.equals(RestValidationAction.CREATE)) {
 				status = httpCallResp.getJsonResponse().optString("status").equalsIgnoreCase("1");
-				if(postType.equalsIgnoreCase("scheduled")) {
+				//if(postType.equalsIgnoreCase("scheduled")) {
 					String lc_post_id = httpCallResp.getJsonResponse().getJSONObject("data").get("post_id").toString();
-					saveToFile(lc_post_id);
-				//	ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostScheduleId, lc_post_id);
-				}
+//					JSONObject lJsonResponse = httpCallResp.getJsonResponse();
+//					JSONArray jArray = 	lJsonResponse.getJSONArray("data");
+//					JSONObject jObject = new JSONObject();
+//					for(int i=0;i<jArray.length(); i++) {
+//						jObject = jArray.getJSONObject(i);
+//					writePojoToJsonFile(jObject,lNewFileToWrite);
+				//	saveToFile(lc_post_id);
+					ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostScheduleId, lc_post_id);
 			}
 		}
 		else {
@@ -164,35 +168,33 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		return restContent;
 	}
 	
-	public boolean saveToFile(String postID) {
-		try {
-		      File myObj = new File("postids.txt");
-		      if (myObj.createNewFile()) {
-		        System.out.println("File created: " + myObj.getName());
-		      } else {
-		    	AutomationLogger.info("File already exists.");
-		      }
-		    } catch (IOException e) {
-		    	AutomationLogger.info("An error occurred.");
-		      e.printStackTrace();
-		    }
-		
-		try {
-			  boolean append = false;
-		      //FileWriter myWriter = new FileWriter("postids.txt", append);
-		      Writer output = new BufferedWriter(new FileWriter("postids.txt", true));
-		      output.append("\n");
-		      output.append(postID);
-		      
-		      output.close();
-		      AutomationLogger.info("Successfully wrote to the file.");
-		      return true;
-		    } catch (IOException e) {
-		    	AutomationLogger.info("An error occurred.");
-		      e.printStackTrace();
-		      return false;
-		    }
-	}
+//	public boolean saveToFile(String postID) {
+//		try {
+//		      File myObj = new File("postids.txt");
+//		      if (myObj.createNewFile()) {
+//		        System.out.println("File created: " + myObj.getName());
+//		      } else {
+//		    	AutomationLogger.info("File already exists.");
+//		      }
+//		    } catch (IOException e) {
+//		    	AutomationLogger.info("An error occurred.");
+//		      e.printStackTrace();
+//		    }
+//		
+//		try {
+//		      //FileWriter myWriter = new FileWriter("postids.txt", append);
+//		      Writer output = new BufferedWriter(new FileWriter("postids.txt", true));
+//		      output.append("\n");
+//		      output.append(postID);
+//		      output.close();
+//		      AutomationLogger.info("Successfully wrote to the file.");
+//		      return true;
+//		    } catch (IOException e) {
+//		    	AutomationLogger.info("An error occurred.");
+//		      e.printStackTrace();
+//		      return false;
+//		    }
+//	}
 
 	public String readFromFile() {
 		String data = "";
