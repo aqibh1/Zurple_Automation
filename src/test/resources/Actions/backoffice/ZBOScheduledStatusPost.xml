@@ -1,0 +1,39 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Verify Scheduled FB post"
+	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+    </listeners>
+
+	<test name="Verify Scheduled FB post">	 
+	<parameter name="datafile" value="/resources/data/zurple/socialapi/scheduled_post_data.json"> 
+	<parameter name="scheduledPost" value="/resources/cache/scheduled-post-qa.json.json"> 
+			<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeAPILogin" />
+					</methods>
+				</class>
+  			<class name="com.zurple.rest.ZBORestPostStatusTest">
+					<methods>
+						<include name="testScheduledPost" />
+					</methods>
+				</class> 
+  				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
+					<methods>
+						<include name="testGetScheduledPostHistory" />
+					</methods>
+				</class>	
+				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
+					<methods>
+						<include name="readFileAndValidate" />
+					</methods>
+				</class>				
+			</classes>
+			</parameter>
+			</parameter>
+	</test>
+</suite>
