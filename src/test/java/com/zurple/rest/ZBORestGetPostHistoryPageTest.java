@@ -87,7 +87,7 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 		return status;
 	}
 	
-	@Override
+
 	public boolean validateMapResp(RestResponse httpCallResp, String postType) throws Exception {
 		boolean status = false;
 		int statusCode = Integer.parseInt(dataObject.optString("status_code"));

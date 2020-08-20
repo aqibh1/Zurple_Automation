@@ -24,7 +24,7 @@ public abstract class RestAPITest extends AbstractPageTest {
 
 	private String restApiBaseUrl = "";
 	public abstract boolean validateMapResp(RestResponse httpCallResp) throws Exception;
-	public abstract boolean validateMapResp(RestResponse httpCallResp, String postType) throws Exception;
+//	public abstract boolean validateMapResp(RestResponse httpCallResp, String postType) throws Exception;
 	
 	public String getBaseUrl() {
 		EnvironmentFactory.configReader.load();
