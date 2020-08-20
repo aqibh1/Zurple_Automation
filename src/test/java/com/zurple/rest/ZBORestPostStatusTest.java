@@ -87,17 +87,21 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		boolean status = false;
 		int statusCode = Integer.parseInt(dataObject.optString("status_code"));
 		String validationAction = getValidationAction(dataObject,this.getClass().getSimpleName());
+		String lFileToWriteProd = getIsProd()?"/resources/cache/scheduled-post-prod.json":"/resources/cache/scheduled-post-qa.json";
 		if(httpCallResp.getStatus() == statusCode && statusCode == HttpStatus.SC_OK) {
 			if(validationAction.equals(RestValidationAction.CREATE)) {
 				status = httpCallResp.getJsonResponse().optString("status").equalsIgnoreCase("1");
 				String lc_post_id = httpCallResp.getJsonResponse().getJSONObject("data").get("post_id").toString();
 				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostId, lc_post_id);
+				if(status && dataObject.optString("post_type").equalsIgnoreCase("listing-video")) {
+					writeJsonToFile(lFileToWriteProd, httpCallResp.getJsonResponse());
+				}
 			}
 		}
 		else {
 			status = false;
 		}
-		ActionHelper.staticWait(50);
+		ActionHelper.staticWait(30);
 		return status;
 	}
 	
@@ -137,8 +141,6 @@ public class ZBORestPostStatusTest extends RestAPITest{
 			lPost_Message = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePostMessage);
 		}
 		multiParts.put("post_message", new Part(updateName(lPost_Message), PartType.STRING));
-		
-		multiParts.put("post_message", new Part(updateName(dataObject.optString("post_message")), PartType.STRING));
 		multiParts.put("social_network", new Part(dataObject.optString("social_network"), PartType.STRING));
 		multiParts.put("page_id", new Part(dataObject.optString("page_id"), PartType.STRING));
 		multiParts.put("operation", new Part(dataObject.optString("operation"), PartType.STRING));

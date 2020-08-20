@@ -7,8 +7,8 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
 
-	<test name="Verify listing video post on Facebook">	 
-		<parameter name="datafile" value="/resources/data/zurple/socialapi/post_fb_listing_video_data.json"> 
+	<test name="Verify listing video post on Youtube">	 
+		<parameter name="datafile" value="/resources/data/zurple/socialapi/post_yt_listing_video_data.json"> 
 	
 			<classes>
 			<class name="com.zurple.backoffice.ZBOLoginPageTest">
