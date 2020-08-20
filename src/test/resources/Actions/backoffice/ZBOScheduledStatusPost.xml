@@ -10,7 +10,7 @@
 
 	<test name="Verify Scheduled FB post">	 
 	<parameter name="datafile" value="/resources/data/zurple/socialapi/scheduled_post_data.json"> 
-	<parameter name="scheduledPost" value="/resources/data/zurple/socialapi/scheduled-post-qa.json"> 
+	<parameter name="scheduledPost" value="/resources/cache/scheduled-post-qa.json"> 
 			<classes>
 			<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
