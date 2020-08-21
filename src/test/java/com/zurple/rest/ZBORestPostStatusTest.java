@@ -83,7 +83,6 @@ public class ZBORestPostStatusTest extends RestAPITest{
 
 	@Override
 	public boolean validateMapResp(RestResponse httpCallResp) throws Exception {
-
 		boolean status = false;
 		int statusCode = Integer.parseInt(dataObject.optString("status_code"));
 		String validationAction = getValidationAction(dataObject,this.getClass().getSimpleName());
@@ -122,7 +121,6 @@ public class ZBORestPostStatusTest extends RestAPITest{
 //						jObject = jArray.getJSONObject(i);
 //					writePojoToJsonFile(jObject,lNewFileToWrite);
 				//	saveToFile(lc_post_id);
-					ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostScheduleId, lc_post_id);
 			}
 		}
 		else {
@@ -138,9 +136,12 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		String lPost_Message = "";
 		String lProp_id = getIsProd()?dataObject.optString("property_id"):dataObject.optString("property_id_stage");
 		if(dataObject.optString("post_message").isEmpty()) {
-			lPost_Message = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePostMessage);
+			lPost_Message = updateName(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePostMessage));
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostMessage, lPost_Message);
+		}else {
+			lPost_Message = updateName(dataObject.optString("post_message"));
 		}
-		multiParts.put("post_message", new Part(updateName(lPost_Message), PartType.STRING));
+		multiParts.put("post_message", new Part(lPost_Message, PartType.STRING));
 		multiParts.put("social_network", new Part(dataObject.optString("social_network"), PartType.STRING));
 		multiParts.put("page_id", new Part(dataObject.optString("page_id"), PartType.STRING));
 		multiParts.put("operation", new Part(dataObject.optString("operation"), PartType.STRING));

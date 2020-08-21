@@ -125,7 +125,7 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 		if(isVerified) {
 			getDriver();
 			String post_message = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePostMessage);
-			if(!jObject.optString("schedule_message").equals(post_message)) {
+			if(!jObject.optString("post_message").trim().equals(post_message.trim())) {
 				AutomationLogger.error("Post message is not valid..");
 				isVerified = false;
 			}
@@ -137,7 +137,7 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 //				AutomationLogger.error("Post message is not valid..");
 //				isVerified = false;
 //			}
-			if(!dataObject.optString("schedule_type").equalsIgnoreCase(jObject.optString("post_type"))) {
+			if(!dataObject.optString("post_type").equalsIgnoreCase(jObject.optString("post_type"))) {
 				AutomationLogger.error("Post message is not valid..");
 				isVerified = false;
 			}
