@@ -7,8 +7,8 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
 
-	<test name="Verify photo post on Twitter">	 
-	<parameter name="datafile" value="/resources/data/zurple/socialapi/post_twitter_photo_data.json"> 
+	<test name="Verify status post on linkedIn">	 
+	<parameter name="datafile" value="/resources/data/zurple/socialapi/post_li_status_data.json"> 
 			<classes>
 			<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -17,7 +17,7 @@
 				</class>
 			<class name="com.zurple.rest.ZBORestPostStatusTest">
 					<methods>
-						<include name="testGetPostStatus" />
+						<include name="testPostStatus" />
 					</methods>
 				</class>
 				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
