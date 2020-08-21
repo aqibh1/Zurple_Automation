@@ -138,10 +138,11 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		String lProp_id = getIsProd()?ZurpleListingConstants.zurple_sapi_listing_id_prod:ZurpleListingConstants.zurple_sapi_listing_id_stage;
 		if(dataObject.optString("post_message").isEmpty()) {
 			lPost_Message = updateName(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePostMessage));
-			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostMessage, lPost_Message);
 		}else {
 			lPost_Message = updateName(dataObject.optString("post_message"));
 		}
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostMessage, lPost_Message);
+
 		multiParts.put("post_message", new Part(lPost_Message, PartType.STRING));
 		multiParts.put("social_network", new Part(dataObject.optString("social_network"), PartType.STRING));
 		multiParts.put("page_id", new Part(dataObject.optString("page_id"), PartType.STRING));

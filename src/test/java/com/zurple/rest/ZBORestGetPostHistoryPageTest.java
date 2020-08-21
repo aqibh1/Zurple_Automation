@@ -117,7 +117,6 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 			AutomationLogger.info("Post Schedule id to Verify :: "+pPostId);
 			AutomationLogger.info("Post Schedule ID :: "+jObject.get("post_schedule_id").toString());
 			if(jObject.get("post_schedule_id").toString().equalsIgnoreCase(pPostId)) {
-				writeJsonToFile(lNewFileToWrite,jObject);
 				isVerified = true;
 				break;
 			}
