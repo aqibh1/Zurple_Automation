@@ -7,8 +7,8 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
 
-	<test name="Verify listing video post on Facebook">	 
-		<parameter name="datafile" value="/resources/data/zurple/socialapi/post_fb_listing_video_data.json"> 
+	<test name="Verify listing post on LinkedIn">	 
+		<parameter name="datafile" value="/resources/data/zurple/socialapi/post_li_listing_data.json"> 
 	
 			<classes>
 			<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -25,6 +25,11 @@
 					<methods>
 						<include name="testPostStatus" />
 					</methods>
+			</class>
+				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
+					<methods>
+						<include name="testGetPostHistory" />
+					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
 					<methods>
@@ -32,6 +37,6 @@
 					</methods>
 				</class>
 			</classes>
-			</parameter>
+		</parameter>
 	</test>
 </suite>
