@@ -35,6 +35,7 @@ import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.ZurpleListingConstants;
 
 /**
  * @author adar
@@ -134,7 +135,7 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		RestContent restContent = new RestContent();
 		Map<String, Part> multiParts = new HashMap<String, Part>();
 		String lPost_Message = "";
-		String lProp_id = getIsProd()?dataObject.optString("property_id"):dataObject.optString("property_id_stage");
+		String lProp_id = getIsProd()?ZurpleListingConstants.zurple_sapi_listing_id_prod:ZurpleListingConstants.zurple_sapi_listing_id_stage;
 		if(dataObject.optString("post_message").isEmpty()) {
 			lPost_Message = updateName(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePostMessage));
 			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostMessage, lPost_Message);
