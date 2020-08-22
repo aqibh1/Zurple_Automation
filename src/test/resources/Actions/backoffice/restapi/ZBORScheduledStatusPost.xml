@@ -10,30 +10,23 @@
 
 	<test name="Verify Scheduled FB post">	 
 	<parameter name="datafile" value="/resources/data/zurple/socialapi/scheduled_post_data.json"> 
-	<parameter name="scheduledPost" value="/resources/cache/scheduled-post-qa.json"> 
 			<classes>
 			<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
 						<include name="testBackOfficeAPILogin" />
 					</methods>
 				</class>
-  			<class name="com.zurple.rest.ZBORestPostStatusTest">
+ 		   		<class name="com.zurple.rest.ZBORestPostStatusTest">
 					<methods>
-						<include name="testScheduledPost" />
+						<include name="testPostStatus" /> 
 					</methods>
 				</class> 
   				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
 					<methods>
-						<include name="testGetScheduledPostHistory" />
-					</methods>
-				</class>	
-				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
-					<methods>
-						<include name="readFileAndValidate" />
+				  		<include name="testGetScheduledPostHistory"/>  
 					</methods>
 				</class>				
 			</classes>
-			</parameter>
 			</parameter>
 	</test>
 </suite>

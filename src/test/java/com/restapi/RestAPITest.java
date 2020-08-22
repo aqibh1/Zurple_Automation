@@ -5,6 +5,8 @@ package com.restapi;
 
 import java.io.IOException;
 import java.net.ProtocolException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONArray;
@@ -24,8 +26,6 @@ public abstract class RestAPITest extends AbstractPageTest {
 
 	private String restApiBaseUrl = "";
 	public abstract boolean validateMapResp(RestResponse httpCallResp) throws Exception;
-//	public abstract boolean validateMapResp(RestResponse httpCallResp, String postType) throws Exception;
-	
 	public String getBaseUrl() {
 		EnvironmentFactory.configReader.load();
 		String l_project = System.getProperty("project");
@@ -58,5 +58,11 @@ public abstract class RestAPITest extends AbstractPageTest {
 		}
 		return lValidationAction;
 	}
+	
+	public String getDataFileContentJsonArray(String pDataFile) throws IOException {
+        String data = ""; 
+        data = new String(Files.readAllBytes(Paths.get(pDataFile))); 
+        return "["+data+"]"; 
+    }
 	
 }

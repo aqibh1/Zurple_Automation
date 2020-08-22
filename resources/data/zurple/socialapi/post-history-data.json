@@ -5,6 +5,7 @@
 	"operation":"create",
 	"post_type":"status",
 	"status_code":"200",
+	"scheduled_check":"1",
 	"validation":[
 		{
 			"key":"ZBORestPostStatusTest",
@@ -12,7 +13,7 @@
 		},
 		{
 			"key":"ZBORestGetPostHistoryPageTest",
-			"value":"VERIFY"
+			"value":"VALIDATE"
 		}
 	]
 }

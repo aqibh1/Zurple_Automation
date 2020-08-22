@@ -15,5 +15,6 @@ public class RestValidationAction {
 	public static final String INVALID = "INVALID";
 	public static final String CREATE = "CREATE";
 	public static final Object FOUND = "FOUND";
-	
+	public static final Object VERIFY = "VERIFY";
+	public static final Object VALIDATE = "VALIDATE";
 }
