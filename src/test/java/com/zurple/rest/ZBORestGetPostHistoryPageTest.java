@@ -95,7 +95,7 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 				status = lJsonResponse.optString("status").equalsIgnoreCase("1") && verifyPostResponse(lJsonResponse,postScheduleID);
 				}
 			if(validationAction.equals(RestValidationAction.VALIDATE)) {
-				status = getPostHistoryData();
+				status = getVerifyShceduledPostsData();
 			}
 			}
 		else {
@@ -113,7 +113,7 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 			jObject = jArray.getJSONObject(i);
 			AutomationLogger.info("Post Schedule id to Verify :: "+pPostId);
 			AutomationLogger.info("Post Schedule ID :: "+jObject.get("post_schedule_id").toString());
-//			AutomationLogger.info("Post ID :: "+jObject.get("post_id").toString());
+			//			AutomationLogger.info("Post ID :: "+jObject.get("post_id").toString());
 			if(isScheduled) {
 				if(jObject.get("post_schedule_id").toString().equalsIgnoreCase(pPostId)) {
 					isVerified = true;
@@ -126,7 +126,7 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 					break;
 				}
 			}
-			
+
 		}
 		if(isVerified) {
 			getDriver();
@@ -162,7 +162,8 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 		boolean isVerified = false;
 		JSONObject JsonResponse = postHistoryResponse.getJsonResponse();
 		JSONArray iArray = JsonResponse.getJSONArray("data");
-		JSONArray jArray = new JSONArray(getDataFileContentJsonArray(System.getProperty("user.dir")+zbo.lNewFileToWrite));
+		String lFileToWriteProd = getIsProd()?"/resources/cache/scheduled-post-prod.json":"/resources/cache/scheduled-post-qa.json";
+		JSONArray jArray = new JSONArray(getDataFileContentJsonArray(System.getProperty("user.dir")+lFileToWriteProd));
 		JSONObject iObject = new JSONObject();
 		JSONObject jObject = new JSONObject();
 		String post_schedule_id = "";
@@ -170,10 +171,10 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 			for(int j=0;j<jArray.length(); j++) {
 				iObject = iArray.getJSONObject(i);
 				jObject = jArray.getJSONObject(j);				
-			AutomationLogger.info("Post Schedule ID in Post History :: "+iArray.getJSONObject(i).get("post_schedule_id").toString());
-			post_schedule_id = jArray.getJSONObject(j).get("data").toString().substring(11, 16).trim();
-			AutomationLogger.info("Post Schedule ID in Data File:: "+post_schedule_id);
-			if(post_schedule_id.equalsIgnoreCase(iObject.get("post_schedule_id").toString().trim())) {
+				AutomationLogger.info("Post Schedule ID in Post History :: "+iArray.getJSONObject(i).get("post_schedule_id").toString());
+				post_schedule_id = jArray.getJSONObject(j).getJSONObject("data").get("post_id").toString();
+				AutomationLogger.info("Post Schedule ID in Data File:: "+post_schedule_id);
+				if(post_schedule_id.equalsIgnoreCase(iObject.get("post_schedule_id").toString().trim())) {
 					isVerified = true;
 					break;
 				}
@@ -181,5 +182,34 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 			break;
 	}
 	return isVerified;
+}
+	private boolean getVerifyShceduledPostsData() throws Exception {
+		boolean isVerified = true;
+		boolean lFlag = false;
+		String lFileToWriteProd = getIsProd()?"/resources/cache/scheduled-post-prod.json":"/resources/cache/scheduled-post-qa.json";
+		JSONObject JsonResponse = postHistoryResponse.getJsonResponse();
+		JSONArray lResponseDataArray = JsonResponse.getJSONArray("data");
+		JSONArray lPostIdsToVerifyArray = new JSONArray(getDataFileContentJsonArray(System.getProperty("user.dir")+lFileToWriteProd));
+		String post_schedule_id_to_verify = "";
+		for(int i=0;i<lPostIdsToVerifyArray.length();i++) {
+			lFlag = false;
+			post_schedule_id_to_verify = lPostIdsToVerifyArray.getJSONObject(i).getJSONObject("data").get("post_id").toString();
+			for(int j=0;j<lResponseDataArray.length();j++) {
+				String l_response_post_id = lResponseDataArray.getJSONObject(j).get("post_schedule_id").toString();
+				//Comparing response and data post id
+				AutomationLogger.info("Post ID in data file :: "+post_schedule_id_to_verify);
+				AutomationLogger.info("Post ID in post history:: "+l_response_post_id);
+				if(post_schedule_id_to_verify.equalsIgnoreCase(l_response_post_id)) {
+					lFlag = true;
+					break;
+				}
+			}
+			if(!lFlag) {
+				isVerified = false;
+				AutomationLogger.error("Unable to verify Post ID :: "+post_schedule_id_to_verify);
+			}
+		}
+
+		return isVerified;
 }
 }

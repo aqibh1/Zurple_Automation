@@ -339,7 +339,7 @@ public abstract class AbstractPageTest extends AbstractTest
 		LocalDate today = LocalDate.now();
 		String tempDate[] = today.toString().split("-");
 		Calendar now = Calendar.getInstance();
-		now.add(Calendar.MINUTE, 7);
+		now.add(Calendar.MINUTE, 3);
 		SimpleDateFormat df = new SimpleDateFormat("HH:mm");
 		lDate = tempDate[0]+"-"+tempDate[1]+"-"+tempDate[2]+" "+df.format(now.getTime());
 		return lDate; //2020-08-19 11:50

@@ -5,6 +5,7 @@
 	"operation":"create",
 	"post_type":"status",
 	"status_code":"200",
+	"is_Scheduled":true,
 	"validation":[
 		{
 			"key":"ZBORestPostStatusTest",
