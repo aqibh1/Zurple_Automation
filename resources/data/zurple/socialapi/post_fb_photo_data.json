@@ -1,0 +1,19 @@
+{
+	"post_message":"Amazing houses in your area!!",
+	"social_network":"facebook",
+	"page_id":"472062480203994",
+	"operation":"create",
+	"post_type":"photo",
+	"image_path":"C:\\Automation\\resources\\images\\yt-1.jpg",
+	"status_code":"200",
+	"validation":[
+		{
+			"key":"ZBORestPostStatusTest",
+			"value":"CREATE"
+		},
+		{
+			"key":"ZBORestGetPostHistoryPageTest",
+			"value":"FOUND"
+		}
+	]
+}

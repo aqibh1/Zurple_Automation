@@ -114,19 +114,10 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 			AutomationLogger.info("Post Schedule id to Verify :: "+pPostId);
 			AutomationLogger.info("Post Schedule ID :: "+jObject.get("post_schedule_id").toString());
 			//			AutomationLogger.info("Post ID :: "+jObject.get("post_id").toString());
-			if(isScheduled) {
-				if(jObject.get("post_schedule_id").toString().equalsIgnoreCase(pPostId)) {
-					isVerified = true;
-					break;
-				}
+			if(jObject.get("post_schedule_id").toString().equalsIgnoreCase(pPostId)) {
+				isVerified = true;
+				break;
 			}
-			if(!isScheduled) {
-				if(jObject.get("post_id").toString().equalsIgnoreCase(pPostId)) {
-					isVerified = true;
-					break;
-				}
-			}
-
 		}
 		if(isVerified) {
 			getDriver();
@@ -146,13 +137,13 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 					isVerified = false;
 				}			
 				if(!dataObject.optString("social_network").equalsIgnoreCase(jObject.optString("social_network_name"))) {
-				AutomationLogger.error("Post platform is not valid..");
-				isVerified = false;
+					AutomationLogger.error("Post platform is not valid..");
+					isVerified = false;
 				}
 				if(!dataObject.optString("post_type").equalsIgnoreCase(jObject.optString("post_type"))) {
-				AutomationLogger.error("Post type is not valid..");
-				isVerified = false;
-			}
+					AutomationLogger.error("Post type is not valid..");
+					isVerified = false;
+				}
 			}
 		}
 		return isVerified;
