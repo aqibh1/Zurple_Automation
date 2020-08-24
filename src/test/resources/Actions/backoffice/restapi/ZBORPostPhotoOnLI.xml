@@ -7,8 +7,8 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
 
-	<test name="Verify photo post on Facebook">	 
-	<parameter name="datafile" value="/resources/data/zurple/socialapi/post_fb_photo_data.json"> 
+	<test name="Verify photo post on LinkedIn">	 
+	<parameter name="datafile" value="/resources/data/zurple/socialapi/post_li_photo_data.json"> 
 			<classes>
 			<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
