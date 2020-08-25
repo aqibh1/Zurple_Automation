@@ -1,9 +1,11 @@
 {
-	"post_message":"This is automated restapi status",
+	"post_message":"House for sale in your area ! #schedlue",
 	"social_network":"twitter",
 	"page_id":"472062480203994",
 	"operation":"create",
-	"post_type":"status",
+	"post_type":"photo",
+	"image_path":"C:\\Automation\\resources\\images\\yt-1.jpg",
+	"is_Scheduled":true,
 	"status_code":"200",
 	"validation":[
 		{
@@ -12,7 +14,7 @@
 		},
 		{
 			"key":"ZBORestGetPostHistoryPageTest",
-			"value":"FOUND"
+			"value":"VERIFY"
 		}
 	]
 }

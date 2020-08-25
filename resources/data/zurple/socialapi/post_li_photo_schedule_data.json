@@ -1,0 +1,20 @@
+{
+	"post_message":"House for sale in your area ! #schedlue",
+	"social_network":"linkedin",
+	"page_id":"472062480203994",
+	"operation":"create",
+	"post_type":"photo",
+	"image_path":"C:\\Automation\\resources\\images\\yt-1.jpg",
+	"status_code":"200",
+	"is_Scheduled":true,
+	"validation":[
+		{
+			"key":"ZBORestPostStatusTest",
+			"value":"CREATE"
+		},
+		{
+			"key":"ZBORestGetPostHistoryPageTest",
+			"value":"VERIFY"
+		}
+	]
+}
