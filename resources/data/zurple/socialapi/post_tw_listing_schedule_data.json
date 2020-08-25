@@ -1,0 +1,26 @@
+{
+	"post_message":"",
+	"social_network":"twitter",
+	"page_id":"472062480203994",
+	"operation":"create",
+	"post_type":"listing",
+	"image_path":"",
+	"status_code":"200",
+	"property_id":"52523842",
+	"property_id_stage":"34132910",
+	"is_Scheduled":true,
+	"validation":[
+		{
+			"key":"ZBORestPostStatusTest",
+			"value":"CREATE"
+		},
+		{
+			"key":"ZBORestPostPropertyInfoTest",
+			"value":"CREATE"
+		},
+		{
+			"key":"ZBORestGetPostHistoryPageTest",
+			"value":"VERIFY"
+		}
+	]
+}
