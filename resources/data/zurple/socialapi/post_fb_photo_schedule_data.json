@@ -4,7 +4,7 @@
 	"page_id":"472062480203994",
 	"operation":"create",
 	"post_type":"photo",
-	"image_path":"C:\\Automation\\resources\\images\\yt-1.jpg",
+	"image_path":"\\resources\\images\\yt-1.jpg",
 	"is_Scheduled":true,
 	"status_code":"200",
 	"validation":[

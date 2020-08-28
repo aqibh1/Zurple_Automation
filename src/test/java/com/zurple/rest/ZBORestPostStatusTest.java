@@ -102,6 +102,7 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		RestContent restContent = new RestContent();
 		Map<String, Part> multiParts = new HashMap<String, Part>();
 		String lPost_Message = "";
+		String lPhoto_path = dataObject.optString("image_path");
 		String lProp_id = getIsProd()?ZurpleListingConstants.zurple_sapi_listing_id_prod:ZurpleListingConstants.zurple_sapi_listing_id_stage;
 		boolean isScheduled = dataObject.optBoolean("is_Scheduled");
 		if(dataObject.optString("post_message").isEmpty()) {
@@ -116,8 +117,9 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		multiParts.put("page_id", new Part(dataObject.optString("page_id"), PartType.STRING));
 		multiParts.put("operation", new Part(dataObject.optString("operation"), PartType.STRING));
 		multiParts.put("post_type", new Part(dataObject.optString("post_type"), PartType.STRING));
-		if(!dataObject.optString("image_path").isEmpty()) {
-			multiParts.put("post_image", new Part(dataObject.optString("image_path"), PartType.FILE));
+		if(!lPhoto_path.isEmpty()) {
+			lPhoto_path = System.getProperty("user.dir")+lPhoto_path;
+			multiParts.put("post_image", new Part(lPhoto_path, PartType.FILE));
 		}
 		if(!lProp_id.isEmpty()) {
 			multiParts.put("property_id", new Part(lProp_id, PartType.STRING));
