@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Instant;
@@ -23,6 +24,7 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.WebDriver;
@@ -34,6 +36,7 @@ import org.testng.annotations.Parameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -190,14 +193,58 @@ public abstract class AbstractPageTest extends AbstractTest
     		AutomationLogger.fatal("Unable to write file "+pFileToWrite);
     	}
     }
-    
+    protected void writeStringToFile(String pFileToWrite, String pObjectToWrite) {
+    	File lFilePath = new File(System.getProperty("user.dir")+pFileToWrite);
+    	try (FileWriter file = new FileWriter(lFilePath,true)) {
+    		AutomationLogger.info("Writing json to file "+pFileToWrite);
+    		file.write(pObjectToWrite);
+    		file.flush();
+
+    	} catch (IOException e) {
+    		AutomationLogger.fatal("Unable to write file "+pFileToWrite);
+    	}
+    }
+    protected void emptyFile(String pFileToWrite, String pObjectToWrite) {
+    	File lFilePath = new File(System.getProperty("user.dir")+pFileToWrite);
+    	try {
+    		PrintWriter writer = new PrintWriter(lFilePath);
+    		writer.print("");
+    		writer.close();
+
+    	} catch (IOException e) {
+    		AutomationLogger.fatal("Unable to write file "+pFileToWrite);
+    	}
+    }
+    protected void writeJsonArrayToFile(String pFileToWrite, JSONArray pObjectToWrite) {
+    	File lFilePath = new File(System.getProperty("user.dir")+pFileToWrite);
+    	boolean isEmptyFile = lFilePath.length()==0?true:false;
+    	try (FileWriter file = new FileWriter(lFilePath,true)) {
+    		AutomationLogger.info("Writing json to file "+pFileToWrite);
+    		if(!isEmptyFile) {
+    			file.write(",");
+    		}
+    		file.write(arrayToPrettyFormat(pObjectToWrite.toString()));
+    		file.flush();
+
+    	} catch (IOException e) {
+    		AutomationLogger.fatal("Unable to write file "+pFileToWrite);
+    	}
+    }
     private String toPrettyFormat(String pJsonString) 
     {
         JsonParser parser = new JsonParser();
         JsonObject json = parser.parse(pJsonString).getAsJsonObject();
-
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String prettyJson = gson.toJson(json);
+
+        return prettyJson;
+    }
+    private String arrayToPrettyFormat(String pJsonArray) 
+    {
+        JsonParser parser = new JsonParser();
+        JsonArray jArray = parser.parse(pJsonArray).getAsJsonArray();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String prettyJson = gson.toJson(jArray);
 
         return prettyJson;
     }

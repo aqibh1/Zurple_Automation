@@ -95,7 +95,16 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 				status = lJsonResponse.optString("status").equalsIgnoreCase("1") && verifyPostResponse(lJsonResponse,postScheduleID);
 				}
 			if(validationAction.equals(RestValidationAction.VALIDATE)) {
+				String lFileToWriteProd = getIsProd()?"/resources/cache/scheduled-post-prod.json":"/resources/cache/scheduled-post-qa.json";
+				String lBackUpFile= getIsProd()?"/resources/cache/scheduled-post-prod-backup.json":"/resources/cache/scheduled-post-qa-backup.json";
+				JSONArray lPostIdsToVerifyArray = new JSONArray(getDataFileContentJsonArray(System.getProperty("user.dir")+lFileToWriteProd));
 				status = getVerifyShceduledPostsData();
+				//writing empty string in backup cache file
+				emptyFile(lBackUpFile, "");
+				//writing in back up file
+				writeJsonArrayToFile(lBackUpFile, lPostIdsToVerifyArray);
+				//writing empty string in actual cache file
+				emptyFile(lFileToWriteProd, "");
 			}
 			}
 		else {
@@ -202,5 +211,6 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 		}
 
 		return isVerified;
-}
+	}
+	
 }

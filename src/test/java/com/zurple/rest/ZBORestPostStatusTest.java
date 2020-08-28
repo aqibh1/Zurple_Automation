@@ -44,12 +44,13 @@ import resources.utility.ZurpleListingConstants;
 
 public class ZBORestPostStatusTest extends RestAPITest{
 	private JSONObject dataObject;
-	
+	String lDataFile ="";
 	public boolean isSchedule = false;
 	@Test
 	@Parameters({"datafile"})
 	public void testPostStatus(String pDataFile) throws Exception {
 		getDriver();
+		lDataFile = pDataFile;
 		String lc_cookie = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.Cookie);
 		dataObject = getDataFile(pDataFile);
 		RestRequest request = new RestRequest();
@@ -72,15 +73,21 @@ public class ZBORestPostStatusTest extends RestAPITest{
 		int statusCode = Integer.parseInt(dataObject.optString("status_code"));
 		String validationAction = getValidationAction(dataObject,this.getClass().getSimpleName());
 		String lFileToWriteProd = getIsProd()?"/resources/cache/scheduled-post-prod.json":"/resources/cache/scheduled-post-qa.json";
+		JSONObject jObject = httpCallResp.getJsonResponse();
+		
 		if(httpCallResp.getStatus() == statusCode && statusCode == HttpStatus.SC_OK) {
 			if(validationAction.equals(RestValidationAction.CREATE)) {
 				String lc_post_id = httpCallResp.getJsonResponse().getJSONObject("data").get("post_id").toString();
 				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePostId, lc_post_id);
 				if(status && dataObject.optString("post_type").equalsIgnoreCase("listing-video")) {
-					writeJsonToFile(lFileToWriteProd, httpCallResp.getJsonResponse());
+					jObject.put("post_type", dataObject.optString("post_type"));
+					jObject.put("platform", dataObject.optString("social_network"));
+					writeJsonToFile(lFileToWriteProd, jObject);
 				}
 				if(status && isSchedule) {	
-					writeJsonToFile(lFileToWriteProd,httpCallResp.getJsonResponse());
+					jObject.put("post_type", dataObject.optString("post_type"));
+					jObject.put("platform", dataObject.optString("social_network"));
+					writeJsonToFile(lFileToWriteProd,jObject);
 				}
 			}
 		}
