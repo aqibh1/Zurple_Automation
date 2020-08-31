@@ -543,7 +543,7 @@
 			</classes>
 		</parameter>
 	</test>
-	
+	<!-- 
 <test name="Verify social Integration Facebook">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -563,7 +563,7 @@
 				</class>
 			</classes>
 	</test>
-
+ -->
 	<test name="Verify social Integration Twitter">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
