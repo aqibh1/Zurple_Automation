@@ -36,7 +36,6 @@ import com.restapi.RestValidationAction;
 public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 	private JSONObject dataObject;
 	private boolean isScheduled = false;
-	ZBORestPostStatusTest zbo = new ZBORestPostStatusTest();
 	private RestResponse scheduledPostHistoryResponse;
 	private RestResponse postHistoryResponse;
 	List<String> list = new ArrayList<String>();
@@ -158,31 +157,6 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 		return isVerified;
 	}
 
-	private boolean getPostHistoryData() throws Exception {
-		boolean isVerified = false;
-		JSONObject JsonResponse = postHistoryResponse.getJsonResponse();
-		JSONArray iArray = JsonResponse.getJSONArray("data");
-		String lFileToWriteProd = getIsProd()?"/resources/cache/scheduled-post-prod.json":"/resources/cache/scheduled-post-qa.json";
-		JSONArray jArray = new JSONArray(getDataFileContentJsonArray(System.getProperty("user.dir")+lFileToWriteProd));
-		JSONObject iObject = new JSONObject();
-		JSONObject jObject = new JSONObject();
-		String post_schedule_id = "";
-		for(int i=0;i<iArray.length(); i++) {
-			for(int j=0;j<jArray.length(); j++) {
-				iObject = iArray.getJSONObject(i);
-				jObject = jArray.getJSONObject(j);				
-				AutomationLogger.info("Post Schedule ID in Post History :: "+iArray.getJSONObject(i).get("post_schedule_id").toString());
-				post_schedule_id = jArray.getJSONObject(j).getJSONObject("data").get("post_id").toString();
-				AutomationLogger.info("Post Schedule ID in Data File:: "+post_schedule_id);
-				if(post_schedule_id.equalsIgnoreCase(iObject.get("post_schedule_id").toString().trim())) {
-					isVerified = true;
-					break;
-				}
-			}
-			break;
-	}
-	return isVerified;
-}
 	private boolean getVerifyShceduledPostsData() throws Exception {
 		boolean isVerified = true;
 		boolean lFlag = false;
