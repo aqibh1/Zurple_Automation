@@ -22,4 +22,28 @@
   },
   "message": "",
   "status": "1"
+},{
+  "data": {
+    "post_id": 13008
+  },
+  "post_type": "listing",
+  "message": "",
+  "platform": "facebook",
+  "status": "1"
+},{
+  "data": {
+    "post_id": 13009
+  },
+  "post_type": "listing",
+  "message": "",
+  "platform": "twitter",
+  "status": "1"
+},{
+  "data": {
+    "post_id": 13010
+  },
+  "post_type": "listing",
+  "message": "",
+  "platform": "linkedin",
+  "status": "1"
 }
