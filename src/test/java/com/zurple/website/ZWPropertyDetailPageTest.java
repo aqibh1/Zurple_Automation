@@ -263,7 +263,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 	public void testScheduleShowingUserLoggedIn() {
 		AutomationLogger.startTestCase("Schedule Showing User logged in");
 		if(getIsProd()) {
-			getPage("/CA/San_Diego/50057517");
+			getPage(ZurpleListingConstants.zurple_production_listing);
 		}else {
 			getPage(ZurpleListingConstants.zurple_staging_listing);
 		}

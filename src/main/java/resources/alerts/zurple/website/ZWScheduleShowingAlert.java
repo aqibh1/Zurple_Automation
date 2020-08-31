@@ -43,7 +43,7 @@ public class ZWScheduleShowingAlert extends AbstractAlert{
 		return ActionHelper.Click(driver, yes_button);
 	}
 	public boolean isScheduleAlertDisappeared() {
-		return ActionHelper.waitForElementToBeDisappeared(driver, lScheduleAlert);
+		return ActionHelper.waitForElementToBeDisappeared(driver, lScheduleAlert, 30);
 	}
 	public boolean isSuccessDisplayed() {
 		return ActionHelper.waitForElementToBeVisible(driver, success_message, 15);
