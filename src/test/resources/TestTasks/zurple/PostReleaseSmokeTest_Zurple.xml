@@ -7,7 +7,7 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
-
+<!--
 	<test name="Search and Verify property by Price City Features">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-01.json">
@@ -1239,7 +1239,7 @@
 		</parameter>
 		</parameter>
 	</test>
-	
+	  -->
 	<test name="Verify Sold Homes search">
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-buyer-search.json">
 	<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-sold-homes-search-data.json">
@@ -1377,21 +1377,7 @@
 		</parameter>
 	</test>
 	
-    <test name="Adding Deleting Group Tags">
-    <classes>
-    <class name="com.zurple.backoffice.ZBOLoginPageTest">
-	<methods>
-		<include name="testBackOfficeLogin" />
-	</methods>
-	</class>
-      <class name="com.zurple.backoffice.ZBOLeadTagsPageTest" >
-        <methods>
-          <include name="addRemoveTagFromLeadsCRM" />
-          <include name="addRemoveTagFromLeadDetails" />
-        </methods>
-      </class>
-    </classes>
-  </test>
+ 
 
   <test name="Checking zillow ratings on agents page">
     <classes>
@@ -2218,5 +2204,22 @@
       </class>
     </classes>
   </test>
+  
+     <test name="Adding Deleting Group Tags">
+    <classes>
+    <class name="com.zurple.backoffice.ZBOLoginPageTest">
+	<methods>
+		<include name="testBackOfficeLogin" />
+	</methods>
+	</class>
+      <class name="com.zurple.backoffice.ZBOLeadTagsPageTest" >
+        <methods>
+          <include name="addRemoveTagFromLeadsCRM" />
+          <include name="addRemoveTagFromLeadDetails" />
+        </methods>
+      </class>
+    </classes>
+  </test>
   -->
+  
 </suite>
