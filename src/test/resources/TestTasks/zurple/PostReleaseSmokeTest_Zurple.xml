@@ -1,13 +1,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Zurple Website Post Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+<suite name="Zurple Pre and Post Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	<listeners>		
 		<listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
-<!--
+
 	<test name="Search and Verify property by Price City Features">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-01.json">
@@ -1239,7 +1239,7 @@
 		</parameter>
 		</parameter>
 	</test>
-	  -->
+
 	<test name="Verify Sold Homes search">
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-buyer-search.json">
 	<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-sold-homes-search-data.json">
