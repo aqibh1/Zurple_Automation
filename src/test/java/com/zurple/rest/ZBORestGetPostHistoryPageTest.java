@@ -170,10 +170,14 @@ public class ZBORestGetPostHistoryPageTest extends RestAPITest{
 			post_schedule_id_to_verify = lPostIdsToVerifyArray.getJSONObject(i).getJSONObject("data").get("post_id").toString();
 			for(int j=0;j<lResponseDataArray.length();j++) {
 				String l_response_post_id = lResponseDataArray.getJSONObject(j).get("post_schedule_id").toString();
+				String l_response_post_status = lResponseDataArray.getJSONObject(j).get("post_status").toString(); //Should be 2
+				String l_response_post_status_code = lResponseDataArray.getJSONObject(j).get("post_status_code").toString(); //Should be 1
+				
 				//Comparing response and data post id
 				AutomationLogger.info("Post ID in data file :: "+post_schedule_id_to_verify);
 				AutomationLogger.info("Post ID in post history:: "+l_response_post_id);
-				if(post_schedule_id_to_verify.equalsIgnoreCase(l_response_post_id)) {
+				if(post_schedule_id_to_verify.equalsIgnoreCase(l_response_post_id) && l_response_post_status.equalsIgnoreCase("2")
+						&& l_response_post_status_code.equalsIgnoreCase("1")) {
 					lFlag = true;
 					break;
 				}
