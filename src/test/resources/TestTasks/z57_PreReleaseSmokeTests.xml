@@ -2136,8 +2136,7 @@
     </parameter>
 	</test>
 	
-	<test name="Add Listing by MLS">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/mls-listing-data-01.json" >
+	<test name="Add Listing by MLS Agent Id">
 	<classes>
       <class name="com.z57.propertypulse.LoginPageTest" >
       <methods>
@@ -2146,7 +2145,7 @@
       </class>
       <class name="com.z57.propertypulse.PPListingPageTest" >
       <methods>
-      	<include name="testAddListingByMLS" />
+      	<include name="testAddListingByAgentId" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
@@ -2155,6 +2154,5 @@
       </methods>
       </class>
     </classes>
-    </parameter>
 	</test>
 </suite>
