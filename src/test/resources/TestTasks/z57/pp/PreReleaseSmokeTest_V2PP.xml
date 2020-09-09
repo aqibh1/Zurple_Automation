@@ -1531,11 +1531,11 @@
       	<include name="testAddListingByMLS" />
       </methods>
       </class>
-      <class name="resources.CurrentPageTest">
+<!--  <class name="resources.CurrentPageTest">
       <methods>
          <include name="closeBrowser" />
       </methods>
-      </class>
+      </class> --> 
     </classes>
     </parameter>
 	</test>
