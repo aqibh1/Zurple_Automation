@@ -25,8 +25,11 @@ public class PPLoginPage extends Page{
 	
 	@FindBy(xpath="//div[@id='member-nav']/descendant::a[@class='btn dropdown-toggle']")
 	WebElement settings_button;
-	@FindBy(xpath="//a[@class='dropdown-toggle' and contains(text(),'Settings')]")
-	WebElement settings_button_new;
+	
+//	@FindBy(xpath="//a[@class='dropdown-toggle' and contains(text(),'Settings')]")
+//	WebElement settings_button_new;
+	
+	String settings_button_new="//a[@class='dropdown-toggle' and contains(text(),'Settings')]";
 	
 	@FindBy(id="sitelogo")
 	WebElement propertypulse_logo;
@@ -67,7 +70,7 @@ public class PPLoginPage extends Page{
 	public boolean isLoginSuccessful(String pUsername) {
 		boolean isUserLoggedIn = false;	
 
-		if(ActionHelper.waitForElementToBeVisible(driver, settings_button_new, 60)) {
+		if(ActionHelper.waitForElementsToBeFound(driver, settings_button_new)) {
 			isUserLoggedIn = true;
 		}
 		return isUserLoggedIn;
