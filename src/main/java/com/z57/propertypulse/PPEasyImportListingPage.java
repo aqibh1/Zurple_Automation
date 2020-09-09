@@ -38,8 +38,11 @@ public class PPEasyImportListingPage extends Page{
 	@FindBy(id="select_all_button")
 	WebElement select_all_button;
 	
-	@FindBy(id="import_listings_button")
+	@FindBy(xpath="//button[@id='import_listings_button' and text()='Import Listings']")
 	WebElement import_listings_button;
+	
+	String list_of_listing = "//div[@id='idx_listings_table']/descendant::td/input[@data-mls]";
+	private String listing_mls_id = "";
 	
 	PPEasyImportListingPage(){
 		
@@ -48,6 +51,14 @@ public class PPEasyImportListingPage extends Page{
 	public PPEasyImportListingPage(WebDriver pWebDriver) {
 			driver = pWebDriver;
 			PageFactory.initElements(driver, this);
+	}
+	
+	public String getListing_mls_id() {
+		return listing_mls_id;
+	}
+
+	public void setListing_mls_id(String listing_mls_id) {
+		this.listing_mls_id = listing_mls_id;
 	}
 
 	public boolean isEasyImportListingPage() {
@@ -88,7 +99,8 @@ public class PPEasyImportListingPage extends Page{
 	
 	public boolean isListGeneratedSuccessfully() {
 		int count=0;
-		while(!generateList_button.getText().trim().equalsIgnoreCase("Generate List") || count<100) {
+		while(!generateList_button.getText().trim().equalsIgnoreCase("Generate List") && count<100) {
+			ActionHelper.staticWait(1);
 			count++;
 		}
 		return generateList_button.getText().trim().equalsIgnoreCase("Generate List");
@@ -116,5 +128,19 @@ public class PPEasyImportListingPage extends Page{
 	public boolean isImportedSuccessfully() {
 		return ActionHelper.waitForElementToBeVisible(driver, import_listings_button, 30);
 	}
-
+	public boolean selectRandomListingFromList() {
+		List<WebElement> list_of_listing_elements = ActionHelper.getListOfElementByXpath(driver, list_of_listing);
+		int lIndex = generateRandomInt(list_of_listing_elements.size());
+		String lMlsId = ActionHelper.getAttribute(list_of_listing_elements.get(lIndex), "data-mls").split("mls_")[1].trim();
+		setListing_mls_id(lMlsId);
+		return ActionHelper.Click(driver, list_of_listing_elements.get(lIndex));
+	}
+	public boolean handleTheAlert() {
+		boolean lHandleAlert = true;
+		ActionHelper.staticWait(5);
+		if(ActionHelper.isAlertPresent(driver)) {
+			lHandleAlert = ActionHelper.handleDisableAdAlert(driver);
+		}
+		return lHandleAlert;
+	}
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Zurple Website Post Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+<suite name="Zurple Pre and Post Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	<listeners>		
 		<listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ExtentReporterListener"/>
@@ -543,47 +543,8 @@
 			</classes>
 		</parameter>
 	</test>
-	<!-- 
-<test name="Verify social Integration Facebook">	
-			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeLogin" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOSocialIntegrationPageTest">
-					<methods>
-						<include name="testConnectToFacebook" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
-			</classes>
-	</test>
- -->
-	<test name="Verify social Integration Twitter">	
-			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeLogin" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOSocialIntegrationPageTest">
-					<methods>
-						<include name="testConnectToTwitter" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
-			</classes>
-	</test>
-	
+
+
 	<test name="Verify social Integration LinkedIn">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -1205,29 +1166,6 @@
     </classes>
   </parameter>
    </test>
-   
-   <test name="Manage agents page label">
-  <parameter name="manageAgentsDataFile" 
-  		value="/resources/data/create-agent-data.json">
-  	</parameter>
-    <classes>
-    <class name="com.zurple.backoffice.ZBOLoginPageTest">
-	<methods>
-		<include name="testBackOfficeLogin" />
-	</methods>
-	</class>
-      <class name="com.zurple.backoffice.ZBOAgentsPageTest" >
-        <methods>
-          <include name="testAgentsPageLabel" />
-          <include name="testAgentsListCount" />
-        	<include name="testCreateAgents" />
-        	<include name="testCountAfterAddAgent" />
-        	<include name="testDelAgent" />
-        	<include name="testCountAfterDelAgent" />
-        </methods>
-      </class>
-    </classes>
-  </test>
   
   <test name="Verify lead buyer search">
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-buyer-search.json">
@@ -1262,7 +1200,7 @@
 		</parameter>
 		</parameter>
 	</test>
-	
+
 	<test name="Verify Sold Homes search">
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-buyer-search.json">
 	<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-sold-homes-search-data.json">
@@ -1400,22 +1338,8 @@
 		</parameter>
 	</test>
 	
-    <test name="Adding Deleting Group Tags">
-    <classes>
-    <class name="com.zurple.backoffice.ZBOLoginPageTest">
-	<methods>
-		<include name="testBackOfficeLogin" />
-	</methods>
-	</class>
-      <class name="com.zurple.backoffice.ZBOLeadTagsPageTest" >
-        <methods>
-          <include name="addRemoveTagFromLeadsCRM" />
-          <include name="addRemoveTagFromLeadDetails" />
-        </methods>
-      </class>
-    </classes>
-  </test>
-  
+ 
+
   <test name="Checking zillow ratings on agents page">
     <classes>
 		<class name="com.zurple.website.ZWZillowRatingsAgentsPageTest">
@@ -2218,6 +2142,86 @@
 			</classes>
 	</parameter>
 	</test>
-	
+	<!--  
+ <test name="Manage agents page label">
+  <parameter name="manageAgentsDataFile" 
+  		value="/resources/data/create-agent-data.json">
+  	</parameter>
+    <classes>
+    <class name="com.zurple.backoffice.ZBOLoginPageTest">
+	<methods>
+		<include name="testBackOfficeLogin" />
+	</methods>
+	</class>
+      <class name="com.zurple.backoffice.ZBOAgentsPageTest" >
+        <methods>
+          <include name="testAgentsPageLabel" />
+          <include name="testAgentsListCount" />
+        	<include name="testCreateAgents" />
+        	<include name="testCountAfterAddAgent" />
+        	<include name="testDelAgent" />
+        	<include name="testCountAfterDelAgent" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+  
+     <test name="Adding Deleting Group Tags">
+    <classes>
+    <class name="com.zurple.backoffice.ZBOLoginPageTest">
+	<methods>
+		<include name="testBackOfficeLogin" />
+	</methods>
+	</class>
+      <class name="com.zurple.backoffice.ZBOLeadTagsPageTest" >
+        <methods>
+          <include name="addRemoveTagFromLeadsCRM" />
+          <include name="addRemoveTagFromLeadDetails" />
+        </methods>
+      </class>
+    </classes>
+  </test>
+  
+  <test name="Verify social Integration Facebook">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOSocialIntegrationPageTest">
+					<methods>
+						<include name="testConnectToFacebook" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
 
+	<test name="Verify social Integration Twitter">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOSocialIntegrationPageTest">
+					<methods>
+						<include name="testConnectToTwitter" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+  -->
+  
 </suite>

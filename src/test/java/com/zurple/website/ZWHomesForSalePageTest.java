@@ -110,7 +110,9 @@ public class ZWHomesForSalePageTest extends PageTest{
 		ActionHelper.RefreshPage(driver);
 		assertTrue(page.leadCaptureForm.isLeadCaptureFormIsVisible(),"Lead capture form is not visible..");
 		assertTrue(page.leadCaptureForm.typeName(lName),"Lead capture form is not visible..");
+		ActionHelper.staticWait(2);
 		assertTrue(page.leadCaptureForm.typeEmail(lEmail),"Lead capture form is not visible..");
+		ActionHelper.staticWait(2);
 		assertTrue(page.leadCaptureForm.typePhone(dataObject.optString("phone")),"Lead capture form is not visible..");
 		assertTrue(page.leadCaptureForm.isAlreadyRegisteredLinkVisible(),"Already register link not visible..");
 		assertTrue(page.leadCaptureForm.isSubscribed(),"Subscribed checkbox is not checked..");

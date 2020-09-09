@@ -21,6 +21,7 @@ import resources.alerts.pp.GetMaximumListingExposureModal;
 import resources.data.z57.PPListingData;
 import resources.data.z57.PPMLSListingData;
 import resources.orm.hibernate.models.z57.Listings;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.ValueMapper;
 
@@ -261,4 +262,38 @@ public class PPListingPageTest extends PageTest{
 
 	}
 
+	@Test
+	public void testAddListingByAgentId() {
+
+		getPage("/listings/import");
+	
+		PPEasyImportListingPage easyImportListingPage = new PPEasyImportListingPage(driver);
+		assertTrue(easyImportListingPage.clickOnGenerateListButton(), "Unable to click on Generate List button.");
+		assertTrue(easyImportListingPage.isListGeneratedSuccessfully(), "List is not generated successfully..");
+		assertTrue(easyImportListingPage.selectRandomListingFromList(), "Unable to select the listing..");
+//		assertTrue(easyImportListingPage.clicOnSelectAllButton(), "Unable to click on Select All button..");
+		ActionHelper.staticWait(5);
+		assertTrue(easyImportListingPage.clickOnImportListingButton(), "Unable to click on Import Listing button..");
+		ActionHelper.staticWait(5);
+		assertTrue(easyImportListingPage.handleTheAlert(), "Unable to handle alert..");
+		assertTrue(easyImportListingPage.isLoaderDisappeared(), "Ajax loader is strill visible..");
+		assertTrue(easyImportListingPage.isImportedSuccessfully(), "MLS listing is not imported successfully..");
+		
+		String lMLS = easyImportListingPage.getListing_mls_id();
+		
+		//Performing these steps to get Listing id
+		GetMaximumListingExposureModal maximumListing = new GetMaximumListingExposureModal(driver);
+		assertTrue(maximumListing.isGextMaximumListingExposureAlert(), "Maximum listing alert is not visible");
+//		assertTrue(maximumListing.clickOnFeatureListing(), "Unable to click on feature Listing");
+		
+//		String lListingId = driver.getCurrentUrl().split("lsid=")[1];
+		
+		//To get listing address from the title. To compose non-idx listing URL
+		String listing_url_idx = EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url")+"/idx/listings/cws/1098/"+lMLS;
+		driver.navigate().to(listing_url_idx);
+		
+		PropertyListingPage propertyListingPage = new PropertyListingPage(driver);
+		assertTrue(propertyListingPage.isPropertyTitleVisible(), "Property Listing page is not visible..");
+		
+	}
 }

@@ -11,11 +11,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import javassist.expr.Instanceof;
+
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -937,14 +941,23 @@ public class ActionHelper {
 	   }
 
 	   public static boolean isAlertPresent(WebDriver pWebDriver) {
-		   boolean isSuccess = true;
-		   try {
-			   if(ExpectedConditions.alertIsPresent()!=null) {
-				   isSuccess= true;	   
-			   }
-		   }catch(Exception ex) {
-			   isSuccess = false;
-		   }
+		   boolean isSuccess = false;
+//		   try {
+//			   if(ExpectedConditions.alertIsPresent()!=null) {
+//				   isSuccess= true;	   
+//			   }
+//		   }catch(Exception ex) {
+//			   isSuccess = false;
+//		   }
+		   try 
+		    { 
+			   pWebDriver.switchTo().alert(); 
+			   isSuccess = true; 
+		    }   // try 
+		    catch (NoAlertPresentException Ex) 
+		    { 
+		    	isSuccess = false; 
+		    }   // 
 		   return isSuccess;
 	   }
 	   
