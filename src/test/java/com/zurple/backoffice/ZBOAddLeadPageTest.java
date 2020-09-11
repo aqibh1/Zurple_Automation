@@ -71,8 +71,8 @@ public class ZBOAddLeadPageTest extends PageTest{
 			ActionHelper.staticWait(3);
 		}
 				
-		String  lLeadEmail= updateEmail(dataObject.optString("email"));
-		String  lLeadName = updateName(dataObject.optString("first_name"));
+		String lLeadEmail= updateEmail(dataObject.optString("email"));
+		String lLeadName = updateName(dataObject.optString("first_name"));
 		assertTrue(page.typeEmail(lLeadEmail), "Unable to type email address..");
 		assertTrue(page.typeFirstName(lLeadName), "Unable to type first name..");
 		if(!dataObject.optString("city_criteria").isEmpty()) {
@@ -89,10 +89,24 @@ public class ZBOAddLeadPageTest extends PageTest{
 		boolean isWelcomeEmail = dataObject.optString("welcome_Email")!=null?true:false;
 		if(isWelcomeEmail) {
 			assertTrue(page.clickWelcomeEmailToggle(), "Unable to click on welcome email toggle button..");
-		}
+		}	
 		
-		assertTrue(page.clickSaveButton(), "Unable click on save button..");
-		
+		if(dataObject.optString("last_name") != null && dataObject.optString("cell") != null && dataObject.optString("phone") != null) {
+				String lastName = dataObject.optString("last_name");
+				String cell = dataObject.optString("cell");	
+				String phone = dataObject.optString("phone");
+				assertTrue(page.typeLastName(lastName),"Unable to type last name..");
+				assertTrue(page.typeCell(cell),"Unable to type cell..");
+				assertTrue(page.typePhone(phone),"Unable to type phone..");
+				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleleadLastName, lastName);
+				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleleadCell, cell);
+				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleleadPhone, phone);
+				assertTrue(page.clickSaveButton(), "Unable click on save button..");
+				ActionHelper.staticWait(5);
+				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleleadSource, page.getLeadSource());
+			} else {
+				assertTrue(page.clickSaveButton(), "Unable click on save button..");
+			}
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail, lLeadEmail);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadName, lLeadName);
 		String lLeadId = driver.getCurrentUrl().split("user_id/")[1];
