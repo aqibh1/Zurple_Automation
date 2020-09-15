@@ -549,6 +549,23 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
 		assertTrue(page.verifyHomeEvaluationAlert("Homeowner Asked for a CMA"), "Homeowner Asked for a CMA alert is not verified");
 		assertTrue(page.verifyEmailPreferences("Sold Property Updates", "Yes"), "Sold Property Updates is not set Yes");
-
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyActivityAlerts(String pDataFile) {
+		dataObject = getDataFile(pDataFile);
+		String lAlertType = dataObject.optString("alert_type");
+		getPage();
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page = null;
+		getPage("/lead/"+lLeadId);
+		switch(lAlertType) {
+		case "High Activity":
+			assertTrue(page.verifyHighActivityAlert(), "Lead request showing activity is not tracked in alerts");
+			break;
+		default:
+			break;
+		}
 	}
 }

@@ -546,7 +546,23 @@ public class ZBOLeadDetailPage extends Page{
 					}
 				}
 				break;
+			
+			case "Lots of Browsing":
+				List<WebElement> list_lead_activity_high = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-type']");
+				List<WebElement> list_lead_high_activity_date_time = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-datetime']");
 
+				for(int i=0;i<list_lead_activity_high.size();i++) {
+					alertVerified = ActionHelper.getText(driver, list_lead_activity_high.get(i)).contains("Lots of Browsing") ;
+					if(alertVerified) {
+
+						dateVerified = ActionHelper.getText(driver,list_lead_high_activity_date_time.get(i)).contains(getTodaysDate().replace("2020", "20"));
+					}
+					if(alertVerified && dateVerified) {
+						isVerified = true;
+						break;
+					}
+				}
+				break;
 			default:
 				break;
 			}
@@ -908,6 +924,18 @@ public class ZBOLeadDetailPage extends Page{
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "300");
 			isVerified = verifyAlerts("Homeowner Asked for a CMA", pText);
+			counter++;
+		}
+		return isVerified;
+	}
+	public boolean verifyHighActivityAlert() {
+		int counter = 0;
+		boolean isVerified = false;
+		while(!isVerified && counter<15) {
+			ActionHelper.staticWait(45);
+			ActionHelper.RefreshPage(driver);
+			ActionHelper.ScrollDownByPixels(driver, "400");
+			isVerified = verifyAlerts("Lots of Browsing", "");
 			counter++;
 		}
 		return isVerified;
