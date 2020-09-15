@@ -24,7 +24,7 @@ public class CurrentPageTest extends AbstractPageTest
         AutomationLogger.info("Browser closed Successfully");
     }
     
-    @Test
+    @Test(priority=501)
     public void refreshPage(){
         getDriver().navigate().refresh();
     }
