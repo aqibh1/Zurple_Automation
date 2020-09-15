@@ -374,6 +374,7 @@ public class ActionHelper {
 	   
 	   public static void RefreshPage(WebDriver pWebDriver) {
 		   AutomationLogger.info("Refreshing the page");
+		   AutomationLogger.info(pWebDriver.getCurrentUrl());
 		   pWebDriver.navigate().to(pWebDriver.getCurrentUrl()); 
 	   }
 	   

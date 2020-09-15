@@ -14,6 +14,7 @@ import com.zurple.admin.ZACreateActivityAlertPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 
@@ -56,13 +57,17 @@ public class ZACreateActivityAlert extends PageTest{
 	public void testCreateAlert(String pDataFile) {
 		dataObject = getDataFile(pDataFile);
 		//2020-09-15 00:00
-		String lTodaysDate = getTodaysDate(0,"YYYY/MM/dd").replace("/", "-")+" 00:00";
+		String lTodaysDate = getTodaysDate(0,"YYYY-MM-dd")+" 00:00";
+		String lAdminId = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id");
 		getPage("/admin/createactivityalert");
+		boolean isProd = getIsProd();
 		String lc_user_id =  ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
 		assertTrue(page.isActicityAlertPage(), "Activity alert page is not displayed..");
 		assertTrue(page.selectAlertType(dataObject.optString("alert_type")), "Unable to select Alert Type...");
-		assertTrue(page.selectPackage(dataObject.optString("package_id")), "Activity alert page is not displayed..");
-		assertTrue(page.selectAdmin(dataObject.optString("admin_id")), "Activity alert page is not displayed..");
+		if(!isProd) {
+			assertTrue(page.selectPackage(dataObject.optString("package_id")), "Activity alert page is not displayed..");
+		}
+		assertTrue(page.selectAdmin(lAdminId), "Activity alert page is not displayed..");
 		assertTrue(page.selectUser(lc_user_id), "Activity alert page is not displayed..");
 		assertTrue(page.typeTriggerDate(lTodaysDate), "Activity alert page is not displayed..");
 		assertTrue(page.clickOnCreateAlertButton(), "Unable to click on Create Alert button..");
