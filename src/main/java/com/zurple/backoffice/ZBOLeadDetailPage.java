@@ -204,6 +204,11 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(id="disabled-assign-campaign-button")
 	WebElement campaign_disabled_button;
 	
+	@FindBy(xpath="//li[@title='Return']")
+	WebElement return_label;
+	@FindBy(xpath="//li[@title='Browsing']")
+	WebElement browsing_label;
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
 
@@ -966,5 +971,11 @@ public class ZBOLeadDetailPage extends Page{
 			counter++;
 		}
 		return isVerified;
+	}
+	public boolean isReturnHotBehaviorVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, return_label, 30);
+	}
+	public boolean isBrowsingHotBehaviorVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, browsing_label, 30);
 	}
 }

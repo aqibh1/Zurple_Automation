@@ -65,6 +65,11 @@ public class ZBOLeadCRMPage extends Page{
 	@FindBy(className="swal2-confirm")
 	WebElement confirm_select_all;
 	
+	@FindBy(xpath="//li[@title='Return']")
+	WebElement return_label;
+	@FindBy(xpath="//li[@title='Browsing']")
+	WebElement browsing_label; 
+	
 	public ZBOLeadCRMPage() {
 		
 	}
@@ -148,5 +153,11 @@ public class ZBOLeadCRMPage extends Page{
 		return isLeadFound;
 	}
 	
+	public boolean isReturnHotBehaviorVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, return_label, 30);
+	}
+	public boolean isBrowsingHotBehaviorVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, browsing_label, 30);
+	}
 	
 }

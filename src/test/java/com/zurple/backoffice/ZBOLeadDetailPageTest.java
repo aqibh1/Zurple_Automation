@@ -563,9 +563,11 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		switch(lAlertType) {
 		case "High Activity":
 			assertTrue(page.verifyHighActivityAlert(), "High Activity alert is not displayed in Alerts tab..");
+			assertTrue(page.isBrowsingHotBehaviorVisible(), "Browsing Hot Behavior is not updated..");
 			break;
 		case "High Return":
 			assertTrue(page.verifyHighReturnAlert(), "High Return alert is not displayed in Alerts tab..");
+			assertTrue(page.isReturnHotBehaviorVisible(), "Return Hot Behavior is not updated..");
 			break;
 		default:
 			break;

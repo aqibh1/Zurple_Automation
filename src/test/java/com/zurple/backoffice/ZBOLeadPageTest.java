@@ -13,6 +13,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.google.common.base.CaseFormat;
 import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
 import com.zurple.my.PageTest;
 
@@ -28,6 +29,7 @@ import resources.utility.AutomationLogger;
 public class ZBOLeadPageTest extends PageTest{
 	WebDriver driver;
 	ZBOLeadPage page;
+	private JSONObject dataObject;
 	@Override
 	public AbstractPage getPage() {
 		// TODO Auto-generated method stub
@@ -224,6 +226,36 @@ public class ZBOLeadPageTest extends PageTest{
 		ModuleCommonCache.updateCacheForModuleObject("LeadPage","LeadPage.URL", EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url"));
 
 		return page.verifyFilter(pFilterName,pFilterValue);
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyLeadsHotBehavior(String pDataFile) {
+		page = null;
+		getPage("/leads");
+		dataObject = getDataFile(pDataFile);
+		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName).toString();
+	
+		String lAlertType = dataObject.optString("alert_type");
+		//Verification from CRM page
+		page=null;
+		getPage("/leads/crm");
+		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
+		assertTrue(leadCRMPage.searchLead(lLeadName), "Unable to find lead on lead page..");
+
+		switch(lAlertType) {
+		case "High Activity":
+			assertTrue(leadCRMPage.isBrowsingHotBehaviorVisible(), "Browsing Hot Behavior is not updated..");
+			break;
+		case "High Return":
+			assertTrue(leadCRMPage.isReturnHotBehaviorVisible(), "Return Hot Behavior is not updated..");
+			break;
+		default:
+			break;
+		}
+
+
 	}
 
 }
