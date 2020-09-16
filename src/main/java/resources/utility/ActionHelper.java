@@ -374,6 +374,7 @@ public class ActionHelper {
 	   
 	   public static void RefreshPage(WebDriver pWebDriver) {
 		   AutomationLogger.info("Refreshing the page");
+		   AutomationLogger.info(pWebDriver.getCurrentUrl());
 		   pWebDriver.navigate().to(pWebDriver.getCurrentUrl()); 
 	   }
 	   
@@ -1186,5 +1187,39 @@ public class ActionHelper {
 		   }catch(Exception ex) {
 				return false;
 			}
+	   }
+	  
+	   public static boolean clickAndSelectFromDropdownByValue(WebDriver pWebDriver, WebElement pElementToBeClicked, String pValueToSelect) {
+			boolean isSuccessful=false;
+			List<WebElement> list_of_options = new ArrayList<WebElement>();
+			 AutomationLogger.info("Clicking on button "+pElementToBeClicked);
+			 list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
+			if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+				for(WebElement element: list_of_options) {
+					System.out.println(element.getText().trim());
+					if(element.getAttribute("value").trim().equalsIgnoreCase(pValueToSelect)) {
+						isSuccessful = ActionHelper.Click(pWebDriver, element);
+						Click(pWebDriver,pElementToBeClicked);
+						break;
+					}
+				}
+			}
+			return isSuccessful;
+		}
+	   public static boolean waitforDropdownToBePopulated(WebDriver pWebDriver, WebElement pElementToBeClicked, int pAttempts) {
+		   boolean isPopulated = false;
+		   int counter = 0;
+		   List<WebElement> list_of_options = new ArrayList<WebElement>();
+		   AutomationLogger.info("Clicking on button "+pElementToBeClicked);
+		   while(!isPopulated && counter<pAttempts) {
+			   ActionHelper.Click(pWebDriver, pElementToBeClicked);
+			   list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
+			   if(list_of_options.size()>1) {
+				   isPopulated = true;
+			   }else {
+				   staticWait(30);
+			   }
+		   }
+		   return isPopulated;
 	   }
 }

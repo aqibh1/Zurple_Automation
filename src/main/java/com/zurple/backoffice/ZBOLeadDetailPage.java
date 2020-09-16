@@ -204,6 +204,11 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(id="disabled-assign-campaign-button")
 	WebElement campaign_disabled_button;
 	
+	@FindBy(xpath="//li[@title='Return']")
+	WebElement return_label;
+	@FindBy(xpath="//li[@title='Browsing']")
+	WebElement browsing_label;
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
 
@@ -546,7 +551,38 @@ public class ZBOLeadDetailPage extends Page{
 					}
 				}
 				break;
+			
+			case "Lots of Browsing":
+				List<WebElement> list_lead_activity_high = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-type']");
+				List<WebElement> list_lead_high_activity_date_time = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-datetime']");
 
+				for(int i=0;i<list_lead_activity_high.size();i++) {
+					alertVerified = ActionHelper.getText(driver, list_lead_activity_high.get(i)).contains("Lots of Browsing") ;
+					if(alertVerified) {
+
+						dateVerified = ActionHelper.getText(driver,list_lead_high_activity_date_time.get(i)).contains(getTodaysDate().replace("2020", "20"));
+					}
+					if(alertVerified && dateVerified) {
+						isVerified = true;
+						break;
+					}
+				}
+			case "High Return":
+				List<WebElement> list_lead_activity_high_return = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-type']");
+				List<WebElement> list_lead_high_return_activity_date_time = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-datetime']");
+
+				for(int i=0;i<list_lead_activity_high_return.size();i++) {
+					alertVerified = ActionHelper.getText(driver, list_lead_activity_high_return.get(i)).contains("High Return") ;
+					if(alertVerified) {
+
+						dateVerified = ActionHelper.getText(driver,list_lead_high_return_activity_date_time.get(i)).contains(getTodaysDate().replace("2020", "20"));
+					}
+					if(alertVerified && dateVerified) {
+						isVerified = true;
+						break;
+					}
+				}
+				break;
 			default:
 				break;
 			}
@@ -911,5 +947,35 @@ public class ZBOLeadDetailPage extends Page{
 			counter++;
 		}
 		return isVerified;
+	}
+	public boolean verifyHighActivityAlert() {
+		int counter = 0;
+		boolean isVerified = false;
+		while(!isVerified && counter<15) {
+			ActionHelper.staticWait(45);
+			ActionHelper.RefreshPage(driver);
+			ActionHelper.ScrollDownByPixels(driver, "400");
+			isVerified = verifyAlerts("Lots of Browsing", "");
+			counter++;
+		}
+		return isVerified;
+	}
+	public boolean verifyHighReturnAlert() {
+		int counter = 0;
+		boolean isVerified = false;
+		while(!isVerified && counter<15) {
+			ActionHelper.staticWait(45);
+			ActionHelper.RefreshPage(driver);
+			ActionHelper.ScrollDownByPixels(driver, "500");
+			isVerified = verifyAlerts("High Return", "");
+			counter++;
+		}
+		return isVerified;
+	}
+	public boolean isReturnHotBehaviorVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, return_label, 30);
+	}
+	public boolean isBrowsingHotBehaviorVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, browsing_label, 30);
 	}
 }
