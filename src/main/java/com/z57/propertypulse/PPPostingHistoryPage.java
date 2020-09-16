@@ -237,6 +237,7 @@ public class PPPostingHistoryPage extends Page{
 			if(!verificationSuccess && isPending) {
 				ActionHelper.staticWait(15);
 				ActionHelper.RefreshPage(driver);
+				counter++;
 			}
 		}
 		return verificationSuccess;
