@@ -582,6 +582,21 @@ public class ZBOLeadDetailPage extends Page{
 						break;
 					}
 				}
+			case "Agent Inquiry":
+				List<WebElement> list_lead_activity_agent_inquiry = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-type']");
+				List<WebElement> list_lead__agent_inquiry_date_time = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-datetime']");
+
+				for(int i=0;i<list_lead_activity_agent_inquiry.size();i++) {
+					alertVerified = ActionHelper.getText(driver, list_lead_activity_agent_inquiry.get(i)).contains("Agent Inquiry") ;
+					if(alertVerified) {
+
+						dateVerified = ActionHelper.getText(driver,list_lead__agent_inquiry_date_time.get(i)).contains(getTodaysDate().replace("2020", "20"));
+					}
+					if(alertVerified && dateVerified) {
+						isVerified = true;
+						break;
+					}
+				}
 				break;
 			default:
 				break;
@@ -977,5 +992,17 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean isBrowsingHotBehaviorVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, browsing_label, 30);
+	}
+	public boolean verifyAgentInquiryAlert() {
+		int counter = 0;
+		boolean isVerified = false;
+		while(!isVerified && counter<15) {
+			ActionHelper.staticWait(20);
+			ActionHelper.RefreshPage(driver);
+			ActionHelper.ScrollDownByPixels(driver, "600");
+			isVerified = verifyAlerts("Agent Inquiry", "");
+			counter++;
+		}
+		return isVerified;
 	}
 }

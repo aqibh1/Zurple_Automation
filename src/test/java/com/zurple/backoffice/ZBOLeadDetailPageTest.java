@@ -569,6 +569,9 @@ public class ZBOLeadDetailPageTest extends PageTest{
 			assertTrue(page.verifyHighReturnAlert(), "High Return alert is not displayed in Alerts tab..");
 			assertTrue(page.isReturnHotBehaviorVisible(), "Return Hot Behavior is not updated..");
 			break;
+		case "Agent Inquiry":
+			assertTrue(page.verifyAgentInquiryAlert(), "Agent Inquiry alert is not displayed in Alerts tab..");
+			break;
 		default:
 			break;
 		}
