@@ -4,6 +4,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -482,6 +483,9 @@ public class ZBOLeadDetailPage extends Page{
 		boolean isVerified = false;
 		boolean alertVerified = false;
 		boolean dateVerified = false;
+		List<WebElement> list_lead_activity_list = new ArrayList<WebElement>();
+		List<WebElement> list_lead_activity_date_time_list = new ArrayList<WebElement>();
+		
 		if(ActionHelper.Click(driver, alerts_tab_button)) {
 			ActionHelper.staticWait(5);
 			switch(pAlertToVerify) {
@@ -583,18 +587,35 @@ public class ZBOLeadDetailPage extends Page{
 					}
 				}
 			case "Agent Inquiry":
-				List<WebElement> list_lead_activity_agent_inquiry = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-type']");
-				List<WebElement> list_lead__agent_inquiry_date_time = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-datetime']");
+				list_lead_activity_list = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-type']");
+				list_lead_activity_date_time_list = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-datetime']");
 
-				for(int i=0;i<list_lead_activity_agent_inquiry.size();i++) {
-					alertVerified = ActionHelper.getText(driver, list_lead_activity_agent_inquiry.get(i)).contains("Agent Inquiry") ;
+				for(int i=0;i<list_lead_activity_list.size();i++) {
+					alertVerified = ActionHelper.getText(driver, list_lead_activity_list.get(i)).contains("Agent Inquiry") ;
 					if(alertVerified) {
 
-						dateVerified = ActionHelper.getText(driver,list_lead__agent_inquiry_date_time.get(i)).contains(getTodaysDate().replace("2020", "20"));
+						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate().replace("2020", "20"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
 						break;
+					}
+				}
+			case "Seller Inquiry":
+				list_lead_activity_list = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-type']");
+				list_lead_activity_date_time_list = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-datetime']");
+
+				for(int i=0;i<list_lead_activity_list.size();i++) {
+					alertVerified = ActionHelper.getText(driver, list_lead_activity_list.get(i)).contains(pAlertToVerify) ;
+					if(alertVerified) {
+
+						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate().replace("2020", "20"));
+					}
+					if(alertVerified && dateVerified) {
+						isVerified = true;
+						break;
+						
+						
 					}
 				}
 				break;
@@ -1001,6 +1022,18 @@ public class ZBOLeadDetailPage extends Page{
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "600");
 			isVerified = verifyAlerts("Agent Inquiry", "");
+			counter++;
+		}
+		return isVerified;
+	}
+	public boolean verifyActivityAlert(String pAlertName) {
+		int counter = 0;
+		boolean isVerified = false;
+		while(!isVerified && counter<15) {
+			ActionHelper.staticWait(20);
+			ActionHelper.RefreshPage(driver);
+			ActionHelper.ScrollDownByPixels(driver, "600");
+			isVerified = verifyAlerts(pAlertName, "");
 			counter++;
 		}
 		return isVerified;

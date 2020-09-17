@@ -562,15 +562,18 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage("/lead/"+lLeadId);
 		switch(lAlertType) {
 		case "High Activity":
-			assertTrue(page.verifyHighActivityAlert(), "High Activity alert is not displayed in Alerts tab..");
+			assertTrue(page.verifyActivityAlert(lAlertType), "High Activity alert is not displayed in Alerts tab..");
 			assertTrue(page.isBrowsingHotBehaviorVisible(), "Browsing Hot Behavior is not updated..");
 			break;
 		case "High Return":
-			assertTrue(page.verifyHighReturnAlert(), "High Return alert is not displayed in Alerts tab..");
+			assertTrue(page.verifyActivityAlert(lAlertType), "High Return alert is not displayed in Alerts tab..");
 			assertTrue(page.isReturnHotBehaviorVisible(), "Return Hot Behavior is not updated..");
 			break;
 		case "Agent Inquiry":
-			assertTrue(page.verifyAgentInquiryAlert(), "Agent Inquiry alert is not displayed in Alerts tab..");
+			assertTrue(page.verifyActivityAlert(lAlertType), "Agent Inquiry alert is not displayed in Alerts tab..");
+			break;
+		case "Seller Inquiry":
+			assertTrue(page.verifyActivityAlert(lAlertType), "Seller Inquiry alert is not displayed in Alerts tab..");
 			break;
 		default:
 			break;
