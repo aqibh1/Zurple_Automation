@@ -65,7 +65,7 @@ public class ZACreateActivityAlert extends PageTest{
 		getPage("/admin/createactivityalert");
 		boolean isProd = getIsProd();
 		String lc_user_id =  ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
-		assertTrue(page.isActicityAlertPage(), "Activity alert page is not displayed..");
+		assertTrue(page.isActivityAlertPage(), "Activity alert page is not displayed..");
 		assertTrue(page.selectAlertType(dataObject.optString("alert_type")), "Unable to select Alert Type...");
 		if(!isProd) {
 			assertTrue(page.selectPackage(dataObject.optString("package_id")), "Activity alert page is not displayed..");

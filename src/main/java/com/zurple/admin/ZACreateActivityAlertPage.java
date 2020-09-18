@@ -53,7 +53,7 @@ public class ZACreateActivityAlertPage extends Page{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public boolean isActicityAlertPage() {
+	public boolean isActivityAlertPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, activity_alert_heading, 30);
 	}
 	public boolean selectAlertType(String pAlertType) {
