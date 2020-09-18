@@ -5,6 +5,8 @@ package com.zurple.backoffice;
 
 import static org.testng.Assert.assertTrue;
 
+import java.util.HashMap;
+
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
@@ -59,6 +61,7 @@ public class ZACreateActivityAlert extends PageTest{
 		//2020-09-15 00:00
 		String lTodaysDate = getTodaysDate(0,"YYYY-MM-dd")+" 00:00";
 		String lAdminId = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id");
+		String lAlert_Type = dataObject.optString("alert_type");
 		getPage("/admin/createactivityalert");
 		boolean isProd = getIsProd();
 		String lc_user_id =  ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
@@ -70,6 +73,14 @@ public class ZACreateActivityAlert extends PageTest{
 		assertTrue(page.selectAdmin(lAdminId), "Activity alert page is not displayed..");
 		assertTrue(page.selectUser(lc_user_id), "Activity alert page is not displayed..");
 		assertTrue(page.typeTriggerDate(lTodaysDate), "Activity alert page is not displayed..");
+		if(lAlert_Type.equalsIgnoreCase("Saved to Favorites Alert")) {
+			HashMap<String,String> propKeyValuePair = page.selectAndGetPropertyIndexAndValues();
+			if(propKeyValuePair!=null) {
+				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleProp, propKeyValuePair);
+			}else {
+				assertTrue(false,"Unable to select the property..");
+			}
+		}
 		assertTrue(page.clickOnCreateAlertButton(), "Unable to click on Create Alert button..");
 		
 	}

@@ -3,6 +3,12 @@
  */
 package com.zurple.admin;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.json.JSONObject;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -39,6 +45,9 @@ public class ZACreateActivityAlertPage extends Page{
 	@FindBy(id="submit")
 	WebElement create_alert_button;
 	
+	@FindBy(id="property")
+	WebElement property_dropdown;
+	
 	public ZACreateActivityAlertPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -73,4 +82,23 @@ public class ZACreateActivityAlertPage extends Page{
 	public boolean clickOnCreateAlertButton() {
 		return ActionHelper.Click(driver, create_alert_button);
 	}
+	public HashMap<String,String> selectAndGetPropertyIndexAndValues() {
+		HashMap<String,String> keyValuePair = new HashMap<String,String>();
+		if(ActionHelper.waitforDropdownToBePopulated(driver, property_dropdown, 10)) {
+			List<WebElement> list_of_options = new ArrayList<WebElement>();
+			list_of_options = property_dropdown.findElements(By.tagName("option"));
+			int index = generateRandomInt(list_of_options.size());
+			WebElement element = list_of_options.get(index);
+			keyValuePair.put("property-address", element.getAttribute("property-address"));
+			keyValuePair.put("property-city_name", element.getAttribute("property-city_name"));
+			keyValuePair.put("property-price", element.getAttribute("property-price"));
+			keyValuePair.put("property-city_state", element.getAttribute("property-city_state"));
+			keyValuePair.put("index", String.valueOf(index));
+			index = index==0?index+1:index;
+			if(!ActionHelper.clickAndSelectByIndex(driver, property_dropdown, "//select[@id='property']/option", index)) {
+				return null;
+			}
+		}
+		return keyValuePair;
+}
 }
