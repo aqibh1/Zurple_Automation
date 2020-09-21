@@ -33,7 +33,7 @@ public class ZBOAddLeadPageTest extends PageTest{
 	private WebDriver driver;
 	private JSONObject dataObject;
 	private ZBOAddLeadPage page;
-	public static HashMap<String, String> leadData = new HashMap<String, String>();	
+	public HashMap<String, String> leadData = new HashMap<String, String>();	
 	
 	@Override
 	public AbstractPage getPage() {
