@@ -5,7 +5,9 @@ package com.zurple.backoffice;
 
 import static org.testng.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
@@ -31,6 +33,8 @@ public class ZBOAddLeadPageTest extends PageTest{
 	private WebDriver driver;
 	private JSONObject dataObject;
 	private ZBOAddLeadPage page;
+	public HashMap<String, String> leadData = new HashMap<String, String>();	
+	
 	@Override
 	public AbstractPage getPage() {
 		if(page==null) {
@@ -71,8 +75,8 @@ public class ZBOAddLeadPageTest extends PageTest{
 			ActionHelper.staticWait(3);
 		}
 				
-		String  lLeadEmail= updateEmail(dataObject.optString("email"));
-		String  lLeadName = updateName(dataObject.optString("first_name"));
+		String lLeadEmail= updateEmail(dataObject.optString("email"));
+		String lLeadName = updateName(dataObject.optString("first_name"));
 		assertTrue(page.typeEmail(lLeadEmail), "Unable to type email address..");
 		assertTrue(page.typeFirstName(lLeadName), "Unable to type first name..");
 		if(!dataObject.optString("city_criteria").isEmpty()) {
@@ -89,15 +93,32 @@ public class ZBOAddLeadPageTest extends PageTest{
 		boolean isWelcomeEmail = dataObject.optString("welcome_Email")!=null?true:false;
 		if(isWelcomeEmail) {
 			assertTrue(page.clickWelcomeEmailToggle(), "Unable to click on welcome email toggle button..");
-		}
+		}	
 		
-		assertTrue(page.clickSaveButton(), "Unable click on save button..");
-		
+		if(!dataObject.optString("last_name").isEmpty() && dataObject.optString("cell") != null && dataObject.optString("phone") != null) {
+				String lastName = dataObject.optString("last_name");
+				String cell = dataObject.optString("cell");	
+				String phone = dataObject.optString("phone");
+				assertTrue(page.typeLastName(lastName),"Unable to type last name..");
+				assertTrue(page.typeCell(cell),"Unable to type cell..");
+				assertTrue(page.typePhone(phone),"Unable to type phone..");
+				assertTrue(page.clickSaveButton(), "Unable click on save button..");
+				ActionHelper.staticWait(5);
+				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleleadSource, page.getLeadSource());
+				leadData.put("lastName",lastName);
+				leadData.put("cell",cell);
+				leadData.put("phone",phone);
+				leadData.put("leadSource",page.getLeadSource());
+			} else {
+				assertTrue(page.clickSaveButton(), "Unable click on save button..");
+			}
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail, lLeadEmail);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadName, lLeadName);
 		String lLeadId = driver.getCurrentUrl().split("user_id/")[1];
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), lLeadEmail, lLeadId);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadId, lLeadId);
+		leadData.put("email",lLeadEmail);
+		leadData.put("firstName",lLeadName);
 //		int lLead_id = new DBHelperMethods(getEnvironment()).getZurpleLeadId(lLeadEmail);
 //		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), lLeadEmail, lLead_id);
 

@@ -91,6 +91,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Parameters({"standardEmailData"})
 	public void testSendStandardEmail(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
+		page=null;
 		getPage("/marketing/massemail");
 		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
 		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");

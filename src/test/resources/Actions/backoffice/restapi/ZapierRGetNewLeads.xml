@@ -1,0 +1,51 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Verify Zapier New Leads Response"
+	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+    </listeners>
+
+	<test name="Verify Zapier New Leads Response">	 
+	<parameter name="datafile" value="/resources/data/zurple/socialapi/zapier_data.json">
+	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-for-zapier.json">
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-track-search.json">  
+			<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeAPILogin" />
+					</methods>
+				</class>
+  				<class name="com.zurple.rest.zapier.ZapierRestGetNewManualLeads">
+					<methods>
+						<include name="testAddLead" /> 
+					</methods>
+				</class> 
+ 		   		<class name="com.zurple.rest.zapier.ZapierRestGetNewManualLeads">
+					<methods>
+						<include name="testZapierResponse" /> 
+					</methods>
+				</class>
+				<class name="com.zurple.rest.zapier.ZapierRestGetNewRegisteredLead">
+					<methods>
+						<include name="testAddLead" /> 
+					</methods>
+				</class> 
+				<class name="com.zurple.rest.zapier.ZapierRestGetNewRegisteredLead">
+					<methods>
+						<include name="testZapierResponse" /> 
+					</methods>
+				</class> 
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>				
+			</classes>
+			</parameter>
+			</parameter>
+			</parameter>
+	</test>
+</suite>
