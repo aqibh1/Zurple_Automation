@@ -5,6 +5,7 @@ package com.zurple.website;
 
 import static org.testng.Assert.assertTrue;
 
+import java.util.HashMap;
 import java.util.Set;
 
 import org.json.JSONObject;
@@ -29,6 +30,7 @@ public class ZWRegisterUserPageTest extends PageTest{
 	WebDriver driver;
 	ZWRegisterUserPage page;
 	private JSONObject lDataObject;
+	public HashMap<String, String> leadData = new HashMap<String, String>();	
 	@Override
 	public void testTitle() {
 		// TODO Auto-generated method stub
@@ -83,12 +85,15 @@ public class ZWRegisterUserPageTest extends PageTest{
 		registerUser(lName,lEmail);
 		
 		String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
-		
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.RegisterFormLeadEmail, lEmail);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),lEmail,lLeadId);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId,lLeadId);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadName,lName);
-
+		if(!getIsProd()) {
+			lEmail = lEmail.replace("@", "_ZurpleQA@");
+		}
+		leadData.put("email", lEmail);
+		leadData.put("name", lName);
 		ActionHelper.staticWait(30);
 		AutomationLogger.endTestCase();
 		

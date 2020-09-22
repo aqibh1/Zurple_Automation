@@ -76,6 +76,12 @@ public class ZBOAddLeadPage extends Page{
 	@FindBy(id="user_search_lot_square_feet_minimum")
 	WebElement user_search_lot_square_feet_minimum;
 	
+	@FindBy(xpath="//span[@title='Agent Added/Imported']")
+	WebElement leadSourcePrimary;
+	
+	@FindBy(xpath="//span[@title='add/import']")
+	WebElement leadSourceSecondary;
+	
 	String features_xpath = "//div[@id='form-element-features']/descendant::li";
 	
 	String view_xpath = "//div[@id='form-element-view']/descendant::li";
@@ -132,7 +138,7 @@ public class ZBOAddLeadPage extends Page{
 		return ActionHelper.ClearAndType(driver, first_name, pFirstName);
 	}
 	public boolean typeLastName(String pLastName) {
-		return ActionHelper.ClearAndType(driver, first_name, pLastName);
+		return ActionHelper.ClearAndType(driver, last_name, pLastName);
 	}
 	public boolean typePhone(String pPhone) {
 		return ActionHelper.ClearAndType(driver, phone, pPhone);
@@ -176,5 +182,10 @@ public class ZBOAddLeadPage extends Page{
 	}
 	public boolean clickAndSelectAgent(String pAgent) {
 		return ActionHelper.selectDropDownOption(driver, select_admin, "", pAgent);
+	}
+	public String getLeadSource() {
+		String leadSource1 = ActionHelper.getText(driver, leadSourcePrimary);
+		String leadSource2 = ActionHelper.getText(driver, leadSourceSecondary);
+		return leadSource1 +" "+leadSource2;
 	}
 }

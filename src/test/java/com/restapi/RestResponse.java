@@ -77,6 +77,10 @@ public class RestResponse {
 	public org.json.JSONObject getJsonResponse() throws Exception{
 		return new org.json.JSONObject(this.content);
 	}
+	
+	public org.json.JSONArray getJsonResponseArray() throws Exception{
+		return new org.json.JSONArray(this.content);
+	}
 
 	
 
