@@ -575,6 +575,10 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		case "Seller Inquiry":
 			assertTrue(page.verifyActivityAlert(lAlertType), "Seller Inquiry alert is not displayed in Alerts tab..");
 			break;
+		case "Saved to Favorites Alert":
+			HashMap<String,String> propKeyValue = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleProp);
+			assertTrue(page.verifyFavoritesAlert(propKeyValue.get("property-city_name"),propKeyValue.get("property-address"),propKeyValue.get("property-price")), "Unable to verify property in Favorites tab..");
+			break;
 		default:
 			break;
 		}

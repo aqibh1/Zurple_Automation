@@ -359,6 +359,7 @@ public class PPSocialPage extends Page{
 					platform_image_verified= false;
 					date_verified = false;
 					time_verified = false;
+					ActionHelper.staticWait(2);
 				}
 				
 			}
@@ -387,6 +388,8 @@ public class PPSocialPage extends Page{
 		boolean endDate_verified = false;
 		boolean isRecurring = false;
 		boolean repeatOnDays = false;
+		
+		ActionHelper.staticWait(30);
 		
 		ActionHelper.waitForElementsToBeFound(driver, pElement);
 		List<WebElement> list_of_rows = ActionHelper.getListOfElementByXpath(driver, pElement);
@@ -460,6 +463,7 @@ public class PPSocialPage extends Page{
 					platform_image_verified= false;
 					date_verified = false;
 					time_verified = false;
+					ActionHelper.staticWait(2);
 				}
 			}
 		}catch(Exception ex) {

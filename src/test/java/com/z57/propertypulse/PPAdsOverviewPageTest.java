@@ -95,6 +95,9 @@ public class PPAdsOverviewPageTest extends PageTest{
 		String lDomain = dataObject.optString("ad_type_ao").equalsIgnoreCase("CMA")?EnvironmentFactory.configReader.getPropertyByName("z57_pp_base_url"):EnvironmentFactory.configReader.getPropertyByName("z57_site_v2_base_url");
 		lDomain = lDomain.replace("https://", "");
 		String lAdType = dataObject.optString("ad_type_ao");
+		if(!getIsProd()) {
+			lDomain = lDomain.replace("1584", "17975");
+		}
 		
 		assertTrue(page.isAdsOverviewPage(), "Ads Overview page is not displayed..");
 		if(!lAdType.isEmpty()) {

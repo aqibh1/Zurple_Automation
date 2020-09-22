@@ -114,14 +114,17 @@ public class PPCreateAdPageTest extends PageTest{
 			assertTrue(page.verifyAdPreviewHeadingIsVisible(), "Ad preview heading is not visible in section 3 step 1..");
 			assertTrue(page.verifyAdDescriptionInAdPreviewSection3(dataObject.optString("ad_description")), "Ad preview description is not visible in section 3 step 1..");
 			assertTrue(page.verifyAdPreviewImageIsVisibleSection3(), "Ad preview Image is not visible in section 3 step 1..");
+			ActionHelper.staticWait(3);
 			assertTrue(page.clickOnNextStepButton(), "Unable to click on Next button step 1");
 		}
 		adCreationStep2(dataObject.optString("ad_amount"),dataObject.optString("platforms"));
+		ActionHelper.staticWait(3);
 		assertTrue(page.clickOnNextStepButton(), "Unable to click on Next button step 2");
 		adCreationStep3();
 		String lAdId = driver.getCurrentUrl().split("=")[1];
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.PPADID, lAdId);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.PPADImageSlideshow, lSlideShowOrImage);
+		ActionHelper.staticWait(3);
 		assertTrue(page.clickOnNextStepButton(), "Unable to click on Place button step 3");
 	}
 	

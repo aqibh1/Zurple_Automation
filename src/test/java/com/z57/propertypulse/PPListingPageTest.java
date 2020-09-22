@@ -268,6 +268,7 @@ public class PPListingPageTest extends PageTest{
 		getPage("/listings/import");
 	
 		PPEasyImportListingPage easyImportListingPage = new PPEasyImportListingPage(driver);
+		assertTrue(easyImportListingPage.isEasyImportListingPage(), "Easy Import Listing page is not visible..");
 		assertTrue(easyImportListingPage.clickOnGenerateListButton(), "Unable to click on Generate List button.");
 		assertTrue(easyImportListingPage.isListGeneratedSuccessfully(), "List is not generated successfully..");
 		assertTrue(easyImportListingPage.selectRandomListingFromList(), "Unable to select the listing..");

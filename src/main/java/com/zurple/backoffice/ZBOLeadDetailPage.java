@@ -210,6 +210,9 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(xpath="//li[@title='Browsing']")
 	WebElement browsing_label;
 	
+	@FindBy(id="z-activity-details-favorites")
+	WebElement favorites_tab_button;
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
 
@@ -1035,6 +1038,33 @@ public class ZBOLeadDetailPage extends Page{
 			ActionHelper.ScrollDownByPixels(driver, "600");
 			isVerified = verifyAlerts(pAlertName, "");
 			counter++;
+		}
+		return isVerified;
+	}
+	public boolean verifyFavoritesAlert(String pCity, String pAddress, String pPrice) {
+		int counter = 0;
+		boolean isVerified = false;
+		while(!isVerified && counter<15) {
+			ActionHelper.staticWait(20);
+			ActionHelper.RefreshPage(driver);
+			ActionHelper.ScrollDownByPixels(driver, "600");
+			isVerified = verifyFavoriteProperty(pCity, pAddress, pPrice);
+			counter++;
+		}
+		return isVerified;
+	}
+	private boolean verifyFavoriteProperty(String pCity, String pAddress, String pPrice) {
+		boolean isVerified = false;
+		
+		if(ActionHelper.Click(driver, favorites_tab_button)) {
+			ActionHelper.staticWait(5);
+			String lCity_favorite = ActionHelper.getText(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-favorites-grid']/descendant::tr[@id]/descendant::td[contains(@headers,'city')]/div")));
+			String lAddress_favorite = ActionHelper.getText(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-favorites-grid']/descendant::tr[@id]/descendant::td[contains(@headers,'address')]/div")));
+			String lPrice_favorite = ActionHelper.getText(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-favorites-grid']/descendant::tr[@id]/descendant::td[contains(@headers,'price')]/div"))).replace(",", "").replace("$", "");
+			
+			if(lCity_favorite.equalsIgnoreCase(pCity) && lAddress_favorite.equalsIgnoreCase(pAddress) && lPrice_favorite.equalsIgnoreCase(pPrice)) {
+				isVerified = true;
+			}
 		}
 		return isVerified;
 	}
