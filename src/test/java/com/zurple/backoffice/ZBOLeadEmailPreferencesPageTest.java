@@ -2,6 +2,8 @@ package com.zurple.backoffice;
 
 import static org.testng.Assert.assertTrue;
 
+import java.util.HashMap;
+
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
@@ -21,7 +23,8 @@ public class ZBOLeadEmailPreferencesPageTest extends PageTest{
 	private ZBOLeadEmailPreferencesPage page;
 	private WebDriver driver;
 	private JSONObject dataObject;
-	
+	public HashMap<String, String> updatedLeadData = new HashMap<String, String>();	
+
 	@Override
 	public AbstractPage getPage() {
 		if(page==null) {
@@ -149,8 +152,41 @@ public class ZBOLeadEmailPreferencesPageTest extends PageTest{
 		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
 		ActionHelper.staticWait(5);
 		assertTrue(leadDetailPage.isEnrollInCampaignButtonDisabled(), "Enroll in campaign button is not disabled in my messages tab..");
+	}
+	
+	public void testUpdateLeadInfoForZapier(String pDataFile) {
+		AutomationLogger.startTestCase("Verify lead email preferences");
+		getPage();
+		ZBOAddLeadPage manualLead = new ZBOAddLeadPage(driver);
+		String lLead = ModuleCommonCache.getElement(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId);
+		getPage("/lead/edit/user_id/"+lLead);
+		dataObject = getDataFile(pDataFile);
 
+		String Email = dataObject.optString("email");
+		String lState = dataObject.optString("state");
+		String lZip = dataObject.optString("zip");
+		String lCity = dataObject.optString("city");
+		String lCell = dataObject.optString("cell");
+		String lPhone = dataObject.optString("phone");
+	    Email = updateEmail(Email);
+		assertTrue(page.isLeadUpdatePage(), "Lead update page is not visible..");
+		assertTrue(page.allHeadingsDisplayed(), "All headings are not displayed..");
+		
+		assertTrue(manualLead.typeEmail(Email), "Unable to type lead email..");
+		assertTrue(page.typeState(lState), "Unable to type Lead state..");
+		assertTrue(page.typeZip(lZip), "Unable to type Lead zip..");
+		assertTrue(page.typeCity(lCity), "Unable to type Lead City..");
+		assertTrue(manualLead.typePhone(lPhone), "Unable to type Lead phone..");
+		assertTrue(manualLead.typeCell(lCell), "Unable to type Lead cell..");
+		assertTrue(page.clickOnSaveButton(), "Unable to click on save button..");
+		updatedLeadData.put("email",Email);
+		updatedLeadData.put("state",lState);
+		updatedLeadData.put("zip",lZip);
+		updatedLeadData.put("city",lCity);
+		updatedLeadData.put("cell",lCell);
+		updatedLeadData.put("phone",lPhone);
 
+		AutomationLogger.endTestCase();
 	}
 
 
