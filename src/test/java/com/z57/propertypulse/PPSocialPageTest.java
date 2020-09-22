@@ -24,6 +24,7 @@ import resources.TestEnvironment;
 import resources.data.z57.PPSocialData;
 import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.models.pp.Posts;
+import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
@@ -202,9 +203,6 @@ public class PPSocialPageTest extends PageTest{
 		String lFileToWriteProd = "/resources/cache/posts-to-verify-prod.json";
 		String lFileToWriteStage = "/resources/cache/posts-to-verify-qa.json";
 		
-
-	
-		
 		switch(lPlatform){
 
 		case "Twitter":
@@ -289,6 +287,9 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.isScheduleLaterPostCompleted(), "Scheduled Post Completed Success Message is not displayed ..");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			//Verifying the Later has been scheduled or not
+			ActionHelper.staticWait(5);
+			ActionHelper.RefreshPage(driver);
+			
 			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.isUpcomingPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime), "Post not found in Upcoming Post results..");
@@ -313,6 +314,8 @@ public class PPSocialPageTest extends PageTest{
 			assertTrue(page.isScheduleLaterPostCompleted(), "Scheduled Post Completed Success Message is not displayed ..");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			//Verifying the Later has been scheduled or not
+			ActionHelper.staticWait(5);
+			ActionHelper.RefreshPage(driver);
 			assertTrue(page.selectNumberOfRecords("100"), "Unable to select total number of records to display per page..");
 			assertTrue(page.isLoaderDisappeared(), "Ajax loader is not disappeared ..");
 			assertTrue(page.isUpcomingRecurringPostsSuccessful(lStatus,lPlatformIcon,lDate, lTime,lEndingDate,lRepeatOnDays), "Post not found in Upcoming Post results..");
