@@ -60,7 +60,7 @@ public class ZWContactAgentForm extends AbstractForm{
 	}
 	public boolean typeComments(String pComments) {
 		if(!pComments.isEmpty()) {
-			return ActionHelper.ClearAndType(driver, phone_input, pComments);
+			return ActionHelper.ClearAndType(driver, comment_input, pComments);
 		}else {
 			return true;
 		}

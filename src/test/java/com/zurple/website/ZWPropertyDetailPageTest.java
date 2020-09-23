@@ -5,6 +5,9 @@ package com.zurple.website;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+
+import java.util.HashMap;
+
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
@@ -31,7 +34,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 	private WebDriver driver;
 	private ZWPropertyDetailPage page;
 	private JSONObject dataObject;
-	
+	public HashMap<String, String> agentsLeadData = new HashMap<String, String>();	
 	@Override
 	public void testTitle() {
 		// TODO Auto-generated method stub
@@ -231,6 +234,14 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		assertTrue(page.getContactAgentForm().verifyLeadName(lName), "Name mismatched..");
 		
 		ModuleCommonCache.updateCacheForModuleObject(lThreadId, ModuleCacheConstants.ZurpleLeadName, lName);
+		
+		agentsLeadData.put("name", lName);
+		if(!getIsProd()) {
+			lEmail = lEmail.replace("@", "_ZurpleQA@");
+		}
+		agentsLeadData.put("email", lEmail);
+		agentsLeadData.put("phone", lPhone);
+		agentsLeadData.put("comments", lComments);
 		
 		AutomationLogger.endTestCase();
 	}
