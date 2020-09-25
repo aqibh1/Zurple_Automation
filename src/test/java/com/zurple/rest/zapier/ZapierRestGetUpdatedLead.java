@@ -25,7 +25,7 @@ public class ZapierRestGetUpdatedLead extends RestAPITest{
 	private JSONObject dataObject;
 	ZBOLeadEmailPreferencesPageTest updateLead = new ZBOLeadEmailPreferencesPageTest();
 	private RestResponse newLeadResponse;
-	String accessToken = getIsProd()?EnvironmentFactory.configReader.getPropertyByName("access_token_prod"):EnvironmentFactory.configReader.getPropertyByName("access_token_stage");
+	String accessToken = EnvironmentFactory.configReader.getPropertyByName("access_token");
 	
 	@Test
 	@Parameters({"updateLead"})

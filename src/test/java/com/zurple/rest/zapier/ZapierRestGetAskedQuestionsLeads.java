@@ -38,7 +38,7 @@ public class ZapierRestGetAskedQuestionsLeads extends RestAPITest{
 	private JSONObject dataObject;
 	ZWPropertyDetailPageTest agentsLead = new ZWPropertyDetailPageTest();
 	private RestResponse newLeadResponse;
-	String accessToken = getIsProd()?EnvironmentFactory.configReader.getPropertyByName("access_token_prod"):EnvironmentFactory.configReader.getPropertyByName("access_token_stage");
+	String accessToken = EnvironmentFactory.configReader.getPropertyByName("access_token");
 	
 	@Test
 	@Parameters({"contactAgentData"})

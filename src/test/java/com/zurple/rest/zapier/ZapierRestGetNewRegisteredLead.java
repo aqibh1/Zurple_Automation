@@ -39,7 +39,7 @@ public class ZapierRestGetNewRegisteredLead extends RestAPITest{
 	private JSONObject dataObject;
 	ZWRegisterUserPageTest registeredLead = new ZWRegisterUserPageTest();
 	private RestResponse newLeadResponse;
-	String accessToken = getIsProd()?EnvironmentFactory.configReader.getPropertyByName("access_token_prod"):EnvironmentFactory.configReader.getPropertyByName("access_token_stage");
+	String accessToken = EnvironmentFactory.configReader.getPropertyByName("access_token");
 	
 	@Test
 	@Parameters({"registerUserDataFile"})

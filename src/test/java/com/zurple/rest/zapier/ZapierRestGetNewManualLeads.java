@@ -37,7 +37,7 @@ public class ZapierRestGetNewManualLeads extends RestAPITest{
 	private JSONObject dataObject;
 	ZBOAddLeadPageTest manualLead = new ZBOAddLeadPageTest();
 	private RestResponse newLeadResponse;
-	String accessToken = getIsProd()?EnvironmentFactory.configReader.getPropertyByName("access_token_prod"):EnvironmentFactory.configReader.getPropertyByName("access_token_stage");
+	String accessToken = EnvironmentFactory.configReader.getPropertyByName("access_token");
 	
 	@Test
 	@Parameters({"addLeadData"})
@@ -81,7 +81,8 @@ public class ZapierRestGetNewManualLeads extends RestAPITest{
 		boolean isVerified = false;
 			AutomationLogger.info("Zapier lead email ID :: "+lJsonResponse.get("email").toString());			
 			String leadEmail = manualLead.leadData.get("email");// ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
-				if(lJsonResponse.get("email").toString().equalsIgnoreCase(leadEmail)) {
+			String x = lJsonResponse.get("email").toString();	
+			if(lJsonResponse.get("email").toString().equalsIgnoreCase(leadEmail)) {
 					isVerified = true;
 					String leadName = manualLead.leadData.get("firstName"); //ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
 					if(!lJsonResponse.optString("first_name").equalsIgnoreCase(leadName)) {
@@ -104,7 +105,8 @@ public class ZapierRestGetNewManualLeads extends RestAPITest{
 						isVerified = false;
 					}
 					String leadSource = manualLead.leadData.get("leadSource");
-					if(!lJsonResponse.optString("lead_source").equalsIgnoreCase(leadSource)) {
+					String z = lJsonResponse.optString("lead_source");
+					if(!lJsonResponse.optString("lead_source").contains(leadSource)) {
 						AutomationLogger.info("Lead source is not valid..");
 						isVerified = false;
 					}
