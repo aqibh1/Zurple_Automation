@@ -15,6 +15,7 @@ import com.zurple.my.PageTest;
 import resources.AbstractPage;
 import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.DataConstants;
 
@@ -146,7 +147,15 @@ public class PPEmailCampaignManagerPageTest extends PageTest{
 		assertTrue(emailCampaignEditorListing.typeAndAddDate(pDate), "Unable to type date and click add button..");
 		assertTrue(emailCampaignEditorListing.typeTestEmail(pTestEmail), "Unable to type test email..");
 		assertTrue(emailCampaignEditorListing.clickOnSendButton(), "Unable to click send button..");
+		handleTheAlert();
 	}
+		public boolean handleTheAlert() {
+			boolean lHandleAlert = true;
+			ActionHelper.staticWait(5);
+			if(ActionHelper.isAlertPresent(driver)) {
+				lHandleAlert = ActionHelper.handleDisableAdAlert(driver);
+			}
+			return lHandleAlert;
+		}
 
-	
 }

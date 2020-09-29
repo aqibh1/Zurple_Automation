@@ -8,7 +8,7 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
- 
+  
   <test name="Verify Later and Recurring Posts Facebook">
 	<classes>
       <class name="com.z57.propertypulse.DatabasePageTest" >
@@ -53,27 +53,7 @@
       </class>
     </classes>
 	</test>
-   <!--   
-    <test name="Disable all the ads">
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-     </class>
-      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
-      <methods>
-      	<include name="testDisAbleAllTheAds" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-	</test>
-	-->
+
 	<test name="Home Seacrh Test 01" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
 	<classes>
@@ -505,7 +485,6 @@
      </classes>
      </parameter>
     </test>
-  
   
    <test name="Capture Lead From About Me" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/register_lead/register-lead-data-11.json">
