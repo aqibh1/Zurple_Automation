@@ -20,6 +20,7 @@ import resources.classes.Alert;
 import resources.orm.hibernate.models.zurple.User;
 import resources.utility.AutomationLogger;
 import resources.utility.DataConstants;
+import resources.utility.GmailEmailVerification;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -95,6 +96,12 @@ public class ZBODashboardTest extends PageTest
     	assertTrue(page.isLeadNamesDisplayed(), "Lead names are not displayed..");
     	assertTrue(page.isHotBehaviorsDisplayed(), "Hot Behaviors is not displayed..");
     	assertTrue(page.clickOnViewLeadsButton(), "View leads button is not working..");
+    	
+    }
+    @Test
+    public void testEmailIsReceived() {
+    	GmailEmailVerification gmailObject = new GmailEmailVerification();
+    	gmailObject.isEmailPresentAndReply("z57testuser.zurpleqa@gmail.com", "uznhhalkthskjpyx", "Quick Question", "aqib.zurple.production@zengtest2.us");
     	
     }
 
