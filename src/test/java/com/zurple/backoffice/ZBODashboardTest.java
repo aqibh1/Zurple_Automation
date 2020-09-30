@@ -101,7 +101,7 @@ public class ZBODashboardTest extends PageTest
     @Test
     public void testEmailIsReceived() {
     	GmailEmailVerification gmailObject = new GmailEmailVerification();
-    	gmailObject.isEmailPresentAndReply("z57testuser.zurpleqa@gmail.com", "uznhhalkthskjpyx", "Quick Question", "aqib.zurple.production@zengtest2.us");
+    	gmailObject.isEmailPresentAndReply("z57testuser.zurpleqa@gmail.com", "uznhhalkthskjpyx", "Quick Question", "aqib.zurple.production@zengtest2.us",true);
     	
     }
 

@@ -23,7 +23,7 @@ import javax.mail.internet.MimeMessage;
  */
 public class GmailEmailVerification {
 	
-	public boolean isEmailPresentAndReply(String pEmail, String pAppPassword, String pSubjectToVerify, String pEmailAddressToReply) {
+	public boolean isEmailPresentAndReply(String pEmail, String pAppPassword, String pSubjectToVerify, String pEmailAddressToReply, boolean pReplyToEmail) {
 		   boolean isEmailSent = true;
 		   Date date = null;
 //		   pSubjectToVerify = "0929202038762 Scheduleshowing";
@@ -66,9 +66,13 @@ public class GmailEmailVerification {
 					   String subject = message.getSubject();
 					   AutomationLogger.info("Subject :: "+subject);
 					   if (subject != null && subject.contains(pSubjectToVerify) && getTodaysDate(0).equalsIgnoreCase(sdf.format(date).toString())) {
-
-					   AutomationLogger.info("Subject: " + subject);
-						   isEmailSent = replyToEmail(message, pEmailAddressToReply, session, pEmail, pAppPassword);
+						   AutomationLogger.info("Subject: " + subject);
+						   if(pReplyToEmail) {
+							   isEmailSent = replyToEmail(message, pEmailAddressToReply, session, pEmail, pAppPassword);
+						   }else {
+							   isEmailSent = true;
+							   break;
+						   }
 					   }
 				   }
 			   } 
