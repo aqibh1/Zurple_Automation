@@ -6,6 +6,7 @@ package com.zurple.backoffice;
 import java.util.List;
 
 import org.hamcrest.core.IsSame;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.forms.zurple.backoffice.ZBOAddNotesForm;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
@@ -70,12 +72,27 @@ public class ZBOLeadCRMPage extends Page{
 	@FindBy(xpath="//li[@title='Browsing']")
 	WebElement browsing_label; 
 	
+	@FindBy(xpath="//div[@data-lead-id]/i[@class='fas fa-sticky-note fa-2x']")
+	WebElement note_button;
+	
+	String leads_name_list = "//table[@id='leads-table']/descendant::div[@class='full_name']/a";
+	
+	private ZBOAddNotesForm addNoteForm;
+	
 	public ZBOLeadCRMPage() {
 		
 	}
 	public ZBOLeadCRMPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		setAddNoteForm();
 		PageFactory.initElements(driver, this);
+	}
+	
+	public ZBOAddNotesForm getAddNoteForm() {
+		return addNoteForm;
+	}
+	public void setAddNoteForm() {
+		this.addNoteForm = new ZBOAddNotesForm(driver);
 	}
 	public boolean isLeadCRMPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, leads_heading, 30);
@@ -159,5 +176,15 @@ public class ZBOLeadCRMPage extends Page{
 	public boolean isBrowsingHotBehaviorVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, browsing_label, 30);
 	}
-	
+	public boolean clickOnNoteButton() {
+		return ActionHelper.Click(driver, note_button);
+	}
+	public String getLeadName() {
+		ActionHelper.staticWait(10);
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, leads_name_list);
+		int l_index = generateRandomInt(list.size());
+		String l_leadName = ActionHelper.getText(driver, list.get(l_index));
+		String l_leadId = ActionHelper.getAttribute(list.get(l_index), "href").split("lead/")[1];
+		return l_leadName+","+l_leadId;
+	}
 }
