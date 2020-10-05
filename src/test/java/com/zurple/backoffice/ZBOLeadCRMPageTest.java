@@ -14,9 +14,11 @@ import com.zurple.my.PageTest;
 import com.zurple.website.ZWRegisterUserPageTest;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.Mailinator;
 
 /**
  * @author adar
@@ -90,5 +92,48 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(page.getAddNoteForm().clickOnDeleteButton(), "Unable to click on delete button..");
 		assertTrue(page.getAddNoteForm().confirmDeleteAlert(), "Unable to close the alert..");
 		assertFalse(page.getAddNoteForm().isCommentAddedSuccessfully(l_comment), "Note is not deleted successfully..");
+	}
+	
+	@Test
+	public void testAddAndVerifyReminder() {
+		getPage("/leads/crm");
+		Mailinator mailinatorObj = new Mailinator(driver);
+		if(getIsProd()) {
+			mailinatorObj.activateProductionInbox();
+		}else {
+			mailinatorObj.activateStagingInbox();
+		}
+		
+		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
+		String lead_name_id = page.getLeadName();
+		String l_leadName = lead_name_id.split(",")[0].trim();
+		String l_leadId = lead_name_id.split(",")[1].trim();
+		AutomationLogger.info("Lead ID::"+l_leadId);
+		AutomationLogger.info("Lead ID::"+l_leadName);
+		String l_comment = updateName("Call the lead");
+		assertTrue(page.searchLead(l_leadName), "Unable to search lead..");
+		
+		assertTrue(page.clickOnReminderButton(), "Unable to click on Note button on CRM page..");
+		assertTrue(page.getAddReminderForm().isAddReminderForm(), "Add Reminder form is not visible..");
+		assertTrue(page.getAddReminderForm().typeComment(l_comment), "Unable to type reminder in comment section..");
+		assertTrue(page.getAddReminderForm().clickOnDateReminder(), "Unable to click on date Reminder button..");
+		assertTrue(page.getAddReminderForm().clickOnDateDoneButton(), "Unable to click on date done button..");
+		assertTrue(page.getAddReminderForm().clickOnSaveButton(), "Unable to click on Add Reminder button..");
+		assertTrue(page.getAddReminderForm().getSuccessAlert().clickOnOkButton(), "Unable to click on Ok button..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.clickOnReminderButton(), "Unable to click on Note button on CRM page..");
+		assertTrue(page.getAddReminderForm().isCommentAddedSuccessfully(l_comment), "Unable to verify comment..");
+		
+		page = null;
+		getPage("/lead/"+l_leadId);
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(leadDetailPage.isLeadDetailPage(), "Lead Detail page is not visible..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.getAddReminderForm().isCommentAddedSuccessfully(l_comment), "Unable to verify comment..");
+		
+		String lAgentEmail = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_user").split("@")[0];
+		String lSubjectToVerify = "Task Reminder - "+l_leadName;
+		
+		assertTrue(mailinatorObj.verifyEmail(lAgentEmail, lSubjectToVerify, 15), "Unable to verify reminder email");
 	}
 }
