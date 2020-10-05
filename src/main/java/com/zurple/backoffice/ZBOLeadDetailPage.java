@@ -103,7 +103,7 @@ public class ZBOLeadDetailPage extends Page{
 
 	@FindBy(id="lead_status")
 	WebElement lead_prospect_dropdown;
-
+	
 	@FindBy(id="z-activity-details-sent")
 	WebElement myMessages_tab_button;
 	
@@ -478,9 +478,11 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isVerified;
 	}
+	
 	public boolean clickAndSelectLeadProspect(String pOption) {
 		return ActionHelper.selectDropDownOption(driver, lead_prospect_dropdown, "", pOption);
 	}
+	
 	private boolean verifyAlerts(String pAlertToVerify, String pAlertValueToVerify) {
 
 		boolean isVerified = false;
