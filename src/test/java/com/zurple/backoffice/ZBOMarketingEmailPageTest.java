@@ -105,6 +105,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Parameters({"standardEmailData"})
 	public void testSendBulkEmail(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
+		redirectToLeadsPage(lDataObject);
 		leadStatus(lDataObject, 0);
 		page = null;
 		getPage("/marketing/massemail");
@@ -288,20 +289,25 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
 			assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject), "Unable to verify scheduled email under my messages..");
 }
+	
+	public void redirectToLeadsPage(JSONObject pDataObject) {
+		getPage();
+		String lLeadId = null;		
+		ActionHelper.staticWait(2);
+		if(!getIsProd()) {
+			lLeadId = pDataObject.optString("leadidstage");
+			page = null;
+			getPage("/lead/"+lLeadId);
+		} else {
+			lLeadId = pDataObject.optString("leadid");
+			page = null;
+			getPage("/lead/"+lLeadId);
+			page = null;
+		}
+	}
+	
 	public boolean leadStatus(JSONObject pDataObject, int index) {
-			getPage();
-			String lLeadId = null;		
 			ActionHelper.staticWait(2);
-			if(!getIsProd()) {
-				lLeadId = pDataObject.optString("leadidstage");
-				page = null;
-				getPage("/lead/"+lLeadId);
-			} else {
-				lLeadId = pDataObject.optString("leadid");
-				page = null;
-				getPage("/lead/"+lLeadId);
-				page = null;
-			}
 			String lead_prospects = pDataObject.optString("lead_prospect").split(",")[index];
 			ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
 			assertTrue(leadDetailPage.isLeadDetailPage(), "Lead detail page is not visible..");

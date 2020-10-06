@@ -18,7 +18,7 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
 
 	private ZBOLeadFiltersPage page;
 	private WebDriver driver;
-	ZBOMarketingEmailPageTest object = new ZBOMarketingEmailPageTest();
+	ZBOMarketingEmailPageTest marketingEmailObject = new ZBOMarketingEmailPageTest();
 	
 	@Override
 	public void clearPage() {
@@ -52,16 +52,18 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
     public void testLeadStatusFilter(String pDataFile) { 
     	getPage();
     	JSONObject lDataObject = getDataFile(pDataFile);
-    	if(object.leadStatus(lDataObject,0)==false) {
-    		object.leadStatus(lDataObject,1);
+    	marketingEmailObject.redirectToLeadsPage(lDataObject);
+    	if(marketingEmailObject.leadStatus(lDataObject,0)==false) {
+    		marketingEmailObject.leadStatus(lDataObject,1);
     		ActionHelper.RefreshPage(driver);
-    		object.leadStatus(lDataObject,0);
+    		marketingEmailObject.leadStatus(lDataObject,0);
     	}
     	verifyLeadFilter(lDataObject,"prospect",lDataObject.optString("pageHeaderProspect"));
-    	if(object.leadStatus(lDataObject,1)==false) {
-    		object.leadStatus(lDataObject,0);
+    	marketingEmailObject.redirectToLeadsPage(lDataObject);
+    	if(marketingEmailObject.leadStatus(lDataObject,1)==false) {
+    		marketingEmailObject.leadStatus(lDataObject,0);
     		ActionHelper.RefreshPage(driver);
-    		object.leadStatus(lDataObject,1);
+    		marketingEmailObject.leadStatus(lDataObject,1);
     	}
     	verifyLeadFilter(lDataObject,"client",lDataObject.optString("pageHeaderClient"));
     }
@@ -73,6 +75,5 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
     	assertEquals(page.pageTitle().trim(),pPageTitle);
     	String leadName = pDataObject.optString("leadNameEmail");
     	assertTrue(page.searchStatusLead(leadName),"Unable to search lead..");
-//    	page.searchActiveStatusLead();
     }
 }
