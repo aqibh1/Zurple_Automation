@@ -15,6 +15,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.zurple.my.Page;
 
 import resources.forms.zurple.backoffice.ZBOAddNotesForm;
+import resources.forms.zurple.backoffice.ZBOAddReminderForm;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
@@ -79,7 +80,14 @@ public class ZBOLeadCRMPage extends Page{
 	
 	String leads_name_list = "//table[@id='leads-table']/descendant::div[@class='full_name']/a";
 	
+	@FindBy(xpath="//div[@data-lead-id]/i[@class='fas fa-bell fa-2x']")
+	WebElement reminder_button;
+	
+	@FindBy(xpath="//div[@data-lead-id]/div[@class='reminder-label']")
+	WebElement reminder_notification;
+	
 	private ZBOAddNotesForm addNoteForm;
+	private ZBOAddReminderForm addReminderForm;
 	
 	public ZBOLeadCRMPage() {
 		
@@ -87,6 +95,7 @@ public class ZBOLeadCRMPage extends Page{
 	public ZBOLeadCRMPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		setAddNoteForm();
+		setAddReminderForm();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -95,6 +104,12 @@ public class ZBOLeadCRMPage extends Page{
 	}
 	public void setAddNoteForm() {
 		this.addNoteForm = new ZBOAddNotesForm(driver);
+	}
+	public ZBOAddReminderForm getAddReminderForm() {
+		return addReminderForm;
+	}
+	public void setAddReminderForm() {
+		this.addReminderForm = new ZBOAddReminderForm(driver);
 	}
 	public boolean isLeadCRMPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, leads_heading, 30);
@@ -201,5 +216,11 @@ public class ZBOLeadCRMPage extends Page{
 		String l_leadName = ActionHelper.getText(driver, list.get(l_index));
 		String l_leadId = ActionHelper.getAttribute(list.get(l_index), "href").split("lead/")[1];
 		return l_leadName+","+l_leadId;
+	}
+	public boolean clickOnReminderButton() {
+		return ActionHelper.Click(driver, reminder_button);
+	}
+	public boolean verifyReminderNotification(int pExpectedNotifications) {
+		return Integer.parseInt(ActionHelper.getText(driver, ActionHelper.getElementByXpath(driver, "//div[@data-lead-id]/div[@class='reminder-label']")))==pExpectedNotifications;
 	}
 }

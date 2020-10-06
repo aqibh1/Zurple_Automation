@@ -7,7 +7,7 @@
     </listeners>
    
 	
-<test name="Add and Delete notes from CRM page">	
+<test name="Add Reminder from CRM page">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -16,7 +16,7 @@
 				</class>
 				<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
 					<methods>
-						<include name="testAddAndDeleteNote" />
+						<include name="testAddAndVerifyReminder" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">

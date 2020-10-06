@@ -1576,102 +1576,6 @@
     </classes>
     </parameter>
 	</test>
-	<!--  
-    <test name="Create an Ad for Listing on PP">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-01.json" >
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
-      <methods>
-      	<include name="testAddListingForAd" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
-      <methods>
-      <include name="testCreateAnAd" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
-	 <test name="Create Customize Ad for Listing on PP">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-for-customize-ad.json" >
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPListingPageTest" >
-      <methods>
-      	<include name="testAddListingForAd" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
-      <methods>
-      <include name="testCreateCustomizeAd" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	
-	 <test name="Create CMA Ad on PP">
- 	<parameter name="dataFile" value="/resources/data/propertypulse/listings/listing-data-for-customize-ad.json" >
-	<classes>
-      <class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPCreateAdPageTest" >
-      <methods>
-      <include name="testCreateCMAAd" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-    </parameter>
-	</test>
-	-->
-	  <test name="Verify analytics stats for facebook page">
-	<classes>
-	<class name="com.z57.propertypulse.LoginPageTest" >
-      <methods>
-      	<include name="testPPLogin" />
-      </methods>
-      </class>
-      <class name="com.z57.propertypulse.PPAnalyticsPageTest" >
-      <methods>
-      	<include name="testVerifyFacebookAnalyticsPage" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-      <methods>
-         <include name="closeBrowser" />
-      </methods>
-      </class>
-    </classes>
-	</test>
 	
 	<!--   
     <test name="Create Edit and Delete Page">
@@ -2134,4 +2038,25 @@
       </class>
     </classes>
 	</test>
+	<!--  
+	 <test name="Verify analytics stats for facebook page">
+	<classes>
+	<class name="com.z57.propertypulse.LoginPageTest" >
+      <methods>
+      	<include name="testPPLogin" />
+      </methods>
+      </class>
+      <class name="com.z57.propertypulse.PPAnalyticsPageTest" >
+      <methods>
+      	<include name="testVerifyFacebookAnalyticsPage" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+      <methods>
+         <include name="closeBrowser" />
+      </methods>
+      </class>
+    </classes>
+	</test>
+	-->
 </suite>
