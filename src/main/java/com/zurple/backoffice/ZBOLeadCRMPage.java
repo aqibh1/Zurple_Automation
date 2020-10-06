@@ -81,6 +81,9 @@ public class ZBOLeadCRMPage extends Page{
 	@FindBy(xpath="//div[@data-lead-id]/i[@class='fas fa-bell fa-2x']")
 	WebElement reminder_button;
 	
+	@FindBy(xpath="//div[@data-lead-id]/div[@class='reminder-label']")
+	WebElement reminder_notification;
+	
 	private ZBOAddNotesForm addNoteForm;
 	private ZBOAddReminderForm addReminderForm;
 	
@@ -201,5 +204,8 @@ public class ZBOLeadCRMPage extends Page{
 	}
 	public boolean clickOnReminderButton() {
 		return ActionHelper.Click(driver, reminder_button);
+	}
+	public boolean verifyReminderNotification(int pExpectedNotifications) {
+		return Integer.parseInt(ActionHelper.getText(driver, ActionHelper.getElementByXpath(driver, "//div[@data-lead-id]/div[@class='reminder-label']")))==pExpectedNotifications;
 	}
 }

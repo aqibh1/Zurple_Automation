@@ -121,6 +121,9 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(page.getAddReminderForm().clickOnSaveButton(), "Unable to click on Add Reminder button..");
 		assertTrue(page.getAddReminderForm().getSuccessAlert().clickOnOkButton(), "Unable to click on Ok button..");
 		ActionHelper.staticWait(5);
+		ActionHelper.RefreshPage(driver);
+		assertTrue(page.searchLead(l_leadName), "Unable to search lead..");
+		assertTrue(page.verifyReminderNotification(1), "Unable to verify notification count on CRM page..");
 		assertTrue(page.clickOnReminderButton(), "Unable to click on Note button on CRM page..");
 		assertTrue(page.getAddReminderForm().isCommentAddedSuccessfully(l_comment), "Unable to verify comment..");
 		
