@@ -175,6 +175,16 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(mailinatorObj.verifyEmail(l_lead_email.split("@")[0], l_subject, 15), "Unable to verify reminder email");
 	}
 	
+	@Test
+	public void testSendAndVerifySendSMS() {
+		getPage("/leads/crm");
+		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
+		assertTrue(page.clickOnSMSButton(), "Unable to click on SMS button on CRM page..");
+		assertTrue(page.getSendSMSForm().isSendTextMessageForm(), "Send Text message form is not visible..");
+		assertTrue(page.getSendSMSForm().getPhoneNumber(), "Unable to select template from drop down..");
+		assertTrue(page.getSendSMSForm().clickOnSendButton(), "Unable to select template from drop down..");
+		assertTrue(page.getSendSMSForm().isSuccessMessageVisible(), "Unable to select template from drop down..");
+	}
 	public void testVerifyEmailInMyMessages(String pLeadId, String pEmailSubject) {
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		String lLeadId = pLeadId;		

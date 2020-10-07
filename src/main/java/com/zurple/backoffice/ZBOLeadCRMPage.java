@@ -17,6 +17,7 @@ import com.zurple.my.Page;
 import resources.forms.zurple.backoffice.ZBOAddNotesForm;
 import resources.forms.zurple.backoffice.ZBOAddReminderForm;
 import resources.forms.zurple.backoffice.ZBOSendEmailForm;
+import resources.forms.zurple.backoffice.ZBOSendSMSForm;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
@@ -90,9 +91,12 @@ public class ZBOLeadCRMPage extends Page{
 	@FindBy(xpath="//div[@data-email]/i[@class='fas fa-envelope fa-2x']")
 	WebElement email_button;
 	
+	String lead_sms_list = "//div[@data-phone]/i[@class='fas fa-sms fa-2x' and not(@disabled)]";
+	
 	private ZBOAddNotesForm addNoteForm;
 	private ZBOAddReminderForm addReminderForm;
 	private ZBOSendEmailForm sendEmailForm;
+	private ZBOSendSMSForm sendSMSForm;
 	private int global_index;
 	
 	public ZBOLeadCRMPage() {
@@ -103,6 +107,7 @@ public class ZBOLeadCRMPage extends Page{
 		setAddNoteForm();
 		setAddReminderForm();
 		setSendEmailForm();
+		setSendSMSForm();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -117,6 +122,12 @@ public class ZBOLeadCRMPage extends Page{
 	}
 	public void setSendEmailForm() {
 		this.sendEmailForm = new ZBOSendEmailForm(driver);
+	}
+	public ZBOSendSMSForm getSendSMSForm() {
+		return sendSMSForm;
+	}
+	public void setSendSMSForm() {
+		this.sendSMSForm = new ZBOSendSMSForm(driver);
 	}
 	public ZBOAddReminderForm getAddReminderForm() {
 		return addReminderForm;
@@ -232,5 +243,10 @@ public class ZBOLeadCRMPage extends Page{
 	}
 	public boolean clickOnEmailButton() {
 		return ActionHelper.Click(driver, email_button);
+	}
+	public boolean clickOnSMSButton() {
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, lead_sms_list);
+		int l_index = generateRandomInt(list.size());
+		return ActionHelper.Click(driver, list.get(l_index));
 	}
 }
