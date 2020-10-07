@@ -16,6 +16,7 @@ import com.zurple.my.Page;
 
 import resources.forms.zurple.backoffice.ZBOAddNotesForm;
 import resources.forms.zurple.backoffice.ZBOAddReminderForm;
+import resources.forms.zurple.backoffice.ZBOSendEmailForm;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
@@ -84,8 +85,15 @@ public class ZBOLeadCRMPage extends Page{
 	@FindBy(xpath="//div[@data-lead-id]/div[@class='reminder-label']")
 	WebElement reminder_notification;
 	
+	String leads_email_phone = "//table[@id='leads-table']/descendant::div[@class='lead-contacts']";
+	
+	@FindBy(xpath="//div[@data-email]/i[@class='fas fa-envelope fa-2x']")
+	WebElement email_button;
+	
 	private ZBOAddNotesForm addNoteForm;
 	private ZBOAddReminderForm addReminderForm;
+	private ZBOSendEmailForm sendEmailForm;
+	private int global_index;
 	
 	public ZBOLeadCRMPage() {
 		
@@ -94,6 +102,7 @@ public class ZBOLeadCRMPage extends Page{
 		driver = pWebDriver;
 		setAddNoteForm();
 		setAddReminderForm();
+		setSendEmailForm();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -102,6 +111,12 @@ public class ZBOLeadCRMPage extends Page{
 	}
 	public void setAddNoteForm() {
 		this.addNoteForm = new ZBOAddNotesForm(driver);
+	}
+	public ZBOSendEmailForm getSendEmailForm() {
+		return sendEmailForm;
+	}
+	public void setSendEmailForm() {
+		this.sendEmailForm = new ZBOSendEmailForm(driver);
 	}
 	public ZBOAddReminderForm getAddReminderForm() {
 		return addReminderForm;
@@ -198,14 +213,24 @@ public class ZBOLeadCRMPage extends Page{
 		ActionHelper.staticWait(10);
 		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, leads_name_list);
 		int l_index = generateRandomInt(list.size());
+		global_index = l_index; 
 		String l_leadName = ActionHelper.getText(driver, list.get(l_index));
 		String l_leadId = ActionHelper.getAttribute(list.get(l_index), "href").split("lead/")[1];
 		return l_leadName+","+l_leadId;
+	}
+	public String getEmail() {
+		ActionHelper.staticWait(10);
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, leads_email_phone);
+		String l_EmailPhone = ActionHelper.getText(driver, list.get(global_index));
+		return l_EmailPhone;
 	}
 	public boolean clickOnReminderButton() {
 		return ActionHelper.Click(driver, reminder_button);
 	}
 	public boolean verifyReminderNotification(int pExpectedNotifications) {
 		return Integer.parseInt(ActionHelper.getText(driver, ActionHelper.getElementByXpath(driver, "//div[@data-lead-id]/div[@class='reminder-label']")))==pExpectedNotifications;
+	}
+	public boolean clickOnEmailButton() {
+		return ActionHelper.Click(driver, email_button);
 	}
 }

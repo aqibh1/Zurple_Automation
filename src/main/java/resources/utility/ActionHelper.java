@@ -1214,5 +1214,11 @@ public class ActionHelper {
 		   }
 		   return isPopulated;
 	   }
+	   public static String getTextByJS(WebDriver pWebDriver, String pElementId) {
+		   JavascriptExecutor je = (JavascriptExecutor) pWebDriver;
+		   String script = "return document.getElementById('"+pElementId+"').getAttribute('value');";
+		   String value = (String) je.executeScript(script); 
+		   return value;
+	   }
 	   
 }

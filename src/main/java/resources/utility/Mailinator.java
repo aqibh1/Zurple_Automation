@@ -49,7 +49,7 @@ public class Mailinator {
 		driver.navigate().to(lMailinatorUrl);
 		if(ActionHelper.waitForElementToBeVisible(driver, input_field, 30)) {
 //			isEmailVerified = ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, email_subject_xpath, 60, pAttempts);
-			isEmailVerified = ActionHelper.getDynamicElementAfterRegularIntervals(driver, dynamic_xpath, pEmailSubject, 20);
+			isEmailVerified = ActionHelper.getDynamicElementAfterRegularIntervals(driver, dynamic_xpath, pEmailSubject, pAttempts);
 
 		}
 		driver.navigate().to(lCurrentUrl);
@@ -83,6 +83,16 @@ public class Mailinator {
 			lAdmin_email = ConfigReader.load().getPropertyByName("torchx_bo_user").split("@")[0];
 			lMailinatorUrl = "https://www.mailinator.com/v3/index.jsp?zone=public&query="+lAdmin_email+"#/#inboxpane";
 		}
+		driver.navigate().to(lMailinatorUrl);
+		ActionHelper.staticWait(10);
+		driver.navigate().to(lCurrentUrl);
+	}
+	public void activateLeadInbox(String pLeadEmail) {
+		String lCurrentUrl = driver.getCurrentUrl();
+		String lMailinatorUrl = "";
+		String lLead_email = "";
+		lLead_email = pLeadEmail.split("@")[0];
+		lMailinatorUrl = "https://www.mailinator.com/v3/index.jsp?zone=public&query="+lLead_email+"#/#inboxpane";
 		driver.navigate().to(lMailinatorUrl);
 		ActionHelper.staticWait(10);
 		driver.navigate().to(lCurrentUrl);
