@@ -574,6 +574,7 @@ public class ZBOLeadDetailPage extends Page{
 						break;
 					}
 				}
+				break;
 			case "High Return":
 				List<WebElement> list_lead_activity_high_return = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-type']");
 				List<WebElement> list_lead_high_return_activity_date_time = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-datetime']");
@@ -589,6 +590,7 @@ public class ZBOLeadDetailPage extends Page{
 						break;
 					}
 				}
+				break;
 			case "Agent Inquiry":
 				list_lead_activity_list = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-type']");
 				list_lead_activity_date_time_list = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-datetime']");
@@ -604,6 +606,7 @@ public class ZBOLeadDetailPage extends Page{
 						break;
 					}
 				}
+				break;
 			case "Seller Inquiry":
 				list_lead_activity_list = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-type']");
 				list_lead_activity_date_time_list = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-datetime']");

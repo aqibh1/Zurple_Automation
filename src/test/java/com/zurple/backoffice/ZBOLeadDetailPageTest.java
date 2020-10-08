@@ -562,7 +562,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage("/lead/"+lLeadId);
 		switch(lAlertType) {
 		case "High Activity":
-			assertTrue(page.verifyActivityAlert(lAlertType), "High Activity alert is not displayed in Alerts tab..");
+			assertTrue(page.verifyActivityAlert("Lots of Browsing"), "High Activity alert is not displayed in Alerts tab..");
 			assertTrue(page.isBrowsingHotBehaviorVisible(), "Browsing Hot Behavior is not updated..");
 			break;
 		case "High Return":
