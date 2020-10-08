@@ -48,6 +48,12 @@ public class ZACreateActivityAlertPage extends Page{
 	@FindBy(id="property")
 	WebElement property_dropdown;
 	
+	@FindBy(id="city")
+	WebElement city_dropdown;
+	
+	@FindBy(xpath="//h2[text()='Alert Successfully created']")
+	WebElement successful_alert;
+	
 	public ZACreateActivityAlertPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -76,6 +82,13 @@ public class ZACreateActivityAlertPage extends Page{
 		}
 		return isSelected;
 	}
+	public boolean selectCity(String pCityName) {
+		boolean isSelected = false;
+		if(ActionHelper.waitforDropdownToBePopulated(driver, city_dropdown, 10)) {
+			isSelected = ActionHelper.selectDropDownOption(driver, city_dropdown, "", pCityName);
+		}
+		return isSelected;
+	}
 	public boolean typeTriggerDate(String pTriggerDate) {
 		return ActionHelper.Type(driver, triggerdate_input, pTriggerDate);
 	}
@@ -101,4 +114,7 @@ public class ZACreateActivityAlertPage extends Page{
 		}
 		return keyValuePair;
 }
+	public boolean isSuccessMessageDisplayed() {
+		return ActionHelper.waitForElementToBeVisible(driver, successful_alert, 30);
+	}
 }

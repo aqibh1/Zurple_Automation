@@ -209,6 +209,8 @@ public class ZBOLeadDetailPage extends Page{
 	WebElement return_label;
 	@FindBy(xpath="//li[@title='Browsing']")
 	WebElement browsing_label;
+	@FindBy(xpath="//li[@title='Expensive']")
+	WebElement expensive_label;
 	
 	@FindBy(id="z-activity-details-favorites")
 	WebElement favorites_tab_button;
@@ -625,6 +627,24 @@ public class ZBOLeadDetailPage extends Page{
 					}
 				}
 				break;
+				
+			case "Expensive Properties":
+				list_lead_activity_list = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-type']");
+				list_lead_activity_date_time_list = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-alert-datetime']");
+
+				for(int i=0;i<list_lead_activity_list.size();i++) {
+					alertVerified = ActionHelper.getText(driver, list_lead_activity_list.get(i)).contains(pAlertToVerify) ;
+					if(alertVerified) {
+
+						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate().replace("2020", "20"));
+					}
+					if(alertVerified && dateVerified) {
+						isVerified = true;
+						break;
+						
+						
+					}
+				}
 			default:
 				break;
 			}
@@ -1019,6 +1039,9 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean isBrowsingHotBehaviorVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, browsing_label, 30);
+	}
+	public boolean isExpensivePropHotBehaviorVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, expensive_label, 30);
 	}
 	public boolean verifyAgentInquiryAlert() {
 		int counter = 0;
