@@ -6,10 +6,12 @@ package com.zurple.backoffice;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.my.PageTest;
 import com.zurple.website.ZWRegisterUserPageTest;
 
@@ -139,4 +141,66 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		
 		assertTrue(mailinatorObj.verifyEmail(lAgentEmail, lSubjectToVerify, 15), "Unable to verify reminder email");
 	}
+	
+	@Test
+	public void testSendAndVerifyEmail() {
+		getPage("/leads/crm");
+		
+		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
+		String lead_name_id = page.getLeadName();
+		String lead_Email_phone = page.getEmail();
+		String l_leadName = lead_name_id.split(",")[0].trim();
+		String l_leadId = lead_name_id.split(",")[1].trim();
+		String l_lead_email = lead_Email_phone.contains("|")?lead_Email_phone.split(" ")[0]:lead_Email_phone.trim();
+		String l_lead_phone = lead_Email_phone.contains("|")?lead_Email_phone.split(" ")[2]:"";
+		
+		AutomationLogger.info("Lead ID::"+l_leadId);
+		AutomationLogger.info("Lead Name::"+l_leadName);
+		AutomationLogger.info("Lead Email ::"+l_lead_email);
+		AutomationLogger.info("Lead Phone::"+l_lead_phone);
+		
+		Mailinator mailinatorObj = new Mailinator(driver);
+		mailinatorObj.activateLeadInbox(l_lead_email);
+		
+		ActionHelper.staticWait(10);
+		
+		assertTrue(page.searchLead(l_leadName), "Unable to search lead..");
+		assertTrue(page.clickOnEmailButton(), "Unable to click on Note button on CRM page..");
+		assertTrue(page.getSendEmailForm().isSendEmailForm(), "Send Email form is not visible..");
+		assertTrue(page.getSendEmailForm().selectRandomTemplate(), "Unable to select template from drop down..");
+		ActionHelper.staticWait(10);
+		String l_subject = page.getSendEmailForm().getSubject();
+		assertTrue(page.getSendEmailForm().clickOnSendEmailButton(), "Unable to click on send button....");
+		testVerifyEmailInMyMessages(l_leadId, l_subject);
+		assertTrue(mailinatorObj.verifyEmail(l_lead_email.split("@")[0], l_subject, 15), "Unable to verify reminder email");
+	}
+	
+	@Test
+	public void testSendAndVerifySendSMS() {
+		getPage("/leads/crm");
+		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
+		assertTrue(page.clickOnSMSButton(), "Unable to click on SMS button on CRM page..");
+		assertTrue(page.getSendSMSForm().isSendTextMessageForm(), "Send Text message form is not visible..");
+		assertTrue(page.getSendSMSForm().getPhoneNumber(), "Unable to select template from drop down..");
+		assertTrue(page.getSendSMSForm().clickOnSendButton(), "Unable to select template from drop down..");
+		assertTrue(page.getSendSMSForm().isSuccessMessageVisible(), "Unable to select template from drop down..");
+	}
+	public void testVerifyEmailInMyMessages(String pLeadId, String pEmailSubject) {
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+		String lLeadId = pLeadId;		
+			if(!getIsProd()) {
+			//	Process email queue
+				page=null;
+				getPage("/admin/processemailqueue");
+				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+				page = null;
+				getPage("/lead/"+lLeadId);
+			} else {
+				page = null;
+				getPage("/lead/"+lLeadId);
+				page = null;
+			}
+			assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
+			assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject));
+}
 }
