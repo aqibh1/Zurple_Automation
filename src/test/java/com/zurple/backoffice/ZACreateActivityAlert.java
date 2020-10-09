@@ -19,6 +19,8 @@ import resources.AbstractPage;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 /**
  * @author adar
@@ -72,7 +74,7 @@ public class ZACreateActivityAlert extends PageTest{
 		}
 		assertTrue(page.selectAdmin(lAdminId), "Activity alert page is not displayed..");
 		assertTrue(page.selectUser(lc_user_id), "Activity alert page is not displayed..");
-		assertTrue(page.typeTriggerDate(lTodaysDate), "Activity alert page is not displayed..");
+		AutomationLogger.info("Lead selected");
 		if(lAlert_Type.equalsIgnoreCase("Saved to Favorites Alert")) {
 			HashMap<String,String> propKeyValuePair = page.selectAndGetPropertyIndexAndValues();
 			if(propKeyValuePair!=null) {
@@ -80,8 +82,15 @@ public class ZACreateActivityAlert extends PageTest{
 			}else {
 				assertTrue(false,"Unable to select the property..");
 			}
+		}else if(lAlert_Type.equalsIgnoreCase("High Value")) {
+			assertTrue(page.selectCity(dataObject.optString("city")), "Unable to select city from dropdown");
+			AutomationLogger.info("City selected");
 		}
+		assertTrue(page.typeTriggerDate(lTodaysDate), "Activity alert page is not displayed..");
+		ActionHelper.staticWait(5);
 		assertTrue(page.clickOnCreateAlertButton(), "Unable to click on Create Alert button..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.isSuccessMessageDisplayed(), "Activity alert is not created..");
 		
 	}
 }

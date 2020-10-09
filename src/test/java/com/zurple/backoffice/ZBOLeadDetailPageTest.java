@@ -558,11 +558,12 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		String lAlertType = dataObject.optString("alert_type");
 		getPage();
 		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		String lLeadName = ModuleCommonCache.getElement(getThreadId().toString(), ModuleCacheConstants.ZurpleLeadName);
 		page = null;
 		getPage("/lead/"+lLeadId);
 		switch(lAlertType) {
 		case "High Activity":
-			assertTrue(page.verifyActivityAlert(lAlertType), "High Activity alert is not displayed in Alerts tab..");
+			assertTrue(page.verifyActivityAlert("Lots of Browsing"), "High Activity alert is not displayed in Alerts tab..");
 			assertTrue(page.isBrowsingHotBehaviorVisible(), "Browsing Hot Behavior is not updated..");
 			break;
 		case "High Return":
@@ -578,6 +579,18 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		case "Saved to Favorites Alert":
 			HashMap<String,String> propKeyValue = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleProp);
 			assertTrue(page.verifyFavoritesAlert(propKeyValue.get("property-city_name"),propKeyValue.get("property-address"),propKeyValue.get("property-price")), "Unable to verify property in Favorites tab..");
+			break;
+		case "High Value":
+			assertTrue(page.verifyActivityAlert("Expensive Properties"), "Seller Inquiry alert is not displayed in Alerts tab..");
+			assertTrue(page.isExpensivePropHotBehaviorVisible(), "Browsing Hot Behavior is not updated..");
+			page = null;
+			getPage("/leads/crm");
+			ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+			assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
+			assertTrue(leadCRMPage.searchLead(lLeadName), "Unable to search lead by name.."+lLeadName);
+			ActionHelper.staticWait(10);
+			assertTrue(page.isExpensivePropHotBehaviorVisible(), "Expensive Hot Behavior is not updated on CRM page..");
+//			assertTrue(leadCRMPage.verifyAutoConvoCount(1), "Unable to verify Auto Conversation count on CRM page..");
 			break;
 		default:
 			break;

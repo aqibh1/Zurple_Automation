@@ -98,6 +98,9 @@ public class ZBOLeadCRMPage extends Page{
 	
 	String lead_sms_list = "//div[@data-phone]/i[@class='fas fa-sms fa-2x' and not(@disabled)]";
 	
+	@FindBy(xpath="//div[@title='Auto-Conversation Emails Sent & Opened']/div[@class='messages-col']/i[@class='fas fa-paper-plane']/preceding-sibling::div")
+	WebElement autoconvo_sent_count;
+	
 	private ZBOAddNotesForm addNoteForm;
 	private ZBOAddReminderForm addReminderForm;
 	private ZBOSendEmailForm sendEmailForm;
@@ -270,5 +273,9 @@ public class ZBOLeadCRMPage extends Page{
 	
 	public boolean clickSearchedLeadName() {
 		return ActionHelper.Click(driver, lead_name);
+	}
+	
+	public boolean verifyAutoConvoCount(int pCount) {
+		return Integer.parseInt(ActionHelper.getText(driver, autoconvo_sent_count))==pCount;
 	}
 }
