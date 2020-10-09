@@ -33,6 +33,9 @@ public class ZBOLeadCRMPage extends Page{
 	@FindBy(id="leadsInputName")
 	WebElement lead_input_name;
 	
+	@FindBy(className="full_name")
+	WebElement lead_name;
+	
 	@FindBy(id="leads-grid-filter-button")
 	WebElement search_button;
 	
@@ -263,5 +266,9 @@ public class ZBOLeadCRMPage extends Page{
 		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, lead_sms_list);
 		int l_index = generateRandomInt(list.size());
 		return ActionHelper.Click(driver, list.get(l_index));
+	}
+	
+	public boolean clickSearchedLeadName() {
+		return ActionHelper.Click(driver, lead_name);
 	}
 }

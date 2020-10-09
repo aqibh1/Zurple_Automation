@@ -962,6 +962,17 @@ public class ActionHelper {
 				AutomationLogger.error("Element list not found -> "+pElementXpath);
 				AutomationLogger.error(ex.getMessage());
 			}
+			return element;	
+		}
+	   
+	   public static WebElement getElementByID(WebDriver pWebDriver,String pElementXpath){
+			WebElement element = null;
+			try {
+				element = pWebDriver.findElement(By.id(pElementXpath));
+			}catch(Exception ex) {
+				AutomationLogger.error("Element list not found -> "+pElementXpath);
+				AutomationLogger.error(ex.getMessage());
+			}
 			return element;
 			
 		}
