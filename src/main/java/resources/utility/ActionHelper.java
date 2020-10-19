@@ -1,6 +1,5 @@
 package resources.utility;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -440,8 +439,13 @@ public class ActionHelper {
 		   new Actions(pWebDriver).moveToElement(pElement).perform();
 	   }
 	   public static String getAttribute(WebElement pElement,String pAttributeName) {
-		   AutomationLogger.info("Fetching attribute: "+pAttributeName);
-		   return pElement.getAttribute(pAttributeName).trim();
+		   try {
+			   AutomationLogger.info("Fetching attribute: "+pAttributeName);
+			   return pElement.getAttribute(pAttributeName).trim();
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Unable to fetch attribute ");
+			   return "";
+		   }
 		   
 	   }
 	   
@@ -1219,6 +1223,11 @@ public class ActionHelper {
 		   String script = "return document.getElementById('"+pElementId+"').getAttribute('value');";
 		   String value = (String) je.executeScript(script); 
 		   return value;
+	   }
+	   public static void openUrlInNewTab(WebDriver pWebDriver, String pUrl) {
+		   pWebDriver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL+"t");
+		   switchToSecondWindow(pWebDriver);
+		   pWebDriver.navigate().to(pUrl);
 	   }
 	   
 }
