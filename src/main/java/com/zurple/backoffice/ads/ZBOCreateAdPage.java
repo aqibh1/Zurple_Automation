@@ -3,6 +3,11 @@
  */
 package com.zurple.backoffice.ads;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,6 +18,7 @@ import com.zurple.my.Page;
 import resources.alerts.zurple.backoffice.ZBOSelectListingAlert;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author adar
@@ -76,6 +82,66 @@ public class ZBOCreateAdPage extends Page{
 	@FindBy(xpath="//div[@id='facebook_ad_pewview']/descendant::div[@class='playicon_slide']")
 	WebElement insta_ad_play_icon;
 	
+	@FindBy(xpath="//h5[@class='inner_stephead' and text()='Select an Ad Type ']")
+	WebElement selectAnAdType_section1_step2;
+	@FindBy(xpath="//p[@style='margin-left: 13%;']")
+	WebElement listing_title_step2_section1;
+	@FindBy(xpath="//div[@id='form-submit_btn']/button[text()='Select']")
+	WebElement select_section_button;
+	
+	//Step 2 Section 2 verifications
+	@FindBy(id="ad_headline_caption")
+	WebElement ad_headline_caption;
+	@FindBy(id="ad_description_caption")
+	WebElement ad_description_caption;
+	@FindBy(xpath="//[@id='ad_url_caption']/a")
+	WebElement ad_url_caption;
+	@FindBy(xpath="//div[@id='propdetail']/descendant::h2[not(contains(@class,'zurple-tinted-text'))]")
+	WebElement website_prop_heading;
+	@FindBy(xpath="//h5[@class='inner_stephead']/i[@class='far fa-check-circle checkicon zurp_checked']/following-sibling::strong[contains(text(), '2')]")
+	WebElement step2_section2_checked;
+	
+	//Section 3
+	@FindBy(xpath="//select[@id='fb_ad_cities']/option")
+	WebElement fb_ad_cities;
+	String ad_plan_amount = "//button[@onclick]/descendant::strong[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	@FindBy(xpath="//div[@id='form-submit_btn']/button[text()='Next Step']")
+	WebElement next_button_section3;
+	@FindBy(xpath="//div[@id='step_3_section']/*/p[@id='ad_headline_caption']")
+	WebElement ad_city_caption_section3;
+	@FindBy(xpath="//div[@id='step_3_section']/*/p[@id='ad_description_caption']")
+	WebElement ad_reach_caption_section3;
+	@FindBy(xpath="//div[@id='step_3_section']/*/i[@class='far fa-check-circle checkicon zurp_checked']")
+	WebElement section3_checked;
+	@FindBy(xpath="//div[@id='step_3_section']/*/a[text()='Edit']")
+	WebElement edit_button_section3;
+	
+	//Section 4
+	@FindBy(xpath="//div[@class='step_4_section']/*/strong[contains(text(),'Step 4:')]")
+	WebElement section4_heading;
+	@FindBy(xpath="//form[@class='step_4_form']/descendant::p[@id='ad_headline_caption']")
+	WebElement start_end_date_section4;
+	@FindBy(xpath="//form[@class='step_4_form']/*/span")
+	WebElement renew_text;
+	@FindBy(id="ad_payment_confirmation")
+	WebElement ad_payment_confirmation;
+	@FindBy(id="fb_placead_callout")
+	WebElement fb_placead_callout;
+	
+	//Custom Ad Step 1
+	@FindBy(xpath="//h5[@class='bold_center' and text()=' Select a Quick Ad']")
+	WebElement select_quick_Ad_heading;
+	@FindBy(xpath="//div[@class='fb_ad_preview_slideshow']")
+	WebElement slideshow_Ad;
+	@FindBy(xpath="//div[@class='ad_outerbox']/a")
+	WebElement select_button_step1;
+	@FindBy(xpath="//div[@class='fb_ad_preview_title']/a")
+	WebElement fb_Ad_preview_title_step1;
+	@FindBy(xpath="//div[@class='fb_ad_preview_details Mpreview']")
+	WebElement fb_Ad_preview_desc_step1;
+	
+	
+	
 	private ZBOSelectListingAlert selectListingAlert;
 	
 	public ZBOCreateAdPage(WebDriver pWebDriver) {
@@ -107,24 +173,31 @@ public class ZBOCreateAdPage extends Page{
 	public boolean isStep1Checked() {
 		return ActionHelper.waitForElementToBeVisible(driver, step1_checked, 2);
 	}
-	public boolean isStep2HeadingVisible() {
-		return ActionHelper.waitForElementToBeVisible(driver, step2_strong, 5);
+	public boolean isStep2Section2HeadingVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, step2_strong, 10);
 	}
-	public boolean isAdHeadingPopulated() {
-		return !ActionHelper.getText(driver, ad_title_input).isEmpty();
+	public String isAdHeadingPopulated() {
+		return ActionHelper.getValue(driver, driver.findElement(By.id("fb_ad_title")));
 	}
-	public boolean isAdDescPopulated() {
-		return !ActionHelper.getText(driver, fb_ad_desc).isEmpty();
+	public String isAdDescPopulated() {
+		return ActionHelper.getText(driver, driver.findElement(By.id("fb_ad_details")));
+	}
+	public boolean typeHeading(String pHeading) {
+		return ActionHelper.ClearAndType(driver, ad_title_input, pHeading);
+	}
+	public boolean typeDesc(String pDesc) {
+		return ActionHelper.ClearAndType(driver, fb_ad_desc, pDesc);
 	}
 	public boolean selectSite(String pSite) {
 		boolean isSlected = true;
 		if(!pSite.isEmpty()) {
+			pSite = pSite.contains("stage01.")?pSite.replace("stage01.", ""):pSite;
 			isSlected = ActionHelper.selectDropDownOption(driver, site_dropdown, "", pSite);
 		}
 		return isSlected;
 	}
 	public boolean clickOnSelectButton() {
-		return ActionHelper.Click(driver, select_button);
+		return ActionHelper.Click(driver, select_section_button);
 	}
 	public boolean verifyFbAdPreviewDetails() {
 		if(ActionHelper.getText(driver, fb_ad_preview_desc).isEmpty()) {
@@ -163,5 +236,89 @@ public class ZBOCreateAdPage extends Page{
 			return false;
 		}
 		return true;
+	}
+	public boolean isStep2Section1SelectAnAdHeadingVisible() {
+		return ActionHelper.isElementVisible(driver, selectAnAdType_section1_step2);
+	}
+	public boolean isListingHeadingVisible() {
+		return !ActionHelper.getText(driver, listing_title_step2_section1).split("Listing Ad:")[1].isEmpty();
+	}
+	public boolean verifyAdHeadline(String pHeading) {
+		return ActionHelper.getText(driver, ad_headline_caption).contains(pHeading);
+	}
+	public boolean verifyAdDesc(String pDesc) {
+		return ActionHelper.getText(driver, ad_description_caption).contains(pDesc);
+	}
+	public boolean verifyAdURLIsCorrect() {
+		String l_propUrl = ActionHelper.getAttribute(driver.findElement(By.xpath("//p[@id='ad_url_caption']/a")), "href");
+//		ActionHelper.openUrlInNewTab(driver, l_propUrl);
+//		boolean isValidUrl = ActionHelper.waitForElementToBeVisible(driver, website_prop_heading, 30);
+//		ActionHelper.switchToOriginalWindow(driver);
+		return !l_propUrl.isEmpty();
+	}
+	public boolean isSection2Checked() {
+		return ActionHelper.isElementVisible(driver, step2_section2_checked);
+	}
+	public boolean isDefaultCitySelected() {
+		return ActionHelper.isElementSelected(driver, fb_ad_cities);
+	}
+	public String getDefaultCity() {
+		return ActionHelper.getText(driver, fb_ad_cities);
+	}
+	public boolean selectAdTaregetReach(String pAmount) {
+		return ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, ad_plan_amount, pAmount));
+	}
+	public boolean clickOnNextStepButton() {
+		return ActionHelper.Click(driver, next_button_section3);
+	}
+	public boolean verifyAdCitySection3(String pCity) {
+		return pCity.contains(ActionHelper.getText(driver, ad_city_caption_section3).split("Ad City: ")[1]);
+	}
+	public boolean verifyAdReachSection3(String pAdAmount) {
+		return ActionHelper.getText(driver, ad_reach_caption_section3).contains(pAdAmount+" per month");
+	}
+	public boolean isSection3Checked() {
+		return ActionHelper.waitForElementToBeVisible(driver, section3_checked, 5);
+	}
+	public boolean isSection3EditButtonEnabled() {
+		return ActionHelper.waitForElementToBeVisible(driver, edit_button_section3, 5);
+	}
+	public boolean isSection4Visible() {
+		return ActionHelper.isElementVisible(driver, section4_heading);
+	}
+	public boolean verifyStartEndAndRenewalDate() throws ParseException {
+		String lDate = ActionHelper.getText(driver, start_end_date_section4);
+		String lRenew_date = ActionHelper.getText(driver, renew_text).split(". To disable")[0].split("Your ad will renew on ")[1];
+		String[] lDate_array = lDate.split("Ad Duration: ")[1].split("-");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date startDate = (Date) sdf.parseObject(lDate_array[0].trim());
+		Date endDate = (Date) sdf.parseObject(lDate_array[1].trim());
+		Date lRenewalDate = (Date) sdf.parseObject(lRenew_date);
+		long diff = endDate.getTime() - startDate.getTime();
+		long lDays = (diff / (1000*60*60))/24;
+		long lRenwalDate_time = lRenewalDate.getTime() - startDate.getTime();
+		long lRenewal_days = (lRenwalDate_time / (1000*60*60))/24;
+		return lDays==30 && lRenewal_days==31;	
+	}
+	public boolean clickOnTermsAndCond() {
+		return ActionHelper.Click(driver, ad_payment_confirmation);
+	}
+	public boolean clickOnPlaceAdButton() {
+		return ActionHelper.Click(driver, fb_placead_callout);
+	}
+	public boolean isStep1SelectQuickAdHeading() {
+		return ActionHelper.waitForElementToBeVisible(driver, select_quick_Ad_heading, 5);
+	}
+	public boolean isSlideShowVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, slideshow_Ad, 5);
+	}
+	public boolean clickOnSelectButtonStep1() {
+		return ActionHelper.Click(driver, select_button_step1);
+	}
+	public String getFBAdTitleStep1() {
+		return ActionHelper.getText(driver, fb_Ad_preview_title_step1);
+	}
+	public String getFBAdDescStep1() {
+		return ActionHelper.getText(driver, fb_Ad_preview_desc_step1);
 	}
 }
