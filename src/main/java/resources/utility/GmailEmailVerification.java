@@ -4,6 +4,7 @@
 package resources.utility;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
@@ -85,6 +86,67 @@ public class GmailEmailVerification {
 		   }
 		   return isEmailSent;
 	   }
+	
+	public boolean isPUNSEmailPresent(String pEmail, String pAppPassword, String pSubjectToVerify, String pEmailAddressToReply, boolean pReplyToEmail) {
+		   boolean isEmailSent = true;
+		   Date date = null;
+//		   pSubjectToVerify = "0929202038762 Scheduleshowing";
+//		   pEmail = "z57testuser@gmail.com";
+//		   pAppPassword = "vindthawdqwinsqw";
+		   
+		   Properties properties = new Properties();
+		   properties.put("mail.store.protocol", "pop3");
+		      properties.put("mail.pop3s.host", "pop.gmail.com");
+		      properties.put("mail.pop3s.port", "995");
+		      properties.put("mail.pop3.starttls.enable", "true");
+		      properties.put("mail.smtp.auth", "true");
+		      properties.put("mail.smtp.starttls.enable", "true");
+		      properties.put("mail.smtp.host", "relay.jangosmtp.net");
+		      properties.put("mail.smtp.port", "25");
+		   Session session = Session.getDefaultInstance(properties);
+//		   session.setDebug(true);
+		   try 
+		   {
+			   // Get a Store object and connect to the current host
+			   Store store = session.getStore("pop3s");
+			   //		         store.connect("pop.gmail.com", "z57testuser@gmail.com","vindthawdqwinsqw");//change the user and password accordingly
+			   store.connect("pop.gmail.com", pEmail,pAppPassword);
+			   Folder folder = store.getFolder("inbox");
+			   if (!folder.exists()) {
+				   AutomationLogger.error("Class :: ActionHelper");
+				   AutomationLogger.error("Method Name :: isEmailPresentAndReply");
+				   AutomationLogger.error("Error :: Inbox not found..");
+				   return false;
+			   }
+			   
+			   folder.open(Folder.READ_ONLY);
+			   Message[] messages = folder.getMessages();
+			   if (messages.length != 0) {
+
+				   for (int i = 0, n = messages.length; i < n; i++) {
+					   Message message = messages[i];
+					   date = message.getSentDate();
+					   SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY");
+					   String subject = message.getSubject();
+					   AutomationLogger.info("Subject :: "+subject);
+					   if (subject != null && subject.contains(pSubjectToVerify) 
+							   && getTodaysDate(0).equalsIgnoreCase(sdf.format(date).toString()) || getYesterdaysDate().equalsIgnoreCase(sdf.format(date).toString())) {
+						   AutomationLogger.info("Subject: " + subject);
+							   isEmailSent = true;
+							   break;
+						   }
+					   }
+				   }
+			   // close the store and folder objects
+			   folder.close(false);
+			   store.close();
+		   } catch (Exception e) {
+			   AutomationLogger.error(e.getMessage());
+			   isEmailSent = false;
+		   }
+		   return isEmailSent;
+	   }
+	
 	   private boolean replyToEmail(Message pMessageToReply, String pEmailAddressToReply, Session pSession, String pEmail, String pAppPassword) throws MessagingException {
 		   boolean isEmailSent = true;
 		   // Get all the information from the message
@@ -145,6 +207,14 @@ public class GmailEmailVerification {
 	        	currentDate = df.format(resultDate);
 	    	}
 	    	return currentDate;
-	    	
 	    }
+	   
+	   // Month/Day/Year
+	    public String getYesterdaysDate() {
+			String lDate = "";
+			LocalDate today = LocalDate.now().minusDays(1);
+			String tempDate[] = today.toString().split("-");
+			lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
+			return lDate; //08/18/2020
+		}
 }

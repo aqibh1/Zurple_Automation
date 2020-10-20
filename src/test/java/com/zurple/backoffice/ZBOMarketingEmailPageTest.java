@@ -27,6 +27,7 @@ import resources.ModuleCommonCache;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.GmailEmailVerification;
 import resources.utility.ZurpleListingConstants;
 
 /**
@@ -104,6 +105,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Parameters({"standardEmailData"})
 	public void testSendBulkEmail(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
+		redirectToLeadsPage(lDataObject);
 		leadStatus(lDataObject, 0);
 		page = null;
 		getPage("/marketing/massemail");
@@ -128,9 +130,12 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	}
 	
 	@Test
-	@Parameters({"standardEmailData"})
+	@Parameters({"emailReplyData"})
 	public void testLeadReply(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
+		GmailEmailVerification gmailObject = new GmailEmailVerification();
+    	gmailObject.isPUNSEmailPresent("auto.zurpleqa@gmail.com", "djfbxtfkdnlczaec", 
+    			"New Listing Updates", "aqibstagetesting_zurpleqa@stage01.zengtest6.us", true);
 		testVerifyLeadMessages(lDataObject);
 	}
 	
@@ -284,9 +289,11 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
 			assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject), "Unable to verify scheduled email under my messages..");
 }
-	public void leadStatus(JSONObject pDataObject, int index) {
+	
+	public void redirectToLeadsPage(JSONObject pDataObject) {
 		getPage();
 		String lLeadId = null;		
+		ActionHelper.staticWait(2);
 		if(!getIsProd()) {
 			lLeadId = pDataObject.optString("leadidstage");
 			page = null;
@@ -297,11 +304,15 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			getPage("/lead/"+lLeadId);
 			page = null;
 		}
-		String lead_prospects = pDataObject.optString("lead_prospect").split(",")[index];
-		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
-		assertTrue(leadDetailPage.isLeadDetailPage(), "Lead detail page is not visible..");
-		assertTrue(leadDetailPage.clickAndSelectLeadProspect(lead_prospects), "Unable to select the status -> "+lead_prospects);
-		assertTrue(successAlert.clickOnTemporaryButton(), "Unable to click on Temporary button..");
+	}
+	
+	public boolean leadStatus(JSONObject pDataObject, int index) {
+			ActionHelper.staticWait(2);
+			String lead_prospects = pDataObject.optString("lead_prospect").split(",")[index];
+			ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
+			assertTrue(leadDetailPage.isLeadDetailPage(), "Lead detail page is not visible..");
+			assertTrue(leadDetailPage.clickAndSelectLeadProspect(lead_prospects), "Unable to select the status -> "+lead_prospects);
+			return successAlert.clickOnTemporaryButton();
 	}
 
 	public void testVerifyLeadMessages(JSONObject pDataObject) {

@@ -1,4 +1,4 @@
-<suite name="Send and Verify PUNs emails"
+<suite name="Verify lead import and settings"
 	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
 	<listeners>
         <listener class-name="resources.ThreadCountChanger"/>
@@ -7,25 +7,25 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
 
-<test name="Send and Verify PUNs emails">	
-	<parameter name="emailReplyData" value="/resources/data/zurple/backoffice/marketing/puns-email-data.json"> 
+	<test name="Verify lead import and settings">
+		<parameter name="importLeadCSV" value="/resources/data/ImportToolTest.csv"> 	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
 						<include name="testBackOfficeLogin" />
 					</methods>
 				</class>
-				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+				<class name="com.zurple.my.admin.ZBOImportToolPageTest">
 					<methods>
-						<include name="testLeadReply"/>
+						<include name="testImportTool" />
 					</methods>
 				</class>
-		  		<class name="resources.CurrentPageTest">
+				<class name="resources.CurrentPageTest">
 					<methods>
 						<include name="closeBrowser" />
 					</methods>
 				</class>
 			</classes>
-	</parameter>
-	</test>	
+			</parameter>
+	</test>
 </suite>

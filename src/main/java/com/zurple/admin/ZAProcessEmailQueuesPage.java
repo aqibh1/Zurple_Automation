@@ -86,6 +86,10 @@ public class ZAProcessEmailQueuesPage extends Page{
 		return ActionHelper.Click(driver, mass_email_queue_button);
 	}
 	
+	public boolean clickOnNextDayQueueButton() {
+		return ActionHelper.Click(driver, nextday_responder_queue_button);
+	}
+	
 	public void processAlertQueue() {
 		assertTrue(isProcessEmailQueuePage(), "Process Email Queue page is not visible...");
 		assertTrue(clickOnAlertQueueButton(), "Unable to click on Alert Queue button...");
@@ -103,6 +107,14 @@ public class ZAProcessEmailQueuesPage extends Page{
 	public void processMassEmailQueue() {
 		assertTrue(isProcessEmailQueuePage(), "Process Email Queue page is not visible...");
 		assertTrue(clickOnMassEmailQueueButton(), "Unable to click on Mass Email Queue button...");
+		ActionHelper.staticWait(5);
+		assertTrue(clickOnProcessQueueButton(), "Unable to click on process queue button...");
+		assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");
+	}
+	
+	public void processNextDayResponderQueue() {
+		assertTrue(isProcessEmailQueuePage(), "Process Email Queue page is not visible...");
+		assertTrue(clickOnNextDayQueueButton(), "Unable to click on Mass Email Queue button...");
 		ActionHelper.staticWait(5);
 		assertTrue(clickOnProcessQueueButton(), "Unable to click on process queue button...");
 		assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");

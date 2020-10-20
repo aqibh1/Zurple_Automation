@@ -34,6 +34,9 @@ public class ZBOLeadCRMPage extends Page{
 	@FindBy(id="leadsInputName")
 	WebElement lead_input_name;
 	
+	@FindBy(className="full_name")
+	WebElement lead_name;
+	
 	@FindBy(id="leads-grid-filter-button")
 	WebElement search_button;
 	
@@ -47,6 +50,8 @@ public class ZBOLeadCRMPage extends Page{
 	WebElement lead_owner_crm;
 	
 	String lead_name_element = "//table[@id='leads-table']/descendant::div/a[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
+	
+	String lead_name_element_customized_ist = "//table[@id='DataTables_Table_0']/descendant::td/a[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
 	
 	@FindBy(xpath="//table[@id='leads-table']/descendant::input[@class='lead-check']")
 	WebElement lead_input_checkbox;
@@ -162,11 +167,24 @@ public class ZBOLeadCRMPage extends Page{
 	public boolean searchLead(String pLeadName) {
 		boolean isLeadSelected = false;
 		if(typeLeadNameOrEmail(pLeadName) && clickOnSearchButton()) {
-;			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
+			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
 			isLeadSelected = ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_name_element, pLeadName));
 		}
 		return isLeadSelected;
 	}
+	
+	public boolean searchLeadCustomizedList(String pLeadName) {
+		boolean isLeadSelected = false;
+		if(typeLeadNameOrEmail(pLeadName) && clickOnSearchButton()) {
+			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
+			String leadName = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, lead_name_element_customized_ist, pLeadName));
+			if(leadName.equalsIgnoreCase(pLeadName)) {
+				isLeadSelected = true;
+			}
+		}
+		return isLeadSelected;
+	}
+
 	public boolean searchAndSelectLead(String pLeadName) {
 		boolean isLeadSelected = false;
 		if(typeLeadNameOrEmail(pLeadName) && clickOnSearchButton()) {
@@ -262,6 +280,11 @@ public class ZBOLeadCRMPage extends Page{
 		}
 		return isClicked;
 	}
+	
+	public boolean clickSearchedLeadName() {
+		return ActionHelper.Click(driver, lead_name);
+	}
+	
 	public boolean verifyAutoConvoCount(int pCount) {
 		return Integer.parseInt(ActionHelper.getText(driver, autoconvo_sent_count))==pCount;
 	}
