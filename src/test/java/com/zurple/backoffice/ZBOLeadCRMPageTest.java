@@ -173,12 +173,19 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(page.getSendEmailForm().clickOnSendEmailButton(), "Unable to click on send button....");
 		testVerifyEmailInMyMessages(l_leadId, l_subject);
 		assertTrue(mailinatorObj.verifyEmail(l_lead_email.split("@")[0], l_subject, 15), "Unable to verify reminder email");
+		page = null;
+		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+		getPage("/leads/crm");
+		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
+		assertTrue(leadCRMPage.searchLead(l_leadName), "Unable to search lead");
+		assertTrue(leadCRMPage.verifyMassEmailCount(), "Unable to verify mass email count..");
 	}
 	
 	@Test
 	public void testSendAndVerifySendSMS() {
 		getPage("/leads/crm");
 		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
+		ActionHelper.staticWait(15);
 		assertTrue(page.clickOnSMSButton(), "Unable to click on SMS button on CRM page..");
 		assertTrue(page.getSendSMSForm().isSendTextMessageForm(), "Send Text message form is not visible..");
 		assertTrue(page.getSendSMSForm().getPhoneNumber(), "Unable to select template from drop down..");
