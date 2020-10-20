@@ -206,7 +206,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 	public void testContactAgentOnListingDetail(String pDataFile) {
 		AutomationLogger.startTestCase("Contact Agent from listing detail page");
 		String lEnvironment = System.getProperty("environment");
-		if(lEnvironment.equalsIgnoreCase("prod")) {
+		if(lEnvironment.equalsIgnoreCase("prod") || lEnvironment.equalsIgnoreCase("autoconvoprod")) {
 			getPage(ZurpleListingConstants.zurple_production_listing);
 		}else {
 			getPage(ZurpleListingConstants.zurple_staging_listing);
