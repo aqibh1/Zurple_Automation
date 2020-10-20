@@ -61,7 +61,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	@Parameters({"dataFile"})
 	public void testCreateAd(String pDataFile) throws ParseException {
 		dataObject = getDataFile(pDataFile);
-		lAd_Type = "Quick";//dataObject.optString("ad_type");
+		lAd_Type = dataObject.optString("ad_type");
 		
 		getPage("/create-ad/step-one");
 		assertTrue(page.isCreateAdPage(), "Create Ad Page is not visible..");
@@ -133,7 +133,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isSection2Checked(), "Step 2 Section 2 is not checkedL..");
 	}
 	private void createAdStep2Section3() {
-		String ld_taregetReachAmount = "120";//dataObject.optString("ad_amount");
+		String ld_taregetReachAmount = dataObject.optString("ad_amount");
 		assertTrue(page.isDefaultCitySelected(), "Default city is not selected for the ad ..");
 		String l_defaultCity = page.getDefaultCity();
 		assertTrue(page.selectAdTaregetReach(ld_taregetReachAmount), "Unable to select target reach amount ..");

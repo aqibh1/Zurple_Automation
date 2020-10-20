@@ -2163,6 +2163,26 @@
 			</classes>
 	</test>
 	
+	<test name="Add Reminder from CRM page">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+					<methods>
+						<include name="testAddAndVerifyReminder" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
 	<test name="Bulk update lead status to In Active" >	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
