@@ -68,7 +68,7 @@ public abstract class AbstractPageTest extends AbstractTest
         return driver;
     }
     private void setIsProd() {
-    	if(System.getProperty("environment").equalsIgnoreCase("prod")){
+    	if(System.getProperty("environment").equalsIgnoreCase("prod") || System.getProperty("environment").equalsIgnoreCase("autoconvoprod")){
     		isProd = true; 
     	}
     }
