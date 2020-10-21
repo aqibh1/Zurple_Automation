@@ -6,6 +6,8 @@ package com.zurple.backoffice;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import java.text.ParseException;
+
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
@@ -182,10 +184,11 @@ public class ZBOLeadCRMPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testSendAndVerifySendSMS() {
+	public void testSendAndVerifySendSMS() throws ParseException {
 		getPage("/leads/crm");
 		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
-		ActionHelper.staticWait(15);
+		applyFilter("By Phone Number Provided","All");
+		ActionHelper.staticWait(25);
 		assertTrue(page.clickOnSMSButton(), "Unable to click on SMS button on CRM page..");
 		assertTrue(page.getSendSMSForm().isSendTextMessageForm(), "Send Text message form is not visible..");
 		assertTrue(page.getSendSMSForm().getPhoneNumber(), "Unable to select template from drop down..");
@@ -210,4 +213,11 @@ public class ZBOLeadCRMPageTest extends PageTest{
 			assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
 			assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject));
 }
+	private void applyFilter(String pFilterName, String pFilterValue) throws ParseException {
+		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
+		assertTrue(leadPage.clickAndSelectFilterName(pFilterName),"Unable to select the filter type "+pFilterName);
+		ActionHelper.staticWait(10);
+		assertTrue(leadPage.clickAndSelectFilterValue(pFilterValue),"Unable to select the filter value "+pFilterValue);
+		assertTrue(leadPage.clickOnSearchButton(),"Unable to click on search button..");
+	}
 }
