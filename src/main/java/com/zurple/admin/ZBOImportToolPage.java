@@ -17,6 +17,7 @@ import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 import com.zurple.backoffice.ZBOLeadCRMPage;
+import com.zurple.backoffice.ZBOLeadDetailPage;
 import com.zurple.my.Page;
 
 import resources.utility.ActionHelper;
@@ -48,6 +49,7 @@ public class ZBOImportToolPage extends Page {
 	
 	ZAProcessEmailQueuesPage processEmailObject;
 	ZBOLeadCRMPage leadCRMObject;
+	ZBOLeadDetailPage leadDetailsObject;
 	
 	public ZBOImportToolPage() {
 	}
@@ -65,9 +67,19 @@ public class ZBOImportToolPage extends Page {
 	public void setLeadsCRM() {
 		this.leadCRMObject = new ZBOLeadCRMPage(driver);
 	}
+
+	public ZBOLeadDetailPage getLeadDetails() {
+		return leadDetailsObject;
+	}
+	public void setLeadDetails() {
+		this.leadDetailsObject = new ZBOLeadDetailPage(driver);
+	}
 	
 	public ZBOImportToolPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		setLeadsCRM();
+		setLeadDetails();
+		setEmailQueue();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -138,6 +150,17 @@ public class ZBOImportToolPage extends Page {
 	
 	public boolean clickLeadName() {
 		return leadCRMObject.clickSearchedLeadName();
+	}
+	
+	public boolean checkEmailVerified() {
+//		ActionHelper.staticWait(30);
+//		ActionHelper.RefreshPage(driver);
+		ActionHelper.switchToOriginalWindow(driver);
+		return leadDetailsObject.isEmailVerified();
+	}
+	
+	public void processEmailQueue() {
+		processEmailObject.processNextDayResponderQueue();
 	}
 	
 }

@@ -21,7 +21,8 @@ import resources.AbstractPage;
 public class ZBOImportToolPageTest extends PageTest{
 	ZBOImportToolPage page;
 	WebDriver driver;
-
+	private String importLeadEmail; 
+	
 	@Override
 	public AbstractPage getPage() {
 		// TODO Auto-generated method stub
@@ -56,7 +57,8 @@ public class ZBOImportToolPageTest extends PageTest{
 	public void testNeitherOptionsChecked(String pDataFile) {
 		getPage("/leadmgr/import");
 		try {
-			page.updateCSV(pDataFile, updateEmail("autoimport_zurpleqa@mailinator.com".trim()), 1, 4);
+			importLeadEmail = updateEmail("autoimport_zurpleqa@mailinator.com".trim());
+			page.updateCSV(pDataFile, importLeadEmail, 1, 4);
 		} catch (IOException | CsvException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,8 +78,9 @@ public class ZBOImportToolPageTest extends PageTest{
 	public void testAllOptionsChecked(String pDataFile) {
 		getPage("/leadmgr/import");
 		try {
-			page.updateCSV(pDataFile, updateEmail("autoimport_zurpleqa@mailinator.com".trim()), 1, 4);
-		} catch (IOException | CsvException e) {
+			importLeadEmail = updateEmail("autoimport_zurpleqa@mailinator.com".trim());
+			page.updateCSV(pDataFile, importLeadEmail, 1, 4);		
+			} catch (IOException | CsvException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -96,7 +99,8 @@ public class ZBOImportToolPageTest extends PageTest{
 	public void testUnsubChecked(String pDataFile) {
 		getPage("/leadmgr/import");
 		try {
-			page.updateCSV(pDataFile, updateEmail("autoimport_zurpleqa@mailinator.com".trim()), 1, 4);
+			importLeadEmail = updateEmail("autoimport_zurpleqa@mailinator.com".trim());
+			page.updateCSV(pDataFile, importLeadEmail, 1, 4);	
 		} catch (IOException | CsvException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,7 +120,8 @@ public class ZBOImportToolPageTest extends PageTest{
 	public void testNextDayChecked(String pDataFile) {
 		getPage("/leadmgr/import");
 		try {
-			page.updateCSV(pDataFile, updateEmail("autoimport_zurpleqa@mailinator.com".trim()), 1, 4);
+			importLeadEmail = updateEmail("autoimport_zurpleqa@mailinator.com".trim());
+			page.updateCSV(pDataFile, importLeadEmail, 1, 4);	
 		} catch (IOException | CsvException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -129,6 +134,16 @@ public class ZBOImportToolPageTest extends PageTest{
 		page.selectCity("29 Palms, CA");
 		page.uploadFile(pDataFile);
 		page.importButton();
+		page = null;
+		getPage("/leads/crm");
+		page.searchImportedLead(importLeadEmail);
+		page.clickLeadName();
+		if(page.checkEmailVerified()) {
+			page=null;
+			getPage("/admin/processemailqueue");
+			page.processEmailQueue();
+		}
+		
 	}
 	
 }

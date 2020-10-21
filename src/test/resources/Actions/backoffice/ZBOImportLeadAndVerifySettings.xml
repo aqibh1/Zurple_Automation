@@ -17,7 +17,7 @@
 				</class>
 				<class name="com.zurple.my.admin.ZBOImportToolPageTest">
 					<methods>
-						<include name="testImportTool" />
+						<include name="testNextDayChecked" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
