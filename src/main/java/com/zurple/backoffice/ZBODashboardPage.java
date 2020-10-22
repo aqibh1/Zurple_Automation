@@ -11,6 +11,7 @@ import com.zurple.my.Page;
 
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 
 public class ZBODashboardPage extends Page{
 	@FindBy(className="z-lead-phone")
@@ -87,6 +88,9 @@ public class ZBODashboardPage extends Page{
 	WebElement hotBehaviors_heading;
 	@FindBy(xpath="//span[text()='View Hot Leads']")
 	WebElement viewHotLeads_button;
+	
+	//New Leads
+	String lead_new = "//div[@id='z-new-leads-grid']/descendant::a[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
 	
 	public ZBODashboardPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -201,5 +205,11 @@ public class ZBODashboardPage extends Page{
 			isButtonWorking = driver.getCurrentUrl().contains("/leads/index/ext/hotlead");
 		}
 		return isButtonWorking;
+	}
+	public boolean isLeadDisplayed(String pLeadName) {
+		return ActionHelper.getDynamicElementAfterRegularIntervals(driver, lead_new, pLeadName, 5);
+	}
+	public boolean clickOnLeadName(String pLeadName) {
+		return ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, lead_new, pLeadName));
 	}
 }
