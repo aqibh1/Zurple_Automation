@@ -4,6 +4,10 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -17,11 +21,14 @@ import com.zurple.backoffice.marketing.ZBOCreateTemplatePage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.utility.DataConstants;
 
 public class ZBOImportToolPageTest extends PageTest{
 	ZBOImportToolPage page;
 	WebDriver driver;
 	private String importLeadEmail; 
+	private String currentUrl;
+	private JSONObject dataObject;
 	
 	@Override
 	public AbstractPage getPage() {
@@ -53,97 +60,178 @@ public class ZBOImportToolPageTest extends PageTest{
 	}
 	
 	@Test
-	@Parameters({"importLeadCSV"})
-	public void testNeitherOptionsChecked(String pDataFile) {
+	@Parameters({"importLeadCSV","importLeadData"})
+	public void testNeitherOptionsChecked(String pCSVDataFile, String pImportDataFile) {
 		getPage("/leadmgr/import");
 		try {
 			importLeadEmail = updateEmail("autoimport_zurpleqa@mailinator.com".trim());
-			page.updateCSV(pDataFile, importLeadEmail, 1, 4);
+			page.updateCSV(pCSVDataFile, importLeadEmail, 1, 4);
 		} catch (IOException | CsvException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		page.selectPackage("57: 57John Doeedit");
-		page.selectAdmin("12666: Aqib Site Owner");
-		page.selectSite("3215: zengtest6.us");
-		page.selectUnsubMassEmails();
-		page.selectSkipNextDay();
-		page.selectCity("29 Palms, CA");
-		page.uploadFile(pDataFile);
-		page.importButton();
-	}
-	
-	@Test
-	@Parameters({"importLeadCSV"})
-	public void testAllOptionsChecked(String pDataFile) {
-		getPage("/leadmgr/import");
-		try {
-			importLeadEmail = updateEmail("autoimport_zurpleqa@mailinator.com".trim());
-			page.updateCSV(pDataFile, importLeadEmail, 1, 4);		
-			} catch (IOException | CsvException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		dataObject = getDataFile(pImportDataFile);
+		if(!getIsProd()) {
+			assertTrue(page.selectPackage(dataObject.optString("package_id_stage")),"Unable to select package..");
+			assertTrue(page.selectAdmin(dataObject.optString("admin_id_stage")),"Unable to select admin..");
+			assertTrue(page.selectSite(dataObject.optString("site_stage")),"Unable to select site..");
+			assertTrue(page.selectCity(dataObject.optString("city_stage")),"Unable to select city..");
+		} else {
+			assertTrue(page.selectPackage(dataObject.optString("package_id_prod")),"Unable to select package..");
+			assertTrue(page.selectAdmin(dataObject.optString("admin_id_prod")),"Unable to select admin..");
+			assertTrue(page.selectSite(dataObject.optString("site_prod")),"Unable to select site..");
+			assertTrue(page.selectCity(dataObject.optString("city_prod")),"Unable to select city..");
 		}
-		page.selectPackage("57: 57John Doeedit");
-		page.selectAdmin("12666: Aqib Site Owner");
-		page.selectSite("3215: zengtest6.us");
-		page.selectUnsubMassEmails();
-		page.selectSkipNextDay();
-		page.selectCity("29 Palms, CA");
-		page.uploadFile(pDataFile);
-		page.importButton();
-	}
-	
-	@Test
-	@Parameters({"importLeadCSV"})
-	public void testUnsubChecked(String pDataFile) {
-		getPage("/leadmgr/import");
-		try {
-			importLeadEmail = updateEmail("autoimport_zurpleqa@mailinator.com".trim());
-			page.updateCSV(pDataFile, importLeadEmail, 1, 4);	
-		} catch (IOException | CsvException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		page.selectPackage("57: 57John Doeedit");
-		page.selectAdmin("12666: Aqib Site Owner");
-		page.selectSite("3215: zengtest6.us");
-		page.selectUnsubMassEmails();
-		page.selectSkipNextDay();
-		page.selectCity("29 Palms, CA");
-		page.uploadFile(pDataFile);
-		page.importButton();
-	}
-	
-	@Test
-	@Parameters({"importLeadCSV"})
-	public void testNextDayChecked(String pDataFile) {
-		getPage("/leadmgr/import");
-		try {
-			importLeadEmail = updateEmail("autoimport_zurpleqa@mailinator.com".trim());
-			page.updateCSV(pDataFile, importLeadEmail, 1, 4);	
-		} catch (IOException | CsvException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		page.selectPackage("57: 57John Doeedit");
-		page.selectAdmin("12666: Aqib Site Owner");
-		page.selectSite("3215: zengtest6.us");
-		page.selectUnsubMassEmails();
-		page.selectSkipNextDay();
-		page.selectCity("29 Palms, CA");
-		page.uploadFile(pDataFile);
-		page.importButton();
+		page.uploadFile(pCSVDataFile);
+		assertTrue(page.importButton(),"Unable to click import button..");
 		page = null;
 		getPage("/leads/crm");
-		page.searchImportedLead(importLeadEmail);
-		page.clickLeadName();
+		assertTrue(page.searchImportedLead(importLeadEmail),"Unable to search imported lead..");
+		assertTrue(page.clickLeadName(),"Unable to click lead name..");
 		if(page.checkEmailVerified()) {
+			currentUrl = driver.getCurrentUrl();
+			currentUrl = currentUrl.split(".com")[1];
 			page=null;
 			getPage("/admin/processemailqueue");
 			page.processEmailQueue();
 		}
-		
+		page=null;
+		getPage(currentUrl);
+		assertTrue(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
+		assertEquals(page.getMassEmailSettings(),"Yes");
+	}
+	
+	@Test
+	@Parameters({"importLeadCSV","importLeadData"})
+	public void testAllOptionsChecked(String pCSVDataFile, String pImportDataFile) {
+		page=null;
+		getPage("/leadmgr/import");
+		try {
+			importLeadEmail = updateEmail("autoimport_zurpleqa@mailinator.com".trim());
+			page.updateCSV(pCSVDataFile, importLeadEmail, 1, 4);
+		} catch (IOException | CsvException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dataObject = getDataFile(pImportDataFile);
+		if(!getIsProd()) {
+			assertTrue(page.selectPackage(dataObject.optString("package_id_stage")),"Unable to select package..");
+			assertTrue(page.selectAdmin(dataObject.optString("admin_id_stage")),"Unable to select admin..");
+			assertTrue(page.selectSite(dataObject.optString("site_stage")),"Unable to select site..");
+			assertTrue(page.selectCity(dataObject.optString("city_stage")),"Unable to select city..");
+		} else {
+			assertTrue(page.selectPackage(dataObject.optString("package_id_prod")),"Unable to select package..");
+			assertTrue(page.selectAdmin(dataObject.optString("admin_id_prod")),"Unable to select admin..");
+			assertTrue(page.selectSite(dataObject.optString("site_prod")),"Unable to select site..");
+			assertTrue(page.selectCity(dataObject.optString("city_prod")),"Unable to select city..");
+		}
+		page.selectSkipNextDay();
+		page.selectUnsubMassEmails();
+		page.uploadFile(pCSVDataFile);
+		assertTrue(page.importButton(),"Unable to click import button..");
+		page = null;
+		getPage("/leads/crm");
+		assertTrue(page.searchImportedLead(importLeadEmail),"Unable to search imported lead..");
+		assertTrue(page.clickLeadName(),"Unable to click lead name..");
+		if(page.checkEmailVerified()) {
+			currentUrl = driver.getCurrentUrl();
+			currentUrl = currentUrl.split(".com")[1];
+			page=null;
+			getPage("/admin/processemailqueue");
+			page.processEmailQueue();
+		}
+		page=null;
+		getPage(currentUrl);
+		assertFalse(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
+		assertEquals(page.getMassEmailSettings(),"No");
+	}
+	
+	@Test
+	@Parameters({"importLeadCSV","importLeadData"})
+	public void testUnsubChecked(String pCSVDataFile, String pImportDataFile) {
+		page=null;
+		getPage("/leadmgr/import");
+		try {
+			importLeadEmail = updateEmail("autoimport_zurpleqa@mailinator.com".trim());
+			page.updateCSV(pCSVDataFile, importLeadEmail, 1, 4);
+		} catch (IOException | CsvException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dataObject = getDataFile(pImportDataFile);
+		if(!getIsProd()) {
+			assertTrue(page.selectPackage(dataObject.optString("package_id_stage")),"Unable to select package..");
+			assertTrue(page.selectAdmin(dataObject.optString("admin_id_stage")),"Unable to select admin..");
+			assertTrue(page.selectSite(dataObject.optString("site_stage")),"Unable to select site..");
+			assertTrue(page.selectCity(dataObject.optString("city_stage")),"Unable to select city..");
+		} else {
+			assertTrue(page.selectPackage(dataObject.optString("package_id_prod")),"Unable to select package..");
+			assertTrue(page.selectAdmin(dataObject.optString("admin_id_prod")),"Unable to select admin..");
+			assertTrue(page.selectSite(dataObject.optString("site_prod")),"Unable to select site..");
+			assertTrue(page.selectCity(dataObject.optString("city_prod")),"Unable to select city..");
+		}
+		page.selectUnsubMassEmails();
+		page.uploadFile(pCSVDataFile);
+		assertTrue(page.importButton(),"Unable to click import button..");
+		page = null;
+		getPage("/leads/crm");
+		assertTrue(page.searchImportedLead(importLeadEmail),"Unable to search imported lead..");
+		assertTrue(page.clickLeadName(),"Unable to click lead name..");
+		if(page.checkEmailVerified()) {
+			currentUrl = driver.getCurrentUrl();
+			currentUrl = currentUrl.split(".com")[1];
+			page=null;
+			getPage("/admin/processemailqueue");
+			page.processEmailQueue();
+		}
+		page=null;
+		getPage(currentUrl);
+		assertTrue(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
+		assertEquals(page.getMassEmailSettings(),"No");
+	}
+	
+	@Test
+	@Parameters({"importLeadCSV","importLeadData"})
+	public void testNextDayChecked(String pCSVDataFile, String pImportDataFile) {
+		page=null;
+		getPage("/leadmgr/import");
+		try {
+			importLeadEmail = updateEmail("autoimport_zurpleqa@mailinator.com".trim());
+			page.updateCSV(pCSVDataFile, importLeadEmail, 1, 4);
+		} catch (IOException | CsvException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dataObject = getDataFile(pImportDataFile);
+		if(!getIsProd()) {
+			assertTrue(page.selectPackage(dataObject.optString("package_id_stage")),"Unable to select package..");
+			assertTrue(page.selectAdmin(dataObject.optString("admin_id_stage")),"Unable to select admin..");
+			assertTrue(page.selectSite(dataObject.optString("site_stage")),"Unable to select site..");
+			assertTrue(page.selectCity(dataObject.optString("city_stage")),"Unable to select city..");
+		} else {
+			assertTrue(page.selectPackage(dataObject.optString("package_id_prod")),"Unable to select package..");
+			assertTrue(page.selectAdmin(dataObject.optString("admin_id_prod")),"Unable to select admin..");
+			assertTrue(page.selectSite(dataObject.optString("site_prod")),"Unable to select site..");
+			assertTrue(page.selectCity(dataObject.optString("city_prod")),"Unable to select city..");
+		}
+		page.selectSkipNextDay();
+		page.uploadFile(pCSVDataFile);
+		assertTrue(page.importButton(),"Unable to click import button..");
+		page = null;
+		getPage("/leads/crm");
+		assertTrue(page.searchImportedLead(importLeadEmail),"Unable to search imported lead..");
+		assertTrue(page.clickLeadName(),"Unable to click lead name..");
+		if(page.checkEmailVerified()) {
+			currentUrl = driver.getCurrentUrl();
+			currentUrl = currentUrl.split(".com")[1];
+			page=null;
+			getPage("/admin/processemailqueue");
+			page.processEmailQueue();
+		}
+		page=null;
+		getPage(currentUrl);
+		assertFalse(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
+		assertEquals(page.getMassEmailSettings(),"Yes");
 	}
 	
 }

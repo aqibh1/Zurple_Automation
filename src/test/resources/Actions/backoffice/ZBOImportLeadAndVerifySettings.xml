@@ -8,7 +8,8 @@
     </listeners>
 
 	<test name="Verify lead import and settings">
-		<parameter name="importLeadCSV" value="/resources/data/ImportToolTest.csv"> 	
+		<parameter name="importLeadCSV" value="/resources/data/ImportToolTest.csv">
+		<parameter name="importLeadData" value="/resources/data/zurple/backoffice/import-tool-data.json"> 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -17,6 +18,9 @@
 				</class>
 				<class name="com.zurple.my.admin.ZBOImportToolPageTest">
 					<methods>
+						<include name="testNeitherOptionsChecked" />
+						<include name="testAllOptionsChecked" />
+						<include name="testUnsubChecked" />	
 						<include name="testNextDayChecked" />
 					</methods>
 				</class>
@@ -26,6 +30,7 @@
 					</methods>
 				</class>
 			</classes>
+			</parameter>
 			</parameter>
 	</test>
 </suite>

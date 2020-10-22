@@ -41,7 +41,19 @@ public class ZBOImportToolPage extends Page {
 	
 	@FindBy(xpath="//div[@id='email_settings_row']/input[@name='skip_nextday_responder']")
 	WebElement import_settings_skip;
-		
+	
+	@FindBy(id="z-activity-details-alert-emails")
+	WebElement zurple_messages_tab_button;
+	
+	@FindBy(xpath="//div[@id='z-activity-details-alert-emails-grid']/descendant::div[text()='check out my new site']")
+	WebElement import_checkin_subject;
+	
+	@FindBy(xpath="//div[@id='z-activity-details-alert-emails-grid']/descendant::td[@headers='yui-dt4-th-messageDateTime ']/div")
+	WebElement date_time_email;
+	
+	@FindBy(className="z-lead-preferences-data")
+	WebElement mass_email_settings;
+	
 	String csvFile = "csv";
 	
 	@FindBy(id="Import")
@@ -163,6 +175,37 @@ public class ZBOImportToolPage extends Page {
 		processEmailObject.processNextDayResponderQueue();
 	}
 	
+	public boolean isImportCheckinEmailGenerated() {
+		int counter = 0;
+		boolean isVerified = false;
+		while(!isVerified && counter<5) {
+			ActionHelper.staticWait(20);
+			ActionHelper.RefreshPage(driver);
+			ActionHelper.ScrollDownByPixels(driver, "300");
+			isVerified = verifyImportCheckinEmailGenerated();
+			counter++;
+		}
+		return isVerified;
+	}
+	
+	public boolean verifyImportCheckinEmailGenerated() {
+		boolean isVerified = false;
+		boolean isEmailExists = false;
+		boolean isTimeDateCorrect = false;
+		if(ActionHelper.Click(driver, zurple_messages_tab_button)) {
+			ActionHelper.staticWait(3);
+			isEmailExists = ActionHelper.waitForElementToBeVisible(driver, import_checkin_subject, 30);
+			if(isEmailExists) {
+				isTimeDateCorrect = ActionHelper.getText(driver, date_time_email).contains(getTodaysDate().replace("2020", "20"));
+			}
+			isVerified = (isEmailExists && isTimeDateCorrect)?true:false;
+		}
+		return isVerified;
+	}
+	
+	public String getMassEmailSettings() {
+		return ActionHelper.getText(driver, mass_email_settings);
+	}
 }
 	
 	

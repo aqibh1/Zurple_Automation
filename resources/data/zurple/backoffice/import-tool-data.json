@@ -1,8 +1,10 @@
 {
-	"package_id":"57: 57John Doeedit",
+	"package_id_stage":"57: 57John Doeedit",
 	"admin_id_stage":"12666: Aqib Site Owner",
-	"admin_id_prod":,
 	"site_stage":"3215: zengtest6.us",
-	"site_prod":,
-	"city":"29 Palms, CA"
+	"city_stage":"29 Palms, CA",
+	"package_id_prod":"57: Employee Sites",
+	"admin_id_prod":"16184: Aqib Production Testing",
+	"site_prod":"5334: zengtest2.us",
+	"city_prod":"29 Palms, CA"
 }
