@@ -165,8 +165,6 @@ public class ZBOImportToolPage extends Page {
 	}
 	
 	public boolean checkEmailVerified() {
-//		ActionHelper.staticWait(30);
-//		ActionHelper.RefreshPage(driver);
 		ActionHelper.switchToOriginalWindow(driver);
 		return leadDetailsObject.isEmailVerified();
 	}
@@ -178,8 +176,8 @@ public class ZBOImportToolPage extends Page {
 	public boolean isImportCheckinEmailGenerated() {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<5) {
-			ActionHelper.staticWait(20);
+		while(!isVerified && counter<4) {
+			ActionHelper.staticWait(15);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "300");
 			isVerified = verifyImportCheckinEmailGenerated();

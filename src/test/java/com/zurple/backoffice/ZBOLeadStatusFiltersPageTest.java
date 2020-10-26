@@ -16,7 +16,7 @@ import resources.utility.ActionHelper;
 
 public class ZBOLeadStatusFiltersPageTest extends PageTest{
 
-	private ZBOLeadFiltersPage page;
+	private ZBOLeadStatusFiltersPage page;
 	private WebDriver driver;
 	ZBOMarketingEmailPageTest marketingEmailObject = new ZBOMarketingEmailPageTest();
 	
@@ -30,7 +30,7 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
     	page=null;
     	if(page == null){
         	driver = getDriver();
-			page = new ZBOLeadFiltersPage(driver);
+			page = new ZBOLeadStatusFiltersPage(driver);
 			page.setUrl("");
 			page.setDriver(driver);
         }
@@ -40,7 +40,7 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
     public AbstractPage getPage(String pUrl){
         if(page == null){
         	driver = getDriver();
-			page = new ZBOLeadFiltersPage(driver);
+			page = new ZBOLeadStatusFiltersPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
         }

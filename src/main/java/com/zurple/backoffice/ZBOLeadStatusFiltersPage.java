@@ -10,7 +10,7 @@ import com.zurple.my.Page;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
 
-public class ZBOLeadFiltersPage extends Page{
+public class ZBOLeadStatusFiltersPage extends Page{
 
 	@FindBy(xpath="//a[@href='/leads/index/ext/active1']")
 	WebElement prospect_active_filter;
@@ -23,7 +23,7 @@ public class ZBOLeadFiltersPage extends Page{
 	
 	private ZBOLeadCRMPage leadCRMObject;
 	
-	public ZBOLeadFiltersPage() {
+	public ZBOLeadStatusFiltersPage() {
 	}
 
 	public ZBOLeadCRMPage getLeadsCRM() {
@@ -33,7 +33,7 @@ public class ZBOLeadFiltersPage extends Page{
 		this.leadCRMObject = new ZBOLeadCRMPage(driver);
 	}
 	
-	public ZBOLeadFiltersPage(WebDriver pWebDriver) {
+	public ZBOLeadStatusFiltersPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		setLeadsCRM();
 		PageFactory.initElements(driver, this);
