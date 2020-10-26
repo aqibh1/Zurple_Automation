@@ -15,6 +15,8 @@ import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.ConfigReader;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
 import resources.classes.MenuItem;
 import resources.classes.Alert;
 import resources.orm.hibernate.models.zurple.User;
@@ -102,6 +104,17 @@ public class ZBODashboardTest extends PageTest
     public void testEmailIsReceived() {
     	GmailEmailVerification gmailObject = new GmailEmailVerification();
     	gmailObject.isEmailPresentAndReply("z57testuser.zurpleqa@gmail.com", "uznhhalkthskjpyx", "Quick Question", "aqib.zurple.production@zengtest2.us",true);    	
+    }
+   
+    @Test
+    public void testIsNewLeadDisplayedOnDashboard() {
+    	getPage();
+    	String lc_leadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);;
+    	assertTrue(page.isLeadDisplayed(lc_leadName), "Lead name is not displayed on the dashboard");
+    	assertTrue(page.clickOnLeadName(lc_leadName), "Unable to click on lead name on the dashboard");
+    	ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+    	assertTrue(leadDetailPage.isLeadDetailPage(), "Lead detail page is not visible..");
+    	assertTrue(leadDetailPage.isLeadNameExist(lc_leadName), "Lead Name does not exists on lead detail page ..");
     }
 
 }
