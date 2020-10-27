@@ -15,9 +15,24 @@ public class ZBOLeadStatusFiltersPage extends Page{
 	@FindBy(xpath="//a[@href='/leads/index/ext/active1']")
 	WebElement prospect_active_filter;
 	
+	@FindBy(xpath="//a[@href='/leads/index/ext/new']")
+	WebElement prospect_new_filter; 
+	
+	@FindBy(xpath="//a[@href='/leads/index/ext/prospect1']")
+	WebElement prospect_unresponsive_filter;
+	
+	@FindBy(xpath="//a[@href='/leads/index/ext/prospect2']")
+	WebElement prospect_communicated_filter;
+	
 	@FindBy(xpath="//a[@href='/leads/index/ext/client']")
 	WebElement client_active_filter;
+
+	@FindBy(xpath="//a[@href='/leads/index/ext/client2']")
+	WebElement client_sold_filter;
 	
+	@FindBy(xpath="//a[@href='/leads/index/ext/inactive']")
+	WebElement client_inactive_filter;
+		
 	@FindBy(className="header-title")
 	WebElement page_header;
 	
@@ -39,12 +54,30 @@ public class ZBOLeadStatusFiltersPage extends Page{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public boolean selectFilter(String filter) {
-		if(filter.equalsIgnoreCase("prospect")) {
-			return ActionHelper.Click(driver, prospect_active_filter);
-		} else {
-			return ActionHelper.Click(driver, client_active_filter);
-		}	
+	public void selectFilter(String filter) {
+		switch(filter) {
+		case "new":
+			ActionHelper.Click(driver, prospect_new_filter);
+			break;
+		case "unresponsive":
+			ActionHelper.Click(driver, prospect_unresponsive_filter);
+			break;
+		case "active":
+			ActionHelper.Click(driver, prospect_active_filter);
+			break;
+		case "communicated":
+			ActionHelper.Click(driver, prospect_communicated_filter);
+			break;
+		case "opportunity":
+			ActionHelper.Click(driver, client_active_filter);
+			break;
+		case "sold":
+			ActionHelper.Click(driver, client_sold_filter);
+			break;
+		case "inactive":
+			ActionHelper.Click(driver, client_inactive_filter);
+			break;
+		}
 	}
 
 	public boolean searchStatusLead(String pNameEmail) {

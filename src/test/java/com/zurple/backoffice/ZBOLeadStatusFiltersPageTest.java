@@ -52,7 +52,10 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
     public void testLeadStatusFilter(String pDataFile) { 
     	getPage();
     	JSONObject lDataObject = getDataFile(pDataFile);
+    	String x = lDataObject.optString("lead_prospect");
+    	x = x.split(",")[4];
     	marketingEmailObject.redirectToLeadsPage(lDataObject);
+    	
     	if(marketingEmailObject.leadStatus(lDataObject,0)==false) {
     		marketingEmailObject.leadStatus(lDataObject,1);
     		ActionHelper.RefreshPage(driver);
@@ -71,7 +74,7 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
     public void verifyLeadFilter(JSONObject pDataObject, String pfilterName, String pPageTitle) {
     	page=null;
     	getPage("/leads");
-    	assertTrue(page.selectFilter(pfilterName),"Unable to select filter..");
+    	//assertTrue(page.selectFilter(pfilterName),"Unable to select filter..");
     	assertEquals(page.pageTitle().trim(),pPageTitle);
     	String leadName = pDataObject.optString("leadNameEmail");
     	assertTrue(page.searchStatusLead(leadName),"Unable to search lead..");
