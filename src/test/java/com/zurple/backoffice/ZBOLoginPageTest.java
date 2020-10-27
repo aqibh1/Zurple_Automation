@@ -7,8 +7,11 @@ import static org.testng.Assert.assertTrue;
 
 import java.util.HashMap;
 
+import org.json.JSONObject;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import com.zurple.my.PageTest;
 import resources.AbstractPage;
@@ -25,6 +28,11 @@ public class ZBOLoginPageTest extends PageTest{
 	
 	ZBOLoginPage page;
 	private WebDriver driver;
+	private JSONObject dataObject;
+	String ld_zurpleUsername = "";
+	String ld_zurplePassword ="";
+	String lZurpleUserName = "";
+	String lZurplePassword = "";
 	
 	@Override
 	public AbstractPage getPage() {
@@ -44,10 +52,11 @@ public class ZBOLoginPageTest extends PageTest{
 	}
 	
 	@Test(priority=-1,groups="testBackOfficeLogin")
-	public void testBackOfficeLogin() {
-		getPage();	
-		String lZurpleUserName = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_user");
-		String lZurplePassword =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_pass");
+	@Parameters({"dataFile"})
+	public void testBackOfficeLogin(@Optional String pDataFile) {
+		getPage();
+		dataObject = getDataFile(pDataFile);
+		setUserNamePassword();
 		if(page.isLoginPage()) {
 			//		assertTrue(page.isLoginPage(),"Zurple Back office login page is not visible..");
 			assertTrue(page.typeUserName(lZurpleUserName),"Unable to type the user name");
@@ -60,6 +69,7 @@ public class ZBOLoginPageTest extends PageTest{
 		}
 		AutomationLogger.endTestCase();
 	}
+
 	@Test(priority=-1,groups="testBackOfficeAPILogin")
 	public void testBackOfficeAPILogin() {
 		getPage();	
@@ -88,5 +98,21 @@ public class ZBOLoginPageTest extends PageTest{
 
 		AutomationLogger.endTestCase();
 	}
-
+	private void setUserNamePassword() {
+		if(getIsProd()){
+			ld_zurpleUsername = dataObject.optString("zurple_username");
+			ld_zurplePassword = dataObject.optString("zurple_password");
+		}else {
+			ld_zurpleUsername = dataObject.optString("zurple_username_stage");
+			ld_zurplePassword = dataObject.optString("zurple_password_stage");
+		}
+		
+		if(ld_zurpleUsername.isEmpty()) {
+			lZurpleUserName = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_user");
+			lZurplePassword =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_pass");
+		}else {
+			lZurpleUserName = ld_zurpleUsername;
+			lZurplePassword = ld_zurplePassword;
+		}	
+	}
 }
