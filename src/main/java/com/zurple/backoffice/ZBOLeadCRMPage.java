@@ -34,7 +34,7 @@ public class ZBOLeadCRMPage extends Page{
 	@FindBy(id="leadsInputName")
 	WebElement lead_input_name;
 	
-	@FindBy(className="full_name")
+	@FindBy(xpath="//div[@class='full_name']/a")
 	WebElement lead_name;
 	
 	@FindBy(id="leads-grid-filter-button")
@@ -103,6 +103,8 @@ public class ZBOLeadCRMPage extends Page{
 	WebElement autoconvo_sent_count;
 	@FindBy(xpath="//div[@title='Mass & Campaign Emails Sent & Opened']/div[@class='messages-col']/i[@class='fas fa-paper-plane']/preceding-sibling::div")
 	WebElement massemail_sent_count;
+	
+	String priority_ranking = "//div[@class='monitor']/span['"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
 	private ZBOAddNotesForm addNoteForm;
 	private ZBOAddReminderForm addReminderForm;
@@ -290,5 +292,8 @@ public class ZBOLeadCRMPage extends Page{
 	}
 	public boolean verifyMassEmailCount() {
 		return Integer.parseInt(ActionHelper.getText(driver, massemail_sent_count))!=0;
+	}
+	public boolean priorityRankingToVeify(String pPriorityRanking) {
+		return ActionHelper.getDynamicElement(driver, priority_ranking, pPriorityRanking)!=null;
 	}
 }

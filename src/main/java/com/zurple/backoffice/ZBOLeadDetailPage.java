@@ -214,6 +214,8 @@ public class ZBOLeadDetailPage extends Page{
 	
 	@FindBy(id="z-activity-details-favorites")
 	WebElement favorites_tab_button;
+	@FindBy(xpath="//div[@class='lead-rank']/span[@class='rank']")
+	WebElement lead_priority_ranking;
 	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
@@ -1095,5 +1097,8 @@ public class ZBOLeadDetailPage extends Page{
 			}
 		}
 		return isVerified;
+	}
+	public boolean verifyLeadPriorityRanking(String pRanking) {
+		return ActionHelper.getText(driver, lead_priority_ranking).equalsIgnoreCase(pRanking);
 	}
 }

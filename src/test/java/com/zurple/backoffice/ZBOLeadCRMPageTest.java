@@ -19,6 +19,7 @@ import com.zurple.website.ZWRegisterUserPageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
+import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
@@ -32,6 +33,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 
 	private ZBOLeadCRMPage page;
 	private WebDriver driver;
+	private JSONObject dataObject;
 	
 	public AbstractPage getPage() {
     	page=null;
@@ -198,21 +200,38 @@ public class ZBOLeadCRMPageTest extends PageTest{
 	public void testVerifyEmailInMyMessages(String pLeadId, String pEmailSubject) {
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		String lLeadId = pLeadId;		
-			if(!getIsProd()) {
+		if(!getIsProd()) {
 			//	Process email queue
-				page=null;
-				getPage("/admin/processemailqueue");
-				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-				page = null;
-				getPage("/lead/"+lLeadId);
-			} else {
-				page = null;
-				getPage("/lead/"+lLeadId);
-				page = null;
-			}
-			assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
-			assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject));
+			page=null;
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+			page = null;
+			getPage("/lead/"+lLeadId);
+		} else {
+			page = null;
+			getPage("/lead/"+lLeadId);
+			page = null;
+		}
+		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
+		assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject));
 }
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPriorityRanking(String pDataFile) {
+		getPage("/leads/crm");
+		dataObject = getDataFile(pDataFile);
+		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
+		String ld_priorityToVerify = dataObject.optString("priority_ranking");
+		
+		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
+		ActionHelper.staticWait(10);
+		assertTrue(page.searchLead(lLeadName), "Unable to search lead..");
+		assertTrue(page.priorityRankingToVeify(ld_priorityToVerify), "Unable to verify the priority ranking");
+		assertTrue(page.clickSearchedLeadName(), "Unable to click on lead name..");
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+		ActionHelper.switchToSecondWindow(driver);
+		assertTrue(leadDetailPage.verifyLeadPriorityRanking(ld_priorityToVerify), "Unable to verify lead priority ranking from lead details page");
+	}
 	private void applyFilter(String pFilterName, String pFilterValue) throws ParseException {
 		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
 		assertTrue(leadPage.clickAndSelectFilterName(pFilterName),"Unable to select the filter type "+pFilterName);
