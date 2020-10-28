@@ -54,6 +54,12 @@ public class ZBOImportToolPage extends Page {
 	@FindBy(className="z-lead-preferences-data")
 	WebElement mass_email_settings;
 	
+	@FindBy(xpath="//span[@title='Agent Added/Imported']")
+	WebElement leadSourcePrimary;
+	
+	@FindBy(xpath="//span[@title='add/import']")
+	WebElement leadSourceSecondary;
+	
 	String csvFile = "csv";
 	
 	@FindBy(id="Import")
@@ -203,6 +209,12 @@ public class ZBOImportToolPage extends Page {
 	
 	public String getMassEmailSettings() {
 		return ActionHelper.getText(driver, mass_email_settings);
+	}
+	
+	public String getLeadSource() {
+		String leadSource1 = ActionHelper.getText(driver, leadSourcePrimary);
+		String leadSource2 = ActionHelper.getText(driver, leadSourceSecondary);
+		return leadSource1 +" "+leadSource2;
 	}
 }
 	
