@@ -2183,6 +2183,46 @@
 			</classes>
 	</test>
 	
+	<test name="Send Email from CRM Page">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+					<methods>
+						<include name="testSendAndVerifyEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+	<test name="Send Text message from CRM Page">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+					<methods>
+						<include name="testSendAndVerifySendSMS" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
 	<test name="Bulk update lead status to In Active" >	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">

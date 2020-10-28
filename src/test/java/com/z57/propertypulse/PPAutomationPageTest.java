@@ -104,8 +104,9 @@ public class PPAutomationPageTest extends PageTest{
 		
 		assertTrue(page.isAutomationSettingsPage(),"Automation page is not visible");
 		assertTrue(page.selectFacebookPage("Aqib Automated Testing"),"Unable to select facebook page..");
-
+		ActionHelper.staticWait(3);
 		assertTrue(page.selectFacebookListingPostDropdown("Enabled"),"Unable to select Facebook post option..");
+		ActionHelper.staticWait(3);
 		assertTrue(page.selectTwitterListingPostDropdown("Enabled"),"Unable to select Twitter post option..");
 	
 		clickSaveButton();

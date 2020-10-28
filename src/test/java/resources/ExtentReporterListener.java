@@ -10,17 +10,13 @@ import org.testng.ITestResult;
 import com.relevantcodes.extentreports.LogStatus;
 import resources.extentreports.ExtentManager;
 import resources.extentreports.ExtentTestManager;
-import resources.orm.hibernate.HibernateUtil;
 import resources.utility.AutomationLogger;
 
 public class ExtentReporterListener implements ITestListener{
 	
 	@Override
 	public void onTestStart(ITestResult result) {
-		AutomationLogger.startTestCase(result.getName());
-		AutomationLogger.info("Refreshing Hibernate Database Connection");
-		HibernateUtil.setSessionFactoryEmpty();
-		
+		AutomationLogger.startTestCase(result.getName());	
 	}
 
 	@Override

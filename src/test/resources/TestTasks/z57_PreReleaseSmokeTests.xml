@@ -7,6 +7,7 @@
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
+        <listener class-name="resources.HibernateConnectionRefresher"/>
     </listeners>
   
   <test name="Verify Later and Recurring Posts Facebook">
