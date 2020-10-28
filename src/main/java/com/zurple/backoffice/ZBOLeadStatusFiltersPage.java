@@ -36,6 +36,9 @@ public class ZBOLeadStatusFiltersPage extends Page{
 	@FindBy(className="header-title")
 	WebElement page_header;
 	
+	@FindBy(id="lead_status")
+	WebElement lead_prospect_dropdown;
+	
 	private ZBOLeadCRMPage leadCRMObject;
 	
 	public ZBOLeadStatusFiltersPage() {
@@ -86,5 +89,9 @@ public class ZBOLeadStatusFiltersPage extends Page{
 	
 	public String pageTitle() {
 		return ActionHelper.getText(driver, page_header);
+	}
+	
+	public String getLeadStatus() {
+		return leadCRMObject.getLeadProsepctSelectedValue();
 	}
 }
