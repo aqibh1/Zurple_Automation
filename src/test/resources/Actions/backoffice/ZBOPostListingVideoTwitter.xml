@@ -1,0 +1,36 @@
+<suite name="Update and Verify User Settings suite"
+	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+    </listeners>
+
+	<test name="Create and Verify Twitter Listing video post Now">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/zurple-social-tw-listing-video-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.ZBOCreatePostPageTest">
+				<methods>
+					<include name="testCreatePost" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+					<include name="testVerifyTwitterListingVideoOnPostHistoryPage" />
+				</methods>
+			</class>
+			<class name="resources.CurrentPageTest">
+			<methods>
+					<include name="closeBrowser" />
+			</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+</suite>
