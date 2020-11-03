@@ -3,6 +3,8 @@
  */
 package com.zurple.backoffice.social;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -64,7 +66,8 @@ public class ZBOPostHistoryPage extends Page{
 	String video_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'listing-video-icon')]";
 	String computer_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'computer-icon')]";
 	String link_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Link Post']";
-
+	
+	String iFrame_post_text = "//div[@id='app']/descendant::span[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
 	public ZBOPostHistoryPage() {
 		
 	}
@@ -339,5 +342,18 @@ public class ZBOPostHistoryPage extends Page{
 			isVisible = ActionHelper.isElementVisible(driver, element);
 		}
 		return isVisible;
+	}
+	public boolean isTwitterVideoTextVisible(String pTextToVerify) {
+		boolean isFound = false;
+		List<WebElement> frames_list = ActionHelper.getListOfElementByXpath(driver, "//iframe[@id]");
+		for(WebElement element: frames_list) {
+			String l_frameId = ActionHelper.getAttribute(element, "id");
+			ActionHelper.switchToiFrame(driver, l_frameId);
+			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, iFrame_post_text, pTextToVerify, 5)) {
+				isFound = true;
+				break;
+			}
+		}
+		return isFound;
 	}
 }

@@ -394,6 +394,11 @@ public class ZBOCreatePostPage extends Page{
 				isClicked = ActionHelper.Click(driver, yt_new_post_template_element.findElement(By.xpath("/descendant::button[text()='Post Listing Video']")));
 			}
 			break;
+		case "Twitter":
+			if(ActionHelper.waitForElementToBeVisible(driver, tw_new_post_template_element, 15)) {
+				isClicked = ActionHelper.Click(driver, tw_new_post_template_element.findElement(By.xpath("/descendant::button[text()='Post Listing Video']")));
+			}
+			break;
 		}
 		return isClicked;
 	}
@@ -411,12 +416,12 @@ public class ZBOCreatePostPage extends Page{
 			}
 		case "Twitter":
 			if(ActionHelper.waitForElementToBeVisible(driver, tw_new_post_template_element, 15)) {
-				isTyped = ActionHelper.ClearAndType(driver, tw_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
+				isTyped = ActionHelper.appendAtStart(driver, tw_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
 			}
 			break;
 		case "LinkedIn":
 			if(ActionHelper.waitForElementToBeVisible(driver, li_new_post_template_element, 15)) {
-				isTyped = ActionHelper.ClearAndType(driver, li_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
+				isTyped = ActionHelper.appendAtStart(driver, li_new_post_template_element.findElement(By.id("post_text")), pTextTtoType);
 			}
 			break;
 			

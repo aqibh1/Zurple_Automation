@@ -19,6 +19,7 @@ import resources.AbstractPage;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 
 /**
  * @author adar
@@ -65,7 +66,9 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		boolean lSpecialVerification = false;
 		
 		assertTrue(page.isPostingHistoryPageIsVisible(), "Post History Page is not visible..");
-		assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Post History page.");
+		if(!ld_platform.equalsIgnoreCase("Twitter") && !ld_posttype.equalsIgnoreCase("post_listing_video")) {
+			assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Post History page.");
+		}
 		assertTrue(!page.getPostPageTitle(lPostText).isEmpty(), "Platform title is not visible...");
 		assertTrue(!page.getPostAccountName(lPostText, ld_platform).isEmpty(), "Unable to verify account name...");
 
@@ -124,5 +127,17 @@ public class ZBOPostHistoryPageTest extends PageTest{
 			
 		}
 	}
-
+	@Test(dependsOnGroups= "com.zurple.backoffice.social.ZBOCreatePostPage.testCreatePost")
+	public void testVerifyTwitterListingVideoOnPostHistoryPage() {
+		getPage("/social/history");
+		String lPostText = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleSocialPost);
+		
+		assertTrue(page.isPostingHistoryPageIsVisible(), "Post History Page is not visible..");
+		//No way to identify iFrame is populated or not thats why
+		// adding static wait
+		ActionHelper.staticWait(90);
+		ActionHelper.RefreshPage(driver);
+		assertTrue(page.isTwitterVideoTextVisible(lPostText), "Twitter video is not visible.");
+		
+	}
 }
