@@ -346,8 +346,9 @@ public class ZBOPostHistoryPage extends Page{
 	public boolean isTwitterVideoTextVisible(String pTextToVerify) {
 		boolean isFound = false;
 		List<WebElement> frames_list = ActionHelper.getListOfElementByXpath(driver, "//iframe[@id]");
-		for(WebElement element: frames_list) {
-			String l_frameId = ActionHelper.getAttribute(element, "id");
+		for(int i = 0;i<frames_list.size();i++) {
+			frames_list = ActionHelper.getListOfElementByXpath(driver, "//iframe[@id]");
+			String l_frameId = ActionHelper.getAttribute(frames_list.get(i), "id");
 			ActionHelper.switchToiFrame(driver, l_frameId);
 			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, iFrame_post_text, pTextToVerify, 5)) {
 				isFound = true;
