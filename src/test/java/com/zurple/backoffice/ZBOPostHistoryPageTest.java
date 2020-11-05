@@ -135,7 +135,9 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.isPostingHistoryPageIsVisible(), "Post History Page is not visible..");
 		//No way to identify iFrame is populated or not thats why
 		// adding static wait
-		ActionHelper.staticWait(90);
+		ActionHelper.staticWait(250);
+		ActionHelper.RefreshPage(driver);
+		ActionHelper.staticWait(125);
 		ActionHelper.RefreshPage(driver);
 		assertTrue(page.isTwitterVideoTextVisible(lPostText), "Twitter video is not visible.");
 		
