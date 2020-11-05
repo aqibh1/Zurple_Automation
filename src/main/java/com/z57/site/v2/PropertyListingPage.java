@@ -133,10 +133,10 @@ public class PropertyListingPage extends Page{
 	@FindBy(xpath="//button[@class='wpb_button wpb_btn-info wpb_btn-large email-listing-start']")
 	WebElement emailListing_button;
 	
-	@FindBy(xpath="//button[@id='rq_info_listing_start']")
+	@FindBy(xpath="//button[@title='Request Info']")
 	WebElement reqInfo_button;
 	
-	@FindBy(xpath="//button[@id='schedule_showing_listing_start']")
+	@FindBy(xpath="//button[@title='Schedule Showing']")
 	WebElement scheduleShowing_button;
 	
 	//////////////////////////////////////////
