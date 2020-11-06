@@ -136,7 +136,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		GmailEmailVerification gmailObject = new GmailEmailVerification();
     	gmailObject.isPUNSEmailPresent("auto.zurpleqa@gmail.com", "djfbxtfkdnlczaec", 
     			"New Listing Updates", "aqibstagetesting_zurpleqa@stage01.zengtest6.us", true);
-		testVerifyLeadMessages(lDataObject);
+//		testVerifyLeadMessages(lDataObject);
 	}
 	
 	@Test(dependsOnGroups = {"com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate"})

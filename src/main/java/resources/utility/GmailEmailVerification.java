@@ -23,10 +23,10 @@ import javax.mail.internet.MimeMessage;
  *
  */
 public class GmailEmailVerification {
-	
+	boolean isEmailSent = false, isProd=false;
+	   Date date = null;
+	   
 	public boolean isEmailPresentAndReply(String pEmail, String pAppPassword, String pSubjectToVerify, String pEmailAddressToReply, boolean pReplyToEmail) {
-		   boolean isEmailSent = true;
-		   Date date = null;
 //		   pSubjectToVerify = "0929202038762 Scheduleshowing";
 //		   pEmail = "z57testuser@gmail.com";
 //		   pAppPassword = "vindthawdqwinsqw";
@@ -130,10 +130,21 @@ public class GmailEmailVerification {
 					   String subject = message.getSubject();
 					   AutomationLogger.info("Subject :: "+subject);
 					   if (subject != null && subject.contains(pSubjectToVerify) 
-							   && getTodaysDate(0).equalsIgnoreCase(sdf.format(date).toString()) || getYesterdaysDate().equalsIgnoreCase(sdf.format(date).toString())) {
-						   AutomationLogger.info("Subject: " + subject);
-							   isEmailSent = true;
-							   break;
+							   && getTodaysDate(0).equalsIgnoreCase(sdf.format(date).toString()) 
+							   || getYesterdaysDate().equalsIgnoreCase(sdf.format(date).toString())) {
+						   if(!getIsProd()) {
+							   if(subject.contains("stage01")) {
+								   AutomationLogger.info("Subject: " + subject);
+								   isEmailSent = true;
+								   break;
+							   }
+						   } else {
+							   if(!subject.contains("stage01")) {
+								   AutomationLogger.info("Subject: " + subject);
+								   isEmailSent = true;
+								   break;
+							   }
+						   }
 						   }
 					   }
 				   }
@@ -217,4 +228,14 @@ public class GmailEmailVerification {
 			lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
 			return lDate; //08/18/2020
 		}
+	    
+	    private void setIsProd() {
+	    	if(System.getProperty("environment").equalsIgnoreCase("prod") || System.getProperty("environment").equalsIgnoreCase("autoconvoprod")){
+	    		isProd = true; 
+	    	}
+	    }
+	    public boolean getIsProd() {
+	    	return isProd;
+	    }
+	    
 }
