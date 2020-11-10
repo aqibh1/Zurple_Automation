@@ -69,7 +69,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		if(!ld_platform.equalsIgnoreCase("Twitter") && !ld_posttype.equalsIgnoreCase("post_listing_video")) {
 			assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Post History page.");
 		}
-		assertTrue(!page.getPostPageTitle(lPostText).isEmpty(), "Platform title is not visible...");
+		assertTrue(page.getPostPageTitle(lPostText.split(" ")[0].trim()), "Platform title is not visible...");
 		assertTrue(!page.getPostAccountName(lPostText, ld_platform).isEmpty(), "Unable to verify account name...");
 
 		switch(ld_posttype) {
