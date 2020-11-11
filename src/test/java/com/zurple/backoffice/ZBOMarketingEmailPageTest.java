@@ -131,7 +131,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	
 	@Test
 	@Parameters({"emailReplyData"})
-	public void testLeadReply(String pDataFile) {
+	public void testPUNS(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
 		GmailEmailVerification gmailObject = new GmailEmailVerification();
     	gmailObject.isPUNSEmailPresent("auto.zurpleqa@gmail.com", "djfbxtfkdnlczaec", 
