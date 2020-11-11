@@ -117,14 +117,14 @@ public class ZBOPostHistoryPage extends Page{
 		}
 		return isVisible;
 	}
-	public String getPostPageTitle(String pPostToVerify) {
+	public boolean getPostPageTitle(String pPostToVerify) {
 		String lPost_title = "";	
-		WebElement element;
-		element = ActionHelper.getDynamicElement(driver, fb_post_page_title, pPostToVerify);
-		if(element!=null) {
-			lPost_title = ActionHelper.getText(driver, element);
-		}
-		return lPost_title;
+		WebElement element = null;
+		boolean isElemenetFound = ActionHelper.getDynamicElementAfterRegularIntervals(driver, fb_post_page_title, pPostToVerify, 5);
+//		if(element!=null) {
+//			lPost_title = ActionHelper.getText(driver, element);
+//		}
+		return isElemenetFound;
 	}
 	
 	public String getPostAccountName(String pPostToVerify, String pPlatform) {

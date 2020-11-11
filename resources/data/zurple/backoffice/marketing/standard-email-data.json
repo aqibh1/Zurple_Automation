@@ -1,7 +1,7 @@
 {
 	"recipients":"Individual Lead with any Status other than Inactive",
 	"recipient_bulkemail":"All Leads with Status of Client - Active Opportunity, Client - Sold",
-	"mls_id":"200023389",
+	"mls_id":"200031225",
 	"subject":"Standard Email",
 	"bulkEmailSubject":"Bulk Email Subject",
 	"file_path":"true",
