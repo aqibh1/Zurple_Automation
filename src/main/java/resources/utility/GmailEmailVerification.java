@@ -129,6 +129,7 @@ public class GmailEmailVerification {
 					   SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY");
 					   String subject = message.getSubject();
 					   AutomationLogger.info("Subject :: "+subject);
+					   AutomationLogger.info("Email Sent Date ::"+sdf.format(date).toString());
 					   if (subject != null && subject.contains(pSubjectToVerify) 
 							   && getTodaysDate(0).equalsIgnoreCase(sdf.format(date).toString()) 
 							   || getYesterdaysDate().equalsIgnoreCase(sdf.format(date).toString())) {
