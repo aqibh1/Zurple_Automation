@@ -794,5 +794,27 @@
 				</class>
 			</classes>
 	</parameter>
-	</test>	
+	</test>
+	
+	<test name="Send and Verify PUNs emails">	
+	<parameter name="emailReplyData" value="/resources/data/zurple/backoffice/marketing/puns-email-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+						<include name="testPUNS"/>
+					</methods>
+				</class>
+		  		<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>		
 </suite>
