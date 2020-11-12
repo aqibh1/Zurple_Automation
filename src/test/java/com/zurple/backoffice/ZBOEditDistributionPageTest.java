@@ -70,7 +70,11 @@ public class ZBOEditDistributionPageTest extends PageTest{
 	@Test(dependsOnGroups="testVerifyAgentInfo", groups="testVerifyAndSelectAgentForDistribution")
 	public void testVerifyAndSelectAgentForDistribution() {
 		String siteURL=EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
-		siteURL = siteURL.split("stage01.")[1];
+		if(!getIsProd()) {
+			siteURL = siteURL.split("stage01.")[1];
+		}else {
+			siteURL = siteURL.split("www.")[1];
+		}
 		page=null;
 		getPage("/agents/distribution");
 		assertEquals(page.editDistributionPageTitle(),"Edit Distribution: "+siteURL);
@@ -88,7 +92,7 @@ public class ZBOEditDistributionPageTest extends PageTest{
 	@Test(dependsOnGroups="testVerifyAndSelectAgentForDistribution", groups="testRegister")
 	@Parameters({"registerUserDataFile"})
 	public void testRegister(String pDataFile) {
-		register.testRegisterUser(pDataFile);
+		new ZWRegisterUserPageTest().testRegisterUser(pDataFile);
 	}
 	
 	@Test(dependsOnGroups="testRegister")
