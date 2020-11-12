@@ -21,6 +21,7 @@ import com.zurple.backoffice.marketing.ZBOCreateTemplatePage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.DataConstants;
 
@@ -189,18 +190,18 @@ public class ZBOImportToolPageTest extends PageTest{
 	public boolean emailVerification() {
 		boolean isVerified = false;
 		if(page.checkEmailVerified()) {
+			ActionHelper.switchToOriginalWindow(driver);
 			currentUrl = driver.getCurrentUrl();
 			currentUrl = currentUrl.split(".com")[1];
 			leadSource = page.getLeadSource();
-			if(!leadSource.contains(dataObject.optString("lead_source"))) {
-				AutomationLogger.info("Lead source is not valid..");
+			if(leadSource.contains(dataObject.optString("lead_source"))) {
+				AutomationLogger.info("Lead source valid..");
 				isVerified = true;
 			}
 			if(!getIsProd()) {
 				page=null;
 				getPage("/admin/processemailqueue");
 				page.processEmailQueue();
-				isVerified = true;
 			}
 		}
 		return isVerified;
