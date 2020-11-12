@@ -36,6 +36,9 @@ public class ZBOEditAgentPage extends Page{
 	@FindBy(id="office_phone")
 	WebElement office_phone_input;
 	
+	@FindBy(id="office_name")
+	WebElement office_name_input;
+	
 	public ZBOEditAgentPage() {
 		
 	}
@@ -63,5 +66,14 @@ public class ZBOEditAgentPage extends Page{
 	}
 	public boolean verifyOfficePhone(String pPhone) {
 		return ActionHelper.getTextByValue(driver, office_phone_input).equalsIgnoreCase(pPhone);
+	}
+	public boolean updateAgentBrokerageName(String pPhone) {
+		return ActionHelper.ClearAndType(driver, office_name_input,pPhone);
+	}
+	public boolean verifyAgentBrokerageName(String pPhone) {
+		return ActionHelper.getTextByValue(driver, office_name_input).equalsIgnoreCase(pPhone);
+	}
+	public String getBrokerageName() {
+		return ActionHelper.getText(driver, office_name_input);
 	}
 }

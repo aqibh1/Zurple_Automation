@@ -213,7 +213,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 			page = null;
 		}
 		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
-		assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject));
+		assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject), "Email not found in my messages in lead details page");
 }
 	@Test
 	@Parameters({"dataFile"})
