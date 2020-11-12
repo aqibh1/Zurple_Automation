@@ -3,6 +3,8 @@ package resources.utility;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -1242,6 +1244,19 @@ public class ActionHelper {
 	   }
 	   public static void switchToiFrame(WebDriver pWebDriver, String pIndex) {
 		   pWebDriver.switchTo().frame(pIndex);
+	   }
+
+	   public static boolean sendSpecialKeys(WebDriver pWebDriver,Keys pKey) {
+		   boolean isSuccessfull=false;
+		   try {
+			   Actions actions = new Actions(pWebDriver);
+			   actions.sendKeys(pKey).build().perform();
+			   isSuccessfull=true;
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Unable to Click on "+pKey);
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return isSuccessfull;
 	   }
 	   
 }
