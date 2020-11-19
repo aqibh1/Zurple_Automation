@@ -11,7 +11,7 @@ import resources.utility.ActionHelper;
 
 public class ZBOV2TemplatePage extends Page {
 
-	@FindBy(id="domain_name")
+	@FindBy(xpath="//div[@class='form-element-input']//descendant::input[@id='domain_name']")
 	WebElement domain_name;
 		
 	@FindBy(id="site_options-v2txtemplate")
@@ -19,6 +19,12 @@ public class ZBOV2TemplatePage extends Page {
 	
 	@FindBy(id="warning_tx_temp")
 	WebElement validation_message;
+
+	@FindBy(xpath="//select[@id='city_ids_to']//descendant::option[contains(text(),'Aguanga, CA')]")
+	WebElement select_city_del;
+	
+	@FindBy(xpath="//select[@id='city_ids_from']//descendant::option[contains(text(),'Aguanga, CA')]")
+	WebElement select_city_add;
 	
 	@FindBy(id="city_ids_del")
 	WebElement city_del;
@@ -33,7 +39,6 @@ public class ZBOV2TemplatePage extends Page {
 	WebElement customized_url;
 	
 	ZBOV2TemplatePage(){
-		
 	}
 	
 	ZBOV2TemplatePage(WebDriver pWebDriver){
@@ -42,15 +47,27 @@ public class ZBOV2TemplatePage extends Page {
 	}
 	
 	public String getDomainName() {
-		return ActionHelper.getText(driver, domain_name);
+		return ActionHelper.getValue(driver, domain_name);
 	}
 	
 	public boolean clickV2Checkbox() {
-		return ActionHelper.Click(driver, v2_checkbox);
+		return ActionHelper.checkUncheckInputBox(driver,v2_checkbox,true);
+	}
+	
+	public boolean clickV2UnCheck() {
+		return ActionHelper.checkUncheckInputBox(driver,v2_checkbox,false);
 	}
 	
 	public String getValidationMessage() {
 		return ActionHelper.getText(driver, validation_message);
+	}
+	
+	public boolean clickAdditionalCityForDel() {
+		return ActionHelper.Click(driver, select_city_del);
+	}
+	
+	public boolean clickAdditionalCityForAdd() {
+		return ActionHelper.Click(driver, select_city_add);
 	}
 	
 	public boolean clickDeleteCity() {

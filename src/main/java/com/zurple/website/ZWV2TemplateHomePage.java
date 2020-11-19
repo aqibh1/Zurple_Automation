@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import resources.utility.ActionHelper;
 import us.zengtest1.Page;
 
 public class ZWV2TemplateHomePage extends Page{
@@ -45,7 +46,7 @@ public class ZWV2TemplateHomePage extends Page{
 	}
 	
 	public ZWV2TemplateHomePage() {
-		
+	
 	}
 	
 	@Override
@@ -64,6 +65,46 @@ public class ZWV2TemplateHomePage extends Page{
 	public WebElement getTopMenu() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public boolean fbIconExists() {
+		return ActionHelper.waitForElementToBeClickAble(driver, fb_icon);
+	}
+	
+	public boolean twitterIconExists() {
+		return ActionHelper.waitForElementToBeClickAble(driver, tw_icon);
+	}
+	
+	public boolean youtubeIconExists() {
+		return ActionHelper.waitForElementToBeClickAble(driver, yt_icon);
+	}
+	
+	public String getSearchLabel() {
+		return ActionHelper.getText(driver, search_label);
+	}
+	
+	public boolean enterSearchText(String pStringToType) {
+		return ActionHelper.ClearAndType(driver, search_text, pStringToType);
+	}
+	
+	public boolean blurbTitle() {
+		if(!ActionHelper.getText(driver, blurb_title).isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean blurbDescription() {
+		if(!ActionHelper.getText(driver, blurb_text).isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean footerLink() {
+		return ActionHelper.waitForElementToBeClickAble(driver, footer_link);
 	}
 
 }
