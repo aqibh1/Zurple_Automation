@@ -137,8 +137,9 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		// adding static wait
 		ActionHelper.staticWait(250);
 		ActionHelper.RefreshPage(driver);
-		ActionHelper.staticWait(125);
+		ActionHelper.staticWait(120);
 		ActionHelper.RefreshPage(driver);
+		ActionHelper.staticWait(30);
 		assertTrue(page.isTwitterVideoTextVisible(lPostText), "Twitter video is not visible.");
 		
 	}
