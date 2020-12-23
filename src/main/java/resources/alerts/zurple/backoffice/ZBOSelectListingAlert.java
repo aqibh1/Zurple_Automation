@@ -42,16 +42,19 @@ public class ZBOSelectListingAlert extends AbstractAlert{
 	public boolean isSelectListingAlert() {
 		return ActionHelper.waitForElementToBeVisible(driver, select_listing_headings, 30);
 	}
-	public boolean selectTheListingFromDropdown() {
+	public String selectTheListingFromDropdown() {
 		boolean isPropertySelected = false;
+		String l_listingAddress = "";
 		List<WebElement> list_of_element = new ArrayList<WebElement>();
 		if(ActionHelper.Click(driver, select_listing_dropdown)) {
 			list_of_element =ActionHelper.getListOfElementByXpath(driver, listing_dropdown_options);
 			int lListingIndex = generateRandomNumber(list_of_element.size());
+			l_listingAddress = ActionHelper.getText(driver, list_of_element.get(lListingIndex));
 			isPropertySelected = ActionHelper.Click(driver, list_of_element.get(lListingIndex));
 			ActionHelper.Click(driver, select_listing_dropdown);
 		}
-		return isPropertySelected;
+		
+		return l_listingAddress;
 	}
 	public boolean clickOnOkButton() {
 		return ActionHelper.Click(driver, ok_button);

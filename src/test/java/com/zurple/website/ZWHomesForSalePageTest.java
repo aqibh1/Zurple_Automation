@@ -80,6 +80,7 @@ public class ZWHomesForSalePageTest extends PageTest{
 		dataObject = getDataFile(pDataFile);
 		assertTrue(page.isHomeForSalePage(),"Homes for Sale page is not found..");
 		assertTrue(page.verifyNavigationTabs(),"Unable to verify navigation tabs on Homes for Sale page..");
+		ActionHelper.staticWait(10);
 		if(page.getTotalListings()>0) {
 			assertTrue(page.clickOnListing(getRandomNumber(page.getPageNumOfProps())),"Unable to click on the listing..");
 
@@ -92,6 +93,7 @@ public class ZWHomesForSalePageTest extends PageTest{
 			assertTrue(new ZWPropertyDetailPage(driver).clickOnViewAddress(),"Unable to click on the listing..");
 
 		}
+		ActionHelper.staticWait(30);
 	}
 	
 	@Test
