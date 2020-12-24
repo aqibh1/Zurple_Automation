@@ -70,7 +70,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		case "Custom":
 			assertTrue(page.clickOnCustomAdButton(), "Unable to click on Custom Ad button..");
 			assertTrue(page.getSelectListingAlert().isSelectListingAlert(), "Select Listing Alert is not visible..");
-			assertTrue(page.getSelectListingAlert().selectTheListingFromDropdown(), "Unable to select listing from drop down");
+			assertTrue(!page.getSelectListingAlert().selectTheListingFromDropdown().isEmpty(), "Unable to select listing from drop down");
 			assertTrue(page.getSelectListingAlert().clickOnOkButton(), "Unable to click on OK button");
 			break;
 		case "Quick":
