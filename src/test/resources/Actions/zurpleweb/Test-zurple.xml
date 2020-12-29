@@ -1,9 +1,12 @@
 <suite name="Capture Lead From About Me Page" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
-	<listeners>
-        <listener class-name="resources.ThreadCountChanger"/>
-    </listeners>
+	<listeners>		
+		<listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+	</listeners>
    
-    <test name="Login to PP" preserve-order="true">
+<!--      <test name="Login to PP" preserve-order="true">
 	
 	<classes>
       <class name="com.zurple.website.ZWHomeSearchPageTest" >
@@ -12,6 +15,34 @@
       </methods>
       </class>
     </classes>
+	</test> -->
+	
+	<test name="Search and Verify property by Price City Features">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-01.json">
+			<classes>
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoerty" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
 	</test>
 	
 </suite>
