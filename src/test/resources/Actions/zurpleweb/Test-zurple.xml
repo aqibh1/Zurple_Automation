@@ -48,7 +48,7 @@
 	<test
 		name="Search and Verify property by Bed Bath Price and Features with User Logged In">
 		<parameter name="searchPropertyDataFile"
-			value="/resources/data/zurple/property_search/zurple-property-search-01.json">
+			value="/resources/data/zurple/property_search/zurple-property-search-wuli-01.json">
 			<classes>
 				<class name="com.zurple.website.ZWLoginPageTest">
 					<methods>
