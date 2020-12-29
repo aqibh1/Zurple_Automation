@@ -1,9 +1,23 @@
 <suite name="Capture Lead From About Me Page" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
-	<listeners>
-        <listener class-name="resources.ThreadCountChanger"/>
-    </listeners>
+	<listeners>		
+		<listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+	</listeners>
    
-  <test name="Search and Verify property by Price City Features">
+<!--      <test name="Login to PP" preserve-order="true">
+	
+	<classes>
+      <class name="com.zurple.website.ZWHomeSearchPageTest" >
+      <methods>
+      	<include name="testConnectToZurpleDb" />
+      </methods>
+      </class>
+    </classes>
+	</test> -->
+	
+	<test name="Search and Verify property by Price City Features">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-01.json">
 			<classes>
@@ -97,6 +111,66 @@
 			</classes>
 		</parameter>
 	</test>
+		<!--  
+<test name="Verify social Integration Facebook">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOSocialIntegrationPageTest">
+					<methods>
+						<include name="testConnectToFacebook" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+
+	<test name="Verify social Integration Twitter">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOSocialIntegrationPageTest">
+					<methods>
+						<include name="testConnectToTwitter" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	-->
+	<test name="Verify social Integration LinkedIn">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOSocialIntegrationPageTest">
+					<methods>
+						<include name="testConnectToLinkedin" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
 	
 	<test name="Track Property in Lead Details">
 
@@ -144,6 +218,38 @@
 				</classes>
 
 			</parameter>
+		</parameter>
+	</test>
+	
+	<test name="Lead Capture Form appears for user not signed in on Listing">
+
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-lead-capture.json">
+
+			<classes>
+
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
+					<methods>
+						<include name="testSearchPropoerty" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+
 		</parameter>
 	</test>
 	
