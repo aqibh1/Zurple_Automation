@@ -82,10 +82,13 @@ public class ZWHomesForSalePageTest extends PageTest{
 		assertTrue(page.verifyNavigationTabs(),"Unable to verify navigation tabs on Homes for Sale page..");
 		ActionHelper.staticWait(20);
 		int totalListings = page.getTotalListings();
-		AutomationLogger.info("Total listings are" + totalListings);
+		AutomationLogger.info("Total listings are " + totalListings);
 		if(totalListings>0) {
 			int props = page.getPageNumOfProps();
-			assertTrue(page.clickOnListing(getRandomNumber(props)),"Unable to click on the listing..");
+			AutomationLogger.info("Page number of props are " + props);
+			int rand = getRandomNumber(props);
+			AutomationLogger.info("Random number is " + rand);
+			assertTrue(page.clickOnListing(rand),"Unable to click on the listing..");
 
 		}else {
 			AutomationLogger.error("No Listing found on search criteria..");
