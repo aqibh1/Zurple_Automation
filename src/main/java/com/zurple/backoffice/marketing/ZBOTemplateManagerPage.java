@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.zurple.my.Page;
 
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
 public class ZBOTemplateManagerPage extends Page{
@@ -48,8 +49,10 @@ public class ZBOTemplateManagerPage extends Page{
 		return isClicked;
 	}
 	public boolean searchAndClickEditButton(String pTemplateName) {
+		AutomationLogger.info("Template Name :: "+pTemplateName );
 		boolean isClicked = false;
-		while(ActionHelper.isElementVisible(driver, next_button)) {
+		do {
+		
 			isClicked = clickOnEditButton(pTemplateName);
 			if(!isClicked) {
 				ActionHelper.Click(driver, next_button);
@@ -57,7 +60,7 @@ public class ZBOTemplateManagerPage extends Page{
 			}else {
 				break;
 			}
-		}
+		}while(ActionHelper.isElementVisible(driver, next_button));
 		return isClicked;
 	}
 }

@@ -1,6 +1,7 @@
 package com.zurple.backoffice;
 
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -111,7 +112,7 @@ public class ZBODashboardPage extends Page{
 		ActionHelper.RefreshPage(driver);
 		ActionHelper.Click(driver, phoneNumber);
 
-		isVerified = ActionHelper.isAlertPresent(driver);
+		isVerified = ActionHelper.sendSpecialKeys(driver,Keys.ESCAPE);
 		return isVerified;
 	}
 	public boolean doLogout() {

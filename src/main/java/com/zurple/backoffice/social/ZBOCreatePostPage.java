@@ -351,7 +351,7 @@ public class ZBOCreatePostPage extends Page{
 	public boolean selectTheListing() {
 		boolean isListingSelected = false;
 		if(selectListingAlert.isSelectListingAlert()) {
-			isListingSelected = selectListingAlert.selectTheListingFromDropdown();
+			isListingSelected = !selectListingAlert.selectTheListingFromDropdown().isEmpty();
 			if(isListingSelected) {
 				isListingSelected = selectListingAlert.clickOnOkButton();
 			}

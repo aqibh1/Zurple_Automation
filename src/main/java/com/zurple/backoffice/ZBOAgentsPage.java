@@ -154,8 +154,10 @@ public class ZBOAgentsPage extends Page{
 	}
 	public String verifyAgentName(String pAgentName) {
 		String lAgentLeadsCount = "";
-		ActionHelper.waitForElementToBeClickAble(driver, agent_count);
-		lAgentLeadsCount = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, agent_lead_count, pAgentName.trim()));
+		//ActionHelper.waitForElementToBeClickAble(driver, agent_count);
+		ActionHelper.staticWait(10);
+		WebElement agent_count =  ActionHelper.getDynamicElement(driver, agent_lead_count, pAgentName.trim());
+		lAgentLeadsCount = ActionHelper.getText(driver,agent_count);
 		return lAgentLeadsCount;
 	}
 }

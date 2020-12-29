@@ -2291,6 +2291,111 @@
 			</parameter>
 			</parameter>
 	</test>	
+	
+	<test name="Send and Verify PUNs emails">	
+	<parameter name="emailReplyData" value="/resources/data/zurple/backoffice/marketing/puns-email-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+						<include name="testPUNS"/>
+					</methods>
+				</class>
+		  		<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
+	
+	<test name="Register new lead and verify from Dashboard">	
+<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-dashboard-verification.json">
+			<classes>
+			<class name="com.zurple.website.ZWRegisterUserPageTest">
+				<methods>
+					<include name="testRegisterUser" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBODashboardTest">
+					<methods>
+						<include name="testIsNewLeadDisplayedOnDashboard" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+			</parameter>
+	</test>
+	
+	<test name="Verify Dashboard stats for non site owner">
+   
+    <parameter name="dataFile" value="/resources/data/zurple/backoffice/zurple-agent-credentials.json">
+	<classes>
+		<class name="com.zurple.backoffice.ZBOLoginPageTest">
+			<methods>
+				<include name="testBackOfficeLogin" />
+			</methods>
+		</class>
+		<class name="com.zurple.backoffice.ZBODashboardTest">
+			<methods>
+				<include name="testVerifyDashboardStatsAreDisplayed" />
+			</methods>
+		</class>
+		<class name="resources.CurrentPageTest">
+			<methods>
+				<include name="closeBrowser" />
+			</methods>
+		</class>
+	</classes>
+	</parameter>
+   </test>
+   
+   	
+<test name="Verify priority Ranking for the lead">	
+		
+			<parameter name="contactAgentData"
+			value="/resources/data/zurple/register_user/lead-priority-ranking-data.json">
+			<parameter name="dataFile"
+			value="/resources/data/zurple/register_user/lead-priority-ranking-data.json">
+				<classes>
+					<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testContactAgentOnListingDetail" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+					<methods>
+						<include name="testVerifyPriorityRanking" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+			</parameter>
+			</parameter>
+	</test>
 	<!--  
  <test name="Manage agents page label">
   <parameter name="manageAgentsDataFile" 

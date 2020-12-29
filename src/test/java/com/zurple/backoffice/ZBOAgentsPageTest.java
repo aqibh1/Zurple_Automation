@@ -138,8 +138,10 @@ public class ZBOAgentsPageTest extends PageTest {
 		assertTrue(editAgentPage.typeAgentLastName(lAgent_lastname), "Unable to type agent last name..");
 		assertTrue(editAgentPage.clickOnSaveButton(), "Unable to click on save button....");
 		assertTrue(editAgentPage.isAgentInfoUpdated(), "Agent Info updated successfully message is not displayed....");
+		ActionHelper.staticWait(5);
 		String lAgentNameToVerify = agent_info.get("agent_name").split(" ")[0];
 		lAgentNameToVerify = lAgentNameToVerify+" "+lAgent_lastname;
+		AutomationLogger.info("Agent Name to verify -> "+lAgentNameToVerify);
 		page = null;
 		getPage("/agents");
 		assertTrue(!page.verifyAgentName(lAgentNameToVerify).isEmpty(), "Agent updated successfully");
@@ -150,14 +152,15 @@ public class ZBOAgentsPageTest extends PageTest {
 		page=null;
 		getPage("/agent/edit/admin_id/"+EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id"));
 		String lAgentPhone = updateName("");
-		lAgentPhone = lAgentPhone.substring(1,11);
+		lAgentPhone = lAgentPhone.substring(1,12).trim();
 		//Fetch the hash map of agent info
 		ZBOEditAgentPage editAgentPage = new ZBOEditAgentPage(driver);
+		String lAgentBrokerage = editAgentPage.getBrokerageName()+lAgentPhone;
 		assertTrue(editAgentPage.isEditAgentPage(), "Edit Agent Page is not visible..");
-		assertTrue(editAgentPage.updateAgentOfficePhone(lAgentPhone), "Edit Agent Page is not visible..");
+		assertTrue(editAgentPage.updateAgentBrokerageName(lAgentBrokerage), "Unable to update brokerage name..");
 		assertTrue(editAgentPage.clickOnSaveButton(), "Unable to click on save button....");
 		assertTrue(editAgentPage.isAgentInfoUpdated(), "Agent Info updated successfully message is not displayed....");
-		assertTrue(editAgentPage.verifyOfficePhone(lAgentPhone), "Edit Agent Page is not visible..");
+		assertTrue(editAgentPage.verifyAgentBrokerageName(lAgentBrokerage), "Unable to verify updated agent brokerage name..");
 	}
 	
 	private void addUpdateAgent(String pDataFile) {
