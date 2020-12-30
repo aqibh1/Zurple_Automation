@@ -33,6 +33,9 @@ public class ZBOLoginPage extends Page{
 	@FindBy(xpath="//a[contains(text(),'I Forgot')]")
 	WebElement forgot_password_link;
 	
+	@FindBy(className="alert-danger")
+	WebElement invalid_login;
+
 //	@FindBy(xpath="//input[@name='name']")
 //	WebElement searchLead_input;
 	
@@ -63,5 +66,8 @@ public class ZBOLoginPage extends Page{
 	}
 	public boolean isLoginSuccessful() {
 		return ActionHelper.waitForElementsToBeFound(driver, searchLead_input);
+	}
+	public String invalidLoginValidation() {
+		return ActionHelper.getText(driver, invalid_login);
 	}
 }

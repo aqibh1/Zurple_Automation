@@ -11,7 +11,9 @@
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
+						<include name="testAnInvalidLogin" />
 						<include name="testBackOfficeLogin" />
+						<include name="testLoginSuccess" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">

@@ -3,6 +3,7 @@
  */
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import java.util.HashMap;
@@ -98,6 +99,22 @@ public class ZBOLoginPageTest extends PageTest{
 
 		AutomationLogger.endTestCase();
 	}
+	
+	@Test //Just for TestRail Integration
+	public void testAnInvalidLogin() {
+		page=null;
+		getPage();
+		assertTrue(page.typeUserName("Wrong username"),"Unable to type the user name");
+		assertTrue(page.typePassword("Wrong password"),"Unable to type the user name");
+		assertTrue(page.clickLoginButton(),"Unable to click on Login button..");
+		assertEquals(page.invalidLoginValidation(),"This Admin account is not active. Please contact us at 800-520-2312.");
+	}
+	
+	@Test(dependsOnMethods= {"testBackOfficeLogin"}) //Just for TestRail Integration
+	public void testLoginSuccess() {
+		assertTrue(page.isLoginSuccessful(),"Login is not successful..");
+	}
+	
 	private void setUserNamePassword() {
 		if(getIsProd()){
 			ld_zurpleUsername = dataObject.optString("zurple_username");
