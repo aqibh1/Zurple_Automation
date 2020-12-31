@@ -12,7 +12,7 @@ public class ThreadCountChanger implements IAlterSuiteListener{
 
 	@Override
 	public void alter(List<XmlSuite> suites) {
-		 System.err.println("**ThreadCountChnager class is invoked**");
+		 System.err.println("**ThreadCountChanger class is invoked**");
 	        int count = Integer.parseInt(System.getProperty("threads", "-1"));
 	        if (count <= 0) {
 	            return;

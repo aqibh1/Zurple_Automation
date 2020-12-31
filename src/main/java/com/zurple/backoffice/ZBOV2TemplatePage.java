@@ -21,10 +21,28 @@ public class ZBOV2TemplatePage extends Page {
 	WebElement validation_message;
 
 	@FindBy(xpath="//select[@id='city_ids_to']//descendant::option[contains(text(),'Aguanga, CA')]")
-	WebElement select_city_del;
+	WebElement select_city_del1;
+	
+	@FindBy(xpath="//select[@id='city_ids_to']//descendant::option[contains(text(),'Agua Dulce, CA')]")
+	WebElement select_city_del2;
+	
+	@FindBy(xpath="//select[@id='city_ids_to']//descendant::option[contains(text(),'Agoura Hills, CA')]")
+	WebElement select_city_del3;
+	
+	@FindBy(xpath="//select[@id='city_ids_to']//descendant::option[contains(text(),'29 Palms, CA')]")
+	WebElement select_city_del4;
 	
 	@FindBy(xpath="//select[@id='city_ids_from']//descendant::option[contains(text(),'Aguanga, CA')]")
-	WebElement select_city_add;
+	WebElement select_city_add1;
+	
+	@FindBy(xpath="//select[@id='city_ids_from']//descendant::option[contains(text(),'Agua Dulce, CA')]")
+	WebElement select_city_add2;
+	
+	@FindBy(xpath="//select[@id='city_ids_from']//descendant::option[contains(text(),'Agoura Hills, CA')]")
+	WebElement select_city_add3;
+	
+	@FindBy(xpath="//select[@id='city_ids_from']//descendant::option[contains(text(),'29 Palms, CA')]")
+	WebElement select_city_add4;
 	
 	@FindBy(id="city_ids_del")
 	WebElement city_del;
@@ -55,19 +73,11 @@ public class ZBOV2TemplatePage extends Page {
 	}
 	
 	public boolean clickV2UnCheck() {
-		return ActionHelper.checkUncheckInputBox(driver,v2_checkbox,false);
+		return ActionHelper.Click(driver,v2_checkbox);
 	}
 	
 	public String getValidationMessage() {
 		return ActionHelper.getText(driver, validation_message);
-	}
-	
-	public boolean clickAdditionalCityForDel() {
-		return ActionHelper.Click(driver, select_city_del);
-	}
-	
-	public boolean clickAdditionalCityForAdd() {
-		return ActionHelper.Click(driver, select_city_add);
 	}
 	
 	public boolean clickDeleteCity() {
@@ -76,6 +86,42 @@ public class ZBOV2TemplatePage extends Page {
 	
 	public boolean clickAddCity() {
 		return ActionHelper.Click(driver, city_add);
+	}
+	
+	public boolean addSingleAdditionalCity() {
+		return ActionHelper.Click(driver, select_city_add1);
+	}
+	
+	public boolean clickAdditionalCityForAdd() {
+		try {
+			ActionHelper.Click(driver, select_city_add2);
+			clickAddCity();
+			ActionHelper.Click(driver, select_city_add3);
+			clickAddCity();
+			ActionHelper.Click(driver, select_city_add4);
+			clickAddCity();
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean clickAdditionalCityForDel() {
+		try {
+			ActionHelper.Click(driver, select_city_del1);
+			clickDeleteCity();
+			ActionHelper.Click(driver, select_city_del2);
+			clickDeleteCity();
+			ActionHelper.Click(driver, select_city_del3);
+			clickDeleteCity();
+			ActionHelper.Click(driver, select_city_del4);
+			clickDeleteCity();
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 	public boolean clickUpdate() {

@@ -54,25 +54,26 @@ public class ZBOV2TemplatePageTest extends PageTest{
 		dataObject = getDataFile(pDataFile);
 		getPage("/pagemgr/index/site_id/"+dataObject.optString("site_id"));
 		assertEquals(page.getDomainName(),dataObject.optString("domain_name"));
+		assertTrue(page.addSingleAdditionalCity(),"Unable to select additional city..");
+		assertTrue(page.clickAddCity(), "Unable to click add city..");
 		assertTrue(page.clickV2Checkbox(),"Unable to click v2 checkbox..");
-		assertTrue(page.clickAdditionalCityForDel(),"Unable to select additional city..");
-		assertTrue(page.clickDeleteCity(),"Unable to remove additional city..");
 		assertTrue(page.clickUpdate(),"Unable to click update settings..");
 		assertEquals(page.getValidationMessage().trim(),dataObject.optString("validation_message").trim());
 		assertTrue(page.clickAdditionalCityForAdd(),"Unable to select additional city..");
-		assertTrue(page.clickAddCity(),"Unable to add additional city..");
 		assertTrue(page.clickUpdate(),"Unable to click update settings..");
 		AutomationLogger.endTestCase();
 	}
 	
-	@Test
+	@Test(dependsOnMethods = { "testVerifyV2Settings" })
 	@Parameters({"dataFile"})
-	public void testVerifyZ2SettingsOff(String pDataFile) {
-		AutomationLogger.startTestCase("Verify V2 site settings turning off");
+	public void testVerifyV2ZSettingsDisabled(String pDataFile) {
+		AutomationLogger.startTestCase("Verify V2 site settings are turned off");
 		dataObject = getDataFile(pDataFile);
+		page=null;
 		getPage("/pagemgr/index/site_id/"+dataObject.optString("site_id"));
 		assertEquals(page.getDomainName(),dataObject.optString("domain_name"));
 		assertTrue(page.clickV2UnCheck(),"Unable to click v2 checkbox..");
+		assertTrue(page.clickAdditionalCityForDel(),"Unable to remove additional city..");
 		assertTrue(page.clickUpdate(),"Unable to click update settings..");
 		AutomationLogger.endTestCase();
 	} 

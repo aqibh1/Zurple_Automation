@@ -364,6 +364,18 @@ public class ActionHelper {
 		return lList_of_Elements;
 		
 	}
+	
+	public static List<WebElement> getListOfElementById(WebDriver pWebDriver,String pElementXpath){
+		List<WebElement> lList_of_Elements = null;
+		try {
+			lList_of_Elements = pWebDriver.findElements(By.id(pElementXpath));
+		}catch(Exception ex) {
+			AutomationLogger.error("Element list not found -> "+pElementXpath);
+			AutomationLogger.error(ex.getMessage());
+		}
+		return lList_of_Elements;
+		
+	}
 	   
 	   public static void RefreshPage(WebDriver pWebDriver) {
 		   AutomationLogger.info("Refreshing the page");

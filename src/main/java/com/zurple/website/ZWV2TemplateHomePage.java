@@ -1,5 +1,7 @@
 package com.zurple.website;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,7 +21,7 @@ public class ZWV2TemplateHomePage extends Page{
 	@FindBy(xpath="//li[@class='tx_socialicons']/descendant::span[contains(text(),'youtube')]")
 	WebElement yt_icon;
 	
-	@FindBy(xpath="//div[@class='container']/descendant::h1[contains(text(),'Start  Your Home Search')]")
+	@FindBy(xpath="//div[@class='container']/descendant::h1")
 	WebElement search_label;
 	
 	@FindBy(id="basic_city")
@@ -37,8 +39,29 @@ public class ZWV2TemplateHomePage extends Page{
 	@FindBy(className="blurb-text")
 	WebElement blurb_text;
 	
-	@FindBy(xpath="//div[@id='footer_links']/descendant::a[@href='san_diego-real-estate']")
-	WebElement footer_link;
+	@FindBy(className="close")
+	WebElement close_modal;
+	
+	@FindBy(className="top-listing-counter-block")
+	WebElement listings_page;
+	
+	String footer_link = "footer_links";
+	
+	String social_icons = "sr-only";
+	
+	@FindBy(xpath="//div[@class='modal-footer']/descendant::button[@type='submit']")
+	WebElement search_from_modal;
+	
+	@FindBy(xpath="//li[@class='open']/descendant::a[contains(text(),'Custom Search')]")
+	WebElement custom_search;
+	
+	@FindBy(className="dropdown-toggle")
+	WebElement dropdown_button;
+	
+	@FindBy(xpath="//div[@class='row']/descendant::div[@class='col-md-12']")
+	WebElement banner_text;
+	
+	List<WebElement> socialIcons;
 	
 	public ZWV2TemplateHomePage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -67,19 +90,23 @@ public class ZWV2TemplateHomePage extends Page{
 		return null;
 	}
 	
-	public boolean fbIconExists() {
-		return ActionHelper.waitForElementToBeClickAble(driver, fb_icon);
+	public String fbIconExists() {
+		socialIcons = ActionHelper.getListOfElementByClassName(driver, social_icons);
+		return ActionHelper.getText(driver, socialIcons.get(1));
 	}
 	
-	public boolean twitterIconExists() {
-		return ActionHelper.waitForElementToBeClickAble(driver, tw_icon);
+	public String twitterIconExists() {
+		socialIcons = ActionHelper.getListOfElementByClassName(driver, social_icons);
+		return ActionHelper.getText(driver, socialIcons.get(2));
 	}
 	
-	public boolean youtubeIconExists() {
-		return ActionHelper.waitForElementToBeClickAble(driver, yt_icon);
+	public String youtubeIconExists() {
+		socialIcons = ActionHelper.getListOfElementByClassName(driver, social_icons);
+		return ActionHelper.getText(driver, socialIcons.get(3));
 	}
 	
 	public String getSearchLabel() {
+		String jaflkjd = ActionHelper.getText(driver, search_label);
 		return ActionHelper.getText(driver, search_label);
 	}
 	
@@ -104,7 +131,41 @@ public class ZWV2TemplateHomePage extends Page{
 	}
 	
 	public boolean footerLink() {
-		return ActionHelper.waitForElementToBeClickAble(driver, footer_link);
+		List<WebElement> links = ActionHelper.getListOfElementById(driver, footer_link);
+		if(links.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public boolean clickSearchButton() {
+		return ActionHelper.Click(driver, search_button);
+	}
+	
+	public boolean closeModalAndListingsPage() {
+		if(ActionHelper.Click(driver, close_modal)==true) {
+			return ActionHelper.waitForElementToBeVisible(driver, listings_page,30);
+		} else {
+			return ActionHelper.waitForElementToBeVisible(driver, listings_page,30);
+		}
+	}
+	
+	public boolean clickCustomSearch() {
+		ActionHelper.Click(driver, dropdown_button);
+		return ActionHelper.Click(driver, custom_search);
+	}
+	
+	public boolean clickAdvanceSearchButton() {
+		return ActionHelper.Click(driver, advance_search);
+	}
+	
+	public boolean searchFromAdvanceSearchModal() {
+		return ActionHelper.Click(driver, search_from_modal);
+	}
+	
+	public boolean titleText() {
+		return ActionHelper.waitForElementToBeVisible(driver, banner_text, 30);
 	}
 
 }

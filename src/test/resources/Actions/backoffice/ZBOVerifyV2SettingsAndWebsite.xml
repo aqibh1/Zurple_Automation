@@ -10,7 +10,7 @@
 <test name="Verify V2 Site Settings And Website">	
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/v2-site-settings.json"> 
 			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+		 		<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
 						<include name="testBackOfficeLogin" />
 					</methods>
@@ -18,16 +18,12 @@
 				<class name="com.zurple.backoffice.ZBOV2TemplatePageTest">
 					<methods>
 						<include name="testVerifyV2Settings"/>
+						<include name="testVerifyV2ZSettingsDisabled"/>
 					</methods>
-				</class>
+				</class> 
 				<class name="com.zurple.website.ZWV2TemplateHomePageTest">
 					<methods>
 						<include name="testVerifyV2WebsiteTemplate"/>
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOV2TemplatePageTest">
-					<methods>
-						<include name="testVerifyZ2SettingsOff"/>
 					</methods>
 				</class>
 		  		<class name="resources.CurrentPageTest">

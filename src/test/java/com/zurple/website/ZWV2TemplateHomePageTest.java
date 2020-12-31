@@ -74,14 +74,20 @@ public class ZWV2TemplateHomePageTest extends PageTest{
 		AutomationLogger.startTestCase("Verify V2 website template");
 		dataObject = getDataFile(pDataFile);
 		getPage();
-		assertEquals(page.fbIconExists(),"Unable to find fb icon..");
-		assertTrue(page.twitterIconExists(),"Unable to find youtube icon..");
-		assertTrue(page.youtubeIconExists(),"Unable to find twitter icon..");
-		assertEquals(page.getSearchLabel().trim(),dataObject.optString("search_label").trim());
+		assertEquals(page.fbIconExists(),"FACEBOOK");
+		assertEquals(page.twitterIconExists(),"TWITTER");
+		assertEquals(page.youtubeIconExists(),"YOUTUBE");
+		assertEquals(page.getSearchLabel().trim(),dataObject.optString("search_label"));
 		assertTrue(page.blurbTitle(),"Unable to get blurb title..");
 		assertTrue(page.blurbDescription(),"Unable to get blurb description..");
 		assertTrue(page.footerLink(),"Unable to find footer link..");
 		assertTrue(page.enterSearchText(dataObject.optString("search_text")),"Unable to type search text..");
+		assertTrue(page.clickSearchButton(),"Unable to click search button..");
+		assertTrue(page.closeModalAndListingsPage(), "Unable to close modal and verify listings page..");
+		assertTrue(page.clickCustomSearch(),"Unable to navigate to home page..");
+		assertTrue(page.clickAdvanceSearchButton(),"Unable to click advance search button..");
+		assertTrue(page.searchFromAdvanceSearchModal(),"Unable to search from advance search modal");
+		assertTrue(page.titleText(), "Unable to find title page..");
 		AutomationLogger.endTestCase();
 	}
 	
