@@ -64,6 +64,8 @@ public class ZBOV2TemplatePage extends Page {
 	
 	@FindBy(id="blurb_text")
 	WebElement blurb_text;
+
+	String upload_city4 = "form-element-city4_image";
 	
 	ZBOV2TemplatePage(){
 	}
@@ -139,6 +141,11 @@ public class ZBOV2TemplatePage extends Page {
 	
 	public boolean clickCustomizedURL() {
 		return ActionHelper.Click(driver, customized_url);
+	}
+	
+	public void uploadFile(String pDataFile) {
+		WebElement addFile = ActionHelper.getElementByID(driver, upload_city4);
+		addFile.sendKeys(System.getProperty("user.dir")+pDataFile);
 	}
 	
 }
