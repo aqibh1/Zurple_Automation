@@ -12,6 +12,8 @@ import org.testng.annotations.Test;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;
 
 public class ZBOV2TemplatePageTest extends PageTest{
@@ -61,6 +63,13 @@ public class ZBOV2TemplatePageTest extends PageTest{
 		assertEquals(page.getValidationMessage().trim(),dataObject.optString("validation_message").trim());
 		assertTrue(page.clickAdditionalCityForAdd(),"Unable to select additional city..");
 		assertTrue(page.clickUpdate(),"Unable to click update settings..");
+		page=null;
+		getPage("/managesites");
+		assertTrue(page.homeSettingsHeader(), "Unable to see home settings section header..");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.blurbTitle, page.getBlurbHeader());
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.blurbText, page.getBlurbText());
+		assertTrue(page.uploadFile(dataObject.optString("testing_file_path")),"Unable to upload city4 file..");
+		assertTrue(page.saveManageSitesPage(),"Unable to save manage sites page..");
 		AutomationLogger.endTestCase();
 	}
 	
@@ -76,7 +85,14 @@ public class ZBOV2TemplatePageTest extends PageTest{
 		assertTrue(page.clickAdditionalCityForDel(),"Unable to remove additional city..");
 		assertTrue(page.clickUpdate(),"Unable to click update settings..");
 		AutomationLogger.endTestCase();
-	} 
-
+	}
+	
+	@Test
+	public void testRevertingSiteSettings() {
+		page=null;
+		getPage("/managesites");
+		assertTrue(page.uploadFile(dataObject.optString("actual_file_path")),"Unable to upload city4 file..");
+		assertTrue(page.saveManageSitesPage(),"Unable to save manage sites page..");
+	}
 	
 }

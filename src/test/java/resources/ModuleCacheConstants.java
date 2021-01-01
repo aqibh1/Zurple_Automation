@@ -48,4 +48,6 @@ public class ModuleCacheConstants {
 	public static final String ZurplePostScheduleId = "zurple.post-schedule.id";
 	public static final String Cookie = "zurple.cookie";
 	public static final String ZurpleListingURL = "zurple.listing.url";
+	public static final String blurbTitle = "blurb.title";
+	public static final String blurbText = "blurb.text";
 }

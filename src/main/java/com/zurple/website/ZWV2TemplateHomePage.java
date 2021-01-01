@@ -167,5 +167,9 @@ public class ZWV2TemplateHomePage extends Page{
 	public boolean titleText() {
 		return ActionHelper.waitForElementToBeVisible(driver, banner_text, 30);
 	}
+	
+	public boolean checkImage() {
+		return true;
+	}
 
 }

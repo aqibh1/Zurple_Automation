@@ -4,6 +4,6 @@
 	"validation_message":" * Please select 4 additional cities",
 	"search_label":"Start Your Home Search",
 	"search_text":"SAN DIEGO, CA",
-	"actual_file_path":"/resources/data/ImportToolTest.csv",
-	"testing_file_path":"/resources/data/ImportToolTest.csv"
+	"actual_file_path":"/resources/data/city4.png",
+	"testing_file_path":"/resources/data/home.png"
 }

@@ -67,6 +67,9 @@ public class ZBOV2TemplatePage extends Page {
 
 	String upload_city4 = "form-element-city4_image";
 	
+	@FindBy(id="save")
+	WebElement submit_page;
+	
 	ZBOV2TemplatePage(){
 	}
 	
@@ -143,9 +146,39 @@ public class ZBOV2TemplatePage extends Page {
 		return ActionHelper.Click(driver, customized_url);
 	}
 	
-	public void uploadFile(String pDataFile) {
-		WebElement addFile = ActionHelper.getElementByID(driver, upload_city4);
-		addFile.sendKeys(System.getProperty("user.dir")+pDataFile);
+	public boolean homeSettingsHeader() {
+		return ActionHelper.waitForElementToBeVisible(driver, homepage_settings, 30);
+	}
+	
+	public String getBlurbText() {
+		return ActionHelper.getText(driver, blurb_text);
+	}
+	
+	public boolean typeBlurbTitle(String pStringToType) {
+		return ActionHelper.ClearAndType(driver, blurb_title, pStringToType);
+	}
+	
+	public boolean typeBlurbText(String pStringToType) {
+		return ActionHelper.ClearAndType(driver, blurb_text, pStringToType);
+	}
+	
+	public String getBlurbHeader() {
+		return ActionHelper.getText(driver, blurb_title);
+	}
+	
+	public boolean uploadFile(String pDataFile) {
+		try {
+			WebElement addFile = ActionHelper.getElementByID(driver, upload_city4);
+			addFile.sendKeys(System.getProperty("user.dir")+pDataFile);
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean saveManageSitesPage() {
+		return ActionHelper.Click(driver, submit_page);
 	}
 	
 }
