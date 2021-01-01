@@ -56,6 +56,15 @@ public class ZBOV2TemplatePage extends Page {
 	@FindBy(id="customize_v2_tx_url")
 	WebElement customized_url;
 	
+	@FindBy(xpath="//div[@id='agent-website-preferences-panel']/descendant::h3[contains(text(),'Homepage Settings')]")
+	WebElement homepage_settings;
+	
+	@FindBy(id="blurb_title")
+	WebElement blurb_title;
+	
+	@FindBy(id="blurb_text")
+	WebElement blurb_text;
+	
 	ZBOV2TemplatePage(){
 	}
 	
