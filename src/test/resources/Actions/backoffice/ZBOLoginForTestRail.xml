@@ -5,6 +5,7 @@
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
+        <listener class-name="resources.TestRailResultsListener"/>
     </listeners>
 
 	<test name="Login to back office">	

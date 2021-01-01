@@ -87,6 +87,7 @@ public class EnvironmentFactory {
                 	//add key and value to map as follow to switch off browser notification
                 	//Pass the argument 1 to allow and 2 to block
                 	prefs.put("profile.default_content_setting_values.notifications", 2);
+                	options.setBinary("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
                 	options.setExperimentalOption("prefs", prefs);
                     options.addArguments("--start-maximized");
                 }
