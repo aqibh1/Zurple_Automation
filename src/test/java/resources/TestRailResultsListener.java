@@ -6,6 +6,7 @@ package resources;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -16,6 +17,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import org.testng.Reporter;
 
 import com.relevantcodes.extentreports.LogStatus;
 
@@ -55,18 +57,23 @@ public class TestRailResultsListener implements ITestListener{
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		updateResultsOnTestRails(1, l_scenario_name);
+		updateResultsOnTestRails(1, l_scenario_name, "");
 	}
 
 	@Override
 	public void onTestFailure(ITestResult result) {
-		updateResultsOnTestRails(5, l_scenario_name);
+		List<String> repoterMessageList = Reporter.getOutput(result);
+		String errorMessage = result.getThrowable().getLocalizedMessage();
+		if(errorMessage.length()>230) {
+			errorMessage = result.getThrowable().getLocalizedMessage().substring(0, 230);
+		}
+		updateResultsOnTestRails(5, l_scenario_name,errorMessage);
 	        
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
-		updateResultsOnTestRails(3, l_scenario_name);
+		updateResultsOnTestRails(3, l_scenario_name, "");
 		
 	}
 
@@ -87,7 +94,7 @@ public class TestRailResultsListener implements ITestListener{
 	
 	}
 
-	private boolean updateResultsOnTestRails(int pStatus, String pComments) {
+	private boolean updateResultsOnTestRails(int pStatus, String pComments, String pDefects) {
 		boolean isUpdatedSuccessfully = true;
 		APIClient client = new APIClient(l_testRail_Url);
 		client.setUser(l_testRail_username);
@@ -98,6 +105,7 @@ public class TestRailResultsListener implements ITestListener{
 		JSONObject resultDetails = new JSONObject();
 		resultDetails.put("status_id", pStatus);
 		resultDetails.put("comment", pComments);
+		resultDetails.put("defects",pDefects);
 		
 		resultDetails.put("test_id", l_testcase_id);
 		jResultsArray.put(0, resultDetails);

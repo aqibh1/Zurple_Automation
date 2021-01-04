@@ -8,7 +8,7 @@
         <listener class-name="resources.TestRailResultsListener"/>
     </listeners>
 
-	<test name="Login to back office">	
+	<test name="Login to back office 1">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -24,4 +24,6 @@
 				</class>
 			</classes>
 	</test>	
+	
+	
 </suite>
