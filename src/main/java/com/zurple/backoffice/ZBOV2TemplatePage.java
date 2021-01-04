@@ -1,5 +1,6 @@
 package com.zurple.backoffice;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -62,13 +63,19 @@ public class ZBOV2TemplatePage extends Page {
 	@FindBy(id="blurb_title")
 	WebElement blurb_title;
 	
-	@FindBy(id="blurb_text")
+	@FindBy(xpath="//div[@class='row']/descendant::textarea[@id='blurb_text']")
 	WebElement blurb_text;
 
-	String upload_city4 = "form-element-city4_image";
-	
+	String upload_city4 = "//div[@id='agent-website-preferences-panel']/descendant::div[@class='form-element ']";
+	     
 	@FindBy(id="save")
 	WebElement submit_page;
+	
+	@FindBy(xpath="//div[@id='accordion']/descendant::a[@site_id='3215']")
+	WebElement manage_sites;
+	
+	@FindBy(className="cke_wysiwyg_frame")
+	WebElement iframe;
 	
 	ZBOV2TemplatePage(){
 	}
@@ -150,26 +157,30 @@ public class ZBOV2TemplatePage extends Page {
 		return ActionHelper.waitForElementToBeVisible(driver, homepage_settings, 30);
 	}
 	
+	public String getBlurbHeader() {
+		return ActionHelper.getAttribute(blurb_title, "value");
+	}
+	
 	public String getBlurbText() {
+		//ActionHelper.switchToiFramebyElement(driver, iframe);
 		return ActionHelper.getText(driver, blurb_text);
 	}
 	
-	public boolean typeBlurbTitle(String pStringToType) {
-		return ActionHelper.ClearAndType(driver, blurb_title, pStringToType);
-	}
-	
-	public boolean typeBlurbText(String pStringToType) {
-		return ActionHelper.ClearAndType(driver, blurb_text, pStringToType);
-	}
-	
-	public String getBlurbHeader() {
-		return ActionHelper.getText(driver, blurb_title);
+	public boolean clickSiteSettings() {
+		return ActionHelper.Click(driver, manage_sites);
 	}
 	
 	public boolean uploadFile(String pDataFile) {
+		//ActionHelper.switchToDefaultContent(driver);
 		try {
-			WebElement addFile = ActionHelper.getElementByID(driver, upload_city4);
-			addFile.sendKeys(System.getProperty("user.dir")+pDataFile);
+			//WebElement addFile = ActionHelper.getElementByXpath(driver, upload_city4);
+			//driver.findElement(By.id(upload_city4)).sendKeys(System.getProperty("user.dir")+pDataFile);
+			// ActionHelper.Click(driver, test);
+			ActionHelper.switchToOriginalWindow(driver);
+			ActionHelper.switchToDefaultContent(driver);
+			driver.findElement(By.xpath(upload_city4)).click();
+			//addFile.click();
+			//addFile.sendKeys(System.getProperty("user.dir")+pDataFile);
 			return true;
 		} catch(Exception e) {
 			e.printStackTrace();

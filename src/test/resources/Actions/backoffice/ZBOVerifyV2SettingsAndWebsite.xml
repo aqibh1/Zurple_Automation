@@ -18,12 +18,14 @@
 				<class name="com.zurple.backoffice.ZBOV2TemplatePageTest">
 					<methods>
 						<include name="testVerifyV2Settings"/>
-						<include name="testVerifyV2ZSettingsDisabled"/>
+						<include name="testVerifyV2SettingsDisabled"/>
+						<include name="testVerifyV2RevertingSiteSettings"/>
 					</methods>
 				</class> 
 				<class name="com.zurple.website.ZWV2TemplateHomePageTest">
 					<methods>
 						<include name="testVerifyV2WebsiteTemplate"/>
+						<include name="testVerifyV2TemplateAfterSettingsUpdate"/>
 					</methods>
 				</class>
 		  		<class name="resources.CurrentPageTest">

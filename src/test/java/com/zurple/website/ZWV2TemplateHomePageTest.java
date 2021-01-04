@@ -11,6 +11,8 @@ import org.testng.annotations.Test;
 import com.zurple.backoffice.ZBOV2TemplatePage;
 
 import resources.AbstractPage;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
@@ -91,5 +93,14 @@ public class ZWV2TemplateHomePageTest extends PageTest{
 		AutomationLogger.endTestCase();
 	}
 	
+	@Test(dependsOnMethods = { "testVerifyV2WebsiteTemplate" },groups="testVerifyV2TemplateAfterSettingsUpdate")
+	public void testVerifyV2TemplateAfterSettingsUpdate() {
+		page=null;
+		getPage();
+		assertTrue(page.clickCustomSearch(),"Unable to navigate to home page..");
+		String bTitle = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.blurbTitle);
+		assertEquals(page.getBlurbTitle(),bTitle);
+		String ljsaflj = page.checkImage();
+	}
 
 }

@@ -65,17 +65,27 @@ public class ZBOV2TemplatePageTest extends PageTest{
 		assertTrue(page.clickUpdate(),"Unable to click update settings..");
 		page=null;
 		getPage("/managesites");
+		assertTrue(page.clickSiteSettings(),"Unable to click site settings..");
 		assertTrue(page.homeSettingsHeader(), "Unable to see home settings section header..");
-		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.blurbTitle, page.getBlurbHeader());
-		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.blurbText, page.getBlurbText());
-		assertTrue(page.uploadFile(dataObject.optString("testing_file_path")),"Unable to upload city4 file..");
+		String jsljlg = page.getBlurbHeader();
+		String jlkfs = page.getBlurbText();
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.blurbTitle, jsljlg);
+		//assertTrue(page.uploadFile(dataObject.optString("testing_file_path")),"Unable to upload city4 file..");
 		assertTrue(page.saveManageSitesPage(),"Unable to save manage sites page..");
 		AutomationLogger.endTestCase();
 	}
 	
-	@Test(dependsOnMethods = { "testVerifyV2Settings" })
+	@Test(dependsOnMethods = { "testVerifyV2Settings" }, dependsOnGroups = "testVerifyV2TemplateAfterSettingsUpdate")	
+	public void testVerifyV2RevertingSiteSettings() {
+		page=null;
+		getPage("/managesites");
+		assertTrue(page.uploadFile(dataObject.optString("testing_file_path")),"Unable to upload city4 file..");
+		assertTrue(page.saveManageSitesPage(),"Unable to save manage sites page..");
+	}
+	
+	@Test(dependsOnMethods = { "testVerifyV2Settings","testVerifyV2RevertingSiteSettings" })
 	@Parameters({"dataFile"})
-	public void testVerifyV2ZSettingsDisabled(String pDataFile) {
+	public void testVerifyV2SettingsDisabled(String pDataFile) {
 		AutomationLogger.startTestCase("Verify V2 site settings are turned off");
 		dataObject = getDataFile(pDataFile);
 		page=null;
@@ -85,14 +95,6 @@ public class ZBOV2TemplatePageTest extends PageTest{
 		assertTrue(page.clickAdditionalCityForDel(),"Unable to remove additional city..");
 		assertTrue(page.clickUpdate(),"Unable to click update settings..");
 		AutomationLogger.endTestCase();
-	}
-	
-	@Test
-	public void testRevertingSiteSettings() {
-		page=null;
-		getPage("/managesites");
-		assertTrue(page.uploadFile(dataObject.optString("actual_file_path")),"Unable to upload city4 file..");
-		assertTrue(page.saveManageSitesPage(),"Unable to save manage sites page..");
 	}
 	
 }

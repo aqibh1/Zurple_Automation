@@ -1257,6 +1257,14 @@ public class ActionHelper {
 	   public static void switchToiFrame(WebDriver pWebDriver, String pIndex) {
 		   pWebDriver.switchTo().frame(pIndex);
 	   }
+	   
+	   public static void switchToiFramebyElement(WebDriver pWebDriver, WebElement pElement) {
+		   pWebDriver.switchTo().frame(pElement);
+	   }
+	   
+	   public static void switchToDefaultContent(WebDriver pWebDriver) {
+		   pWebDriver.switchTo().defaultContent();
+	   }
 
 	   public static boolean sendSpecialKeys(WebDriver pWebDriver,Keys pKey) {
 		   boolean isSuccessfull=false;

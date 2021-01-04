@@ -63,6 +63,9 @@ public class ZWV2TemplateHomePage extends Page{
 	
 	List<WebElement> socialIcons;
 	
+	@FindBy(xpath="//div[@class='citycalloutbox']/descendant::img[@alt='Additional city 4']")
+	WebElement additional_city4;
+	
 	public ZWV2TemplateHomePage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -122,12 +125,20 @@ public class ZWV2TemplateHomePage extends Page{
 		}
 	}
 	
+	public String getBlurbTitle() {
+		return ActionHelper.getText(driver, blurb_title);
+	}
+	
 	public boolean blurbDescription() {
 		if(!ActionHelper.getText(driver, blurb_text).isEmpty()) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+	public String getBlurbDescription() {
+		return ActionHelper.getText(driver, blurb_text);
 	}
 	
 	public boolean footerLink() {
@@ -168,8 +179,8 @@ public class ZWV2TemplateHomePage extends Page{
 		return ActionHelper.waitForElementToBeVisible(driver, banner_text, 30);
 	}
 	
-	public boolean checkImage() {
-		return true;
+	public String checkImage() {
+		return ActionHelper.getAttribute(additional_city4, "src");
 	}
 
 }
