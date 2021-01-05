@@ -80,7 +80,9 @@ public class ZWV2TemplateHomePageTest extends PageTest{
 		assertEquals(page.twitterIconExists(),"TWITTER");
 		assertEquals(page.youtubeIconExists(),"YOUTUBE");
 		assertEquals(page.getSearchLabel().trim(),dataObject.optString("search_label"));
-		assertTrue(page.blurbTitle(),"Unable to get blurb title..");
+		String bTitle = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.blurbTitle);
+		assertEquals(page.getBlurbTitle(),bTitle);
+		assertTrue(page.checkImages(),"Unable to check images source..");
 		assertTrue(page.blurbDescription(),"Unable to get blurb description..");
 		assertTrue(page.footerLink(),"Unable to find footer link..");
 		assertTrue(page.enterSearchText(dataObject.optString("search_text")),"Unable to type search text..");
@@ -91,16 +93,6 @@ public class ZWV2TemplateHomePageTest extends PageTest{
 		assertTrue(page.searchFromAdvanceSearchModal(),"Unable to search from advance search modal");
 		assertTrue(page.titleText(), "Unable to find title page..");
 		AutomationLogger.endTestCase();
-	}
-	
-	@Test(dependsOnMethods = { "testVerifyV2WebsiteTemplate" },groups="testVerifyV2TemplateAfterSettingsUpdate")
-	public void testVerifyV2TemplateAfterSettingsUpdate() {
-		page=null;
-		getPage();
-		assertTrue(page.clickCustomSearch(),"Unable to navigate to home page..");
-		String bTitle = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.blurbTitle);
-		assertEquals(page.getBlurbTitle(),bTitle);
-		String ljsaflj = page.checkImage();
 	}
 
 }

@@ -65,8 +65,6 @@ public class ZBOV2TemplatePage extends Page {
 	
 	@FindBy(xpath="//div[@class='row']/descendant::textarea[@id='blurb_text']")
 	WebElement blurb_text;
-
-	String upload_city4 = "//div[@id='agent-website-preferences-panel']/descendant::div[@class='form-element ']";
 	     
 	@FindBy(id="save")
 	WebElement submit_page;
@@ -76,6 +74,24 @@ public class ZBOV2TemplatePage extends Page {
 	
 	@FindBy(className="cke_wysiwyg_frame")
 	WebElement iframe;
+	
+	@FindBy(id="form-element-site_theme")
+	WebElement site_theme;
+	
+	@FindBy(id="blurb_title")
+	WebElement blurb_settings;
+	
+	@FindBy(id="city4_image")
+	WebElement upload_city4;
+	
+	@FindBy(id="update")
+	WebElement update_settings;
+	
+	@FindBy(id="customize_v2_tx_url")
+	WebElement customize_link;
+	
+	@FindBy(xpath="//img[contains(@alt,'city4_image')])")
+	WebElement image_src;
 	
 	ZBOV2TemplatePage(){
 	}
@@ -162,7 +178,6 @@ public class ZBOV2TemplatePage extends Page {
 	}
 	
 	public String getBlurbText() {
-		//ActionHelper.switchToiFramebyElement(driver, iframe);
 		return ActionHelper.getText(driver, blurb_text);
 	}
 	
@@ -170,17 +185,13 @@ public class ZBOV2TemplatePage extends Page {
 		return ActionHelper.Click(driver, manage_sites);
 	}
 	
+	public boolean saveManageSitesPage() {
+		return ActionHelper.Click(driver, submit_page);
+	}
+	
 	public boolean uploadFile(String pDataFile) {
-		//ActionHelper.switchToDefaultContent(driver);
 		try {
-			//WebElement addFile = ActionHelper.getElementByXpath(driver, upload_city4);
-			//driver.findElement(By.id(upload_city4)).sendKeys(System.getProperty("user.dir")+pDataFile);
-			// ActionHelper.Click(driver, test);
-			ActionHelper.switchToOriginalWindow(driver);
-			ActionHelper.switchToDefaultContent(driver);
-			driver.findElement(By.xpath(upload_city4)).click();
-			//addFile.click();
-			//addFile.sendKeys(System.getProperty("user.dir")+pDataFile);
+			ActionHelper.TypeForUploadImage(driver, upload_city4,System.getProperty("user.dir")+pDataFile);
 			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -188,8 +199,37 @@ public class ZBOV2TemplatePage extends Page {
 		}
 	}
 	
-	public boolean saveManageSitesPage() {
-		return ActionHelper.Click(driver, submit_page);
+	public boolean customizeSiteLink() {
+		return ActionHelper.Click(driver, customize_link);
 	}
+	
+	public boolean siteTheme(String pExpected) {
+		if(ActionHelper.getText(driver, site_theme).contains(pExpected)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean blurbTitleInSettings() {
+		if(!ActionHelper.getAttribute(blurb_settings,"value").isEmpty()){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public String checkImageBeforeUpdate() {
+		return ActionHelper.getAttribute(image_src, "src");
+	}
+	
+	public boolean checkImageAfterUpdate(String pSource) {
+		if(!ActionHelper.getAttribute(image_src, "src").contains(pSource)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	
 }

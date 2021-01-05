@@ -64,26 +64,25 @@ public class ZBOV2TemplatePageTest extends PageTest{
 		assertTrue(page.clickAdditionalCityForAdd(),"Unable to select additional city..");
 		assertTrue(page.clickUpdate(),"Unable to click update settings..");
 		page=null;
+		getPage("/pagemgr/edittemplate/site_id/"+dataObject.optString("site_id"));
+		assertTrue(page.siteTheme(dataObject.optString("customized_theme")),"Unable to get theme name..");
+		assertTrue(page.blurbTitleInSettings(),"Unable to get blurb title..");
+		String imageSource = page.checkImageBeforeUpdate();	
+		assertTrue(page.uploadFile(dataObject.optString("testing_file_path")),"Unable to upload city4 file..");
+		assertTrue(page.clickUpdate(),"Unable to update settings..");
+	//	assertTrue(page.checkImageAfterUpdate(imageSource),"Unable to update image..");
+		assertTrue(page.uploadFile(dataObject.optString("actual_file_path")),"Unable to upload city4 file..");
+		assertTrue(page.clickUpdate(),"Unable to update settings..");
+		page=null;
 		getPage("/managesites");
 		assertTrue(page.clickSiteSettings(),"Unable to click site settings..");
 		assertTrue(page.homeSettingsHeader(), "Unable to see home settings section header..");
-		String jsljlg = page.getBlurbHeader();
-		String jlkfs = page.getBlurbText();
-		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.blurbTitle, jsljlg);
-		//assertTrue(page.uploadFile(dataObject.optString("testing_file_path")),"Unable to upload city4 file..");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.blurbTitle, page.getBlurbHeader());
 		assertTrue(page.saveManageSitesPage(),"Unable to save manage sites page..");
 		AutomationLogger.endTestCase();
 	}
 	
-	@Test(dependsOnMethods = { "testVerifyV2Settings" }, dependsOnGroups = "testVerifyV2TemplateAfterSettingsUpdate")	
-	public void testVerifyV2RevertingSiteSettings() {
-		page=null;
-		getPage("/managesites");
-		assertTrue(page.uploadFile(dataObject.optString("testing_file_path")),"Unable to upload city4 file..");
-		assertTrue(page.saveManageSitesPage(),"Unable to save manage sites page..");
-	}
-	
-	@Test(dependsOnMethods = { "testVerifyV2Settings","testVerifyV2RevertingSiteSettings" })
+	@Test(dependsOnMethods = { "testVerifyV2Settings"})
 	@Parameters({"dataFile"})
 	public void testVerifyV2SettingsDisabled(String pDataFile) {
 		AutomationLogger.startTestCase("Verify V2 site settings are turned off");

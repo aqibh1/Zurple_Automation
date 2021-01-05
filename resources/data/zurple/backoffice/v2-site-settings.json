@@ -5,5 +5,6 @@
 	"search_label":"Start Your Home Search",
 	"search_text":"SAN DIEGO, CA",
 	"actual_file_path":"/resources/data/city4.png",
-	"testing_file_path":"/resources/data/home.png"
+	"testing_file_path":"/resources/data/home.png",
+	"customized_theme":"Theme Option"
 }

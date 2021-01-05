@@ -2,6 +2,7 @@ package com.zurple.website;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -63,8 +64,20 @@ public class ZWV2TemplateHomePage extends Page{
 	
 	List<WebElement> socialIcons;
 	
+	@FindBy(xpath="//div[@class='citycalloutbox']/descendant::img[@alt='Additional city 1']")
+	WebElement additional_city1;
+	
+	@FindBy(xpath="//div[@class='citycalloutbox']/descendant::img[@alt='Additional city 2']")
+	WebElement additional_city2;
+	
+	@FindBy(xpath="//div[@class='citycalloutbox']/descendant::img[@alt='Additional city 3']")
+	WebElement additional_city3;
+	
 	@FindBy(xpath="//div[@class='citycalloutbox']/descendant::img[@alt='Additional city 4']")
 	WebElement additional_city4;
+	
+	@FindBy(xpath="//div[@class='citycalloutbox']/descendant::img[@alt='Main city']")
+	WebElement main_city;
 	
 	public ZWV2TemplateHomePage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -179,8 +192,15 @@ public class ZWV2TemplateHomePage extends Page{
 		return ActionHelper.waitForElementToBeVisible(driver, banner_text, 30);
 	}
 	
-	public String checkImage() {
-		return ActionHelper.getAttribute(additional_city4, "src");
+	public boolean checkImages() {
+		if(!ActionHelper.getAttribute(additional_city1, "src").isEmpty() && 
+		!ActionHelper.getAttribute(additional_city2, "src").isEmpty() &&
+		!ActionHelper.getAttribute(additional_city3, "src").isEmpty() &&
+		!ActionHelper.getAttribute(additional_city4, "src").isEmpty() &&
+		!ActionHelper.getAttribute(main_city, "src").isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-
 }
