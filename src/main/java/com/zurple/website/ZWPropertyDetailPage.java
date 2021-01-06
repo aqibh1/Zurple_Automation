@@ -271,6 +271,7 @@ public class ZWPropertyDetailPage extends Page{
 	}
 	public boolean isGoogleMapAndPinVisible() {
 		ActionHelper.staticWait(10);
+		int counter = 0;
 		WebDriverWait wait=new WebDriverWait(driver, 20);
 		ActionHelper.ScrollToElement(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "MAP"));
 		boolean isSuccess = false;
@@ -279,12 +280,17 @@ public class ZWPropertyDetailPage extends Page{
 			if(ActionHelper.waitForElementToBeVisible(driver, listing_map,30)) {
 				ActionHelper.staticWait(10);
 //				isSuccess = ActionHelper.isElementVisible(driver, googleMapPinIcon);
-				try {
-					isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
-				}catch(Exception ex) {
-					System.out.println("No Pin is displayed on Google MAPS");
-					isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
-					return isSuccess;
+				while(!isSuccess && counter<5) {
+					try {
+
+						isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
+					}catch(Exception ex) {
+						System.out.println("No Pin is displayed on Google MAPS");
+//						isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
+						counter++;
+						ActionHelper.staticWait(15);
+						return isSuccess;
+					}
 				}
 			}
 		}
