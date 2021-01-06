@@ -8,7 +8,6 @@ import static org.testng.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
-import com.zurple.my.ExportLeadsPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
@@ -48,7 +47,7 @@ public class ZBOLeadExportPageTest extends PageTest{
 		// TODO Auto-generated method stub
 		
 	}
-	@Test
+	@Test(retryAnalyzer = resources.RetryFailedTestCases.class) 
 	public void testExportLead() {
 		AutomationLogger.startTestCase("Export Leads");
 		getPage("/leads/exportleads");

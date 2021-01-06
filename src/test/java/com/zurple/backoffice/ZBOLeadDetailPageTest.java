@@ -15,7 +15,6 @@ import org.testng.asserts.SoftAssert;
 import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.backoffice.marketing.ZBOCampaignPage;
 import com.zurple.my.PageTest;
-import com.zurple.website.ZWAccountSettingsPage;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
@@ -179,8 +178,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.isEmailVerified(), "Email is not verified..");
 		AutomationLogger.endTestCase();
 	}
-	
-	@Test(priority = 150 , dependsOnMethods = {"testVerifyValidEmail"})
+	@Test(priority = 150 , dependsOnMethods = {"testVerifyValidEmail"}, retryAnalyzer = resources.RetryFailedTestCases.class)
 	public void testVerifyAlerts() {
 		AutomationLogger.startTestCase("Verify Alerts");
 		getPage();
@@ -325,7 +323,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchLotSize(dataObject.optString("lot_size")), "Unable to verify buyer search baths lot size..");
 	}
 	
-	@Test
+	@Test(retryAnalyzer = resources.RetryFailedTestCases.class)
 	@Parameters({"searchPropertyDataFile"})
 	public void testVerifyLeadSoldHomesSearch(String pDataFile) {
 		getPage();

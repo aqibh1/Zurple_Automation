@@ -3,8 +3,6 @@
  */
 package com.zurple.backoffice;
 
-import com.zurple.my.PageTest;
-
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
@@ -14,6 +12,7 @@ import org.testng.annotations.Test;
 
 import com.zurple.backoffice.social.ZBOCreatePostPage;
 import com.zurple.backoffice.social.ZBOPostHistoryPage;
+import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
@@ -57,7 +56,7 @@ public class ZBOCreatePostPageTest extends PageTest{
 		
 	}
 	
-	@Test(groups= "com.zurple.backoffice.social.ZBOCreatePostPage.testCreatePost")
+	@Test(groups= "com.zurple.backoffice.social.ZBOCreatePostPage.testCreatePost",retryAnalyzer = resources.RetryFailedTestCases.class)
 	@Parameters({"dataFile"})
 	public void testCreatePost(String pDataFile) {
 		getPage("/social/createpost");

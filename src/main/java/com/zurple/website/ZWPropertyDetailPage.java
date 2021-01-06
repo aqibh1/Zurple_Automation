@@ -270,6 +270,7 @@ public class ZWPropertyDetailPage extends Page{
 		return isSuccess;
 	}
 	public boolean isGoogleMapAndPinVisible() {
+		ActionHelper.staticWait(10);
 		WebDriverWait wait=new WebDriverWait(driver, 20);
 		ActionHelper.ScrollToElement(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "MAP"));
 		boolean isSuccess = false;
@@ -288,6 +289,7 @@ public class ZWPropertyDetailPage extends Page{
 	}
 	
 	public boolean verifyCommunityStatsVisible() {
+		ActionHelper.staticWait(10);
 		if(ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "COMMUNITY STATS"))) {
 			if(!ActionHelper.waitForElementToBeVisible(driver, overiviewTable, 10)) {
 				AutomationLogger.error("Overview table under Community Stats is not visible..");
