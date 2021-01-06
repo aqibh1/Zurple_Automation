@@ -10,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.alerts.zurple.website.ZWScheduleShowingAlert;
@@ -282,8 +281,8 @@ public class ZWPropertyDetailPage extends Page{
 //				isSuccess = ActionHelper.isElementVisible(driver, googleMapPinIcon);
 				while(!isSuccess && counter<5) {
 					try {
-
-						isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
+						isSuccess = ActionHelper.getAttribute(driver.findElement(By.xpath("//map[@id='gmimap0']/parent::div/img")), "src").contains(".png");
+//						isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
 					}catch(Exception ex) {
 						System.out.println("No Pin is displayed on Google MAPS");
 //						isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
