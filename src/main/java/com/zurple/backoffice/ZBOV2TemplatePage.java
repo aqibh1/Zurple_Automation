@@ -90,7 +90,7 @@ public class ZBOV2TemplatePage extends Page {
 	@FindBy(id="customize_v2_tx_url")
 	WebElement customize_link;
 	
-	@FindBy(xpath="//img[contains(@alt,'city4_image')])")
+	@FindBy(xpath="//img[contains(@alt,'city4_image')]")
 	WebElement image_src;
 	
 	ZBOV2TemplatePage(){

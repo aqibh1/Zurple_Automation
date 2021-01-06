@@ -59,7 +59,7 @@ public class ZWV2TemplateHomePage extends Page{
 	@FindBy(className="dropdown-toggle")
 	WebElement dropdown_button;
 	
-	@FindBy(xpath="//div[@class='row']/descendant::div[@class='col-md-12']")
+	@FindBy(xpath="//div[@class='row']/descendant::h2[contains(text(),'Homes for Sale')]")
 	WebElement banner_text;
 	
 	List<WebElement> socialIcons;
@@ -189,7 +189,11 @@ public class ZWV2TemplateHomePage extends Page{
 	}
 	
 	public boolean titleText() {
-		return ActionHelper.waitForElementToBeVisible(driver, banner_text, 30);
+		if(!ActionHelper.getText(driver, banner_text).isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public boolean checkImages() {
