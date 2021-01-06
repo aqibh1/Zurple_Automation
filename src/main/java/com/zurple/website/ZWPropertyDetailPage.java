@@ -275,12 +275,15 @@ public class ZWPropertyDetailPage extends Page{
 		ActionHelper.ScrollToElement(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "MAP"));
 		boolean isSuccess = false;
 		if(ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "MAP"))) {
+			ActionHelper.staticWait(10);
 			if(ActionHelper.waitForElementToBeVisible(driver, listing_map,30)) {
+				ActionHelper.staticWait(10);
 //				isSuccess = ActionHelper.isElementVisible(driver, googleMapPinIcon);
 				try {
 					isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
 				}catch(Exception ex) {
 					System.out.println("No Pin is displayed on Google MAPS");
+					isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
 					return isSuccess;
 				}
 			}
