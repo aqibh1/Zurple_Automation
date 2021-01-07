@@ -97,7 +97,7 @@ public class ZBOV2TemplatePageTest extends PageTest{
 		dataObject = getDataFile(pDataFile);
 		page=null;
 		getPage("/pagemgr/index/site_id/"+siteId);
-		assertEquals(page.getDomainName(),dataObject.optString("domain_name"));
+		assertEquals(page.getDomainName(),domainName);
 		assertTrue(page.clickV2UnCheck(),"Unable to click v2 checkbox..");
 		assertTrue(page.clickAdditionalCityForDel(),"Unable to remove additional city..");
 		assertTrue(page.clickUpdate(),"Unable to click update settings..");

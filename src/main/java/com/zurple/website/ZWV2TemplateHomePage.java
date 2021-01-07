@@ -25,7 +25,7 @@ public class ZWV2TemplateHomePage extends Page{
 	@FindBy(xpath="//div[@class='container']/descendant::h1")
 	WebElement search_label;
 	
-	@FindBy(id="basic_city")
+	@FindBy(id="city")
 	WebElement search_text;
 	
 	@FindBy(xpath="//input[@value='SEARCH']")
@@ -171,7 +171,7 @@ public class ZWV2TemplateHomePage extends Page{
 		if(ActionHelper.Click(driver, close_modal)==true) {
 			return ActionHelper.waitForElementToBeVisible(driver, listings_page,30);
 		} else {
-			return ActionHelper.waitForElementToBeVisible(driver, listings_page,30);
+			return titleText();
 		}
 	}
 	
