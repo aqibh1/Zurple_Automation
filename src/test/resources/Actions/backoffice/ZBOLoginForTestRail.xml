@@ -1,7 +1,6 @@
 <suite name="Login to back office suite" preserve-order="true"
 	verbose="1" parallel="tests" thread-count="1">
 	<listeners>
-		<listener class-name="resources.RetryFailedTestCases" />
 		<listener class-name="resources.ThreadCountChanger" />
 		<listener class-name="resources.ExtentReporterListener" />
 		<listener class-name="resources.ZurpleReporter.ScreenshotTaker" />
