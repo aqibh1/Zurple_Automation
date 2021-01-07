@@ -1,12 +1,14 @@
 package resources;
 
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.remote.CapabilityType;
 
 import java.lang.ref.PhantomReference;
 import java.util.HashMap;
@@ -89,6 +91,7 @@ public class EnvironmentFactory {
                 	prefs.put("profile.default_content_setting_values.notifications", 2);
                 	options.setExperimentalOption("prefs", prefs);
                     options.addArguments("--start-maximized");
+                    options.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
                 }
                 
                 
