@@ -69,7 +69,7 @@ public class ZWHomeSearchPageTest extends PageTest{
 		
 	}
 	
-	@Test
+	@Test(priority=10)
 	@Parameters({"searchPropertyDataFile"})
 	public void testSearchPropoerty(String pDataFile) {
 		getPage("");		

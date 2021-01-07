@@ -73,7 +73,7 @@ public class ZWHomesForSalePageTest extends PageTest{
 		
 	}
 	
-	@Test
+	@Test(priority=20)
 	@Parameters({"searchPropertyDataFile"})
 	public void testHomesForSale(@Optional String pDataFile) {
 		getPage();
