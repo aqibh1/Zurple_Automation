@@ -1,8 +1,5 @@
 package resources;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +9,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.CapabilityType;
+
+import java.lang.ref.PhantomReference;
+import java.util.HashMap;
+import java.util.Map;
 
 public class EnvironmentFactory {
 
@@ -88,10 +89,9 @@ public class EnvironmentFactory {
                 	//add key and value to map as follow to switch off browser notification
                 	//Pass the argument 1 to allow and 2 to block
                 	prefs.put("profile.default_content_setting_values.notifications", 2);
-//                	options.setBinary("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
-                	options.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
                 	options.setExperimentalOption("prefs", prefs);
                     options.addArguments("--start-maximized");
+                    options.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
                 }
                 
                 

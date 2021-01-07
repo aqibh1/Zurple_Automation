@@ -11,6 +11,9 @@ import org.testng.annotations.Test;
 import com.zurple.backoffice.ZBOV2TemplatePage;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
@@ -74,16 +77,23 @@ public class ZWV2TemplateHomePageTest extends PageTest{
 		AutomationLogger.startTestCase("Verify V2 website template");
 		dataObject = getDataFile(pDataFile);
 		getPage();
-		assertEquals(page.fbIconExists(),"Unable to find fb icon..");
-		assertTrue(page.twitterIconExists(),"Unable to find youtube icon..");
-		assertTrue(page.youtubeIconExists(),"Unable to find twitter icon..");
-		assertEquals(page.getSearchLabel().trim(),dataObject.optString("search_label").trim());
-		assertTrue(page.blurbTitle(),"Unable to get blurb title..");
+		assertEquals(page.fbIconExists(),"FACEBOOK");
+		assertEquals(page.twitterIconExists(),"TWITTER");
+		assertEquals(page.youtubeIconExists(),"YOUTUBE");
+		assertEquals(page.getSearchLabel().trim(),dataObject.optString("search_label"));
+		String bTitle = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.blurbTitle);
+		assertEquals(page.getBlurbTitle(),bTitle);
+		assertTrue(page.checkImages(),"Unable to check images source..");
 		assertTrue(page.blurbDescription(),"Unable to get blurb description..");
 		assertTrue(page.footerLink(),"Unable to find footer link..");
 		assertTrue(page.enterSearchText(dataObject.optString("search_text")),"Unable to type search text..");
+		assertTrue(page.clickSearchButton(),"Unable to click search button..");
+		assertTrue(page.closeModalAndListingsPage(), "Unable to close modal and verify listings page..");
+		assertTrue(page.clickCustomSearch(),"Unable to navigate to home page..");
+		assertTrue(page.clickAdvanceSearchButton(),"Unable to click advance search button..");
+		assertTrue(page.searchFromAdvanceSearchModal(),"Unable to search from advance search modal");
+		assertTrue(page.titleText(), "Unable to find title page..");
 		AutomationLogger.endTestCase();
 	}
-	
 
 }

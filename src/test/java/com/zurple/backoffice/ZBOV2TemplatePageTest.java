@@ -12,6 +12,8 @@ import org.testng.annotations.Test;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;
 
 public class ZBOV2TemplatePageTest extends PageTest{
@@ -19,6 +21,8 @@ public class ZBOV2TemplatePageTest extends PageTest{
 	private WebDriver driver;
 	private JSONObject dataObject;
 	ZBOV2TemplatePage page;
+	private String siteId;
+	private String domainName;
 	
 	@Override
 	public AbstractPage getPage() {
@@ -52,30 +56,52 @@ public class ZBOV2TemplatePageTest extends PageTest{
 	public void testVerifyV2Settings(String pDataFile) {
 		AutomationLogger.startTestCase("Verify V2 site settings");
 		dataObject = getDataFile(pDataFile);
-		getPage("/pagemgr/index/site_id/"+dataObject.optString("site_id"));
-		assertEquals(page.getDomainName(),dataObject.optString("domain_name"));
+		getPage();
+		siteId = getIsProd()?dataObject.optString("site_id_prod"):dataObject.optString("site_id_stage");
+		domainName = getIsProd()?dataObject.optString("domain_name_prod"):dataObject.optString("domain_name_stage");
+		page=null;
+		getPage("/pagemgr/index/site_id/"+siteId);
+		assertEquals(page.getDomainName(),domainName);
+		assertTrue(page.addSingleAdditionalCity(),"Unable to select additional city..");
+		assertTrue(page.clickAddCity(), "Unable to click add city..");
 		assertTrue(page.clickV2Checkbox(),"Unable to click v2 checkbox..");
-		assertTrue(page.clickAdditionalCityForDel(),"Unable to select additional city..");
-		assertTrue(page.clickDeleteCity(),"Unable to remove additional city..");
 		assertTrue(page.clickUpdate(),"Unable to click update settings..");
 		assertEquals(page.getValidationMessage().trim(),dataObject.optString("validation_message").trim());
 		assertTrue(page.clickAdditionalCityForAdd(),"Unable to select additional city..");
-		assertTrue(page.clickAddCity(),"Unable to add additional city..");
 		assertTrue(page.clickUpdate(),"Unable to click update settings..");
+		page=null;
+		getPage("/pagemgr/edittemplate/site_id/"+siteId);
+		assertTrue(page.siteTheme(dataObject.optString("customized_theme")),"Unable to get theme name..");
+		assertTrue(page.blurbTitleInSettings(),"Unable to get blurb title..");
+		String imageSource = page.checkImageBeforeUpdate();	
+		assertTrue(page.uploadFile(dataObject.optString("testing_file_path")),"Unable to upload city4 file..");
+		assertTrue(page.clickUpdate(),"Unable to update settings..");
+		assertTrue(page.checkImageAfterUpdate(imageSource),"Unable to update image..");
+		assertTrue(page.uploadFile(dataObject.optString("actual_file_path")),"Unable to upload city4 file..");
+		assertTrue(page.clickUpdate(),"Unable to update settings..");
+		page=null;
+		getPage("/managesites");
+		if(!getIsProd()) {
+			assertTrue(page.clickSiteSettings(),"Unable to click site settings..");
+		}
+		assertTrue(page.homeSettingsHeader(), "Unable to see home settings section header..");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.blurbTitle, page.getBlurbHeader());
+		assertTrue(page.saveManageSitesPage(),"Unable to save manage sites page..");
 		AutomationLogger.endTestCase();
 	}
 	
-	@Test
+	@Test(dependsOnMethods = { "testVerifyV2Settings"})
 	@Parameters({"dataFile"})
-	public void testVerifyZ2SettingsOff(String pDataFile) {
-		AutomationLogger.startTestCase("Verify V2 site settings turning off");
+	public void testVerifyV2SettingsDisabled(String pDataFile) {
+		AutomationLogger.startTestCase("Verify V2 site settings are turned off");
 		dataObject = getDataFile(pDataFile);
-		getPage("/pagemgr/index/site_id/"+dataObject.optString("site_id"));
-		assertEquals(page.getDomainName(),dataObject.optString("domain_name"));
+		page=null;
+		getPage("/pagemgr/index/site_id/"+siteId);
+		assertEquals(page.getDomainName(),domainName);
 		assertTrue(page.clickV2UnCheck(),"Unable to click v2 checkbox..");
+		assertTrue(page.clickAdditionalCityForDel(),"Unable to remove additional city..");
 		assertTrue(page.clickUpdate(),"Unable to click update settings..");
 		AutomationLogger.endTestCase();
-	} 
-
+	}
 	
 }

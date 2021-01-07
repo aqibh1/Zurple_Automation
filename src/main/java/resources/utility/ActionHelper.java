@@ -364,6 +364,18 @@ public class ActionHelper {
 		return lList_of_Elements;
 		
 	}
+	
+	public static List<WebElement> getListOfElementById(WebDriver pWebDriver,String pElementXpath){
+		List<WebElement> lList_of_Elements = null;
+		try {
+			lList_of_Elements = pWebDriver.findElements(By.id(pElementXpath));
+		}catch(Exception ex) {
+			AutomationLogger.error("Element list not found -> "+pElementXpath);
+			AutomationLogger.error(ex.getMessage());
+		}
+		return lList_of_Elements;
+		
+	}
 	   
 	   public static void RefreshPage(WebDriver pWebDriver) {
 		   AutomationLogger.info("Refreshing the page");
@@ -1244,6 +1256,14 @@ public class ActionHelper {
 	   }
 	   public static void switchToiFrame(WebDriver pWebDriver, String pIndex) {
 		   pWebDriver.switchTo().frame(pIndex);
+	   }
+	   
+	   public static void switchToiFramebyElement(WebDriver pWebDriver, WebElement pElement) {
+		   pWebDriver.switchTo().frame(pElement);
+	   }
+	   
+	   public static void switchToDefaultContent(WebDriver pWebDriver) {
+		   pWebDriver.switchTo().defaultContent();
 	   }
 
 	   public static boolean sendSpecialKeys(WebDriver pWebDriver,Keys pKey) {

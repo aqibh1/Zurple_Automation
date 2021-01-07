@@ -1,7 +1,12 @@
 {
-	"site_id":"3215",
-	"domain_name":"zengtest6.us",
+	"site_id_stage":"3215",
+	"site_id_prod":"5334",
+	"domain_name_stage":"zengtest6.us",
+	"domain_name_prod":"zengtest2.us",
 	"validation_message":" * Please select 4 additional cities",
-	"search_label":"Start  Your Home Search",
-	"search_text":"SAN DIEGO, CA"
+	"search_label":"Start Your Home Search",
+	"search_text":"SAN DIEGO, CA",
+	"actual_file_path":"/resources/data/city4.png",
+	"testing_file_path":"/resources/data/home.png",
+	"customized_theme":"Theme Option"
 }
