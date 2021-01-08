@@ -9,10 +9,8 @@ import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
@@ -43,8 +41,6 @@ import com.google.gson.JsonParser;
 import resources.alerts.BootstrapModal;
 import resources.classes.Asset;
 import resources.utility.AutomationLogger;
-
-import static org.testng.Assert.assertTrue;
 
 public abstract class AbstractPageTest extends AbstractTest
 {

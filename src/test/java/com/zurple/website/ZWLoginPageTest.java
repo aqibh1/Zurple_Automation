@@ -8,7 +8,6 @@ import static org.testng.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
-import resources.AbstractPage;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
 

@@ -1,11 +1,12 @@
 package com.zurple.my;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
+
 import com.zurple.my.resources.blocks.AdminMenuBlock;
 import com.zurple.my.resources.blocks.HotBehaviorBlock;
 import com.zurple.my.resources.blocks.NewLeadsBlock;
 import com.zurple.my.resources.blocks.TopMenuBlock;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 
 public class DashboardPage
         extends Page

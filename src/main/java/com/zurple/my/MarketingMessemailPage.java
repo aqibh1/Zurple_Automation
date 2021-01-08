@@ -1,9 +1,10 @@
 package com.zurple.my;
 
-import com.zurple.my.resources.blocks.MassEmailSuccessfullySentAlertBlock;
-import com.zurple.my.resources.forms.MassEmailForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
+
+import com.zurple.my.resources.blocks.MassEmailSuccessfullySentAlertBlock;
+import com.zurple.my.resources.forms.MassEmailForm;
 
 public class MarketingMessemailPage
         extends Page

@@ -1,10 +1,14 @@
 package resources.orm.hibernate.dao.zurple;
 
-import org.hibernate.*;
-import resources.orm.hibernate.models.zurple.SessionAnonymous;
-
 import java.util.Iterator;
 import java.util.List;
+
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import resources.orm.hibernate.models.zurple.SessionAnonymous;
 
 public class ManageSessionAnonymous
 {

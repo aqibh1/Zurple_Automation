@@ -1,15 +1,17 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.PackagemgrEditPage;
-import com.zurple.my.Admin.PackagemgrNewPage;
-import com.zurple.my.PageTest;
-import java.util.UUID;
-import org.testng.annotations.Test;
-import resources.classes.FormErrorMessage;
-
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+
+import java.util.UUID;
+
+import org.testng.annotations.Test;
+
+import com.zurple.my.PageTest;
+import com.zurple.my.Admin.PackagemgrNewPage;
+
+import resources.classes.FormErrorMessage;
 
 public class PackagemgrNewPageTest
         extends PageTest

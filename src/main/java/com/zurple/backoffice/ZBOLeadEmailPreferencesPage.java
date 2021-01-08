@@ -3,7 +3,6 @@
  */
 package com.zurple.backoffice;
 
-import java.nio.channels.SeekableByteChannel;
 import java.util.List;
 
 import org.openqa.selenium.By;

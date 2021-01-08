@@ -1,7 +1,5 @@
 package resources.data.z57;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LeadData extends JSONData{

@@ -1,7 +1,10 @@
 package resources.orm.hibernate.models.zurple;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import java.util.Date;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,8 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "sites",uniqueConstraints = {

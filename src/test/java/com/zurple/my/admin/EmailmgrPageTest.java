@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.EmailmgrPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.EmailmgrPage;
 
 public class EmailmgrPageTest
         extends PageTest

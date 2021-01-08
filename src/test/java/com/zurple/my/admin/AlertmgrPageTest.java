@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.AlertmgrPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.AlertmgrPage;
 
 public class AlertmgrPageTest
         extends PageTest

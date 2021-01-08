@@ -1,6 +1,9 @@
 package resources.orm.hibernate.dao.zurple;
 
-import org.hibernate.*;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import resources.orm.hibernate.models.zurple.Property;
 
 public class ManageViewDetailedProperty

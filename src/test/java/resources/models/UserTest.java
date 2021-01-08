@@ -1,18 +1,29 @@
 package resources.models;
 
-import java.util.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertFalse;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 import resources.AbstractTest;
 import resources.ConfigReader;
 import resources.SSHConnector;
-import resources.orm.hibernate.models.zurple.*;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-import static org.testng.AssertJUnit.assertFalse;
+import resources.orm.hibernate.models.zurple.Admin;
+import resources.orm.hibernate.models.zurple.Email;
+import resources.orm.hibernate.models.zurple.Lead;
+import resources.orm.hibernate.models.zurple.SessionUser;
+import resources.orm.hibernate.models.zurple.Site;
+import resources.orm.hibernate.models.zurple.User;
+import resources.orm.hibernate.models.zurple.UserAlert;
 
 /**
  * todo

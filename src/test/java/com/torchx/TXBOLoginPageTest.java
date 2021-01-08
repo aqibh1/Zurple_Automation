@@ -3,14 +3,13 @@
  */
 package com.torchx;
 
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
-
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;

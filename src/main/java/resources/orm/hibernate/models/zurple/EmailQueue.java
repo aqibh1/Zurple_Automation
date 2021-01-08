@@ -1,13 +1,13 @@
 package resources.orm.hibernate.models.zurple;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
-import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "email_queue", uniqueConstraints = {

@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.SitemgrPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.SitemgrPage;
 
 public class SitemgrPageTest
         extends PageTest

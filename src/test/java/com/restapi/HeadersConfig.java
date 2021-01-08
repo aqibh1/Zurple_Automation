@@ -6,9 +6,6 @@ package com.restapi;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.entity.ContentType;
-import org.apache.http.protocol.HTTP;
-
 /**
  * @author adar
  *

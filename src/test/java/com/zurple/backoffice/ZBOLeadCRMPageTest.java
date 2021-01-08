@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 
 import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.my.PageTest;
-import com.zurple.website.ZWRegisterUserPageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;

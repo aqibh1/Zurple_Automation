@@ -11,7 +11,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import resources.DBHelperMethods;
-import resources.forms.z57.RegisterForm;
 import resources.forms.z57.SEMRegisterForm;
 import resources.utility.AutomationLogger;
 

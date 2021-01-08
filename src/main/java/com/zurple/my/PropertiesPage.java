@@ -1,6 +1,5 @@
 package com.zurple.my;
 
-import com.zurple.my.resources.forms.LoginForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

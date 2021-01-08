@@ -1,18 +1,8 @@
 package us.zengtest1;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
-import resources.ParametersFactory;
-import resources.alerts.SweetAlertNotification;
-import resources.orm.hibernate.models.zurple.Property;
-import resources.orm.hibernate.models.zurple.SessionAnonymous;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,7 +10,24 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.testng.Assert.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import resources.ParametersFactory;
+import resources.alerts.SweetAlertNotification;
+import resources.orm.hibernate.models.zurple.Property;
+import resources.orm.hibernate.models.zurple.SessionAnonymous;
 
 public class PropertyDetailsPageTest
         extends PageTest

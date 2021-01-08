@@ -1,10 +1,5 @@
 package com.zurple.my;
 
-import org.testng.annotations.Test;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.AssertJUnit.assertFalse;
-
 public class PropertiesPageTest
         extends PageTest
 {

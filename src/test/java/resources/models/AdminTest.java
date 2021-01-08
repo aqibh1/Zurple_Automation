@@ -3,12 +3,10 @@ package resources.models;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 import resources.AbstractTest;
 import resources.orm.hibernate.models.zurple.Admin;
 import resources.orm.hibernate.models.zurple.User;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 /**
  * todo

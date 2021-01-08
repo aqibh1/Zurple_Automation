@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.MailgunmgrReportPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.MailgunmgrReportPage;
 
 public class MailgunmgrReportPageTest
         extends PageTest

@@ -1,11 +1,22 @@
 package resources.orm.hibernate.models.zurple;
 
-import resources.orm.hibernate.models.Abstract;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
-import javax.persistence.*;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
+
+import resources.orm.hibernate.models.Abstract;
 
 @Entity
 @Table(name = "emails", uniqueConstraints = {

@@ -10,7 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import resources.alerts.AbstractAlert;
 import resources.utility.ActionHelper;
-import resources.utility.AutomationLogger;
 
 /**
  * @author adar

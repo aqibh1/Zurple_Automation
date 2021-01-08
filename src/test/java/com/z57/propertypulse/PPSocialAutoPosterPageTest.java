@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
-import resources.utility.ActionHelper;
 
 public class PPSocialAutoPosterPageTest extends PageTest{
 	

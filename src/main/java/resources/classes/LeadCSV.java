@@ -1,10 +1,11 @@
 package resources.classes;
 
-import au.com.bytecode.opencsv.CSVWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+
+import au.com.bytecode.opencsv.CSVWriter;
 
 public class LeadCSV
 {

@@ -19,8 +19,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import javax.xml.stream.events.StartElement;
-
 import org.testng.IReporter;
 import org.testng.IResultMap;
 import org.testng.ISuite;

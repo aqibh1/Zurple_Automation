@@ -1,8 +1,9 @@
 package com.zurple.my;
 
-import com.zurple.my.resources.forms.AgentEditForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+
+import com.zurple.my.resources.forms.AgentEditForm;
 
 public class AgentPage
         extends Page

@@ -15,7 +15,6 @@ import org.testng.asserts.SoftAssert;
 import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.backoffice.marketing.ZBOCampaignPage;
 import com.zurple.my.PageTest;
-import com.zurple.website.ZWAccountSettingsPage;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;

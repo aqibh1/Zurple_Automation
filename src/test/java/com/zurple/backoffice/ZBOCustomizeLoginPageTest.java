@@ -6,14 +6,15 @@ package com.zurple.backoffice;
 import static org.testng.Assert.assertTrue;
 
 import java.util.HashMap;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
+
 import com.zurple.my.PageTest;
+
 import resources.AbstractPage;
-import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
-import resources.utility.AutomationLogger;
 
 /**
  * @author adar

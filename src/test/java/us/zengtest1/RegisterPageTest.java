@@ -1,5 +1,8 @@
 package us.zengtest1;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -14,8 +17,6 @@ import org.testng.annotations.Test;
 import resources.orm.hibernate.models.zurple.DistributionRule;
 import resources.orm.hibernate.models.zurple.Site;
 import resources.orm.hibernate.models.zurple.User;
-
-import static org.testng.Assert.*;
 
 public class RegisterPageTest
         extends PageTest

@@ -1,12 +1,16 @@
 package resources.orm.hibernate.dao.z57;
 
-import org.hibernate.*;
-import resources.orm.hibernate.models.z57.Lead;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import resources.orm.hibernate.models.z57.Lead;
 
 public class ManageLead {
 
