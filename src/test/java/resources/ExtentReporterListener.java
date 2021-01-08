@@ -28,8 +28,8 @@ public class ExtentReporterListener implements ITestListener {
 	
     @Override
 	public synchronized void onStart(ITestContext context) {
-    	ExtentTest parent = extent.createTest(context.getCurrentXmlTest().getName());
-        parentTest.set(parent);
+    	ExtentTest parent = extent.createTest(context.getSuite().getName());
+    	parentTest.set(parent);
 	}
 
 	@Override
@@ -64,14 +64,13 @@ public class ExtentReporterListener implements ITestListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	        String base64ScreenshotEmail = "data:image/png;base64,"+((TakesScreenshot)webDriver).
-	                getScreenshotAs(OutputType.BASE64);
+	        String base64ScreenshotEmail = "data:image/png;base64,"+((TakesScreenshot)webDriver).getScreenshotAs(OutputType.BASE64);
 	        if(errorMessage==null) {
 	        	errorMessage = result.getThrowable().toString();
 	        }
 			try {
 				((ExtentTest) test.get()).fail(result.getName()).addScreenCaptureFromPath(base64ScreenshotEmail);
-				((ExtentTest) test.get()).fail(result.getTestContext().getCurrentXmlTest().getName());
+				((ExtentTest) test.get()).fail(result.getTestContext().getCurrentXmlTest().getName()+" Error Message: "+errorMessage);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
