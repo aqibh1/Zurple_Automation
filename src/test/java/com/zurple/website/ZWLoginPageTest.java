@@ -55,7 +55,7 @@ public class ZWLoginPageTest extends PageTest{
 		
 	}
 	
-	@Test
+	@Test(priority=-1)
 	public void testSignIn() {
 		getPage();
 //		testBrand();
