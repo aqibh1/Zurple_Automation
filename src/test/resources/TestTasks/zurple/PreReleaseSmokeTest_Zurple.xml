@@ -384,7 +384,7 @@
 			</classes>
 	</parameter>
 	</test>
-	<!--  
+
 	<test name="Export Leads">	
 	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-by-zip.json"> 
 			<classes>
@@ -817,5 +817,5 @@
 			</classes>
 	</parameter>
 	</test>		
-	-->
+	
 </suite>
