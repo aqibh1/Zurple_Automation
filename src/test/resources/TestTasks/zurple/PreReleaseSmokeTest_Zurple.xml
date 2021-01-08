@@ -384,7 +384,7 @@
 			</classes>
 	</parameter>
 	</test>
-	
+	<!--  
 	<test name="Export Leads">	
 	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-by-zip.json"> 
 			<classes>
@@ -573,7 +573,7 @@
 	</parameter>
 	</test>
 	
-	<!-- Social Test Cases -->
+
 	
 	<test name="Create and Verify Twitter Text post Now">
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/zurple-social-tw-text-data.json">
@@ -817,4 +817,5 @@
 			</classes>
 	</parameter>
 	</test>		
+	-->
 </suite>

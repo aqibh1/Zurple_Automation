@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 import com.zurple.PageTest;
 import com.zurple.backoffice.social.ZBOCreatePostPage;
 import com.zurple.backoffice.social.ZBOPostHistoryPage;
+import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
@@ -56,7 +57,7 @@ public class ZBOCreatePostPageTest extends PageTest{
 		
 	}
 	
-	@Test(groups= "com.zurple.backoffice.social.ZBOCreatePostPage.testCreatePost")
+	@Test(groups= "com.zurple.backoffice.social.ZBOCreatePostPage.testCreatePost",retryAnalyzer = resources.RetryFailedTestCases.class)
 	@Parameters({"dataFile"})
 	public void testCreatePost(String pDataFile) {
 		getPage("/social/createpost");

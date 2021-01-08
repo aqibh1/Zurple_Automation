@@ -10,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.alerts.zurple.website.ZWScheduleShowingAlert;
@@ -270,17 +269,27 @@ public class ZWPropertyDetailPage extends Page{
 		return isSuccess;
 	}
 	public boolean isGoogleMapAndPinVisible() {
+		ActionHelper.staticWait(10);
+		int counter = 0;
 		WebDriverWait wait=new WebDriverWait(driver, 20);
 		ActionHelper.ScrollToElement(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "MAP"));
 		boolean isSuccess = false;
 		if(ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "MAP"))) {
+			ActionHelper.staticWait(10);
 			if(ActionHelper.waitForElementToBeVisible(driver, listing_map,30)) {
+				ActionHelper.staticWait(10);
 //				isSuccess = ActionHelper.isElementVisible(driver, googleMapPinIcon);
-				try {
-					isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
-				}catch(Exception ex) {
-					System.out.println("No Pin is displayed on Google MAPS");
-					return isSuccess;
+				while(!isSuccess && counter<5) {
+					try {
+						isSuccess = ActionHelper.getAttribute(driver.findElement(By.xpath("//map[@id='gmimap0']/parent::div/img")), "src").contains(".png");
+//						isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
+					}catch(Exception ex) {
+						System.out.println("No Pin is displayed on Google MAPS");
+//						isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
+						counter++;
+						ActionHelper.staticWait(15);
+						return isSuccess;
+					}
 				}
 			}
 		}
@@ -288,6 +297,7 @@ public class ZWPropertyDetailPage extends Page{
 	}
 	
 	public boolean verifyCommunityStatsVisible() {
+		ActionHelper.staticWait(10);
 		if(ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "COMMUNITY STATS"))) {
 			if(!ActionHelper.waitForElementToBeVisible(driver, overiviewTable, 10)) {
 				AutomationLogger.error("Overview table under Community Stats is not visible..");

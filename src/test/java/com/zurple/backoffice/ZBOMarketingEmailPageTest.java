@@ -114,7 +114,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		leadStatus(lDataObject, 1);
 	}
 	
-	@Test
+	@Test(retryAnalyzer = resources.RetryFailedTestCases.class)
 	@Parameters({"standardEmailData"})
 	public void testSendScheduledStandardEmail(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
