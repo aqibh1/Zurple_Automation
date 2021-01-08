@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import com.zurple.PageTest;
 import com.zurple.backoffice.social.ZBOCreatePostPage;
 import com.zurple.backoffice.social.ZBOPostHistoryPage;
-import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;

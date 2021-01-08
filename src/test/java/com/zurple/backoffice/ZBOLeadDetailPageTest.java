@@ -12,9 +12,9 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import com.zurple.PageTest;
 import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.backoffice.marketing.ZBOCampaignPage;
-import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
