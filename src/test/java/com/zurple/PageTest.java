@@ -1,4 +1,4 @@
-package com.zurple.my;
+package com.zurple;
 
 import static org.testng.Assert.assertTrue;
 

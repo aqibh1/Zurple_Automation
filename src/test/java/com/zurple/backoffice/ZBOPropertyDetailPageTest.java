@@ -8,8 +8,8 @@ import static org.testng.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
+import com.zurple.PageTest;
 import com.zurple.backoffice.properties.ZBOPropertyDetailPage;
-import com.zurple.my.PageTest;
 import com.zurple.website.ZWPropertyDetailPage;
 
 import resources.AbstractPage;

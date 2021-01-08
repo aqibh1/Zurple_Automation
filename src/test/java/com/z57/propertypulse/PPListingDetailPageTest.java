@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 
 import com.z57.site.v2.PageHeader;
 import com.z57.site.v2.PropertyListingPage;
-import com.zurple.my.PageTest;
+import com.zurple.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;

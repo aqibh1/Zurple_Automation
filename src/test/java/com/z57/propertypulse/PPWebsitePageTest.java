@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
 import com.z57.site.v2.NewPageCreatedFromPP;
-import com.zurple.my.PageTest;
+import com.zurple.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;

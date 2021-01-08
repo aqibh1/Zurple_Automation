@@ -9,8 +9,8 @@ import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
+import com.zurple.PageTest;
 import com.zurple.admin.ZACampaignTemplatesPage;
-import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.ModuleCacheConstants;

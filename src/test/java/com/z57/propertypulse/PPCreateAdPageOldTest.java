@@ -11,7 +11,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import com.zurple.my.PageTest;
+import com.zurple.PageTest;
 
 import resources.AbstractPage;
 import resources.DBHelperMethods;

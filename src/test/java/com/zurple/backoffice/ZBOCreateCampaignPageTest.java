@@ -8,10 +8,10 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.zurple.PageTest;
 import com.zurple.backoffice.marketing.ZBOCampaignPage;
 import com.zurple.backoffice.marketing.ZBOCreateCampaignPage;
 import com.zurple.backoffice.marketing.ZBOCreateTemplatePage;
-import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.ModuleCacheConstants;

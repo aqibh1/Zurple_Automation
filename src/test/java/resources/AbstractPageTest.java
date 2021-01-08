@@ -51,18 +51,33 @@ public abstract class AbstractPageTest extends AbstractTest
     protected Boolean incognito=false;
     private Long threadID;
     private boolean isProd = false;
+    private ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>(); 
+    
 
     public abstract AbstractPage getPage();
 
     public abstract void clearPage();
 
     public WebDriver getDriver(){
-        Long thread_id = Thread.currentThread().getId();
-        WebDriver driver = EnvironmentFactory.getDriver(thread_id);
-        setThreadId(thread_id);
-        setIsProd();
-        return driver;
+    	if(driver.get()!=null) {
+    		return driver.get();
+    	}else {
+    		Long thread_id = Thread.currentThread().getId();
+    		EnvironmentFactory environmenFactory = new EnvironmentFactory();
+    		driver.set(environmenFactory.getDriver(thread_id));
+    		setThreadId(thread_id);
+    		setIsProd();
+    		return driver.get();
+    	}
     }
+    
+//    public WebDriver getDriver(){
+//        Long thread_id = Thread.currentThread().getId();
+//        WebDriver driver = EnvironmentFactory.getDriver(thread_id);
+//        setThreadId(thread_id);
+//        setIsProd();
+//        return driver;
+//    }
     private void setIsProd() {
     	if(System.getProperty("environment").equalsIgnoreCase("prod") || System.getProperty("environment").equalsIgnoreCase("autoconvoprod")){
     		isProd = true; 

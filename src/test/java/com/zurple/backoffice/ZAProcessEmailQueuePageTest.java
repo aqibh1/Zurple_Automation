@@ -1,6 +1,6 @@
 package com.zurple.backoffice;
 
-import com.zurple.my.PageTest;
+import com.zurple.PageTest;
 
 import resources.AbstractPage;
 

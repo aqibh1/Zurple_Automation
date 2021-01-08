@@ -13,7 +13,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.zurple.my.PageTest;
+import com.zurple.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;

@@ -13,8 +13,8 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.zurple.PageTest;
 import com.zurple.admin.ZAProcessEmailQueuesPage;
-import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
