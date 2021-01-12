@@ -3,7 +3,6 @@
  */
 package com.zurple.backoffice;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import java.text.ParseException;
@@ -15,7 +14,6 @@ import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
@@ -28,7 +26,6 @@ import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.GmailEmailVerification;
-import resources.utility.ZurpleListingConstants;
 
 /**
  * @author adar

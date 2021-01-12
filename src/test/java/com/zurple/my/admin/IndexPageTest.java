@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.IndexPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.IndexPage;
 
 public class IndexPageTest
         extends PageTest

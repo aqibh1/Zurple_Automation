@@ -1,11 +1,5 @@
 package resources;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-
-import resources.data.z57.SearchFormData;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;

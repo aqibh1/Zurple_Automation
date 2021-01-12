@@ -2,7 +2,6 @@ package resources.orm.hibernate.models.z57;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;

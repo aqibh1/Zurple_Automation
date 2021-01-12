@@ -13,7 +13,6 @@ import com.restapi.HttpRequestHandler;
 import com.restapi.RestAPITest;
 import com.restapi.RestRequest;
 import com.restapi.RestResponse;
-import com.zurple.backoffice.ZBOAddLeadPageTest;
 import com.zurple.backoffice.ZBOLeadEmailPreferencesPageTest;
 
 import resources.EnvironmentFactory;

@@ -1,15 +1,13 @@
 package us.zengtest1;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 import resources.alerts.BootstrapModal;
 import us.zengtest1.resources.blocks.SearchResultsBlock;
-import us.zengtest1.resources.forms.SearchForm;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SearchResultsPage
         extends Page

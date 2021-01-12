@@ -11,7 +11,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import com.google.common.base.Ascii;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;

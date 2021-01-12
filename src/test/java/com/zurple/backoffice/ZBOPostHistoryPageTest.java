@@ -10,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.zurple.backoffice.social.ZBOCreatePostPage;
 import com.zurple.backoffice.social.ZBODuplicatePage;
 import com.zurple.backoffice.social.ZBOPostHistoryPage;
 import com.zurple.my.PageTest;

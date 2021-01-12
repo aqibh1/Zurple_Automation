@@ -8,7 +8,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import resources.data.z57.RegisterUserData;
-import resources.data.z57.SearchFormData;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 

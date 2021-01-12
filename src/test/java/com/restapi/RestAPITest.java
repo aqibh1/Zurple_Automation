@@ -4,19 +4,15 @@
 package com.restapi;
 
 import java.io.IOException;
-import java.net.ProtocolException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.apache.http.client.ClientProtocolException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import resources.AbstractAPIRestTest;
 import resources.AbstractPage;
 import resources.AbstractPageTest;
 import resources.EnvironmentFactory;
-import resources.utility.AutomationLogger;
 
 /**
  * @author adar

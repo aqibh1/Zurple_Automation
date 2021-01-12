@@ -8,7 +8,6 @@ import static org.testng.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
-import com.zurple.my.ExportLeadsPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;

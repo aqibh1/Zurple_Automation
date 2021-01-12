@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.LeadScoreConfigPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.LeadScoreConfigPage;
 
 public class LeadScoreConfigPageTest
         extends PageTest

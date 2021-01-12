@@ -3,7 +3,6 @@
  */
 package com.torchx;
 
-import resources.AbstractPage;
 import resources.AbstractPageTest;
 
 /**

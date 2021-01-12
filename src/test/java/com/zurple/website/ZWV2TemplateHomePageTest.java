@@ -8,10 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.zurple.backoffice.ZBOV2TemplatePage;
-
 import resources.AbstractPage;
-import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;

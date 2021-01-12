@@ -1,9 +1,9 @@
 package com.zurple.my;
 
-import com.zurple.my.resources.blocks.CraigsListBlock;
-import com.zurple.my.resources.blocks.LeadsListBlock;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
+
+import com.zurple.my.resources.blocks.CraigsListBlock;
 
 public class CraigslistPage
         extends Page

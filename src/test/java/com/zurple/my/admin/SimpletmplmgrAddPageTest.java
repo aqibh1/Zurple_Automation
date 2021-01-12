@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.SimpletmplmgrAddPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.SimpletmplmgrAddPage;
 
 public class SimpletmplmgrAddPageTest
         extends PageTest

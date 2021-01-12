@@ -1,11 +1,11 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.LeadStatusAutomationPage;
-import com.zurple.my.PageTest;
+import static org.testng.Assert.assertTrue;
+
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import com.zurple.my.PageTest;
+import com.zurple.my.Admin.LeadStatusAutomationPage;
 
 public class LeadStatusAutomationPageTest
         extends PageTest

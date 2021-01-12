@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.EmailRestrictionsPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.EmailRestrictionsPage;
 
 public class EmailRestrictionsPageTest
         extends PageTest

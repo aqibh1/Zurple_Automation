@@ -1,15 +1,15 @@
 package com.zurple.my;
 
-import com.zurple.my.resources.blocks.BouncedEmailAlertBlock;
-import com.zurple.my.resources.blocks.LeadsDetailsBlock;
-import com.zurple.my.resources.blocks.LeadsListBlock;
-import com.zurple.my.resources.blocks.PropertiesViewedBlock;
-import com.zurple.my.resources.blocks.RemindersBlock;
-import com.zurple.my.resources.forms.LeadStatusForm;
-import com.zurple.my.resources.forms.LeadsSearchForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+
+import com.zurple.my.resources.blocks.BouncedEmailAlertBlock;
+import com.zurple.my.resources.blocks.LeadsDetailsBlock;
+import com.zurple.my.resources.blocks.PropertiesViewedBlock;
+import com.zurple.my.resources.blocks.RemindersBlock;
+import com.zurple.my.resources.forms.LeadStatusForm;
+
 import resources.alerts.SweetAlertNotification;
 
 public class LeadDetailPage

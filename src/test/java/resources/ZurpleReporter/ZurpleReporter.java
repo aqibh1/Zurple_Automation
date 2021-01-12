@@ -1,23 +1,21 @@
 package resources.ZurpleReporter;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.*;
+import static java.util.stream.Collectors.toList;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.*;
+import org.testng.IReporter;
+import org.testng.ISuite;
+import org.testng.ISuiteResult;
+import org.testng.ITestContext;
+import org.testng.ITestResult;
 import org.testng.xml.XmlSuite;
-
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import static java.util.stream.Collectors.toList;
 
 public class ZurpleReporter implements IReporter {
 

@@ -1,10 +1,11 @@
 package com.zurple.my;
 
-import org.testng.annotations.Test;
-import resources.ConfigReader;
-
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
+
+import org.testng.annotations.Test;
+
+import resources.ConfigReader;
 
 public class DistributionRuleEditPageTest
         extends PageTest

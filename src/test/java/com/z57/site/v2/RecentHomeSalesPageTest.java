@@ -6,7 +6,6 @@ package com.z57.site.v2;
 import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -14,7 +13,6 @@ import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
 import resources.data.z57.EmailListingFormData;
 import resources.data.z57.RegisterUserData;
-import resources.data.z57.SearchFormData;
 import resources.forms.z57.SearchSoldHomesForm;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;

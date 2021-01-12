@@ -5,17 +5,11 @@ package com.z57.site.v2;
 
 import static org.testng.Assert.assertTrue;
 
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import resources.DBHelperMethods;
-import resources.EnvironmentFactory;
 import resources.data.z57.RegisterUserData;
-import resources.forms.z57.ContactMeForm;
-import resources.forms.z57.LeadCaptureForm;
-import resources.utility.FrameworkConstants;
 
 /**
  * @author adar

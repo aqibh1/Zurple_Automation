@@ -1,21 +1,22 @@
 package com.zurple.my;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
-import resources.elements.Select2Dropdown;
-import resources.orm.hibernate.models.zurple.User;
+import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertFalse;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.testng.Assert.assertTrue;
-import static org.testng.AssertJUnit.assertFalse;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import resources.elements.Select2Dropdown;
+import resources.orm.hibernate.models.zurple.User;
 
 /**
  * todo

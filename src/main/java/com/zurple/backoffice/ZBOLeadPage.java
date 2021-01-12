@@ -1,13 +1,8 @@
 package com.zurple.backoffice;
 
-import static org.testng.Assert.assertTrue;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +15,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import com.zurple.my.LeadDetailPage;
 import com.zurple.my.Page;
 
 import resources.utility.ActionHelper;

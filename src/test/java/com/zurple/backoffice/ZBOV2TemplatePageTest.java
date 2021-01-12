@@ -1,7 +1,6 @@
 package com.zurple.backoffice;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotEquals;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;

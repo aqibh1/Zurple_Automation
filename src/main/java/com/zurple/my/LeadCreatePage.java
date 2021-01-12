@@ -1,8 +1,8 @@
 package com.zurple.my;
 
-import com.zurple.my.resources.forms.LeadEditForm;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
+
+import com.zurple.my.resources.forms.LeadEditForm;
 
 public class LeadCreatePage
         extends Page

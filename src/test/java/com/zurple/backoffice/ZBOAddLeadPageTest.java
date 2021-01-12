@@ -5,9 +5,7 @@ package com.zurple.backoffice;
 
 import static org.testng.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
@@ -17,12 +15,10 @@ import org.testng.annotations.Test;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
-import resources.DBHelperMethods;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
-import resources.utility.DataConstants;
 
 /**
  * @author adar

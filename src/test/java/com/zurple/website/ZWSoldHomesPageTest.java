@@ -9,8 +9,6 @@ import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
-import com.zurple.backoffice.ZBOLeadDetailPage;
-
 import resources.AbstractPage;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;

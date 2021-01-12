@@ -13,7 +13,6 @@ import com.zurple.my.Page;
 import resources.forms.zurple.backoffice.ZBOAttachFileForm;
 import resources.forms.zurple.backoffice.ZBOInsertImageForm;
 import resources.utility.ActionHelper;
-import resources.utility.FrameworkConstants;
 
 /**
  * @author adar

@@ -1,12 +1,14 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.AdminmgrEditPage;
-import com.zurple.my.PageTest;
-import org.testng.annotations.Test;
-import resources.ConfigReader;
-
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+
+import org.testng.annotations.Test;
+
+import com.zurple.my.PageTest;
+import com.zurple.my.Admin.AdminmgrEditPage;
+
+import resources.ConfigReader;
 
 public class AdminmgrEditPageTest
         extends PageTest

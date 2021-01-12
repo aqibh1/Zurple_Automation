@@ -2,6 +2,7 @@ package resources.orm.hibernate.dao.zurple;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
+
 import resources.orm.hibernate.models.zurple.Product;
 
 public class ManageProduct

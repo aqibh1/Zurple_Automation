@@ -1,9 +1,9 @@
 package com.zurple.my;
 
-import com.zurple.my.resources.forms.DistributionRulesForm;
-import com.zurple.my.resources.forms.LeadsSearchForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
+
+import com.zurple.my.resources.forms.DistributionRulesForm;
 
 public class DistributionRuleEditPage
         extends Page

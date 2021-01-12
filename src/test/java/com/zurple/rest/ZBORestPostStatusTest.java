@@ -5,18 +5,10 @@ package com.zurple.rest;
 
 import static org.testng.Assert.assertTrue;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import org.apache.http.HttpStatus;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -24,12 +16,12 @@ import org.testng.annotations.Test;
 import com.restapi.HeadersConfig;
 import com.restapi.HttpRequestHandler;
 import com.restapi.Part;
+import com.restapi.Part.PartType;
 import com.restapi.RestAPITest;
 import com.restapi.RestContent;
 import com.restapi.RestRequest;
 import com.restapi.RestResponse;
 import com.restapi.RestValidationAction;
-import com.restapi.Part.PartType;
 
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;

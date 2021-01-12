@@ -1,29 +1,23 @@
 package com.zurple.my.admin;
 
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
-
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
-import java.io.File;
 import java.io.IOException;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
 import com.opencsv.exceptions.CsvException;
 import com.zurple.admin.ZBOImportToolPage;
-import com.zurple.backoffice.ZBOSocialIntegrationAndSettingsPage;
-import com.zurple.backoffice.marketing.ZBOCreateTemplatePage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
-import resources.utility.DataConstants;
 
 public class ZBOImportToolPageTest extends PageTest{
 	ZBOImportToolPage page;

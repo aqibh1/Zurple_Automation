@@ -5,10 +5,7 @@ package com.z57.propertypulse;
 
 import static org.testng.Assert.assertTrue;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -29,7 +26,6 @@ import resources.ModuleCommonCache;
 import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.models.pp.Posts;
 import resources.orm.hibernate.models.z57.NotificationMailgun;
-import resources.orm.hibernate.models.z57.Notifications;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 

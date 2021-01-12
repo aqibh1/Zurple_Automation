@@ -3,6 +3,7 @@ package resources.models;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
 import resources.AbstractTest;
 import resources.orm.hibernate.models.zurple.Lead;
 import resources.orm.hibernate.models.zurple.User;

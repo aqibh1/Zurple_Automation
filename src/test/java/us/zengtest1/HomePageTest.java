@@ -1,12 +1,10 @@
 package us.zengtest1;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.testng.annotations.Test;
-import resources.AbstractPageTest;
-
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HomePageTest extends PageTest
 {

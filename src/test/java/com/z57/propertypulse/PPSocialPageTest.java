@@ -6,9 +6,7 @@ package com.z57.propertypulse;
 import static org.testng.Assert.assertTrue;
 
 import java.awt.AWTException;
-import java.time.LocalDate;
 
-import org.hibernate.property.Getter;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
@@ -20,7 +18,6 @@ import resources.AbstractPage;
 import resources.DBHelperMethods;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
-import resources.TestEnvironment;
 import resources.data.z57.PPSocialData;
 import resources.orm.hibernate.HibernateUtil;
 import resources.orm.hibernate.models.pp.Posts;

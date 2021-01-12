@@ -5,8 +5,6 @@ package com.zurple.website;
 
 import static org.testng.Assert.assertTrue;
 
-import java.util.Random;
-
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Optional;
@@ -15,8 +13,6 @@ import org.testng.annotations.Test;
 
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
-import resources.utility.ActionHelper;
-import resources.utility.AutomationLogger;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
 

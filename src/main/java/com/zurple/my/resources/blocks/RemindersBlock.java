@@ -1,10 +1,9 @@
 package com.zurple.my.resources.blocks;
 
-import com.zurple.my.resources.forms.ReminderForm;
-import com.zurple.my.resources.interfaces.HasHeader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
@@ -13,6 +12,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.zurple.my.resources.forms.ReminderForm;
+import com.zurple.my.resources.interfaces.HasHeader;
+
 import resources.classes.Helper;
 import resources.classes.Reminder;
 

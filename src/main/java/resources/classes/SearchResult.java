@@ -2,6 +2,7 @@ package resources.classes;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.openqa.selenium.WebElement;
 
 public class SearchResult

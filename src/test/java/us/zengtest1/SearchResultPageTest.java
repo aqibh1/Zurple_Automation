@@ -1,19 +1,23 @@
 package us.zengtest1;
 
-import java.util.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.Cookie;
 import org.testng.annotations.Test;
+
 import resources.ParametersFactory;
 import resources.classes.SearchResult;
 import resources.orm.hibernate.models.zurple.Property;
 import resources.orm.hibernate.models.zurple.SessionAnonymous;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
 
 public class SearchResultPageTest
         extends PageTest

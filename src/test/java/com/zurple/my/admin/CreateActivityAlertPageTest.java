@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.CreateActivityAlertPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.CreateActivityAlertPage;
 
 public class CreateActivityAlertPageTest
         extends PageTest

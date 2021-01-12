@@ -1,9 +1,10 @@
 package com.zurple.my;
 
-import org.testng.annotations.Test;
-import resources.AbstractPageTest;
-
 import static org.testng.Assert.assertTrue;
+
+import org.testng.annotations.Test;
+
+import resources.AbstractPageTest;
 
 public abstract class PageTest extends AbstractPageTest
 {

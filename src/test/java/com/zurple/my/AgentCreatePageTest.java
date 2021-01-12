@@ -1,12 +1,12 @@
 package com.zurple.my;
 
-import java.util.UUID;
-import org.testng.AssertJUnit;
-import org.testng.annotations.Test;
-
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+
+import java.util.UUID;
+
+import org.testng.AssertJUnit;
+import org.testng.annotations.Test;
 
 /**
  * todo

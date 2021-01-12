@@ -2,10 +2,13 @@ package com.z57.propertypulse;
 
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
+
 import com.z57.site.v2.NewPageCreatedFromPP;
 import com.zurple.my.PageTest;
+
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
 
