@@ -16,6 +16,10 @@ import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
+
 //import com.relevantcodes.extentreports.LogStatus;
 import resources.extentreports.ExtentManager;
 import resources.utility.AutomationLogger;
@@ -28,7 +32,7 @@ public class ExtentReporterListener implements ITestListener {
 	
     @Override
 	public synchronized void onStart(ITestContext context) {
-    	ExtentTest parent = extent.createTest(context.getSuite().getName());
+    	ExtentTest parent = extent.createTest(context.getCurrentXmlTest().getName());
     	parentTest.set(parent);
 	}
 
@@ -51,7 +55,12 @@ public class ExtentReporterListener implements ITestListener {
 
 	@Override
 	public synchronized void onTestFailure(ITestResult result) {
-		String errorMessage = result.getThrowable().getLocalizedMessage();
+		String errorMessage = "";
+		try {
+			errorMessage = result.getThrowable().getLocalizedMessage();
+		} catch(Exception e) {
+			errorMessage = result.getName()+" Skipped ";
+		}
 		AutomationLogger.onTestPass(result.getName());
 		AutomationLogger.error(errorMessage);
 		Object currentClass = result.getInstance();
@@ -79,7 +88,9 @@ public class ExtentReporterListener implements ITestListener {
 
 	@Override
 	public synchronized void onTestSkipped(ITestResult result) {
-		((ExtentTest) test.get()).skip(result.getThrowable());
+			if(result.getThrowable().toString().contains("depends on")) {
+				((ExtentTest) test.get()).skip(" Skipped ");
+			}
 	}
 
 	@Override

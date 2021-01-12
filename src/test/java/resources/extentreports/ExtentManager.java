@@ -56,9 +56,7 @@ public class ExtentManager {
 		File finalDestination = new File(destination);
 		FileUtils.copyFile(source, finalDestination);
         //Returns the captured file path
-
-
-return screenshotName+dateName+".png";
+		return screenshotName+dateName+".png";
 }
 }
 //	private static ExtentAventReporter extent;
