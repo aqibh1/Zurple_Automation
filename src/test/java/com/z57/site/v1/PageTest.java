@@ -5,9 +5,10 @@ package com.z57.site.v1;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
-import com.z57.site.v1.Page;
+
 import resources.AbstractPageTest;
 import resources.alerts.BootstrapModal;
 import resources.interfaces.TestHavingHeader;

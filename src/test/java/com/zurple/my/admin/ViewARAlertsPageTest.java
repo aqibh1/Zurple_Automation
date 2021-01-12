@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.ViewARAlertsPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.ViewARAlertsPage;
 
 public class ViewARAlertsPageTest
         extends PageTest

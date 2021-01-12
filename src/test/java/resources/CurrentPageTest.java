@@ -1,13 +1,10 @@
 package resources;
 
-import org.openqa.selenium.WebDriver;
+import java.io.IOException;
+
 import org.testng.annotations.Test;
 
 import resources.utility.AutomationLogger;
-
-import static org.testng.Assert.assertTrue;
-
-import java.io.IOException;
 
 public class CurrentPageTest extends AbstractPageTest
 {

@@ -3,17 +3,8 @@ package com.zurple.backoffice;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Scanner;
 
-import org.apache.commons.lang3.ArrayUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -21,7 +12,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
-import resources.AbstractPage;
 import resources.utility.ActionHelper;
 
 public class ZBOLeadTagsPage extends Page {

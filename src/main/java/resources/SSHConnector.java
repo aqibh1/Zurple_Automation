@@ -1,12 +1,12 @@
 package resources;
 
-import com.jcabi.ssh.Shell;
-import com.jcabi.ssh.Ssh;
-import com.jcabi.ssh.SshByPassword;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import com.jcabi.ssh.Shell;
+import com.jcabi.ssh.Ssh;
+import com.jcabi.ssh.SshByPassword;
 
 public class SSHConnector
 {

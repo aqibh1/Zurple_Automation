@@ -1,7 +1,5 @@
 package com.zurple.my.Admin;
 
-import com.zurple.my.Page;
-import com.zurple.my.resources.alerts.LeadStatusAutomationProcessingWarning;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -9,6 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.zurple.my.Page;
+
 import resources.elements.Button;
 
 public class ProcessEmailQueuePage

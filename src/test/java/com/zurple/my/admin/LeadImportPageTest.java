@@ -1,7 +1,8 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.LeadImportPage;
-import com.zurple.my.PageTest;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import java.awt.AWTException;
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -12,15 +13,16 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.testng.annotations.Test;
+
+import com.zurple.my.PageTest;
+import com.zurple.my.Admin.LeadImportPage;
+
 import resources.classes.Lead;
 import resources.classes.LeadCSV;
 import resources.orm.hibernate.models.zurple.Admin;
 import resources.orm.hibernate.models.zurple.Import;
 import resources.orm.hibernate.models.zurple.Package;
 import resources.orm.hibernate.models.zurple.Site;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class LeadImportPageTest
         extends PageTest

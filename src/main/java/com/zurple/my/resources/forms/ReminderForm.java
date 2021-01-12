@@ -1,6 +1,5 @@
 package com.zurple.my.resources.forms;
 
-import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
@@ -9,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import resources.alerts.SweetAlertNotification;
+
 import resources.classes.Helper;
 
 public class ReminderForm

@@ -13,8 +13,6 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.google.common.base.CaseFormat;
-import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;

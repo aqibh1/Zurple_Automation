@@ -1,14 +1,18 @@
 package com.z57.site.v2;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
+import java.util.List;
+import java.util.UUID;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import resources.AbstractPageTest;
 import resources.DBHelperMethods;
@@ -20,19 +24,10 @@ import resources.forms.z57.OurCommunitySearchForm;
 import resources.interfaces.TestHavingHeader;
 import resources.interfaces.UsingPage;
 import resources.orm.hibernate.models.AbstractLead;
-import resources.orm.hibernate.models.z57.Lead;
 import resources.orm.hibernate.models.z57.ListingImages;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
-
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
-import static org.testng.Assert.assertTrue;
 
 public abstract class PageTest extends AbstractPageTest  implements UsingPage, TestHavingHeader
 {

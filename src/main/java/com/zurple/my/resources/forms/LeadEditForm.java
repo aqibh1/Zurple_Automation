@@ -1,11 +1,9 @@
 package com.zurple.my.resources.forms;
 
-import org.openqa.selenium.*;
-import resources.classes.LeadStatus;
-import resources.elements.Select2Dropdown;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.List;
+import resources.elements.Select2Dropdown;
 
 public class LeadEditForm
         extends resources.forms.LoginForm

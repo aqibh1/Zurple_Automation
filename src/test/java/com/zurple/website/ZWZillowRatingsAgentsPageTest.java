@@ -6,12 +6,6 @@ import static org.testng.Assert.assertTrue;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
-import com.zurple.admin.ZAProcessEmailQueuesPage;
-import com.zurple.backoffice.social.ZBOPostHistoryPage;
-
-import resources.ModuleCacheConstants;
-import resources.ModuleCommonCache;
-import resources.utility.ActionHelper;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
 

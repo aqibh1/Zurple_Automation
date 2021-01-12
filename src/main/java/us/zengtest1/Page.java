@@ -1,11 +1,9 @@
 package us.zengtest1;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
+
 import resources.AbstractPage;
 import resources.ConfigReader;
-import resources.alerts.BootstrapModal;
 import resources.alerts.SweetAlertNotification;
 import resources.interfaces.HasHeader;
 

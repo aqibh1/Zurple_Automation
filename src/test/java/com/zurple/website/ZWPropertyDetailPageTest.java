@@ -14,8 +14,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import resources.ConfigReader;
-import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.forms.zurple.website.ZWLeadCaptureForm;
@@ -76,7 +74,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		// TODO Auto-generated method stub
 		
 	}
-	@Test
+	@Test(priority=50)
 	@Parameters({"searchPropertyDataFile"})
 	public void testVerifyPropertyDetails(String pDataFile) {
 		getPage();

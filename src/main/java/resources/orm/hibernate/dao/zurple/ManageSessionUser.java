@@ -3,10 +3,12 @@ package resources.orm.hibernate.dao.zurple;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 import resources.orm.hibernate.models.zurple.SessionUser;
 import resources.orm.hibernate.models.zurple.User;
 

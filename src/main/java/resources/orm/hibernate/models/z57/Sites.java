@@ -1,11 +1,15 @@
 package resources.orm.hibernate.models.z57;
 
-import resources.orm.hibernate.models.Abstract;
-
-import javax.persistence.*;
-import java.sql.Timestamp;
-
 import static javax.persistence.GenerationType.IDENTITY;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import resources.orm.hibernate.models.Abstract;
 
 @Entity
 @Table(name = "sites", uniqueConstraints = {

@@ -1,10 +1,11 @@
 package com.zurple.my;
 
-import com.zurple.my.resources.forms.LeadsSearchForm;
-import com.zurple.my.resources.blocks.LeadsListBlock;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
+
+import com.zurple.my.resources.blocks.LeadsListBlock;
+import com.zurple.my.resources.forms.LeadsSearchForm;
 
 public class LeadListPage
         extends Page

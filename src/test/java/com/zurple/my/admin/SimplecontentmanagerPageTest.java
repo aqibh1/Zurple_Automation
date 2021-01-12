@@ -1,9 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.SimplecontentmanagerPage;
 import com.zurple.my.PageTest;
-
-import static org.testng.Assert.assertTrue;
+import com.zurple.my.Admin.SimplecontentmanagerPage;
 
 public class SimplecontentmanagerPageTest
         extends PageTest

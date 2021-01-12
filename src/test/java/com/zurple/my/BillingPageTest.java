@@ -1,15 +1,17 @@
 package com.zurple.my;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.testng.annotations.Test;
-import resources.orm.hibernate.models.zurple.PackageProduct;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import org.testng.annotations.Test;
+
+import resources.orm.hibernate.models.zurple.PackageProduct;
 
 public class BillingPageTest
         extends PageTest

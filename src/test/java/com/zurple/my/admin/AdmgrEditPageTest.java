@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.AdmgrEditPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.AdmgrEditPage;
 
 public class AdmgrEditPageTest
         extends PageTest

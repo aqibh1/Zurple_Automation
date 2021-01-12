@@ -1,13 +1,17 @@
 package resources.orm.hibernate.models.z57;
 
-import resources.orm.hibernate.models.AbstractLead;
-
-import javax.persistence.*;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import resources.orm.hibernate.models.AbstractLead;
 
 @Entity
 @Table(name = "leads", uniqueConstraints = {

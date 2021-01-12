@@ -1,17 +1,13 @@
 package resources.orm.hibernate;
 
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
-import java.lang.Object;
+import org.hibernate.Transaction;
 
 public abstract class BaseModel implements java.io.Serializable
 {

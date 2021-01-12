@@ -1,10 +1,10 @@
 package com.zurple.my;
 
-import com.zurple.my.resources.blocks.AdminProductsBlock;
-import com.zurple.my.resources.blocks.TransactionListBlock;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
+
+import com.zurple.my.resources.blocks.AdminProductsBlock;
+import com.zurple.my.resources.blocks.TransactionListBlock;
 
 public class BillingPage
         extends Page

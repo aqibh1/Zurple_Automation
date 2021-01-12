@@ -11,9 +11,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import resources.orm.hibernate.models.z57.Lead;
 import resources.orm.hibernate.models.z57.NotificationEmails;
-import resources.orm.hibernate.models.zurple.Admin;
 
 /**
  * @author adar

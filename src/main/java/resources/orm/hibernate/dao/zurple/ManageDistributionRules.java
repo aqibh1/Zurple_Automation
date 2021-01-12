@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 import resources.orm.hibernate.models.zurple.DistributionRule;
 
 public class ManageDistributionRules

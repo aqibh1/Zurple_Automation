@@ -7,7 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
-import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
 
 public class ZBOLeadStatusFiltersPage extends Page{

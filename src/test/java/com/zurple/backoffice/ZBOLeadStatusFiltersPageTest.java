@@ -8,11 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
-import resources.utility.ActionHelper;
 
 public class ZBOLeadStatusFiltersPageTest extends PageTest{
 

@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.CreateLeadPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.CreateLeadPage;
 
 public class CreateLeadPageTest
         extends PageTest

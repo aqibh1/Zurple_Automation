@@ -1,11 +1,9 @@
 package com.zurple.my.resources.forms;
 
-import com.zurple.my.resources.alerts.AgentCreateWarning;
-import com.zurple.my.resources.alerts.DistributionRulesUpdateWarning;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
-import resources.elements.CheckBox;
+
+import com.zurple.my.resources.alerts.AgentCreateWarning;
 
 public class AgentCreateForm
         extends resources.forms.AbstractForm

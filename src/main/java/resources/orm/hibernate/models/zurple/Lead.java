@@ -1,14 +1,13 @@
 package resources.orm.hibernate.models.zurple;
 
-import resources.orm.hibernate.models.Abstract;
-import resources.orm.hibernate.models.AbstractLead;
+import static javax.persistence.GenerationType.IDENTITY;
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -16,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+
+import resources.orm.hibernate.models.AbstractLead;
 
 @Entity
 @Table(name = "leads", uniqueConstraints = {

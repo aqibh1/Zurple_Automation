@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.AgentmgrPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.AgentmgrPage;
 
 public class AgentmgrPageTest
         extends PageTest

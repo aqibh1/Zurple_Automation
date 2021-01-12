@@ -6,10 +6,8 @@ package com.zurple.website;
 import static org.testng.Assert.assertTrue;
 
 import java.util.HashMap;
-import java.util.Set;
 
 import org.json.JSONObject;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;

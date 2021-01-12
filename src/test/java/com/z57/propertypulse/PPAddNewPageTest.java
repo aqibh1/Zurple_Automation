@@ -3,15 +3,9 @@
  */
 package com.z57.propertypulse;
 
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
-import javax.annotation.Priority;
-
-import org.hibernate.tuple.ElementWrapper;
-import org.json.JSONArray;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -22,7 +16,6 @@ import resources.AbstractPage;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
-import resources.TestEnvironment;
 import resources.alerts.BootstrapModal;
 import resources.data.z57.PPAddPageData;
 import resources.utility.ActionHelper;

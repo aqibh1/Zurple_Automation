@@ -2,37 +2,23 @@ package com.zurple.rest.zapier;
 
 import static org.testng.Assert.assertTrue;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.http.HttpStatus;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.restapi.HeadersConfig;
 import com.restapi.HttpRequestHandler;
-import com.restapi.Part;
 import com.restapi.RestAPITest;
-import com.restapi.RestContent;
 import com.restapi.RestRequest;
 import com.restapi.RestResponse;
-import com.restapi.RestValidationAction;
-import com.zurple.backoffice.ZBOAddLeadPageTest;
 import com.zurple.website.ZWPropertyDetailPageTest;
-import com.restapi.Part.PartType;
 
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
-import resources.utility.ZurpleListingConstants;
 
 public class ZapierRestGetAskedQuestionsLeads extends RestAPITest{
 	private JSONObject dataObject;

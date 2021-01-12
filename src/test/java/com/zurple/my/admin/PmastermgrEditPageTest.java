@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.PmastermgrEditPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.PmastermgrEditPage;
 
 public class PmastermgrEditPageTest
         extends PageTest

@@ -1,7 +1,7 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.AliasCityManagerEditPage;
 import com.zurple.my.PageTest;
+import com.zurple.my.Admin.AliasCityManagerEditPage;
 
 public class AliasCityManagerEditPageTest
         extends PageTest

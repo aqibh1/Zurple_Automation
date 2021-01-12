@@ -17,12 +17,12 @@ import org.testng.annotations.Test;
 import com.restapi.HeadersConfig;
 import com.restapi.HttpRequestHandler;
 import com.restapi.Part;
+import com.restapi.Part.PartType;
 import com.restapi.RestAPITest;
 import com.restapi.RestContent;
 import com.restapi.RestRequest;
 import com.restapi.RestResponse;
 import com.restapi.RestValidationAction;
-import com.restapi.Part.PartType;
 
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;

@@ -5,8 +5,6 @@ package resources.forms.zurple.backoffice;
 
 import static org.testng.Assert.assertTrue;
 
-import java.awt.print.PageFormat;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

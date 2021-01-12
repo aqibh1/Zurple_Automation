@@ -3,17 +3,13 @@ package com.z57.propertypulse;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.z57.site.v2.SEMIDXAndNonIDXPage;
-
 import resources.AbstractPage;
 import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
-import resources.forms.z57.SEMRegisterForm;
 import resources.utility.FrameworkConstants;
 
 public class PPCMAAdPageTest extends PageTest{

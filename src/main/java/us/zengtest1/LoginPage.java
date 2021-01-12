@@ -2,7 +2,7 @@ package us.zengtest1;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import resources.AbstractPage;
+
 import resources.forms.LoginForm;
 
 public class LoginPage extends Page

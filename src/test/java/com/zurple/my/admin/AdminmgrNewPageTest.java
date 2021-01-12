@@ -1,14 +1,17 @@
 package com.zurple.my.admin;
 
-import com.zurple.my.Admin.AdminmgrNewPage;
-import com.zurple.my.PageTest;
-import java.util.UUID;
-import org.testng.annotations.Test;
-import resources.ConfigReader;
-
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
+
+import java.util.UUID;
+
+import org.testng.annotations.Test;
+
+import com.zurple.my.PageTest;
+import com.zurple.my.Admin.AdminmgrNewPage;
+
+import resources.ConfigReader;
 
 public class AdminmgrNewPageTest
         extends PageTest

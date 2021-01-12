@@ -1,19 +1,21 @@
 package com.zurple.my;
 
-import com.zurple.my.resources.forms.LeadStatusForm;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
+
 import java.util.Date;
 
 import org.openqa.selenium.By;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import com.zurple.my.resources.forms.LeadStatusForm;
+
 import resources.orm.hibernate.dao.zurple.ManageUser;
 import resources.orm.hibernate.models.zurple.SessionUser;
 import resources.orm.hibernate.models.zurple.User;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.assertFalse;
 
 public class LeadDetailPageTest
         extends PageTest

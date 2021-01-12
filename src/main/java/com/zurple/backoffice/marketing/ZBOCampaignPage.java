@@ -5,7 +5,6 @@ package com.zurple.backoffice.marketing;
 
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,9 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.zurple.my.Page;
 
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
-import resources.forms.zurple.backoffice.ZBOAddTemplateForm;
 import resources.utility.ActionHelper;
-import resources.utility.FrameworkConstants;
 
 /**
  * @author adar
