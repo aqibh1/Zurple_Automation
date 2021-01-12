@@ -74,7 +74,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		// TODO Auto-generated method stub
 		
 	}
-	@Test(priority=50)
+	@Test(priority=30,retryAnalyzer = resources.RetryFailedTestCases.class) 
 	@Parameters({"searchPropertyDataFile"})
 	public void testVerifyPropertyDetails(String pDataFile) {
 		getPage();

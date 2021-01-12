@@ -89,7 +89,7 @@ public class ExtentReporterListener implements ITestListener {
 	@Override
 	public synchronized void onTestSkipped(ITestResult result) {
 			if(result.getThrowable().toString().contains("depends on")) {
-				((ExtentTest) test.get()).skip(" Skipped ");
+				((ExtentTest) test.get()).skip(result.getTestContext().getCurrentXmlTest().getName()+" Skipped ");
 			}
 	}
 

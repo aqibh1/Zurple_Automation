@@ -1,20 +1,23 @@
-<suite name="Capture Lead From About Me Page" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+<suite name="Capture Lead From About Me Page"
+	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	<listeners>
-        <listener class-name="resources.ThreadCountChanger"/>
-        <listener class-name="resources.ExtentReporterListener"/>
-        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
-        <listener class-name="resources.CustomTestNGReporter"/>
-    </listeners>
-   
-	
-<test name="Enroll and unenroll lead in campaign" >	
-	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/create-campaign-data.json"> 
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+
+	<test name="Enroll and unenroll lead in campaign">
+		<parameter name="dataFile"
+			value="/resources/data/zurple/backoffice/marketing/create-campaign-data.json">
 			<classes preserve-order="true">
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
 						<include name="testBackOfficeLogin" />
 					</methods>
-				</class> 
+				</class>
 				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
 					<methods>
 						<include name="testCreateCampaign" />
@@ -41,7 +44,7 @@
 					</methods>
 				</class>
 			</classes>
-	</parameter>
+		</parameter>
 	</test>
-	
+
 </suite>

@@ -101,7 +101,7 @@ public class ZBOLoginPageTest extends PageTest{
 		AutomationLogger.endTestCase();
 	}
 	
-	@Test //Just for TestRail Integration
+	@Test(retryAnalyzer = resources.RetryFailedTestCases.class) //Just for TestRail Integration
 	public void testAnInvalidLogin() {
 		page=null;
 		getPage();

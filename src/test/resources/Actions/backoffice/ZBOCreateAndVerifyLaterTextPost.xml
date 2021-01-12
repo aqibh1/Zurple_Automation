@@ -3,104 +3,108 @@
 	<listeners>
 		<listener class-name="resources.ThreadCountChanger" />
 		<listener class-name="resources.ExtentReporterListener" />
-		<listener class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
 		<listener class-name="resources.CustomTestNGReporter" />
 	</listeners>
 
 	<test name="Create and Verify Facebook Text post later">
-	<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/zurple-social-fb-text-later-data.json">
-		<classes>
-			<class name="com.zurple.backoffice.ZBOLoginPageTest">
-				<methods>
-					<include name="testBackOfficeLogin" />
-				</methods>
-			</class>
-			<class name="com.zurple.backoffice.ZBOCreatePostPageTest">
-				<methods>
-					<include name="testCreatePost" />
-				</methods>
-			</class>
-			<class name="com.zurple.backoffice.ZBOScheduledPostsPageTest">
-				<methods>
-					<include name="testVerifyPostOnScheduledPostsPage" />
-				</methods>
-			</class>
-			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
-				<methods>
-					<include name="testVerifyPostOnPostHistoryPage" />
-				</methods>
-			</class>
-			<class name="resources.CurrentPageTest">
-			<methods>
-					<include name="closeBrowser" />
-			</methods>
-			</class>
-		</classes>
+		<parameter name="dataFile"
+			value="/resources/data/zurple/backoffice/social/zurple-social-fb-text-later-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOCreatePostPageTest">
+					<methods>
+						<include name="testCreatePost" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOScheduledPostsPageTest">
+					<methods>
+						<include name="testVerifyPostOnScheduledPostsPage" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+					<methods>
+						<include name="testVerifyPostOnPostHistoryPage" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
 		</parameter>
 	</test>
-		
+
 	<test name="Create and Verify Twitter Text post Now">
-	<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/zurple-social-tw-text-later-data.json">
-		<classes>
-			<class name="com.zurple.backoffice.ZBOLoginPageTest">
-				<methods>
-					<include name="testBackOfficeLogin" />
-				</methods>
-			</class>
-			<class name="com.zurple.backoffice.ZBOCreatePostPageTest">
-				<methods>
-					<include name="testCreatePost" />
-				</methods>
-			</class>
-			<class name="com.zurple.backoffice.ZBOScheduledPostsPageTest">
-				<methods>
-					<include name="testVerifyPostOnScheduledPostsPage" />
-				</methods>
-			</class>
-			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
-				<methods>
-					<include name="testVerifyPostOnPostHistoryPage" />
-				</methods>
-			</class>
-			<class name="resources.CurrentPageTest">
-			<methods>
-					<include name="closeBrowser" />
-			</methods>
-			</class>
-		</classes>
+		<parameter name="dataFile"
+			value="/resources/data/zurple/backoffice/social/zurple-social-tw-text-later-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOCreatePostPageTest">
+					<methods>
+						<include name="testCreatePost" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOScheduledPostsPageTest">
+					<methods>
+						<include name="testVerifyPostOnScheduledPostsPage" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+					<methods>
+						<include name="testVerifyPostOnPostHistoryPage" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
 		</parameter>
 	</test>
-	
-	
+
+
 	<test name="Create and Verify Linkedin Text post Now">
-	<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/zurple-social-li-text-later-data.json">
-		<classes>
-			<class name="com.zurple.backoffice.ZBOLoginPageTest">
-				<methods>
-					<include name="testBackOfficeLogin" />
-				</methods>
-			</class>
-			<class name="com.zurple.backoffice.ZBOCreatePostPageTest">
-				<methods>
-					<include name="testCreatePost" />
-				</methods>
-			</class>
-			<class name="com.zurple.backoffice.ZBOScheduledPostsPageTest">
-				<methods>
-					<include name="testVerifyPostOnScheduledPostsPage" />
-				</methods>
-			</class>
-			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
-				<methods>
-					<include name="testVerifyPostOnPostHistoryPage" />
-				</methods>
-			</class>
-			<class name="resources.CurrentPageTest">
-			<methods>
-					<include name="closeBrowser" />
-			</methods>
-			</class>
-		</classes>
+		<parameter name="dataFile"
+			value="/resources/data/zurple/backoffice/social/zurple-social-li-text-later-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOCreatePostPageTest">
+					<methods>
+						<include name="testCreatePost" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOScheduledPostsPageTest">
+					<methods>
+						<include name="testVerifyPostOnScheduledPostsPage" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+					<methods>
+						<include name="testVerifyPostOnPostHistoryPage" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
 		</parameter>
 	</test>
 
