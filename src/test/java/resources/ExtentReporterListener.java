@@ -3,6 +3,11 @@ package resources;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.logging.Logger;
+
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -18,6 +23,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 
 //import com.relevantcodes.extentreports.LogStatus;
@@ -27,13 +33,13 @@ import resources.utility.AutomationLogger;
 public class ExtentReporterListener implements ITestListener {
 
 	private static ExtentReports extent = ExtentManager.createInstance(System.getProperty("user.dir")+"\\target\\surefire-reports\\ExtentReportResults.html");
-	private static ThreadLocal parentTest = new ThreadLocal();
-    private static ThreadLocal test = new ThreadLocal();
+	private static ThreadLocal<ExtentTest> pTest = new ThreadLocal();
+    private static ThreadLocal<ExtentTest> test = new ThreadLocal();
 	
     @Override
 	public synchronized void onStart(ITestContext context) {
     	ExtentTest parent = extent.createTest(context.getCurrentXmlTest().getName());
-    	parentTest.set(parent);
+    	test.set(parent);
 	}
 
 	@Override
@@ -43,24 +49,18 @@ public class ExtentReporterListener implements ITestListener {
 	
 	@Override
 	public synchronized void onTestStart(ITestResult result) {
-		ExtentTest child = ((ExtentTest) parentTest.get()).createNode(result.getMethod().getMethodName());
-        test.set(child);
+		AutomationLogger.startTestCase(result.getName());
 	}
 
 	@Override
 	public synchronized void onTestSuccess(ITestResult result) {
-		((ExtentTest) test.get()).pass("Test passed");
-		((ExtentTest) test.get()).pass(result.getTestContext().getCurrentXmlTest().getName());
+		test.get().pass(result.getName());
 	}
 
 	@Override
 	public synchronized void onTestFailure(ITestResult result) {
 		String errorMessage = "";
-		try {
-			errorMessage = result.getThrowable().getLocalizedMessage();
-		} catch(Exception e) {
-			errorMessage = result.getName()+" Skipped ";
-		}
+		errorMessage = result.getThrowable().getLocalizedMessage();
 		AutomationLogger.onTestPass(result.getName());
 		AutomationLogger.error(errorMessage);
 		Object currentClass = result.getInstance();
@@ -73,13 +73,12 @@ public class ExtentReporterListener implements ITestListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	        String base64ScreenshotEmail = "data:image/png;base64,"+((TakesScreenshot)webDriver).getScreenshotAs(OutputType.BASE64);
+	       // String base64ScreenshotEmail = "data:image/png;base64,"+((TakesScreenshot)webDriver).getScreenshotAs(OutputType.BASE64);
 	        if(errorMessage==null) {
 	        	errorMessage = result.getThrowable().toString();
 	        }
 			try {
-				((ExtentTest) test.get()).fail(result.getName()).addScreenCaptureFromPath(base64ScreenshotEmail);
-				((ExtentTest) test.get()).fail(result.getTestContext().getCurrentXmlTest().getName()+" Error Message: "+errorMessage);
+				test.get().fail(result.getName()+"\n--==[Error Message: "+errorMessage+"]==--").addScreenCaptureFromPath(base64Screenshot);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -89,7 +88,7 @@ public class ExtentReporterListener implements ITestListener {
 	@Override
 	public synchronized void onTestSkipped(ITestResult result) {
 			if(result.getThrowable().toString().contains("depends on")) {
-				((ExtentTest) test.get()).skip(result.getTestContext().getCurrentXmlTest().getName()+" Skipped ");
+				test.get().skip(result.getName());
 			}
 	}
 
