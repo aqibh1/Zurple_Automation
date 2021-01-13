@@ -73,7 +73,7 @@ public class ZWHomesForSalePageTest extends PageTest{
 		
 	}
 	
-	@Test(priority=30)
+	@Test
 	@Parameters({"searchPropertyDataFile"})
 	public void testHomesForSale(@Optional String pDataFile) {
 		getPage();
@@ -82,17 +82,25 @@ public class ZWHomesForSalePageTest extends PageTest{
 		assertTrue(page.verifyNavigationTabs(),"Unable to verify navigation tabs on Homes for Sale page..");
 		ActionHelper.staticWait(20);
 		int totalListings = page.getTotalListings();
+		boolean isClickSuccessful = false;
+		int counter =0;
 		AutomationLogger.info("Total listings are " + totalListings);
-		if(totalListings>0) {
-			int props = page.getPageNumOfProps();
-			AutomationLogger.info("Page number of props are " + props);
-			int rand = getRandomNumber(props);
-			AutomationLogger.info("Random number is " + rand);
-			assertTrue(page.clickOnListing(rand),"Unable to click on the listing..");
+		do {
+			counter++;
+			if(totalListings>0) {
+				int props = page.getPageNumOfProps();
+				AutomationLogger.info("Page number of props are " + props);
+				int rand = getRandomNumber(props);
+				rand = rand>2?rand-1:rand;
+				AutomationLogger.info("Random number is " + rand);
+				isClickSuccessful = page.clickOnListing(rand);
+				
 
-		}else {
-			AutomationLogger.error("No Listing found on search criteria..");
-		}
+			}else {
+				AutomationLogger.error("No Listing found on search criteria..");
+			}
+		}while(!isClickSuccessful &&counter<5);
+		assertTrue(isClickSuccessful,"Unable to click on the listing..");
 		
 		if(dataObject.optBoolean("view_address")) {
 			ActionHelper.staticWait(30);
