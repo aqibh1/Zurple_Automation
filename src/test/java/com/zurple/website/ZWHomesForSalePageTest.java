@@ -91,6 +91,7 @@ public class ZWHomesForSalePageTest extends PageTest{
 				int props = page.getPageNumOfProps();
 				AutomationLogger.info("Page number of props are " + props);
 				int rand = getRandomNumber(props);
+				rand = rand>2?rand-1:rand;
 				AutomationLogger.info("Random number is " + rand);
 				isClickSuccessful = page.clickOnListing(rand);
 				

@@ -143,7 +143,8 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(id="submit_save_reminder")
 	WebElement save_reminder_button;
 
-	String xpathForTestingSubject = "//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div";
+//	String xpathForTestingSubject = "//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div";
+	String xpathForTestingSubject = "//div[@id='z-activity-details-sent-grid']/descendant::td[@headers]/div";
 	
 	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div")
 	WebElement flyer_email;
@@ -153,10 +154,11 @@ public class ZBOLeadDetailPage extends Page{
 	
 	String lead_messages_subject = "//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div";
 
-	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-messageDateTime ']/div")
+//	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-messageDateTime ']/div")
+	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[contains(@headers,'messageDateTime')]/div")
 	WebElement xpathForTestingDate;
 	
-	String lead_messages_date = "//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[@headers='yui-dt5-th-messageDateTime ']/div";
+	String lead_messages_date = "//div[@id='z-activity-details-messages-to-admin-grid']/descendant::td[contains(@headers,'messageDateTime ')]/div";
 
 	@FindBy(xpath="//button[text()='Done']")
 	WebElement done_date_button;
@@ -730,8 +732,9 @@ public class ZBOLeadDetailPage extends Page{
 		String str = "";
 		int counter = 0;
 		boolean lIsEmailVisible = false;
-		while(!lIsEmailVisible && counter<15) {
-			if(ActionHelper.isElementVisible(driver, flyer_email)) {
+		while(!lIsEmailVisible && counter<3) {
+			if(ActionHelper.waitForElementToBeDisappeared(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-sent-tab']/descendant::div[@class='yui-dt-liner' and text()='Loading...']")), 300))
+			/* if(ActionHelper.isElementVisible(driver, flyer_email)) */ {
 				List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, xpathForTestingSubject);
 				ActionHelper.staticWait(2);
 				for(WebElement element:subjectList) {
