@@ -78,7 +78,7 @@ public class ExtentReporterListener implements ITestListener {
 	        	errorMessage = result.getThrowable().toString();
 	        }
 			try {
-				test.get().fail(result.getName()+"\n--==[Error Message: "+errorMessage+"]==--").addScreenCaptureFromPath(base64Screenshot);
+				test.get().fail(result.getName()+"  --==[Error Message: "+errorMessage+"]==--").addScreenCaptureFromPath(base64Screenshot);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
