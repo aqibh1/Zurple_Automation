@@ -104,6 +104,9 @@ public class ZBOLeadCRMPage extends Page{
 	
 	String priority_ranking = "//div[@class='monitor']/span['"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
+	@FindBy(xpath="//button[@data-action='increase']")
+	WebElement add_filter_button;
+	
 	private ZBOAddNotesForm addNoteForm;
 	private ZBOAddReminderForm addReminderForm;
 	private ZBOSendEmailForm sendEmailForm;
@@ -293,5 +296,8 @@ public class ZBOLeadCRMPage extends Page{
 	}
 	public boolean priorityRankingToVeify(String pPriorityRanking) {
 		return ActionHelper.getDynamicElement(driver, priority_ranking, pPriorityRanking)!=null;
+	}
+	public boolean clickOnAddFilterButton() {
+		return ActionHelper.Click(driver, add_filter_button);
 	}
 }

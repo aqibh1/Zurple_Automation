@@ -85,6 +85,10 @@ public class ZBOLeadPage extends Page{
 	@FindBy(xpath="//table[@id='DataTables_Table_0']/descendant::input[@class='lead-check']")
 	WebElement lead_input_checkbox;
 	
+	String filter_dropdown_multiple = "//select[@id='location-parent-"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	
+	String filter_child_dropdown_multiple = "//select[@id='location-child-"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	
 	public ZBOLeadPage() {
 		
 	}
@@ -449,5 +453,11 @@ public class ZBOLeadPage extends Page{
 	public boolean updateLeadProspect() {
 		return ActionHelper.Click(driver, update_status_from_modal);
 	}
-	
+	public boolean clickAndSelectFilterNameMultiple(String pFilterName, String pIndex) {
+		return ActionHelper.selectDropDownOption(driver, ActionHelper.getDynamicElement(driver, filter_dropdown_multiple, pIndex), "", pFilterName);
+		
+	}
+	public boolean clickAndSelectFilterValueMultiple(String pFilterValue, String pIndex) {
+		return ActionHelper.selectDropDownOption(driver, ActionHelper.getDynamicElement(driver, filter_child_dropdown_multiple, pIndex), "", pFilterValue);	
+	}
 }

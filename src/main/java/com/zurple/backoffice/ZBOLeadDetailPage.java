@@ -733,12 +733,12 @@ public class ZBOLeadDetailPage extends Page{
 		int counter = 0;
 		boolean lIsEmailVisible = false;
 		while(!lIsEmailVisible && counter<3) {
-			if(ActionHelper.waitForElementToBeDisappeared(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-sent-tab']/descendant::div[@class='yui-dt-liner' and text()='Loading...']")), 300))
+			if(ActionHelper.waitForElementToBeDisappeared(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-sent-tab']/descendant::div[@class='yui-dt-liner' and text()='Loading...']")), 200))
 			/* if(ActionHelper.isElementVisible(driver, flyer_email)) */ {
 				List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, xpathForTestingSubject);
 				ActionHelper.staticWait(2);
-				for(WebElement element:subjectList) {
-					str = ActionHelper.getText(driver, element);
+				for(int i =0;i<10;i++) {
+					str = ActionHelper.getText(driver, subjectList.get(i));
 					if(str.equals(pEmailToVerify)) {
 						assertTrue(verifyEmailDateTime(), "unable to verify date");
 						lIsEmailVisible = true;
