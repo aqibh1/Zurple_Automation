@@ -8,7 +8,8 @@
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
 
-	<test name="Search and Verify property by Price City Features">
+	
+<test name="Search and Verify property by Price City Features">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-01.json">
 			<classes>
@@ -157,6 +158,11 @@
 						<include name="testSearchPropoerty" />
 					</methods>
 				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSaleSkip" />
+					</methods>
+				</class>
 				<class name="com.zurple.website.ZWPropertyDetailPageTest">
 					<methods>
 						<include name="testVerifyPropertyDetails" />
@@ -178,6 +184,11 @@
 				<class name="com.zurple.website.ZWHomeSearchPageTest">
 					<methods>
 						<include name="testSearchPropoerty" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSaleSkip" />
 					</methods>
 				</class>
 				<class name="com.zurple.website.ZWPropertyDetailPageTest">
@@ -433,6 +444,11 @@
 						<include name="testSearchPropoertyAfterLoggedIn" />
 					</methods>
 				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSaleSkip" />
+					</methods>
+				</class>
 				<class name="com.zurple.website.ZWPropertyDetailPageTest">
 					<methods>
 						<include name="testVerifyPropertyDetails" />
@@ -460,6 +476,11 @@
 				<class name="com.zurple.website.ZWHomeSearchPageTest">
 					<methods>
 						<include name="testSearchPropoertyAfterLoggedIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSaleSkip" />
 					</methods>
 				</class>
 				<class name="com.zurple.website.ZWPropertyDetailPageTest">

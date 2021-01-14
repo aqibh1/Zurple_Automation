@@ -74,7 +74,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		// TODO Auto-generated method stub
 		
 	}
-	@Test
+	@Test(dependsOnGroups = "testHomesForSale")
 	@Parameters({"searchPropertyDataFile"})
 	public void testVerifyPropertyDetails(String pDataFile) {
 		getPage();

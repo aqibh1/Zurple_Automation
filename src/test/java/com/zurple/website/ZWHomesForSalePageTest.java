@@ -73,7 +73,7 @@ public class ZWHomesForSalePageTest extends PageTest{
 		
 	}
 	
-	@Test
+	@Test(groups="testHomesForSale")
 	@Parameters({"searchPropertyDataFile"})
 	public void testHomesForSale(@Optional String pDataFile) {
 		getPage();
@@ -110,6 +110,12 @@ public class ZWHomesForSalePageTest extends PageTest{
 		ActionHelper.staticWait(30);
 	}
 	
+	@Test(groups="testHomesForSale")
+	public void testHomesForSaleSkip() {
+		AutomationLogger.info("Skipiing test homes for sale for Address and MLS realted search.");
+		assertTrue(true,"Skipiing test homes for sale for Address and MLS realted search.");
+		ActionHelper.staticWait(10);
+	}
 	@Test
 	@Parameters({"captureLeadData"})
 	public void testCaptureLeadFromSearchResults(String pDataFile) {
