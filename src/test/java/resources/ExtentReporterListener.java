@@ -33,18 +33,22 @@ import resources.utility.AutomationLogger;
 public class ExtentReporterListener implements ITestListener {
 
 	private static ExtentReports extent = ExtentManager.createInstance(System.getProperty("user.dir")+"\\target\\surefire-reports\\ExtentReportResults.html");
-	private static ThreadLocal<ExtentTest> pTest = new ThreadLocal();
+	private static ExtentReports emailExtent = ExtentManager.createInstance(System.getProperty("user.dir")+"\\target\\surefire-reports\\ExtentEmailReportResults.html");
+	private static ThreadLocal<ExtentTest> emailTest = new ThreadLocal();
     private static ThreadLocal<ExtentTest> test = new ThreadLocal();
 	
     @Override
 	public synchronized void onStart(ITestContext context) {
     	ExtentTest parent = extent.createTest(context.getCurrentXmlTest().getName());
     	test.set(parent);
+    	ExtentTest emailParent = emailExtent.createTest(context.getCurrentXmlTest().getName());
+    	emailTest.set(emailParent);
 	}
 
 	@Override
 	public synchronized void onFinish(ITestContext context) {
 		extent.flush();
+		emailExtent.flush();
 	}
 	
 	@Override
@@ -55,6 +59,7 @@ public class ExtentReporterListener implements ITestListener {
 	@Override
 	public synchronized void onTestSuccess(ITestResult result) {
 		test.get().pass(result.getName());
+		emailTest.get().pass(result.getName());
 	}
 
 	@Override
@@ -78,8 +83,8 @@ public class ExtentReporterListener implements ITestListener {
 	        	errorMessage = result.getThrowable().toString();
 	        }
 			try {
-				//test.get().fail(result.getName()+"  --==[Error Message: "+errorMessage+"]==--").addScreenCaptureFromPath(base64Screenshot);
 				test.get().fail(result.getName()).info(MarkupHelper.createLabel(errorMessage, ExtentColor.RED)).addScreenCaptureFromPath(base64Screenshot);
+				emailTest.get().fail(result.getName()).info(MarkupHelper.createLabel(errorMessage, ExtentColor.RED));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -90,6 +95,7 @@ public class ExtentReporterListener implements ITestListener {
 	public synchronized void onTestSkipped(ITestResult result) {
 			if(result.getThrowable().toString().contains("depends on")) {
 				test.get().skip(result.getName());
+				emailTest.get().skip(result.getName());
 			}
 	}
 
