@@ -47,6 +47,19 @@ public class ZBOSendEmailForm extends AbstractForm{
 		l_random_index = l_random_index==0?l_random_index+1:l_random_index;
 		return ActionHelper.clickAndSelectByIndex(driver, select_campaign_dropdown, select_template_option, l_random_index);
 	}
+	public boolean selectTemplate(String pTemplateName) {
+		int l_random_index = 0;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, select_template_option);
+		for(int i=0;i<list_element.size();i++) {
+			if(ActionHelper.getText(driver, list_element.get(i)).contains(pTemplateName)) {
+				l_random_index = i;
+				break;
+			}
+		}
+		l_random_index = l_random_index==0?l_random_index+1:l_random_index;
+		return ActionHelper.clickAndSelectByIndex(driver, select_campaign_dropdown, select_template_option, l_random_index);
+	}
+	
 	public boolean clickOnSendEmailButton() {
 		return ActionHelper.Click(driver, send_email_button);
 	}
