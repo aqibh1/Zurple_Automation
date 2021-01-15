@@ -131,8 +131,9 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	public void testPUNS(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
 		GmailEmailVerification gmailObject = new GmailEmailVerification();
-    	gmailObject.isPUNSEmailPresent("auto.zurpleqa@gmail.com", "djfbxtfkdnlczaec", 
+    	boolean isSuccessful = gmailObject.isPUNSEmailPresent("auto.zurpleqa@gmail.com", "djfbxtfkdnlczaec", 
     			"New Listing Updates", "aqibstagetesting_zurpleqa@stage01.zengtest6.us", true);
+    	assertTrue(isSuccessful, "PUNS email not sent");
 //		testVerifyLeadMessages(lDataObject);
 	}
 	

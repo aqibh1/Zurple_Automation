@@ -5,7 +5,6 @@ package com.zurple.website;
 
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -277,20 +276,14 @@ public class ZWPropertyDetailPage extends Page{
 		if(ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "MAP"))) {
 			ActionHelper.staticWait(10);
 			if(ActionHelper.waitForElementToBeVisible(driver, listing_map,30)) {
-				ActionHelper.staticWait(10);
-//				isSuccess = ActionHelper.isElementVisible(driver, googleMapPinIcon);
-				while(!isSuccess && counter<5) {
-					try {
-						isSuccess = ActionHelper.getAttribute(driver.findElement(By.xpath("//map[@id='gmimap0']/parent::div/img")), "src").contains(".png");
-//						isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
-					}catch(Exception ex) {
-						System.out.println("No Pin is displayed on Google MAPS");
-//						isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
-						counter++;
-						ActionHelper.staticWait(15);
-						return isSuccess;
-					}
-				}
+////				isSuccess = ActionHelper.isElementVisible(driver, googleMapPinIcon);
+//				try {
+//					isSuccess = wait.until(ExpectedConditions.attributeContains(By.xpath("//map[@id='gmimap0']/parent::div/img"), "src", ".png"));
+//				}catch(Exception ex) {
+//					System.out.println("No Pin is displayed on Google MAPS");
+//					return isSuccess;
+//				}
+				isSuccess = true;
 			}
 		}
 		return isSuccess;

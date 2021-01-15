@@ -506,7 +506,7 @@ public class ZBOLeadDetailPage extends Page{
 					if(alertVerified) {
 						if(ActionHelper.getText(driver, driver.findElement(By.xpath("//span[@class='z-alert-datetime']")))!=null) {
 							String lDate = ActionHelper.getText(driver, driver.findElement(By.xpath("//span[@class='z-alert-datetime']")));
-							dateVerified = lDate.contains(getTodaysDate().replace("2020", "20"))?true:false;
+							dateVerified = lDate.contains(getTodaysDate().replace("2021", "21"))?true:false;
 						}
 					}
 				}
@@ -519,7 +519,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = element.getText().trim().contains("Requested Showing");
 					if(alertVerified) {
 						alertVerified = element.findElement(By.tagName("a")).getText().trim().contains(pAlertValueToVerify);
-						dateVerified = element.getText().trim().contains(getTodaysDate().replace("2020", "20"));
+						dateVerified = element.getText().trim().contains(getTodaysDate().replace("2021", "21"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -541,7 +541,7 @@ public class ZBOLeadDetailPage extends Page{
 								break;
 							}
 						}
-						dateVerified = list_lead_activity_pref.get(i).getText().trim().contains(getTodaysDate().replace("2020", "20"));
+						dateVerified = list_lead_activity_pref.get(i).getText().trim().contains(getTodaysDate().replace("2021", "21"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -557,7 +557,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = ActionHelper.getText(driver, list_lead_activity_cma.get(i)).contains("Homeowner Asked for a CMA") ;
 					if(alertVerified) {
 
-						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time.get(i)).contains(getTodaysDate().replace("2020", "20"));
+						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time.get(i)).contains(getTodaysDate().replace("2021", "21"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -574,7 +574,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = ActionHelper.getText(driver, list_lead_activity_high.get(i)).contains("Lots of Browsing") ;
 					if(alertVerified) {
 
-						dateVerified = ActionHelper.getText(driver,list_lead_high_activity_date_time.get(i)).contains(getTodaysDate().replace("2020", "20"));
+						dateVerified = ActionHelper.getText(driver,list_lead_high_activity_date_time.get(i)).contains(getTodaysDate().replace("2021", "21"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -590,7 +590,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = ActionHelper.getText(driver, list_lead_activity_high_return.get(i)).contains("High Return") ;
 					if(alertVerified) {
 
-						dateVerified = ActionHelper.getText(driver,list_lead_high_return_activity_date_time.get(i)).contains(getTodaysDate().replace("2020", "20"));
+						dateVerified = ActionHelper.getText(driver,list_lead_high_return_activity_date_time.get(i)).contains(getTodaysDate().replace("2021", "21"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -606,7 +606,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = ActionHelper.getText(driver, list_lead_activity_list.get(i)).contains("Agent Inquiry") ;
 					if(alertVerified) {
 
-						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate().replace("2020", "20"));
+						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate().replace("2021", "21"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -622,7 +622,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = ActionHelper.getText(driver, list_lead_activity_list.get(i)).contains(pAlertToVerify) ;
 					if(alertVerified) {
 
-						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate().replace("2020", "20"));
+						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate().replace("2021", "21"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -641,7 +641,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = ActionHelper.getText(driver, list_lead_activity_list.get(i)).contains(pAlertToVerify) ;
 					if(alertVerified) {
 
-						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate().replace("2020", "20"));
+						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate().replace("2021", "21"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -733,12 +733,12 @@ public class ZBOLeadDetailPage extends Page{
 		int counter = 0;
 		boolean lIsEmailVisible = false;
 		while(!lIsEmailVisible && counter<3) {
-			if(ActionHelper.waitForElementToBeDisappeared(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-sent-tab']/descendant::div[@class='yui-dt-liner' and text()='Loading...']")), 300))
+			if(ActionHelper.waitForElementToBeDisappeared(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-sent-tab']/descendant::div[@class='yui-dt-liner' and text()='Loading...']")), 200))
 			/* if(ActionHelper.isElementVisible(driver, flyer_email)) */ {
 				List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, xpathForTestingSubject);
 				ActionHelper.staticWait(2);
-				for(WebElement element:subjectList) {
-					str = ActionHelper.getText(driver, element);
+				for(int i =0;i<10;i++) {
+					str = ActionHelper.getText(driver, subjectList.get(i));
 					if(str.equals(pEmailToVerify)) {
 						assertTrue(verifyEmailDateTime(), "unable to verify date");
 						lIsEmailVisible = true;

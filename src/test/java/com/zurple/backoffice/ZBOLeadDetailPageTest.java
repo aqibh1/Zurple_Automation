@@ -57,7 +57,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	
 	}
 	
-	@Test
+	@Test(dependsOnGroups = "testVerifyPropertyDetails")
 	public void testVerifyLeadPropTracking() {
 		AutomationLogger.startTestCase("Verify lead property tracking");
 		getPage();
