@@ -100,7 +100,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testAddAndVerifyReminder() {
+	public void testAddAndVerifyReminder() throws ParseException {
 		getPage("/leads/crm");
 		Mailinator mailinatorObj = new Mailinator(driver);
 		if(getIsProd()) {
@@ -108,8 +108,13 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		}else {
 			mailinatorObj.activateStagingInbox();
 		}
-		
 		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
+		
+//		AutomationLogger.info("Applying filter to get valid lead");
+//		String lFilterName = "By Agent,By Email Verification";
+//		String lFilterValue = getIsProd()?"Aqib Production Testing,Valid Emails":"Aqib Site Owner,Valid Emails";
+//		applyMultipleFilter(lFilterName, lFilterValue);
+		
 		String lead_name_id = page.getLeadName();
 		String l_leadName = lead_name_id.split(",")[0].trim();
 		String l_leadId = lead_name_id.split(",")[1].trim();
@@ -142,7 +147,25 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		String lAgentEmail = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_user").split("@")[0];
 		String lSubjectToVerify = "Task Reminder - "+l_leadName;
 		
-		assertTrue(mailinatorObj.verifyEmail(lAgentEmail, lSubjectToVerify, 15), "Unable to verify reminder email");
+		JSONObject lCacheObject = new JSONObject();
+		lCacheObject.put("agent_email", lAgentEmail);
+		lCacheObject.put("subject_to_verify", lSubjectToVerify);
+		
+		emptyFile("/resources/cache/zurple-reminder-email-verification.json", "");
+		writeJsonToFile("/resources/cache/zurple-reminder-email-verification.json", lCacheObject);
+		
+//		assertTrue(mailinatorObj.verifyEmail(lAgentEmail, lSubjectToVerify, 15), "Unable to verify reminder email");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyReminderEmail(String pDataFile) {
+		getPage();
+		Mailinator mailinatorObj = new Mailinator(driver);
+		dataObject = getDataFile(pDataFile);
+		String ld_AgentEmail = dataObject.optString("agent_email");
+		String ld_subject_to_verify = dataObject.optString("subject_to_verify");
+		assertTrue(mailinatorObj.verifyEmail(ld_AgentEmail, ld_subject_to_verify, 5), "Unable to verify reminder email");
 	}
 	
 	@Test
