@@ -83,6 +83,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
 		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
 		verifyEmailListingFlyer(lDataObject);
+		processEmailQueue();
 		JSONObject cacheObject = new JSONObject();
 		cacheObject.put("email_subject", flyerSubject);
 		emptyFile(CacheFilePathsConstants.EmailListingFlyerCache, "");
@@ -106,7 +107,20 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
 		fillStandardEmailForm(lDataObject);
 		System.out.println("This is email subject: "+emailSubject);
-		testVerifyEmailInMyMessages(lDataObject, emailSubject);
+		processEmailQueue();
+		JSONObject cacheObject = new JSONObject();
+		cacheObject.put("email_subject", emailSubject);
+		emptyFile(CacheFilePathsConstants.StandardEmailCache, "");
+		writeJsonToFile(CacheFilePathsConstants.StandardEmailCache, cacheObject);
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyStandardEmail(String pDataFile) {
+		getPage();
+		JSONObject lDataObject = getDataFile(pDataFile);
+		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.StandardEmailCache);
+		assertTrue(testVerifyEmailInMyMessages(lDataObject, lCacheObject.optString("email_subject")), "Unable to verify standard email in my messages ["+lCacheObject.optString("email_subject")+"]");
 	}
 	
 	@Test
@@ -120,11 +134,26 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
 		assertTrue(page.selectRecipients(lDataObject.optString("recipient_bulkemail")), "Unable to select the recipients...");
 		fillStandardEmailForm(lDataObject);
-		System.out.println("This is bulk email subject: "+bulkEmailSubject);
-		testVerifyEmailInMyMessages(lDataObject, bulkEmailSubject);
-		leadStatus(lDataObject, 1);
+		
+		JSONObject cacheObject = new JSONObject();
+		cacheObject.put("email_subject", emailSubject);
+		emptyFile(CacheFilePathsConstants.BulkEmailCache, "");
+		writeJsonToFile(CacheFilePathsConstants.BulkEmailCache, cacheObject);
+		
+//		System.out.println("This is bulk email subject: "+bulkEmailSubject);
+//		testVerifyEmailInMyMessages(lDataObject, bulkEmailSubject);
+		
 	}
 	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyBulkEmail(String pDataFile) {
+		getPage();
+		JSONObject lDataObject = getDataFile(pDataFile);
+		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.BulkEmailCache);
+		assertTrue(testVerifyEmailInMyMessages(lDataObject, lCacheObject.optString("email_subject")), "Unable to verify standard email in my messages ["+lCacheObject.optString("email_subject")+"]");
+		assertTrue(leadStatus(lDataObject, 1), "Unable to change the lead status ");
+	}
 	@Test
 	@Parameters({"standardEmailData"})
 	public void testSendScheduledStandardEmail(String pDataFile) {
@@ -266,12 +295,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		getPage();
 		String lLeadId = null;		
 			if(!getIsProd()) {
-				lLeadId = pDataObject.optString("leadidstage");
-			//	Process email queue
-				page=null;
-				getPage("/admin/processemailqueue");
-				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-				
+				lLeadId = pDataObject.optString("leadidstage");	
 			} else {
 				lLeadId = pDataObject.optString("leadid");
 			}
@@ -400,6 +424,14 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		}
 		duration =TimeUnit.MILLISECONDS.toMinutes(duration);
 		return duration+1;
+	}
+	
+	private void processEmailQueue() {
+		if(!getIsProd()) {
+			page=null;
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+		} 
 	}
 
 }
