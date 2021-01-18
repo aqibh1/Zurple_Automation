@@ -25,6 +25,7 @@ import resources.ModuleCommonCache;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.CacheFilePathsConstants;
 import resources.utility.GmailEmailVerification;
 
 /**
@@ -123,9 +124,22 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
 		fillStandardEmailForm(lDataObject);
 		System.out.println("This is email subject: "+emailSubject);
-		testVerifyScheduledEmailInMyMessages(lDataObject, emailSubject);
+		JSONObject cacheObject = new JSONObject();
+		cacheObject.put("subject", emailSubject);
+		emptyFile(CacheFilePathsConstants.ScheduledEmailCache, "");
+		writeJsonToFile(CacheFilePathsConstants.ScheduledEmailCache, cacheObject);
+		
+		assertTrue(isEmailShowingInScheduledEmails(lDataObject, emailSubject), "Email is not showing up under scheduled email section..");
+//		testVerifyScheduledEmailInMyMessages(lDataObject, emailSubject);
 	}
-	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyScheduledEmailFromMyMessages(String pDataFile) {
+		getPage();
+		JSONObject lDataObject = getDataFile(pDataFile);
+		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.ScheduledEmailCache);
+		testVerifyScheduledEmailInMyMessages(lDataObject, lCacheObject.optString("subject"));
+	}
 	@Test
 	@Parameters({"emailReplyData"})
 	public void testPUNS(String pDataFile) {
@@ -263,30 +277,53 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		AutomationLogger.info("Waiting for minutes "+lWaitTime);	
 			if(!getIsProd()) {
 				lLeadId = pDataObject.optString("leadidstage");
-				page = null;
-				getPage("/lead/"+lLeadId);
-				assertTrue(leadDetailPage.verifyScheduledEmail(pEmailSubject), "Unable to verify scheduled messages..");
-				ActionHelper.staticWait(lWaitTime*60);	
-			//	Process email queue
-				page=null;
-				getPage("/admin/processemailqueue");
-				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-				page = null;
-				getPage("/lead/"+lLeadId);
-				
+//				page = null;
+//				getPage("/lead/"+lLeadId);
+//				assertTrue(leadDetailPage.verifyScheduledEmail(pEmailSubject), "Unable to verify scheduled messages..");
+//				ActionHelper.staticWait(lWaitTime*60);	
+//			//	Process email queue
+//				page=null;
+//				getPage("/admin/processemailqueue");
+//				new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+//				page = null;
+//				getPage("/lead/"+lLeadId);
+//				
 				
 			} else {
 				lLeadId = pDataObject.optString("leadid");
-				page = null;
-				getPage("/lead/"+lLeadId);
-				assertTrue(leadDetailPage.verifyScheduledEmail(pEmailSubject), "Unable to verify scheduled messages..");
-				ActionHelper.staticWait(lWaitTime*60);	
-				page = null;
-				getPage("/lead/"+lLeadId);
+//				page = null;
+//				getPage("/lead/"+lLeadId);
+//				assertTrue(leadDetailPage.verifyScheduledEmail(pEmailSubject), "Unable to verify scheduled messages..");
+//				ActionHelper.staticWait(lWaitTime*60);	
+//				page = null;
+//				getPage("/lead/"+lLeadId);	
 			}
-			assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
+			page = null;
+			getPage("/lead/"+lLeadId);	
+//			assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
 			assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject), "Unable to verify scheduled email under my messages..");
 }
+	private boolean isEmailShowingInScheduledEmails(JSONObject pDataObject, String pEmailSubject) {
+		String lLeadId = null;
+		boolean isEmailShoowing = false;
+		if(!getIsProd()) {
+			lLeadId = pDataObject.optString("leadidstage");
+			page = null;
+			getPage("/lead/"+lLeadId);
+			isEmailShoowing = leadDetailPage.verifyScheduledEmail(pEmailSubject);
+			//	Process email queue
+			page=null;
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+		} else {
+			lLeadId = pDataObject.optString("leadid");
+			
+		}
+		page = null;
+		getPage("/lead/"+lLeadId);
+		isEmailShoowing = leadDetailPage.verifyScheduledEmail(pEmailSubject);
+		return isEmailShoowing;
+	}
 	
 	public void redirectToLeadsPage(JSONObject pDataObject) {
 		getPage();
