@@ -136,10 +136,10 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		fillStandardEmailForm(lDataObject);
 		
 		JSONObject cacheObject = new JSONObject();
-		cacheObject.put("email_subject", emailSubject);
+		cacheObject.put("email_subject", bulkEmailSubject);
 		emptyFile(CacheFilePathsConstants.BulkEmailCache, "");
 		writeJsonToFile(CacheFilePathsConstants.BulkEmailCache, cacheObject);
-		
+		processEmailQueue();
 //		System.out.println("This is bulk email subject: "+bulkEmailSubject);
 //		testVerifyEmailInMyMessages(lDataObject, bulkEmailSubject);
 		

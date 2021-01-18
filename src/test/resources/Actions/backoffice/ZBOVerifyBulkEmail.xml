@@ -1,9 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Verify Emails">
 
-<test name="Send and Verify standard and flyer email">	
-	<parameter name="listingEmailFlyerData" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json"> 
-	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/standard-email-data.json"> 
+<test name="Verify Bulk email">	
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/standard-email-data.json"> 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -12,9 +11,7 @@
 				</class>
 				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
 					<methods>
-							<include name="testSendEmailListingFlyer" />
-							<include name="testSendStandardEmail" />
-							<include name="testSendBulkEmail"/>
+							<include name="testVerifyBulkEmail" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
@@ -23,7 +20,6 @@
 					</methods>
 				</class>
 			</classes>
-	</parameter>
 	</parameter>
 	</test>	
 	</suite>
