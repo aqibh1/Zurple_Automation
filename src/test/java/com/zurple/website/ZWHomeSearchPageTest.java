@@ -31,7 +31,7 @@ public class ZWHomeSearchPageTest extends PageTest{
 			driver = getDriver();
 			page = new ZWHomeSearchPage(driver);
 			page.setUrl("");
-//			page.setDriver(driver);
+			page.setDriver(driver);
 		}
 		return page;
 	}
