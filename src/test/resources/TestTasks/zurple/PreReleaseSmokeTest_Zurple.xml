@@ -9,6 +9,27 @@
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
  
+ 	<test name="Send standard scheduled email">	
+	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+							<include name="testSendScheduledStandardEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
 	<test name="Search and Verify property by Price City Features">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-01.json">
@@ -774,28 +795,6 @@
 		</parameter>
 	</test>
 	
-	<test name="Send standard scheduled email">	
-	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json"> 
-			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeLogin" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
-					<methods>
-							<include name="testSendScheduledStandardEmail" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
-			</classes>
-	</parameter>
-	</test>
-	
 	<test name="Send and Verify PUNs emails">	
 	<parameter name="emailReplyData" value="/resources/data/zurple/backoffice/marketing/puns-email-data.json"> 
 			<classes>
@@ -817,4 +816,26 @@
 			</classes>
 	</parameter>
 	</test>		
+	
+	<test name="Verify standard scheduled email">	
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+							<include name="testVerifyScheduledEmailFromMyMessages" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
 </suite>
