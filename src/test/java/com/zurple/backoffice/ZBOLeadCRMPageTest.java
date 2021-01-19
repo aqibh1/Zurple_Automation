@@ -176,7 +176,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
 		String lFilterName = "By Agent,By Email Verification";
 		String lFilterValue = getIsProd()?"Aqib Production Testing,Valid Emails":"Aqib Site Owner,Valid Emails";
-		applyMultipleFilter(lFilterName, lFilterValue);
+		applyMultipleFilters(lFilterName, lFilterValue);
 		String lead_name_id = page.getLeadName();
 		String lead_Email_phone = page.getEmail();
 		String l_leadName = lead_name_id.split(",")[0].trim();
@@ -297,7 +297,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(leadPage.clickAndSelectFilterValue(pFilterValue),"Unable to select the filter value "+pFilterValue);
 		assertTrue(leadPage.clickOnSearchButton(),"Unable to click on search button..");
 	}
-	private void applyMultipleFilter(String pFilterName, String pFilterValue) throws ParseException {
+	private void applyMultipleFilters(String pFilterName, String pFilterValue) throws ParseException {
 		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
 		String[] lFilterNameList = pFilterName.split(",");
 		String[] lFilterValueList = pFilterValue.split(",");

@@ -119,4 +119,16 @@ public class ZAProcessEmailQueuesPage extends Page{
 		assertTrue(clickOnProcessQueueButton(), "Unable to click on process queue button...");
 		assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");
 	}
+	
+	public boolean clickOnReminderQueueButton() {
+		return ActionHelper.Click(driver, reminderemail_queue_button);
+	}
+	
+	public void processReminderQueue() {
+		assertTrue(isProcessEmailQueuePage(), "Process Email Queue page is not visible...");
+		assertTrue(clickOnReminderQueueButton(), "Unable to click on Reminder Email Queue button...");
+		ActionHelper.staticWait(5);
+		assertTrue(clickOnProcessQueueButton(), "Unable to click on process queue button...");
+		assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");
+	}
 }
