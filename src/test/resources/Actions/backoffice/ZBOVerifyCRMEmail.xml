@@ -7,7 +7,7 @@
 	</listeners>
 
 	
-	<test name="Verify CRM Email">	
+	<test name="Verify standard email ttriggered from CRM page">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
