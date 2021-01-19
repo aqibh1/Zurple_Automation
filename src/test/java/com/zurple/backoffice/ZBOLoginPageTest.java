@@ -56,6 +56,7 @@ public class ZBOLoginPageTest extends PageTest{
 	@Test(priority=-1,groups="testBackOfficeLogin")
 	@Parameters({"dataFile"})
 	public void testBackOfficeLogin(@Optional String pDataFile) {
+		page=null;
 		getPage();
 		dataObject = getDataFile(pDataFile);
 		setUserNamePassword();

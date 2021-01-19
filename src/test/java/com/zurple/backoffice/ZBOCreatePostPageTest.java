@@ -36,6 +36,7 @@ public class ZBOCreatePostPageTest extends PageTest{
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOCreatePostPage(driver);
+			page.setUrl("");
 			page.setDriver(driver);
 		}
 		return page;
