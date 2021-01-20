@@ -659,8 +659,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage("/lead/"+lLeadId);
 		assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subject [Quick Question] for Lead ID ["+lLeadId+"]..");
 	}
-	private void processAlertQueue() {
-		
+	private void processAlertQueue() {	
 		if(!getIsProd()) {
 			//Process email queue
 			page = null;
@@ -670,4 +669,12 @@ public class ZBOLeadDetailPageTest extends PageTest{
 			page =null;
 		}
 	}
+	public void processReminderEmailQueue() {
+        if(!getIsProd()) {
+            page=null;
+            getPage("/admin/processemailqueue");
+            new ZAProcessEmailQueuesPage(driver).processReminderQueue();
+        }
+    }
+
 }
