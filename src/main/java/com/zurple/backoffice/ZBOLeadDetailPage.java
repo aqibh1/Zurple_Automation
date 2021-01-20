@@ -448,7 +448,7 @@ public class ZBOLeadDetailPage extends Page{
 			ActionHelper.staticWait(3);
 			isEmailExists = ActionHelper.waitForElementToBeVisible(driver, quick_question_subject, 30);
 			if(isEmailExists) {
-				isTimeDateCorrect = ActionHelper.getText(driver, date_time_email).contains(getTodaysDate().replace("2020", "20"));
+				isTimeDateCorrect = ActionHelper.getText(driver, date_time_email).contains(getTodaysDate().replace("2021", "21"));
 			}
 			isVerified = (isEmailExists && isTimeDateCorrect)?true:false;
 		}

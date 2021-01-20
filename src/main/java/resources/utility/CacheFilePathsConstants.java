@@ -15,4 +15,5 @@ public class CacheFilePathsConstants {
 	public static final String StandardEmailCache = "/resources/cache/zurple-standard-email-verification.json";
 	public static final String BulkEmailCache = "/resources/cache/zurple-bulk-email-verification.json";
 	public static final String ReminderEmailLeadDetailCache = "/resources/cache/zurple-lead-detail-reminder-email-verification.json";
+	public static final String ScheduleShowingCache = "/resources/cache/zurple-schedule-showing-cache.json";
 }

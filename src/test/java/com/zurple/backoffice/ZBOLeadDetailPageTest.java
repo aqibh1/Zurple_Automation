@@ -626,11 +626,48 @@ public class ZBOLeadDetailPageTest extends PageTest{
 			break;
 		}
 	}
-	public void processReminderEmailQueue() {
+	@Test
+	public void testVerifyScheduleShowingSignupAlert() {
+		getPage();
+		dataObject = getDataFile(CacheFilePathsConstants.ScheduleShowingCache);
+		String lLeadId = dataObject.optString("lead_id");
+		processAlertQueue();
+		page=null;
+		getPage("/lead/"+lLeadId);
+		assertTrue(page.verifySignupAlert(), "Unable to verify sign up alert For Lead ID ["+lLeadId+"]");	
+	}
+	@Test
+	public void testRequestShowingActivityInAlert() {
+		getPage();
+		dataObject = getDataFile(CacheFilePathsConstants.ScheduleShowingCache);
+		String lLeadId = dataObject.optString("lead_id");
+		processAlertQueue();
+		page=null;
+		getPage("/lead/"+lLeadId);
+		String lAddress = dataObject.optString("prop_address");
+		assertTrue(page.verifyLeadReqShowingActivityInAlerts(lAddress), "Lead request showing activity is not tracked in alerts For Lead ID ["+lLeadId+"] and Address ["+lAddress+"]");
+	
+	}
+	
+	@Test
+	public void testVerifQuickQuestionEmailIsGenerated() {
+		getPage();
+		dataObject = getDataFile(CacheFilePathsConstants.ScheduleShowingCache);
+		String lLeadId = dataObject.optString("lead_id");
+		processAlertQueue();
+		page=null;
+		getPage("/lead/"+lLeadId);
+		assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subject [Quick Question] for Lead ID ["+lLeadId+"]..");
+	}
+	private void processAlertQueue() {
+		
 		if(!getIsProd()) {
-			page=null;
+			//Process email queue
+			page = null;
 			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processReminderQueue();
-		} 
+			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
+			new ZAProcessEmailQueuesPage(driver).processImmediateResponderQueue();
+			page =null;
+		}
 	}
 }

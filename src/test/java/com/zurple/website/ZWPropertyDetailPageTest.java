@@ -19,6 +19,7 @@ import resources.ModuleCommonCache;
 import resources.forms.zurple.website.ZWLeadCaptureForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.CacheFilePathsConstants;
 import resources.utility.ZurpleListingConstants;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
@@ -284,7 +285,17 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		assertTrue(page.getScheduleShowingAlert().isScheduleAlertDisappeared(),"Schedule Alert is not disappeared ..");
 		assertTrue(page.getScheduleShowingAlert().isSuccessDisplayed(),"Success message is not displayed ..");
 		assertTrue(page.getScheduleShowingAlert().clickOnYesButton(),"Unable to click on Ok button ..");
-		AutomationLogger.endTestCase();
+		
+		String lc_address = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleProp);
+		String lc_lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		
+		JSONObject cacheObject = new JSONObject();
+		cacheObject.put("prop_address", lc_address);
+		cacheObject.put("lead_id", lc_lead_id);
+		
+		emptyFile(CacheFilePathsConstants.ScheduleShowingCache, "");
+		writeJsonToFile(CacheFilePathsConstants.ScheduleShowingCache, cacheObject);
+		
 	}
 	
 	private void verifyLotSize(String lLotSize) {
