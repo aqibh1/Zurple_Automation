@@ -166,7 +166,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		dataObject = getDataFile(CacheFilePathsConstants.ReminderEmailCache);
 		String ld_AgentEmail = dataObject.optString("agent_email");
 		String ld_subject_to_verify = dataObject.optString("subject_to_verify");
-		assertTrue(mailinatorObj.verifyEmail(ld_AgentEmail, ld_subject_to_verify, 5), "Unable to verify reminder email");
+		assertTrue(mailinatorObj.verifyEmail(ld_AgentEmail, ld_subject_to_verify, 5), "Unable to verify reminder email ["+ld_subject_to_verify+"]");
 	}
 	
 	@Test
@@ -256,20 +256,16 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(page.getSendSMSForm().isSuccessMessageVisible(), "Unable to select template from drop down..");
 	}
 	public void testVerifyEmailInMyMessages(String pLeadId, String pEmailSubject) {
-		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		String lLeadId = pLeadId;		
 		if(!getIsProd()) {
 			//	Process email queue
 			page=null;
 			getPage("/admin/processemailqueue");
 			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-			page = null;
-			getPage("/lead/"+lLeadId);
-		} else {
-			page = null;
-			getPage("/lead/"+lLeadId);
-			page = null;
-		}
+		} 
+		page = null;
+		getPage("/lead/"+lLeadId);
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
 		assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject), "Email +["+pEmailSubject+ "]+ not found in my messages in lead details page");
 }
