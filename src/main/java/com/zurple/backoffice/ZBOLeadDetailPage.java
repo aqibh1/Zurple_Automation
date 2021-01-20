@@ -732,8 +732,9 @@ public class ZBOLeadDetailPage extends Page{
 		String str = "";
 		int counter = 0;
 		boolean lIsEmailVisible = false;
-		while(!lIsEmailVisible && counter<3) {
-			if(ActionHelper.waitForElementToBeDisappeared(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-sent-tab']/descendant::div[@class='yui-dt-liner' and text()='Loading...']")), 200))
+		while(!lIsEmailVisible && counter<6) {
+			ActionHelper.ScrollDownByPixels(driver, "500");
+			if(ActionHelper.waitForElementToBeDisappeared(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-sent-tab']/descendant::div[@class='yui-dt-liner' and text()='Loading...']")), 300))
 			/* if(ActionHelper.isElementVisible(driver, flyer_email)) */ {
 				List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, xpathForTestingSubject);
 				ActionHelper.staticWait(2);
