@@ -905,30 +905,10 @@
 						<include name="testScheduleShowingUserLoggedIn" />
 					</methods>
 				</class>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeLogin" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-						<include name="testVerifyValidEmail" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-						<include name="testVerifyAlerts" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
 			</classes>
 		</parameter>
 		</test>
-	
+		
 	<test name="Update and Verify User Settings">
 		<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-update-settings.json">
 		<parameter name="userSettings" value="/resources/data/zurple/zurple-user-settings.json">
@@ -2553,6 +2533,26 @@
 	</parameter>
 	</test>	
 	
+	<test name="Verify SignUp Alert for Schedule Showing user">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyScheduleShowingSignupAlert" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</test>
+		
 	<test name="Verify Bulk email">	
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/standard-email-data.json"> 
 			<classes>
@@ -2596,6 +2596,47 @@
 			</class>
 		</classes>
 	</test>
+	
+		
+		<test name="Verify Schedule Showing  Alert">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testRequestShowingActivityInAlert" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</test>
+		
+		<test name="Verify Quick Question email for Schedule Showing user">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifQuickQuestionEmailIsGenerated" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</test>
 	<!--  
  <test name="Manage agents page label">
   <parameter name="manageAgentsDataFile" 
