@@ -56,6 +56,8 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		if(page == null){
 			driver = getDriver();
 			page = new ZWPropertyDetailPage(driver);
+			page.setUrl("");
+			page.setDriver(driver);
 		}
 		return page;
 	}
