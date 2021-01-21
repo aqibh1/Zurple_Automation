@@ -170,7 +170,7 @@ public class ZBOLeadCRMPage extends Page{
 	public boolean searchLead(String pLeadName) {
 		boolean isLeadSelected = false;
 		if(typeLeadNameOrEmail(pLeadName) && clickOnSearchButton()) {
-			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
+			ActionHelper.waitForElementToBeDisappeared(driver, processing, 120);
 			isLeadSelected = ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_name_element, pLeadName));
 		}
 		return isLeadSelected;
@@ -179,7 +179,7 @@ public class ZBOLeadCRMPage extends Page{
 	public boolean searchLeadCustomizedList(String pLeadName) {
 		boolean isLeadSelected = false;
 		if(typeLeadNameOrEmail(pLeadName) && clickOnSearchButton()) {
-			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
+			ActionHelper.waitForElementToBeDisappeared(driver, processing, 120);
 			String leadName = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, lead_name_element_customized_ist, pLeadName));
 			if(leadName.equalsIgnoreCase(pLeadName)) {
 				isLeadSelected = true;
@@ -191,7 +191,7 @@ public class ZBOLeadCRMPage extends Page{
 	public boolean searchAndSelectLead(String pLeadName) {
 		boolean isLeadSelected = false;
 		if(typeLeadNameOrEmail(pLeadName) && clickOnSearchButton()) {
-			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
+			ActionHelper.waitForElementToBeDisappeared(driver, processing, 120);
 			if(ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_name_element, pLeadName))) {
 				isLeadSelected = ActionHelper.Click(driver, lead_input_checkbox);
 			}
@@ -229,7 +229,7 @@ public class ZBOLeadCRMPage extends Page{
 	public boolean searchLeadByEmailForBulkUpdate(String pLeadEmail) {
 		boolean isLeadFound = false;
 		if(typeLeadNameOrEmail(pLeadEmail) && clickOnSearchButton()) {
-			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
+			ActionHelper.waitForElementToBeDisappeared(driver, processing, 120);
 			ActionHelper.Click(driver, bulk_select);
 			ActionHelper.Click(driver, select_all);
 			ActionHelper.Click(driver, confirm_select_all);
