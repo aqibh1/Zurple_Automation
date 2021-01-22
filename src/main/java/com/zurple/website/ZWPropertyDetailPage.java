@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.alerts.zurple.website.ZWScheduleShowingAlert;
 import resources.forms.zurple.website.ZWContactAgentForm;
+import resources.forms.zurple.website.ZWLeadCaptureForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
@@ -139,6 +140,7 @@ public class ZWPropertyDetailPage extends Page{
 
 	private ZWContactAgentForm contactAgentForm;
 	private ZWScheduleShowingAlert scheduleShowingAlert;
+	private ZWLeadCaptureForm leadCaptureForm;
 	
 	@FindBy(xpath="//div[@id='propdetail']/descendant::h2[1]")
 	WebElement property_heading;
@@ -147,6 +149,7 @@ public class ZWPropertyDetailPage extends Page{
 		driver = pWebDriver;
 		setContactAgentForm();
 		setScheduleShowingAlert();
+		setLeadCaptureForm();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -165,7 +168,13 @@ public class ZWPropertyDetailPage extends Page{
 	public void setScheduleShowingAlert() {
 		this.scheduleShowingAlert = new ZWScheduleShowingAlert(driver);
 	}
-
+	public void setLeadCaptureForm() {
+		this.leadCaptureForm = new ZWLeadCaptureForm(driver);
+	}
+	public ZWLeadCaptureForm getLeadCaptureForm() {
+		return leadCaptureForm;
+	}
+	
 	public boolean verifyPropName() {
 		return !ActionHelper.getText(driver, propName_heading).isEmpty();
 	}
