@@ -9,10 +9,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.blocks.zurple.ZBOHeadersBlock;
 import resources.utility.ActionHelper;
 
 /**
@@ -25,7 +28,19 @@ public class ZBOAdsOverviewPage extends Page{
 	String listing_address = "//table[@id='ads_overview_zurple']/descendant::tr/td/span[@class='listing_addr']";
 	String listing_type = "//table[@id='ads_overview_zurple']/descendant::tr/td/h4[@class='listad_headline']";
 	String ad_budget = "//table[@id='ads_overview_zurple']/descendant::span[@class='adprice_cap']";
+	private ZBOHeadersBlock header;
 	
+	public ZBOAdsOverviewPage(WebDriver pDriver) {
+		driver = pDriver;
+		setBackOfficeHeader();
+		PageFactory.initElements(driver, this);
+	}
+	private void setBackOfficeHeader() {
+		header = new ZBOHeadersBlock(driver);
+	}
+	public ZBOHeadersBlock getHeader() {
+		return header;
+	}
 	private int getListingAdIndex(String pListingAddress) {
 		int count = 0;
 		List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, listing_ad_rows);
