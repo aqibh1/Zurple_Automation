@@ -11,6 +11,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
@@ -28,6 +29,11 @@ public class ZBOAdsOverviewPage extends Page{
 	String listing_address = "//table[@id='ads_overview_zurple']/descendant::tr/td/span[@class='listing_addr']";
 	String listing_type = "//table[@id='ads_overview_zurple']/descendant::tr/td/h4[@class='listad_headline']";
 	String ad_budget = "//table[@id='ads_overview_zurple']/descendant::span[@class='adprice_cap']";
+	
+	@FindBy(xpath="//h2[text()='Ads Overview']")
+	WebElement adsOverviewPage_heading;
+	
+	
 	private ZBOHeadersBlock header;
 	
 	public ZBOAdsOverviewPage(WebDriver pDriver) {
@@ -91,4 +97,15 @@ public class ZBOAdsOverviewPage extends Page{
 	    	}
 	    	return currentDate;
 	    }
+	 public boolean verifyAdsAreDisplayed() {
+		 boolean isAdsDisplayed = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, listing_ad_rows);
+		 if(elements_list.size()>0) {
+			 isAdsDisplayed = true;
+		 }
+		 return isAdsDisplayed;
+	 }
+	 public boolean isAdsOverviewPage() {
+		 return ActionHelper.waitForElementToBeVisible(driver, adsOverviewPage_heading, 30);
+	 }
 }
