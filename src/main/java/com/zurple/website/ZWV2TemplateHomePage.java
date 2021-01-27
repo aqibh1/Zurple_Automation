@@ -24,7 +24,7 @@ public class ZWV2TemplateHomePage extends Page{
 	@FindBy(xpath="//div[@class='container']/descendant::h1")
 	WebElement search_label;
 	
-	@FindBy(id="city")
+	@FindBy(id="basic_city")
 	WebElement search_text;
 	
 	@FindBy(xpath="//input[@value='SEARCH']")
