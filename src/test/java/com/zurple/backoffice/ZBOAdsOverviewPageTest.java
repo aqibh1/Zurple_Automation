@@ -72,6 +72,21 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 		assertTrue(page.isAdsOverviewPage(), "Ads Overview page is not displayed..");
 		assertTrue(page.verifyAdsAreDisplayed(), "Ads are not showing on Ads overview page..");
 	}
+
+	@Test
+	public void testVerifyAdTypeColumnIsDisplayedOnAdsOverviewPage() {
+		getPage();
+		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
+			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
+		if(!page.getHeader().clickOnAdsOverviewButton()) {
+			throw new SkipException("Skipping the test becasuse [Click on Ads Overview from Ads Manager] pre-condition was failed.");
+
+		}
+		assertTrue(page.isTypeColumnVisible(), "Type Column is not visible on Ads overview page");
+		assertTrue(page.isListingAdHeadingVisible(), "Listing Ad Heading is not visible on Ads overview page");
+	}
+	
 	@AfterTest
 	public void closeBrowser() {
 		driver.quit();

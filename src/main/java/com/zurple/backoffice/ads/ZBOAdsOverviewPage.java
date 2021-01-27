@@ -33,6 +33,9 @@ public class ZBOAdsOverviewPage extends Page{
 	@FindBy(xpath="//h2[text()='Ads Overview']")
 	WebElement adsOverviewPage_heading;
 	
+	@FindBy(xpath="//table[@id='ads_overview_zurple']/descendant::th[contains(text(),'Type')]")
+	WebElement type_column_heading;
+	
 	
 	private ZBOHeadersBlock header;
 	
@@ -107,5 +110,16 @@ public class ZBOAdsOverviewPage extends Page{
 	 }
 	 public boolean isAdsOverviewPage() {
 		 return ActionHelper.waitForElementToBeVisible(driver, adsOverviewPage_heading, 30);
+	 }
+	 public boolean isTypeColumnVisible() {
+		 return ActionHelper.isElementVisible(driver, type_column_heading);
+	 }
+	 public boolean isListingAdHeadingVisible() {
+		 boolean isAdsDisplayed = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, listing_type);
+		 if(elements_list.size()>0) {
+			 isAdsDisplayed = ActionHelper.isElementVisible(driver, elements_list.get(0));
+		 }
+		 return isAdsDisplayed;
 	 }
 }
