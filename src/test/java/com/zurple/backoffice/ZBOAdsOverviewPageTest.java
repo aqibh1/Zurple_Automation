@@ -37,6 +37,16 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 		}
 		return page;
 	}
+	public AbstractPage getPage(String pUrl) {
+		if(page==null) {
+			driver = getDriver();
+			page = new ZBOAdsOverviewPage(driver);
+			setLoginPage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+		}
+		return page;
+	}
 
 	@Override
 	public void clearPage() {
@@ -123,6 +133,20 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 			throw new SkipException("Skipping the test becasuse [Click on Ads Overview from Ads Manager] pre-condition was failed.");
 		}
 		assertTrue(page.isStartEndDateVisible(), "Listing Ad date is not visible on Ads overview page");
+	}
+	
+	@Test
+	public void testVerifyAdClickViewStatsAreDisplayed() {
+		getPage();
+		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
+			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
+		page = null;
+		getPage("/ads/overview");
+		assertTrue(page.isAdViewCountVisible(), "Ads View Count is not visible on Ads overview page");
+		assertTrue(page.isAdViewIconVisible(), "Ads View Icon is not visible on Ads overview page");
+		assertTrue(page.isAdClickCountVisible(), "Ads Click Count is not visible on Ads overview page");
+		assertTrue(page.isAdClickIconVisible(), "Ads Click Icon is not visible on Ads overview page");
 	}
 	@AfterTest
 	public void closeBrowser() {

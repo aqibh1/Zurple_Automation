@@ -43,6 +43,11 @@ public class ZBOAdsOverviewPage extends Page{
 	String first_row_ad_starting_month = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_month']";
 	String first_row_ad_starting_year = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_yaer']";
 
+	String adView_count = "//table[@id='ads_overview_zurple']/descendant::div[@title='Views']/span[@class='adviewcount']";
+	String adView_icon = "//table[@id='ads_overview_zurple']/descendant::div[@title='Views']/span[@class='adviewicon']";
+	String adClick_count = "//table[@id='ads_overview_zurple']/descendant::div[@title='Views']/span[@class='adviewcount']";
+	String adClick_icon = "//table[@id='ads_overview_zurple']/descendant::div[@title='Views']/span[@class='adviewicon']";
+	
 	private ZBOHeadersBlock header;
 	
 	public ZBOAdsOverviewPage(WebDriver pDriver) {
@@ -159,5 +164,37 @@ public class ZBOAdsOverviewPage extends Page{
 		 String l_EndMonth = ActionHelper.getText(driver,starting_month_list.get(1));
 		 String l_EndYear = ActionHelper.getText(driver,starting_year_list.get(1));
 		 return !l_StartDay.isEmpty() && !l_StartMonth.isEmpty() && !l_StartYear.isEmpty() && !l_EndDay.isEmpty() && !l_EndMonth.isEmpty() && !l_EndYear.isEmpty(); 
+	 }
+	 public boolean isAdViewCountVisible() {
+		 boolean isAdsDisplayed = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, adView_count);
+		 if(elements_list.size()>0) {
+			 isAdsDisplayed = !ActionHelper.getText(driver, elements_list.get(0)).isEmpty();
+		 }
+		 return isAdsDisplayed;
+	 }
+	 public boolean isAdViewIconVisible() {
+		 boolean isAdsDisplayed = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, adView_icon);
+		 if(elements_list.size()>0) {
+			 isAdsDisplayed = ActionHelper.isElementVisible(driver, elements_list.get(0));
+		 }
+		 return isAdsDisplayed;
+	 }
+	 public boolean isAdClickCountVisible() {
+		 boolean isAdsDisplayed = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, adClick_count);
+		 if(elements_list.size()>0) {
+			 isAdsDisplayed = !ActionHelper.getText(driver, elements_list.get(0)).isEmpty();
+		 }
+		 return isAdsDisplayed;
+	 }
+	 public boolean isAdClickIconVisible() {
+		 boolean isAdsDisplayed = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, adClick_icon);
+		 if(elements_list.size()>0) {
+			 isAdsDisplayed = ActionHelper.isElementVisible(driver, elements_list.get(0));
+		 }
+		 return isAdsDisplayed;
 	 }
 }
