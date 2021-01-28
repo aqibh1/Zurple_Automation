@@ -113,6 +113,17 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 		assertTrue(page.isListingAdIconIsVisible(), "Listing Address is not visible on Ads overview page");
 	}
 	
+	@Test
+	public void testVerifyAdStartingAndEndingIsDisplayed() {
+		getPage();
+		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
+			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
+		if(!page.getHeader().clickOnAdsOverviewButton()) {
+			throw new SkipException("Skipping the test becasuse [Click on Ads Overview from Ads Manager] pre-condition was failed.");
+		}
+		assertTrue(page.isStartEndDateVisible(), "Listing Ad date is not visible on Ads overview page");
+	}
 	@AfterTest
 	public void closeBrowser() {
 		driver.quit();

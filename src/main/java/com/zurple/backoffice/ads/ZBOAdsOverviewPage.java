@@ -38,6 +38,11 @@ public class ZBOAdsOverviewPage extends Page{
 	
 	String listing_Ad_icon = "//table[@id='ads_overview_zurple']/descendant::i[@class='fa fa-home']";
 	
+	String first_row_ad_starting_ending_date = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']";
+	String first_row_ad_starting_day = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_date']";
+	String first_row_ad_starting_month = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_month']";
+	String first_row_ad_starting_year = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_yaer']";
+
 	private ZBOHeadersBlock header;
 	
 	public ZBOAdsOverviewPage(WebDriver pDriver) {
@@ -138,5 +143,21 @@ public class ZBOAdsOverviewPage extends Page{
 			 isAdsDisplayed = !ActionHelper.getText(driver, elements_list.get(0)).isEmpty();
 		 }
 		 return isAdsDisplayed;
+	 }
+	 public boolean isStartEndDateVisible() {
+		 List<WebElement> starting_day_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day);
+		 List<WebElement> starting_month_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month);
+		 List<WebElement> starting_year_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year);
+//		 List<WebElement> ending_day_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_ending_date);
+//		 List<WebElement> ending_month_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_ending_date);
+//		 List<WebElement> ending_year_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_ending_date);
+		 
+		 String l_StartDay = ActionHelper.getText(driver, starting_day_list.get(0));
+		 String l_StartMonth = ActionHelper.getText(driver,starting_month_list.get(0));
+		 String l_StartYear = ActionHelper.getText(driver,starting_year_list.get(0));
+		 String l_EndDay = ActionHelper.getText(driver,starting_day_list.get(1));
+		 String l_EndMonth = ActionHelper.getText(driver,starting_month_list.get(1));
+		 String l_EndYear = ActionHelper.getText(driver,starting_year_list.get(1));
+		 return !l_StartDay.isEmpty() && !l_StartMonth.isEmpty() && !l_StartYear.isEmpty() && !l_EndDay.isEmpty() && !l_EndMonth.isEmpty() && !l_EndYear.isEmpty(); 
 	 }
 }
