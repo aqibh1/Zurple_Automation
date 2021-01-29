@@ -48,6 +48,8 @@ public class ZBOAdsOverviewPage extends Page{
 	String adClick_count = "//table[@id='ads_overview_zurple']/descendant::div[@title='Views']/span[@class='adviewcount']";
 	String adClick_icon = "//table[@id='ads_overview_zurple']/descendant::div[@title='Views']/span[@class='adviewicon']";
 	
+	String price_xpath = "//table[@id='ads_overview_zurple']/descendant::span[@class='adprice_cap']";
+	
 	private ZBOHeadersBlock header;
 	
 	public ZBOAdsOverviewPage(WebDriver pDriver) {
@@ -194,6 +196,15 @@ public class ZBOAdsOverviewPage extends Page{
 		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, adClick_icon);
 		 if(elements_list.size()>0) {
 			 isAdsDisplayed = ActionHelper.isElementVisible(driver, elements_list.get(0));
+		 }
+		 return isAdsDisplayed;
+	 }
+	 public boolean verifyAdPriceIsDisplayed() {
+		 boolean isAdsDisplayed = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, price_xpath);
+		 if(elements_list.size()>0) {
+			 String ad_price = ActionHelper.getText(driver, elements_list.get(0));
+			 isAdsDisplayed = ad_price.contains("120") || ad_price.contains("160") || ad_price.contains("240") || ad_price.contains("320") || ad_price.contains("400");
 		 }
 		 return isAdsDisplayed;
 	 }

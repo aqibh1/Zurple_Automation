@@ -148,6 +148,18 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 		assertTrue(page.isAdClickCountVisible(), "Ads Click Count is not visible on Ads overview page");
 		assertTrue(page.isAdClickIconVisible(), "Ads Click Icon is not visible on Ads overview page");
 	}
+	
+	@Test
+	public void testVerifyAdPricesAreDisplayed() {
+		getPage();
+		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
+			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
+		page = null;
+		getPage("/ads/overview");
+		assertTrue(page.verifyAdPriceIsDisplayed(), "Ads Price is not visible on Ads overview page");
+
+	}
 	@AfterTest
 	public void closeBrowser() {
 		driver.quit();
