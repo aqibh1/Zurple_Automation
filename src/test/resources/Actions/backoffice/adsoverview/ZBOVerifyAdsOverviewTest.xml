@@ -21,6 +21,7 @@
 						<include name="testVerifyAdClickViewStatsAreDisplayed"/>
 						<include name="testVerifyAdPricesAreDisplayed"/>
 						<include name="testVerifyAdLocationIsDisplayed"/>
+						<include name="testVerifyAdRecurringDateIsDisplayed"/>
 					</methods>
 				</class>
 			</classes>

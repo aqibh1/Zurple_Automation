@@ -50,6 +50,7 @@ public class ZBOAdsOverviewPage extends Page{
 	
 	String price_xpath = "//table[@id='ads_overview_zurple']/descendant::span[@class='adprice_cap']";
 	String location_xpath = "//table[@id='ads_overview_zurple']/descendant::span[@class='adlocation_cap']";
+	String adddate_xpath = "//table[@id='ads_overview_zurple']/descendant::span[@class='addate_cap']";
 	
 	private ZBOHeadersBlock header;
 	
@@ -216,5 +217,13 @@ public class ZBOAdsOverviewPage extends Page{
 			 isAdsDisplayed = !ActionHelper.getText(driver, elements_list.get(0)).isEmpty();
 		 }
 		 return isAdsDisplayed;
+	 }
+	 public boolean verifyAdRecurringDateIsDisplayed() {
+		 boolean isAdsDateIsDisplayed = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, adddate_xpath);
+		 if(elements_list.size()>0) {
+			 isAdsDateIsDisplayed = !ActionHelper.getText(driver, elements_list.get(0)).isEmpty();
+		 }
+		 return isAdsDateIsDisplayed;
 	 }
 }

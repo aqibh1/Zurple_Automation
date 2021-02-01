@@ -124,6 +124,11 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 		assertTrue(page.verifyAdLocationIsDisplayed(), "Ads Location is not visible on Ads overview page");
 	}
 	
+	@Test
+	public void testVerifyAdRecurringDateIsDisplayed() {
+		getPage("/ads/overview");
+		assertTrue(page.verifyAdRecurringDateIsDisplayed(), "Ads Recurring date is not visible on Ads overview page");
+	}
 	@AfterTest
 	public void closeBrowser() {
 		driver.quit();
