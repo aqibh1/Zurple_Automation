@@ -123,11 +123,20 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 		getPage("/ads/overview");
 		assertTrue(page.verifyAdLocationIsDisplayed(), "Ads Location is not visible on Ads overview page");
 	}
-	
 	@Test
 	public void testVerifyAdRecurringDateIsDisplayed() {
 		getPage("/ads/overview");
 		assertTrue(page.verifyAdRecurringDateIsDisplayed(), "Ads Recurring date is not visible on Ads overview page");
+	}
+	@Test
+	public void testVerifyAdStatusIsDisplayed() {
+		getPage("/ads/overview");
+		assertTrue(page.verifyAdStatusIsDisplayed(), "Ads Status is not visible on Ads overview page");
+	}
+	@Test
+	public void testVerifyAdPreviewGetsDisplayedDisplayed() {
+		getPage("/ads/overview");
+		assertTrue(page.isPreviewDisplayed(), "Ads preview is not displayed after clicking on Ads overview page");
 	}
 	@AfterTest
 	public void closeBrowser() {

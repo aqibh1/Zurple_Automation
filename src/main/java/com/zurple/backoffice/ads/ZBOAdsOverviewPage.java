@@ -51,6 +51,9 @@ public class ZBOAdsOverviewPage extends Page{
 	String price_xpath = "//table[@id='ads_overview_zurple']/descendant::span[@class='adprice_cap']";
 	String location_xpath = "//table[@id='ads_overview_zurple']/descendant::span[@class='adlocation_cap']";
 	String adddate_xpath = "//table[@id='ads_overview_zurple']/descendant::span[@class='addate_cap']";
+	String status_xpath = "//table[@id='ads_overview_zurple']/descendant::td[@class='td_center addetails_cont']/following-sibling::td[1]";
+	String preview_button_xpath = "//table[@id='ads_overview_zurple']/descendant::a[text()=' Preview']";
+	String ad_preview_box_xpath = "//table[@id='ads_overview_zurple']/descendant::div[@class='adpreview_box']";
 	
 	private ZBOHeadersBlock header;
 	
@@ -225,5 +228,27 @@ public class ZBOAdsOverviewPage extends Page{
 			 isAdsDateIsDisplayed = !ActionHelper.getText(driver, elements_list.get(0)).isEmpty();
 		 }
 		 return isAdsDateIsDisplayed;
+	 }
+	 public boolean verifyAdStatusIsDisplayed() {
+		 boolean isAdsDateIsDisplayed = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, status_xpath );
+		 if(elements_list.size()>0) {
+			 isAdsDateIsDisplayed = !ActionHelper.getText(driver, elements_list.get(0)).isEmpty();
+		 }
+		 return isAdsDateIsDisplayed;
+	 }
+	 public boolean isPreviewDisplayed() {
+		 boolean isAdsDateIsDisplayed = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, preview_button_xpath);
+		 List<WebElement> elements_list2 = ActionHelper.getListOfElementByXpath(driver, ad_preview_box_xpath);
+		 if(elements_list.size()>0) {
+			 isAdsDateIsDisplayed = ActionHelper.Click(driver, elements_list.get(0));
+			 if(isAdsDateIsDisplayed) {
+				 isAdsDateIsDisplayed = ActionHelper.waitForElementToBeVisible(driver, elements_list2.get(0), 15);
+			 }
+		 }
+		 return isAdsDateIsDisplayed;
+	 
+		 
 	 }
 }
