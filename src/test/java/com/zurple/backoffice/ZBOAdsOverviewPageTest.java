@@ -158,8 +158,19 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 		page = null;
 		getPage("/ads/overview");
 		assertTrue(page.verifyAdPriceIsDisplayed(), "Ads Price is not visible on Ads overview page");
-
 	}
+	
+	@Test
+	public void testVerifyAdLocationIsDisplayed() {
+		getPage();
+		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
+			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
+		page = null;
+		getPage("/ads/overview");
+		assertTrue(page.verifyAdLocationIsDisplayed(), "Ads Location is not visible on Ads overview page");
+	}
+	
 	@AfterTest
 	public void closeBrowser() {
 		driver.quit();
