@@ -77,5 +77,17 @@ public class TXBOLoginPage extends Page{
 	public boolean clickOnForgotPasswordLink() {
 		return ActionHelper.Click(driver, forgot_password_link);
 	}
+	
+	public boolean doLogin(String pUsername, String pPassword) {
+		boolean isLoginSuccessful = false;
+		if(isLoginPage()) {
+			typeUserName(pUsername);
+			typePassword(pPassword);
+			isForgotPasswordLinkExists();
+			clickLoginButton();
+			isLoginSuccessful = isLoginSuccessful();
+		}
+		return isLoginSuccessful;
+	}
 
 }
