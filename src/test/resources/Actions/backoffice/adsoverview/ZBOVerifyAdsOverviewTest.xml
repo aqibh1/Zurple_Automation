@@ -24,6 +24,7 @@
 						<include name="testVerifyAdRecurringDateIsDisplayed"/>
 						<include name="testVerifyAdStatusIsDisplayed"/>
 						<include name="testVerifyAdPreviewGetsDisplayedDisplayed"/>
+						<include name="testVerifyAdPreviewSlideShowIsWorking"/>
 					</methods>
 				</class>
 			</classes>

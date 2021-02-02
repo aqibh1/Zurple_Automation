@@ -55,6 +55,9 @@ public class ZBOAdsOverviewPage extends Page{
 	String preview_button_xpath = "//table[@id='ads_overview_zurple']/descendant::a[text()=' Preview']";
 	String ad_preview_box_xpath = "//table[@id='ads_overview_zurple']/descendant::div[@class='adpreview_box']";
 	
+	String play_icon_preview = "//table[@id='ads_overview_zurple']/descendant::div[@class='playicon_slide']/i";
+	String slide_show_image ="//table[@id='ads_overview_zurple']/descendant::div[@class='fb_ad_preview_slideshow']/descendant::div[@class='slide-image current']/img";
+	
 	private ZBOHeadersBlock header;
 	
 	public ZBOAdsOverviewPage(WebDriver pDriver) {
@@ -247,8 +250,23 @@ public class ZBOAdsOverviewPage extends Page{
 				 isAdsDateIsDisplayed = ActionHelper.waitForElementToBeVisible(driver, elements_list2.get(0), 15);
 			 }
 		 }
-		 return isAdsDateIsDisplayed;
-	 
-		 
+		 return isAdsDateIsDisplayed; 
+	 }
+	
+	 public boolean verifyAdSlideShowIsWorking() {
+		 boolean isAdsDateIsDisplayed = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, play_icon_preview);
+		 List<WebElement> elements_list2 = ActionHelper.getListOfElementByXpath(driver, slide_show_image);
+		 if(elements_list.size()>0) {
+			 isAdsDateIsDisplayed = ActionHelper.MouseHoverOnElement(driver, elements_list.get(0));
+			 if(isAdsDateIsDisplayed) {
+				String image_path_01 = ActionHelper.getAttribute(elements_list2.get(0), "src");
+				ActionHelper.staticWait(2);
+				elements_list2 = ActionHelper.getListOfElementByXpath(driver, slide_show_image);
+				String image_path_02 = ActionHelper.getAttribute(elements_list2.get(0), "src");
+				isAdsDateIsDisplayed = !image_path_01.equalsIgnoreCase(image_path_02);
+			 }
+		 }
+		 return isAdsDateIsDisplayed; 
 	 }
 }
