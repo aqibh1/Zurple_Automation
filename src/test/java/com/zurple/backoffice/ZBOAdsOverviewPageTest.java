@@ -15,6 +15,7 @@ import com.zurple.backoffice.ads.ZBOAdsOverviewPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.utility.ActionHelper;
 
 /**
  * @author adar
@@ -137,6 +138,15 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 	public void testVerifyAdPreviewGetsDisplayedDisplayed() {
 		getPage("/ads/overview");
 		assertTrue(page.isPreviewDisplayed(), "Ads preview is not displayed after clicking on Ads overview page");
+	}
+	@Test
+	public void testVerifyAdPreviewSlideShowIsWorking() {
+		getPage("/ads/overview");
+		ActionHelper.RefreshPage(driver);
+		if(!page.isPreviewDisplayed()) {
+			throw new SkipException("Skipping the test becasuse Preview button is not clicked..");
+		}
+		assertTrue(page.verifyAdSlideShowIsWorking(), "Ads preview slide show is not working after clickings on preview button..");
 	}
 	@AfterTest
 	public void closeBrowser() {
