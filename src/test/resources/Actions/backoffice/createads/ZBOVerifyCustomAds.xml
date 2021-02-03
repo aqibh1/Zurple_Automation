@@ -15,6 +15,10 @@
 				<methods>
 					<include name="testVerifyCustomAdSectionIsDisplayed" />
 					<include name="testVerifyPromoteListingHeadingIsDisplayed" />
+					<include name="testVerifyCorrectTextIsDisplayed" />
+					<include name="testVerifyHomeIconIsDisplayed" />
+					<include name="testVerifyCustomAdButtonIsDisplayed" />
+					<include name="testVerifyCreateAdBoxIsBouncing" />
 				</methods>
 			</class>
 		</classes>

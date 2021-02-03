@@ -97,6 +97,27 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isPromoteListingHeadingIsVisible(), "Promote Listing heading is not displayed..");
 	}
 	@Test
+	public void testVerifyCorrectTextIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isCorrectTextDisplayed(), " 'Get more exposure, interest and engagement for your listing' is not displayed..");
+	}
+	@Test
+	public void testVerifyHomeIconIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isHomeIconDisplayedInCreateAdBox(), "Home Icon inside Create Custom Ad box is not displayed..");
+	}
+	@Test
+	public void testVerifyCustomAdButtonIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isCreateCustomAdButtonIsDisplayed(), "Create Custom Ad button is not displayed..");
+	}
+	
+	@Test
+	public void testVerifyCreateAdBoxIsBouncing() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isCreateCustomBoxBouncing(), "Create Custom Ad box is not bouncing on mouse hover..");
+	}
+	@Test
 	@Parameters({"dataFile"})
 	public void testCreateAd(String pDataFile) throws ParseException {
 		dataObject = getDataFile(pDataFile);

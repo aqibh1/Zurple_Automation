@@ -32,7 +32,7 @@ public class ZBOCreateAdPage extends Page{
 	@FindBy(xpath="//strong[contains(text(),'Step 1:')]")
 	WebElement step1_strong;
 	
-	@FindBy(xpath="//a[@id='promote_adtype_selector']/descendant::button")
+	@FindBy(xpath="//a[@id='promote_adtype_selector']/descendant::button[contains(text(),'Create Custom Ad')]")
 	WebElement customize_button;
 	
 	@FindBy(xpath="//h2[text()='Create Ad - Step 2']")
@@ -67,6 +67,12 @@ public class ZBOCreateAdPage extends Page{
 	WebElement custom_Ads_heading;
 	@FindBy(xpath="//div[@class='adpurplebg goalbox_title']/h2")
 	WebElement promote_listing_heading;
+	@FindBy(xpath="//div[@class='goalbox_body adtype_body']")
+	WebElement create_Ad_box_text;
+	@FindBy(xpath="//div[@class='goalbox_body adtype_body']/i[@class='fa fa-home']")
+	WebElement home_icon_create_Ad_box;
+	@FindBy(xpath="//*[@class='goalBox mtb-8 adpurplebg_light callout_modal']")
+	WebElement create_custom_Ad_modal;
 	
 	//FB Ad Preview Step 2
 	@FindBy(xpath="//div[@id='facebook_ad_pewview']/descendant::span[@class='ad_preview_title']")
@@ -336,5 +342,22 @@ public class ZBOCreateAdPage extends Page{
 			isVisible = ActionHelper.getText(driver, promote_listing_heading).equalsIgnoreCase("Promote a Listing");
 		}
 		return isVisible;
+	}
+	public boolean isCorrectTextDisplayed() {
+		boolean isDisplayed = false;
+		if(ActionHelper.isElementVisible(driver, create_Ad_box_text)) {
+			isDisplayed = ActionHelper.getText(driver, create_Ad_box_text).replace("\n", " ").contains("Get more exposure, interest, and engagement for your listing");
+		}
+		return isDisplayed;
+	}
+	public boolean isHomeIconDisplayedInCreateAdBox() {
+		return ActionHelper.waitForElementToBeVisible(driver, home_icon_create_Ad_box, 5);
+	}
+	public boolean isCreateCustomAdButtonIsDisplayed() {
+		return ActionHelper.isElementVisible(driver, customize_button);
+	}
+	public boolean isCreateCustomBoxBouncing() {
+		ActionHelper.MouseHoverOnElement(driver, create_custom_Ad_modal);
+		return create_custom_Ad_modal.getCssValue("animation-name").equalsIgnoreCase("bounce-1");
 	}
 }
