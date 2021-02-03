@@ -9,6 +9,9 @@ import java.text.ParseException;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.SkipException;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -36,7 +39,9 @@ public class ZBOCreateAdPageTest extends PageTest{
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOCreateAdPage(driver);
+			setLoginPage(driver);
 			page.setUrl("");
+			page.setDriver(driver);
 		}
 		return page;
 	}
@@ -45,18 +50,52 @@ public class ZBOCreateAdPageTest extends PageTest{
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOCreateAdPage(driver);
+			setLoginPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
 		}
 		return page;
 	}
-
+	public AbstractPage getPage(String pUrl, boolean pSetupForcefully) {
+		if(page==null && !pSetupForcefully) {
+			driver = getDriver();
+			page = new ZBOCreateAdPage(driver);
+			setLoginPage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+		}else if(page!=null && pSetupForcefully){
+			driver = getDriver();
+			page = new ZBOCreateAdPage(driver);
+			setLoginPage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+		}
+		return page;
+	}
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	@BeforeTest
+	public void backOfficeLogin() {
+		getPage();
+		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
+			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
+	}
+	@Test
+	public void testVerifyCustomAdSectionIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isCreateAdPage(), "Create Ad Page is not visible..");
+		assertTrue(page.isCreateAdStep1Visible(), "Create Ad Page Step 1 is not visible..");
+		assertTrue(page.isCustomAdsHeadingDisplayed(), "Create Custom Ads heading is not displayed..");
+	}
+	@Test
+	public void testVerifyPromoteListingHeadingIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isPromoteListingHeadingIsVisible(), "Promote Listing heading is not displayed..");
+	}
 	@Test
 	@Parameters({"dataFile"})
 	public void testCreateAd(String pDataFile) throws ParseException {
@@ -150,4 +189,9 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.clickOnTermsAndCond(), "Unable to click on terms and condition ..");
 		assertTrue(page.clickOnPlaceAdButton(), "Unable to click on Place Ad button ..");
 	}
+	@AfterTest
+	public void closeBrowser() {
+		driver.quit();
+	}
+
 }

@@ -62,6 +62,12 @@ public class ZBOCreateAdPage extends Page{
 	@FindBy(xpath="//div[@id='form-submit_btn']/a")
 	WebElement insta_fb_logo;
 	
+	//Custom Ads
+	@FindBy(xpath="//h5[@class='bold_center' and text()=' Create a Custom Ad']")
+	WebElement custom_Ads_heading;
+	@FindBy(xpath="//div[@class='adpurplebg goalbox_title']/h2")
+	WebElement promote_listing_heading;
+	
 	//FB Ad Preview Step 2
 	@FindBy(xpath="//div[@id='facebook_ad_pewview']/descendant::span[@class='ad_preview_title']")
 	WebElement fb_ad_preview_desc;
@@ -320,5 +326,15 @@ public class ZBOCreateAdPage extends Page{
 	}
 	public String getFBAdDescStep1() {
 		return ActionHelper.getText(driver, fb_Ad_preview_desc_step1);
+	}
+	public boolean isCustomAdsHeadingDisplayed() {
+		return ActionHelper.waitForElementToBeVisible(driver, custom_Ads_heading, 5);
+	}
+	public boolean isPromoteListingHeadingIsVisible() {
+		boolean isVisible = false;
+		if(ActionHelper.isElementVisible(driver, promote_listing_heading)) {
+			isVisible = ActionHelper.getText(driver, promote_listing_heading).equalsIgnoreCase("Promote a Listing");
+		}
+		return isVisible;
 	}
 }
