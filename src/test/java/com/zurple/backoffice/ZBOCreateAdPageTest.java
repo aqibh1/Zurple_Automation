@@ -111,11 +111,56 @@ public class ZBOCreateAdPageTest extends PageTest{
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isCreateCustomAdButtonIsDisplayed(), "Create Custom Ad button is not displayed..");
 	}
-	
 	@Test
 	public void testVerifyCreateAdBoxIsBouncing() throws ParseException {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isCreateCustomBoxBouncing(), "Create Custom Ad box is not bouncing on mouse hover..");
+	}
+	@Test
+	public void testSelectQuickAdsHeadingDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isSelectQuickAdsHeadingDisplayed(), "Select a Quick Ad heading is not visible..");
+	}
+	@Test
+	public void testListingQuickAdsHeadingDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isListingQuickAdsHeadingDisplayed(), "Listing Quick Ad heading is not visible..");
+	}
+	@Test
+	public void testListingAddressIsDisplayedInQuickAdBox() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isListingAddressIsDisplayedInQuickAdBox(), "Listing Address is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testHotPropertyHeadingVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isHotPropertyHeadingVisible(), "Hot Property heading is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdThumbnailVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isQuickAdThumbnailVisible(), "Listing Thumbnail is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdsDescriptionDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isQuickAdsDescriptionDisplayed(), "Listing description is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdDomainDomainIsCorrect() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		assertTrue(page.getQuickAdDomain().contains(l_domain), "Correct domain is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdTitleVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isQuickAdTitleVisible(), "Quick Ad title 'Hot Proerty' is not visible..");
+	}
+	@Test
+	public void testQuickAdSelectButtonVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isQuickAdSelectButtonVisible(), "Select Button is not visible in Quick Ad box..");
 	}
 	@Test
 	@Parameters({"dataFile"})
