@@ -387,7 +387,7 @@ public class ZBOCreateAdPage extends Page{
 		return ActionHelper.waitForElementToBeVisible(driver, listing_quick_ad_heading, 5);
 	}
 	public boolean isListingAddressIsDisplayedInQuickAdBox() {
-		return !ActionHelper.getText(driver, listing_address).isBlank();
+		return !ActionHelper.getText(driver, listing_address).isEmpty();
 	}
 	public boolean isHotPropertyHeadingVisible() {
 		return ActionHelper.getText(driver, hot_properties_heading).equalsIgnoreCase("Hot Properties");
