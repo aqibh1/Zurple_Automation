@@ -2637,6 +2637,18 @@
 				</class>
 			</classes>
 		</test>
+		<test name="Verify Recent Visitors Panel is working" preserve-order="true">
+		<parameter name="dataFile" value="/resources/data/torchx/recent-visitors-panel-data.json"> 
+		<classes>
+			<class name="com.torchx.TXBORecentVisitorsPanelTest">
+				<methods>
+					<include name="testVerifyRecentVisitorsPanelHeader" />
+					<include name="testVerifyRecentVisitorsPanelTooltip" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
 	<!--  
  <test name="Manage agents page label">
   <parameter name="manageAgentsDataFile" 
