@@ -9,6 +9,9 @@ import java.text.ParseException;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.SkipException;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -36,7 +39,9 @@ public class ZBOCreateAdPageTest extends PageTest{
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOCreateAdPage(driver);
+			setLoginPage(driver);
 			page.setUrl("");
+			page.setDriver(driver);
 		}
 		return page;
 	}
@@ -45,18 +50,118 @@ public class ZBOCreateAdPageTest extends PageTest{
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOCreateAdPage(driver);
+			setLoginPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
 		}
 		return page;
 	}
-
+	public AbstractPage getPage(String pUrl, boolean pSetupForcefully) {
+		if(page==null && !pSetupForcefully) {
+			driver = getDriver();
+			page = new ZBOCreateAdPage(driver);
+			setLoginPage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+		}else if(page!=null && pSetupForcefully){
+			driver = getDriver();
+			page = new ZBOCreateAdPage(driver);
+			setLoginPage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+		}
+		return page;
+	}
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	@BeforeTest
+	public void backOfficeLogin() {
+		getPage();
+		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
+			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
+	}
+	@Test
+	public void testVerifyCustomAdSectionIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isCreateAdPage(), "Create Ad Page is not visible..");
+		assertTrue(page.isCreateAdStep1Visible(), "Create Ad Page Step 1 is not visible..");
+		assertTrue(page.isCustomAdsHeadingDisplayed(), "Create Custom Ads heading is not displayed..");
+	}
+	@Test
+	public void testVerifyPromoteListingHeadingIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isPromoteListingHeadingIsVisible(), "Promote Listing heading is not displayed..");
+	}
+	@Test
+	public void testVerifyCorrectTextIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isCorrectTextDisplayed(), " 'Get more exposure, interest and engagement for your listing' is not displayed..");
+	}
+	@Test
+	public void testVerifyHomeIconIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isHomeIconDisplayedInCreateAdBox(), "Home Icon inside Create Custom Ad box is not displayed..");
+	}
+	@Test
+	public void testVerifyCustomAdButtonIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isCreateCustomAdButtonIsDisplayed(), "Create Custom Ad button is not displayed..");
+	}
+	@Test
+	public void testVerifyCreateAdBoxIsBouncing() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isCreateCustomBoxBouncing(), "Create Custom Ad box is not bouncing on mouse hover..");
+	}
+	@Test
+	public void testSelectQuickAdsHeadingDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isSelectQuickAdsHeadingDisplayed(), "Select a Quick Ad heading is not visible..");
+	}
+	@Test
+	public void testListingQuickAdsHeadingDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isListingQuickAdsHeadingDisplayed(), "Listing Quick Ad heading is not visible..");
+	}
+	@Test
+	public void testListingAddressIsDisplayedInQuickAdBox() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isListingAddressIsDisplayedInQuickAdBox(), "Listing Address is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testHotPropertyHeadingVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isHotPropertyHeadingVisible(), "Hot Property heading is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdThumbnailVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isQuickAdThumbnailVisible(), "Listing Thumbnail is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdsDescriptionDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isQuickAdsDescriptionDisplayed(), "Listing description is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdDomainDomainIsCorrect() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		assertTrue(page.getQuickAdDomain().contains(l_domain), "Correct domain is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdTitleVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isQuickAdTitleVisible(), "Quick Ad title 'Hot Proerty' is not visible..");
+	}
+	@Test
+	public void testQuickAdSelectButtonVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isQuickAdSelectButtonVisible(), "Select Button is not visible in Quick Ad box..");
+	}
 	@Test
 	@Parameters({"dataFile"})
 	public void testCreateAd(String pDataFile) throws ParseException {
@@ -150,4 +255,9 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.clickOnTermsAndCond(), "Unable to click on terms and condition ..");
 		assertTrue(page.clickOnPlaceAdButton(), "Unable to click on Place Ad button ..");
 	}
+	@AfterTest
+	public void closeBrowser() {
+		driver.quit();
+	}
+
 }

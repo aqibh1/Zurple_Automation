@@ -254,19 +254,19 @@ public class ZBOAdsOverviewPage extends Page{
 	 }
 	
 	 public boolean verifyAdSlideShowIsWorking() {
-		 boolean isAdsDateIsDisplayed = false;
+		 boolean isSlideShowWorking = false;
 		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, play_icon_preview);
 		 List<WebElement> elements_list2 = ActionHelper.getListOfElementByXpath(driver, slide_show_image);
 		 if(elements_list.size()>0) {
-			 isAdsDateIsDisplayed = ActionHelper.MouseHoverOnElement(driver, elements_list.get(0));
-			 if(isAdsDateIsDisplayed) {
+			 isSlideShowWorking = ActionHelper.MouseHoverOnElement(driver, elements_list.get(0));
+			 if(isSlideShowWorking) {
 				String image_path_01 = ActionHelper.getAttribute(elements_list2.get(0), "src");
 				ActionHelper.staticWait(2);
 				elements_list2 = ActionHelper.getListOfElementByXpath(driver, slide_show_image);
 				String image_path_02 = ActionHelper.getAttribute(elements_list2.get(0), "src");
-				isAdsDateIsDisplayed = !image_path_01.equalsIgnoreCase(image_path_02);
+				isSlideShowWorking = !image_path_01.equalsIgnoreCase(image_path_02);
 			 }
 		 }
-		 return isAdsDateIsDisplayed; 
+		 return isSlideShowWorking; 
 	 }
 }
