@@ -3,6 +3,7 @@
  */
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.text.ParseException;
@@ -20,6 +21,8 @@ import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
+import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 /**
  * @author adar
@@ -166,6 +169,29 @@ public class ZBOCreateAdPageTest extends PageTest{
 	public void testQuickAdSlideShowIsWorking() throws ParseException {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.verifyAdSlideShowIsWorking(), "Slide show is not working for Quick Ads..");
+	}
+	@Test
+	public void testVerifyListingPopUpAppearsOnClickingCreateCustomButton() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.clickOnCustomAdButton(), "Unable to click on Create Custom Ad Button..");
+		assertTrue(page.getSelectListingAlert().isSelectListingAlert(), "Listing Alert is not visible..");
+	}
+	@Test
+	public void testVerifyCorrectTextIsDisplayedOnSelectListingPopUp() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.getSelectListingAlert().isSelectListingAlert(), "Listing Alert is not visible..");
+		assertTrue(page.getSelectListingAlert().verifyText("Please Select the listing you"), "Crrect text is not displayed on listing pop up");
+	}
+	
+	@Test
+	public void testCancelButtonClosesThePopup() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		if(page.clickOnCustomAdButton()) {
+			AutomationLogger.info("Select Listing Pop Up is already opened..");
+		}
+		assertTrue(page.getSelectListingAlert().clickOnCancelButton(), "Unable to click on cancel button..");
+		ActionHelper.staticWait(10);
+		assertFalse(page.getSelectListingAlert().isSelectListingAlert(), "Select Listing Alert is not closed after clicking on Cancel button");
 	}
 	@Test
 	@Parameters({"dataFile"})
