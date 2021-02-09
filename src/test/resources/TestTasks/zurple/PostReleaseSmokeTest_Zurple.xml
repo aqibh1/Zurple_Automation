@@ -2637,6 +2637,63 @@
 				</class>
 			</classes>
 		</test>
+		
+		<test name="Verify the ads overview page">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAdsOverviewPageTest">
+					<methods>
+						<include name="testVerifyAdsManagerIsVisibleInHeader"/>
+						<include name="testVerifyAdsManagerDropdownOptionsVisible"/>
+						<include name="testClickAdsOverviewFromAdsManager"/>
+						<include name="testVerifyAdTypeColumnIsDisplayedOnAdsOverviewPage"/>
+						<include name="testVerifyAdIconIsDisplayedOnAdsOverviewPage"/>
+						<include name="testVerifyListingAddressIsDisplayedOnAdsOverviewPage"/>
+						<include name="testVerifyAdStartingAndEndingIsDisplayed"/>
+						<include name="testVerifyAdClickViewStatsAreDisplayed"/>
+						<include name="testVerifyAdPricesAreDisplayed"/>
+						<include name="testVerifyAdLocationIsDisplayed"/>
+						<include name="testVerifyAdRecurringDateIsDisplayed"/>
+						<include name="testVerifyAdStatusIsDisplayed"/>
+						<include name="testVerifyAdPreviewGetsDisplayedDisplayed"/>
+						<include name="testVerifyAdPreviewSlideShowIsWorking"/>
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+	<test name="Custom Ads Verifications Step 1">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>
+					<include name="testVerifyCustomAdSectionIsDisplayed" />
+					<include name="testVerifyPromoteListingHeadingIsDisplayed" />
+					<include name="testVerifyCorrectTextIsDisplayed" />
+					<include name="testVerifyHomeIconIsDisplayed" />
+					<include name="testVerifyCustomAdButtonIsDisplayed" />
+					<include name="testVerifyCreateAdBoxIsBouncing" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Quicks Ads Verifications Step 1">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>
+					<include name="testSelectQuickAdsHeadingDisplayed" />
+					<include name="testListingQuickAdsHeadingDisplayed" />
+					<include name="testListingAddressIsDisplayedInQuickAdBox" />
+					<include name="testHotPropertyHeadingVisible" />
+					<include name="testQuickAdThumbnailVisible" />
+					<include name="testQuickAdsDescriptionDisplayed" />
+					<include name="testQuickAdDomainDomainIsCorrect" />
+					<include name="testQuickAdTitleVisible" />
+					<include name="testQuickAdSelectButtonVisible" />
+					<include name="testQuickAdSlideShowIsWorking"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
 	<!--  
  <test name="Manage agents page label">
   <parameter name="manageAgentsDataFile" 
