@@ -134,7 +134,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	@Test
 	public void testHotPropertyHeadingVisible() throws ParseException {
 		getPage("/create-ad/step-one",true);
-		assertTrue(page.isHotPropertyHeadingVisible(), "Hot Property heading is not visible in Quick Ad box..");
+		assertTrue(page.isHotPropertyHeadingVisible(), "Hot Properties heading is not visible in Quick Ad box..");
 	}
 	@Test
 	public void testQuickAdThumbnailVisible() throws ParseException {
@@ -161,6 +161,11 @@ public class ZBOCreateAdPageTest extends PageTest{
 	public void testQuickAdSelectButtonVisible() throws ParseException {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isQuickAdSelectButtonVisible(), "Select Button is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdSlideShowIsWorking() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.verifyAdSlideShowIsWorking(), "Slide show is not working for Quick Ads..");
 	}
 	@Test
 	@Parameters({"dataFile"})

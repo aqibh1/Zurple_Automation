@@ -6,6 +6,7 @@ package com.zurple.backoffice.ads;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -93,6 +94,9 @@ public class ZBOCreateAdPage extends Page{
 	WebElement quick_Ad_title;
 	@FindBy(xpath="//div[@class='ad_outerbox']/a[text()='Select']")
 	WebElement select_button_quick_ad_box;
+	@FindBy(xpath="//div[@class='ad_outerbox']/descendant::i[@class='fa fa-play']")
+	WebElement quick_Ad_play_icon;
+	String quick_Ad_Slide_show_images = "//div[@class='ad_outerbox']/descendant::div[@class='slide-image']/img";
 	
 	//FB Ad Preview Step 2
 	@FindBy(xpath="//div[@id='facebook_ad_pewview']/descendant::span[@class='ad_preview_title']")
@@ -390,7 +394,7 @@ public class ZBOCreateAdPage extends Page{
 		return !ActionHelper.getText(driver, listing_address).isEmpty();
 	}
 	public boolean isHotPropertyHeadingVisible() {
-		return ActionHelper.getText(driver, hot_properties_heading).equalsIgnoreCase("Hot Properties");
+		return ActionHelper.getText(driver, hot_properties_heading).contains("Hot Properties");
 	}
 	public boolean isQuickAdThumbnailVisible() {
 		return ActionHelper.getAttribute(img_thumb_quick_Ad, "src").contains("icon.jpg");
@@ -407,4 +411,22 @@ public class ZBOCreateAdPage extends Page{
 	public boolean isQuickAdSelectButtonVisible() {
 		return ActionHelper.isElementVisible(driver, select_button_quick_ad_box);
 	}
+
+	 public boolean verifyAdSlideShowIsWorking() {
+		 ActionHelper.RefreshPage(driver);
+		 ActionHelper.staticWait(5);
+		 boolean isSlideShowWorking = false;
+		 List<WebElement> elements_list2 = ActionHelper.getListOfElementByXpath(driver, quick_Ad_Slide_show_images);
+		 if(elements_list2.size()>0) {
+			 isSlideShowWorking = ActionHelper.MouseHoverOnElement(driver, quick_Ad_play_icon);
+			 if(isSlideShowWorking) {
+				String image_path_01 = ActionHelper.getAttribute(elements_list2.get(0), "src");
+				ActionHelper.staticWait(2);
+				elements_list2 = ActionHelper.getListOfElementByXpath(driver, quick_Ad_Slide_show_images);
+				String image_path_02 = ActionHelper.getAttribute(elements_list2.get(0), "src");
+				isSlideShowWorking = !image_path_01.equalsIgnoreCase(image_path_02);
+			 }
+		 }
+		 return isSlideShowWorking; 
+	 }
 }

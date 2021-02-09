@@ -22,6 +22,7 @@
 					<include name="testQuickAdDomainDomainIsCorrect" />
 					<include name="testQuickAdTitleVisible" />
 					<include name="testQuickAdSelectButtonVisible" />
+					<include name="testQuickAdSlideShowIsWorking"/>
 				</methods>
 			</class>
 		</classes>
