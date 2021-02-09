@@ -1,5 +1,8 @@
 package com.zurple.backoffice;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,6 +13,8 @@ import com.zurple.my.Page;
 import resources.utility.ActionHelper;
 
 public class ZBOV2TemplatePage extends Page {
+
+	private static final boolean WebElement = false;
 
 	@FindBy(xpath="//div[@class='form-element-input']//descendant::input[@id='domain_name']")
 	WebElement domain_name;
@@ -109,7 +114,14 @@ public class ZBOV2TemplatePage extends Page {
 	}
 	
 	public boolean clickV2UnCheck() {
-		return ActionHelper.Click(driver,v2_checkbox);
+		boolean isSuccess = false;
+		if(ActionHelper.isElementSelected(driver, v2_checkbox)) {
+			 ActionHelper.Click(driver,v2_checkbox);
+			 isSuccess = true;
+		} else {
+			isSuccess = false;
+		}
+		return isSuccess;
 	}
 	
 	public String getValidationMessage() {
@@ -143,21 +155,40 @@ public class ZBOV2TemplatePage extends Page {
 		}
 	}
 	
+	public boolean checkAdditionalCityAlreadyExist() {
+		List<WebElement> cities = new ArrayList<WebElement>();
+		cities.add(select_city_del1);
+		cities.add(select_city_del2);
+		cities.add(select_city_del3);
+		cities.add(select_city_del4);
+		boolean isVisible = false;
+		for(int i=0; i<cities.size(); i++) {
+			if(ActionHelper.waitForElementToBeClickAble(driver, cities.get(i))) {
+				isVisible=true;
+			}
+		}
+		return isVisible;
+	}
+	
 	public boolean clickAdditionalCityForDel() {
+		boolean isSuccess = false;
 		try {
-			ActionHelper.Click(driver, select_city_del1);
-			clickDeleteCity();
-			ActionHelper.Click(driver, select_city_del2);
-			clickDeleteCity();
-			ActionHelper.Click(driver, select_city_del3);
-			clickDeleteCity();
-			ActionHelper.Click(driver, select_city_del4);
-			clickDeleteCity();
-			return true;
+			if(checkAdditionalCityAlreadyExist()) {
+				ActionHelper.Click(driver, select_city_del1);
+				clickDeleteCity();
+				ActionHelper.Click(driver, select_city_del2);
+				clickDeleteCity();
+				ActionHelper.Click(driver, select_city_del3);
+				clickDeleteCity();
+				ActionHelper.Click(driver, select_city_del4);
+				clickDeleteCity();
+				isSuccess = true;
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			return false;
+			isSuccess = false;
 		}
+		return isSuccess;
 	}
 	
 	public boolean clickUpdate() {
