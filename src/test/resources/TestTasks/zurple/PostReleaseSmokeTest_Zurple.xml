@@ -2648,6 +2648,8 @@
 			</class>
 		</classes>
 		</parameter>
+		</test>
+		
 		<test name="Verify the ads overview page">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOAdsOverviewPageTest">
