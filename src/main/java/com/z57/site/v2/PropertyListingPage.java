@@ -422,7 +422,7 @@ public class PropertyListingPage extends Page{
 	}
 	
 	private boolean isElementDisplayed(WebElement pElement) {
-		return ActionHelper.isElementVisible(driver, pElement);
+		return ActionHelper.waitForElementToBeVisible(driver, pElement,30);
 
 	}
 	public boolean isListingDetailPage() {
