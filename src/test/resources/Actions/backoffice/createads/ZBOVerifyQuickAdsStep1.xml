@@ -23,6 +23,7 @@
 					<include name="testQuickAdTitleVisible" />
 					<include name="testQuickAdSelectButtonVisible" />
 					<include name="testQuickAdSlideShowIsWorking"/>
+					<include name="testVerifyListingPopUpAppearsOnClickingCreateCustomButton"/>
 				</methods>
 			</class>
 		</classes>
