@@ -144,7 +144,7 @@ public class ZWRegisterUserPageTest extends PageTest{
 }
 
 
-	private void registerUser(String pName, String pEmail) {
+	public void registerUser(String pName, String pEmail) {
 		assertTrue(page.isRegisterPage(),"Register page is not opened..");
 		assertTrue(page.typeName(pName),"Unable to type name..");
 		assertTrue(page.typeEmail(pEmail),"Unable to type email..");
