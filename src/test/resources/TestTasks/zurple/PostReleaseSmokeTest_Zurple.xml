@@ -2637,18 +2637,23 @@
 				</class>
 			</classes>
 		</test>
-		<test name="Verify Recent Visitors Panel is working" preserve-order="true">
+		
+	<test name="Verify Recent Visitors Panel is working" preserve-order="true">
+		<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-track-search.json">
 		<parameter name="dataFile" value="/resources/data/torchx/recent-visitors-panel-data.json"> 
 		<classes>
 			<class name="com.torchx.TXBORecentVisitorsPanelTest">
 				<methods>
 					<include name="testVerifyRecentVisitorsPanelHeader" />
 					<include name="testVerifyRecentVisitorsPanelTooltip" />
+					<include name="testVerifyLeadFormat" />
+					<include name="testVerifyLeadVisitDate" />
 				</methods>
 			</class>
 		</classes>
 		</parameter>
-		</test>
+		</parameter>
+	</test>
 		
 		<test name="Verify the ads overview page">	
 			<classes>
@@ -2706,6 +2711,36 @@
 			</class>
 		</classes>
 	</test>
+	
+	<test name="Verify V2 Site Settings And Website">	
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/v2-site-settings.json"> 
+			<classes>
+		 		<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOV2TemplatePageTest">
+					<methods>
+						<include name="testVerifyV2Settings"/>
+						<include name="testVerifyV2SettingsDisabled"/>
+					</methods>
+				</class> 
+				<class name="com.zurple.website.ZWV2TemplateHomePageTest">
+					<methods>
+						<include name="testVerifyV2WebsiteTemplate"/>
+					</methods>
+				</class>
+		  		<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
+	
+	
 	<!--  
  <test name="Manage agents page label">
   <parameter name="manageAgentsDataFile" 
