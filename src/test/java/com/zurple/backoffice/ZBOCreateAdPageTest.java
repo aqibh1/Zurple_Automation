@@ -193,6 +193,48 @@ public class ZBOCreateAdPageTest extends PageTest{
 		ActionHelper.staticWait(10);
 		assertFalse(page.getSelectListingAlert().isSelectListingAlert(), "Select Listing Alert is not closed after clicking on Cancel button");
 	}
+	
+	@Test
+	public void testVerifyUserLandsToStep2AfterClickingOk() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		if(!page.clickOnCustomAdButton()) {
+			throw new SkipException("Skipping the test becasuse [Click on Custom Ad Button] pre-condition was failed.");
+		}
+		if(!page.getSelectListingAlert().isSelectListingAlert()) {
+			throw new SkipException("Skipping the test becasuse [Select Listing Alert dialog was not opened] pre-condition was failed.");
+		}
+		assertTrue(page.getSelectListingAlert().clickOnOkButton(), "Unable to click on OK button..");
+		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
+	}
+	
+	@Test
+	public void testVerifyListingAddressIsSameOnStep1AndStep2() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		if(!page.clickOnCustomAdButton()) {
+			throw new SkipException("Skipping the test becasuse [Click on Custom Ad Button] pre-condition was failed.");
+		}
+		if(!page.getSelectListingAlert().isSelectListingAlert()) {
+			throw new SkipException("Skipping the test becasuse [Select Listing Alert dialog was not opened] pre-condition was failed.");
+		}
+		String lListing_address = page.getSelectListingAlert().getTheListingAddress();
+		assertTrue(page.getSelectListingAlert().clickOnOkButton(), "Unable to click on OK button..");
+		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
+		assertTrue(page.getListingAddress().contains(lListing_address.split(",")[0]), "Listing address on step2 section 1 is not same as step 1");
+	}
+	
+	@Test
+	public void testVerifyEditButtonRedirectsUserOnStep1() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		if(!page.clickOnCustomAdButton()) {
+			throw new SkipException("Skipping the test becasuse [Click on Custom Ad Button] pre-condition was failed.");
+		}
+		if(!page.getSelectListingAlert().isSelectListingAlert() || !page.getSelectListingAlert().clickOnOkButton()) {
+			throw new SkipException("Skipping the test becasuse [Select Listing Alert dialog was not opened] pre-condition was failed.");
+		}
+		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
+		assertTrue(page.clickOnEditButtonStep2Section1(), "Unable to click on Edit button..");
+		assertTrue(page.isCustomAdsHeadingDisplayed(), "Create Custom Ads heading is not displayed..");		
+	}
 	@Test
 	@Parameters({"dataFile"})
 	public void testCreateAd(String pDataFile) throws ParseException {
@@ -286,9 +328,10 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.clickOnTermsAndCond(), "Unable to click on terms and condition ..");
 		assertTrue(page.clickOnPlaceAdButton(), "Unable to click on Place Ad button ..");
 	}
+	
 	@AfterTest
 	public void closeBrowser() {
-		driver.quit();
+		closeCurrentBrowser();
 	}
 
 }

@@ -403,5 +403,11 @@ public abstract class AbstractPageTest extends AbstractTest
 		return lDate; //2020-08-19 11:50
 	}
     
+    public void closeCurrentBrowser() {
+    	 Long thread_id = Thread.currentThread().getId();
+         WebDriver driver = EnvironmentFactory.getDriver(thread_id);
+         driver.quit();
+         EnvironmentFactory.webDrivers.remove(thread_id);
+    }
 
 }

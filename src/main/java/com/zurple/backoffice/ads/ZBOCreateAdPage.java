@@ -63,6 +63,12 @@ public class ZBOCreateAdPage extends Page{
 	@FindBy(xpath="//div[@id='form-submit_btn']/a")
 	WebElement insta_fb_logo;
 	
+	//Step 2 Section 1
+	@FindBy(xpath="//p[@style]")
+	WebElement listing_address_section1_step2;
+	@FindBy(xpath="//a[@class='btn ad_edit_btn' and text()='Edit']")
+	WebElement edit_button_section1_step2;
+	
 	//Custom Ads
 	@FindBy(xpath="//h5[@class='bold_center' and text()=' Create a Custom Ad']")
 	WebElement custom_Ads_heading;
@@ -428,5 +434,11 @@ public class ZBOCreateAdPage extends Page{
 			 }
 		 }
 		 return isSlideShowWorking; 
+	 }
+	 public String getListingAddress() {
+		 return ActionHelper.getText(driver, listing_address_section1_step2);
+	 }
+	 public boolean clickOnEditButtonStep2Section1() {
+		 return ActionHelper.Click(driver, edit_button_section1_step2);
 	 }
 }

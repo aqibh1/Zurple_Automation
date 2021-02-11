@@ -78,4 +78,9 @@ public class ZBOSelectListingAlert extends AbstractAlert{
 	public boolean clickOnCancelButton() {
 		return ActionHelper.Click(driver, cancel_button);
 	}
+	public String getTheListingAddress() {
+		List<WebElement> list_of_element = new ArrayList<WebElement>();
+		list_of_element =ActionHelper.getListOfElementByXpath(driver, listing_dropdown_options);
+		return ActionHelper.getText(driver, list_of_element.get(0));
+	}
 }
