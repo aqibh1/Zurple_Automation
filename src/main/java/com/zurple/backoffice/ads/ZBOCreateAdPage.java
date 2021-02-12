@@ -124,6 +124,7 @@ public class ZBOCreateAdPage extends Page{
 	@FindBy(xpath="//div[@id='facebook_ad_pewview']/descendant::div[@class='playicon_slide']")
 	WebElement insta_ad_play_icon;
 	
+	//Section 1 Step 2
 	@FindBy(xpath="//h5[@class='inner_stephead' and text()='Select an Ad Type ']")
 	WebElement selectAnAdType_section1_step2;
 	@FindBy(xpath="//p[@style='margin-left: 13%;']")

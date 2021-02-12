@@ -16,6 +16,8 @@
 					<include name="testVerifyUserLandsToStep2AfterClickingOk"/>
 					<include name="testVerifyListingAddressIsSameOnStep1AndStep2"/>
 					<include name="testVerifyEditButtonRedirectsUserOnStep1"/>
+					<include name="testSection1IsCheckedOnStep2"/>
+					<include name="testSection1AdHeadingIsVisible"/>
 				</methods>
 			</class>
 		</classes>
