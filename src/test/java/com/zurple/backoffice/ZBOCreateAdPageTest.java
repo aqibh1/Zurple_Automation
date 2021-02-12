@@ -236,6 +236,28 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isCustomAdsHeadingDisplayed(), "Create Custom Ads heading is not displayed..");		
 	}
 	@Test
+	public void testSection1IsCheckedOnStep2() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
+		assertTrue(page.isStep1Checked(), "Section 1 is not checked on Step 2..");		
+	}
+	@Test
+	public void testSection1AdHeadingIsVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
+		assertTrue(page.isStep1Checked(), "Section 1 is not checked on Step 2..");		
+	}
+	public void clickOnCustomAdButtonAndSelectListing() {
+		if(!page.clickOnCustomAdButton()) {
+			throw new SkipException("Skipping the test becasuse [Click on Custom Ad Button] pre-condition was failed.");
+		}
+		if(!page.getSelectListingAlert().isSelectListingAlert() || !page.getSelectListingAlert().clickOnOkButton()) {
+			throw new SkipException("Skipping the test becasuse [Select Listing Alert dialog was not opened] pre-condition was failed.");
+		}
+	}
+	@Test
 	@Parameters({"dataFile"})
 	public void testCreateAd(String pDataFile) throws ParseException {
 		dataObject = getDataFile(pDataFile);
