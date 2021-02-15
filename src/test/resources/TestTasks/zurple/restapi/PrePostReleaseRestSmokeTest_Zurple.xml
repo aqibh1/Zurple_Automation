@@ -527,6 +527,8 @@
 			</parameter>
 	</test>
 	
+	
+	
 	<test name="Verify status post on Facebook">	 
 	<parameter name="datafile" value="/resources/data/zurple/socialapi/post_fb_status_data.json"> 
 			<classes>
@@ -583,7 +585,7 @@
 			</parameter>
 	</test>
 	
-	<test name="Verify Scheduled posts and listing video posts">	 
+	<test name="Verify Scheduleded post and listing video posts">	 
 	<parameter name="datafile" value="/resources/data/zurple/socialapi/post-history-data.json"> 
 			<classes>
 			<class name="com.zurple.backoffice.ZBOLoginPageTest">
