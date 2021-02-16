@@ -22,6 +22,7 @@ import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.CacheFilePathsConstants;
 import resources.utility.Mailinator;
 
 /**
@@ -100,7 +101,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testAddAndVerifyReminder() {
+	public void testAddAndVerifyReminder() throws ParseException {
 		getPage("/leads/crm");
 		Mailinator mailinatorObj = new Mailinator(driver);
 		if(getIsProd()) {
@@ -108,8 +109,13 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		}else {
 			mailinatorObj.activateStagingInbox();
 		}
-		
 		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
+		
+//		AutomationLogger.info("Applying filter to get valid lead");
+//		String lFilterName = "By Agent,By Email Verification";
+//		String lFilterValue = getIsProd()?"Aqib Production Testing,Valid Emails":"Aqib Site Owner,Valid Emails";
+//		applyMultipleFilter(lFilterName, lFilterValue);
+		
 		String lead_name_id = page.getLeadName();
 		String l_leadName = lead_name_id.split(",")[0].trim();
 		String l_leadId = lead_name_id.split(",")[1].trim();
@@ -142,7 +148,25 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		String lAgentEmail = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_user").split("@")[0];
 		String lSubjectToVerify = "Task Reminder - "+l_leadName;
 		
-		assertTrue(mailinatorObj.verifyEmail(lAgentEmail, lSubjectToVerify, 15), "Unable to verify reminder email");
+		JSONObject lCacheObject = new JSONObject();
+		lCacheObject.put("agent_email", lAgentEmail);
+		lCacheObject.put("subject_to_verify", lSubjectToVerify);
+		
+		emptyFile(CacheFilePathsConstants.ReminderEmailCache, "");
+		writeJsonToFile(CacheFilePathsConstants.ReminderEmailCache, lCacheObject);
+		
+//		assertTrue(mailinatorObj.verifyEmail(lAgentEmail, lSubjectToVerify, 15), "Unable to verify reminder email");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyReminderEmail(String pDataFile) {
+		getPage();
+		Mailinator mailinatorObj = new Mailinator(driver);
+		dataObject = getDataFile(CacheFilePathsConstants.ReminderEmailCache);
+		String ld_AgentEmail = dataObject.optString("agent_email");
+		String ld_subject_to_verify = dataObject.optString("subject_to_verify");
+		assertTrue(mailinatorObj.verifyEmail(ld_AgentEmail, ld_subject_to_verify, 5), "Unable to verify reminder email ["+ld_subject_to_verify+"]");
 	}
 	
 	@Test
@@ -152,7 +176,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
 		String lFilterName = "By Agent,By Email Verification";
 		String lFilterValue = getIsProd()?"Aqib Production Testing,Valid Emails":"Aqib Site Owner,Valid Emails";
-		applyMultipleFilter(lFilterName, lFilterValue);
+		applyMultipleFilters(lFilterName, lFilterValue);
 		String lead_name_id = page.getLeadName();
 		String lead_Email_phone = page.getEmail();
 		String l_leadName = lead_name_id.split(",")[0].trim();
@@ -173,20 +197,52 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(page.searchLead(l_leadName), "Unable to search lead..");
 		assertTrue(page.clickOnEmailButton(), "Unable to click on Note button on CRM page..");
 		assertTrue(page.getSendEmailForm().isSendEmailForm(), "Send Email form is not visible..");
-		assertTrue(page.getSendEmailForm().selectRandomTemplate(), "Unable to select template from drop down..");
+		assertTrue(page.getSendEmailForm().selectTemplate("Automation Template"), "Unable to select template from drop down..");
 		ActionHelper.staticWait(10);
 		String l_subject = page.getSendEmailForm().getSubject();
 		assertTrue(page.getSendEmailForm().clickOnSendEmailButton(), "Unable to click on send button....");
-		testVerifyEmailInMyMessages(l_leadId, l_subject);
-		assertTrue(mailinatorObj.verifyEmail(l_lead_email.split("@")[0], l_subject, 15), "Unable to verify reminder email");
-		page = null;
-		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
-		getPage("/leads/crm");
-		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
-		assertTrue(leadCRMPage.searchLead(l_leadName), "Unable to search lead");
-		assertTrue(leadCRMPage.verifyMassEmailCount(), "Unable to verify mass email count..");
+//		testVerifyEmailInMyMessages(l_leadId, l_subject);
+//		assertTrue(mailinatorObj.verifyEmail(l_lead_email.split("@")[0], l_subject, 15), "Unable to verify reminder email");
+//		ActionHelper.RefreshPage(driver);
+//		ActionHelper.staticWait(10);
+//		page = null;
+//		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+//		getPage("/leads/crm");
+//		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
+//		assertTrue(leadCRMPage.searchLead(l_leadName), "Unable to search lead");
+//		assertTrue(leadCRMPage.verifyMassEmailCount(), "Unable to verify mass email count..");
+		
+		JSONObject cacheObject = new JSONObject();
+		cacheObject.put("lead_id", l_leadId);
+		cacheObject.put("email_subject", l_subject);
+		cacheObject.put("lead_email", l_lead_email);
+		cacheObject.put("lead_name", l_leadName);
+		
+		emptyFile(CacheFilePathsConstants.CRMEmailCache, "");
+		writeJsonToFile(CacheFilePathsConstants.CRMEmailCache, cacheObject);
 	}
 	
+	@Test
+	public void testVerifyEmailIsSent() {
+		getPage("/leads/crm");
+		
+		dataObject = getDataFile(CacheFilePathsConstants.CRMEmailCache);
+		Mailinator mailinatorObj = new Mailinator(driver);
+		
+		String ld_lead_id = dataObject.optString("lead_id");
+		String ld_email_subject = dataObject.optString("email_subject");
+		String ld_lead_email = dataObject.optString("lead_email");
+		String ld_lead_name = dataObject.optString("lead_name");
+		
+		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+		
+		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
+		assertTrue(leadCRMPage.searchLead(ld_lead_name), "Unable to search lead");
+		assertTrue(leadCRMPage.verifyMassEmailCount(), "Unable to verify mass email count..");
+		
+		testVerifyEmailInMyMessages(ld_lead_id, ld_email_subject);
+		assertTrue(mailinatorObj.verifyEmail(ld_lead_email.split("@")[0], ld_email_subject, 5), "Unable to verify email\n Lead ID::"+ld_lead_id+"\n Email Subject::"+ld_email_subject+"\n Lead Email::"+ld_lead_email);;
+	}
 	@Test
 	public void testSendAndVerifySendSMS() throws ParseException {
 		getPage("/leads/crm");
@@ -200,22 +256,18 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(page.getSendSMSForm().isSuccessMessageVisible(), "Unable to select template from drop down..");
 	}
 	public void testVerifyEmailInMyMessages(String pLeadId, String pEmailSubject) {
-		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		String lLeadId = pLeadId;		
 		if(!getIsProd()) {
 			//	Process email queue
 			page=null;
 			getPage("/admin/processemailqueue");
 			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-			page = null;
-			getPage("/lead/"+lLeadId);
-		} else {
-			page = null;
-			getPage("/lead/"+lLeadId);
-			page = null;
-		}
+		} 
+		page = null;
+		getPage("/lead/"+lLeadId);
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
-		assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject), "Email not found in my messages in lead details page");
+		assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject), "Email +["+pEmailSubject+ "]+ not found in my messages in lead details page");
 }
 	@Test
 	@Parameters({"dataFile"})
@@ -241,7 +293,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(leadPage.clickAndSelectFilterValue(pFilterValue),"Unable to select the filter value "+pFilterValue);
 		assertTrue(leadPage.clickOnSearchButton(),"Unable to click on search button..");
 	}
-	private void applyMultipleFilter(String pFilterName, String pFilterValue) throws ParseException {
+	private void applyMultipleFilters(String pFilterName, String pFilterValue) throws ParseException {
 		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
 		String[] lFilterNameList = pFilterName.split(",");
 		String[] lFilterValueList = pFilterValue.split(",");

@@ -1253,6 +1253,11 @@ public class ActionHelper {
 		   switchToSecondWindow(pWebDriver);
 		   pWebDriver.navigate().to(pUrl);
 	   }
+	   
+	   public static void openUrlInCurrentTab(WebDriver pWebDriver, String pUrl) {
+		   pWebDriver.navigate().to(pUrl);
+	   }
+	   
 	   public static void switchToiFrame(WebDriver pWebDriver, String pIndex) {
 		   pWebDriver.switchTo().frame(pIndex);
 	   }

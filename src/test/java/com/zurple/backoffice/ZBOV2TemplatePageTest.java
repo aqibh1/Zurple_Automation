@@ -50,7 +50,7 @@ public class ZBOV2TemplatePageTest extends PageTest{
 		
 	}
 	
-	@Test
+	@Test(priority=227)
 	@Parameters({"dataFile"})
 	public void testVerifyV2Settings(String pDataFile) {
 		AutomationLogger.startTestCase("Verify V2 site settings");
@@ -89,7 +89,7 @@ public class ZBOV2TemplatePageTest extends PageTest{
 		AutomationLogger.endTestCase();
 	}
 	
-	@Test(dependsOnMethods = {"testVerifyV2Settings"})
+	@Test(priority=229)
 	@Parameters({"dataFile"})
 	public void testVerifyV2SettingsDisabled(String pDataFile) {
 		AutomationLogger.startTestCase("Verify V2 site settings are turned off");

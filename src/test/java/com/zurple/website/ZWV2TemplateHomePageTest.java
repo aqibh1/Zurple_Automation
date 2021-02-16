@@ -68,7 +68,7 @@ public class ZWV2TemplateHomePageTest extends PageTest{
 		
 	}
 	
-	@Test	
+	@Test(priority=228)
 	@Parameters({"dataFile"})
 	public void testVerifyV2WebsiteTemplate(String pDataFile) {
 		AutomationLogger.startTestCase("Verify V2 website template");

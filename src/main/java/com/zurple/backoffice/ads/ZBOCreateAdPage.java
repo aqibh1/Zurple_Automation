@@ -6,6 +6,7 @@ package com.zurple.backoffice.ads;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -32,7 +33,7 @@ public class ZBOCreateAdPage extends Page{
 	@FindBy(xpath="//strong[contains(text(),'Step 1:')]")
 	WebElement step1_strong;
 	
-	@FindBy(xpath="//a[@id='promote_adtype_selector']/descendant::button")
+	@FindBy(xpath="//a[@id='promote_adtype_selector']/descendant::button[contains(text(),'Create Custom Ad')]")
 	WebElement customize_button;
 	
 	@FindBy(xpath="//h2[text()='Create Ad - Step 2']")
@@ -62,6 +63,47 @@ public class ZBOCreateAdPage extends Page{
 	@FindBy(xpath="//div[@id='form-submit_btn']/a")
 	WebElement insta_fb_logo;
 	
+	//Step 2 Section 1
+	@FindBy(xpath="//p[@style]")
+	WebElement listing_address_section1_step2;
+	@FindBy(xpath="//a[@class='btn ad_edit_btn' and text()='Edit']")
+	WebElement edit_button_section1_step2;
+	
+	//Custom Ads
+	@FindBy(xpath="//h5[@class='bold_center' and text()=' Create a Custom Ad']")
+	WebElement custom_Ads_heading;
+	@FindBy(xpath="//div[@class='adpurplebg goalbox_title']/h2")
+	WebElement promote_listing_heading;
+	@FindBy(xpath="//div[@class='goalbox_body adtype_body']")
+	WebElement create_Ad_box_text;
+	@FindBy(xpath="//div[@class='goalbox_body adtype_body']/i[@class='fa fa-home']")
+	WebElement home_icon_create_Ad_box;
+	@FindBy(xpath="//*[@class='goalBox mtb-8 adpurplebg_light callout_modal']")
+	WebElement create_custom_Ad_modal;
+	
+	//Quick Ad
+	@FindBy(xpath="//h5[@class='bold_center' and contains(text(),' Select a Quick Ad')]")
+	WebElement quick_Ads_heading;
+	@FindBy(xpath="//div[@class='ad_outerbox']/h4[text()='Listing Quick Ad']")
+	WebElement listing_quick_ad_heading;
+	@FindBy(xpath="//div[@class='ad_outerbox']/h4[text()='Listing Quick Ad']/following-sibling::p")
+	WebElement listing_address;
+	@FindBy(xpath="//div[@class='fb_ad_preview_frame pull-left']/descendant::div[@class='ad_page_title']")
+	WebElement hot_properties_heading;
+	@FindBy(xpath="//div[@class='fb_ad_preview_frame pull-left']/descendant::div[@class='ad_page_dp']/img")
+	WebElement img_thumb_quick_Ad;
+	@FindBy(xpath="//div[@class='fb_ad_preview_frame pull-left']/descendant::div[@class='fb_ad_preview_details Mpreview']")
+	WebElement quick_Ad_Desc;
+	@FindBy(xpath="//div[@class='fb_ad_preview_frame pull-left']/descendant::div[@class='fb_ad_preview_domain']")
+	WebElement quick_Ad_Domain;
+	@FindBy(xpath="//div[@class='fb_ad_preview_frame pull-left']/descendant::div[@class='fb_ad_preview_title']/a")
+	WebElement quick_Ad_title;
+	@FindBy(xpath="//div[@class='ad_outerbox']/a[text()='Select']")
+	WebElement select_button_quick_ad_box;
+	@FindBy(xpath="//div[@class='ad_outerbox']/descendant::i[@class='fa fa-play']")
+	WebElement quick_Ad_play_icon;
+	String quick_Ad_Slide_show_images = "//div[@class='ad_outerbox']/descendant::div[@class='slide-image']/img";
+	
 	//FB Ad Preview Step 2
 	@FindBy(xpath="//div[@id='facebook_ad_pewview']/descendant::span[@class='ad_preview_title']")
 	WebElement fb_ad_preview_desc;
@@ -82,6 +124,7 @@ public class ZBOCreateAdPage extends Page{
 	@FindBy(xpath="//div[@id='facebook_ad_pewview']/descendant::div[@class='playicon_slide']")
 	WebElement insta_ad_play_icon;
 	
+	//Section 1 Step 2
 	@FindBy(xpath="//h5[@class='inner_stephead' and text()='Select an Ad Type ']")
 	WebElement selectAnAdType_section1_step2;
 	@FindBy(xpath="//p[@style='margin-left: 13%;']")
@@ -321,4 +364,82 @@ public class ZBOCreateAdPage extends Page{
 	public String getFBAdDescStep1() {
 		return ActionHelper.getText(driver, fb_Ad_preview_desc_step1);
 	}
+	public boolean isCustomAdsHeadingDisplayed() {
+		return ActionHelper.waitForElementToBeVisible(driver, custom_Ads_heading, 5);
+	}
+	public boolean isPromoteListingHeadingIsVisible() {
+		boolean isVisible = false;
+		if(ActionHelper.isElementVisible(driver, promote_listing_heading)) {
+			isVisible = ActionHelper.getText(driver, promote_listing_heading).equalsIgnoreCase("Promote a Listing");
+		}
+		return isVisible;
+	}
+	public boolean isCorrectTextDisplayed() {
+		boolean isDisplayed = false;
+		if(ActionHelper.isElementVisible(driver, create_Ad_box_text)) {
+			isDisplayed = ActionHelper.getText(driver, create_Ad_box_text).replace("\n", " ").contains("Get more exposure, interest, and engagement for your listing");
+		}
+		return isDisplayed;
+	}
+	public boolean isHomeIconDisplayedInCreateAdBox() {
+		return ActionHelper.waitForElementToBeVisible(driver, home_icon_create_Ad_box, 5);
+	}
+	public boolean isCreateCustomAdButtonIsDisplayed() {
+		return ActionHelper.isElementVisible(driver, customize_button);
+	}
+	public boolean isCreateCustomBoxBouncing() {
+		ActionHelper.MouseHoverOnElement(driver, create_custom_Ad_modal);
+		return create_custom_Ad_modal.getCssValue("animation-name").equalsIgnoreCase("bounce-1");
+	}
+	public boolean isSelectQuickAdsHeadingDisplayed() {
+		return ActionHelper.waitForElementToBeVisible(driver, quick_Ads_heading, 5);
+	}
+	public boolean isListingQuickAdsHeadingDisplayed() {
+		return ActionHelper.waitForElementToBeVisible(driver, listing_quick_ad_heading, 5);
+	}
+	public boolean isListingAddressIsDisplayedInQuickAdBox() {
+		return !ActionHelper.getText(driver, listing_address).isEmpty();
+	}
+	public boolean isHotPropertyHeadingVisible() {
+		return ActionHelper.getText(driver, hot_properties_heading).contains("Hot Properties");
+	}
+	public boolean isQuickAdThumbnailVisible() {
+		return ActionHelper.getAttribute(img_thumb_quick_Ad, "src").contains("icon.jpg");
+	}
+	public boolean isQuickAdsDescriptionDisplayed() {
+		return ActionHelper.getText(driver, quick_Ad_Desc).contains("Just Listed! Click for more details and photos!");
+	}
+	public String getQuickAdDomain() {
+		return ActionHelper.getText(driver, quick_Ad_Domain).toLowerCase();
+	}
+	public boolean isQuickAdTitleVisible() {
+		return ActionHelper.getText(driver, quick_Ad_title).replace("\n", " ").contains("Hot Property In");
+	}
+	public boolean isQuickAdSelectButtonVisible() {
+		return ActionHelper.isElementVisible(driver, select_button_quick_ad_box);
+	}
+
+	 public boolean verifyAdSlideShowIsWorking() {
+		 ActionHelper.RefreshPage(driver);
+		 ActionHelper.staticWait(5);
+		 boolean isSlideShowWorking = false;
+		 List<WebElement> elements_list2 = ActionHelper.getListOfElementByXpath(driver, quick_Ad_Slide_show_images);
+		 if(elements_list2.size()>0) {
+			 isSlideShowWorking = ActionHelper.MouseHoverOnElement(driver, quick_Ad_play_icon);
+			 if(isSlideShowWorking) {
+				String image_path_01 = ActionHelper.getAttribute(elements_list2.get(0), "src");
+				ActionHelper.staticWait(2);
+				elements_list2 = ActionHelper.getListOfElementByXpath(driver, quick_Ad_Slide_show_images);
+				String image_path_02 = ActionHelper.getAttribute(elements_list2.get(0), "src");
+				isSlideShowWorking = !image_path_01.equalsIgnoreCase(image_path_02);
+			 }
+		 }
+		 return isSlideShowWorking; 
+	 }
+	 public String getListingAddress() {
+		 return ActionHelper.getText(driver, listing_address_section1_step2);
+	 }
+	 public boolean clickOnEditButtonStep2Section1() {
+		 return ActionHelper.Click(driver, edit_button_section1_step2);
+	 }
 }

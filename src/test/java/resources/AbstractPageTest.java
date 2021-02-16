@@ -368,6 +368,23 @@ public abstract class AbstractPageTest extends AbstractTest
     	return currentDate;
     	
     }
+    
+    protected String getTodaysDateInPST(int pDays, String pFormat) {
+    	Date date = new Date();
+    	SimpleDateFormat df  = new SimpleDateFormat(pFormat);
+    	df.setTimeZone(TimeZone.getTimeZone("PST"));
+    	Calendar c1 = Calendar.getInstance();
+    	String currentDate = df.format(date);// get current date here
+    	
+    	if(pDays>0) {
+        	c1.add(Calendar.DAY_OF_YEAR, pDays);
+        	df = new SimpleDateFormat("MM/dd/YYYY");
+        	Date resultDate = c1.getTime();
+        	currentDate = df.format(resultDate);
+    	}
+    	return currentDate;	
+    }
+    
     protected static int generateRandomInt(int pUpperRange){
     	Random random = new Random();
     	int lNum = random.nextInt(pUpperRange);
@@ -403,5 +420,11 @@ public abstract class AbstractPageTest extends AbstractTest
 		return lDate; //2020-08-19 11:50
 	}
     
+    public void closeCurrentBrowser() {
+    	 Long thread_id = Thread.currentThread().getId();
+         WebDriver driver = EnvironmentFactory.getDriver(thread_id);
+         driver.quit();
+         EnvironmentFactory.webDrivers.remove(thread_id);
+    }
 
 }

@@ -4,6 +4,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import java.text.ParseException;
 import java.util.HashMap;
 
 import org.json.JSONObject;
@@ -23,6 +24,7 @@ import resources.ModuleCommonCache;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.CacheFilePathsConstants;
 import resources.utility.DataConstants;
 import resources.utility.Mailinator;
 
@@ -366,8 +368,10 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testAddAndVerifyReminder() {
-		getPage();
+	public void testAddAndVerifyReminder() throws ParseException {
+		getPage("/leads/crm");
+		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+		
 		Mailinator mailinatorObj = new Mailinator(driver);
 		if(getIsProd()) {
 			mailinatorObj.activateProductionInbox();
@@ -375,8 +379,21 @@ public class ZBOLeadDetailPageTest extends PageTest{
 			mailinatorObj.activateStagingInbox();
 		}
 		
-		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);//"4744411";//
-		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);//"0520202021 Buyersearch";
+		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
+		
+		AutomationLogger.info("Applying filter to get valid lead");
+		String lFilterName = "By Agent,By Email Verification";
+		String lFilterValue = getIsProd()?"Aqib Production Testing,Valid Emails":"Aqib Site Owner,Valid Emails";
+		applyMultipleFilter(lFilterName, lFilterValue);
+		
+		String lead_name_id = leadCRMPage.getLeadName();
+		String l_leadName = lead_name_id.split(",")[0].trim();
+		String l_leadId = lead_name_id.split(",")[1].trim();
+		AutomationLogger.info("Lead ID::"+l_leadId);
+		AutomationLogger.info("Lead ID::"+l_leadName);
+		
+		String lLeadId = l_leadId;//ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);//"4744411";//
+		String lLeadName = l_leadName;//ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);//"0520202021 Buyersearch";
 		String lSubjectToVerify = "Task Reminder - "+lLeadName;
 		page = null;
 		getPage("/lead/"+lLeadId);
@@ -389,9 +406,23 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.clickOnSaveButton(), "Unable to click on save button..");
 		assertTrue(new ZBOSucessAlert(driver).isReminderSuccessAlertVisible(), "Reminder success alert is not visible..");
 		assertTrue(new ZBOSucessAlert(driver).clickOnOkButton(), "Unable to click OK button..");
-		String lAgentEmail = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_user").split("@")[0];
 		
-		assertTrue(mailinatorObj.verifyEmail(lAgentEmail, lSubjectToVerify, 15), "Unable to verify reminder email");
+		JSONObject cacheObject = new JSONObject();
+		cacheObject.put("email_subject", lSubjectToVerify);
+		
+		emptyFile(CacheFilePathsConstants.ReminderEmailLeadDetailCache, "");
+		writeJsonToFile(CacheFilePathsConstants.ReminderEmailLeadDetailCache, cacheObject);
+		
+	}
+
+	@Test
+	public void testVerifyAgentReminderEmail() {
+		getPage();	
+		processReminderEmailQueue();
+		JSONObject lc_object = getDataFile(CacheFilePathsConstants.ReminderEmailLeadDetailCache);
+		Mailinator mailinatorObj = new Mailinator(driver);
+		String lAgentEmail = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_user").split("@")[0];
+		assertTrue(mailinatorObj.verifyEmail(lAgentEmail, lc_object.optString("email_subject"), 5), "Unable to verify reminder email");
 	}
 	
 	@Test
@@ -594,4 +625,55 @@ public class ZBOLeadDetailPageTest extends PageTest{
 			break;
 		}
 	}
+	@Test
+	public void testVerifyScheduleShowingSignupAlert() {
+		getPage();
+		dataObject = getDataFile(CacheFilePathsConstants.ScheduleShowingCache);
+		String lLeadId = dataObject.optString("lead_id");
+		processAlertQueue();
+		page=null;
+		getPage("/lead/"+lLeadId);
+		assertTrue(page.verifySignupAlert(), "Unable to verify sign up alert For Lead ID ["+lLeadId+"]");	
+	}
+	@Test
+	public void testRequestShowingActivityInAlert() {
+		getPage();
+		dataObject = getDataFile(CacheFilePathsConstants.ScheduleShowingCache);
+		String lLeadId = dataObject.optString("lead_id");
+		processAlertQueue();
+		page=null;
+		getPage("/lead/"+lLeadId);
+		String lAddress = dataObject.optString("prop_address");
+		assertTrue(page.verifyLeadReqShowingActivityInAlerts(lAddress), "Lead request showing activity is not tracked in alerts For Lead ID ["+lLeadId+"] and Address ["+lAddress+"]");
+	
+	}
+	
+	@Test
+	public void testVerifQuickQuestionEmailIsGenerated() {
+		getPage();
+		dataObject = getDataFile(CacheFilePathsConstants.ScheduleShowingCache);
+		String lLeadId = dataObject.optString("lead_id");
+		processAlertQueue();
+		page=null;
+		getPage("/lead/"+lLeadId);
+		assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subject [Quick Question] for Lead ID ["+lLeadId+"]..");
+	}
+	private void processAlertQueue() {	
+		if(!getIsProd()) {
+			//Process email queue
+			page = null;
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
+			new ZAProcessEmailQueuesPage(driver).processImmediateResponderQueue();
+			page =null;
+		}
+	}
+	public void processReminderEmailQueue() {
+        if(!getIsProd()) {
+            page=null;
+            getPage("/admin/processemailqueue");
+            new ZAProcessEmailQueuesPage(driver).processReminderQueue();
+        }
+    }
+
 }

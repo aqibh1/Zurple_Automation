@@ -70,4 +70,16 @@ public class ZBOLoginPage extends Page{
 	public String invalidLoginValidation() {
 		return ActionHelper.getText(driver, invalid_login);
 	}
+	public boolean doLogin(String pUsername, String pPassword) {
+		boolean isLoginSuccessful = false;
+		if(isLoginPage()) {
+			//		assertTrue(page.isLoginPage(),"Zurple Back office login page is not visible..");
+			typeUserName(pUsername);
+			typePassword(pPassword);
+			isForgotPasswordLinkExists();
+			clickLoginButton();
+			isLoginSuccessful = isLoginSuccessful();
+		}
+		return isLoginSuccessful;
+	}
 }

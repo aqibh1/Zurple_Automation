@@ -325,7 +325,7 @@ public class ZBOLeadPage extends Page{
 		if(!clickOnSearchButton()) {
 			return false;
 		}
-		if(ActionHelper.waitForElementToBeDisappeared(driver, procession_notfication,30)) {
+		if(ActionHelper.waitForElementToBeDisappeared(driver, procession_notfication,120)) {
 			ActionHelper.staticWait(5);
 			isLeadExist = ActionHelper.Click(driver, lead_input_checkbox);		
 		}
@@ -339,7 +339,7 @@ public class ZBOLeadPage extends Page{
 		if(!clickOnSearchButton()) {
 			return false;
 		}
-		if(ActionHelper.waitForElementToBeDisappeared(driver, procession_notfication,30)) {
+		if(ActionHelper.waitForElementToBeDisappeared(driver, procession_notfication,130)) {
 			ActionHelper.staticWait(5);
 			WebElement element = ActionHelper.getDynamicElement(driver, lead_row,pLeadName);
 			isLeadExist = ActionHelper.isElementVisible(driver, element);

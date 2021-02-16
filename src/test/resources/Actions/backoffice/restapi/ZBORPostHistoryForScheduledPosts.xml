@@ -20,7 +20,7 @@
 				</class>
 				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
 					<methods>
-						<include name="testGetPostHistory" />
+				  		<include name="testGetScheduledPostHistory"/>  
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">

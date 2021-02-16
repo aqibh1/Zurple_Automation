@@ -19,7 +19,7 @@
 				</class>
 				<class name="com.zurple.rest.ZBORestPostStatusTest">
 					<methods>
-						<include name="testGetPostStatus" />
+						<include name="testPostStatus" /> 
 					</methods>
 				</class>
 				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">

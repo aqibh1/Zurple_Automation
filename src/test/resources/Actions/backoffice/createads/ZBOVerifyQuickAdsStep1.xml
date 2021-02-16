@@ -1,0 +1,31 @@
+<suite name="Create Ads Suite"
+	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+
+	<test name="Quicks Ads Verifications Step 1">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>
+					<include name="testSelectQuickAdsHeadingDisplayed" />
+					<include name="testListingQuickAdsHeadingDisplayed" />
+					<include name="testListingAddressIsDisplayedInQuickAdBox" />
+					<include name="testHotPropertyHeadingVisible" />
+					<include name="testQuickAdThumbnailVisible" />
+					<include name="testQuickAdsDescriptionDisplayed" />
+					<include name="testQuickAdDomainDomainIsCorrect" />
+					<include name="testQuickAdTitleVisible" />
+					<include name="testQuickAdSelectButtonVisible" />
+					<include name="testQuickAdSlideShowIsWorking"/>
+					<include name="testVerifyListingPopUpAppearsOnClickingCreateCustomButton"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

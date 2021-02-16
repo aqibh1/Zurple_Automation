@@ -58,7 +58,7 @@ public class PropertyListingPage extends Page{
 	@FindBy(xpath="//div[@id='tab_prpg']/descendant::a[text()='Community Stats']")
 	WebElement communityStatsBarLink;
 	
-	@FindBy(xpath="//div[@id='z57_population_demographic_chart']/descendant::caption[text()='Population Demographic']")
+	@FindBy(xpath="//div[@id='z57_population_demographic_chart']/descendant::th[text()='Population Demographic']")
 	WebElement communityStats;
 	
 	@FindBy(xpath="//div[@id='tab_prpg']/descendant::a[text()='Schools']")
@@ -422,7 +422,7 @@ public class PropertyListingPage extends Page{
 	}
 	
 	private boolean isElementDisplayed(WebElement pElement) {
-		return ActionHelper.isElementVisible(driver, pElement);
+		return ActionHelper.waitForElementToBeVisible(driver, pElement,30);
 
 	}
 	public boolean isListingDetailPage() {

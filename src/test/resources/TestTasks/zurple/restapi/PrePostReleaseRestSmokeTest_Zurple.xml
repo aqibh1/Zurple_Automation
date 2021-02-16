@@ -509,7 +509,7 @@
 				</class>
 			<class name="com.zurple.rest.ZBORestPostStatusTest">
 					<methods>
-						<include name="testGetPostStatus" />
+						<include name="testPostStatus" />
 					</methods>
 				</class>
 				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
@@ -585,7 +585,7 @@
 			</parameter>
 	</test>
 	
-	<test name="Verify Scheduleded post and listing video posts">	 
+	<test name="Verify Scheduled post and listing video posts">	 
 	<parameter name="datafile" value="/resources/data/zurple/socialapi/post-history-data.json"> 
 			<classes>
 			<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -607,7 +607,7 @@
 			</parameter>
 	</test>
 	
-	<test name="Verify Zapier New Leads Response">	 
+<!-- <test name="Verify Zapier New Leads Response">	 
 	<parameter name="datafile" value="/resources/data/zurple/socialapi/zapier_data.json">
 	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-for-zapier.json">
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-track-search.json">  
@@ -711,5 +711,5 @@
 			</classes>
 			</parameter>
 			</parameter>
-	</test>
+	</test> -->
 </suite>

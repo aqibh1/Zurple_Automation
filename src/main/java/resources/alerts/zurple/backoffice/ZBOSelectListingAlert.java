@@ -31,6 +31,12 @@ public class ZBOSelectListingAlert extends AbstractAlert{
 	
 	String listing_dropdown_options = "//select[@id='property_to_post']/option";
 	
+	@FindBy(xpath="//div[@id='swal2-content']/div/p")
+	WebElement text_paragraph;
+	
+	@FindBy(xpath="//button[text()='Cancel']")
+	WebElement cancel_button;
+	
 	public ZBOSelectListingAlert() {
 		
 	}
@@ -65,5 +71,16 @@ public class ZBOSelectListingAlert extends AbstractAlert{
     		lNum = lNum - 1;
     	}
     	return lNum;
+	}
+	public boolean verifyText(String pText) {
+		return ActionHelper.getText(driver, text_paragraph).contains(pText);
+	}
+	public boolean clickOnCancelButton() {
+		return ActionHelper.Click(driver, cancel_button);
+	}
+	public String getTheListingAddress() {
+		List<WebElement> list_of_element = new ArrayList<WebElement>();
+		list_of_element =ActionHelper.getListOfElementByXpath(driver, listing_dropdown_options);
+		return ActionHelper.getText(driver, list_of_element.get(0));
 	}
 }

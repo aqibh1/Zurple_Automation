@@ -3,12 +3,16 @@
  */
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.text.ParseException;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.SkipException;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -17,6 +21,8 @@ import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
+import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 /**
  * @author adar
@@ -36,7 +42,9 @@ public class ZBOCreateAdPageTest extends PageTest{
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOCreateAdPage(driver);
+			setLoginPage(driver);
 			page.setUrl("");
+			page.setDriver(driver);
 		}
 		return page;
 	}
@@ -45,18 +53,210 @@ public class ZBOCreateAdPageTest extends PageTest{
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOCreateAdPage(driver);
+			setLoginPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
 		}
 		return page;
 	}
-
+	public AbstractPage getPage(String pUrl, boolean pSetupForcefully) {
+		if(page==null && !pSetupForcefully) {
+			driver = getDriver();
+			page = new ZBOCreateAdPage(driver);
+			setLoginPage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+		}else if(page!=null && pSetupForcefully){
+			driver = getDriver();
+			page = new ZBOCreateAdPage(driver);
+			setLoginPage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+		}
+		return page;
+	}
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
 		
 	}
+	@BeforeTest
+	public void backOfficeLogin() {
+		getPage();
+		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
+			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
+	}
+	@Test
+	public void testVerifyCustomAdSectionIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isCreateAdPage(), "Create Ad Page is not visible..");
+		assertTrue(page.isCreateAdStep1Visible(), "Create Ad Page Step 1 is not visible..");
+		assertTrue(page.isCustomAdsHeadingDisplayed(), "Create Custom Ads heading is not displayed..");
+	}
+	@Test
+	public void testVerifyPromoteListingHeadingIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isPromoteListingHeadingIsVisible(), "Promote Listing heading is not displayed..");
+	}
+	@Test
+	public void testVerifyCorrectTextIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isCorrectTextDisplayed(), " 'Get more exposure, interest and engagement for your listing' is not displayed..");
+	}
+	@Test
+	public void testVerifyHomeIconIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isHomeIconDisplayedInCreateAdBox(), "Home Icon inside Create Custom Ad box is not displayed..");
+	}
+	@Test
+	public void testVerifyCustomAdButtonIsDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isCreateCustomAdButtonIsDisplayed(), "Create Custom Ad button is not displayed..");
+	}
+	@Test
+	public void testVerifyCreateAdBoxIsBouncing() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isCreateCustomBoxBouncing(), "Create Custom Ad box is not bouncing on mouse hover..");
+	}
+	@Test
+	public void testSelectQuickAdsHeadingDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isSelectQuickAdsHeadingDisplayed(), "Select a Quick Ad heading is not visible..");
+	}
+	@Test
+	public void testListingQuickAdsHeadingDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isListingQuickAdsHeadingDisplayed(), "Listing Quick Ad heading is not visible..");
+	}
+	@Test
+	public void testListingAddressIsDisplayedInQuickAdBox() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isListingAddressIsDisplayedInQuickAdBox(), "Listing Address is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testHotPropertyHeadingVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isHotPropertyHeadingVisible(), "Hot Properties heading is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdThumbnailVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isQuickAdThumbnailVisible(), "Listing Thumbnail is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdsDescriptionDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isQuickAdsDescriptionDisplayed(), "Listing description is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdDomainDomainIsCorrect() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		assertTrue(page.getQuickAdDomain().contains(l_domain), "Correct domain is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdTitleVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isQuickAdTitleVisible(), "Quick Ad title 'Hot Proerty' is not visible..");
+	}
+	@Test
+	public void testQuickAdSelectButtonVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isQuickAdSelectButtonVisible(), "Select Button is not visible in Quick Ad box..");
+	}
+	@Test
+	public void testQuickAdSlideShowIsWorking() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.verifyAdSlideShowIsWorking(), "Slide show is not working for Quick Ads..");
+	}
+	@Test
+	public void testVerifyListingPopUpAppearsOnClickingCreateCustomButton() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.clickOnCustomAdButton(), "Unable to click on Create Custom Ad Button..");
+		assertTrue(page.getSelectListingAlert().isSelectListingAlert(), "Listing Alert is not visible..");
+	}
+	@Test
+	public void testVerifyCorrectTextIsDisplayedOnSelectListingPopUp() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.getSelectListingAlert().isSelectListingAlert(), "Listing Alert is not visible..");
+		assertTrue(page.getSelectListingAlert().verifyText("Please Select the listing you"), "Crrect text is not displayed on listing pop up");
+	}
 	
+	@Test
+	public void testCancelButtonClosesThePopup() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		if(page.clickOnCustomAdButton()) {
+			AutomationLogger.info("Select Listing Pop Up is already opened..");
+		}
+		assertTrue(page.getSelectListingAlert().clickOnCancelButton(), "Unable to click on cancel button..");
+		ActionHelper.staticWait(10);
+		assertFalse(page.getSelectListingAlert().isSelectListingAlert(), "Select Listing Alert is not closed after clicking on Cancel button");
+	}
+	
+	@Test
+	public void testVerifyUserLandsToStep2AfterClickingOk() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		if(!page.clickOnCustomAdButton()) {
+			throw new SkipException("Skipping the test becasuse [Click on Custom Ad Button] pre-condition was failed.");
+		}
+		if(!page.getSelectListingAlert().isSelectListingAlert()) {
+			throw new SkipException("Skipping the test becasuse [Select Listing Alert dialog was not opened] pre-condition was failed.");
+		}
+		assertTrue(page.getSelectListingAlert().clickOnOkButton(), "Unable to click on OK button..");
+		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
+	}
+	
+	@Test
+	public void testVerifyListingAddressIsSameOnStep1AndStep2() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		if(!page.clickOnCustomAdButton()) {
+			throw new SkipException("Skipping the test becasuse [Click on Custom Ad Button] pre-condition was failed.");
+		}
+		if(!page.getSelectListingAlert().isSelectListingAlert()) {
+			throw new SkipException("Skipping the test becasuse [Select Listing Alert dialog was not opened] pre-condition was failed.");
+		}
+		String lListing_address = page.getSelectListingAlert().getTheListingAddress();
+		assertTrue(page.getSelectListingAlert().clickOnOkButton(), "Unable to click on OK button..");
+		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
+		assertTrue(page.getListingAddress().contains(lListing_address.split(",")[0]), "Listing address on step2 section 1 is not same as step 1");
+	}
+	
+	@Test
+	public void testVerifyEditButtonRedirectsUserOnStep1() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		if(!page.clickOnCustomAdButton()) {
+			throw new SkipException("Skipping the test becasuse [Click on Custom Ad Button] pre-condition was failed.");
+		}
+		if(!page.getSelectListingAlert().isSelectListingAlert() || !page.getSelectListingAlert().clickOnOkButton()) {
+			throw new SkipException("Skipping the test becasuse [Select Listing Alert dialog was not opened] pre-condition was failed.");
+		}
+		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
+		assertTrue(page.clickOnEditButtonStep2Section1(), "Unable to click on Edit button..");
+		assertTrue(page.isCustomAdsHeadingDisplayed(), "Create Custom Ads heading is not displayed..");		
+	}
+	@Test
+	public void testSection1IsCheckedOnStep2() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
+		assertTrue(page.isStep1Checked(), "Section 1 is not checked on Step 2..");		
+	}
+	@Test
+	public void testSection1AdHeadingIsVisible() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
+		assertTrue(page.isStep1Checked(), "Section 1 is not checked on Step 2..");		
+	}
+	public void clickOnCustomAdButtonAndSelectListing() {
+		if(!page.clickOnCustomAdButton()) {
+			throw new SkipException("Skipping the test becasuse [Click on Custom Ad Button] pre-condition was failed.");
+		}
+		if(!page.getSelectListingAlert().isSelectListingAlert() || !page.getSelectListingAlert().clickOnOkButton()) {
+			throw new SkipException("Skipping the test becasuse [Select Listing Alert dialog was not opened] pre-condition was failed.");
+		}
+	}
 	@Test
 	@Parameters({"dataFile"})
 	public void testCreateAd(String pDataFile) throws ParseException {
@@ -150,4 +350,10 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.clickOnTermsAndCond(), "Unable to click on terms and condition ..");
 		assertTrue(page.clickOnPlaceAdButton(), "Unable to click on Place Ad button ..");
 	}
+	
+	@AfterTest
+	public void closeBrowser() {
+		closeCurrentBrowser();
+	}
+
 }

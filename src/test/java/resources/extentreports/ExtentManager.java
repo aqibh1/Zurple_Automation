@@ -10,10 +10,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
-//import com.relevantcodes.extentreports.ExtentReports;
 import com.aventstack.extentreports.*;
-//import com.aventstack.extentreports.reporter.ExtentAventReporter;
-//import com.aventstack.extentreports.reporter.ExtentEmailReporter;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Protocol;
@@ -57,6 +54,7 @@ public class ExtentManager {
 		FileUtils.copyFile(source, finalDestination);
         //Returns the captured file path
 		return screenshotName+dateName+".png";
+}
 }
 }
 //	private static ExtentAventReporter extent;

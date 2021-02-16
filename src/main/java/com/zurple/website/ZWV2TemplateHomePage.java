@@ -105,6 +105,7 @@ public class ZWV2TemplateHomePage extends Page{
 		return null;
 	}
 	
+	//TODO Validate the text is equals to platform name
 	public String fbIconExists() {
 		socialIcons = ActionHelper.getListOfElementByClassName(driver, social_icons);
 		return ActionHelper.getText(driver, socialIcons.get(1));
