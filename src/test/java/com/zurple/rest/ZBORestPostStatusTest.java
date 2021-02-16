@@ -74,12 +74,13 @@ public class ZBORestPostStatusTest extends RestAPITest{
 				if(status && dataObject.optString("post_type").equalsIgnoreCase("listing-video")) {
 					jObject.put("post_type", dataObject.optString("post_type"));
 					jObject.put("platform", dataObject.optString("social_network"));
-					writeJsonToFile(lFileToWriteProd, jObject);
+					// writeJsonToFile(lFileToWriteProd, jObject);
 				}
 				if(status && isSchedule) {	
 					jObject.put("post_type", dataObject.optString("post_type"));
 					jObject.put("platform", dataObject.optString("social_network"));
 					writeJsonToFile(lFileToWriteProd,jObject);
+					ActionHelper.staticWait(30);
 				}
 			}
 		}
