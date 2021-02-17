@@ -80,14 +80,13 @@ public class ZBORestPostStatusTest extends RestAPITest{
 					jObject.put("post_type", dataObject.optString("post_type"));
 					jObject.put("platform", dataObject.optString("social_network"));
 					writeJsonToFile(lFileToWriteProd,jObject);
-					ActionHelper.staticWait(30);
 				}
 			}
 		}
 		else {
 			status = false;
 		}
-		ActionHelper.staticWait(30);
+		ActionHelper.staticWait(40);
 		return status;
 	}
 

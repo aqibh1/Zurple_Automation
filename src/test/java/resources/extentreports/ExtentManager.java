@@ -56,3 +56,29 @@ public class ExtentManager {
 		return screenshotName+dateName+".png";
 }
 }
+//	private static ExtentAventReporter extent;
+//	 
+//    public synchronized static ExtentAventReporter getReporter(){
+//    	ExtentAventReporter extentEmail = null;
+//        if(extent == null){
+//            //Set HTML reporting file location
+//            String workingDir = System.getProperty("user.dir");
+//            //ExtentHtmlReporter htmlReporter =  new ExtentHtmlReporter(workingDir+"\\target\\surefire-reports\\ExtentReportResults.html");
+//            extent = new ExtentAventReporter(workingDir+"\\target\\surefire-reports\\ExtentReportResults.html");
+//            //extent.attachReporter(htmlReporter);
+//            //htmlReporter.config().setTheme(Theme.STANDARD);
+//        }
+//        return extent;
+//    }
+//    public synchronized static ExtentEmailReporter getEmailReporter(){
+//    	ExtentEmailReporter extentEmail = null;
+//        if(extentEmail == null){
+//            //Set HTML email reporting file location
+//            String workingDir = System.getProperty("user.dir");
+//            //ExtentHtmlReporter htmlReporter =  new ExtentHtmlReporter(workingDir+"\\target\\surefire-reports\\ExtentEmailReportResults.html");
+//            //extent.attachReporter(htmlReporter);
+//            extentEmail = new ExtentEmailReporter(workingDir+"\\target\\surefire-reports\\ExtentEmailReportResults.html");
+//        }
+//        return extentEmail;
+//    }
+

@@ -53,8 +53,8 @@ public class ZWHomesForSalePageTest extends PageTest{
 		if(page == null){
 			driver = getDriver();
 			page = new ZWHomesForSalePage(driver);
-//			page.setUrl("");
-//			page.setDriver(driver);
+			page.setUrl("");
+			page.setDriver(driver);
 		}
 		return page;
 	}

@@ -54,9 +54,12 @@ public class ZWPropertyDetailPageTest extends PageTest{
 
 	@Override
 	public Page getPage() {
+		page = null;
 		if(page == null){
 			driver = getDriver();
 			page = new ZWPropertyDetailPage(driver);
+//			page.setUrl("");
+//			page.setDriver(driver);
 		}
 		return page;
 	}
@@ -95,6 +98,8 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		String lStyle = dataObject.optString("style");
 		String lYearBuilt = dataObject.optString("year_built");
 		String lLeadCapture = dataObject.optString("lead_capture");
+		
+		assertTrue(page.getLeadCaptureForm().closeLeadCaptureForm(), "Unable to close lead capture form property details page");
 		
 		assertTrue(page.verifyPropName(), "Property page is not visible..");
 		assertTrue(!page.getPropPrice().isEmpty(),"Property Price is not visible in header..");

@@ -47,7 +47,7 @@ public class ZBOLeadExportPageTest extends PageTest{
 		// TODO Auto-generated method stub
 		
 	}
-	@Test
+	@Test(retryAnalyzer = resources.RetryFailedTestCases.class) 
 	public void testExportLead() {
 		AutomationLogger.startTestCase("Export Leads");
 		getPage("/leads/exportleads");

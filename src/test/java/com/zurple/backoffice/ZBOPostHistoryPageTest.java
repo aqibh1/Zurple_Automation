@@ -54,7 +54,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		// TODO Auto-generated method stub	
 	}
 	
-	@Test(dependsOnGroups= "com.zurple.backoffice.social.ZBOCreatePostPage.testCreatePost")
+	@Test(dependsOnGroups= "com.zurple.backoffice.social.ZBOCreatePostPage.testCreatePost",retryAnalyzer = resources.RetryFailedTestCases.class)
 	@Parameters({"dataFile"})
 	public void testVerifyPostOnPostHistoryPage(String pDataFile) {
 		getPage("/social/history");

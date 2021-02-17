@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import resources.alerts.zurple.website.ZWScheduleShowingAlert;
 import resources.forms.zurple.website.ZWContactAgentForm;
+import resources.forms.zurple.website.ZWLeadCaptureForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
@@ -139,6 +140,7 @@ public class ZWPropertyDetailPage extends Page{
 
 	private ZWContactAgentForm contactAgentForm;
 	private ZWScheduleShowingAlert scheduleShowingAlert;
+	private ZWLeadCaptureForm leadCaptureForm;
 	
 	@FindBy(xpath="//div[@id='propdetail']/descendant::h2[1]")
 	WebElement property_heading;
@@ -147,6 +149,7 @@ public class ZWPropertyDetailPage extends Page{
 		driver = pWebDriver;
 		setContactAgentForm();
 		setScheduleShowingAlert();
+		setLeadCaptureForm();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -165,7 +168,13 @@ public class ZWPropertyDetailPage extends Page{
 	public void setScheduleShowingAlert() {
 		this.scheduleShowingAlert = new ZWScheduleShowingAlert(driver);
 	}
-
+	public void setLeadCaptureForm() {
+		this.leadCaptureForm = new ZWLeadCaptureForm(driver);
+	}
+	public ZWLeadCaptureForm getLeadCaptureForm() {
+		return leadCaptureForm;
+	}
+	
 	public boolean verifyPropName() {
 		return !ActionHelper.getText(driver, propName_heading).isEmpty();
 	}
@@ -268,10 +277,13 @@ public class ZWPropertyDetailPage extends Page{
 		return isSuccess;
 	}
 	public boolean isGoogleMapAndPinVisible() {
+		ActionHelper.staticWait(10);
+		int counter = 0;
 		WebDriverWait wait=new WebDriverWait(driver, 20);
 		ActionHelper.ScrollToElement(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "MAP"));
 		boolean isSuccess = false;
 		if(ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "MAP"))) {
+			ActionHelper.staticWait(10);
 			if(ActionHelper.waitForElementToBeVisible(driver, listing_map,30)) {
 ////				isSuccess = ActionHelper.isElementVisible(driver, googleMapPinIcon);
 //				try {
@@ -287,6 +299,7 @@ public class ZWPropertyDetailPage extends Page{
 	}
 	
 	public boolean verifyCommunityStatsVisible() {
+		ActionHelper.staticWait(10);
 		if(ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, navigationTabs_xpath, "COMMUNITY STATS"))) {
 			if(!ActionHelper.waitForElementToBeVisible(driver, overiviewTable, 10)) {
 				AutomationLogger.error("Overview table under Community Stats is not visible..");

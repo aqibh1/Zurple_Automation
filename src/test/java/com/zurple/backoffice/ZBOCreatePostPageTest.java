@@ -36,6 +36,7 @@ public class ZBOCreatePostPageTest extends PageTest{
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOCreatePostPage(driver);
+			page.setUrl("");
 			page.setDriver(driver);
 		}
 		return page;
@@ -56,7 +57,7 @@ public class ZBOCreatePostPageTest extends PageTest{
 		
 	}
 	
-	@Test(groups= "com.zurple.backoffice.social.ZBOCreatePostPage.testCreatePost")
+	@Test(groups= "com.zurple.backoffice.social.ZBOCreatePostPage.testCreatePost",retryAnalyzer = resources.RetryFailedTestCases.class)
 	@Parameters({"dataFile"})
 	public void testCreatePost(String pDataFile) {
 		getPage("/social/createpost");
