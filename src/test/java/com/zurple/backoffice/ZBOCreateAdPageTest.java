@@ -36,7 +36,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	private String lAd_Type = "";
 	private String l_heading = "";
 	private String l_desc = "";
-	
+
 	@Override
 	public AbstractPage getPage() {
 		if(page==null) {
@@ -78,7 +78,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@BeforeTest
 	public void backOfficeLogin() {
@@ -182,7 +182,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.getSelectListingAlert().isSelectListingAlert(), "Listing Alert is not visible..");
 		assertTrue(page.getSelectListingAlert().verifyText("Please Select the listing you"), "Crrect text is not displayed on listing pop up");
 	}
-	
+
 	@Test
 	public void testCancelButtonClosesThePopup() throws ParseException {
 		getPage("/create-ad/step-one",true);
@@ -193,7 +193,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		ActionHelper.staticWait(10);
 		assertFalse(page.getSelectListingAlert().isSelectListingAlert(), "Select Listing Alert is not closed after clicking on Cancel button");
 	}
-	
+
 	@Test
 	public void testVerifyUserLandsToStep2AfterClickingOk() throws ParseException {
 		getPage("/create-ad/step-one",true);
@@ -206,7 +206,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.getSelectListingAlert().clickOnOkButton(), "Unable to click on OK button..");
 		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
 	}
-	
+
 	@Test
 	public void testVerifyListingAddressIsSameOnStep1AndStep2() throws ParseException {
 		getPage("/create-ad/step-one",true);
@@ -221,7 +221,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
 		assertTrue(page.getListingAddress().contains(lListing_address.split(",")[0]), "Listing address on step2 section 1 is not same as step 1");
 	}
-	
+
 	@Test
 	public void testVerifyEditButtonRedirectsUserOnStep1() throws ParseException {
 		getPage("/create-ad/step-one",true);
@@ -249,6 +249,118 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
 		assertTrue(page.isStep1Checked(), "Section 1 is not checked on Step 2..");		
 	}
+
+	//This test will verify the head line and description on section 2 step 2 is pre populated
+	@Test
+	public void testVerifyHeadlineDescriptionIsPrepopulated() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		assertTrue(!page.isAdHeadingPopulated().isEmpty(), "Ad Heading is not populated..");
+		assertTrue(!page.isAdDescPopulated().isEmpty(), "Ad Heading is not populated..");
+	}
+
+	//Verifies Customize Ad Details heading is visible
+	@Test
+	public void testVerifySection2StepHeadingIsVisible() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		assertTrue(page.isCustomizeAdDetailsHeadingIsVisible(), "Step2: Customize Ad Details heading is not visible..");
+		assertTrue(page.isStep2Section2HeadingVisible(), "Step2: heading is not visible..");
+	}
+	//Verifies the heading is under 40 characters
+	@Test
+	public void testVerifyHeadingDoesntExceedCharacters() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		String lAdHeading = page.isAdHeadingPopulated();
+		if(!page.typeAdHeading(lAdHeading)) {
+			throw new SkipException("Skipping the test becasuse [Type in Heading] pre-condition was failed.");
+		}
+		if(!page.clickOnSelectButton()) {
+			throw new SkipException("Skipping the test becasuse [Click Select] pre-condition was failed.");
+		}
+		ActionHelper.staticWait(5);
+		if(!page.clickOnEditButton()) {
+			throw new SkipException("Skipping the test becasuse [Edit button] pre-condition was failed.");
+		}
+		assertTrue(page.isAdHeadingPopulated().length()==40, "Ad heading exceeds 40 characters length");
+	}
+
+	//Verifies the heading is under 125 characters
+	@Test
+	public void testVerifyDescriptionDoesntExceedCharacters() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		String lAdDescription = page.isAdDescPopulated();
+		if(!page.typeAdDescription(lAdDescription)) {
+			throw new SkipException("Skipping the test becasuse [Type in Desc] pre-condition was failed.");
+		}
+		if(!page.clickOnSelectButton()) {
+			throw new SkipException("Skipping the test becasuse [Click Select] pre-condition was failed.");
+		}
+		ActionHelper.staticWait(5);
+		if(!page.clickOnEditButton()) {
+			throw new SkipException("Skipping the test becasuse [Edit button] pre-condition was failed.");
+		}
+		assertTrue(page.isAdDescPopulated().length()==125, "Ad heading exceeds 40 characters length");
+	}
+
+	@Test
+	public void testVerifyAdTitleDescIsUpdatedInPreview() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		String lAdDescription = updateName(" ");
+		if(!page.typeAdDescription(lAdDescription)) {
+			throw new SkipException("Skipping the test becasuse [Type in Desc] pre-condition was failed.");
+		}
+		String lAdTitle = updateName("");
+		if(!page.typeAdHeading(lAdTitle)) {
+			throw new SkipException("Skipping the test becasuse [Type in Desc] pre-condition was failed.");
+		}
+		assertTrue(page.verifyFBAdPreviewDescIsUpdated(lAdDescription), "The ad description is not updated in the preview for Facebook");
+		assertTrue(page.verifyInstaAdPreviewDescIsUpdated(lAdDescription), "The ad description is not updated in the preview for Instagram");
+		assertTrue(page.verifyFBAdPreviewTitleIsUpdated(lAdTitle), "Unable to verify ad preview title..");
+	}
+	
+	@Test
+	public void testVerifyBottomProgressBarStep1Of4IsChecked() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		assertTrue(page.isStep14BottomProgressBarIsChecked(), "Step 1 of 4 bottom progress bar is not checked..");
+	}
+	
+	@Test
+	public void testVerifyFacebookInstLogoAreDisplayedOnStep2() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		assertTrue(page.verifyInstaAndFacebookLogoAreDisplayed(), "Facebook and Instagram logo are not displayed..");
+	}
+	
+	@Test
+	public void testVerifySliderISWorkingInAdsPreview() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		assertTrue(page.verifyInstaPreviewSlideShowIsWorkingOnStep2(), "Instagram slide show is not working in ads preview..");
+		assertTrue(page.verifyFacebookPreviewSlideShowIsWorkingOnStep2(), "Facebbok slide show is not working in ads preview..");
+	}
+	
+	@Test
+	public void testVerifyDomainFromAdsPreviewStep2() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		assertTrue(page.getQuickAdDomain().contains(l_domain), "Correct domain is not displayed under Facebook ads preview..");		
+	}
+	
+	@Test
+	public void testVerifySelectSiteDropDown() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		assertTrue(page.isSelectDestinationLabelVisible(), "Select destination site label is not visible..");	
+		assertTrue(page.selectSite(l_domain), "Unable to select site from dropdown");
+	}
+	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {
 		if(!page.clickOnCustomAdButton()) {
 			throw new SkipException("Skipping the test becasuse [Click on Custom Ad Button] pre-condition was failed.");
@@ -262,7 +374,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	public void testCreateAd(String pDataFile) throws ParseException {
 		dataObject = getDataFile(pDataFile);
 		lAd_Type = dataObject.optString("ad_type");
-		
+
 		getPage("/create-ad/step-one");
 		assertTrue(page.isCreateAdPage(), "Create Ad Page is not visible..");
 		assertTrue(page.isCreateAdStep1Visible(), "Create Ad Page Step 1 is not visible..");
@@ -279,17 +391,17 @@ public class ZBOCreateAdPageTest extends PageTest{
 			l_heading = page.getFBAdTitleStep1();
 			l_desc = page.getFBAdDescStep1().split("\n")[0].split(",")[0];
 			assertTrue(page.clickOnSelectButtonStep1(), "Unable to click on select button on step 1 ..");
-		
+
 			break;
 		}
 		createAdStep2Section1();
 		createAdStep2Section2();
 		createAdStep2Section3();
 		createAdStep2Section4();
-	
+
 	}
 	private void createAdStep2Section1() {
-//		assertTrue(page.isCreateAdStep2Visible(), "Step2 is not visible..");
+		//		assertTrue(page.isCreateAdStep2Visible(), "Step2 is not visible..");
 		assertTrue(page.isStep2Section1SelectAnAdHeadingVisible(), "Step 2 Section 1 heading is not visible..");
 		assertTrue(page.isListingHeadingVisible(), "Listing title is not visible..");
 		assertTrue(page.isStep1Checked(), "Step1 is not checked..");
@@ -319,7 +431,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 			}
 			assertTrue(page.selectSite(lSite), "Unable to select the site from dropdown..");		
 		}
-		
+
 		//Verifications of section 2
 		assertTrue(page.verifyAdHeadline(l_heading), "Unable to verify ad heading..");
 		assertTrue(page.verifyAdDesc(l_desc), "Unable to verify ad description..");
@@ -328,7 +440,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		if(lAd_Type.equalsIgnoreCase("Custom")) {
 			assertTrue(page.clickOnSelectButton(), "Unable to click on select button..");
 		}
-		
+
 		assertTrue(page.verifyAdURLIsCorrect(), "Unable to verify ad URL..");
 		assertTrue(page.isSection2Checked(), "Step 2 Section 2 is not checkedL..");
 	}
@@ -342,7 +454,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.verifyAdReachSection3(ld_taregetReachAmount), "Unable to select target reach amount ..");
 		assertTrue(page.isSection3Checked(), "Section 3 is not checked ..");
 		assertTrue(page.isSection3EditButtonEnabled(), "Section 3 edit button is not enabled ..");
-		
+
 	}
 	private void createAdStep2Section4() throws ParseException {
 		assertTrue(page.isSection4Visible(), "Section 4 heading is not visible  ..");
@@ -350,7 +462,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.clickOnTermsAndCond(), "Unable to click on terms and condition ..");
 		assertTrue(page.clickOnPlaceAdButton(), "Unable to click on Place Ad button ..");
 	}
-	
+
 	@AfterTest
 	public void closeBrowser() {
 		closeCurrentBrowser();
