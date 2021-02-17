@@ -56,7 +56,6 @@ public class ExtentManager {
 		return screenshotName+dateName+".png";
 }
 }
-}
 //	private static ExtentAventReporter extent;
 //	 
 //    public synchronized static ExtentAventReporter getReporter(){
