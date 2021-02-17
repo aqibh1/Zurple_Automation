@@ -1,7 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Zurple Website Pre Release Somke Tests"
-	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+<suite name="Zurple Website Pre Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	<listeners>		
 		<listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ExtentReporterListener"/>
@@ -387,7 +386,7 @@
 			</classes>
 	</parameter>
 	</test>
-	<!--  
+	  
 	<test name="Export Leads">	
 	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-by-zip.json"> 
 			<classes>
