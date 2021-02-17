@@ -64,7 +64,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 	@Test
 	public void testAddAndDeleteNote() {
 		getPage("/leads/crm");
-		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
+		assertFalse(page.isLeadCRMPage(), "Lead CRM page is not visible..");
 		String lead_name_id = page.getLeadName();
 		String l_leadName = lead_name_id.split(",")[0].trim();
 		String l_leadId = lead_name_id.split(",")[1].trim();

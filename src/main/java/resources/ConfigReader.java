@@ -11,6 +11,7 @@ public class ConfigReader {
     private static ConfigReader instance;
 
     private Properties prop = new Properties();
+    private static Properties testRailMapping = new Properties();
 
     private ConfigReader() {
         // Exists only to defeat instantiation.
@@ -46,13 +47,39 @@ public class ConfigReader {
     public String getPropertyByName(String propertyName){
         return prop.getProperty(propertyName);
     }
-
+    public String getTestRailMapping(String propertyName){
+        return testRailMapping.getProperty(propertyName);
+    }
     public static ConfigReader load() {
         if (instance == null) {
             String environment = System.getProperty("environment");
+            Object testRailMapping = System.getProperty("testrail_testrun_id");
+            if(testRailMapping!=null) {
+            	loadTestRailMapping();
+            }
             instance = new ConfigReader(environment);
             AutomationLogger.setLog4jPopFile();
         }
         return instance;
     }
+    
+    private static void loadTestRailMapping() {
+    	InputStream input = null;
+        try {
+            input = new FileInputStream("src/main/config/config.testrail.mapping.properties");
+            // load a properties file
+            testRailMapping.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    
 }

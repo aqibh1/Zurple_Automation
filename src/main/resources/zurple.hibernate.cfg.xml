@@ -3,42 +3,50 @@
     "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="show_sql">false</property>
-    <property name="generate_statistics">false</property>
-    <property name="use_sql_comments">false</property>
-    <!--  
-    <property name="hibernate.c3p0.acquire_increment">1</property>
-	<property name="hibernate.c3p0.idle_test_period">300</property>
-	<property name="hibernate.c3p0.timeout">120</property>
-	<property name="hibernate.c3p0.max_size">25</property>
-	<property name="hibernate.c3p0.min_size">1</property>
-	<property name="hibernate.c3p0.max_statement">0</property>
-	<property name="hibernate.c3p0.preferredTestQuery">select 1;</property>
- -->
-    <mapping class="resources.orm.hibernate.models.zurple.Lead"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.UserAlert"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.UserStatusChanges"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.City"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.AlertRule"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.User"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.Admin"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.SessionUser"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.Site"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.Email"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.Property"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.SessionAnonymous"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.UserActivity"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.PackageProduct"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.Transaction"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.TransactionGoal"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.Product"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.DistributionRule"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.Import"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.Package"></mapping>
-    <mapping class="resources.orm.hibernate.models.zurple.EmailQueue"></mapping>
-    
-  </session-factory>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="show_sql">false</property>
+		<property name="generate_statistics">false</property>
+		<property name="use_sql_comments">false</property>
+		<!-- <property name="hibernate.c3p0.acquire_increment">1</property> <property 
+			name="hibernate.c3p0.idle_test_period">300</property> <property name="hibernate.c3p0.timeout">120</property> 
+			<property name="hibernate.c3p0.max_size">25</property> <property name="hibernate.c3p0.min_size">1</property> 
+			<property name="hibernate.c3p0.max_statement">0</property> <property name="hibernate.c3p0.preferredTestQuery">select 
+			1;</property> -->
+		<mapping class="resources.orm.hibernate.models.zurple.Lead"></mapping>
+		<mapping
+			class="resources.orm.hibernate.models.zurple.UserAlert"></mapping>
+		<mapping
+			class="resources.orm.hibernate.models.zurple.UserStatusChanges"></mapping>
+		<mapping class="resources.orm.hibernate.models.zurple.City"></mapping>
+		<mapping
+			class="resources.orm.hibernate.models.zurple.AlertRule"></mapping>
+		<mapping class="resources.orm.hibernate.models.zurple.User"></mapping>
+		<mapping class="resources.orm.hibernate.models.zurple.Admin"></mapping>
+		<mapping
+			class="resources.orm.hibernate.models.zurple.SessionUser"></mapping>
+		<mapping class="resources.orm.hibernate.models.zurple.Site"></mapping>
+		<mapping class="resources.orm.hibernate.models.zurple.Email"></mapping>
+		<mapping
+			class="resources.orm.hibernate.models.zurple.Property"></mapping>
+		<mapping
+			class="resources.orm.hibernate.models.zurple.SessionAnonymous"></mapping>
+		<mapping
+			class="resources.orm.hibernate.models.zurple.UserActivity"></mapping>
+		<mapping
+			class="resources.orm.hibernate.models.zurple.PackageProduct"></mapping>
+		<mapping
+			class="resources.orm.hibernate.models.zurple.Transaction"></mapping>
+		<mapping
+			class="resources.orm.hibernate.models.zurple.TransactionGoal"></mapping>
+		<mapping class="resources.orm.hibernate.models.zurple.Product"></mapping>
+		<mapping
+			class="resources.orm.hibernate.models.zurple.DistributionRule"></mapping>
+		<mapping class="resources.orm.hibernate.models.zurple.Import"></mapping>
+		<mapping class="resources.orm.hibernate.models.zurple.Package"></mapping>
+		<mapping
+			class="resources.orm.hibernate.models.zurple.EmailQueue"></mapping>
+
+	</session-factory>
 </hibernate-configuration>

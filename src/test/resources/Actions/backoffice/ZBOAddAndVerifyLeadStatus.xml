@@ -1,14 +1,17 @@
-<suite name="Capture Lead From About Me Page" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+<suite name="Capture Lead From About Me Page"
+	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	<listeners>
-        <listener class-name="resources.ThreadCountChanger"/>
-        <listener class-name="resources.ExtentReporterListener"/>
-        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
-        <listener class-name="resources.CustomTestNGReporter"/>
-    </listeners>
-   
-	
-<test name="Create lead update and verify status">	
-	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-status.json"> 
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+
+	<test name="Create lead update and verify status">
+		<parameter name="addLeadData"
+			value="/resources/data/zurple/backoffice/zurple-add-lead-status.json">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -22,7 +25,7 @@
 				</class>
 				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
 					<methods>
-							<include name="testUpdateLeadDetails" />
+						<include name="testUpdateLeadDetails" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
@@ -31,7 +34,7 @@
 					</methods>
 				</class>
 			</classes>
-	</parameter>
+		</parameter>
 	</test>
-	
+
 </suite>

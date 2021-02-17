@@ -1,5 +1,6 @@
 package resources.forms.zurple.website;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -30,6 +31,9 @@ public class ZWLeadCaptureForm extends AbstractForm{
 	
 	@FindBy(xpath="//input[@name='register_button']")
 	WebElement register_button;
+	
+	@FindBy(xpath="//div[@class='modal-dialog']/descendant::button[@class='close']")
+	WebElement closeButton;
 	
 	public ZWLeadCaptureForm() {
 		
@@ -69,5 +73,12 @@ public class ZWLeadCaptureForm extends AbstractForm{
 	public boolean isAlreadyRegisteredLinkVisible() {
 		return ActionHelper.isElementVisible(driver, alreadyRegistered);
 	}
-
+	public boolean closeLeadCaptureForm() {
+		boolean isClosed = true;
+		if(isLeadCaptureFormIsVisible()) {
+			isClosed = ActionHelper.Click(driver, driver.findElements(By.xpath("//div[@class='modal-dialog']/descendant::button[@class='close']/span")).get(1));
+			ActionHelper.staticWait(5);
+		}
+		return isClosed;
+	}
 }

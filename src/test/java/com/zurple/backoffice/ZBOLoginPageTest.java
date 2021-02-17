@@ -4,6 +4,7 @@
 package com.zurple.backoffice;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
@@ -55,6 +56,7 @@ public class ZBOLoginPageTest extends PageTest{
 	@Test(priority=-1,groups="testBackOfficeLogin")
 	@Parameters({"dataFile"})
 	public void testBackOfficeLogin(@Optional String pDataFile) {
+		page=null;
 		getPage();
 		dataObject = getDataFile(pDataFile);
 		setUserNamePassword();
@@ -100,7 +102,7 @@ public class ZBOLoginPageTest extends PageTest{
 		AutomationLogger.endTestCase();
 	}
 	
-	@Test //Just for TestRail Integration
+	@Test(retryAnalyzer = resources.RetryFailedTestCases.class) //Just for TestRail Integration
 	public void testAnInvalidLogin() {
 		page=null;
 		getPage();

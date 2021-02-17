@@ -169,7 +169,7 @@ public class ZWV2TemplateHomePage extends Page{
 	
 	public boolean closeModalAndListingsPage() {
 		if(ActionHelper.Click(driver, close_modal)==true) {
-			return ActionHelper.waitForElementToBeVisible(driver, listings_page,30);
+			return titleText();
 		} else {
 			return titleText();
 		}

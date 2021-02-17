@@ -88,7 +88,7 @@ public class GmailEmailVerification {
 	   }
 	
 	public boolean isPUNSEmailPresent(String pEmail, String pAppPassword, String pSubjectToVerify, String pEmailAddressToReply, boolean pReplyToEmail) {
-		   boolean isEmailSent = true;
+		   boolean isEmailSent = false;
 		   Date date = null;
 //		   pSubjectToVerify = "0929202038762 Scheduleshowing";
 //		   pEmail = "z57testuser@gmail.com";
