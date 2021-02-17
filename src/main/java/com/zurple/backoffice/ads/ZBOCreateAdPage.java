@@ -59,7 +59,7 @@ public class ZBOCreateAdPage extends Page{
 	
 	@FindBy(xpath="//div[@id='form-submit_btn']/a")
 	WebElement fb_Active_logo;
-	
+
 	@FindBy(xpath="//div[@id='form-submit_btn']/a")
 	WebElement insta_fb_logo;
 	
@@ -115,14 +115,21 @@ public class ZBOCreateAdPage extends Page{
 	WebElement fb_ad_preview_title;
 	@FindBy(xpath="//div[@id='facebook_ad_pewview']/descendant::div/a[text()='Learn More']")
 	WebElement fb_ad_learnmore_button;
+	@FindBy(xpath="//div[@class='social_logos_preview']/img[@src='img/social_ads/fb_active.png']")
+	WebElement facebook_logo_step2;
+	String facebook_slider_images = "//div[@id='slider_fb']/descendant::div[@class='slide-image current']/img";
 	
 	//Instagram Ad preview Step 2
 	@FindBy(xpath="//div[@id='instagram_ad_pewview']/descendant::div[@class='post_preview_text']")
 	WebElement insta_ad_preview_text;
 	@FindBy(xpath="//div[@id='instagram_ad_pewview']/descendant::div/a[contains(text(),'Learn More')]")
 	WebElement insta_ad_learnmore_button;
-	@FindBy(xpath="//div[@id='facebook_ad_pewview']/descendant::div[@class='playicon_slide']")
+	@FindBy(xpath="//div[@id='instagram_ad_pewview']/descendant::div[@class='playicon_slide']")
 	WebElement insta_ad_play_icon;
+	@FindBy(xpath="//div[@class='social_logos_preview']/img[@src='img/social_ads/insta_active.png']")
+	WebElement instagram_logo_step2;
+	String instagram_slider_images = "//div[@id='slider_ins']/descendant::div[@class='slide-image current']/img";
+
 	
 	//Section 1 Step 2
 	@FindBy(xpath="//h5[@class='inner_stephead' and text()='Select an Ad Type ']")
@@ -143,6 +150,13 @@ public class ZBOCreateAdPage extends Page{
 	WebElement website_prop_heading;
 	@FindBy(xpath="//h5[@class='inner_stephead']/i[@class='far fa-check-circle checkicon zurp_checked']/following-sibling::strong[contains(text(), '2')]")
 	WebElement step2_section2_checked;
+	@FindBy(xpath="//h5[@class='inner_stephead']/strong[contains(text(),'Step 2:')]")
+	WebElement step2_section2;
+	String headings_list = "//h5[@class='inner_stephead']";
+	@FindBy(xpath="//a[text()='Edit' and contains(@href,'step-two')]")
+	WebElement edit_button_section2;
+	@FindBy(xpath="//div[@id='form-element-site']/label[text()='Select Destination Site:']")
+	WebElement selectDestination_label;
 	
 	//Section 3
 	@FindBy(xpath="//select[@id='fb_ad_cities']/option")
@@ -183,6 +197,9 @@ public class ZBOCreateAdPage extends Page{
 	@FindBy(xpath="//div[@class='fb_ad_preview_details Mpreview']")
 	WebElement fb_Ad_preview_desc_step1;
 	
+	//Bottom Progress bar
+	@FindBy(xpath="//div[@class='statusbar_box zurple selected_zurp' and @title='Step 1 of 4']")
+	WebElement step14_bottom_progress;
 	
 	
 	private ZBOSelectListingAlert selectListingAlert;
@@ -235,6 +252,7 @@ public class ZBOCreateAdPage extends Page{
 		boolean isSlected = true;
 		if(!pSite.isEmpty()) {
 			pSite = pSite.contains("stage01.")?pSite.replace("stage01.", ""):pSite;
+			pSite = pSite.replace("http://www.", "");
 			isSlected = ActionHelper.selectDropDownOption(driver, site_dropdown, "", pSite);
 		}
 		return isSlected;
@@ -441,5 +459,81 @@ public class ZBOCreateAdPage extends Page{
 	 }
 	 public boolean clickOnEditButtonStep2Section1() {
 		 return ActionHelper.Click(driver, edit_button_section1_step2);
+	 }
+	 public boolean isCustomizeAdDetailsHeadingIsVisible() {
+		 boolean isHeadingVisible = false;
+		 List<WebElement> list_of_headings = ActionHelper.getListOfElementByXpath(driver, headings_list);
+		 for(WebElement element: list_of_headings) {
+			 if(ActionHelper.getText(driver, element).contains("Customize Ad Details")) {
+				 isHeadingVisible = true;
+				 break;
+			 }
+		 }
+		 return isHeadingVisible;
+	 }
+	 public boolean typeAdHeading(String pStringToType) {
+		 return ActionHelper.Type(driver, driver.findElement(By.id("fb_ad_title")), pStringToType);
+	 }
+	 public boolean clickOnEditButton() {
+		 return ActionHelper.Click(driver, edit_button_section2);
+	 }
+	 public boolean typeAdDescription(String pStringToType) {
+		return ActionHelper.Type(driver, driver.findElement(By.id("fb_ad_details")), pStringToType);
+	 }
+	 public boolean verifyFBAdPreviewTitleIsUpdated(String pStringToVerify) {
+		 boolean isPreviewUpdated = false;
+		 if(ActionHelper.getText(driver, fb_ad_preview_title).contains(pStringToVerify.trim())) {
+			 isPreviewUpdated = true;
+		 }
+		 return isPreviewUpdated;
+	 }
+	 public boolean verifyFBAdPreviewDescIsUpdated(String pStringToVerify) {
+		 boolean isPreviewUpdated = false;
+		 if(ActionHelper.getText(driver, fb_ad_preview_desc).contains(pStringToVerify.trim())) {
+			 isPreviewUpdated = true;
+		 }
+		 return isPreviewUpdated;
+	 }
+	 public boolean verifyInstaAdPreviewDescIsUpdated(String pStringToVerify) {
+		 boolean isPreviewUpdated = false;
+		 if(ActionHelper.getText(driver, insta_ad_preview_text).contains(pStringToVerify.trim())) {
+			 isPreviewUpdated = true;
+		 }
+		 return isPreviewUpdated;
+	 }
+	 public boolean isStep14BottomProgressBarIsChecked() {
+		 return ActionHelper.isElementVisible(driver, step14_bottom_progress);
+	 }
+	 public boolean verifyInstaAndFacebookLogoAreDisplayed() {
+		 boolean isVisible = false;
+		 if(ActionHelper.waitForElementToBeVisible(driver, facebook_logo_step2, 0)) {
+			 isVisible = ActionHelper.isElementVisible(driver, instagram_logo_step2);
+		 }
+		 return isVisible;
+	 }
+	 public boolean verifyFacebookPreviewSlideShowIsWorkingOnStep2() {
+		 return verifyAdSlideShowIsWorkingOnStep2AdsPreview(facebook_slider_images, fb_ad_play_icon);
+	 }
+	 public boolean verifyInstaPreviewSlideShowIsWorkingOnStep2() {
+		 return verifyAdSlideShowIsWorkingOnStep2AdsPreview(instagram_slider_images, insta_ad_play_icon);
+	 }
+	 public boolean isSelectDestinationLabelVisible() {
+		 return ActionHelper.isElementVisible(driver, selectDestination_label);
+	 }
+	 private boolean verifyAdSlideShowIsWorkingOnStep2AdsPreview(String pSlideShowImagesPath, WebElement pPlayIcon) {
+		 ActionHelper.staticWait(5);
+		 boolean isSlideShowWorking = false;
+		 List<WebElement> elements_list2 = ActionHelper.getListOfElementByXpath(driver, pSlideShowImagesPath);
+		 if(elements_list2.size()>0) {
+			 isSlideShowWorking = ActionHelper.MouseHoverOnElement(driver, pPlayIcon);
+			 if(isSlideShowWorking) {
+				String image_path_01 = ActionHelper.getAttribute(elements_list2.get(0), "src");
+				ActionHelper.staticWait(2);
+				elements_list2 = ActionHelper.getListOfElementByXpath(driver, pSlideShowImagesPath);
+				String image_path_02 = ActionHelper.getAttribute(elements_list2.get(0), "src");
+				isSlideShowWorking = !image_path_01.equalsIgnoreCase(image_path_02);
+			 }
+		 }
+		 return isSlideShowWorking; 
 	 }
 }
