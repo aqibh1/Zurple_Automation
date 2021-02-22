@@ -360,6 +360,29 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isSelectDestinationLabelVisible(), "Select destination site label is not visible..");	
 		assertTrue(page.selectSite(l_domain), "Unable to select site from dropdown");
 	}
+	
+	@Test
+	public void testVerifyDataWhenSelectIsClickedOnStep2() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		String lAdHeading = page.isAdHeadingPopulated();
+		String lAdDescription = page.isAdDescPopulated();
+		lAdDescription = lAdDescription.replace("<br/>", "");
+		clickOnSelectButton();
+		assertTrue(page.verifyStep3Heading("Choose Audience & Reach"), "Unable to verify step3 heading..");
+		assertTrue(page.verifyAdHeadline(lAdHeading), "Unable to verify ad head line..");
+		assertTrue(page.verifyAdDesc(lAdDescription), "Unable to verify ad description..");
+		assertTrue(page.verifyUrlOnStep2Section2AfterClickingSelect(l_domain), "WebSite domain is not displayed..");
+	}	
+	@Test
+	public void testStep2AndProgressBarIsChecked() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		clickOnSelectButton();
+		assertTrue(page.isStep24BottomProgressBarIsChecked(), "Bottom progress bar is not checked for step 2 pf 4");
+		assertTrue(page.isStepCheckBoxIsChecked("Step 2:"), "Step 2 check box is not checked..");
+	}
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {
 		if(!page.clickOnCustomAdButton()) {
@@ -367,6 +390,11 @@ public class ZBOCreateAdPageTest extends PageTest{
 		}
 		if(!page.getSelectListingAlert().isSelectListingAlert() || !page.getSelectListingAlert().clickOnOkButton()) {
 			throw new SkipException("Skipping the test becasuse [Select Listing Alert dialog was not opened] pre-condition was failed.");
+		}
+	}
+	public void clickOnSelectButton() {
+		if(!page.clickOnSelectButton()) {
+			throw new SkipException("Skipping the test becasuse [Click on SELECT Button] pre-condition was failed.");
 		}
 	}
 	@Test

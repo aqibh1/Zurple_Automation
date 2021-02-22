@@ -144,7 +144,7 @@ public class ZBOCreateAdPage extends Page{
 	WebElement ad_headline_caption;
 	@FindBy(id="ad_description_caption")
 	WebElement ad_description_caption;
-	@FindBy(xpath="//[@id='ad_url_caption']/a")
+	@FindBy(xpath="//p[@id='ad_url_caption']/a")
 	WebElement ad_url_caption;
 	@FindBy(xpath="//div[@id='propdetail']/descendant::h2[not(contains(@class,'zurple-tinted-text'))]")
 	WebElement website_prop_heading;
@@ -157,6 +157,7 @@ public class ZBOCreateAdPage extends Page{
 	WebElement edit_button_section2;
 	@FindBy(xpath="//div[@id='form-element-site']/label[text()='Select Destination Site:']")
 	WebElement selectDestination_label;
+	String step2_checkbox = "//h5[@class='inner_stephead']/i[@class='far fa-check-circle checkicon zurp_checked']/ancestor::h5";
 	
 	//Section 3
 	@FindBy(xpath="//select[@id='fb_ad_cities']/option")
@@ -172,6 +173,8 @@ public class ZBOCreateAdPage extends Page{
 	WebElement section3_checked;
 	@FindBy(xpath="//div[@id='step_3_section']/*/a[text()='Edit']")
 	WebElement edit_button_section3;
+	@FindBy(xpath="//div[@id='step_3_section']/h5")
+	WebElement step3_heading;
 	
 	//Section 4
 	@FindBy(xpath="//div[@class='step_4_section']/*/strong[contains(text(),'Step 4:')]")
@@ -200,6 +203,8 @@ public class ZBOCreateAdPage extends Page{
 	//Bottom Progress bar
 	@FindBy(xpath="//div[@class='statusbar_box zurple selected_zurp' and @title='Step 1 of 4']")
 	WebElement step14_bottom_progress;
+	@FindBy(xpath="//div[@class='statusbar_box zurple selected_zurp' and @title='Step 2 of 4']")
+	WebElement step24_bottom_progress;
 	
 	
 	private ZBOSelectListingAlert selectListingAlert;
@@ -308,7 +313,8 @@ public class ZBOCreateAdPage extends Page{
 		return ActionHelper.getText(driver, ad_headline_caption).contains(pHeading);
 	}
 	public boolean verifyAdDesc(String pDesc) {
-		return ActionHelper.getText(driver, ad_description_caption).contains(pDesc);
+		String lgetDesc = ActionHelper.getText(driver, ad_description_caption).replace("\n", "").replace("Just Listed!", " Just Listed!");
+		return lgetDesc.contains(pDesc);
 	}
 	public boolean verifyAdURLIsCorrect() {
 		String l_propUrl = ActionHelper.getAttribute(driver.findElement(By.xpath("//p[@id='ad_url_caption']/a")), "href");
@@ -519,6 +525,26 @@ public class ZBOCreateAdPage extends Page{
 	 }
 	 public boolean isSelectDestinationLabelVisible() {
 		 return ActionHelper.isElementVisible(driver, selectDestination_label);
+	 }
+	 public boolean verifyUrlOnStep2Section2AfterClickingSelect(String pUrl) {
+		 return ActionHelper.getText(driver, ad_url_caption).contains(pUrl);
+	 }
+	 public boolean verifyStep3Heading(String pHeading) {
+		 return ActionHelper.getText(driver, step3_heading).contains(pHeading);
+	 }
+	 public boolean isStep24BottomProgressBarIsChecked() {
+		 return ActionHelper.isElementVisible(driver, step24_bottom_progress);
+	 }
+	 public boolean isStepCheckBoxIsChecked(String pStep) {
+		 boolean isFound= false;
+		 List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, "//h5[@class='inner_stephead']/i[@class='far fa-check-circle checkicon zurp_checked']/ancestor::h5");
+		 for(WebElement element: list_element) {
+			 if(ActionHelper.getText(driver, element).contains(pStep)) {
+				 isFound = true;
+				 break;
+			 }
+		 }
+		 return isFound;
 	 }
 	 private boolean verifyAdSlideShowIsWorkingOnStep2AdsPreview(String pSlideShowImagesPath, WebElement pPlayIcon) {
 		 ActionHelper.staticWait(5);

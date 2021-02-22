@@ -8,11 +8,10 @@
 		<listener class-name="resources.CustomTestNGReporter" />
 	</listeners>
 
-
 	<test name="Verify Custom ads on step 2 section 2">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
-				<methods>
+				<methods> 
 					<include name="testVerifyHeadlineDescriptionIsPrepopulated"/>
 					<include name="testVerifySection2StepHeadingIsVisible"/>
 					<include name="testVerifyHeadingDoesntExceedCharacters"/>
@@ -23,6 +22,8 @@
 					<include name="testVerifySliderISWorkingInAdsPreview"/>
 					<include name="testVerifyDomainFromAdsPreviewStep2"/>
 					<include name="testVerifySelectSiteDropDown"/>
+					<include name="testVerifyDataWhenSelectIsClickedOnStep2"/>
+					<include name="testStep2AndProgressBarIsChecked"/>
 				</methods>
 			</class>
 		</classes>
