@@ -16,6 +16,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.alerts.zurple.backoffice.ZBOGenericAlerts;
 import resources.alerts.zurple.backoffice.ZBOSelectListingAlert;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
@@ -175,6 +176,13 @@ public class ZBOCreateAdPage extends Page{
 	WebElement edit_button_section3;
 	@FindBy(xpath="//div[@id='step_3_section']/h5")
 	WebElement step3_heading;
+	@FindBy(xpath="//ul[@class='select2-selection__rendered']/li/input")
+	WebElement fb_Ad_city_input;
+	@FindBy(xpath="//span[@class='select2-selection__choice__remove']")
+	WebElement remove_city_button;
+	@FindBy(xpath="//button[contains(@class,'btn-success') and @onclick='set_plan(3)']")
+	WebElement medium_reach_selected;
+	String select_city_dop_options = "//*[@id='select2-fb_ad_cities-results']/li[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
 	//Section 4
 	@FindBy(xpath="//div[@class='step_4_section']/*/strong[contains(text(),'Step 4:')]")
@@ -208,10 +216,12 @@ public class ZBOCreateAdPage extends Page{
 	
 	
 	private ZBOSelectListingAlert selectListingAlert;
+	private ZBOGenericAlerts alert;
 	
 	public ZBOCreateAdPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		setSelectListingAlert();
+		setAlert();
 		PageFactory.initElements(driver, this);
 	}
 
@@ -221,6 +231,14 @@ public class ZBOCreateAdPage extends Page{
 
 	public void setSelectListingAlert() {
 		this.selectListingAlert = new ZBOSelectListingAlert(driver);
+	}
+
+	public ZBOGenericAlerts getAlert() {
+		return alert;
+	}
+
+	public void setAlert() {
+		this.alert = new ZBOGenericAlerts(driver);
 	}
 
 	public boolean isCreateAdPage() {
@@ -545,6 +563,15 @@ public class ZBOCreateAdPage extends Page{
 			 }
 		 }
 		 return isFound;
+	 }
+	 public boolean typeAndSelectCity(String pCity) {
+		 return ActionHelper.typeAndSelect(driver, fb_Ad_city_input, select_city_dop_options, pCity);
+	 }
+	 public boolean clickOnRemoveCityButton() {
+		 return ActionHelper.Click(driver, remove_city_button);
+	 }
+	 public boolean isMediumReachSelectedByDefault() {
+		 return ActionHelper.isElementVisible(driver, medium_reach_selected);
 	 }
 	 private boolean verifyAdSlideShowIsWorkingOnStep2AdsPreview(String pSlideShowImagesPath, WebElement pPlayIcon) {
 		 ActionHelper.staticWait(5);

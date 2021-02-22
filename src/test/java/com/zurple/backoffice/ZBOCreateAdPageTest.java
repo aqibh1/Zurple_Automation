@@ -383,6 +383,37 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isStep24BottomProgressBarIsChecked(), "Bottom progress bar is not checked for step 2 pf 4");
 		assertTrue(page.isStepCheckBoxIsChecked("Step 2:"), "Step 2 check box is not checked..");
 	}
+	@Test
+	public void testCityIsPrePopulatedOnStep3() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		clickOnSelectButton();
+		assertTrue(page.isDefaultCitySelected(), "Default City is not selected on step 3");
+	}
+	@Test
+	public void testSelectMultipleCities() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		clickOnSelectButton();
+		assertTrue(page.typeAndSelectCity("San Diego, CA"), "Unable to select multiple cities on step 3");
+	}
+	@Test
+	public void testVerifyErrorIsTriggeredWhenNoCityIsSelected() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		clickOnSelectButton();
+		assertTrue(page.clickOnRemoveCityButton(), "Unable to remove city on Step 3");
+		assertTrue(page.clickOnNextStepButton(), "Unable to click on next step button..");
+		assertTrue(page.getAlert().getErrorMessage().equalsIgnoreCase("You must enter at least one city for the ad to target."), "Correct error message is not displayed..");
+		assertTrue(page.getAlert().clickOnCloseButton(), "Unable to click on Close button..");
+	}
+	@Test
+	public void testIsMediumReachSelectedByDefault() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		clickOnSelectButton();
+		assertTrue(page.isMediumReachSelectedByDefault(), "Medium reach is not selected by default on step 3");
+	}
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {
 		if(!page.clickOnCustomAdButton()) {
