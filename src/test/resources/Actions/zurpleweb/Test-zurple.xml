@@ -6,16 +6,28 @@
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
 	
-<test name="Add Reminder from CRM page">	
+<test name="Search and Verify property by Zip with User Logged In">
+		<parameter name="searchPropertyDataFile"
+			value="/resources/data/zurple/property_search/zurple-property-search-zip.json">
 			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<class name="com.zurple.website.ZWLoginPageTest">
 					<methods>
-						<include name="testBackOfficeLogin" />
+						<include name="testSignIn" />
 					</methods>
 				</class>
-				<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+				<class name="com.zurple.website.ZWHomeSearchPageTest">
 					<methods>
-						<include name="testAddAndVerifyReminder" />
+						<include name="testSearchPropoertyAfterLoggedIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWHomesForSalePageTest">
+					<methods>
+						<include name="testHomesForSale" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testVerifyPropertyDetails" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
@@ -24,22 +36,6 @@
 					</methods>
 				</class>
 			</classes>
-	</test>
-	
-	<test name="Verify Reminder Email">	
-	<parameter name="dataFile" value="/resources/cache/zurple-reminder-email-verification.json"> 
-			<classes>
-				<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
-					<methods>
-						<include name="testVerifyReminderEmail" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
-			</classes>
-			</parameter>
+		</parameter>
 	</test>
 </suite>

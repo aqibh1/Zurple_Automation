@@ -11,11 +11,16 @@
 	<test name="Verify Custom ads on step 3">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
-				<methods> 
+				<methods>  
 					<include name="testCityIsPrePopulatedOnStep3"/>
 					<include name="testSelectMultipleCities"/>
 					<include name="testVerifyErrorIsTriggeredWhenNoCityIsSelected"/>
 					<include name="testIsMediumReachSelectedByDefault"/>
+					<include name="testSelectMultipleCities"/>
+					<include name="testVerifyAllThePlansAreDisplayed"/>
+					<include name="testVerifyCorrectDataIsDisplayedWhenNextStepIsClicked"/>
+					<include name="testVerifyUserCanEditStep2FromStep3"/>
+					<include name="testVerifyUserCanEditStep1FromStep3"/>
 				</methods>
 			</class>
 		</classes>

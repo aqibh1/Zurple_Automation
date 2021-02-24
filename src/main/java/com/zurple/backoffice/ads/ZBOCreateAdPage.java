@@ -139,6 +139,9 @@ public class ZBOCreateAdPage extends Page{
 	WebElement listing_title_step2_section1;
 	@FindBy(xpath="//div[@id='form-submit_btn']/button[text()='Select']")
 	WebElement select_section_button;
+	@FindBy(xpath="//a[text()='Edit' and contains(@href,'step-one')]")
+	WebElement edit_button_section1;
+	
 	
 	//Step 2 Section 2 verifications
 	@FindBy(id="ad_headline_caption")
@@ -183,6 +186,9 @@ public class ZBOCreateAdPage extends Page{
 	@FindBy(xpath="//button[contains(@class,'btn-success') and @onclick='set_plan(3)']")
 	WebElement medium_reach_selected;
 	String select_city_dop_options = "//*[@id='select2-fb_ad_cities-results']/li[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	// "//button[contains(@class,'btn-success') and @onclick='set_plan(3)']"
+	String select_plan_button = "//button[contains(@class,'btn btn-large ad-plan-paid') and @onclick='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	String select_plan_buttons_list = "//div[@class='form-group mt-2 flex_layout']/button";
 	
 	//Section 4
 	@FindBy(xpath="//div[@class='step_4_section']/*/strong[contains(text(),'Step 4:')]")
@@ -195,6 +201,8 @@ public class ZBOCreateAdPage extends Page{
 	WebElement ad_payment_confirmation;
 	@FindBy(id="fb_placead_callout")
 	WebElement fb_placead_callout;
+	@FindBy(xpath="//h5[@class='inner_stephead']/strong[contains(text(),'Step 4:')]")
+	WebElement step4_heading;
 	
 	//Custom Ad Step 1
 	@FindBy(xpath="//h5[@class='bold_center' and text()=' Select a Quick Ad']")
@@ -213,7 +221,8 @@ public class ZBOCreateAdPage extends Page{
 	WebElement step14_bottom_progress;
 	@FindBy(xpath="//div[@class='statusbar_box zurple selected_zurp' and @title='Step 2 of 4']")
 	WebElement step24_bottom_progress;
-	
+	@FindBy(xpath="//div[contains(@class,'selected_zurp') and @title='Step 3 of 4']")
+	WebElement step34_bottom_progress;
 	
 	private ZBOSelectListingAlert selectListingAlert;
 	private ZBOGenericAlerts alert;
@@ -357,7 +366,7 @@ public class ZBOCreateAdPage extends Page{
 		return ActionHelper.Click(driver, next_button_section3);
 	}
 	public boolean verifyAdCitySection3(String pCity) {
-		return pCity.contains(ActionHelper.getText(driver, ad_city_caption_section3).split("Ad City: ")[1]);
+		return ActionHelper.getText(driver, ad_city_caption_section3).split("Ad City: ")[1].contains(pCity);
 	}
 	public boolean verifyAdReachSection3(String pAdAmount) {
 		return ActionHelper.getText(driver, ad_reach_caption_section3).contains(pAdAmount+" per month");
@@ -498,7 +507,7 @@ public class ZBOCreateAdPage extends Page{
 	 public boolean typeAdHeading(String pStringToType) {
 		 return ActionHelper.Type(driver, driver.findElement(By.id("fb_ad_title")), pStringToType);
 	 }
-	 public boolean clickOnEditButton() {
+	 public boolean clickOnEditButtonStep2() {
 		 return ActionHelper.Click(driver, edit_button_section2);
 	 }
 	 public boolean typeAdDescription(String pStringToType) {
@@ -572,6 +581,49 @@ public class ZBOCreateAdPage extends Page{
 	 }
 	 public boolean isMediumReachSelectedByDefault() {
 		 return ActionHelper.isElementVisible(driver, medium_reach_selected);
+	 }
+	 public boolean selectPlan(String pPlan) {
+		 boolean isPlanSelected = false;
+		 switch(pPlan) {
+		 case "$120":
+			 isPlanSelected = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, select_plan_button,"set_plan(1)"));
+			 break;
+		 case "$160":
+			 isPlanSelected = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, select_plan_button,"set_plan(2)"));
+			 break;
+		 case "$240":
+			 isPlanSelected = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, select_plan_button,"set_plan(3)"));
+			 break;
+		 case "$320":
+			 isPlanSelected = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, select_plan_button,"set_plan(4)"));
+			 break;
+		 case "$400":
+			 isPlanSelected = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, select_plan_button,"set_plan(5)"));
+			 break;
+		 }
+		 return isPlanSelected;
+	 }
+	 public boolean isStep3of4IsEnabled() {
+		 return ActionHelper.waitForElementToBeVisible(driver, step34_bottom_progress, 10);
+	 }
+	 public boolean allThePlansAreDisplayed() {
+		 boolean allButtonsAreDisplayed = false;
+		 List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver,select_plan_buttons_list );
+		 if(list_element.size()==5) {
+			 for(WebElement element: list_element) {
+				 allButtonsAreDisplayed = ActionHelper.isElementVisible(driver, element);
+				 if(!allButtonsAreDisplayed) {
+					 break;
+				 }
+			 }
+		 }
+		 return allButtonsAreDisplayed;
+	 }
+	 public boolean verifyStep4IsVisible() {
+		 return ActionHelper.isElementVisible(driver, step4_heading);
+	 }
+	 public boolean clickOnStep1EditButton() {
+		 return ActionHelper.Click(driver, edit_button_section1);
 	 }
 	 private boolean verifyAdSlideShowIsWorkingOnStep2AdsPreview(String pSlideShowImagesPath, WebElement pPlayIcon) {
 		 ActionHelper.staticWait(5);
