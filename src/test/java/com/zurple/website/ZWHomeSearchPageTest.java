@@ -91,7 +91,7 @@ public class ZWHomeSearchPageTest extends PageTest{
 	public void searchProperty() {
 		assertTrue(page.isHomesForSaleHeadingVisible(), "Search page is not visible");
 		assertTrue(page.selectInputType(dataObject.optString("search_by")), "Unable to select Input Type search criteria");
-		ActionHelper.staticWait(15);
+		ActionHelper.staticWait(5);
 		assertTrue(page.typeInputString(dataObject.optString("input_search")), "Unable to type input string..");
 
 		if(!dataObject.optString("minimum_price").isEmpty()) {

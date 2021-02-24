@@ -50,11 +50,14 @@ public class ZWHomesForSalePageTest extends PageTest{
 
 	@Override
 	public Page getPage() {
+		page = null;
 		if(page == null){
 			driver = getDriver();
 			page = new ZWHomesForSalePage(driver);
-			page.setUrl("");
-			page.setDriver(driver);
+			//This is comment out because this method is only called up after search button is clicked
+			// to remain on the same page we are not setting driver.
+//			+page.setUrl("");
+//			page.setDriver(driver);
 		}
 		return page;
 	}
