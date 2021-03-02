@@ -438,9 +438,6 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.verifyAdCitySection3(l_city), "City is not correct on step 3..");
 		assertTrue(page.verifyAdReachSection3("$120"), "Unable to click on select plan button");
 		assertTrue(page.isSection3EditButtonEnabled(),"Edit button is not enabled for step 3..");
-		assertTrue(page.isStep3of4IsEnabled(), "Step 3 of 4 is enabled..");
-		assertTrue(page.isStepCheckBoxIsChecked("3"), "Step 3 checkbox is not checked..");
-		assertTrue(page.verifyStep4IsVisible(), "Step 4 is not visible..");
 	}
 	
 	@Test
@@ -463,6 +460,89 @@ public class ZBOCreateAdPageTest extends PageTest{
 		//Confirm URL is changed to step 2
 		assertTrue(driver.getCurrentUrl().contains("/create-ad/step-one"), "URL did not change to step 2..");
 		assertTrue(page.isCustomAdsHeadingDisplayed(), "Custom heading button is not displayed..");
+	}
+	
+	@Test
+	public void testVerifyUserLandsToStep4() {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		clickOnSelectButton();
+		ActionHelper.staticWait(5);
+		selectTestPlanPreCond();
+		clickOnNextStepPreCond();
+		assertTrue(page.isStep3of4IsEnabled(), "Step 3 of 4 is enabled..");
+		assertTrue(page.isStepCheckBoxIsChecked("3"), "Step 3 checkbox is not checked..");
+		assertTrue(page.verifyStep4IsVisible(), "Step 4 is not visible..");
+	}
+	
+	@Test
+	public void testAdDuration() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		clickOnSelectButton();
+		ActionHelper.staticWait(2);
+		selectTestPlanPreCond();
+		clickOnNextStepPreCond();
+		assertTrue(page.verifyStartEndAndRenewalDate(), "Step 3 of 4 is enabled..");
+	}
+	
+	@Test
+	public void testVerifyTermsAndConditionDisplayed() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		clickOnSelectButton();
+		ActionHelper.staticWait(2);
+		selectTestPlanPreCond();
+		clickOnNextStepPreCond();
+		assertFalse(page.verifyIsTermsAndConditionCheckBoxChecked(), "Terms and Condition checkbox is not checked by default..");
+		assertTrue(page.clickOnTermsAndCond(), "Unable to click on terms and condition checkbox..");
+	}
+	
+	@Test
+	public void testVerifyTermsAndConditionLinkWorking() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		clickOnSelectButton();
+		ActionHelper.staticWait(2);
+		selectTestPlanPreCond();
+		clickOnNextStepPreCond();
+		assertTrue(page.clickOnTermsAndCondLink(), "Terms and Condition Link is not working..");
+	}
+	
+	@Test
+	public void testVerifyUserCanEditAllStepsFromStep4() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		clickOnSelectButton();
+		ActionHelper.staticWait(2);
+		selectTestPlanPreCond();
+		clickOnNextStepPreCond();
+		assertTrue(page.clickOnStep3EditButton(), "Unable to click on Step 3 button..");
+		//Confirm URL is changed to step 3
+		assertTrue(driver.getCurrentUrl().contains("/create-ad/step-three"), "URL did not change to step 2..");
+		assertFalse(page.isSection4Visible(), "Step 4 heading is still displayed..");
+		//Step 2
+		assertTrue(page.clickOnEditButtonStep2(), "Unable to click on Step 2 button..");
+		//Confirm URL is changed to step 2
+		assertTrue(driver.getCurrentUrl().contains("/create-ad/step-two"), "URL did not change to step 2..");
+		assertFalse(page.verifyStep3Heading("Choose Audience & Reach"), "Step 3 heading is still displayed..");
+		//Step1
+		assertTrue(page.clickOnStep1EditButton(), "Unable to click on Step 2 button..");
+		//Confirm URL is changed to step 1
+		assertTrue(driver.getCurrentUrl().contains("/create-ad/step-one"), "URL did not change to step 2..");
+		assertTrue(page.isCustomAdsHeadingDisplayed(), "Custom heading button is not displayed..");
+	}
+	
+	@Test
+	public void testVerifyTestingAdChecboxIsChecked() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		clickOnSelectButton();
+		ActionHelper.staticWait(2);
+		selectTestPlanPreCond();
+		clickOnNextStepPreCond();
+		assertTrue(page.isTestingAdAlreadyChecked(), "Testing ad checkbox is not checked by default..");
+		assertTrue(page.clickOnTestingAdCheckBox(), "Unable to check testing ad checkbox..");
 	}
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {

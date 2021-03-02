@@ -6,36 +6,30 @@
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
 	
-<test name="Search and Verify property by Zip with User Logged In">
-		<parameter name="searchPropertyDataFile"
-			value="/resources/data/zurple/property_search/zurple-property-search-zip.json">
+<test name="Verify Scheduled FB post">	 
+	<parameter name="datafile" value="/resources/data/zurple/socialapi/scheduled_post_data.json"> 
 			<classes>
-				<class name="com.zurple.website.ZWLoginPageTest">
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
-						<include name="testSignIn" />
+						<include name="testBackOfficeAPILogin" />
 					</methods>
 				</class>
-				<class name="com.zurple.website.ZWHomeSearchPageTest">
+ 		   		<class name="com.zurple.rest.ZBORestPostStatusTest">
 					<methods>
-						<include name="testSearchPropoertyAfterLoggedIn" />
+						<include name="testPostStatus" /> 
 					</methods>
-				</class>
-				<class name="com.zurple.website.ZWHomesForSalePageTest">
+				</class> 
+  				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
 					<methods>
-						<include name="testHomesForSale" />
-					</methods>
-				</class>
-				<class name="com.zurple.website.ZWPropertyDetailPageTest">
-					<methods>
-						<include name="testVerifyPropertyDetails" />
+				  		<include name="testGetScheduledPostHistory"/>  
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
 					<methods>
 						<include name="closeBrowser" />
 					</methods>
-				</class>
+				</class>				
 			</classes>
-		</parameter>
+			</parameter>
 	</test>
 </suite>

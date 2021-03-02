@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -203,6 +204,10 @@ public class ZBOCreateAdPage extends Page{
 	WebElement fb_placead_callout;
 	@FindBy(xpath="//h5[@class='inner_stephead']/strong[contains(text(),'Step 4:')]")
 	WebElement step4_heading;
+	@FindBy(xpath="//p[@id='terms_section_copy']/a")
+	WebElement terms_and_cond_link;
+	@FindBy(id="testing_ad")
+	WebElement testing_ad_checkbox;
 	
 	//Custom Ad Step 1
 	@FindBy(xpath="//h5[@class='bold_center' and text()=' Select a Quick Ad']")
@@ -384,18 +389,21 @@ public class ZBOCreateAdPage extends Page{
 		String lDate = ActionHelper.getText(driver, start_end_date_section4);
 		String lRenew_date = ActionHelper.getText(driver, renew_text).split(". To disable")[0].split("Your ad will renew on ")[1];
 		String[] lDate_array = lDate.split("Ad Duration: ")[1].split("-");
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		Date startDate = (Date) sdf.parseObject(lDate_array[0].trim());
 		Date endDate = (Date) sdf.parseObject(lDate_array[1].trim());
 		Date lRenewalDate = (Date) sdf.parseObject(lRenew_date);
 		long diff = endDate.getTime() - startDate.getTime();
-		long lDays = (diff / (1000*60*60))/24;
+		long lDays = TimeUnit.MILLISECONDS.toDays(diff);//(diff / (1000*60*60*24));
 		long lRenwalDate_time = lRenewalDate.getTime() - startDate.getTime();
-		long lRenewal_days = (lRenwalDate_time / (1000*60*60))/24;
+		long lRenewal_days = TimeUnit.MILLISECONDS.toDays(lRenwalDate_time);//(lRenwalDate_time / (1000*60*60*24));
 		return lDays==30 && lRenewal_days==31;	
 	}
 	public boolean clickOnTermsAndCond() {
-		return ActionHelper.Click(driver, ad_payment_confirmation);
+		return ActionHelper.checkUncheckInputBox(driver, ad_payment_confirmation, true);
+	}
+	public boolean verifyIsTermsAndConditionCheckBoxChecked() {
+		return ActionHelper.isElementSelected(driver, ad_payment_confirmation);
 	}
 	public boolean clickOnPlaceAdButton() {
 		return ActionHelper.Click(driver, fb_placead_callout);
@@ -624,6 +632,23 @@ public class ZBOCreateAdPage extends Page{
 	 }
 	 public boolean clickOnStep1EditButton() {
 		 return ActionHelper.Click(driver, edit_button_section1);
+	 }
+	 public boolean clickOnTermsAndCondLink() {
+		 boolean isClicked = false;
+		 if(ActionHelper.Click(driver, terms_and_cond_link)) {
+			ActionHelper.switchToSecondWindow(driver);
+			isClicked = driver.getCurrentUrl().contains("social-ad-terms-and-conditions");
+		 }
+		 return isClicked;
+	 }
+	 public boolean clickOnStep3EditButton() {
+		 return ActionHelper.Click(driver, edit_button_section3);
+	 }
+	 public boolean isTestingAdAlreadyChecked() {
+		 return ActionHelper.isElementSelected(driver, testing_ad_checkbox);
+	 }
+	 public boolean clickOnTestingAdCheckBox() {
+		 return ActionHelper.checkUncheckInputBox(driver, testing_ad_checkbox, true);
 	 }
 	 private boolean verifyAdSlideShowIsWorkingOnStep2AdsPreview(String pSlideShowImagesPath, WebElement pPlayIcon) {
 		 ActionHelper.staticWait(5);
