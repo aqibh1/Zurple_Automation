@@ -11,14 +11,13 @@
 	<test name="Verify Custom ads on step 3">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
-				<methods>  <!--  
+				<methods>    
 					<include name="testVerifyUserLandsToStep4"/>
 					<include name="testAdDuration"/>
 					<include name="testVerifyTermsAndConditionDisplayed"/>
 					<include name="testVerifyTermsAndConditionLinkWorking"/>
-					<include name="testVerifyTestingAdChecboxIsChecked"/>-->
 					<include name="testVerifyUserCanEditAllStepsFromStep4"/>
-			
+					<include name="testVerifyTestingAdChecboxIsChecked"/>
 				</methods>
 			</class>
 		</classes>
