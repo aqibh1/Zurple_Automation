@@ -1,4 +1,5 @@
 {
 "panel_header":"Recent Website Visitors",
-"tooltip_text":"Leads that have visited in the last 7 days"
+"tooltip_text":"Leads that have visited in the last 7 days",
+"action_column":"Action"
 }

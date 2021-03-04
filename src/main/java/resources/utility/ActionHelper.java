@@ -451,6 +451,7 @@ public class ActionHelper {
 	   public static void MoveToElement(WebDriver pWebDriver, WebElement pElement) {
 		   new Actions(pWebDriver).moveToElement(pElement).perform();
 	   }
+	   
 	   public static String getAttribute(WebElement pElement,String pAttributeName) {
 		   try {
 			   AutomationLogger.info("Fetching attribute: "+pAttributeName);
@@ -459,7 +460,6 @@ public class ActionHelper {
 			   AutomationLogger.error("Unable to fetch attribute ");
 			   return "";
 		   }
-		   
 	   }
 	   
 	   public static WebElement getDynamicElement(WebDriver pWebDriver,String pXpath,String pDynamicVariable) {
