@@ -1,5 +1,7 @@
 package com.torchx;
 
+import static org.testng.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 /**
  * 
@@ -32,6 +35,9 @@ public class TXBORecentVisitorsPanel extends Page {
 	@FindBy(className="fa-envelope")
 	WebElement email_icon;
 	
+	@FindBy(className="send-email-lead")
+	WebElement email_icon_button;
+	
 	@FindBy(className="fa-sms")
 	WebElement sms_icon;
 
@@ -40,6 +46,12 @@ public class TXBORecentVisitorsPanel extends Page {
 
 	@FindBy(className="fa-sticky-note")
 	WebElement note_icon;
+	
+	@FindBy(xpath="//span[@class='glyphicon email-validation-glyph glyphicon-exclamation-sign rejected']")
+	WebElement verified_email_mark;
+	
+	@FindBy(xpath="//div[@class='full_name']/a")
+	WebElement lead_href;
 	
 	public List<String> leadInfoList = new ArrayList<String>();
 	
@@ -91,5 +103,23 @@ public class TXBORecentVisitorsPanel extends Page {
 		return ActionHelper.waitForElementToBeVisible(driver, note_icon, 30);
 	}
 	
+	public String smsActionDisabled() {
+		ActionHelper.waitForElementToBeVisible(driver, sms_icon, 30);
+		return ActionHelper.getAttribute(sms_icon,"disabled");
+	}
+	
+	public String emailActionDisabled() {
+		ActionHelper.waitForElementToBeVisible(driver, email_icon_button, 30);
+		return ActionHelper.getAttribute(email_icon_button,"disabled");
+	}
+	
+	public boolean isEmailVerified() {
+		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, verified_email_mark, 20, 10);
+	}
+	
+	public String clickFirstLead() {
+		ActionHelper.waitForElementToBeVisible(driver, lead_href, 30);
+		return ActionHelper.getAttribute(lead_href,"href");
+	}
 	
 }
