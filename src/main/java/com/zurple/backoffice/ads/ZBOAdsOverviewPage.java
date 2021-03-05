@@ -152,12 +152,15 @@ public class ZBOAdsOverviewPage extends Page{
 		 return isAdsDisplayed;
 	 }
 	 public boolean isListingAddressIsVisible() {
-		 boolean isAdsDisplayed = false;
+		 return !getListingAddressFirstRow().isEmpty();
+	 }
+	 public String getListingAddressFirstRow() {
+		 String l_listingAddress = "";
 		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, listing_address);
 		 if(elements_list.size()>0) {
-			 isAdsDisplayed = !ActionHelper.getText(driver, elements_list.get(0)).isEmpty();
+			 l_listingAddress = ActionHelper.getText(driver, elements_list.get(0));
 		 }
-		 return isAdsDisplayed;
+		 return l_listingAddress;
 	 }
 	 public boolean isStartEndDateVisible() {
 		 List<WebElement> starting_day_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day);
@@ -217,12 +220,15 @@ public class ZBOAdsOverviewPage extends Page{
 		 return isAdsDisplayed;
 	 }
 	 public boolean verifyAdLocationIsDisplayed() {
-		 boolean isAdsDisplayed = false;
+		 return !getAdLocation().isEmpty();
+	 }
+	 public String getAdLocation() {
+		 String l_adLocation = "";
 		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, location_xpath);
 		 if(elements_list.size()>0) {
-			 isAdsDisplayed = !ActionHelper.getText(driver, elements_list.get(0)).isEmpty();
+			 l_adLocation = ActionHelper.getText(driver, elements_list.get(0));
 		 }
-		 return isAdsDisplayed;
+		 return l_adLocation;
 	 }
 	 public boolean verifyAdRecurringDateIsDisplayed() {
 		 boolean isAdsDateIsDisplayed = false;

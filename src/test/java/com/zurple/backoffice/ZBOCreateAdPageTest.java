@@ -16,6 +16,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.zurple.backoffice.ads.ZBOAdsOverviewPage;
 import com.zurple.backoffice.ads.ZBOCreateAdPage;
 import com.zurple.my.PageTest;
 
@@ -36,7 +37,9 @@ public class ZBOCreateAdPageTest extends PageTest{
 	private String lAd_Type = "";
 	private String l_heading = "";
 	private String l_desc = "";
-
+	private String listing_Address = "";
+	private String lAd_budget = "";
+	private String lDefaultCity = "";
 	@Override
 	public AbstractPage getPage() {
 		if(page==null) {
@@ -473,6 +476,8 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isStep3of4IsEnabled(), "Step 3 of 4 is enabled..");
 		assertTrue(page.isStepCheckBoxIsChecked("3"), "Step 3 checkbox is not checked..");
 		assertTrue(page.verifyStep4IsVisible(), "Step 4 is not visible..");
+		assertTrue(page.isStep24BottomProgressBarIsChecked(), "Bottom progress bar is not checked for step 2 pf 4");
+		assertTrue(page.isStepCheckBoxIsChecked("Step 2:"), "Step 2 check box is not checked..");
 	}
 	
 	@Test
@@ -544,6 +549,76 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isTestingAdAlreadyChecked(), "Testing ad checkbox is not checked by default..");
 		assertTrue(page.clickOnTestingAdCheckBox(), "Unable to check testing ad checkbox..");
 	}
+	
+	//Quick ads test cases
+	@Test
+	public void testVerifyUserLandsToStep3WhenQuickAdIsSelected() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		assertTrue(page.clickOnQuickAdsSelectButton(), "Unable to click on select button");
+		assertTrue(page.verifyStep3Heading("Choose Audience & Reach"), "Unable to verify step3 heading..");
+		assertTrue(!page.getListingAddress().isEmpty(), "Listing address on step2 section 1 is not same as step 1");
+		assertTrue(!page.getAdHeadlineStep2().isEmpty(), "Ad Heading is not populated..");
+		assertTrue(!page.getAdDescStep2().isEmpty(), "Ad Heading is not populated..");
+		assertTrue(page.verifyUrlOnStep2Section2AfterClickingSelect(l_domain), "WebSite domain is not displayed..");
+		assertTrue(page.isStep1Checked(), "Step1 is not checked on Step 2..");	
+		assertTrue(page.isStepCheckBoxIsChecked("2"), "Step 2 checkbox is not checked..");
+	}
+	
+	@Test
+	public void testVerifyAdUrlChangesToStep3WhenQuickAdIsSelected() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		clickOnQuickAdsSelectAButton();
+		assertTrue(driver.getCurrentUrl().contains("step-three?listing="), "AD URL is not changed to Step 3..");
+	}
+	
+	@Test
+	public void testVerifySlideShowWorkingOnStep3WhenQuickAdIsSelected() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		clickOnQuickAdsSelectAButton();
+		assertTrue(page.verifyInstaPreviewSlideShowIsWorkingOnStep2(), "Instagram slide show is not working in ads preview..");
+		assertTrue(page.verifyFacebookPreviewSlideShowIsWorkingOnStep2(), "Facebbok slide show is not working in ads preview..");
+	}
+	
+	@Test
+	public void testCreateAndVerifyQuickAdsListingAddress() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		clickOnQuickAdsSelectAButton();
+		listing_Address = page.getListingAddressValue();
+		lDefaultCity = page.getDefaultCity();
+		lAd_budget = page.isMediumReachSelectedByDefault()?"$240":"";
+		clickOnNextStepPreCond();
+		clickOnTermsAndConditionCheckbox();
+		clickOnPausedAdCheckbox();
+		clickOnPlaceAdAButton();
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.getListingAddressFirstRow().contains(listing_Address), "Unable to verify listing address on ads overview page.."+"["+listing_Address+"]");	
+	}
+	
+	@Test
+	public void testCreateAndVerifyMultipleCitiesQuickAd() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		String lAddedCity = "San Diego, CA";
+		clickOnQuickAdsSelectAButton();
+		listing_Address = page.getListingAddressValue();
+		lDefaultCity = page.getDefaultCity();
+		lAd_budget = page.isMediumReachSelectedByDefault()?"$240":"";
+		assertTrue(page.typeAndSelectCity(lAddedCity), "Unable to select multiple cities on step 3");
+		clickOnNextStepPreCond();
+		clickOnTermsAndConditionCheckbox();
+		clickOnPausedAdCheckbox();
+		clickOnPlaceAdAButton();
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.getAdLocation().contains(lDefaultCity.split(",")[0]), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+		assertTrue(adsOverviewPage.getAdLocation().contains(lAddedCity.split(",")[0]), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+	}
+	
+	@Test
+	public void testCreateAndVerifyQuickAdsCity() throws ParseException {
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(lDefaultCity.contains(adsOverviewPage.getAdLocation()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+	}
+	
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {
 		if(!page.clickOnCustomAdButton()) {
@@ -566,6 +641,26 @@ public class ZBOCreateAdPageTest extends PageTest{
 	public void clickOnNextStepPreCond() {
 		if(!page.clickOnNextStepButton()) {
 			throw new SkipException("Skipping the test becasuse [Click on NEXT Step Button] pre-condition was failed.");
+		}
+	}
+	public void clickOnPlaceAdAButton() {
+		if(!page.clickOnPlaceAdButton()) {
+			throw new SkipException("Skipping the test becasuse [Click on Place Ad Button] pre-condition was failed.");
+		}
+	}
+	public void clickOnTermsAndConditionCheckbox() {
+		if(!page.clickOnTermsAndCond()) {
+			throw new SkipException("Skipping the test becasuse [Click on Terms and Condition checkbox] pre-condition was failed.");
+		}
+	}
+	public void clickOnPausedAdCheckbox() {
+		if(!page.clickOnTestingAdCheckBox()) {
+			throw new SkipException("Skipping the test becasuse [Click on Paused Ad checkbox] pre-condition was failed.");
+		}
+	}
+	public void clickOnQuickAdsSelectAButton() {
+		if(!page.clickOnQuickAdsSelectButton()) {
+			throw new SkipException("Skipping the test becasuse [Click on Quick Ad Button] pre-condition was failed.");
 		}
 	}
 	@Test

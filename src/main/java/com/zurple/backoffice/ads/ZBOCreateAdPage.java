@@ -105,6 +105,8 @@ public class ZBOCreateAdPage extends Page{
 	@FindBy(xpath="//div[@class='ad_outerbox']/descendant::i[@class='fa fa-play']")
 	WebElement quick_Ad_play_icon;
 	String quick_Ad_Slide_show_images = "//div[@class='ad_outerbox']/descendant::div[@class='slide-image']/img";
+	String list_of_select_buttons = "//section[@class='zurp_ads_cont']/descendant::a[text()='Select']";
+	String list_of_listing_address = "//section[@class='zurp_ads_cont']/descendant::p";
 	
 	//FB Ad Preview Step 2
 	@FindBy(xpath="//div[@id='facebook_ad_pewview']/descendant::span[@class='ad_preview_title']")
@@ -231,6 +233,7 @@ public class ZBOCreateAdPage extends Page{
 	
 	private ZBOSelectListingAlert selectListingAlert;
 	private ZBOGenericAlerts alert;
+	private String listing_address_value = "";
 	
 	public ZBOCreateAdPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -254,7 +257,12 @@ public class ZBOCreateAdPage extends Page{
 	public void setAlert() {
 		this.alert = new ZBOGenericAlerts(driver);
 	}
-
+	public String getListingAddressValue() {
+		return listing_address_value;
+	}
+	private void setListingAddressValue(String pValue) {
+		listing_address_value = pValue;
+	}
 	public boolean isCreateAdPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, createAd_heading, 30);
 	}
@@ -649,6 +657,20 @@ public class ZBOCreateAdPage extends Page{
 	 }
 	 public boolean clickOnTestingAdCheckBox() {
 		 return ActionHelper.checkUncheckInputBox(driver, testing_ad_checkbox, true);
+	 }
+	 public boolean clickOnQuickAdsSelectButton() {
+		 List<WebElement> list_select_button = ActionHelper.getListOfElementByXpath(driver, list_of_select_buttons);
+		 List<WebElement> list_of_Address = ActionHelper.getListOfElementByXpath(driver, list_of_listing_address);
+		 int index = generateRandomInt(list_select_button.size());
+		 setListingAddressValue(ActionHelper.getText(driver, list_of_Address.get(index)));
+		 return ActionHelper.Click(driver, list_select_button.get(index));
+	 }
+	 public String getAdHeadlineStep2() {
+		 return ActionHelper.getText(driver, ad_headline_caption);
+	 }
+	 public String getAdDescStep2() {
+		 String lgetDesc = ActionHelper.getText(driver, ad_description_caption);
+		 return lgetDesc;
 	 }
 	 private boolean verifyAdSlideShowIsWorkingOnStep2AdsPreview(String pSlideShowImagesPath, WebElement pPlayIcon) {
 		 ActionHelper.staticWait(5);

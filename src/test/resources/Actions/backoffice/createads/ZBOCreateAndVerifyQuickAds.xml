@@ -8,16 +8,13 @@
 		<listener class-name="resources.CustomTestNGReporter" />
 	</listeners>
 
-	<test name="Verify Custom ads on step 4">
+	<test name="Quicks Ads Ad creation">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
-				<methods>    
-					<include name="testVerifyUserLandsToStep4"/>
-					<include name="testAdDuration"/>
-					<include name="testVerifyTermsAndConditionDisplayed"/>
-					<include name="testVerifyUserCanEditAllStepsFromStep4"/>
-					<include name="testVerifyTestingAdChecboxIsChecked"/>
-					<include name="testVerifyTermsAndConditionLinkWorking"/>
+				<methods>
+					 <include name="testVerifyUserLandsToStep3WhenQuickAdIsSelected" />
+					<include name="testVerifyAdUrlChangesToStep3WhenQuickAdIsSelected" />
+					<include name="testVerifySlideShowWorkingOnStep3WhenQuickAdIsSelected" />
 				</methods>
 			</class>
 		</classes>
