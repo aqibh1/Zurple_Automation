@@ -14,7 +14,9 @@
 				<methods>
 					<include name="testCreateAndVerifyQuickAdsListingAddress" />
 					<include name="testCreateAndVerifyQuickAdsCity" />
+					<include name="testCreateAndVerifyQuickAdBudget" />
 					<include name="testCreateAndVerifyMultipleCitiesQuickAd" />
+					<include name="testCreateAndVerifyQuickAdDuration" />
 				</methods>
 			</class>
 		</classes>

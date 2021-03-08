@@ -3,10 +3,13 @@
  */
 package com.zurple.backoffice.ads;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -38,10 +41,15 @@ public class ZBOAdsOverviewPage extends Page{
 	
 	String listing_Ad_icon = "//table[@id='ads_overview_zurple']/descendant::i[@class='fa fa-home']";
 	
-	String first_row_ad_starting_ending_date = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']";
-	String first_row_ad_starting_day = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_date']";
-	String first_row_ad_starting_month = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_month']";
-	String first_row_ad_starting_year = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_yaer']";
+	String first_row_ad_starting_ending_date = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox'][1]";
+	String first_row_ad_starting_day = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_date'][1]";
+	String first_row_ad_starting_month = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_month'][1]";
+	String first_row_ad_starting_year = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_yaer'][1]";
+	
+	String first_row_ad_ending_date = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox'][2]";
+	String first_row_ad_ending_day = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_date'][2]";
+	String first_row_ad_ending_month = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_month'][2]";
+	String first_row_ad_ending_year = "//table[@id='ads_overview_zurple']/descendant::div[@class='datebox_cont'][1]/div[@class='ad_datebox']/span[@class='ad_yaer'][2]";
 
 	String adView_count = "//table[@id='ads_overview_zurple']/descendant::div[@title='Views']/span[@class='adviewcount']";
 	String adView_icon = "//table[@id='ads_overview_zurple']/descendant::div[@title='Views']/span[@class='adviewicon']";
@@ -219,6 +227,15 @@ public class ZBOAdsOverviewPage extends Page{
 		 }
 		 return isAdsDisplayed;
 	 }
+	 public boolean verifyAdPriceIsDisplayed(String pAdBudget) {
+		 boolean isAdsDisplayed = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, price_xpath);
+		 if(elements_list.size()>0) {
+			 String ad_price = ActionHelper.getText(driver, elements_list.get(0));
+			 isAdsDisplayed = ad_price.equalsIgnoreCase(pAdBudget+" Per Month");
+		 }
+		 return isAdsDisplayed;
+	 }
 	 public boolean verifyAdLocationIsDisplayed() {
 		 return !getAdLocation().isEmpty();
 	 }
@@ -274,5 +291,32 @@ public class ZBOAdsOverviewPage extends Page{
 			 }
 		 }
 		 return isSlideShowWorking; 
+	 }
+	 public boolean verifyStartingEndingDate() throws ParseException {
+		 String staring_day = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(0));
+		 String staring_month = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month).get(0));
+		 String staring_year = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year).get(0));
+
+		 String ending_day = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(1));
+		 String ending_month = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month).get(1));
+		 String ending_year = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year).get(1));
+
+		 String l_consolidatedStartingDate = getMonth(staring_month)+"/"+staring_day+"/"+staring_year;
+		 String l_consolidatedEndingDate = getMonth(ending_month)+"/"+ending_day+"/"+ending_year;
+		 
+		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		 Date startDate = (Date) sdf.parseObject(l_consolidatedStartingDate);
+		 Date endDate = (Date) sdf.parseObject(l_consolidatedEndingDate);
+	
+		 long diff = endDate.getTime() - startDate.getTime();
+		 long lDays = TimeUnit.MILLISECONDS.toDays(diff);//(diff / (1000*60*60*24));
+		 return lDays==30;	
+	 }
+	 private int getMonth(String pMonth) throws ParseException {
+		 Date date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(pMonth);
+		 Calendar cal = Calendar.getInstance();
+		 cal.setTime(date);
+		 int month = cal.get(Calendar.MONTH)+1;
+		 return month;
 	 }
 }

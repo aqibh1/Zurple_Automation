@@ -619,6 +619,17 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(lDefaultCity.contains(adsOverviewPage.getAdLocation()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
 	}
 	
+	@Test
+	public void testCreateAndVerifyQuickAdBudget() throws ParseException {
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.verifyAdPriceIsDisplayed(lAd_budget), "Unable to verify ad budget on ads overview page.."+"["+lAd_budget+"]");	
+	}
+	
+	@Test
+	public void testCreateAndVerifyQuickAdDuration() throws ParseException {
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.verifyStartingEndingDate(), "Unable to verify starting and ending date of the ad");	
+	}
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {
 		if(!page.clickOnCustomAdButton()) {
