@@ -257,36 +257,6 @@
 			</parameter>
 	</test>
 	
-	<test name="Verify status post on Twitter">	 
-	<parameter name="datafile" value="/resources/data/zurple/socialapi/post_twitter_status_data.json"> 
-			<classes>
-			<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeAPILogin" />
-					</methods>
-				</class>
-			<class name="com.zurple.rest.ZBORestPostStatusTest">
-					<methods>
-						<include name="testPostStatus" />
-					</methods>
-				</class>
-				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
-					<methods>
-						<include name="testGetPostHistory" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
-				
-			</classes>
-			</parameter>
-	</test>
-	
-	
-	
 	<test name="Verify listing post on Facebook">	 
 		<parameter name="datafile" value="/resources/data/zurple/socialapi/post_fb_listing_data.json"> 
 	
@@ -318,6 +288,62 @@
 				</class>
 			</classes>
 		</parameter>
+	</test>
+	
+	<test name="Verify listing video post on Facebook">	 
+		<parameter name="datafile" value="/resources/data/zurple/socialapi/post_fb_listing_video_data.json"> 
+	
+			<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeAPILogin" />
+					</methods>
+				</class>
+			<class name="com.zurple.rest.ZBORestPostPropertyInfoTest">
+					<methods>
+						<include name="testPostPropertyInfo" />
+			</methods>
+			</class>	
+			<class name="com.zurple.rest.ZBORestPostStatusTest">
+					<methods>
+						<include name="testPostStatus" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+			</parameter>
+	</test>
+	
+	<test name="Verify status post on Twitter">	 
+	<parameter name="datafile" value="/resources/data/zurple/socialapi/post_twitter_status_data.json"> 
+			<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeAPILogin" />
+					</methods>
+				</class>
+			<class name="com.zurple.rest.ZBORestPostStatusTest">
+					<methods>
+						<include name="testPostStatus" />
+					</methods>
+				</class>
+				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
+					<methods>
+						<include name="testGetPostHistory" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+				
+			</classes>
+			</parameter>
 	</test>
 	
 	<test name="Verify listing post on LinkedIn">	 
@@ -384,36 +410,6 @@
 				</class>
 			</classes>
 		</parameter>
-	</test>
-	
-	
-	
-	<test name="Verify listing video post on Facebook">	 
-		<parameter name="datafile" value="/resources/data/zurple/socialapi/post_fb_listing_video_data.json"> 
-	
-			<classes>
-			<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeAPILogin" />
-					</methods>
-				</class>
-			<class name="com.zurple.rest.ZBORestPostPropertyInfoTest">
-					<methods>
-						<include name="testPostPropertyInfo" />
-			</methods>
-			</class>	
-			<class name="com.zurple.rest.ZBORestPostStatusTest">
-					<methods>
-						<include name="testPostStatus" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
-			</classes>
-			</parameter>
 	</test>
 	
 	<test name="Verify listing video post on Youtube">	 
