@@ -157,9 +157,9 @@ public class TXBORecentVisitorsPanelTest extends PageTest {
 			if(isLogout) {
 				ActionHelper.openUrlInCurrentTab(driver, txWebsite+"/logout");
 			} 
-			ZWRegisterUserPage registerPage = new ZWRegisterUserPage(driver);
 			// Pre-condition
 			ActionHelper.openUrlInCurrentTab(driver, txWebsite+"/register");
+			ZWRegisterUserPage registerPage = new ZWRegisterUserPage(driver);
 			assertTrue(registerPage.isRegisterPage(),"Register page is not opened..");
 			assertTrue(registerPage.typeName(lName),"Unable to type name..");
 			assertTrue(registerPage.typeEmail(lEmail),"Unable to type email..");
