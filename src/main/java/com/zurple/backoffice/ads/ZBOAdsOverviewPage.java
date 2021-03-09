@@ -65,6 +65,7 @@ public class ZBOAdsOverviewPage extends Page{
 	
 	String play_icon_preview = "//table[@id='ads_overview_zurple']/descendant::div[@class='playicon_slide']/i";
 	String slide_show_image ="//table[@id='ads_overview_zurple']/descendant::div[@class='fb_ad_preview_slideshow']/descendant::div[@class='slide-image current']/img";
+	String first_row_status = "//table[@id='ads_overview_zurple']/descendant::td[@class='td_center' and contains(text(),'Paused')]";
 	
 	private ZBOHeadersBlock header;
 	
@@ -248,12 +249,16 @@ public class ZBOAdsOverviewPage extends Page{
 		 return l_adLocation;
 	 }
 	 public boolean verifyAdRecurringDateIsDisplayed() {
-		 boolean isAdsDateIsDisplayed = false;
+		 return !getRenewalDate().isEmpty();
+	 }
+	 
+	 private String getRenewalDate() {
+		 String l_renewalDATE = "";
 		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, adddate_xpath);
 		 if(elements_list.size()>0) {
-			 isAdsDateIsDisplayed = !ActionHelper.getText(driver, elements_list.get(0)).isEmpty();
+			 l_renewalDATE = ActionHelper.getText(driver, elements_list.get(0));
 		 }
-		 return isAdsDateIsDisplayed;
+		 return l_renewalDATE;
 	 }
 	 public boolean verifyAdStatusIsDisplayed() {
 		 boolean isAdsDateIsDisplayed = false;
@@ -293,16 +298,8 @@ public class ZBOAdsOverviewPage extends Page{
 		 return isSlideShowWorking; 
 	 }
 	 public boolean verifyStartingEndingDate() throws ParseException {
-		 String staring_day = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(0));
-		 String staring_month = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month).get(0));
-		 String staring_year = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year).get(0));
-
-		 String ending_day = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(1));
-		 String ending_month = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month).get(1));
-		 String ending_year = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year).get(1));
-
-		 String l_consolidatedStartingDate = getMonth(staring_month)+"/"+staring_day+"/"+staring_year;
-		 String l_consolidatedEndingDate = getMonth(ending_month)+"/"+ending_day+"/"+ending_year;
+		 String l_consolidatedStartingDate = getStartingEndingDate(true);
+		 String l_consolidatedEndingDate = getStartingEndingDate(false);
 		 
 		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		 Date startDate = (Date) sdf.parseObject(l_consolidatedStartingDate);
@@ -312,6 +309,33 @@ public class ZBOAdsOverviewPage extends Page{
 		 long lDays = TimeUnit.MILLISECONDS.toDays(diff);//(diff / (1000*60*60*24));
 		 return lDays==30;	
 	 }
+	 public boolean verifyRenewalDate() throws ParseException {
+		 String l_consolidatedStartingDate = getStartingEndingDate(true);
+		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		 Date renewalDate = (Date) sdf.parseObject(getRenewalDate());
+		 Date startDate = (Date) sdf.parseObject(l_consolidatedStartingDate);
+		 long diff = renewalDate.getTime() - startDate.getTime();
+		 long lDays = TimeUnit.MILLISECONDS.toDays(diff);//(diff / (1000*60*60*24));
+		 return lDays==31;
+	 }
+	 public String getAdStatus() {
+		 return ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_status).get(0));
+	 }
+	 public boolean verifyStartDate() throws ParseException {
+		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		 Date startDate = (Date) sdf.parseObject(getStartingEndingDate(true));
+		 Date todaysDate = (Date) sdf.parseObject(getTodaysDate());
+		 long diff = todaysDate.getTime() - startDate.getTime();
+		 long lDays = TimeUnit.MILLISECONDS.toDays(diff);//(diff / (1000*60*60*24));
+		 return lDays==0;
+	 }
+	 private String getStartingEndingDate(boolean pIsStarting) throws ParseException {
+		 String lDay = pIsStarting?ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(0)):ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(1));
+		 String lMonth = pIsStarting?ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month).get(0)):ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month).get(1));
+		 String lYear = pIsStarting?ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year).get(0)):ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year).get(1));
+		 String l_consolidatedStartingDate = getMonth(lMonth)+"/"+lDay+"/"+lYear;
+		 return l_consolidatedStartingDate;
+	 }
 	 private int getMonth(String pMonth) throws ParseException {
 		 Date date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(pMonth);
 		 Calendar cal = Calendar.getInstance();
@@ -319,4 +343,5 @@ public class ZBOAdsOverviewPage extends Page{
 		 int month = cal.get(Calendar.MONTH)+1;
 		 return month;
 	 }
+	
 }

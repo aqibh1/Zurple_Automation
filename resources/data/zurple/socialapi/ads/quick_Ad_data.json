@@ -1,0 +1,10 @@
+{
+	"status_code":"200",
+	"status_to_verify":"PAUSED",
+	"validation":[
+		{
+			"key":"ZBORestGetAdsInfoListTest",
+			"value":"VERIFY"
+		}
+	]
+}

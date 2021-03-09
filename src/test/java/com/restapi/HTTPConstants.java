@@ -7,5 +7,6 @@ public class HTTPConstants {
 	public static final String POST = "POST";
 	public static final String GET = "GET";
 	public static final String ContentLength = "Content-Length";
+	public static final String Authorization = "Authorization";
 
 }

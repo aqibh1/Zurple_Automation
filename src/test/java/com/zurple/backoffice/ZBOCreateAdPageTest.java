@@ -3,6 +3,7 @@
  */
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
@@ -22,6 +23,8 @@ import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
@@ -587,6 +590,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		listing_Address = page.getListingAddressValue();
 		lDefaultCity = page.getDefaultCity();
 		lAd_budget = page.isMediumReachSelectedByDefault()?"$240":"";
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAdId, driver.getCurrentUrl());
 		clickOnNextStepPreCond();
 		clickOnTermsAndConditionCheckbox();
 		clickOnPausedAdCheckbox();
@@ -629,6 +633,23 @@ public class ZBOCreateAdPageTest extends PageTest{
 	public void testCreateAndVerifyQuickAdDuration() throws ParseException {
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		assertTrue(adsOverviewPage.verifyStartingEndingDate(), "Unable to verify starting and ending date of the ad");	
+	}
+	
+	@Test
+	public void testCreateAndVerifyQuickAdRenewalDate() throws ParseException {
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.verifyRenewalDate(), "Unable to verify renewal date of quick ad");	
+	}
+	@Test
+	public void testCreateAndVerifyQuickAdStatus() throws ParseException {
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertEquals(adsOverviewPage.getAdStatus(),"Paused", "Unable to verify AD Status of quick ad");	
+	}
+	
+	@Test
+	public void testVerifyQuickAdStartDateIsCorrect() throws ParseException {
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.verifyStartDate(), "Start date is not correct...");	
 	}
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {

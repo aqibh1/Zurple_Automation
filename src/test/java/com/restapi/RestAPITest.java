@@ -30,7 +30,14 @@ public abstract class RestAPITest extends AbstractPageTest {
 		}
 		return restApiBaseUrl;
 	}
-
+	public String getSAPIUrl() {
+		String l_project = System.getProperty("project");
+		String sapi_url = "";
+		if(l_project.equalsIgnoreCase("zurple")) {
+			sapi_url = EnvironmentFactory.configReader.getPropertyByName("sapi_url");
+		}
+		return sapi_url;
+	}
 	@Override
 	public AbstractPage getPage() {
 		// TODO Auto-generated method stub
