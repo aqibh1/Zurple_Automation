@@ -14,7 +14,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.SkipException;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.zurple.backoffice.ads.ZBOAdsOverviewPage;
@@ -555,7 +554,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	
 	//Quick ads test cases
 	@Test
-	public void testVerifyUserLandsToStep3WhenQuickAdIsSelected() throws ParseException {
+	public void testVerifyUserLandsToStep3WhenQuickAdIsSelected(){
 		getPage("/create-ad/step-one",true);
 		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
 		assertTrue(page.clickOnQuickAdsSelectButton(), "Unable to click on select button");
@@ -569,7 +568,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testVerifyAdUrlChangesToStep3WhenQuickAdIsSelected() throws ParseException {
+	public void testVerifyAdUrlChangesToStep3WhenQuickAdIsSelected(){
 		getPage("/create-ad/step-one",true);
 		clickOnQuickAdsSelectAButton();
 		assertTrue(driver.getCurrentUrl().contains("step-three?listing="), "AD URL is not changed to Step 3..");
@@ -618,38 +617,108 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testCreateAndVerifyQuickAdsCity() throws ParseException {
+	public void testCreateAndVerifyQuickAdsCity() {
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		assertTrue(lDefaultCity.contains(adsOverviewPage.getAdLocation()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
 	}
 	
 	@Test
-	public void testCreateAndVerifyQuickAdBudget() throws ParseException {
+	public void testCreateAndVerifyQuickAdBudget(){
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		assertTrue(adsOverviewPage.verifyAdPriceIsDisplayed(lAd_budget), "Unable to verify ad budget on ads overview page.."+"["+lAd_budget+"]");	
 	}
 	
 	@Test
-	public void testCreateAndVerifyQuickAdDuration() throws ParseException {
+	public void testCreateAndVerifyQuickAdDuration(){
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		assertTrue(adsOverviewPage.verifyStartingEndingDate(), "Unable to verify starting and ending date of the ad");	
 	}
 	
 	@Test
-	public void testCreateAndVerifyQuickAdRenewalDate() throws ParseException {
+	public void testCreateAndVerifyQuickAdRenewalDate(){
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		assertTrue(adsOverviewPage.verifyRenewalDate(), "Unable to verify renewal date of quick ad");	
 	}
 	@Test
-	public void testCreateAndVerifyQuickAdStatus() throws ParseException {
+	public void testCreateAndVerifyQuickAdStatus()  {
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		assertEquals(adsOverviewPage.getAdStatus(),"Paused", "Unable to verify AD Status of quick ad");	
 	}
 	
 	@Test
-	public void testVerifyQuickAdStartDateIsCorrect() throws ParseException {
+	public void testCreateAndVerifyCustomAdsListingAddress(){
+		getPage("/create-ad/step-one",true);
+		clickOnCustomAdButtonAndSelectListing();
+		clickOnSelectButton();
+		listing_Address = page.getListingAddressValue();
+		lDefaultCity = page.getDefaultCity();
+		lAd_budget = page.selectPlan("$120")?"$120":"$240";
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAdId, driver.getCurrentUrl());
+		clickOnNextStepPreCond();
+		clickOnTermsAndConditionCheckbox();
+		clickOnPausedAdCheckbox();
+		clickOnPlaceAdAButton();
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.getListingAddressFirstRow().contains(listing_Address), "Unable to verify listing address on ads overview page.."+"["+listing_Address+"]");	
+	}
+	
+	@Test
+	public void testCreateAndVerifyMultipleCitiesCustomAd(){
+		getPage("/create-ad/step-one",true);
+		String lAddedCity = "San Diego, CA";
+		clickOnCustomAdButtonAndSelectListing();
+		clickOnSelectButton();
+		listing_Address = page.getListingAddressValue();
+		lDefaultCity = page.getDefaultCity();
+		lAd_budget = page.isMediumReachSelectedByDefault()?"$240":"";
+		assertTrue(page.typeAndSelectCity(lAddedCity), "Unable to select multiple cities on step 3");
+		clickOnNextStepPreCond();
+		clickOnTermsAndConditionCheckbox();
+		clickOnPausedAdCheckbox();
+		clickOnPlaceAdAButton();
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.getAdLocation().contains(lDefaultCity.split(",")[0]), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+		assertTrue(adsOverviewPage.getAdLocation().contains(lAddedCity.split(",")[0]), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+	}
+	
+	@Test
+	public void testCreateAndVerifyCustomAdsCity() {
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(lDefaultCity.contains(adsOverviewPage.getAdLocation()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+	}
+	
+	@Test
+	public void testCreateAndVerifyCustomAdBudget(){
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.verifyAdPriceIsDisplayed(lAd_budget), "Unable to verify ad budget on ads overview page.."+"["+lAd_budget+"]");	
+	}
+	
+	@Test
+	public void testCreateAndVerifyCustomAdDuration(){
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.verifyStartingEndingDate(), "Unable to verify starting and ending date of the ad");	
+	}
+	
+	@Test
+	public void testCreateAndVerifyCustomAdRenewalDate(){
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.verifyRenewalDate(), "Unable to verify renewal date of quick ad");	
+	}
+	@Test
+	public void testCreateAndVerifyCustomAdStatus()  {
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertEquals(adsOverviewPage.getAdStatus(),"Paused", "Unable to verify AD Status of quick ad");	
+	}
+	@Test
+	public void testVerifyQuickAdStartDateIsCorrect()  {
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		assertTrue(adsOverviewPage.verifyStartDate(), "Start date is not correct...");	
+	}
+	@Test
+	public void testVerifyUserIsRedirectedToAdsOverviewPage()  {
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.isAdsOverviewPage(), "Ads overview page is not opened after clicking on Place Ad button...");	
+		assertTrue(driver.getCurrentUrl().contains("/ads/overview"), "URL is not changed");
 	}
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {
@@ -695,9 +764,11 @@ public class ZBOCreateAdPageTest extends PageTest{
 			throw new SkipException("Skipping the test becasuse [Click on Quick Ad Button] pre-condition was failed.");
 		}
 	}
+	
+	/*
 	@Test
 	@Parameters({"dataFile"})
-	public void testCreateAd(String pDataFile) throws ParseException {
+	public void testCreateAd(String pDataFile)  {
 		dataObject = getDataFile(pDataFile);
 		lAd_Type = dataObject.optString("ad_type");
 
@@ -782,13 +853,13 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isSection3EditButtonEnabled(), "Section 3 edit button is not enabled ..");
 
 	}
-	private void createAdStep2Section4() throws ParseException {
+	private void createAdStep2Section4()  {
 		assertTrue(page.isSection4Visible(), "Section 4 heading is not visible  ..");
 		assertTrue(page.verifyStartEndAndRenewalDate(), "Unable to verify start, end and renewal date  ..");
 		assertTrue(page.clickOnTermsAndCond(), "Unable to click on terms and condition ..");
 		assertTrue(page.clickOnPlaceAdButton(), "Unable to click on Place Ad button ..");
 	}
-
+*/
 	@AfterTest
 	public void closeBrowser() {
 		closeCurrentBrowser();

@@ -21,6 +21,7 @@ import com.zurple.my.Page;
 
 import resources.blocks.zurple.ZBOHeadersBlock;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 /**
  * @author adar
@@ -297,23 +298,38 @@ public class ZBOAdsOverviewPage extends Page{
 		 }
 		 return isSlideShowWorking; 
 	 }
-	 public boolean verifyStartingEndingDate() throws ParseException {
+	 public boolean verifyStartingEndingDate(){
 		 String l_consolidatedStartingDate = getStartingEndingDate(true);
 		 String l_consolidatedEndingDate = getStartingEndingDate(false);
-		 
+
 		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		 Date startDate = (Date) sdf.parseObject(l_consolidatedStartingDate);
-		 Date endDate = (Date) sdf.parseObject(l_consolidatedEndingDate);
-	
+		 Date startDate = null;
+		 Date endDate = null;
+		 try {
+			 startDate = (Date) sdf.parseObject(l_consolidatedStartingDate);
+			 endDate = (Date) sdf.parseObject(l_consolidatedEndingDate);
+		 } catch (ParseException e) {
+			 // TODO Auto-generated catch block
+			 AutomationLogger.error("Error in date format");
+			 AutomationLogger.error(e.getLocalizedMessage());
+		 }
 		 long diff = endDate.getTime() - startDate.getTime();
 		 long lDays = TimeUnit.MILLISECONDS.toDays(diff);//(diff / (1000*60*60*24));
 		 return lDays==30;	
 	 }
-	 public boolean verifyRenewalDate() throws ParseException {
+	 public boolean verifyRenewalDate(){
 		 String l_consolidatedStartingDate = getStartingEndingDate(true);
 		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		 Date renewalDate = (Date) sdf.parseObject(getRenewalDate());
-		 Date startDate = (Date) sdf.parseObject(l_consolidatedStartingDate);
+		 Date renewalDate = null, startDate = null;
+		 try {
+			 renewalDate = (Date) sdf.parseObject(getRenewalDate());
+			 startDate = (Date) sdf.parseObject(l_consolidatedStartingDate);
+		 } catch (ParseException e) {
+			 // TODO Auto-generated catch block
+			 e.printStackTrace();
+		 }
+
+
 		 long diff = renewalDate.getTime() - startDate.getTime();
 		 long lDays = TimeUnit.MILLISECONDS.toDays(diff);//(diff / (1000*60*60*24));
 		 return lDays==31;
@@ -321,23 +337,37 @@ public class ZBOAdsOverviewPage extends Page{
 	 public String getAdStatus() {
 		 return ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_status).get(0));
 	 }
-	 public boolean verifyStartDate() throws ParseException {
+	 public boolean verifyStartDate(){
 		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		 Date startDate = (Date) sdf.parseObject(getStartingEndingDate(true));
-		 Date todaysDate = (Date) sdf.parseObject(getTodaysDate());
+		 Date startDate = null;
+		 Date todaysDate = null;
+		try {
+			startDate = (Date) sdf.parseObject(getStartingEndingDate(true));
+			todaysDate = (Date) sdf.parseObject(getTodaysDate());
+		} catch (ParseException e) {
+			AutomationLogger.error("Error in date format");
+			AutomationLogger.error(e.getLocalizedMessage());
+		}
+		 
 		 long diff = todaysDate.getTime() - startDate.getTime();
 		 long lDays = TimeUnit.MILLISECONDS.toDays(diff);//(diff / (1000*60*60*24));
 		 return lDays==0;
 	 }
-	 private String getStartingEndingDate(boolean pIsStarting) throws ParseException {
+	 private String getStartingEndingDate(boolean pIsStarting){
 		 String lDay = pIsStarting?ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(0)):ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(1));
 		 String lMonth = pIsStarting?ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month).get(0)):ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month).get(1));
 		 String lYear = pIsStarting?ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year).get(0)):ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year).get(1));
 		 String l_consolidatedStartingDate = getMonth(lMonth)+"/"+lDay+"/"+lYear;
 		 return l_consolidatedStartingDate;
 	 }
-	 private int getMonth(String pMonth) throws ParseException {
-		 Date date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(pMonth);
+	 private int getMonth(String pMonth){
+		 Date date = new Date();
+		 try {
+			 date = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(pMonth);
+		 } catch (ParseException e) {
+			AutomationLogger.error("Error in date format");
+			AutomationLogger.error(e.getLocalizedMessage());
+		 }
 		 Calendar cal = Calendar.getInstance();
 		 cal.setTime(date);
 		 int month = cal.get(Calendar.MONTH)+1;

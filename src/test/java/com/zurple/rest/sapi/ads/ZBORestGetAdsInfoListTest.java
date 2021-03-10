@@ -36,9 +36,7 @@ public class ZBORestGetAdsInfoListTest extends RestAPITest{
 		getDriver();
 		dataObject = getDataFile(pDataFile);
 		RestRequest request = new RestRequest();
-		//api/12828/ad/adId
-//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAdId, "https://my.stage01.zurple.com/create-ad/step-four?listing=34632746&ad=889");
-		
+		//api/12828/ad/adId	
 		String l_agent_id = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id");
 		String l_ad_id_str = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAdId).toString().split("ad=")[1];
 		l_ad_id = Integer.parseInt(l_ad_id_str);
@@ -84,6 +82,7 @@ public class ZBORestGetAdsInfoListTest extends RestAPITest{
 			if(jObject.optInt("sup_ad_id")==pAdId) {
 				if(jObject.optString("status").equalsIgnoreCase(pStatusToVerify)) {
 					isSuccess = true;
+					break;
 				}
 			}
 		}
