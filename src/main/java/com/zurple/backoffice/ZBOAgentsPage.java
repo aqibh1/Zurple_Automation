@@ -136,7 +136,8 @@ public class ZBOAgentsPage extends Page{
 				List<WebElement> list_of_elements_2 = ActionHelper.getListOfElementByXpath(driver, agents_lead_count_list);
 				int element_index = generateRandomInt(list_of_elements.size());
 				WebElement agent_web_element = list_of_elements.get(element_index);
-				WebElement agent_leads_count = list_of_elements_2.get(element_index);
+				//0 Index is lead Total lead count
+				WebElement agent_leads_count = list_of_elements_2.get(element_index+1);
 
 				lAgentName =ActionHelper.getText(driver, agent_web_element);
 				String lAgentUrl = ActionHelper.getAttribute(agent_web_element, "href");
