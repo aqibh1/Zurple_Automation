@@ -2815,6 +2815,26 @@
 	</parameter>
 	</test>	
 	
+		<test name="Verify Recent Visitors Panel is working" preserve-order="true">
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-track-search.json">
+		<parameter name="dataFile" value="/resources/data/torchx/recent-visitors-panel-data.json"> 
+		<classes>
+			<class name="com.torchx.TXBORecentVisitorsPanelTest">
+				<methods>
+			  		<include name="testVerifyRecentVisitorsPanelHeader" />
+					<include name="testVerifyRecentVisitorsPanelTooltip" />
+					<include name="testVerifyLeadFormat" />
+					<include name="testVerifyLeadVisitDate" />
+					<include name="testVerifyActionButtons" />
+					<include name="testVerifySMSActionButtonDisabled" />
+					<include name="testVerifyEmailDisabledWithInvalidEmail" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+		</parameter>
+	</test>
+	
 	
 	<!--  
  <test name="Manage agents page label">
