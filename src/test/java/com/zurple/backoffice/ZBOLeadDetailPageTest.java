@@ -564,6 +564,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage("/lead/"+lLeadId);
 //		getPage("/lead/3016673");
 		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
+		ActionHelper.ScrollDownByPixels(driver, "800");
 		assertTrue(page.verifyNoteAndTime(lComment_one), "Unable to verify note and time..");
 		assertTrue(page.verifyNoteAndTime(lComment_two), "Unable to verify note and time..");
 		assertTrue(page.isEmailVerified(), "Email address is not verified..");

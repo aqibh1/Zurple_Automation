@@ -809,6 +809,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyNoteAndTime(String pNoteToVerify) {
 		boolean isVerified = false;
 		boolean isNoteFound = false;
+		ActionHelper.staticWait(20);
 		int counter = 0;
 		List<WebElement> list_of_notes = ActionHelper.getListOfElementByXpath(driver, notes_Added_xpath);
 		for(int i =0;i<list_of_notes.size();i++) {
