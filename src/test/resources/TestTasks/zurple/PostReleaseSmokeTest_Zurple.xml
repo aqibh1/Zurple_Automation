@@ -2787,6 +2787,81 @@
 		</classes>
 	</test>
 	
+	<test name="Verify Custom ads on step 4">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>    
+					<include name="testVerifyUserLandsToStep4"/>
+					<include name="testAdDuration"/>
+					<include name="testVerifyTermsAndConditionDisplayed"/>
+					<include name="testVerifyUserCanEditAllStepsFromStep4"/>
+					<include name="testVerifyTestingAdChecboxIsChecked"/>
+					<include name="testVerifyTermsAndConditionLinkWorking"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Quicks Ads Ad creation">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>
+					 <include name="testVerifyUserLandsToStep3WhenQuickAdIsSelected" />
+					<include name="testVerifyAdUrlChangesToStep3WhenQuickAdIsSelected" />
+					<include name="testVerifySlideShowWorkingOnStep3WhenQuickAdIsSelected" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Create and Verify Quick ad from Ads Overview Page">
+	<parameter name="datafile" value="/resources/data/zurple/socialapi/ads/quick_Ad_data.json">
+		<classes>  
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>
+					<include name="testCreateAndVerifyQuickAdsListingAddress" />
+					<include name="testCreateAndVerifyQuickAdsCity" />
+					<include name="testCreateAndVerifyQuickAdBudget" />
+					<include name="testCreateAndVerifyQuickAdDuration" />
+					<include name="testCreateAndVerifyQuickAdRenewalDate" />
+					<include name="testCreateAndVerifyQuickAdStatus" />
+					<include name="testVerifyQuickAdStartDateIsCorrect" />
+					<include name="testCreateAndVerifyMultipleCitiesQuickAd" />
+				</methods>
+			</class>
+			<class name="com.zurple.rest.sapi.ads.ZBORestGetAdsInfoListTest">
+				<methods>
+					<include name="testGetAdInfoList" />
+				</methods>
+			</class>
+		</classes>
+	</parameter>
+	</test>
+	
+	<test name="Create and Verify Custom ad from Ads Overview Page">
+	<parameter name="datafile" value="/resources/data/zurple/socialapi/ads/custom_Ad_data.json">
+		<classes>  
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>
+					<include name="testCreateAndVerifyCustomAdsListingAddress" />
+					<include name="testVerifyUserIsRedirectedToAdsOverviewPage" />
+					<include name="testCreateAndVerifyCustomAdsCity" />
+					<include name="testCreateAndVerifyCustomAdBudget" />
+					<include name="testCreateAndVerifyCustomAdDuration" />
+					<include name="testCreateAndVerifyCustomAdRenewalDate" />
+					<include name="testCreateAndVerifyCustomAdStatus" />
+					<include name="testCreateAndVerifyMultipleCitiesCustomAd" />
+				</methods>
+			</class>
+			<class name="com.zurple.rest.sapi.ads.ZBORestGetAdsInfoListTest">
+				<methods>
+					<include name="testGetAdInfoList" />
+				</methods>
+			</class>
+		</classes>
+	</parameter>
+	</test>
+	
 	<test name="Verify V2 Site Settings And Website">	
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/v2-site-settings.json"> 
 			<classes>
