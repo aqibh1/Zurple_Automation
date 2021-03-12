@@ -150,7 +150,8 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 	}
 	@AfterTest
 	public void closeBrowser() {
-		driver.quit();
+		closeCurrentBrowser();
 	}
+
 
 }

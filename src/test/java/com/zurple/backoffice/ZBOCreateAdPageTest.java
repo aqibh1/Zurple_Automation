@@ -612,8 +612,8 @@ public class ZBOCreateAdPageTest extends PageTest{
 		clickOnPausedAdCheckbox();
 		clickOnPlaceAdAButton();
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.getAdLocation().contains(lDefaultCity.split(",")[0]), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
-		assertTrue(adsOverviewPage.getAdLocation().contains(lAddedCity.split(",")[0]), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+		assertTrue(adsOverviewPage.getAdLocation().contains(lDefaultCity.split(",")[0].trim()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity.split(",")[0]+"]");	
+		assertTrue(adsOverviewPage.getAdLocation().contains(lAddedCity.split(",")[0].trim()), "Unable to verify ad location on ads overview page.."+"["+lAddedCity.split(",")[0]+"]");	
 	}
 	
 	@Test
@@ -679,6 +679,16 @@ public class ZBOCreateAdPageTest extends PageTest{
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		assertTrue(adsOverviewPage.getAdLocation().contains(lDefaultCity.split(",")[0]), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
 		assertTrue(adsOverviewPage.getAdLocation().contains(lAddedCity.split(",")[0]), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+	}
+	
+	@Test
+	public void testVerifyPlaceAdButtonGetsDisabledAfterClick() throws ParseException {
+		getPage("/create-ad/step-one",true);
+		clickOnQuickAdsSelectAButton();
+		clickOnNextStepPreCond();
+		clickOnTermsAndConditionCheckbox();
+		clickOnPausedAdCheckbox();
+		assertTrue(page.clickOnPlaceAdButtonAndVerifyButtonGetsDisabled(), "Place ad button is not disabled after first click");	
 	}
 	
 	@Test
