@@ -1282,5 +1282,39 @@ public class ActionHelper {
 		   }
 		   return isSuccessfull;
 	   }
-	   
+	   public static boolean isElementEnabled(WebDriver pWebDriver,WebElement pElement) {
+			boolean isSuccessful =false;
+			try {
+				AutomationLogger.info("Checking if element is enabled"+pElement);
+				if(pElement.isEnabled()) {
+					isSuccessful=true;
+				}
+			}catch(Exception ex) {
+				AutomationLogger.error("Element is not visible -> "+pElement);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessful;
+		}
+	   public static boolean clickThroughJS(WebDriver pWebDriver,WebElement pElement) {
+		   boolean isSuccess = true;
+		   try {
+		   JavascriptExecutor executor = (JavascriptExecutor)pWebDriver;
+		   executor.executeScript("arguments[0].click();", pElement);
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Click failed through JS Executor "+pElement);
+			   isSuccess = false;
+		   }
+		   return isSuccess;
+	   }
+	   public static boolean sendSpecialKeys(WebElement pElement,Keys pKey) {
+		   boolean isSuccessfull=false;
+		   try {
+			   pElement.sendKeys(pKey);
+			   isSuccessfull=true;
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Unable to Click on "+pKey);
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return isSuccessfull;
+	   }
 }

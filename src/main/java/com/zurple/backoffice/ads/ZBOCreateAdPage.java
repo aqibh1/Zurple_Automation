@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -661,7 +662,12 @@ public class ZBOCreateAdPage extends Page{
 	 public boolean clickOnQuickAdsSelectButton() {
 		 List<WebElement> list_select_button = ActionHelper.getListOfElementByXpath(driver, list_of_select_buttons);
 		 List<WebElement> list_of_Address = ActionHelper.getListOfElementByXpath(driver, list_of_listing_address);
-		 int index = generateRandomInt(list_select_button.size());
+		 int index = 0;
+		 if(list_select_button.size()>3) {
+			 index =  generateRandomInt(3);
+		 }else {
+			 index = generateRandomInt(list_select_button.size());
+		 }
 		 setListingAddressValue(ActionHelper.getText(driver, list_of_Address.get(index)));
 		 return ActionHelper.Click(driver, list_select_button.get(index));
 	 }
@@ -672,6 +678,13 @@ public class ZBOCreateAdPage extends Page{
 		 String lgetDesc = ActionHelper.getText(driver, ad_description_caption);
 		 return lgetDesc;
 	 }
+	 public boolean clickOnPlaceAdButtonAndVerifyButtonGetsDisabled() {
+			boolean isDisabled = false;
+			if(ActionHelper.sendSpecialKeys(driver, Keys.ENTER)) {
+				isDisabled = ActionHelper.waitForElementToBeLocated(driver, "//button[@id='fb_placead_callout' and @disabled='disabled']", 10);
+			}
+			return isDisabled; 
+		}
 	 private boolean verifyAdSlideShowIsWorkingOnStep2AdsPreview(String pSlideShowImagesPath, WebElement pPlayIcon) {
 		 ActionHelper.staticWait(5);
 		 boolean isSlideShowWorking = false;
