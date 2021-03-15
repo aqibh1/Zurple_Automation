@@ -61,7 +61,21 @@ public abstract class RestAPITest extends AbstractPageTest {
 		}
 		return lValidationAction;
 	}
-	
+	public String getValidationActions(JSONObject pDataObject, String pClassName) {
+		String lValidationAction ="";
+		JSONArray jArray = pDataObject.getJSONArray("validation");
+		for(int i=0;i<jArray.length();i++) {
+			JSONObject jObject = jArray.getJSONObject(i);
+			if(jObject.getString("key").equalsIgnoreCase(pClassName)) {
+				if(lValidationAction.isEmpty()) {
+					lValidationAction = jObject.getString("value");
+				}else {
+					lValidationAction = lValidationAction+","+jObject.getString("value");
+				}		
+			}
+		}
+		return lValidationAction;
+	}
 	public String getDataFileContentJsonArray(String pDataFile) throws IOException {
         String data = ""; 
         data = new String(Files.readAllBytes(Paths.get(pDataFile))); 

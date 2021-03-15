@@ -17,4 +17,5 @@ public class RestValidationAction {
 	public static final Object FOUND = "FOUND";
 	public static final Object VERIFY = "VERIFY";
 	public static final Object VALIDATE = "VALIDATE";
+	public static final Object DUPLICATE = "DUPLICATE";
 }

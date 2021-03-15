@@ -56,17 +56,29 @@ public class ZBORestGetAdsInfoListTest extends RestAPITest{
 		boolean status = false;
 		JSONArray response_data_array = new JSONArray();
 		int statusCode = Integer.parseInt(dataObject.optString("status_code"));
-		String validationAction = getValidationAction(dataObject,this.getClass().getSimpleName());
+		String[] validationActions = getValidationActions(dataObject,this.getClass().getSimpleName()).split(",");
 		String ld_status_to_verify = dataObject.optString("status_to_verify");
-		
 		JSONObject lJsonResponse = httpCallResp.getJsonResponse();
 		AutomationLogger.info(lJsonResponse.toString());
 		if(httpCallResp.getStatus() == statusCode && statusCode == HttpStatus.SC_OK) {
-			if(validationAction.equals(RestValidationAction.VERIFY)) {
-				//String lc_post_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePostId);
-				status = lJsonResponse.optString("success").equalsIgnoreCase("1");
-				response_data_array = lJsonResponse.getJSONArray("data");
-				status = verifyAdStatus(response_data_array,l_ad_id, ld_status_to_verify);
+			for(String validationAction: validationActions) {
+				if(validationAction.equals(RestValidationAction.VERIFY)) {
+					status = lJsonResponse.optString("success").equalsIgnoreCase("1");
+					if(status) {
+						response_data_array = lJsonResponse.getJSONArray("data");
+						status = verifyAdStatus(response_data_array,l_ad_id, ld_status_to_verify);
+					}
+
+				}if(validationAction.equals(RestValidationAction.DUPLICATE)) {
+					status = lJsonResponse.optString("success").equalsIgnoreCase("1");
+					if(status) {
+						response_data_array = lJsonResponse.getJSONArray("data");
+						status = !verifyAdIsDuplicated(response_data_array,l_ad_id);
+					}
+				}
+				if(!status) {
+					break;
+				}
 			}
 		}
 		else {
@@ -74,6 +86,23 @@ public class ZBORestGetAdsInfoListTest extends RestAPITest{
 		}
 		return status;
 	}
+
+	private boolean verifyAdIsDuplicated(JSONArray pArray, int pAdId) {
+		boolean isSuccess = false;
+		int ad_count = 0;
+		for(int i=0;i<pArray.length();i++) {
+			JSONObject jObject = pArray.getJSONObject(i);
+			if(jObject.optInt("sup_ad_id")==pAdId) {
+				ad_count++;
+			}
+			if(ad_count>=2) {
+				isSuccess = true;
+				break;
+			}
+		}
+		return isSuccess;
+	}
+
 
 	public boolean verifyAdStatus(JSONArray pArray, int pAdId, String pStatusToVerify) {
 		boolean isSuccess = false;

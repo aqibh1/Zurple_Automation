@@ -5,6 +5,10 @@
 		{
 			"key":"ZBORestGetAdsInfoListTest",
 			"value":"VERIFY"
+		},
+		{
+			"key":"ZBORestGetAdsInfoListTest",
+			"value":"DUPLICATE"
 		}
 	]
 }
