@@ -286,14 +286,15 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		ActionHelper.switchToSecondWindow(driver);
 		assertTrue(leadDetailPage.verifyLeadPriorityRanking(ld_priorityToVerify), "Unable to verify lead priority ranking from lead details page");
 	}
-	private void applyFilter(String pFilterName, String pFilterValue) throws ParseException {
+
+	private void applyFilter(String pFilterName, String pFilterValue){
 		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
 		assertTrue(leadPage.clickAndSelectFilterName(pFilterName),"Unable to select the filter type "+pFilterName);
 		ActionHelper.staticWait(10);
 		assertTrue(leadPage.clickAndSelectFilterValue(pFilterValue),"Unable to select the filter value "+pFilterValue);
 		assertTrue(leadPage.clickOnSearchButton(),"Unable to click on search button..");
 	}
-	private void applyMultipleFilters(String pFilterName, String pFilterValue) throws ParseException {
+	private void applyMultipleFilters(String pFilterName, String pFilterValue){
 		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
 		String[] lFilterNameList = pFilterName.split(",");
 		String[] lFilterValueList = pFilterValue.split(",");

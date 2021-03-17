@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.SkipException;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -659,6 +660,31 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage("/lead/"+lLeadId);
 		assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subject [Quick Question] for Lead ID ["+lLeadId+"]..");
 	}
+
+	@Test
+	public void testVerifSendCMAReportButtonIsVisible() {
+		getPage("/leads/crm");
+		clickOnLeadNamePreCond();
+		assertTrue(page.verifySendCMAReportButtonIsVisible(), "Send CMA report button is not visible..");
+	}
+	
+	@Test
+	public void testClickOnCMAReportButtonIsWorking() {
+		getPage("/leads/crm");
+		clickOnLeadNamePreCond();
+		assertTrue(page.clickOnCMAReportButton(), "Send CMA report button is not working..");
+		ZBOSendCMAReportPage sendCMAReportPage = new ZBOSendCMAReportPage(driver);
+		assertTrue(sendCMAReportPage.isCMAReportHeadingVisible(), "CMA Report heading is not visible..");
+		assertTrue(driver.getCurrentUrl().contains("cma/email/lead"), "URL of CMA Report is not changed..");
+	}
+	private void clickOnLeadNamePreCond() {
+		ZBOLeadCRMPage leadcrmpage = new ZBOLeadCRMPage(driver);
+		if(!leadcrmpage.applyFilterAndSelectlead("By Date Created", "last 7 days")) {
+			throw new SkipException("Pre condition failed. Unabled to select lead..");
+		}
+		ActionHelper.switchToSecondWindow(driver);
+	}
+	
 	private void processAlertQueue() {	
 		if(!getIsProd()) {
 			//Process email queue

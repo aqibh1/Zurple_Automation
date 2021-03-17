@@ -300,4 +300,12 @@ public class ZBOLeadCRMPage extends Page{
 	public boolean clickOnAddFilterButton() {
 		return ActionHelper.Click(driver, add_filter_button);
 	}
+	public boolean applyFilterAndSelectlead(String pFilterName, String pFilterValue) {
+		boolean isSuccess = false;
+		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
+		if(leadPage.applyFilter(pFilterName, pFilterValue)) {
+			isSuccess = clickSearchedLeadName();
+		}
+		return isSuccess;
+	}
 }

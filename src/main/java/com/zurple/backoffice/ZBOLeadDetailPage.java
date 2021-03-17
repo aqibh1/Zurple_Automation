@@ -218,6 +218,9 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(xpath="//div[@class='lead-rank']/span[@class='rank']")
 	WebElement lead_priority_ranking;
 	
+	@FindBy(xpath="//a[text()='Send CMA Report']")
+	WebElement sendCMAReport_button;
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
 
@@ -1104,5 +1107,11 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean verifyLeadPriorityRanking(String pRanking) {
 		return ActionHelper.getText(driver, lead_priority_ranking).equalsIgnoreCase(pRanking);
+	}
+	public boolean verifySendCMAReportButtonIsVisible() {
+		return ActionHelper.isElementVisible(driver, sendCMAReport_button);
+	}
+	public boolean clickOnCMAReportButton() {
+		return ActionHelper.Click(driver, sendCMAReport_button);
 	}
 }

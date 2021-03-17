@@ -460,4 +460,16 @@ public class ZBOLeadPage extends Page{
 	public boolean clickAndSelectFilterValueMultiple(String pFilterValue, String pIndex) {
 		return ActionHelper.selectDropDownOption(driver, ActionHelper.getDynamicElement(driver, filter_child_dropdown_multiple, pIndex), "", pFilterValue);	
 	}
+	public boolean applyFilter(String pFilterName, String pFilterValue){
+		boolean isSuccessful = false;
+		if(clickAndSelectFilterName(pFilterName)){
+			ActionHelper.staticWait(10);
+			isSuccessful = clickAndSelectFilterValue(pFilterValue);
+			if(isSuccessful) {
+				isSuccessful = clickOnSearchButton();
+				ActionHelper.staticWait(10);
+			}
+		}
+		return isSuccessful;
+	}
 }
