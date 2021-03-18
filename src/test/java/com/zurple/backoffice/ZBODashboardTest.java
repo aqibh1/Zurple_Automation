@@ -52,8 +52,8 @@ public class ZBODashboardTest extends PageTest
     @Parameters({"registerUserDataFile"})
     public void testPhoneNumber(String pDataFile){
     	AutomationLogger.startTestCase("Verify lead phone number from dashboard");
-    	
-    	getPage("/dashboard");
+    	page=null;
+    	getPage();
     	dataObject = getDataFile(pDataFile);
     	String pNum = dataObject.optString(DataConstants.Phone);
     	
@@ -95,6 +95,7 @@ public class ZBODashboardTest extends PageTest
    
     @Test
     public void testIsNewLeadDisplayedOnDashboard() {
+    	page=null;
     	getPage();
     	String lc_leadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);;
     	assertTrue(page.isLeadDisplayed(lc_leadName), "Lead name is not displayed on the dashboard");
