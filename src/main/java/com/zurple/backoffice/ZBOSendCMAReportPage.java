@@ -44,6 +44,21 @@ public class ZBOSendCMAReportPage extends Page{
 	@FindBy(id="max_price")
 	WebElement max_price;
 	
+	//Active Property
+	@FindBy(xpath="//div[@class='panel-heading']/h3[text()='Active Listings']")
+	WebElement active_listing_heading;
+	@FindBy(id="name")
+	WebElement address_Active_leads;
+	@FindBy(xpath="//form[@id='active-listings-form']/descendant::select[@id='beds']")
+	WebElement al_beds;
+	@FindBy(xpath="//form[@id='active-listings-form']/descendant::select[@id='baths']")
+	WebElement al_baths;
+	//Sold Property
+	@FindBy(xpath="//div[@class='panel-heading']/h3[text()='Sold Properties']")
+	WebElement sold_properties_heading;
+	@FindBy(xpath="//form[@id='active-listings-form']/descendant::strong[text()='Address']/parent::label/input")
+	WebElement active_listing_address_checkbox;
+	
 	public ZBOSendCMAReportPage(WebDriver pWebdriver){
 		driver = pWebdriver;
 		PageFactory.initElements(driver, this);
@@ -82,5 +97,34 @@ public class ZBOSendCMAReportPage extends Page{
 	}
 	public boolean verifyPropertyHeadingIsVisible() {
 		return ActionHelper.isElementVisible(driver, property_heading);
+	}public boolean verifyActivePropertyHeadingIsVisible() {
+		return ActionHelper.isElementVisible(driver, active_listing_heading);
+	}public boolean verifySoldPropertyHeadingIsVisible() {
+		return ActionHelper.isElementVisible(driver, sold_properties_heading);
+	}
+	
+	public boolean verifyAddress(String pAddress) {
+		return ActionHelper.getValue(driver, address).contains(pAddress);
+	}public boolean verifyCity(String pCity) {
+		return ActionHelper.getValue(driver, city).contains(pCity);
+	}public boolean verifyState(String pState) {
+		return ActionHelper.getValue(driver, state).contains(pState);
+	}public boolean verifyZip(String pZip) {
+		return ActionHelper.getValue(driver, zip).contains(pZip);
+	}public boolean verifyBeds(String pBed) {
+		return ActionHelper.getValue(driver, beds).contains(pBed);
+	}public boolean verifyBaths(String pBaths) {
+		return ActionHelper.getValue(driver, baths).contains(pBaths);
+	}
+	
+	public String getActiveListingAddress() {
+		return ActionHelper.getValue(driver, address_Active_leads);
+	}
+	public String getActiveListingBeds() {
+		return ActionHelper.getSelectedOption(driver, al_beds, "//form[@id='active-listings-form']/descendant::select[@id='beds']/option");
+	}public String getActiveListingBaths() {
+		return ActionHelper.getSelectedOption(driver, al_baths, "//form[@id='active-listings-form']/descendant::select[@id='baths']/option");
+	}public boolean isALAddressCheckboxChecked() {
+		return ActionHelper.isElementSelected(driver, active_listing_address_checkbox);
 	}
 }

@@ -47,13 +47,16 @@
 				</class>
 			</classes>
 	</test>-->
-	<test name="Verify Property Section on CMA Report page">
+	<test name="Verify Send CMA Report page">
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/cma-lead-data.json">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOSendReportPageTest">
 					<methods>
 						<include name="testVerifyLeadNameIsDisplayedOnCMAReportPage" />
 						<include name="testVerifyAllFieldsAreDisplayedInPropertySection" />
+						<include name="testVerifyPropertyHeadingIsDisplayedOnCMAReportPage" />
+						<include name="testVerifyActiveListingHeadingIsDisplayedOnCMAReportPage" />
+						<include name="testVerifySoldListingHeadingIsDisplayedOnCMAReportPage" />
 					</methods>
 				</class>
 			</classes>

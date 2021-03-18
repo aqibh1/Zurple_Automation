@@ -81,7 +81,25 @@ public class ZBOAddLeadPageTest extends PageTest{
 		if(!dataObject.optString("zip_criteria").isEmpty()) {
 			assertTrue(page.selectZip (dataObject.optString("zip_criteria")), "Unable to select city");
 		}
-		
+		//Seller Info
+		if(!dataObject.optString("seller_street").isEmpty()) {
+			assertTrue(page.typeSellerStreet (dataObject.optString("seller_street")), "Unable to select city");
+		}
+		if(!dataObject.optString("seller_city").isEmpty()) {
+			assertTrue(page.typeCity (dataObject.optString("seller_city")), "Unable to select city");
+		}
+		if(!dataObject.optString("seller_state").isEmpty()) {
+			assertTrue(page.typeState (dataObject.optString("seller_state")), "Unable to select city");
+		}
+		if(!dataObject.optString("seller_zip").isEmpty()) {
+			assertTrue(page.typeZip (dataObject.optString("seller_zip")), "Unable to select city");
+		}
+		if(!dataObject.optString("seller_beds").isEmpty()) {
+			assertTrue(page.selectBed (dataObject.optString("seller_beds")), "Unable to select city");
+		}
+		if(!dataObject.optString("seller_baths").isEmpty()) {
+			assertTrue(page.selectBath(dataObject.optString("seller_baths")), "Unable to select city");
+		}
 		if(!getIsProd()) {
 			lLeadEmail = lLeadEmail.replace("@", "_ZurpleQA@");
 		}
