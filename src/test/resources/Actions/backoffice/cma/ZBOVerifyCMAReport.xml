@@ -7,8 +7,8 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
- <!--  
- 	<test name="Verify Send CMA Report button is visible">	
+ 
+ 	<test name="Verify Send CMA Report button is visible on lead details page">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -28,7 +28,7 @@
 			</classes>
 	</test>
 	
-	<test name="Verify Send CMA Report button is visible">	
+	<test name="Verify Send CMA Report button is working on lead details page">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -46,7 +46,7 @@
 					</methods>
 				</class>
 			</classes>
-	</test>-->
+	</test>
 	<test name="Verify Send CMA Report page">
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/cma-lead-data.json">	
 			<classes>

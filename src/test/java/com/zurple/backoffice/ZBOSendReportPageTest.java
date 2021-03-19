@@ -19,6 +19,7 @@ import com.zurple.my.PageTest;
 import resources.AbstractPage;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 
 /**
  * @author darrraqi
@@ -166,6 +167,44 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertEquals(page.getActiveListingBeds(),l_beds, "Unable to verify the active listings beds count");
 		assertEquals(page.getActiveListingBaths(),l_baths, "Unable to verify the active listing baths count");
 	}
+	
+	//40320
+	@Test
+	@Parameters({"dataFile1"})
+	public void testVerifyLeadCityIsPopulatedInActiveListingSection(String pDataFile) {
+		//Pre Condition
+		addLead(pDataFile);
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		String l_defaultCity = "San Diego";
+		assertTrue(page.isALCityCheckboxChecked(), "City checkbox is not checked..");
+		assertTrue(page.getActiveListingAddress().contains(l_defaultCity), "Unable to verify the City");
+	}
+	
+	//40315
+	@Test
+	@Parameters({"dataFile1"})
+	public void testVerifyAddressValidationIsWorking(String pDataFile) {
+		//Pre Condition
+		addLead(pDataFile);
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+//		getPage("/cma/email/lead/3022010",true);
+		dataObject = getDataFile(pDataFile);
+		assertTrue(page.typeMinPrice("10000"), "Unable to type minimum price..");
+		assertTrue(page.typeMaxPrice("90000"), "Unable to type minimum price..");
+		ActionHelper.staticWait(5);
+		addActiveAndSoldListings();
+		clickOnSubmitFormButton();
+		assertTrue(page.isAddressAlertVisible(), "Unable to verify the City");
+		assertTrue(page.isStateAlertVisible(), "Unable to verify the City");
+		assertTrue(page.isZipAlertVisible(), "Unable to verify the City");
+		assertTrue(page.isCityAlertVisible(), "Unable to verify the City");
+	}
+	
 	//Pre Condition
 	private void addLead(String pDataFile) {
 		try {
@@ -175,6 +214,18 @@ public class ZBOSendReportPageTest extends PageTest{
 			throw new SkipException("PreCondition failed. Unable to add lead..");
 		}
 	}
+	private void addActiveAndSoldListings() {
+		if(!page.clickAddButtonFor3ActiveListing() || !page.clickAddButtonFor3SoldListing()) {
+			throw new SkipException("PreCondition failed. Unable to add active and sold listings..");
+		}
+	}
+	private void clickOnSubmitFormButton() {
+		if(!page.clickOnSubmitButton()){
+			throw new SkipException("PreCondition failed. Unable to click on Submit Form button..");
+
+		}
+	}
+	
 	@AfterTest
 	public void closeBrowser() {
 		closeCurrentBrowser();
