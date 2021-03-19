@@ -69,7 +69,9 @@ public class ZWRegisterUserPage extends Page{
 	public boolean isRequestSubmittedSuccessfully() {
 		return ActionHelper.waitForElementToBeVisible(driver, thankyouForSubmittingYourRequest, 60);
 	}
-	
+	public boolean isPhoneInputDisplayed() {
+		return ActionHelper.isElementVisible(driver, phone);
+	}
 	@Override
 	public WebElement getHeader() {
 		// TODO Auto-generated method stub
