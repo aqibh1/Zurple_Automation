@@ -204,6 +204,24 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.isZipAlertVisible(), "Unable to verify the City");
 		assertTrue(page.isCityAlertVisible(), "Unable to verify the City");
 	}
+	//40316
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPriceValidationIsWorking(String pDataFile) {
+		//Pre Condition
+		addLead(pDataFile);
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+//		getPage("/cma/email/lead/3022010",true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(5);
+		addActiveAndSoldListings();
+		clickOnSubmitFormButton();
+		assertTrue(page.isMaxPriceAlertVisible(), "Maximum price alert is not visible..");
+		assertTrue(page.isMinPriceAlertVisible(), "Minimum price alert is not visible..");
+	}
+	
 	
 	//Pre Condition
 	private void addLead(String pDataFile) {

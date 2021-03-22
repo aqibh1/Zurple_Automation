@@ -76,6 +76,10 @@ public class ZBOSendCMAReportPage extends Page{
 	WebElement lead_zip_code_alert;
 	@FindBy(xpath="//div[@role='alert']/strong[text()='Please enter Leads City']")
 	WebElement lead_city_alert;
+	@FindBy(xpath="//div[@role='alert']/strong[text()='Please enter Minimum Estimated Price']")
+	WebElement min_price_alert;
+	@FindBy(xpath="//div[@role='alert']/strong[text()='Please enter Maximum Estimated Price']")
+	WebElement maximum_price_alert;
 	
 	public ZBOSendCMAReportPage(WebDriver pWebdriver){
 		driver = pWebdriver;
@@ -176,11 +180,23 @@ public class ZBOSendCMAReportPage extends Page{
 		return ActionHelper.isElementVisible(driver, lead_zip_code_alert);
 	}public boolean isCityAlertVisible() {
 		return ActionHelper.isElementVisible(driver, lead_city_alert);
+	}public boolean isMaxPriceAlertVisible() {
+		return ActionHelper.isElementVisible(driver, maximum_price_alert);
+	}public boolean isMinPriceAlertVisible() {
+		return ActionHelper.isElementVisible(driver, min_price_alert);
 	}
 	
 	public boolean typeMinPrice(String pPrice) {
 		return ActionHelper.Type(driver, min_price, pPrice);
 	}public boolean typeMaxPrice(String pPrice) {
 		return ActionHelper.Type(driver, max_price, pPrice);
+	}public boolean typeAddressInput(String pStringToType) {
+		return ActionHelper.Type(driver, address, pStringToType);
+	}public boolean typeCityInput(String pStringToType) {
+		return ActionHelper.Type(driver, city, pStringToType);
+	}public boolean typeStateInput(String pStringToType) {
+		return ActionHelper.Type(driver, state, pStringToType);
+	}public boolean typeZipInput(String pStringToType) {
+		return ActionHelper.Type(driver, zip, pStringToType);
 	}
 }
