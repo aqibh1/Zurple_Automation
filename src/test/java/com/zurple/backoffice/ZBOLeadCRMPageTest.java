@@ -180,8 +180,10 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		String lead_name_id = page.getLeadName();
 		String lead_Email_phone = page.getEmail();
 		String l_leadName = lead_name_id.split(",")[0].trim();
-		String l_leadId = lead_name_id.split(",")[1].trim();
-		String l_lead_email = lead_Email_phone.contains("|")?lead_Email_phone.split(" ")[0]:lead_Email_phone.trim();
+//		String crm_lead_id = getIsProd()?dataObject.optString("lead_id"):dataObject.optString("lead_id_stage");
+//		String l_leadId = crm_lead_id;
+		 String l_leadId = lead_name_id.split(",")[1].trim();
+		 String l_lead_email = lead_Email_phone.contains("|")?lead_Email_phone.split(" ")[0]:lead_Email_phone.trim();
 		String l_lead_phone = lead_Email_phone.contains("|")?lead_Email_phone.split(" ")[2]:"";
 		
 		AutomationLogger.info("Lead ID::"+l_leadId);
@@ -201,6 +203,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		ActionHelper.staticWait(10);
 		String l_subject = page.getSendEmailForm().getSubject();
 		assertTrue(page.getSendEmailForm().clickOnSendEmailButton(), "Unable to click on send button....");
+		ActionHelper.staticWait(10);
 //		testVerifyEmailInMyMessages(l_leadId, l_subject);
 //		assertTrue(mailinatorObj.verifyEmail(l_lead_email.split("@")[0], l_subject, 15), "Unable to verify reminder email");
 //		ActionHelper.RefreshPage(driver);
@@ -229,18 +232,20 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		dataObject = getDataFile(CacheFilePathsConstants.CRMEmailCache);
 		Mailinator mailinatorObj = new Mailinator(driver);
 		
+		// String crm_lead_id = getIsProd()?dataObject.optString("lead_id"):dataObject.optString("lead_id_stage");
 		String ld_lead_id = dataObject.optString("lead_id");
 		String ld_email_subject = dataObject.optString("email_subject");
 		String ld_lead_email = dataObject.optString("lead_email");
 		String ld_lead_name = dataObject.optString("lead_name");
 		
 		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
-		
+		testVerifyEmailInMyMessages(ld_lead_id, ld_email_subject);
+		page=null;
+		getPage("/leads/crm");
 		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
 		assertTrue(leadCRMPage.searchLead(ld_lead_name), "Unable to search lead");
 		assertTrue(leadCRMPage.verifyMassEmailCount(), "Unable to verify mass email count..");
 		
-		testVerifyEmailInMyMessages(ld_lead_id, ld_email_subject);
 		assertTrue(mailinatorObj.verifyEmail(ld_lead_email.split("@")[0], ld_email_subject, 5), "Unable to verify email\n Lead ID::"+ld_lead_id+"\n Email Subject::"+ld_email_subject+"\n Lead Email::"+ld_lead_email);;
 	}
 	@Test
