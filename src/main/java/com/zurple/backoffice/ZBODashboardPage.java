@@ -105,9 +105,10 @@ public class ZBODashboardPage extends Page{
 	
 	public boolean verifyPhoneAlert() {
 		boolean isVerified = false;
-		
+		ActionHelper.switchToOriginalWindow(driver);
 		ActionHelper.resizeWindow(driver, 444, 562);
 		ActionHelper.RefreshPage(driver);
+		ActionHelper.switchToOriginalWindow(driver);
 		ActionHelper.Click(driver, phoneNumber);
 
 		isVerified = ActionHelper.sendSpecialKeys(driver,Keys.ESCAPE);
