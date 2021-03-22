@@ -148,7 +148,7 @@ public class ZWRegisterUserPageTest extends PageTest{
 		assertTrue(page.isRegisterPage(),"Register page is not opened..");
 		assertTrue(page.typeName(pName),"Unable to type name..");
 		assertTrue(page.typeEmail(pEmail),"Unable to type email..");
-		if(!lDataObject.optString("phone").isEmpty()) {
+		if(!lDataObject.optString("phone").isEmpty() && page.isPhoneInputDisplayed()) {
 			assertTrue(page.typePhone(lDataObject.optString("phone")),"Unable to type phone..");
 		}
 		assertTrue(page.isTermsAndCondCheckboxChecked(),"Terms and conditions checkbox is not checked..");

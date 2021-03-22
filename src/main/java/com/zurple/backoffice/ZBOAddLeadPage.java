@@ -147,7 +147,7 @@ public class ZBOAddLeadPage extends Page{
 		return ActionHelper.ClearAndType(driver, cell, pCell);
 	}
 	public boolean typeSellerStreet(String pStreet) {
-		return ActionHelper.ClearAndType(driver, cell, pStreet);
+		return ActionHelper.ClearAndType(driver, seller_street, pStreet);
 	}
 	public boolean typeCity(String pCity) {
 		return ActionHelper.ClearAndType(driver, seller_city, pCity);
