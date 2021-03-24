@@ -677,6 +677,18 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(sendCMAReportPage.isCMAReportHeadingVisible(), "CMA Report heading is not visible..");
 		assertTrue(driver.getCurrentUrl().contains("cma/email/lead"), "URL of CMA Report is not changed..");
 	}
+	
+	//39970
+	@Test
+	public void testVerifyCMAReportIsDisabledForInvalidLead() {
+		//Pre Condition
+		selectInvalidLead("By Email Verification","Invalid Emails");
+		ActionHelper.staticWait(5);
+		ActionHelper.switchToSecondWindow(driver);
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(leadDetailPage.isSendCMAReportButtonDisabled(), "Send CMA Report button is not disabled..");
+	}
+	
 	private void clickOnLeadNamePreCond() {
 		ZBOLeadCRMPage leadcrmpage = new ZBOLeadCRMPage(driver);
 		if(!leadcrmpage.applyFilterAndSelectlead("By Date Created", "last 7 days")) {
@@ -684,7 +696,20 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		}
 		ActionHelper.switchToSecondWindow(driver);
 	}
-	
+	//PreCondition
+	private void selectInvalidLead(String pFilterName, String pFilterValue) {
+		try {
+			ZBOLeadCRMPageTest addleadpagetest = new ZBOLeadCRMPageTest();
+			addleadpagetest.getPage("/leads/crm");
+			addleadpagetest.applyFilter(pFilterName, pFilterValue);
+			driver = getDriver();
+			ActionHelper.staticWait(15);
+			ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+			leadCRMPage.clickSearchedLeadName();
+		}catch(Exception ex) {
+			throw new SkipException("PreCondition failed. Unable to add lead..");
+		}
+	}
 	private void processAlertQueue() {	
 		if(!getIsProd()) {
 			//Process email queue

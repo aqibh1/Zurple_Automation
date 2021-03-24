@@ -204,6 +204,60 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.isZipAlertVisible(), "Unable to verify the City");
 		assertTrue(page.isCityAlertVisible(), "Unable to verify the City");
 	}
+	//40316
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPriceValidationIsWorking(String pDataFile) {
+		//Pre Condition
+		addLead(pDataFile);
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+//		getPage("/cma/email/lead/3022010",true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(5);
+		addActiveAndSoldListings();
+		clickOnSubmitFormButton();
+		assertTrue(page.isMaxPriceAlertVisible(), "Maximum price alert is not visible..");
+		assertTrue(page.isMinPriceAlertVisible(), "Minimum price alert is not visible..");
+	}
+
+	//C40326
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyErrorAlertIsDisplayedWhenActiveListingIsNotSelected(String pDataFile) {
+		//Pre Condition
+		addLead(pDataFile);
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(5);
+		addSoldListings();
+		clickOnSubmitFormButton();
+		assertTrue(page.verifyActiveListingAlert(), "Active Listing Alert not visible..");
+		assertTrue(page.isActiveListingSpanTurnsRed(), "Active Listing Span border doesn't turns red..");
+		assertTrue(page.isSelectedListingsTurnsRed(), "Selected Listing heading doesn't turns red..");
+		
+	}
+	
+	@Test //C40346
+	@Parameters({"dataFile"})
+	public void testVerifyErrorAlertIsDisplayedWhenSoldListingIsNotSelected(String pDataFile) {
+		//Pre Condition
+		addLead(pDataFile);
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(5);
+		addActiveListings();
+		clickOnSubmitFormButton();
+		assertTrue(page.verifySoldListingAlert(), "Sold Listing Alert not visible..");
+		assertTrue(page.isSoldListingSpanTurnsRed(), "Sold Listing Span border doesn't turns red..");
+		assertTrue(page.isSoldListingsTurnsRed(), "Sold Selected Listing heading doesn't turns red..");
+
+	}
 	
 	//Pre Condition
 	private void addLead(String pDataFile) {
@@ -217,6 +271,14 @@ public class ZBOSendReportPageTest extends PageTest{
 	private void addActiveAndSoldListings() {
 		if(!page.clickAddButtonFor3ActiveListing() || !page.clickAddButtonFor3SoldListing()) {
 			throw new SkipException("PreCondition failed. Unable to add active and sold listings..");
+		}
+	}private void addSoldListings() {
+		if(!page.clickAddButtonFor3SoldListing()) {
+			throw new SkipException("PreCondition failed. Unable to add sold listings..");
+		}
+	}private void addActiveListings() {
+		if(!page.clickAddButtonFor3ActiveListing()) {
+			throw new SkipException("PreCondition failed. Unable to add active listings..");
 		}
 	}
 	private void clickOnSubmitFormButton() {

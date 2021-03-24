@@ -293,7 +293,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(leadDetailPage.verifyLeadPriorityRanking(ld_priorityToVerify), "Unable to verify lead priority ranking from lead details page");
 	}
 
-	private void applyFilter(String pFilterName, String pFilterValue){
+	public void applyFilter(String pFilterName, String pFilterValue){
 		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
 		assertTrue(leadPage.clickAndSelectFilterName(pFilterName),"Unable to select the filter type "+pFilterName);
 		ActionHelper.staticWait(10);

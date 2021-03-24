@@ -1317,4 +1317,12 @@ public class ActionHelper {
 		   }
 		   return isSuccessfull;
 	   }
+	   //This function return the CSS property value
+	   public static String getCssValueOfTheElement(WebDriver pWebDriver, WebElement pElement, String pPropName) {
+		   String pAttributeValue = "";
+		   if(isElementVisible(pWebDriver, pElement)) {
+			   pAttributeValue = pElement.getCssValue(pPropName).trim();
+		   }
+		   return pAttributeValue;
+	   }
 }
