@@ -14,9 +14,12 @@
 		<parameter name="dataFile1" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-for-cma-city.json">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOSendReportPageTest">
-					<methods>
+					<methods> 
 						<include name="testVerifyAddressValidationIsWorking" />
 						<include name="testVerifyPriceValidationIsWorking" />
+						<include name="testVerifyErrorAlertIsDisplayedWhenActiveListingIsNotSelected" />
+						<include name="testVerifyErrorAlertIsDisplayedWhenSoldListingIsNotSelected" />
+						
 					</methods>
 				</class>
 			</classes>

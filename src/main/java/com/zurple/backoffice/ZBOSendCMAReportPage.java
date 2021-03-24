@@ -12,6 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.alerts.zurple.backoffice.ZBOGenericAlerts;
 import resources.utility.ActionHelper;
 
 /**
@@ -58,6 +59,14 @@ public class ZBOSendCMAReportPage extends Page{
 	@FindBy(xpath="//form[@id='active-listings-form']/descendant::strong[text()='City']/parent::label/input")
 	WebElement active_listing_city_checkbox;
 	String add_button_active_listings = "//table[@id='propertiesGrid']/descendant::span[@class='not-added-property']";
+	@FindBy(xpath="//form[@id='active-listings-form']/descendant::span[@class='select2-selection select2-selection--multiple']")
+	WebElement active_listing_selected_span;
+	@FindBy(xpath="//strong[@style='color: rgb(169, 68, 66);' and contains(text(),'Selected Listings')]")
+	WebElement selected_listing_red;
+	@FindBy(xpath="//form[@id='sold-listings-form']/descendant::span[@class='select2-selection select2-selection--multiple']")
+	WebElement sold_listing_selected_span;
+	@FindBy(xpath="//strong[@style='color: rgb(169, 68, 66);' and contains(text(),'Selected Properties')]")
+	WebElement sold_selected_listing_red;
 	
 	//Sold Property
 	@FindBy(xpath="//div[@class='panel-heading']/h3[text()='Sold Properties']")
@@ -81,8 +90,12 @@ public class ZBOSendCMAReportPage extends Page{
 	@FindBy(xpath="//div[@role='alert']/strong[text()='Please enter Maximum Estimated Price']")
 	WebElement maximum_price_alert;
 	
+	//Alerts Class
+	private ZBOGenericAlerts genericAlerts;
+	
 	public ZBOSendCMAReportPage(WebDriver pWebdriver){
 		driver = pWebdriver;
+		genericAlerts = new ZBOGenericAlerts(driver);
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -198,5 +211,33 @@ public class ZBOSendCMAReportPage extends Page{
 		return ActionHelper.Type(driver, state, pStringToType);
 	}public boolean typeZipInput(String pStringToType) {
 		return ActionHelper.Type(driver, zip, pStringToType);
+	}
+	
+	public boolean isActiveListingSpanTurnsRed() {
+		return ActionHelper.getCssValueOfTheElement(driver, active_listing_selected_span, "border-color").equalsIgnoreCase("rgb(169, 68, 66)");
+	}
+	public boolean isSelectedListingsTurnsRed() {
+		return ActionHelper.isElementVisible(driver, selected_listing_red);
+	}
+	public boolean verifyActiveListingAlert() {
+		boolean isVerified = false;
+		if(genericAlerts.isActiveListingAlertVisible() && genericAlerts.clickOnOkButton()) {
+			isVerified = true;
+		}
+		return isVerified;
+	}
+	
+	public boolean isSoldListingSpanTurnsRed() {
+		return ActionHelper.getCssValueOfTheElement(driver, sold_listing_selected_span, "border-color").equalsIgnoreCase("rgb(169, 68, 66)");
+	}
+	public boolean isSoldListingsTurnsRed() {
+		return ActionHelper.isElementVisible(driver, sold_selected_listing_red);
+	}
+	public boolean verifySoldListingAlert() {
+		boolean isVerified = false;
+		if(genericAlerts.isSoldListingAlertVisible() && genericAlerts.clickOnOkButton()) {
+			isVerified = true;
+		}
+		return isVerified;
 	}
 }

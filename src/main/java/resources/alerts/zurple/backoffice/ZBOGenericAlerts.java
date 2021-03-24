@@ -21,6 +21,12 @@ public class ZBOGenericAlerts extends AbstractAlert{
 	WebElement alert_message;
 	@FindBy(xpath="//button[@class='btn z57-theme-btn-cancel']")
 	WebElement close_button;
+	@FindBy(xpath="//h2[@id='swal2-title' and text()='You must select 3 Active Listings to be added to the Report']")
+	WebElement active_listing_error;
+	@FindBy(xpath="//h2[@id='swal2-title' and text()='You must select 3  Sold Properties to be added to the Report']")
+	WebElement sold_listing_error;
+	@FindBy(xpath="//button[text()='OK']")
+	WebElement ok_button;
 	
 	public ZBOGenericAlerts(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -32,5 +38,14 @@ public class ZBOGenericAlerts extends AbstractAlert{
 	}
 	public boolean clickOnCloseButton() {
 		return ActionHelper.Click(driver, close_button);
+	}
+	public boolean isActiveListingAlertVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, active_listing_error, 30);
+	}
+	public boolean isSoldListingAlertVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, sold_listing_error, 30);
+	}
+	public boolean clickOnOkButton() {
+		return ActionHelper.Click(driver, ok_button);
 	}
 }
