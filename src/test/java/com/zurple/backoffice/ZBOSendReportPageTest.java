@@ -4,6 +4,7 @@
 package com.zurple.backoffice;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
@@ -256,9 +257,49 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.verifySoldListingAlert(), "Sold Listing Alert not visible..");
 		assertTrue(page.isSoldListingSpanTurnsRed(), "Sold Listing Span border doesn't turns red..");
 		assertTrue(page.isSoldListingsTurnsRed(), "Sold Selected Listing heading doesn't turns red..");
-
 	}
 	
+	@Test //C40342
+	@Parameters({"dataFile"})
+	public void testVerifyThreeSoldPropertiesAdded(String pDataFile) {
+		//Pre Condition
+		addLead(pDataFile);
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(10);
+		addSoldListings();
+		assertTrue(page.getSelectedSoldPropsCount()==3, "Sold Properties count is not 3..");
+		assertTrue(page.getRemoveSoldPropsCount()==3, "Remove button fol sold listings not visible..");
+		assertTrue(page.is3SoldPropsSelected(), "3/3 sold listings selected label is not visible..");
+	}
+	
+	@Test //C40343
+	@Parameters({"dataFile"})
+	public void testVerifyErrorAlertWhenMoreThanThreeSoldPropsSelected(String pDataFile) {
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(5);
+		assertTrue(page.clickOnNextButtonSoldProps(), "Unable to click on Next button for Sold Properties..");
+		assertFalse(page.clickAddButtonFor3SoldListing(), "More than 3 Sold Props have been added..");
+		assertTrue(page.getGenericAlert().isOnly3SoldListingAlertVisible(), "Only 3 Sold Listings can be added alert is not visible..");
+	}
+	
+	@Test //C40344
+	@Parameters({"dataFile"})
+	public void testVerifySelectedSoldPropsCanBeRemoved(String pDataFile) {
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(5);
+		assertTrue(page.clickOnNextButtonSoldProps(), "Unable to click on Next button for Sold Properties..");
+		assertFalse(page.clickAddButtonFor3SoldListing(), "More than 3 Sold Props have been added..");
+		assertTrue(page.getGenericAlert().isOnly3SoldListingAlertVisible(), "Only 3 Sold Listings can be added alert is not visible..");
+	}
 	//Pre Condition
 	private void addLead(String pDataFile) {
 		try {

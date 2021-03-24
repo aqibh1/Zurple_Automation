@@ -63,15 +63,22 @@ public class ZBOSendCMAReportPage extends Page{
 	WebElement active_listing_selected_span;
 	@FindBy(xpath="//strong[@style='color: rgb(169, 68, 66);' and contains(text(),'Selected Listings')]")
 	WebElement selected_listing_red;
-	@FindBy(xpath="//form[@id='sold-listings-form']/descendant::span[@class='select2-selection select2-selection--multiple']")
-	WebElement sold_listing_selected_span;
-	@FindBy(xpath="//strong[@style='color: rgb(169, 68, 66);' and contains(text(),'Selected Properties')]")
-	WebElement sold_selected_listing_red;
+
 	
 	//Sold Property
 	@FindBy(xpath="//div[@class='panel-heading']/h3[text()='Sold Properties']")
 	WebElement sold_properties_heading;
 	String add_button_sold_listings = "//form[@id='sold-listings-form']/descendant::span[@class='not-added-property']";
+	@FindBy(xpath="//div[@id='DataTables_Table_0_paginate']/*/*/a[text()='Next']")
+	WebElement sold_props_pagination_next_button;
+	@FindBy(xpath="//form[@id='sold-listings-form']/descendant::span[@class='select2-selection select2-selection--multiple']")
+	WebElement sold_listing_selected_span;
+	@FindBy(xpath="//strong[@style='color: rgb(169, 68, 66);' and contains(text(),'Selected Properties')]")
+	WebElement sold_selected_listing_red;
+	String sold_props_Selected_list = "//form[@id='sold-listings-form']/descendant::ul[@class='select2-selection__rendered']/li[@title]";
+	String remove_button_Sold_props = "//form[@id='sold-listings-form']/descendant::ul[@class='select2-selection__rendered']/li[@title]/span[@class='select2-selection__choice__remove']";
+	@FindBy(xpath="//strong[@style and contains(text(),'Selected Properties')]/span[text()='3']")
+	WebElement SoldPropsSelected3outof3;
 	
 	@FindBy(id="cma-form-submit")
 	WebElement submit__button;
@@ -95,10 +102,15 @@ public class ZBOSendCMAReportPage extends Page{
 	
 	public ZBOSendCMAReportPage(WebDriver pWebdriver){
 		driver = pWebdriver;
-		genericAlerts = new ZBOGenericAlerts(driver);
+		setGenericAlert();
 		PageFactory.initElements(driver, this);
 	}
-	
+	private void setGenericAlert() {
+		genericAlerts = new ZBOGenericAlerts(driver);
+	}
+	public ZBOGenericAlerts getGenericAlert() {
+		return genericAlerts;
+	}
 	public boolean isCMAReportHeadingVisible() {
 		return ActionHelper.isElementVisible(driver, CMA_Report_title);
 	}
@@ -239,5 +251,18 @@ public class ZBOSendCMAReportPage extends Page{
 			isVerified = true;
 		}
 		return isVerified;
+	}
+
+	public boolean clickOnNextButtonSoldProps() {
+		return ActionHelper.Click(driver, sold_props_pagination_next_button);
+	}
+	public int getSelectedSoldPropsCount() {
+		return ActionHelper.getListOfElementByXpath(driver, sold_props_Selected_list).size();
+	}
+	public int getRemoveSoldPropsCount() {
+		return ActionHelper.getListOfElementByXpath(driver, remove_button_Sold_props).size();
+	}
+	public boolean is3SoldPropsSelected() {
+		return ActionHelper.isElementVisible(driver, SoldPropsSelected3outof3);
 	}
 }
