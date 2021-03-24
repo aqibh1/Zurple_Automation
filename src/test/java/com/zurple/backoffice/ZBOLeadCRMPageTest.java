@@ -177,6 +177,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		String lFilterName = "By Agent,By Email Verification";
 		String lFilterValue = getIsProd()?"Aqib Production Testing,Valid Emails":"Aqib Site Owner,Valid Emails";
 		applyMultipleFilters(lFilterName, lFilterValue);
+		ActionHelper.staticWait(20);
 		String lead_name_id = page.getLeadName();
 		String lead_Email_phone = page.getEmail();
 		String l_leadName = lead_name_id.split(",")[0].trim();
@@ -199,7 +200,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(page.searchLead(l_leadName), "Unable to search lead..");
 		assertTrue(page.clickOnEmailButton(), "Unable to click on Note button on CRM page..");
 		assertTrue(page.getSendEmailForm().isSendEmailForm(), "Send Email form is not visible..");
-		assertTrue(page.getSendEmailForm().selectTemplate("Automation Template"), "Unable to select template from drop down..");
+		assertTrue(page.getSendEmailForm().selectTemplate("Test Template"), "Unable to select template from drop down..");
 		ActionHelper.staticWait(10);
 		String l_subject = page.getSendEmailForm().getSubject();
 		assertTrue(page.getSendEmailForm().clickOnSendEmailButton(), "Unable to click on send button....");
