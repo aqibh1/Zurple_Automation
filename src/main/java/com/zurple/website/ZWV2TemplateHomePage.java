@@ -164,6 +164,7 @@ public class ZWV2TemplateHomePage extends Page{
 	}
 	
 	public boolean clickSearchButton() {
+		ActionHelper.waitForElementToBeClickAble(driver, search_button);
 		return ActionHelper.Click(driver, search_button);
 	}
 	
@@ -185,6 +186,7 @@ public class ZWV2TemplateHomePage extends Page{
 	}
 	
 	public boolean searchFromAdvanceSearchModal() {
+		ActionHelper.waitForElementToBeClickAble(driver, search_from_modal);
 		return ActionHelper.Click(driver, search_from_modal);
 	}
 	

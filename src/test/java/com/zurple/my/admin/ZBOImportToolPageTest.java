@@ -78,6 +78,7 @@ public class ZBOImportToolPageTest extends PageTest{
 		page = null;
 		getPage("/leads/crm");
 		assertTrue(page.searchImportedLead(importLeadEmail),"Unable to search imported lead..");
+		ActionHelper.staticWait(10);
 		assertTrue(page.clickLeadName(),"Unable to click lead name..");
 		assertTrue(emailVerification(),"Unable to verify lead source..");
 		page=null;
@@ -99,6 +100,7 @@ public class ZBOImportToolPageTest extends PageTest{
 		page = null;
 		getPage("/leads/crm");
 		assertTrue(page.searchImportedLead(importLeadEmail),"Unable to search imported lead..");
+		ActionHelper.staticWait(10);
 		assertTrue(page.clickLeadName(),"Unable to click lead name..");
 		assertTrue(emailVerification(),"Unable to verify lead source..");
 		page=null;
@@ -120,6 +122,7 @@ public class ZBOImportToolPageTest extends PageTest{
 		page = null;
 		getPage("/leads/crm");
 		assertTrue(page.searchImportedLead(importLeadEmail),"Unable to search imported lead..");
+		ActionHelper.staticWait(10);
 		assertTrue(page.clickLeadName(),"Unable to click lead name..");
 		assertTrue(emailVerification(),"Unable to verify lead source..");
 		page=null;
@@ -141,6 +144,7 @@ public class ZBOImportToolPageTest extends PageTest{
 		page = null;
 		getPage("/leads/crm");
 		assertTrue(page.searchImportedLead(importLeadEmail),"Unable to search imported lead..");
+		ActionHelper.staticWait(10);
 		assertTrue(page.clickLeadName(),"Unable to click lead name..");
 		assertTrue(emailVerification(),"Unable to verify lead source..");
 		page=null;
