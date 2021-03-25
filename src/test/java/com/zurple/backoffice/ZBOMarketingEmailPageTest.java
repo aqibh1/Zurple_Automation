@@ -79,11 +79,16 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Parameters({"listingEmailFlyerData"})
 	public void testSendEmailListingFlyer(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
+		page=null;
 		getPage("/marketing/massemail");
 		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
 		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
 		verifyEmailListingFlyer(lDataObject);
-		processEmailQueue();
+		if(!getIsProd()) {
+			page=null;
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+		} 
 		JSONObject cacheObject = new JSONObject();
 		cacheObject.put("email_subject", flyerSubject);
 		emptyFile(CacheFilePathsConstants.EmailListingFlyerCache, "");
@@ -92,6 +97,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyEmailListingFlyer(String pDataFile) {
+		page=null;
 		getPage();
 		JSONObject lDataObject = getDataFile(pDataFile);
 		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.EmailListingFlyerCache);
@@ -107,7 +113,11 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
 		fillStandardEmailForm(lDataObject);
 		System.out.println("This is email subject: "+emailSubject);
-		processEmailQueue();
+		if(!getIsProd()) {
+			page=null;
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+		} 
 		JSONObject cacheObject = new JSONObject();
 		cacheObject.put("email_subject", emailSubject);
 		emptyFile(CacheFilePathsConstants.StandardEmailCache, "");
@@ -117,6 +127,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyStandardEmail(String pDataFile) {
+		page=null;
 		getPage();
 		JSONObject lDataObject = getDataFile(pDataFile);
 		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.StandardEmailCache);
@@ -139,7 +150,11 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		cacheObject.put("email_subject", bulkEmailSubject);
 		emptyFile(CacheFilePathsConstants.BulkEmailCache, "");
 		writeJsonToFile(CacheFilePathsConstants.BulkEmailCache, cacheObject);
-		processEmailQueue();
+		if(!getIsProd()) {
+			page=null;
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+		} 
 //		System.out.println("This is bulk email subject: "+bulkEmailSubject);
 //		testVerifyEmailInMyMessages(lDataObject, bulkEmailSubject);
 		
@@ -148,6 +163,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyBulkEmail(String pDataFile) {
+		page=null;
 		getPage();
 		JSONObject lDataObject = getDataFile(pDataFile);
 		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.BulkEmailCache);
@@ -174,6 +190,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyScheduledEmailFromMyMessages(String pDataFile) {
+		page=null;
 		getPage();
 		JSONObject lDataObject = getDataFile(pDataFile);
 		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.ScheduledEmailCache);
@@ -282,16 +299,19 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.clickOnSendButton(), "Unable to click on Send button...");
 		ActionHelper.staticWait(2);
 		if(isScheduledEmail) {
+			ActionHelper.staticWait(10);
 			assertTrue(page.isScheduledMessageDisplayed(), "Unable to send email, scheduled email message is not displayed...");
 			String scheduledLabel = page.getScheduledLabel().split(" ")[4];
 			lWaitTime = getDifference(scheduledLabel);
 		}else {
+			ActionHelper.staticWait(10);
 			assertTrue(page.isSuccessMessage(), "Unable to send email, success message is not displayed...");
 		}
 	}
 	
 	public boolean testVerifyEmailInMyMessages(JSONObject pDataObject, String pEmailSubject) {
 		boolean isEmailSentSuccessfully = false;
+		page=null;
 		getPage();
 		String lLeadId = null;		
 			if(!getIsProd()) {

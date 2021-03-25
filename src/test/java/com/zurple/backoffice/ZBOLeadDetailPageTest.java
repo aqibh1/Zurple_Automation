@@ -503,7 +503,6 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	@Test(dependsOnGroups= {"testEnrollLeadInCampaign"}, groups= {"testUnenrollLeadFromCampaign"})
 	@Parameters({"dataFile"})
 	public void testUnenrollLeadFromCampaign(String pDataFile) {
-		page = null;
 		dataObject = getDataFile(pDataFile);
 		String ld_leadId = "";
 		if(getIsProd()) {
@@ -511,6 +510,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		}else {
 			ld_leadId = dataObject.optString("leadid_stage");
 		}
+		page=null;
 		getPage("/lead/"+ld_leadId);
 		String lc_campaignName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignName);
 		String ld_leadEmail =dataObject.optString("lead_email");
@@ -574,8 +574,8 @@ public class ZBOLeadDetailPageTest extends PageTest{
 			//Process email queue
 			getPage("/admin/processemailqueue");
 			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
-			page =null;
 		}
+		page=null;
 		getPage("/lead/"+lLeadId);
 		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
 		assertTrue(page.verifyHomeEvaluationAlert("Homeowner Asked for a CMA"), "Homeowner Asked for a CMA alert is not verified");

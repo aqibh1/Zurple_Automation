@@ -985,8 +985,10 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean isCampaignNameVisibleInMyMessages(String pCampaignName) {
 		boolean isSuccess = false;
+		ActionHelper.waitForElementToBeClickAble(driver, myMessages_tab_button);
 		if(ActionHelper.Click(driver, myMessages_tab_button)) {
 			ActionHelper.staticWait(5);
+			ActionHelper.waitForStringXpathToBeVisible(driver, enrollInCampaign,30);
 			isSuccess = ActionHelper.getDynamicElementAfterRegularIntervals(driver, enrollInCampaign, pCampaignName, 2);
 		}
 		return isSuccess;
