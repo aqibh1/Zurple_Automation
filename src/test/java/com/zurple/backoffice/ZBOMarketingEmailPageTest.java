@@ -79,11 +79,16 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Parameters({"listingEmailFlyerData"})
 	public void testSendEmailListingFlyer(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
+		page=null;
 		getPage("/marketing/massemail");
 		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
 		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
 		verifyEmailListingFlyer(lDataObject);
-		processEmailQueue();
+		if(!getIsProd()) {
+			page=null;
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+		} 
 		JSONObject cacheObject = new JSONObject();
 		cacheObject.put("email_subject", flyerSubject);
 		emptyFile(CacheFilePathsConstants.EmailListingFlyerCache, "");
@@ -92,6 +97,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyEmailListingFlyer(String pDataFile) {
+		page=null;
 		getPage();
 		JSONObject lDataObject = getDataFile(pDataFile);
 		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.EmailListingFlyerCache);
@@ -294,6 +300,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	
 	public boolean testVerifyEmailInMyMessages(JSONObject pDataObject, String pEmailSubject) {
 		boolean isEmailSentSuccessfully = false;
+		page=null;
 		getPage();
 		String lLeadId = null;		
 			if(!getIsProd()) {

@@ -51,8 +51,6 @@ public class ZBOCampaignPage extends Page{
 		boolean isCampaignLeadAdded = false;
 		List<WebElement> list_of_data = ActionHelper.getListOfElementByXpath(driver, campaign_list);
 		for(WebElement row_data: list_of_data) {
-			String x = ActionHelper.getText(driver, row_data);
-			String z = pCampaignName;
 			if(ActionHelper.getText(driver, row_data).contains(pCampaignName)) {
 				isCampaignNameFound = true;
 			} 
