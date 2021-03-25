@@ -25,6 +25,8 @@ public class ZBOGenericAlerts extends AbstractAlert{
 	WebElement active_listing_error;
 	@FindBy(xpath="//h2[@id='swal2-title' and text()='You must select 3  Sold Properties to be added to the Report']")
 	WebElement sold_listing_error;
+	@FindBy(xpath="//h2[@id='swal2-title' and text()='Only 3 Sold Properties can be added to the Report']")
+	WebElement only_3_sold_listing_error;
 	@FindBy(xpath="//button[text()='OK']")
 	WebElement ok_button;
 	
@@ -44,6 +46,9 @@ public class ZBOGenericAlerts extends AbstractAlert{
 	}
 	public boolean isSoldListingAlertVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, sold_listing_error, 30);
+	}
+	public boolean isOnly3SoldListingAlertVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, only_3_sold_listing_error, 30);
 	}
 	public boolean clickOnOkButton() {
 		return ActionHelper.Click(driver, ok_button);
