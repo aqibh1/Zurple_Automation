@@ -113,7 +113,11 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
 		fillStandardEmailForm(lDataObject);
 		System.out.println("This is email subject: "+emailSubject);
-		processEmailQueue();
+		if(!getIsProd()) {
+			page=null;
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+		} 
 		JSONObject cacheObject = new JSONObject();
 		cacheObject.put("email_subject", emailSubject);
 		emptyFile(CacheFilePathsConstants.StandardEmailCache, "");
@@ -123,6 +127,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyStandardEmail(String pDataFile) {
+		page=null;
 		getPage();
 		JSONObject lDataObject = getDataFile(pDataFile);
 		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.StandardEmailCache);
@@ -145,7 +150,11 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		cacheObject.put("email_subject", bulkEmailSubject);
 		emptyFile(CacheFilePathsConstants.BulkEmailCache, "");
 		writeJsonToFile(CacheFilePathsConstants.BulkEmailCache, cacheObject);
-		processEmailQueue();
+		if(!getIsProd()) {
+			page=null;
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+		} 
 //		System.out.println("This is bulk email subject: "+bulkEmailSubject);
 //		testVerifyEmailInMyMessages(lDataObject, bulkEmailSubject);
 		
@@ -154,6 +163,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyBulkEmail(String pDataFile) {
+		page=null;
 		getPage();
 		JSONObject lDataObject = getDataFile(pDataFile);
 		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.BulkEmailCache);
@@ -180,6 +190,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyScheduledEmailFromMyMessages(String pDataFile) {
+		page=null;
 		getPage();
 		JSONObject lDataObject = getDataFile(pDataFile);
 		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.ScheduledEmailCache);
