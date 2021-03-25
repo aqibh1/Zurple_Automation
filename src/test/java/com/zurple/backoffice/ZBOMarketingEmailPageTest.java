@@ -282,10 +282,12 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.clickOnSendButton(), "Unable to click on Send button...");
 		ActionHelper.staticWait(2);
 		if(isScheduledEmail) {
+			ActionHelper.staticWait(10);
 			assertTrue(page.isScheduledMessageDisplayed(), "Unable to send email, scheduled email message is not displayed...");
 			String scheduledLabel = page.getScheduledLabel().split(" ")[4];
 			lWaitTime = getDifference(scheduledLabel);
 		}else {
+			ActionHelper.staticWait(10);
 			assertTrue(page.isSuccessMessage(), "Unable to send email, success message is not displayed...");
 		}
 	}

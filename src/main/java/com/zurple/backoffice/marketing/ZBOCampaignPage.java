@@ -51,10 +51,12 @@ public class ZBOCampaignPage extends Page{
 		boolean isCampaignLeadAdded = false;
 		List<WebElement> list_of_data = ActionHelper.getListOfElementByXpath(driver, campaign_list);
 		for(WebElement row_data: list_of_data) {
-			if(ActionHelper.getText(driver, row_data).equalsIgnoreCase(pCampaignName)) {
+			String x = ActionHelper.getText(driver, row_data);
+			String z = pCampaignName;
+			if(ActionHelper.getText(driver, row_data).contains(pCampaignName)) {
 				isCampaignNameFound = true;
 			} 
-			if(ActionHelper.getText(driver, row_data).equalsIgnoreCase("1 Lead")) {
+			if(ActionHelper.getText(driver, row_data).contains("1 Lead")) {
 				isCampaignLeadAdded = true;
 			}
 			if(isCampaignNameFound && isCampaignLeadAdded) {

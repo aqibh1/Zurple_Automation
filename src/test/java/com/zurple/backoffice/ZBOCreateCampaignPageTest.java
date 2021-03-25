@@ -93,6 +93,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	@Parameters({"dataFile"})
 	public void testDeleteCampaign(String pDataFile) {
 		dataObject = getDataFile(pDataFile);
+		page=null;
 		getPage("/campaigns");
 		String lc_campaign_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignID);
 		page = null;
