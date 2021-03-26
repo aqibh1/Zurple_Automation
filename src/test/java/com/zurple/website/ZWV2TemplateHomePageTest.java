@@ -89,6 +89,7 @@ public class ZWV2TemplateHomePageTest extends PageTest{
 		assertTrue(page.clickCustomSearch(),"Unable to navigate to home page..");
 		assertTrue(page.clickAdvanceSearchButton(),"Unable to click advance search button..");
 		assertTrue(page.searchFromAdvanceSearchModal(),"Unable to search from advance search modal");
+		assertTrue(page.closeModalAndListingsPage(), "Unable to close modal and verify listings page..");
 		assertTrue(page.titleText(), "Unable to find title page..");
 		AutomationLogger.endTestCase();
 	}
