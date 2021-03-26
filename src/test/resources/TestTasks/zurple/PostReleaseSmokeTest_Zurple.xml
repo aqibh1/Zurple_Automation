@@ -7,33 +7,6 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
-	
-	<test name="Checking phone number text on dashboard">
-    <parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-track-phoneNumber.json">
-    <classes>
-      <class name="com.zurple.website.ZWRegisterUserPageTest">
-		<methods>
-			<include name="testRegisterUser" />
-		</methods>
-		</class>
-		<class name="com.zurple.backoffice.ZBOLoginPageTest">
-		<methods>
-			<include name="testBackOfficeLogin" />
-		</methods>
-		</class>
-        <class name="com.zurple.backoffice.ZBODashboardTest" >
-        <methods>
-          	<include name="testPhoneNumber" />
-        </methods>
-      	</class>
-      	<class name="resources.CurrentPageTest">
-        <methods>
-          	<include name="closeBrowser" />
-        </methods>
-      </class>
-    </classes>
-  </parameter>
-</test>
 
 	<test name="Send Email from CRM Page">	
 			<classes>
@@ -2910,6 +2883,32 @@
 		</parameter>
 	</test>
 	
+	<test name="Checking phone number text on dashboard">
+    <parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-track-phoneNumber.json">
+    <classes>
+      <class name="com.zurple.website.ZWRegisterUserPageTest">
+		<methods>
+			<include name="testRegisterUser" />
+		</methods>
+		</class>
+		<class name="com.zurple.backoffice.ZBOLoginPageTest">
+		<methods>
+			<include name="testBackOfficeLogin" />
+		</methods>
+		</class>
+        <class name="com.zurple.backoffice.ZBODashboardTest" >
+        <methods>
+          	<include name="testPhoneNumber" />
+        </methods>
+      	</class>
+      	<class name="resources.CurrentPageTest">
+        <methods>
+          	<include name="closeBrowser" />
+        </methods>
+      </class>
+    </classes>
+  </parameter>
+</test>
 	
 	<!--  
  <test name="Manage agents page label">
