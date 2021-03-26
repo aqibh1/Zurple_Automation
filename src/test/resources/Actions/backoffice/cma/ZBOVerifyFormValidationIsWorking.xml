@@ -8,22 +8,22 @@
 		<listener class-name="resources.ZurpleReporter.ScreenshotTaker" />
 		<listener class-name="resources.CustomTestNGReporter" />
 	</listeners>
-
+	 
 	<test name="Verify form validation is working on Send CMA Report page">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
 		<parameter name="dataFile1" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-for-cma-city.json">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOSendReportPageTest">
-					<methods> 
+					<methods>
 						<include name="testVerifyAddressValidationIsWorking" />
 						<include name="testVerifyPriceValidationIsWorking" />
 						<include name="testVerifyErrorAlertIsDisplayedWhenActiveListingIsNotSelected" />
 						<include name="testVerifyErrorAlertIsDisplayedWhenSoldListingIsNotSelected" />
-						
 					</methods>
 				</class>
 			</classes>
 		</parameter>
 		</parameter>
 	</test>
+	
 </suite>

@@ -286,6 +286,8 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.clickOnNextButtonSoldProps(), "Unable to click on Next button for Sold Properties..");
 		assertFalse(page.clickAddButtonFor3SoldListing(), "More than 3 Sold Props have been added..");
 		assertTrue(page.getGenericAlert().isOnly3SoldListingAlertVisible(), "Only 3 Sold Listings can be added alert is not visible..");
+		assertTrue(page.getGenericAlert().clickOnOkButton(), "Unable to click on OK button..");
+
 	}
 	
 	@Test //C40344
@@ -296,9 +298,8 @@ public class ZBOSendReportPageTest extends PageTest{
 		getPage("/cma/email/lead/"+lead_id,true);
 		dataObject = getDataFile(pDataFile);
 		ActionHelper.staticWait(5);
-		assertTrue(page.clickOnNextButtonSoldProps(), "Unable to click on Next button for Sold Properties..");
-		assertFalse(page.clickAddButtonFor3SoldListing(), "More than 3 Sold Props have been added..");
-		assertTrue(page.getGenericAlert().isOnly3SoldListingAlertVisible(), "Only 3 Sold Listings can be added alert is not visible..");
+		isThreePropsSoldPropsSelected();
+		assertTrue(page.removeSoldProperties(), "Unable to remove sold properties..");
 	}
 	//Pre Condition
 	private void addLead(String pDataFile) {
@@ -326,6 +327,11 @@ public class ZBOSendReportPageTest extends PageTest{
 		if(!page.clickOnSubmitButton()){
 			throw new SkipException("PreCondition failed. Unable to click on Submit Form button..");
 
+		}
+	}
+	private void isThreePropsSoldPropsSelected() {
+		if(!page.is3SoldPropsSelected()) {
+			throw new SkipException("PreCondition failed. Unable to click on Submit Form button..");
 		}
 	}
 	

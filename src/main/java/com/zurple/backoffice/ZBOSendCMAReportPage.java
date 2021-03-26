@@ -77,7 +77,7 @@ public class ZBOSendCMAReportPage extends Page{
 	WebElement sold_selected_listing_red;
 	String sold_props_Selected_list = "//form[@id='sold-listings-form']/descendant::ul[@class='select2-selection__rendered']/li[@title]";
 	String remove_button_Sold_props = "//form[@id='sold-listings-form']/descendant::ul[@class='select2-selection__rendered']/li[@title]/span[@class='select2-selection__choice__remove']";
-	@FindBy(xpath="//strong[@style and contains(text(),'Selected Properties')]/span[text()='3']")
+	@FindBy(xpath="//strong[contains(text(),'Selected Properties')]/span[text()='3']")
 	WebElement SoldPropsSelected3outof3;
 	
 	@FindBy(id="cma-form-submit")
@@ -264,5 +264,18 @@ public class ZBOSendCMAReportPage extends Page{
 	}
 	public boolean is3SoldPropsSelected() {
 		return ActionHelper.isElementVisible(driver, SoldPropsSelected3outof3);
+	}
+	public boolean removeSoldProperties() {
+		boolean isPropsRemoved = true;
+		List<WebElement> list_elemenets =ActionHelper.getListOfElementByXpath(driver, remove_button_Sold_props);
+		while(list_elemenets.size()>0) {
+			if(!ActionHelper.Click(driver, list_elemenets.get(0))) {
+				isPropsRemoved = false;
+				break;
+			}else {
+				list_elemenets =ActionHelper.getListOfElementByXpath(driver, remove_button_Sold_props);
+			}
+		}
+		return isPropsRemoved;
 	}
 }
