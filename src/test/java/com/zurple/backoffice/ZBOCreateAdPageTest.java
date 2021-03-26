@@ -157,7 +157,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	@Test
 	public void testQuickAdDomainDomainIsCorrect() throws ParseException {
 		getPage("/create-ad/step-one",true);
-		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").split("www.")[1].trim();
 		assertTrue(page.getQuickAdDomain().contains(l_domain), "Correct domain is not visible in Quick Ad box..");
 	}
 	@Test
@@ -318,8 +318,8 @@ public class ZBOCreateAdPageTest extends PageTest{
 		if(!page.typeAdDescription(lAdDescription)) {
 			throw new SkipException("Skipping the test becasuse [Type in Desc] pre-condition was failed.");
 		}
-		String lAdTitle = updateName("");
-		if(!page.typeAdHeading(lAdTitle)) {
+		String lAdTitle = updateName("Hot Property ");
+		if(!page.clearAndTypeAdHeading(lAdTitle)) {
 			throw new SkipException("Skipping the test becasuse [Type in Desc] pre-condition was failed.");
 		}
 		assertTrue(page.verifyFBAdPreviewDescIsUpdated(lAdDescription), "The ad description is not updated in the preview for Facebook");
@@ -362,8 +362,12 @@ public class ZBOCreateAdPageTest extends PageTest{
 		getPage("/create-ad/step-one",true);
 		clickOnCustomAdButtonAndSelectListing();
 		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		if(!getIsProd()) {
 		assertTrue(page.isSelectDestinationLabelVisible(), "Select destination site label is not visible..");	
 		assertTrue(page.selectSite(l_domain), "Unable to select site from dropdown");
+		}else {
+			assertFalse(page.isSelectDestinationLabelVisible(), "Select destination site label is not visible..");
+		}
 	}
 	
 	@Test

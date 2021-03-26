@@ -523,6 +523,8 @@ public class ZBOCreateAdPage extends Page{
 	 }
 	 public boolean typeAdHeading(String pStringToType) {
 		 return ActionHelper.Type(driver, driver.findElement(By.id("fb_ad_title")), pStringToType);
+	 } public boolean clearAndTypeAdHeading(String pStringToType) {
+		 return ActionHelper.ClearAndType(driver, driver.findElement(By.id("fb_ad_title")), pStringToType);
 	 }
 	 public boolean clickOnEditButtonStep2() {
 		 return ActionHelper.Click(driver, edit_button_section2);
