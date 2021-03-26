@@ -19,6 +19,7 @@ import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
+import resources.utility.ZurpleListingConstants;
 
 /**
  * @author adar
@@ -104,7 +105,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 			assertTrue(page.isPostComputerIconVisible(lPostText), "Home post icon is not visible on post history page..");
 			assertTrue(page.isImageDisplaying(ld_platform, lPostText), "Image is not displaying on post history page..");
 			assertTrue(page.isManualLinkPostTextVisible(lPostText), "Manual Page Post text is not visible...");
-			assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")), "Unable to verify listing website Url");
+			assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, ZurpleListingConstants.zurple_prod_land_url), "Unable to verify listing website Url");
 			assertTrue(page.isListingHeadingVisible(lPostText), "Unable to verify listing title..");
 			assertTrue(page.isListingDescVisible(lPostText), "Unable to verify listing description..");
 			break;

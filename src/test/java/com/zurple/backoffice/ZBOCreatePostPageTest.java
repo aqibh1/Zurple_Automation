@@ -15,7 +15,6 @@ import com.zurple.backoffice.social.ZBOPostHistoryPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
-import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
@@ -103,8 +102,9 @@ public class ZBOCreatePostPageTest extends PageTest{
 			ld_post_text = ld_post_text.split(" ")[0];
 			break;
 		case "post_link":
+			String listing_link = ZurpleListingConstants.zurple_prod_land_url;
 			assertTrue(page.clickOnPostLinkButton(ld_platform), "Unable to click on Post Link button..");
-			assertTrue(page.typeLinkUrl(ld_platform, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")+ZurpleListingConstants.zurple_production_listing), "Unable to type listing URL");
+			assertTrue(page.typeLinkUrl(ld_platform, listing_link), "Unable to type listing URL");
 			ActionHelper.staticWait(10);
 			assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 			break;
