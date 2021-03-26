@@ -39,8 +39,10 @@ public class ZWV2TemplateHomePage extends Page{
 	@FindBy(className="blurb-text")
 	WebElement blurb_text;
 	
-	@FindBy(className="close")
-	WebElement close_modal;
+//	@FindBy(className="close")
+//	WebElement close_modal;
+	
+	String close_modal = "close";
 	
 	@FindBy(className="top-listing-counter-block")
 	WebElement listings_page;
@@ -169,8 +171,8 @@ public class ZWV2TemplateHomePage extends Page{
 	}
 	
 	public boolean closeModalAndListingsPage() {
-		if(ActionHelper.waitForElementToBeVisible(driver, close_modal, 30)) {
-			ActionHelper.Click(driver, close_modal);
+		boolean isPresent = ActionHelper.ClickByIndex(driver, close_modal, 1);
+		if(isPresent) {
 			return titleText();
 		} else {
 			return titleText();
