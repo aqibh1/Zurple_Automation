@@ -4,7 +4,6 @@
 package com.zurple.backoffice;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
@@ -67,6 +66,7 @@ public class ZBOLoginPageTest extends PageTest{
 			assertTrue(page.isForgotPasswordLinkExists(),"Forgot password link doesn't exist on login page..");
 			assertTrue(page.clickLoginButton(),"Unable to click on Login button..");
 			assertTrue(page.isLoginSuccessful(),"Login Failed..");
+			page.getAdAlert().closeCreateAdModal();
 		}else {
 			assertTrue(page.isLoginSuccessful(),"Login is not successful..");
 		}
