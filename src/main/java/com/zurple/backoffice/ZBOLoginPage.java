@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.alerts.zurple.backoffice.ZBONewListingCreateAdAlert;
 import resources.utility.ActionHelper;
 
 /**
@@ -41,12 +42,21 @@ public class ZBOLoginPage extends Page{
 	
 	String searchLead_input = "//input[@name='name']";
 	
+	private ZBONewListingCreateAdAlert createAdAlert;
+	
 	public ZBOLoginPage() {
 		
 	}
 	public ZBOLoginPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
+		setCreateAdAlert();
 		PageFactory.initElements(driver, this);
+	}
+	public void setCreateAdAlert() {
+		createAdAlert = new ZBONewListingCreateAdAlert(driver);
+	}
+	public ZBONewListingCreateAdAlert getAdAlert() {
+		return createAdAlert;
 	}
 	
 	public boolean isLoginPage() {
@@ -79,6 +89,9 @@ public class ZBOLoginPage extends Page{
 			isForgotPasswordLinkExists();
 			clickLoginButton();
 			isLoginSuccessful = isLoginSuccessful();
+			if(isLoginSuccessful) {
+				getAdAlert().closeCreateAdModal();
+			}
 		}
 		return isLoginSuccessful;
 	}
