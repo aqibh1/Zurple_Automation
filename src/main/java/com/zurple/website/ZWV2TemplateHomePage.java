@@ -39,6 +39,9 @@ public class ZWV2TemplateHomePage extends Page{
 	@FindBy(className="blurb-text")
 	WebElement blurb_text;
 	
+	@FindBy(className="register-form-header")
+	WebElement lc_header;
+	
 //	@FindBy(className="close")
 //	WebElement close_modal;
 	
@@ -194,7 +197,7 @@ public class ZWV2TemplateHomePage extends Page{
 	}
 	
 	public boolean titleText() {
-		if(!ActionHelper.getText(driver, banner_text).isEmpty()) {
+		if(!ActionHelper.getText(driver, banner_text).isEmpty() || !ActionHelper.getText(driver, lc_header).isEmpty()) {
 			return true;
 		} else {
 			return false;

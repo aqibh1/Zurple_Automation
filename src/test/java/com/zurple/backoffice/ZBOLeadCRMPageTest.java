@@ -171,11 +171,14 @@ public class ZBOLeadCRMPageTest extends PageTest{
 	
 	@Test
 	public void testSendAndVerifyEmail() throws ParseException {
+		page=null;
 		getPage("/leads/crm");
 		
 		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
 		String lFilterName = "By Agent,By Email Verification";
 		String lFilterValue = getIsProd()?"Aqib Production Testing,Valid Emails":"Aqib Site Owner,Valid Emails";
+		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+		assertTrue(leadCRMPage.typeLeadEmailOnly("mailinator.com"), "Unable to type lead email..");
 		applyMultipleFilters(lFilterName, lFilterValue);
 		ActionHelper.staticWait(20);
 		String lead_name_id = page.getLeadName();
@@ -228,6 +231,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 	
 	@Test
 	public void testVerifyEmailIsSent() {
+		page=null;
 		getPage("/leads/crm");
 		
 		dataObject = getDataFile(CacheFilePathsConstants.CRMEmailCache);
@@ -245,6 +249,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		getPage("/leads/crm");
 		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
 		assertTrue(leadCRMPage.searchLead(ld_lead_name), "Unable to search lead");
+		ActionHelper.staticWait(10);
 		assertTrue(leadCRMPage.verifyMassEmailCount(), "Unable to verify mass email count..");
 		
 		assertTrue(mailinatorObj.verifyEmail(ld_lead_email.split("@")[0], ld_email_subject, 5), "Unable to verify email\n Lead ID::"+ld_lead_id+"\n Email Subject::"+ld_email_subject+"\n Lead Email::"+ld_lead_email);;

@@ -743,7 +743,7 @@ public class ZBOLeadDetailPage extends Page{
 			/* if(ActionHelper.isElementVisible(driver, flyer_email)) */ {
 				List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, xpathForTestingSubject);
 				ActionHelper.staticWait(2);
-				for(int i =0;i<10;i++) {
+				for(int i =0;i<subjectList.size();i++) {
 					str = ActionHelper.getText(driver, subjectList.get(i));
 					if(str.equals(pEmailToVerify)) {
 						assertTrue(verifyEmailDateTime(), "unable to verify date");
@@ -934,7 +934,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyScheduledEmail(String pEmailToVerify) {
 		boolean isEmailReceived = false;
 		if(ActionHelper.Click(driver, myMessages_tab_button)) {
-			ActionHelper.staticWait(2);
+			ActionHelper.staticWait(7);
 			isEmailReceived = checkScheduledEmail(pEmailToVerify);
 		}
 		return isEmailReceived;

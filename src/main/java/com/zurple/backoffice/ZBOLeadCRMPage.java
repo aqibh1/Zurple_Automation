@@ -308,4 +308,8 @@ public class ZBOLeadCRMPage extends Page{
 		}
 		return isSuccess;
 	}
+	
+	public boolean typeLeadEmailOnly(String pLeadEmail) {
+		return typeLeadNameOrEmail(pLeadEmail);
+	}
 }
