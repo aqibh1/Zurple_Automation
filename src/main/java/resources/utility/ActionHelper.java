@@ -1132,7 +1132,7 @@ public class ActionHelper {
 				AutomationLogger.info("Waiting for the visibility of element ->"+pInputField);
 				if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
 					pInputField.sendKeys(Keys.CONTROL,Keys.HOME);
-					staticWait(2);
+					staticWait(5);
 					pInputField.sendKeys(pStringToType);
 					AutomationLogger.info("String typed ->"+pStringToType);
 					isSuccessfull=true;

@@ -120,11 +120,11 @@ public class ZBOPostHistoryPage extends Page{
 	public boolean getPostPageTitle(String pPostToVerify) {
 		String lPost_title = "";	
 		WebElement element = null;
-		boolean isElemenetFound = ActionHelper.getDynamicElementAfterRegularIntervals(driver, fb_post_page_title, pPostToVerify, 5);
+		boolean isElementFound = ActionHelper.getDynamicElementAfterRegularIntervals(driver, fb_post_page_title, pPostToVerify, 10);
 //		if(element!=null) {
 //			lPost_title = ActionHelper.getText(driver, element);
 //		}
-		return isElemenetFound;
+		return isElementFound;
 	}
 	
 	public String getPostAccountName(String pPostToVerify, String pPlatform) {

@@ -18,6 +18,7 @@ import resources.AbstractPage;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 
 /**
  * @author adar
@@ -63,6 +64,7 @@ public class ZBOScheduledPostsPageTest extends PageTest{
 		String ld_posttype = dataObject.optString("post_type");
 		boolean lSpecialVerification = false;
 		assertTrue(page.isShceduledPostsPage(), "Scheduled post Page is not visible..");
+		ActionHelper.staticWait(10);
 		assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post Platform icon is not visible on scheduled posts page.");
 		assertTrue(!page.getPostPageTitle(lPostText).isEmpty(), "Platform title is not visible...");
 		assertTrue(!page.getPostAccountName(lPostText, ld_platform).isEmpty(), "Unable to verify account name...");
