@@ -63,7 +63,13 @@ public class ZBOSendCMAReportPage extends Page{
 	WebElement active_listing_selected_span;
 	@FindBy(xpath="//strong[@style='color: rgb(169, 68, 66);' and contains(text(),'Selected Listings')]")
 	WebElement selected_listing_red;
-
+	String active_listings_Selected_list = "//form[@id='active-listings-form']/descendant::ul[@class='select2-selection__rendered']/li[@title]";
+	String remove_button_active_listings = "//form[@id='active-listings-form']/descendant::ul[@class='select2-selection__rendered']/li[@title]/span[@class='select2-selection__choice__remove']";
+	@FindBy(xpath="//strong[contains(text(),'Selected Listings')]/span[text()='3']")
+	WebElement activeListingsSelected3outof3;
+	String active_listings_added_label = "//table[@id='propertiesGrid']/descendant::span[text()='Added']";
+	@FindBy(xpath="//li[@id='propertiesGrid_next']/a")
+	WebElement active_listings_pagination_next_button;
 	
 	//Sold Property
 	@FindBy(xpath="//div[@class='panel-heading']/h3[text()='Sold Properties']")
@@ -274,6 +280,35 @@ public class ZBOSendCMAReportPage extends Page{
 				break;
 			}else {
 				list_elemenets =ActionHelper.getListOfElementByXpath(driver, remove_button_Sold_props);
+			}
+		}
+		return isPropsRemoved;
+	}
+	
+	public int getSelectedActiveListingsCount() {
+		return ActionHelper.getListOfElementByXpath(driver, active_listings_Selected_list).size();
+	}public int getRemoveActiveListingsCount() {
+		return ActionHelper.getListOfElementByXpath(driver, remove_button_active_listings).size();
+	}public boolean is3ActiveListingsSelected() {
+		return ActionHelper.isElementVisible(driver, activeListingsSelected3outof3);
+	}public int getActiveListingsAddedLabelCount() {
+		return ActionHelper.getListOfElementByXpath(driver, active_listings_Selected_list).size();
+	}public boolean verifyAddedLabelIsNotClickable() {
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, add_button_active_listings);
+		return list_element.size()==0;
+	}
+	public boolean clickOnNextButtonActiveProps() {
+		return ActionHelper.Click(driver, active_listings_pagination_next_button);
+	}
+	public boolean removeActiveListings() {
+		boolean isPropsRemoved = true;
+		List<WebElement> list_elemenets =ActionHelper.getListOfElementByXpath(driver, remove_button_active_listings);
+		while(list_elemenets.size()>0) {
+			if(!ActionHelper.Click(driver, list_elemenets.get(0))) {
+				isPropsRemoved = false;
+				break;
+			}else {
+				list_elemenets =ActionHelper.getListOfElementByXpath(driver, remove_button_active_listings);
 			}
 		}
 		return isPropsRemoved;

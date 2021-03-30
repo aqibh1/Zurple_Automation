@@ -284,10 +284,10 @@ public class ZBOSendReportPageTest extends PageTest{
 		dataObject = getDataFile(pDataFile);
 		ActionHelper.staticWait(5);
 		assertTrue(page.clickOnNextButtonSoldProps(), "Unable to click on Next button for Sold Properties..");
+		ActionHelper.staticWait(5);
 		assertFalse(page.clickAddButtonFor3SoldListing(), "More than 3 Sold Props have been added..");
 		assertTrue(page.getGenericAlert().isOnly3SoldListingAlertVisible(), "Only 3 Sold Listings can be added alert is not visible..");
 		assertTrue(page.getGenericAlert().clickOnOkButton(), "Unable to click on OK button..");
-
 	}
 	
 	@Test //C40344
@@ -300,6 +300,61 @@ public class ZBOSendReportPageTest extends PageTest{
 		ActionHelper.staticWait(5);
 		isThreePropsSoldPropsSelected();
 		assertTrue(page.removeSoldProperties(), "Unable to remove sold properties..");
+	}
+	
+	@Test //C40328
+	@Parameters({"dataFile"})
+	public void testVerifyThreeActiveListingsAdded(String pDataFile) {
+		//Pre Condition
+		addLead(pDataFile);
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(10);
+		addActiveListings();
+		assertTrue(page.getSelectedActiveListingsCount()==3, "Active listing count is not 3..");
+		assertTrue(page.getRemoveActiveListingsCount()==3, "Remove button fol Active listings not visible..");
+		assertTrue(page.is3ActiveListingsSelected(), "3/3 Active listings selected label is not visible..");
+	}
+	
+	@Test //C40331
+	@Parameters({"dataFile"})
+	public void testVerifyAddButtonIsChangedToAddedTextActiveListing(String pDataFile) {
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(5);
+		assertTrue(page.getActiveListingsAddedLabelCount()==3, "Add button is changed to Added label for Active Listings");
+		assertTrue(page.verifyAddedLabelIsNotClickable(), "After Adding Active Listings label is still clickable");
+	}
+	
+	@Test //C40329
+	@Parameters({"dataFile"})
+	public void testVerifyErrorAlertWhenMoreThanThreeActiveListigsSelected(String pDataFile) {
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(5);
+		assertTrue(page.clickOnNextButtonActiveProps(), "Unable to click on Next button for Active Listings..");
+		ActionHelper.staticWait(5);
+		assertFalse(page.clickAddButtonFor3ActiveListing(), "More than 3 Active Listings have been added..");
+		assertTrue(page.getGenericAlert().isOnly3ActiveListingAlertVisible(), "Only 3 Active Listings can be added alert is not visible..");
+		assertTrue(page.getGenericAlert().clickOnOkButton(), "Unable to click on OK button..");
+	}
+	
+	@Test //C40330
+	@Parameters({"dataFile"})
+	public void testVerifySelectedActiveListingsCanBeRemoved(String pDataFile) {
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(5);
+		isThreeActiveListingsSelected();
+		assertTrue(page.removeActiveListings(), "Unable to remove sold properties..");
 	}
 	//Pre Condition
 	private void addLead(String pDataFile) {
@@ -331,10 +386,14 @@ public class ZBOSendReportPageTest extends PageTest{
 	}
 	private void isThreePropsSoldPropsSelected() {
 		if(!page.is3SoldPropsSelected()) {
-			throw new SkipException("PreCondition failed. Unable to click on Submit Form button..");
+			throw new SkipException("PreCondition failed. 3 Sold Listings are not added..");
 		}
 	}
-	
+	private void isThreeActiveListingsSelected() {
+		if(!page.is3ActiveListingsSelected()) {
+			throw new SkipException("PreCondition failed. 3 Active Listings are not added..");
+		}
+	}
 	@AfterTest
 	public void closeBrowser() {
 		closeCurrentBrowser();
