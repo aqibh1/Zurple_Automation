@@ -10,6 +10,7 @@ import java.util.HashMap;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.SkipException;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -34,6 +35,8 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	private WebDriver driver;
 	private ZBOLeadDetailPage page;
 	private JSONObject dataObject;
+	public String ld_leadId = "";
+	public String ld_leadEmail = "";
 
 	@Override
 	public AbstractPage getPage() {
@@ -467,24 +470,32 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	}
 	
 	@Test(groups= {"testEnrollLeadInCampaign"}, dependsOnGroups= {"testCreateCampaign"})
-	@Parameters({"dataFile"})
-	public void testEnrollLeadInCampaign(String pDataFile) {
-		dataObject = getDataFile(pDataFile);
-		String ld_leadId = "";
+	@Parameters({"dataFile","leadFile"})
+	public void testEnrollLeadInCampaign(String pDataFile, String leadDataFile) {
+		page=null;
 		getPage();
-		if(getIsProd()) {
-			ld_leadId = dataObject.optString("leadid");
-		}else {
-			ld_leadId = dataObject.optString("leadid_stage");
-		}
+		dataObject = getDataFile(pDataFile);
+		ZBOSendReportPageTest addLead = new ZBOSendReportPageTest();
+		addLead.addLead(leadDataFile);
+		ld_leadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+//		if(getIsProd()) {
+//			ld_leadId = dataObject.optString("leadid");
+//		}else {
+//			ld_leadId = dataObject.optString("leadid_stage");
+//		}
 		page=null;
 		getPage("/lead/"+ld_leadId);
 		
+		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
+		assertTrue(page.clickAndSelectLeadProspect("Prospect - Communicated with Me"), "Unable to select the status -> Prospect - Communicated with Me");
+		assertTrue(successAlert.clickOnTemporaryButton(), "Unable to click on Temporary button..");
+		ActionHelper.staticWait(2);
+		ActionHelper.RefreshPage(driver);
 //		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignName, "AutoTestCampaign");
 //		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignID, "99");
 		
 		String lc_campaignName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignName);
-		String ld_leadEmail =dataObject.optString("lead_email");
+		ld_leadEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
 		assertTrue(page.isLeadDetailPage(), "Lead detail page is not diplayed..");
 		assertTrue(page.enrollUnenrollInCampaign(lc_campaignName,true), "Unable to enroll in campaign");
 		assertTrue(page.isCampaignNameVisibleInMyMessages(lc_campaignName), "Campaign Name not visible in My Messages..");
@@ -503,17 +514,17 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	@Test(dependsOnGroups= {"testEnrollLeadInCampaign"}, groups= {"testUnenrollLeadFromCampaign"})
 	@Parameters({"dataFile"})
 	public void testUnenrollLeadFromCampaign(String pDataFile) {
-		dataObject = getDataFile(pDataFile);
-		String ld_leadId = "";
-		if(getIsProd()) {
-			ld_leadId = dataObject.optString("leadid");
-		}else {
-			ld_leadId = dataObject.optString("leadid_stage");
-		}
 		page=null;
 		getPage("/lead/"+ld_leadId);
+		dataObject = getDataFile(pDataFile);
+//		String ld_leadId = "";
+//		if(getIsProd()) {
+//			ld_leadId = dataObject.optString("leadid");
+//		}else {
+//			ld_leadId = dataObject.optString("leadid_stage");
+//		}
 		String lc_campaignName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignName);
-		String ld_leadEmail =dataObject.optString("lead_email");
+		//String ld_leadEmail =dataObject.optString("lead_email");
 		assertTrue(page.isLeadDetailPage(), "Lead detail page is not diplayed..");
 		assertTrue(page.enrollUnenrollInCampaign(lc_campaignName,false), "Unable to enroll in campaign");
 		assertFalse(page.isCampaignNameVisibleInMyMessages(lc_campaignName), "Campaign Name not visible in My Messages..");

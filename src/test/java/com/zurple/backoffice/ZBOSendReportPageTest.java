@@ -437,7 +437,7 @@ public class ZBOSendReportPageTest extends PageTest{
 	}
 	
 	//Pre Condition
-	private void addLead(String pDataFile) {
+	public void addLead(String pDataFile) {
 		try {
 			ZBOAddLeadPageTest addleadpagetest = new ZBOAddLeadPageTest();
 			addleadpagetest.testAddLead(pDataFile);

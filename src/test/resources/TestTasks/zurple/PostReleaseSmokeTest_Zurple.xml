@@ -571,14 +571,15 @@
 		</parameter>
 	</test>
 
-<test name="Enroll and unenroll lead in campaign" >	
-	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/create-campaign-data.json"> 
+<test name="Enroll and unenroll lead in campaign">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/create-campaign-data.json">
+		<parameter name="leadFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
 						<include name="testBackOfficeLogin" />
 					</methods>
-				</class> 
+				</class>
 				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
 					<methods>
 						<include name="testCreateCampaign" />
@@ -587,10 +588,6 @@
 				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
 					<methods>
 						<include name="testEnrollLeadInCampaign" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
 						<include name="testUnenrollLeadFromCampaign" />
 					</methods>
 				</class>
@@ -605,7 +602,8 @@
 					</methods>
 				</class>
 			</classes>
-	</parameter>
+		</parameter>
+		</parameter>
 	</test>
 	
 	<test name="Search and Verify property by Neighborhood with User Logged In">
@@ -2228,26 +2226,6 @@
 			</classes>
 	</test>
 	
-	<test name="Bulk update lead status to In Active" >	
-			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeLogin" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadPageTest">
-					<methods>
-						<include name="testMarkAllLeadAsInActive" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-        			<methods>
-       				   <include name="closeBrowser" />
-        			</methods>
-     			 </class>
-			</classes>
-	</test>
-	
 	<test name="Verify lead status filter">	
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/status-filters-data.json"> 
 			<classes>
@@ -2888,6 +2866,26 @@
     </classes>
   </parameter>
 </test>
+
+<test name="Bulk update lead status to In Active" >	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadPageTest">
+					<methods>
+						<include name="testMarkAllLeadAsInActive" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+        			<methods>
+       				   <include name="closeBrowser" />
+        			</methods>
+     			 </class>
+			</classes>
+	</test>
 	
 	<!--  
  <test name="Manage agents page label">
