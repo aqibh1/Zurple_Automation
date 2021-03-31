@@ -10,8 +10,8 @@
 
 
 	<test name="Enroll and unenroll lead in campaign">
-		<parameter name="dataFile"
-			value="/resources/data/zurple/backoffice/marketing/create-campaign-data.json">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/create-campaign-data.json">
+		<parameter name="leadFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
 			<classes preserve-order="true">
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -26,10 +26,6 @@
 				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
 					<methods>
 						<include name="testEnrollLeadInCampaign" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
 						<include name="testUnenrollLeadFromCampaign" />
 					</methods>
 				</class>
@@ -44,6 +40,7 @@
 					</methods>
 				</class>
 			</classes>
+		</parameter>
 		</parameter>
 	</test>
 

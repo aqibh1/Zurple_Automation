@@ -357,7 +357,7 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.removeActiveListings(), "Unable to remove sold properties..");
 	}
 	//Pre Condition
-	private void addLead(String pDataFile) {
+	public void addLead(String pDataFile) {
 		try {
 			ZBOAddLeadPageTest addleadpagetest = new ZBOAddLeadPageTest();
 			addleadpagetest.testAddLead(pDataFile);
