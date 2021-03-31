@@ -14,6 +14,7 @@ import com.zurple.my.Page;
 
 import resources.alerts.zurple.backoffice.ZBOGenericAlerts;
 import resources.utility.ActionHelper;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author darrraqi
@@ -70,6 +71,17 @@ public class ZBOSendCMAReportPage extends Page{
 	String active_listings_added_label = "//table[@id='propertiesGrid']/descendant::span[text()='Added']";
 	@FindBy(xpath="//li[@id='propertiesGrid_next']/a")
 	WebElement active_listings_pagination_next_button;
+	@FindBy(xpath="//form[@id='active-listings-form']/descendant::label/input[@value='1']")
+	WebElement address_radio;
+	@FindBy(xpath="//form[@id='active-listings-form']/descendant::input[@id='name']")
+	WebElement address_input;
+	String active_props_images_list = "//table[@id='propertiesGrid']/descendant::td[@class=' property-mls']/img";
+	String active_listing_radio_buttons = "//form[@id='active-listings-form']/descendant::label[contains(@class,'checkbox-inline')]/input";
+	String active_listing_radio_button = "//form[@id='active-listings-form']/descendant::label[contains(@class,'checkbox-inline')]/input[@value='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	@FindBy(xpath="//form[@id='active-listings-form']/descendant::button[@id='z-properties-grid-filter-button']")
+	WebElement search_button_active_listing;
+	String active_listing_results = "//table[@id='propertiesGrid']/descendant::td[@class=' property-address']/span";
+	String active_listings_result_mls = "//table[@id='propertiesGrid']/descendant::td[@class=' property-mls']/*/span";
 	
 	//Sold Property
 	@FindBy(xpath="//div[@class='panel-heading']/h3[text()='Sold Properties']")
@@ -102,6 +114,10 @@ public class ZBOSendCMAReportPage extends Page{
 	WebElement min_price_alert;
 	@FindBy(xpath="//div[@role='alert']/strong[text()='Please enter Maximum Estimated Price']")
 	WebElement maximum_price_alert;
+	
+	//Processing
+	@FindBy(id="propertiesGrid_processing")
+	WebElement processing_alert;
 	
 	//Alerts Class
 	private ZBOGenericAlerts genericAlerts;
@@ -312,5 +328,78 @@ public class ZBOSendCMAReportPage extends Page{
 			}
 		}
 		return isPropsRemoved;
+	}
+	public boolean selectAddressRadio() {
+		return ActionHelper.Click(driver, address_radio);
+	}
+	public boolean isActiveListingsDisplayed() {
+		return ActionHelper.getListOfElementByXpath(driver, active_props_images_list).size()>0;
+	}public boolean isAtiveListingRadioOptionSelected() {
+		boolean isSelected = false;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, active_listing_radio_buttons);
+		for(int i=0;i<list_element.size();i++) {
+			if(ActionHelper.isElementSelected(driver, list_element.get(i))) {
+				isSelected = true;
+				break;
+			}
+		}
+		return isSelected;
+	}public boolean selectAtiveListingRadioOption(String pInputType) {
+		boolean isSelected = false;
+		switch(pInputType) {
+		case "Address":
+			isSelected = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, active_listing_radio_button, "1"));
+			break;
+		case "City":
+			isSelected = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, active_listing_radio_button, "2"));
+			break;
+		case "Zip":
+			isSelected = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, active_listing_radio_button, "3"));
+			break;
+		case "MLS ID":
+			isSelected = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, active_listing_radio_button, "4"));
+			break;
+		}
+		return isSelected;
+	}
+	public boolean typeInputActiveListing(String pStringToType) {
+		return ActionHelper.ClearAndType(driver, address_input, pStringToType);
+	}public boolean clickOnSearchButtonForActiveListing() {
+		return ActionHelper.Click(driver, search_button_active_listing);
+	}
+	public boolean waitForProcessingAlertToDisappear() {
+		return ActionHelper.waitForElementToBeDisappeared(driver, processing_alert);
+	}
+	public boolean verifyResultsOfActiveListing(String pAddress, String pAttributeToVerify) {
+		boolean isVerified = false;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, active_listing_results);
+		for(WebElement element: list_element){
+			switch(pAttributeToVerify) {
+			case "city":
+				isVerified = pAddress.contains(ActionHelper.getAttribute(element, "data-city"));
+				break;
+			case "state":
+				isVerified = pAddress.contains(ActionHelper.getAttribute(element, "data-state"));
+				break;
+			case "zip":
+				isVerified = pAddress.contains(ActionHelper.getAttribute(element, "data-zip_code"));
+				break;
+			}
+			if(!isVerified) {
+				break;
+			}
+		}
+		return isVerified;
+	}
+	public boolean verifyMLSID(String pMLSID) {
+		boolean isVerified = false;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, active_listings_result_mls);
+		for(WebElement element: list_element) {
+			if(ActionHelper.getAttribute(element, "data-mls_number").contains(pMLSID)) {
+				isVerified = true;
+				break;
+			}
+		}
+		return isVerified;
 	}
 }

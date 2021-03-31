@@ -356,6 +356,86 @@ public class ZBOSendReportPageTest extends PageTest{
 		isThreeActiveListingsSelected();
 		assertTrue(page.removeActiveListings(), "Unable to remove sold properties..");
 	}
+	
+	@Test //C40321
+	@Parameters({"dataFile"})
+	public void testVerifyResultsAreDisplayedUnderActiveListingSection(String pDataFile) {
+		//Pre Condition
+		addLead(pDataFile);
+		getPage();
+		String lead_id =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(2);
+		assertTrue(page.isAtiveListingRadioOptionSelected(), "None option is selected for input search by default..");
+		assertTrue(page.isActiveListingsDisplayed(), "Active listings are not displayed..");
+	}
+	
+	@Test //C40322
+	@Parameters({"dataFile"})
+	public void testVerifyResultsAreDsiplayedByAddressUnderActiveListing(String pDataFile) {
+		getPage();
+		String lead_id =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		String l_address = dataObject.optString("active_listing_search_address");
+		ActionHelper.staticWait(2);
+		assertTrue(page.selectAtiveListingRadioOption("Address"), "None option is selected for input search by default..");
+		assertTrue(page.typeInputActiveListing(l_address), "Active listings are not displayed..");
+		assertTrue(page.clickOnSearchButtonForActiveListing(), "Unable to click on search button..");
+		page.waitForProcessingAlertToDisappear();
+		assertTrue(page.verifyResultsOfActiveListing(l_address, "city"), "Unable to verify the city from the results.."+l_address);
+		assertTrue(page.verifyResultsOfActiveListing(l_address, "state"), "Unable to verify the state from the results.."+l_address);
+	}
+	
+	@Test //C40323
+	@Parameters({"dataFile"})
+	public void testVerifyResultsAreDsiplayedByCityUnderActiveListing(String pDataFile) {
+		getPage();
+		String lead_id =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		String l_city = dataObject.optString("city");
+		ActionHelper.staticWait(2);
+		assertTrue(page.selectAtiveListingRadioOption("City"), "None option is selected for input search by default..");
+		assertTrue(page.typeInputActiveListing(l_city), "Active listings are not displayed..");
+		assertTrue(page.clickOnSearchButtonForActiveListing(), "Unable to click on search button..");
+		page.waitForProcessingAlertToDisappear();
+		assertTrue(page.verifyResultsOfActiveListing(l_city, "city"), "Unable to verify the city from the results.."+l_city);
+	}
+	
+	@Test //C40324
+	@Parameters({"dataFile"})
+	public void testVerifyResultsAreDsiplayedByZipUnderActiveListing(String pDataFile) {
+		getPage();
+		String lead_id =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		String l_zip = dataObject.optString("zip");
+		ActionHelper.staticWait(2);
+		assertTrue(page.selectAtiveListingRadioOption("Zip"), "None option is selected for input search by default..");
+		assertTrue(page.typeInputActiveListing(l_zip), "Active listings are not displayed..");
+		assertTrue(page.clickOnSearchButtonForActiveListing(), "Unable to click on search button..");
+		page.waitForProcessingAlertToDisappear();
+		assertTrue(page.verifyResultsOfActiveListing(l_zip, "zip"), "Unable to verify the zip from the results.."+l_zip);
+	}
+	
+	@Test //C40325
+	@Parameters({"dataFile"})
+	public void testVerifyResultsAreDsiplayedByMLSUnderActiveListing(String pDataFile) {
+		getPage();
+		String lead_id =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		String l_mls = dataObject.optString("mls");
+		ActionHelper.staticWait(2);
+		assertTrue(page.selectAtiveListingRadioOption("Zip"), "None option is selected for input search by default..");
+		assertTrue(page.typeInputActiveListing(l_mls), "Active listings are not displayed..");
+		assertTrue(page.clickOnSearchButtonForActiveListing(), "Unable to click on search button..");
+		page.waitForProcessingAlertToDisappear();
+		assertTrue(page.verifyMLSID(l_mls), "Unable to verify the MLS ID from the results.."+l_mls);
+	}
+	
 	//Pre Condition
 	private void addLead(String pDataFile) {
 		try {
