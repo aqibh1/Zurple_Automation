@@ -17,7 +17,7 @@
 					<methods>
 						<include name="testVerifyLeadAddressIsPopulatedInPropertySection" />
 						<include name="testVerifyLeadAddressIsPopulatedInActiveListingSection" />
-						<include name="testVerifyLeadCityIsPopulatedInPropertySection" />
+						<include name="testVerifyLeadCityIsPopulatedInActiveListingSection" />
 					</methods>
 				</class>
 			</classes>
