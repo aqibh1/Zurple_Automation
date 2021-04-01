@@ -436,6 +436,19 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.verifyMLSID(l_mls), "Unable to verify the MLS ID from the results.."+l_mls);
 	}
 	
+	@Test //C40327
+	@Parameters({"dataFile"})
+	public void testVerifyResultsAreWithAllInformationActiveListing(String pDataFile) {
+		getPage();
+		assertTrue(page.verifyActiveListingResultsThumbnailsImageAreDisplayed(), "Unable to verify thumnails images of Active Listing from the results..");
+		assertTrue(page.verifyActiveListingViewListingLink(), "Unable to verify View Listing Link of Active Listing from the results..");
+		assertTrue(page.verifyActiveListingPropAddressIsDisplayed(), "Unable to verify property address of Active Listing from the results..");
+		assertTrue(page.verifyActiveListingPriceIsDisplayed(), "Unable to verify Price of Active Listing from the results..");
+		assertTrue(page.verifyActiveListingDistanceIsDisplayed(), "Unable to verify Distance of Active Listing from the results..");
+		assertTrue(page.verifyActiveListingDetailIsDisplayed(), "Unable to verify details of Active Listing from the results..");
+
+	}
+	
 	//Pre Condition
 	public void addLead(String pDataFile) {
 		try {

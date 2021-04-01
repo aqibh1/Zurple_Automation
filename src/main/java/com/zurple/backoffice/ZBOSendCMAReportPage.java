@@ -82,6 +82,12 @@ public class ZBOSendCMAReportPage extends Page{
 	WebElement search_button_active_listing;
 	String active_listing_results = "//table[@id='propertiesGrid']/descendant::td[@class=' property-address']/span";
 	String active_listings_result_mls = "//table[@id='propertiesGrid']/descendant::td[@class=' property-mls']/*/span";
+	String al_results_thumbnail_images = "//table[@id='propertiesGrid']/descendant::td[@class=' property-mls']/img";
+	String al_view_listing = "//table[@id='propertiesGrid']/descendant::td[@class=' property-mls']/*/span/a[text()='View Listing']";
+	String al_property_Address = "//table[@id='propertiesGrid']/descendant::td[@class=' property-address']/span";
+	String al_price = "//table[@id='propertiesGrid']/descendant::span[@class='properties-table-cell price-info']";
+	String al_distance_miles = "//table[@id='propertiesGrid']/descendant::td[@class='property-distance sorting_1']/span";
+	String al_prop_details = "//table[@id='propertiesGrid']/descendant::td[@class=' property-details']/span";
 	
 	//Sold Property
 	@FindBy(xpath="//div[@class='panel-heading']/h3[text()='Sold Properties']")
@@ -392,14 +398,54 @@ public class ZBOSendCMAReportPage extends Page{
 		return isVerified;
 	}
 	public boolean verifyMLSID(String pMLSID) {
-		boolean isVerified = false;
-		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, active_listings_result_mls);
+		return verifyAttributeContains(active_listings_result_mls, "data-mls_number", pMLSID);
+	}
+	public boolean verifyActiveListingResultsThumbnailsImageAreDisplayed() {
+		return verifyAttributeContains(al_results_thumbnail_images, "src", "photoaccesskey");
+	}
+	public boolean verifyActiveListingViewListingLink() {
+		boolean isVerified = true;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, al_view_listing);
 		for(WebElement element: list_element) {
-			if(ActionHelper.getAttribute(element, "data-mls_number").contains(pMLSID)) {
+			if(ActionHelper.getAttribute(element, "href").isEmpty()) {
+				isVerified = false;
+				break;
+			}
+		}
+		return isVerified;
+	}public boolean verifyActiveListingPropAddressIsDisplayed() {
+		return verificationByText(al_property_Address);
+	}
+	public boolean verifyActiveListingPriceIsDisplayed() {
+		return verificationByText(al_price);
+	}
+	public boolean verifyActiveListingDistanceIsDisplayed() {
+		return verificationByText(al_distance_miles);
+	}
+	public boolean verifyActiveListingDetailIsDisplayed() {
+		return verificationByText(al_prop_details);
+	}
+	
+	private boolean verificationByText(String pXpath) {
+		boolean isVerified = true;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, pXpath);
+		for(WebElement element: list_element) {
+			if(ActionHelper.getText(driver,element).isEmpty()) {
+				isVerified = false;
+				break;
+			}
+		}
+		return isVerified;
+	}private boolean verifyAttributeContains(String pXpath, String pAttribue, String pValueToVerify) {
+		boolean isVerified = false;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, pXpath);
+		for(WebElement element: list_element) {
+			if(ActionHelper.getAttribute(element, pAttribue).contains(pValueToVerify)) {
 				isVerified = true;
 				break;
 			}
 		}
 		return isVerified;
 	}
+	
 }

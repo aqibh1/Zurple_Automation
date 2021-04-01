@@ -18,6 +18,7 @@
 						<include name="testVerifyResultsAreDsiplayedByCityUnderActiveListing" />
 						<include name="testVerifyResultsAreDsiplayedByZipUnderActiveListing" />
 						<include name="testVerifyResultsAreDsiplayedByMLSUnderActiveListing" />
+						<include name="testVerifyResultsAreWithAllInformationActiveListing" />
 					</methods>
 				</class> 
 			</classes>
