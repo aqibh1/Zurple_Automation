@@ -103,6 +103,21 @@ public class ZBOSendCMAReportPage extends Page{
 	String remove_button_Sold_props = "//form[@id='sold-listings-form']/descendant::ul[@class='select2-selection__rendered']/li[@title]/span[@class='select2-selection__choice__remove']";
 	@FindBy(xpath="//strong[contains(text(),'Selected Properties')]/span[text()='3']")
 	WebElement SoldPropsSelected3outof3;
+	String sold_props_images_list = "//div[@id='DataTables_Table_0_wrapper']/descendant::td[@class=' property-address']";
+	String sold_props_radio_buttons = "//form[@id='sold-listings-form']/descendant::label[contains(@class,'checkbox-inline')]/input";
+	String sold_props_radio_button = "//form[@id='sold-listings-form']/descendant::label[contains(@class,'checkbox-inline')]/input[@value='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	@FindBy(xpath="//form[@id='sold-listings-form']/descendant::button[@id='z-properties-grid-filter-button']")
+	WebElement search_button_sold_props;
+	String sold_props_results = "//table[@id='DataTables_Table_0']/descendant::td[@class=' property-address']/span";
+	String sold_props_result_mls = "//table[@id='DataTables_Table_0']/descendant::td[@class=' property-mls']/*/span";
+	String sold_props_results_thumbnail_images = "//table[@id='DataTables_Table_0']/descendant::td[@class=' property-mls']/img";
+	String sold_props_view_listing = "//table[@id='DataTables_Table_0']/descendant::td[@class=' property-mls']/*/span/a[text()='View Listing']";
+	String sold_props_property_Address = "//table[@id='DataTables_Table_0']/descendant::td[@class=' property-address']/span";
+	String sold_props_price = "//table[@id='DataTables_Table_0']/descendant::span[@class='properties-table-cell price-info']";
+	String sold_props_distance_miles = "//table[@id='DataTables_Table_0']/descendant::td[@class='property-distance sorting_1']/span";
+	String sold_props_prop_details = "//table[@id='DataTables_Table_0']/descendant::td[@class=' property-details']/span";
+	@FindBy(xpath="//form[@id='sold-listings-form']/descendant::input[@id='name']")
+	WebElement sold_props_address_input;
 	
 	@FindBy(id="cma-form-submit")
 	WebElement submit__button;
@@ -424,6 +439,72 @@ public class ZBOSendCMAReportPage extends Page{
 	}
 	public boolean verifyActiveListingDetailIsDisplayed() {
 		return verificationByText(al_prop_details);
+	}
+	public boolean isSoldPropsRadioOptionSelected() {
+		boolean isSelected = false;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, sold_props_radio_buttons);
+		for(int i=0;i<list_element.size();i++) {
+			if(ActionHelper.isElementSelected(driver, list_element.get(i))) {
+				isSelected = true;
+				break;
+			}
+		}
+		return isSelected;
+	}
+	public boolean isSoldPropsDisplayed() {
+		return ActionHelper.getListOfElementByXpath(driver, sold_props_images_list).size()>0;
+	}
+	public boolean selectSoldPropsRadioOption(String pInputType) {
+		boolean isSelected = false;
+		switch(pInputType) {
+		case "Address":
+			isSelected = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, sold_props_radio_button, "1"));
+			break;
+		case "City":
+			isSelected = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, sold_props_radio_button, "2"));
+			break;
+		case "Zip":
+			isSelected = ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, sold_props_radio_button, "3"));
+			break;
+		}
+		return isSelected;
+	}public boolean typeInputSoldProps(String pStringToType) {
+		return ActionHelper.ClearAndType(driver, sold_props_address_input, pStringToType);
+	}public boolean clickOnSearchButtonForSoldProps() {
+		return ActionHelper.Click(driver, search_button_sold_props);
+	}
+	public boolean verifyResultsOfSoldProps(String pAddress, String pAttributeToVerify) {
+		boolean isVerified = false;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, sold_props_results);
+		for(WebElement element: list_element){
+			switch(pAttributeToVerify) {
+			case "city":
+				isVerified = pAddress.contains(ActionHelper.getAttribute(element, "data-city"));
+				break;
+			case "state":
+				isVerified = pAddress.contains(ActionHelper.getAttribute(element, "data-state"));
+				break;
+			case "zip":
+				isVerified = pAddress.contains(ActionHelper.getAttribute(element, "data-zip_code"));
+				break;
+			}
+			if(!isVerified) {
+				break;
+			}
+		}
+		return isVerified;
+	}
+	public boolean verifySoldPropsPropAddressIsDisplayed() {
+		return verificationByText(sold_props_property_Address);
+	}
+	public boolean verifySoldPropsPriceIsDisplayed() {
+		return verificationByText(sold_props_price);
+	}
+	public boolean verifySoldPropsDistanceIsDisplayed() {
+		return verificationByText(sold_props_distance_miles);
+	}
+	public boolean verifySoldPropsDetailIsDisplayed() {
+		return verificationByText(sold_props_prop_details);
 	}
 	
 	private boolean verificationByText(String pXpath) {

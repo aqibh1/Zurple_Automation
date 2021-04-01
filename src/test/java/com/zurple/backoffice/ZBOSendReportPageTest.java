@@ -448,7 +448,83 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.verifyActiveListingDetailIsDisplayed(), "Unable to verify details of Active Listing from the results..");
 
 	}
+	///////////////////////
+	@Test //C40336
+	@Parameters({"dataFile"})
+	public void testVerifyResultsAreDisplayedUnderSoldPropertiesSection(String pDataFile) {
+		//Pre Condition
+		addLead(pDataFile);
+		getPage();
+		String lead_id =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(10);
+		assertTrue(page.isSoldPropsRadioOptionSelected(), "None option is selected for input search by default for Sold Props..");
+		assertTrue(page.isSoldPropsDisplayed(), "Sold Props are not displayed..");
+	}
 	
+	@Test //C40322
+	@Parameters({"dataFile"})
+	public void testVerifyResultsAreDsiplayedByAddressUnderSoldPropertiesSection(String pDataFile) {
+		getPage();
+		String lead_id =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		String l_address = dataObject.optString("active_listing_search_address");
+		ActionHelper.staticWait(2);
+		assertTrue(page.selectSoldPropsRadioOption("Address"), "None option is selected for input search by default Sold Props..");
+		assertTrue(page.typeInputSoldProps(l_address), "Sold Props are not displayed..");
+		assertTrue(page.clickOnSearchButtonForSoldProps(), "Unable to click on search button Sold Props..");
+		ActionHelper.staticWait(1);
+		page.waitForProcessingAlertToDisappear();
+		assertTrue(page.verifyResultsOfSoldProps(l_address, "city"), "Unable to verify the city from the results Sold Props.."+l_address);
+		assertTrue(page.verifyResultsOfSoldProps(l_address, "state"), "Unable to verify the state from the results Sold Props.."+l_address);
+	}
+	
+	@Test //C40323
+	@Parameters({"dataFile"})
+	public void testVerifyResultsAreDsiplayedByCityUnderSoldPropertiesSection(String pDataFile) {
+		getPage();
+		String lead_id =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		String l_city = dataObject.optString("city");
+		ActionHelper.staticWait(2);
+		assertTrue(page.selectSoldPropsRadioOption("City"), "None option is selected for input search by default Sold Props..");
+		assertTrue(page.typeInputSoldProps(l_city), "Sold Props are not displayed..");
+		assertTrue(page.clickOnSearchButtonForSoldProps(), "Unable to click on search button Sold Props..");
+		ActionHelper.staticWait(1);
+		page.waitForProcessingAlertToDisappear();
+		assertTrue(page.verifyResultsOfSoldProps(l_city, "city"), "Unable to verify the city from the results Sold Props.."+l_city);
+	}
+	
+	@Test //C40324
+	@Parameters({"dataFile"})
+	public void testVerifyResultsAreDsiplayedByZipUnderSoldPropertiesSection(String pDataFile) {
+		getPage();
+		String lead_id =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		String l_zip = dataObject.optString("zip");
+		ActionHelper.staticWait(2);
+		assertTrue(page.selectSoldPropsRadioOption("Zip"), "None option is selected for input search by default Sold Props..");
+		assertTrue(page.typeInputSoldProps(l_zip), "Sold Props are not displayed..");
+		assertTrue(page.clickOnSearchButtonForSoldProps(), "Unable to click on search button Sold Props..");
+		ActionHelper.staticWait(1);
+		page.waitForProcessingAlertToDisappear();
+		ActionHelper.staticWait(10);
+		assertTrue(page.verifyResultsOfSoldProps(l_zip, "zip"), "Unable to verify the zip from the results.."+l_zip);
+	}
+	
+	@Test //C40327
+	@Parameters({"dataFile"})
+	public void testVerifyResultsAreWithAllInformationSoldPropertiesSection(String pDataFile) {
+		getPage();
+		assertTrue(page.verifySoldPropsPropAddressIsDisplayed(), "Unable to verify thumnails images of Sold Prop from the results..");
+		assertTrue(page.verifySoldPropsPriceIsDisplayed(), "Unable to verify View Listing Link of Sold Prop from the results..");
+		assertTrue(page.verifySoldPropsDistanceIsDisplayed(), "Unable to verify property address of Sold Prop from the results..");
+		assertTrue(page.verifySoldPropsDetailIsDisplayed(), "Unable to verify Price of Sold Prop from the results..");
+	}
 	//Pre Condition
 	public void addLead(String pDataFile) {
 		try {
