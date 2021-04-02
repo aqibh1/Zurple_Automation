@@ -118,7 +118,7 @@ public class ZBOSendCMAReportPage extends Page{
 	String sold_props_prop_details = "//table[@id='DataTables_Table_0']/descendant::td[@class=' property-details']/span";
 	@FindBy(xpath="//form[@id='sold-listings-form']/descendant::input[@id='name']")
 	WebElement sold_props_address_input;
-	
+
 	@FindBy(id="cma-form-submit")
 	WebElement submit__button;
 
@@ -528,5 +528,10 @@ public class ZBOSendCMAReportPage extends Page{
 		}
 		return isVerified;
 	}
-	
+	public int getSoldPropertiesAddedLabelCount() {
+		return ActionHelper.getListOfElementByXpath(driver, sold_props_Selected_list).size();
+	}public boolean verifyAddedLabelIsNotClickableSoldProps() {
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, add_button_sold_listings);
+		return list_element.size()==0;
+	}
 }

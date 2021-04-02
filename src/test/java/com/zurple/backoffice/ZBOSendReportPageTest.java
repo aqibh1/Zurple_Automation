@@ -275,6 +275,18 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.is3SoldPropsSelected(), "3/3 sold listings selected label is not visible..");
 	}
 	
+	@Test //C40345
+	@Parameters({"dataFile"})
+	public void testVerifyAddButtonIsChangedToAddedTextSoldProps(String pDataFile) {
+		getPage();
+		String lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(5);
+		assertTrue(page.getSoldPropertiesAddedLabelCount()==3, "Add button is changed to Added label for Sold Properties");
+		assertTrue(page.verifyAddedLabelIsNotClickableSoldProps(), "After Adding Sold Properties label is still clickable");
+	}
+	
 	@Test //C40343
 	@Parameters({"dataFile"})
 	public void testVerifyErrorAlertWhenMoreThanThreeSoldPropsSelected(String pDataFile) {
