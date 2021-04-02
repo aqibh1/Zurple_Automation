@@ -136,6 +136,12 @@ public class ZBOSendCMAReportPage extends Page{
 	@FindBy(xpath="//div[@role='alert']/strong[text()='Please enter Maximum Estimated Price']")
 	WebElement maximum_price_alert;
 	
+	//Step 2 CMA Report
+	@FindBy(xpath="//form[@id='cmaEmailForm']/descendant::strong[text()='Subject']")
+	WebElement subject_heading;
+	@FindBy(id="cma-form-submit")
+	WebElement step2_email_details_button;
+	
 	//Processing
 	@FindBy(id="propertiesGrid_processing")
 	WebElement processing_alert;
@@ -533,5 +539,11 @@ public class ZBOSendCMAReportPage extends Page{
 	}public boolean verifyAddedLabelIsNotClickableSoldProps() {
 		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, add_button_sold_listings);
 		return list_element.size()==0;
+	}
+	public boolean clickOnStep2SendEmailButton() {
+		return ActionHelper.Click(driver, step2_email_details_button);
+	}
+	public boolean isStep2Visible() {
+		return ActionHelper.isElementVisible(driver, subject_heading);
 	}
 }

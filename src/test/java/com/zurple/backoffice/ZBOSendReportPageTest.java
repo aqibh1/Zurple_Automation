@@ -537,6 +537,21 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.verifySoldPropsDistanceIsDisplayed(), "Unable to verify property address of Sold Prop from the results..");
 		assertTrue(page.verifySoldPropsDetailIsDisplayed(), "Unable to verify Price of Sold Prop from the results..");
 	}
+	
+	@Test //40347
+	@Parameters({"dataFile"})
+	public void testVerifyUserIsRedirectedToStep2WhenEmailDetailsButtonIsClicked(String pDataFile) {
+		//Pre Condition
+		addLead(pDataFile);
+		getPage();
+		String lead_id =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(10);
+		addActiveAndSoldListings();
+		assertTrue(page.clickOnStep2SendEmailButton(), "Unable to click on Email Detail button..");
+		assertTrue(page.isStep2Visible(), "Step 2 is not displayed....");
+	}
 	//Pre Condition
 	public void addLead(String pDataFile) {
 		try {
