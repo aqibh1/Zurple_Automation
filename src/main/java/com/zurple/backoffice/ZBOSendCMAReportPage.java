@@ -5,6 +5,7 @@ package com.zurple.backoffice;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -141,6 +142,8 @@ public class ZBOSendCMAReportPage extends Page{
 	WebElement subject_heading;
 	@FindBy(id="cma-form-submit")
 	WebElement step2_email_details_button;
+	@FindBy(xpath="//html[@dir='ltr']/body")
+	WebElement additional_comments_textarea;
 	
 	//Processing
 	@FindBy(id="propertiesGrid_processing")
@@ -545,5 +548,15 @@ public class ZBOSendCMAReportPage extends Page{
 	}
 	public boolean isStep2Visible() {
 		return ActionHelper.isElementVisible(driver, subject_heading);
+	}
+	public boolean typeAdditionalComments(String pComments) {
+		boolean isTyped = true;
+		ActionHelper.switchToiFramebyElement(driver, driver.findElement(By.xpath("//iframe[@title='Rich Text Editor, comments']")));
+		try{
+			additional_comments_textarea.sendKeys(pComments);
+		}catch(Exception ex) {
+			isTyped = false;
+		}
+		return isTyped;
 	}
 }
