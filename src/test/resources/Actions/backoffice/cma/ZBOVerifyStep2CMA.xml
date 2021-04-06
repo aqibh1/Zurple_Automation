@@ -7,13 +7,14 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
- <test name="Verifications on Step2 of CMA Report page">
+ <test name="Verifications on Step2 and Step 3 of CMA Report page">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOSendReportPageTest">
 					<methods>
 						<include name="testVerifyUserIsRedirectedToStep2WhenEmailDetailsButtonIsClicked" />
 						<include name="testVerifyUserCanAddAdditionalCommentsStep2CMA" />
+						<include name="testVerifyStep3OfCMAReport" />
 					</methods>
 				</class>
 			</classes>

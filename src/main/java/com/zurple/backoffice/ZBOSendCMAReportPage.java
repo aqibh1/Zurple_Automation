@@ -145,6 +145,18 @@ public class ZBOSendCMAReportPage extends Page{
 	@FindBy(xpath="//html[@dir='ltr']/body")
 	WebElement additional_comments_textarea;
 	
+	//Step 3 CMA Report
+	@FindBy(xpath="//h3[text()='Preview Email']")
+	WebElement preview_email_heading;
+	String property_details = "//div[@id='email-preview-container']/table[2]/tbody/tr/td";
+	String comparable_props_list_img = "//div[@id='email-preview-container']/descendant::table[@style='margin: 10px 0px;']/descendant::a/img";
+	String comparable_props_list_text = "//div[@id='email-preview-container']/descendant::table[@style='margin: 10px 0px;']/descendant::a/p";
+	@FindBy(xpath="//div[@id='email-preview-container']/descendant::td[contains(text(),'Comparable Properties Recently Sold')]")
+	WebElement comparable_sold_props_heading;
+	String comparable_sold_props_details= "//div[@id='email-preview-container']/descendant::td[@style='width:33%']/p";
+	@FindBy(id="cma-form-go-back")
+	WebElement cma_back_button;
+	
 	//Processing
 	@FindBy(id="propertiesGrid_processing")
 	WebElement processing_alert;
@@ -515,28 +527,6 @@ public class ZBOSendCMAReportPage extends Page{
 	public boolean verifySoldPropsDetailIsDisplayed() {
 		return verificationByText(sold_props_prop_details);
 	}
-	
-	private boolean verificationByText(String pXpath) {
-		boolean isVerified = true;
-		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, pXpath);
-		for(WebElement element: list_element) {
-			if(ActionHelper.getText(driver,element).isEmpty()) {
-				isVerified = false;
-				break;
-			}
-		}
-		return isVerified;
-	}private boolean verifyAttributeContains(String pXpath, String pAttribue, String pValueToVerify) {
-		boolean isVerified = false;
-		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, pXpath);
-		for(WebElement element: list_element) {
-			if(ActionHelper.getAttribute(element, pAttribue).contains(pValueToVerify)) {
-				isVerified = true;
-				break;
-			}
-		}
-		return isVerified;
-	}
 	public int getSoldPropertiesAddedLabelCount() {
 		return ActionHelper.getListOfElementByXpath(driver, sold_props_Selected_list).size();
 	}public boolean verifyAddedLabelIsNotClickableSoldProps() {
@@ -558,5 +548,79 @@ public class ZBOSendCMAReportPage extends Page{
 			isTyped = false;
 		}
 		return isTyped;
+	}
+	public boolean isPreviewEmailHeadingVisible() {
+		return ActionHelper.isElementVisible(driver, preview_email_heading);
+	}public boolean isPropDetailsDisplayed() {
+		int count = 0;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, property_details);
+		for(WebElement element: list_element) {
+			if(ActionHelper.getText(driver, element).isEmpty()) {
+				count++;
+				
+			}
+		}
+		return count<2;
+	}
+	public boolean verifyComparablePropsImagesVisible() {
+		boolean isVerified = true;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, comparable_props_list_img);
+		for(WebElement element: list_element) {
+			if(!ActionHelper.isElementVisible(driver, element)) {
+				isVerified = false;
+				break;
+			}
+		}
+		return isVerified;
+	}
+	public boolean verifyComparablePropsTextVisible() {
+		boolean isVerified = true;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, comparable_props_list_text);
+		for(WebElement element: list_element) {
+			if(ActionHelper.getText(driver,element).isEmpty()) {
+				isVerified = false;
+				break;
+			}
+		}
+		return isVerified;
+	}
+	public boolean isComparableSoldPropsHeadingVisible() {
+		return ActionHelper.isElementVisible(driver, comparable_sold_props_heading);
+	}
+	public boolean verifyComparableSoldPropsTextVisible() {
+		boolean isVerified = true;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, comparable_sold_props_details);
+		for(WebElement element: list_element) {
+			if(ActionHelper.getText(driver,element).isEmpty()) {
+				isVerified = false;
+				break;
+			}
+		}
+		return isVerified;
+	}
+	public boolean isCMABackButtonVisible() {
+		return ActionHelper.isElementVisible(driver, cma_back_button);
+	}
+	//Private methods
+	private boolean verificationByText(String pXpath) {
+		boolean isVerified = true;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, pXpath);
+		for(WebElement element: list_element) {
+			if(ActionHelper.getText(driver,element).isEmpty()) {
+				isVerified = false;
+				break;
+			}
+		}
+		return isVerified;
+	}private boolean verifyAttributeContains(String pXpath, String pAttribue, String pValueToVerify) {
+		boolean isVerified = false;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, pXpath);
+		for(WebElement element: list_element) {
+			if(ActionHelper.getAttribute(element, pAttribue).contains(pValueToVerify)) {
+				isVerified = true;
+				break;
+			}
+		}
+		return isVerified;
 	}
 }
