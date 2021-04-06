@@ -538,7 +538,7 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.verifySoldPropsDetailIsDisplayed(), "Unable to verify Price of Sold Prop from the results..");
 	}
 	
-	@Test //40347
+	@Test //40349
 	@Parameters({"dataFile"})
 	public void testVerifyUserIsRedirectedToStep2WhenEmailDetailsButtonIsClicked(String pDataFile) {
 		//Pre Condition
@@ -548,9 +548,18 @@ public class ZBOSendReportPageTest extends PageTest{
 		getPage("/cma/email/lead/"+lead_id,true);
 		dataObject = getDataFile(pDataFile);
 		ActionHelper.staticWait(10);
-		addActiveAndSoldListings();
-		assertTrue(page.clickOnStep2SendEmailButton(), "Unable to click on Email Detail button..");
+		fillStep1RequiredFields();
 		assertTrue(page.isStep2Visible(), "Step 2 is not displayed....");
+	}
+	
+	@Test //C40351
+	public void testVerifyUserCanAddAdditionalCommentsStep2CMA() {
+		//Pre Condition
+		getPage();
+		String lead_id =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		ActionHelper.staticWait(2);
+		assertTrue(page.typeAdditionalComments(updateName("additional comments")), "Step 2 is not displayed....");
 	}
 	//Pre Condition
 	public void addLead(String pDataFile) {
@@ -588,6 +597,15 @@ public class ZBOSendReportPageTest extends PageTest{
 	private void isThreeActiveListingsSelected() {
 		if(!page.is3ActiveListingsSelected()) {
 			throw new SkipException("PreCondition failed. 3 Active Listings are not added..");
+		}
+	}
+	private void fillStep1RequiredFields() {
+		if(!page.typeMinPrice("10000") || !page.typeMaxPrice("90000")) {
+			throw new SkipException("PreCondition failed. Unable to type price..");
+		}
+		addActiveAndSoldListings();
+		if(!page.clickOnStep2SendEmailButton()) {
+			throw new SkipException("PreCondition failed. Unable to type price..");
 		}
 	}
 	@AfterTest
