@@ -558,9 +558,30 @@ public class ZBOSendReportPageTest extends PageTest{
 		getPage();
 		String lead_id =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
 		getPage("/cma/email/lead/"+lead_id,true);
-		ActionHelper.staticWait(2);
+		ActionHelper.staticWait(10);
 		assertTrue(page.typeAdditionalComments(updateName("additional comments")), "Step 2 is not displayed....");
 	}
+	
+	@Test //C40353
+	public void testVerifyStep3OfCMAReport() {
+		//Pre Condition
+		getPage();
+		String lead_id =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage("/cma/email/lead/"+lead_id,true);
+		ActionHelper.staticWait(2);
+		clickOnSubmitFormButton();
+		assertTrue(page.isPreviewEmailHeadingVisible(), "Preview Email heading is not visible....");
+		assertTrue(page.isPropDetailsDisplayed(), "Property Details not displayed....");
+		assertTrue(page.verifyComparablePropsImagesVisible(), "Comparable prop images are not displayed....");
+		assertTrue(page.verifyComparablePropsTextVisible(), "Comparable prop texts are not displayed....");
+		assertTrue(page.isComparableSoldPropsHeadingVisible(), "Comparable sold prop heading is not displayed....");
+		assertTrue(page.verifyComparableSoldPropsTextVisible(), "Comparable sold prop details are not displayed....");
+		assertTrue(page.isCMABackButtonVisible(), "CMA back button is not visible....");
+		assertTrue(page.clickOnSubmitButton(), "Unable to click on Send CMA Reprot button");
+		assertTrue(page.getGenericAlert().waitForSuccessRingToBeVisible(), "Success message is not visible..");
+		assertTrue(page.getGenericAlert().clickOnOkButton(), "Unable to click on OK. button");
+		}
+	
 	//Pre Condition
 	public void addLead(String pDataFile) {
 		try {

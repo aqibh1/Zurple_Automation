@@ -31,6 +31,8 @@ public class ZBOGenericAlerts extends AbstractAlert{
 	WebElement only_3_active_listing_error;
 	@FindBy(xpath="//button[text()='OK']")
 	WebElement ok_button;
+	@FindBy(className="swal2-success-ring")
+	WebElement success_ring;
 	
 	public ZBOGenericAlerts(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -57,5 +59,8 @@ public class ZBOGenericAlerts extends AbstractAlert{
 	}
 	public boolean clickOnOkButton() {
 		return ActionHelper.Click(driver, ok_button);
+	}
+	public boolean waitForSuccessRingToBeVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, success_ring, 20);
 	}
 }
