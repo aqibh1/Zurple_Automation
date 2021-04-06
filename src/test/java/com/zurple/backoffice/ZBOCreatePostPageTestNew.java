@@ -72,7 +72,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateFBTextScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile, "text");
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		schedulePost();
 		saveData();
@@ -82,7 +82,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateFBLinkScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);		
+		createPostInitialVerification(pDataFile, "link");		
 		String listing_link = ZurpleListingConstants.zurple_prod_land_url;
 		assertTrue(page.clickOnPostLinkButton(ld_platform), "Unable to click on Post Link button..");
 		assertTrue(page.typeLinkUrl(ld_platform, listing_link), "Unable to type listing URL");
@@ -97,7 +97,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		page = null;
 		getPage("/social/createpost");
 		String ld_post_photo = System.getProperty("user.dir")+dataObject.optString("post_image");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"photo");
 		assertTrue(!page.getTitle(ld_platform).isEmpty(), "Title of the create post is empty..");
 		assertTrue(!page.getUsername(ld_platform).isEmpty(), "Username of the create post is empty..");
 		assertTrue(page.verifyPlatformProfilePicsAreVisible(ld_platform), "Profile picture is not correct for "+ld_platform);
@@ -111,7 +111,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateFBListingScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"listing");
 		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
@@ -127,7 +127,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateFBListingVideoScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile, "video");
 		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
@@ -145,7 +145,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateTwitterTextScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"text");
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		schedulePost();
 		saveData();
@@ -155,7 +155,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateTwitterLinkScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);		
+		createPostInitialVerification(pDataFile,"link");		
 		String listing_link = ZurpleListingConstants.zurple_prod_land_url;
 		assertTrue(page.clickOnPostLinkButton(ld_platform), "Unable to click on Post Link button..");
 		assertTrue(page.typeLinkUrl(ld_platform, listing_link), "Unable to type listing URL");
@@ -170,7 +170,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		page = null;
 		getPage("/social/createpost");
 		String ld_post_photo = System.getProperty("user.dir")+dataObject.optString("post_image");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"photo");
 		assertTrue(!page.getTitle(ld_platform).isEmpty(), "Title of the create post is empty..");
 		assertTrue(!page.getUsername(ld_platform).isEmpty(), "Username of the create post is empty..");
 		assertTrue(page.verifyPlatformProfilePicsAreVisible(ld_platform), "Profile picture is not correct for "+ld_platform);
@@ -184,7 +184,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateTwitterListingScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"listing");
 		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
@@ -200,7 +200,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateTwitterListingVideoScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"video");
 		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
@@ -218,7 +218,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateLinkedinTextScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"text");
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		schedulePost();
 		saveData();
@@ -228,7 +228,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateLinkedinLinkScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);		
+		createPostInitialVerification(pDataFile,"link");		
 		String listing_link = ZurpleListingConstants.zurple_prod_land_url;
 		assertTrue(page.clickOnPostLinkButton(ld_platform), "Unable to click on Post Link button..");
 		assertTrue(page.typeLinkUrl(ld_platform, listing_link), "Unable to type listing URL");
@@ -243,7 +243,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		page = null;
 		getPage("/social/createpost");
 		String ld_post_photo = System.getProperty("user.dir")+dataObject.optString("post_image");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"photo");
 		assertTrue(!page.getTitle(ld_platform).isEmpty(), "Title of the create post is empty..");
 		assertTrue(!page.getUsername(ld_platform).isEmpty(), "Username of the create post is empty..");
 		assertTrue(page.verifyPlatformProfilePicsAreVisible(ld_platform), "Profile picture is not correct for "+ld_platform);
@@ -257,7 +257,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateLinkedinListingScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"listing");
 		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
@@ -273,7 +273,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateFBTextPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"text");
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		postNow();
 		saveData();
@@ -283,7 +283,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateFBLinkPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);		
+		createPostInitialVerification(pDataFile,"link");		
 		String listing_link = ZurpleListingConstants.zurple_prod_land_url;
 		assertTrue(page.clickOnPostLinkButton(ld_platform), "Unable to click on Post Link button..");
 		assertTrue(page.typeLinkUrl(ld_platform, listing_link), "Unable to type listing URL");
@@ -298,7 +298,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		page = null;
 		getPage("/social/createpost");
 		String ld_post_photo = System.getProperty("user.dir")+dataObject.optString("post_image");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"photo");
 		assertTrue(!page.getTitle(ld_platform).isEmpty(), "Title of the create post is empty..");
 		assertTrue(!page.getUsername(ld_platform).isEmpty(), "Username of the create post is empty..");
 		assertTrue(page.verifyPlatformProfilePicsAreVisible(ld_platform), "Profile picture is not correct for "+ld_platform);
@@ -312,7 +312,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateFBListingPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"listing");
 		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
@@ -328,7 +328,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateFBListingVideoPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"video");
 		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
@@ -346,7 +346,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateTwitterTextPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"text");
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		postNow();
 		saveData();
@@ -356,7 +356,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateTwitterLinkPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);		
+		createPostInitialVerification(pDataFile,"link");		
 		String listing_link = ZurpleListingConstants.zurple_prod_land_url;
 		assertTrue(page.clickOnPostLinkButton(ld_platform), "Unable to click on Post Link button..");
 		assertTrue(page.typeLinkUrl(ld_platform, listing_link), "Unable to type listing URL");
@@ -371,7 +371,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		page = null;
 		getPage("/social/createpost");
 		String ld_post_photo = System.getProperty("user.dir")+dataObject.optString("post_image");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"photo");
 		assertTrue(!page.getTitle(ld_platform).isEmpty(), "Title of the create post is empty..");
 		assertTrue(!page.getUsername(ld_platform).isEmpty(), "Username of the create post is empty..");
 		assertTrue(page.verifyPlatformProfilePicsAreVisible(ld_platform), "Profile picture is not correct for "+ld_platform);
@@ -385,7 +385,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateTwitterListingPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"listing");
 		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
@@ -401,7 +401,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateTwitterListingVideoPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"video");
 		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
@@ -419,7 +419,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateLinkedinTextPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"text");
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		postNow();
 		saveData();
@@ -429,7 +429,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateLinkedinLinkPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);		
+		createPostInitialVerification(pDataFile,"link");		
 		String listing_link = ZurpleListingConstants.zurple_prod_land_url;
 		assertTrue(page.clickOnPostLinkButton(ld_platform), "Unable to click on Post Link button..");
 		assertTrue(page.typeLinkUrl(ld_platform, listing_link), "Unable to type listing URL");
@@ -444,7 +444,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		page = null;
 		getPage("/social/createpost");
 		String ld_post_photo = System.getProperty("user.dir")+dataObject.optString("post_image");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"photo");
 		assertTrue(!page.getTitle(ld_platform).isEmpty(), "Title of the create post is empty..");
 		assertTrue(!page.getUsername(ld_platform).isEmpty(), "Username of the create post is empty..");
 		assertTrue(page.verifyPlatformProfilePicsAreVisible(ld_platform), "Profile picture is not correct for "+ld_platform);
@@ -458,7 +458,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateLinkedinListingPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"listing");
 		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
@@ -474,7 +474,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateYTListingVideoPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
-		createPostInitialVerification(pDataFile);
+		createPostInitialVerification(pDataFile,"video");
 		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
@@ -488,10 +488,10 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
-	public void createPostInitialVerification(String pDataFile) {
+	public void createPostInitialVerification(String pDataFile, String post_type) {
 		dataObject = getDataFile(pDataFile);
 		ld_platform = dataObject.optString("platform");
-		ld_posttype = dataObject.optString("post_type");
+		ld_posttype = dataObject.optString(post_type);
 		ld_post_text = updateName(dataObject.optString("post_text"));
 		assertTrue(page.isCreatePostPage(), "Create Post Page is not visible..");
 		assertTrue(page.verifyIfPlatformIsConnected(ld_platform), "Platform is not connected "+ld_platform);
