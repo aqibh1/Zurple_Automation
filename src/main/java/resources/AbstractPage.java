@@ -34,6 +34,12 @@ public abstract class AbstractPage
         driver.get(pIdxUrl);
         focusOnPage();
     }
+    
+    public void setDriver(WebDriver driver, String pIdxUrl,boolean variable){
+        this.driver=driver;
+        driver.get(getFullUrl());
+        focusOnPage();
+    }
     public WebDriver getWebDriver() {
     	return driver;
     }

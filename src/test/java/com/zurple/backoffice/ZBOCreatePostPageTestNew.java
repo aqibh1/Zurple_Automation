@@ -11,6 +11,8 @@ import java.util.Map;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.SkipException;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -46,6 +48,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOCreatePostPage(driver);
+			setLoginPage(driver);
 			page.setUrl("");
 			page.setDriver(driver);
 		}
@@ -56,8 +59,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOCreatePostPage(driver);
+			setLoginPage(driver);
 			page.setUrl(pUrl);
-			page.setDriver(driver);
+			page.setDriver(driver,pUrl,true);
 		}
 		return page;
 	}
@@ -67,7 +71,16 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		
 	}
 	
+	@BeforeTest
+	public void backOfficeLogin() {
+		getPage();
+		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
+			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
+	}
+	
 	//@Test(groups= "com.zurple.backoffice.social.ZBOCreatePostPage.testCreatePost",retryAnalyzer = resources.RetryFailedTestCases.class)
+	@Test
 	@Parameters({"FBDataFile"})
 	public void testCreateFBTextScheduledPost(String pDataFile) throws IOException {
 		page = null;
@@ -78,6 +91,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"FBDataFile"})
 	public void testCreateFBLinkScheduledPost(String pDataFile) throws IOException {
 		page = null;
@@ -92,6 +106,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"FBDataFile"})
 	public void testCreateFBPhotoScheduledPost(String pDataFile) throws IOException {
 		page = null;
@@ -107,6 +122,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"FBDataFile"})
 	public void testCreateFBListingScheduledPost(String pDataFile) throws IOException {
 		page = null;
@@ -123,12 +139,13 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"FBDataFile"})
 	public void testCreateFBListingVideoScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
 		createPostInitialVerification(pDataFile, "video");
-		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
+		//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
@@ -141,6 +158,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"TwitterDataFile"})
 	public void testCreateTwitterTextScheduledPost(String pDataFile) throws IOException {
 		page = null;
@@ -151,6 +169,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"TwitterDataFile"})
 	public void testCreateTwitterLinkScheduledPost(String pDataFile) throws IOException {
 		page = null;
@@ -165,6 +184,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"TwitterDataFile"})
 	public void testCreateTwitterPhotoScheduledPost(String pDataFile) throws IOException {
 		page = null;
@@ -180,6 +200,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"TwitterDataFile"})
 	public void testCreateTwitterListingScheduledPost(String pDataFile) throws IOException {
 		page = null;
@@ -196,12 +217,13 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"TwitterDataFile"})
 	public void testCreateTwitterListingVideoScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
 		createPostInitialVerification(pDataFile,"video");
-		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
+		//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
@@ -214,6 +236,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"LinkedinDataFile"})
 	public void testCreateLinkedinTextScheduledPost(String pDataFile) throws IOException {
 		page = null;
@@ -224,6 +247,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"LinkedinDataFile"})
 	public void testCreateLinkedinLinkScheduledPost(String pDataFile) throws IOException {
 		page = null;
@@ -238,6 +262,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"LinkedinDataFile"})
 	public void testCreateLinkedinPhotoScheduledPost(String pDataFile) throws IOException {
 		page = null;
@@ -253,6 +278,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"LinkedinDataFile"})
 	public void testCreateLinkedinListingScheduledPost(String pDataFile) throws IOException {
 		page = null;
@@ -269,6 +295,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"FBDataFile"})
 	public void testCreateFBTextPost(String pDataFile) throws IOException {
 		page = null;
@@ -279,6 +306,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"FBDataFile"})
 	public void testCreateFBLinkPost(String pDataFile) throws IOException {
 		page = null;
@@ -293,6 +321,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"FBDataFile"})
 	public void testCreateFBPhotoPost(String pDataFile) throws IOException {
 		page = null;
@@ -308,6 +337,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"FBDataFile"})
 	public void testCreateFBListingPost(String pDataFile) throws IOException {
 		page = null;
@@ -324,12 +354,13 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"FBDataFile"})
 	public void testCreateFBListingVideoPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
 		createPostInitialVerification(pDataFile,"video");
-		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
+		//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
@@ -342,6 +373,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"TwitterDataFile"})
 	public void testCreateTwitterTextPost(String pDataFile) throws IOException {
 		page = null;
@@ -352,6 +384,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"TwitterDataFile"})
 	public void testCreateTwitterLinkPost(String pDataFile) throws IOException {
 		page = null;
@@ -366,6 +399,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"TwitterDataFile"})
 	public void testCreateTwitterPhotoPost(String pDataFile) throws IOException {
 		page = null;
@@ -381,6 +415,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"TwitterDataFile"})
 	public void testCreateTwitterListingPost(String pDataFile) throws IOException {
 		page = null;
@@ -397,12 +432,13 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"TwitterDataFile"})
 	public void testCreateTwitterListingVideoPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
 		createPostInitialVerification(pDataFile,"video");
-		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
+		//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
@@ -415,6 +451,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"LinkedinDataFile"})
 	public void testCreateLinkedinTextPost(String pDataFile) throws IOException {
 		page = null;
@@ -425,6 +462,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"LinkedinDataFile"})
 	public void testCreateLinkedinLinkPost(String pDataFile) throws IOException {
 		page = null;
@@ -439,6 +477,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"LinkedinDataFile"})
 	public void testCreateLinkedinPhotoPost(String pDataFile) throws IOException {
 		page = null;
@@ -454,6 +493,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"LinkedinDataFile"})
 	public void testCreateLinkedinListingPost(String pDataFile) throws IOException {
 		page = null;
@@ -470,14 +510,15 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		saveData();
 	}
 	
+	@Test
 	@Parameters({"YTDataFile"})
 	public void testCreateYTListingVideoPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
 		createPostInitialVerification(pDataFile,"video");
-		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
-		ActionHelper.staticWait(3);
-		assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
+		//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
+//		ActionHelper.staticWait(3);
+//		assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
 		assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
 		ActionHelper.staticWait(10);
@@ -522,6 +563,11 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		jObject.put("platform", ld_platform);
 		jObject.put("post_type", ld_posttype);
 		writeJsonToFile(lFileToWrite,jObject);
+	}
+	
+	@AfterTest
+	public void closeBrowser() {
+		closeCurrentBrowser();
 	}
 
 }
