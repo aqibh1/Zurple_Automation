@@ -108,6 +108,22 @@ public class ZWHomeValuesPage extends Page{
 	}public boolean clickOnSubmitButton() {
 		return ActionHelper.Click(driver, submit);
 	}
+	
+	public String getStreetValidationMessage() {
+		return ActionHelper.getValidationMessage(driver, street_address);
+	}public String getCityValidationMessage() {
+		return ActionHelper.getValidationMessage(driver, city);
+	}public String getZipCodeValidationMessage() {
+		return ActionHelper.getValidationMessage(driver, zip_code);
+	}public String getFirstNameValidationMessage() {
+		return ActionHelper.getValidationMessage(driver, first_name);
+	}public String getLastNameValidationMessage() {
+		return ActionHelper.getValidationMessage(driver, last_name);
+	}public String getEmailValidationMessage() {
+		return ActionHelper.getValidationMessage(driver, email_address);
+	}public String getStateValidationMessage() {
+		return ActionHelper.getValidationMessage(driver, state);
+	}
 	@Override
 	public WebElement getHeader() {
 		// TODO Auto-generated method stub
