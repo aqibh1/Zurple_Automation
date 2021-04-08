@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -1326,4 +1327,18 @@ public class ActionHelper {
 		   }
 		   return pAttributeValue;
 	   }
+	   
+	   public static boolean getAlertText(WebDriver pWebDriver) {
+		   boolean isAlertHandled = true;
+		   try {
+			   Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+			   //Type your message
+			   alert.sendKeys("Selenium");
+		   }catch(Exception ex) {
+			   isAlertHandled = false;
+		   }
+		   return isAlertHandled;
+	   }
+		   
+	   
 }
