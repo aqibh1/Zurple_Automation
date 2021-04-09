@@ -36,6 +36,7 @@ public class ZBOScheduledPostHistoryPageTest extends PageTest{
 	
 	private WebDriver driver;
 	private ZBOScheduledPostsPage page;
+	private JSONObject dataObject;
 	
 	public AbstractPage getPage() {
 		if(page==null) {
@@ -63,50 +64,15 @@ public class ZBOScheduledPostHistoryPageTest extends PageTest{
 		// TODO Auto-generated method stub	
 	}
 	
-	@Test//(dependsOnGroups= "com.zurple.backoffice.social.ZBOCreatePostPage.testCreatePost",retryAnalyzer = resources.RetryFailedTestCases.class)
-	//@Parameters({"dataFile"})
-	public void testVerifyPostOnPostHistoryPage() throws JSONException, IOException {
+	public void ScheduledPostVerification(String lFileToRead) throws JSONException, IOException {
 		page=null;
 		getPage("/social/scheduledposts");
 		boolean lFlag = false;
-//		String lPostText = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleSocialPost);
-//		String ld_platform = dataObject.optString("platform");
-//		String ld_posttype = dataObject.optString("post_type");
-		String lFileToRead = "/resources/data/zurple/backoffice/social/zurple-social-all-scheduled-posts-data.json";
-		JSONArray lPostIdsToVerifyArray = new JSONArray(getDataFileContentJsonArray(System.getProperty("user.dir")+lFileToRead));
-		// String converted = convertToJSONArray(System.getProperty("user.dir")+lFileToRead);
-		// JSONArray lPostIdsToVerifyArray = new JSONArray(converted);
-		String lPostText = "";
-		String ld_platform = "";
-		String ld_posttype = "";
-		
-		String post_schedule_id_to_verify = "";
-		for(int i=0;i<lPostIdsToVerifyArray.length();i++) {
-			lFlag = false;
-			lPostText = lPostIdsToVerifyArray.getJSONObject(i).get("post_text").toString();
-			ld_platform = lPostIdsToVerifyArray.getJSONObject(i).get("platform").toString();
-			ld_posttype = lPostIdsToVerifyArray.getJSONObject(i).get("post_type").toString();
-			page=null;
-			getPage("/social/scheduledposts");
-//			for(int j=0;j<lResponseDataArray.length();j++) {
-//				String l_response_post_id = lResponseDataArray.getJSONObject(j).get("post_schedule_id").toString();
-//				String l_response_post_status = lResponseDataArray.getJSONObject(j).get("post_status").toString(); //Should be 2
-//				String l_response_post_status_code = lResponseDataArray.getJSONObject(j).get("post_status_code").toString(); //Should be 1
-//				
-//				//Comparing response and data post id
-//				AutomationLogger.info("Post ID in data file :: "+post_schedule_id_to_verify);
-//				AutomationLogger.info("Post ID in post history:: "+l_response_post_id);
-//				if(post_schedule_id_to_verify.equalsIgnoreCase(l_response_post_id) /*&& l_response_post_status.equalsIgnoreCase("2")
-//						&& l_response_post_status_code.equalsIgnoreCase("1")*/) {
-//					lFlag = true;
-//					break;
-//				}		
-		
-		
-		
-		boolean lSpecialVerification = false;
-		
-		//assertTrue(page.isPostingHistoryPageIsVisible(), "Post History Page is not visible..");
+		dataObject = getDataFile(lFileToRead);
+		String lPostText = dataObject.optString("post_text");
+		String ld_platform = dataObject.optString("platform");
+		String ld_posttype = dataObject.optString("post_type");
+		boolean lSpecialVerification = false;		
 		assertTrue(page.isScheduledPostsPage(), "Scheduled post Page is not visible..");
 		if(!ld_platform.equalsIgnoreCase("Twitter") && !ld_posttype.equalsIgnoreCase("post_listing_video")) {
 			assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Post History page.");
@@ -160,7 +126,7 @@ public class ZBOScheduledPostHistoryPageTest extends PageTest{
 		ZBOEditPostPage editPage = new ZBOEditPostPage(driver);
 		assertTrue(editPage.isEditPostPage(), "Edit post page is not visible..");
 		assertTrue(editPage.verifyPost(lPostText), "Unable to verify edit post..");
-	}
+		
 		emptyFile(lFileToRead, "");
 	}
 }

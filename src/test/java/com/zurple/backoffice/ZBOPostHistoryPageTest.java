@@ -61,8 +61,9 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		// TODO Auto-generated method stub	
 	}
 	
-	@Test//(dependsOnGroups= "com.zurple.backoffice.social.ZBOCreatePostPage.testCreatePost",retryAnalyzer = resources.RetryFailedTestCases.class)
+	//(dependsOnGroups= "com.zurple.backoffice.social.ZBOCreatePostPage.testCreatePost",retryAnalyzer = resources.RetryFailedTestCases.class)
 	//@Parameters({"dataFile"})
+	@Test
 	public void testVerifyPostOnPostHistoryPage() throws JSONException, IOException {
 		page=null;
 		getPage("/social/history");
@@ -172,5 +173,24 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		}
 	}
 		emptyFile(lFileToRead, "");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyTextPost(String pDataFile) {
+		page=null;
+		getPage("/social/history");
+		JSONObject dataObject = getDataFile(pDataFile);
+		String lPostText = dataObject.optString("post_text");
+		String ld_platform = dataObject.optString("platform");
+		String ld_posttype = dataObject.optString("post_type");
+		assertTrue(page.isPostingHistoryPageIsVisible(), "Post History Page is not visible..");
+		if(!ld_platform.equalsIgnoreCase("Twitter") && !ld_posttype.equalsIgnoreCase("post_listing_video")) {
+			assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Post History page.");
+		}
+		assertTrue(page.getPostPageTitle(lPostText), "Platform title is not visible...");
+		assertTrue(!page.getPostAccountName(lPostText, ld_platform).isEmpty(), "Unable to verify account name...");
+		assertTrue(page.isTextPostIconVisible(lPostText), "Unable to verify post icon");
+		assertTrue(page.isManualPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 	}
 }
