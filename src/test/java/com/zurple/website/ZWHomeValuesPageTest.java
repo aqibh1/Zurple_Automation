@@ -7,11 +7,17 @@ import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.SkipException;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.zurple.backoffice.ZBOLeadDetailPage;
 import com.zurple.my.PageTest;
 
+import resources.EnvironmentFactory;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
 import us.zengtest1.Page;
 
 /**
@@ -44,6 +50,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 			page = new ZWHomeValuesPage(driver);
 			page.setUrl("");
 			page.setDriver(driver);
+			setLoginPage(driver);
 		}
 		return page;
 	}
@@ -53,6 +60,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 			page = new ZWHomeValuesPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
+			setLoginPage(driver);
 		}
 		return page;
 	}
@@ -62,7 +70,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Test
 	public void testVerifyHomeValuePageIsPopulated() {
 		getPage("/homevalues");
@@ -160,6 +168,31 @@ public class ZWHomeValuesPageTest extends PageTest{
 		assertTrue(!page.getStreetValidationMessage().isEmpty(), "Address Validation message is not displayed..");
 	}
 	
+	@Test//40422
+	@Parameters({"dataFile"})
+	public void testUserIsRedirectedToThankYouPage(String pDataFile) {
+		getPage("/homevalues");
+		
+		dataObject = getDataFile(pDataFile);
+		setData();
+		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
+		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(new ZWRegisterUserPage(driver).isRegisterSuccessfully(),"Registration of user is unsuccessful..");
+		String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId,lLeadId);
+		ZWHomesForSalePage homesForSale = new ZWHomesForSalePage(driver);
+		assertTrue(homesForSale.isHomeForSalePage(), "User is not redirected to Homes for Sale Page..");
+	}
+	
+	@Test//C40426
+	public void testVerifyLeadSource() {
+		loginPreCondition();
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		String l_currentUrl = driver.getCurrentUrl().replace("/dashboard", "")+"/lead/"+lLeadId;
+		driver.navigate().to(l_currentUrl);
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(leadDetailPage.getLeadSource().equalsIgnoreCase("Seller Campaign"), "Lead Source value is not Seller Campaign");
+	}
 	
 	private void fillInHomeValueForm(String pAddress, String pCity, String pZip, String pState, String pBeds, String pBaths, String pSqFeet,
 			String pFirstName, String pLastName, String pEmail, String pPhone, boolean pPun) {
@@ -191,5 +224,15 @@ public class ZWHomeValuesPageTest extends PageTest{
 		l_baths = dataObject.optString("baths");
 		l_sqfeet = dataObject.optString("sqfeet");
 		l_pun = dataObject.optBoolean("pun");
+	}
+	private void loginPreCondition() {
+		driver.navigate().to(EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url"));
+		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
+			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
+	}
+	@AfterTest
+	public void closeBrowser() {
+		closeCurrentBrowser();
 	}
 }
