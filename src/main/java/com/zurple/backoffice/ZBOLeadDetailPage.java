@@ -223,6 +223,9 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(xpath="//a[@class='btn lead-btn-disabled btn-sm' and @title='Please update Lead’s Email Address to be valid']")
 	WebElement sendCMAReport_disabled_button;
 	
+	@FindBy(xpath="//div[@id='lead-details-main']/descendant::span[text()='Lead Source:']/following-sibling::span")
+	WebElement lead_souce;
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
 
@@ -1120,5 +1123,8 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean isSendCMAReportButtonDisabled() {
 		return ActionHelper.isElementVisible(driver, sendCMAReport_disabled_button);
+	}
+	public String getLeadSource() {
+		return ActionHelper.getText(driver, lead_souce);
 	}
 }
