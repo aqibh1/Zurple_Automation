@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Instant;
@@ -425,6 +427,19 @@ public abstract class AbstractPageTest extends AbstractTest
          WebDriver driver = EnvironmentFactory.getDriver(thread_id);
          driver.quit();
          EnvironmentFactory.webDrivers.remove(thread_id);
+    }
+    
+    public String getDataFileContentJsonArray(String pDataFile) throws IOException {
+        String data = ""; 
+        data = new String(Files.readAllBytes(Paths.get(pDataFile))); 
+        return "["+data+"]"; 
+    }
+    
+    public String convertToJSONArray(String pDataFile) throws IOException {
+        String data = ""; 
+        data = new String(Files.readAllBytes(Paths.get(pDataFile))); 
+        String output = "{"+"\"data\":"+"["+data+"]"+"}";
+        return output; 
     }
 
 }
