@@ -65,12 +65,12 @@ public class ZBOPostHistoryPageTest extends PageTest{
 	//@Parameters({"dataFile"})
 	public void testVerifyPostOnPostHistoryPage() throws JSONException, IOException {
 		page=null;
-		getPage("/social/scheduledposts");
+		getPage("/social/history");
 		boolean lFlag = false;
 //		String lPostText = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleSocialPost);
 //		String ld_platform = dataObject.optString("platform");
 //		String ld_posttype = dataObject.optString("post_type");
-		String lFileToRead = "/resources/data/zurple/backoffice/social/zurple-social-all-scheduled-posts-data.json";
+		String lFileToRead = "/resources/data/zurple/backoffice/social/zurple-social-all-posts-data.json";
 		JSONArray lPostIdsToVerifyArray = new JSONArray(getDataFileContentJsonArray(System.getProperty("user.dir")+lFileToRead));
 		// String converted = convertToJSONArray(System.getProperty("user.dir")+lFileToRead);
 		// JSONArray lPostIdsToVerifyArray = new JSONArray(converted);
@@ -85,7 +85,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 			ld_platform = lPostIdsToVerifyArray.getJSONObject(i).get("platform").toString();
 			ld_posttype = lPostIdsToVerifyArray.getJSONObject(i).get("post_type").toString();
 			page=null;
-			getPage("/social/scheduledposts");
+			getPage("/social/history");
 //			for(int j=0;j<lResponseDataArray.length();j++) {
 //				String l_response_post_id = lResponseDataArray.getJSONObject(j).get("post_schedule_id").toString();
 //				String l_response_post_status = lResponseDataArray.getJSONObject(j).get("post_status").toString(); //Should be 2

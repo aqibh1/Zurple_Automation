@@ -566,7 +566,7 @@ public class DatabasePageTest extends PageTest{
 		return isFileNameAndCreated;
 
 	}
-	private String getDataFileContentJsonArray(String pDataFile) throws IOException {
+	public String getDataFileContentJsonArray(String pDataFile) throws IOException {
 		String data = ""; 
 		data = new String(Files.readAllBytes(Paths.get(pDataFile))); 
 		return "["+data+"]"; 

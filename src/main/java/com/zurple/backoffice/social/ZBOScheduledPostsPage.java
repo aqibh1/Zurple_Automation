@@ -52,7 +52,7 @@ public class ZBOScheduledPostsPage extends Page{
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
 	}
-	public boolean isShceduledPostsPage() {
+	public boolean isScheduledPostsPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, scheduled_posts_heading, 30);
 	}
 	public boolean verifyPlatformIconIsVisible(String pPlatform, String pPostToVerify) {
