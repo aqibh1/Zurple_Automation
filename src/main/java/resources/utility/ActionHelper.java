@@ -1328,7 +1328,7 @@ public class ActionHelper {
 		   return pAttributeValue;
 	   }
 	   
-	   public static boolean getAlertText(WebDriver pWebDriver) {
+	   public static boolean getAlertText(WebDriver pWebDriver, WebElement pElement) {
 		   boolean isAlertHandled = true;
 		   try {
 			   Alert alert = wait.until(ExpectedConditions.alertIsPresent());
@@ -1338,6 +1338,10 @@ public class ActionHelper {
 			   isAlertHandled = false;
 		   }
 		   return isAlertHandled;
+	   }
+	   public static String getValidationMessage(WebDriver pWebDriver, WebElement pElement) {
+		   String message = getAttribute(pElement, "validationMessage"); 
+		   return message;
 	   }
 		   
 	   
