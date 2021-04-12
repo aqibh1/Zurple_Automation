@@ -67,7 +67,6 @@ public class ZBOScheduledPostHistoryPageTest extends PageTest{
 	public void ScheduledPostVerification(String lFileToRead) throws JSONException, IOException {
 		page=null;
 		getPage("/social/scheduledposts");
-		boolean lFlag = false;
 		dataObject = getDataFile(lFileToRead);
 		String lPostText = dataObject.optString("post_text");
 		String ld_platform = dataObject.optString("platform");
@@ -128,5 +127,26 @@ public class ZBOScheduledPostHistoryPageTest extends PageTest{
 		assertTrue(editPage.verifyPost(lPostText), "Unable to verify edit post..");
 		
 		emptyFile(lFileToRead, "");
+	}
+	
+	public void testVerifyTextPost(String pDataFile) {
+		page=null;
+		getPage("/social/scheduledposts");
+		JSONObject dataObject = getDataFile(pDataFile);
+		String lPostText = dataObject.optString("post_text");
+		String ld_platform = dataObject.optString("platform");
+		String ld_posttype = dataObject.optString("post_type");
+		assertTrue(page.isScheduledPostsPage(), "Scheduled post Page is not visible..");
+		assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Post History page.");
+		assertTrue(!page.getPostPageTitle(lPostText).isEmpty(), "Platform title is not visible...");
+		assertTrue(!page.getPostAccountName(lPostText, ld_platform).isEmpty(), "Unable to verify account name...");
+		assertTrue(page.isTextPostIconVisible(lPostText), "Unable to verify post icon");
+		assertTrue(page.isManualPostTextVisible(lPostText), "Manual Page Post text is not visible...");
+		assertTrue(!page.getPostPageDate(lPostText).isEmpty(), "Unable to verify post date on history page...");
+		assertTrue(!page.getPostPageTime(lPostText).isEmpty(), "Unable to verify post time..");		
+		ZBOEditPostPage editPage = new ZBOEditPostPage(driver);
+		assertTrue(editPage.isEditPostPage(), "Edit post page is not visible..");
+		assertTrue(editPage.verifyPost(lPostText), "Unable to verify edit post..");
+		emptyFile(pDataFile, "");
 	}
 }

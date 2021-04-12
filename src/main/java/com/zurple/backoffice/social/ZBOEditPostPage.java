@@ -18,10 +18,13 @@ import resources.utility.ActionHelper;
  */
 public class ZBOEditPostPage extends Page{
 	
-	@FindBy(xpath="//h3[text()='Edit post']")
+//	@FindBy(xpath="//h3[text()='Edit post']")
+//	WebElement editPost_heading;
+	
+	@FindBy(id="edit-post")
 	WebElement editPost_heading;
-
-	@FindBy(id="post_text")
+	
+	@FindBy(className="post-text")
 	WebElement post_text_area;
 	
 	public ZBOEditPostPage() {
@@ -36,7 +39,7 @@ public class ZBOEditPostPage extends Page{
 	}
 	public boolean verifyPost(String pPostText) {
 		boolean isVerified = false;
-		if(ActionHelper.getTextByValue(driver, post_text_area).contains(pPostText)) {
+		if(ActionHelper.getText(driver, post_text_area).contains(pPostText)) {
 			isVerified = true;
 		}
 		return isVerified;

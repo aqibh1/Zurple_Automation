@@ -176,7 +176,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 	}
 	
 	@Test
-	@Parameters({"dataFile"})
+	@Parameters({"FB"})
 	public void testVerifyTextPost(String pDataFile) {
 		page=null;
 		getPage("/social/history");
@@ -185,12 +185,18 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		String ld_platform = dataObject.optString("platform");
 		String ld_posttype = dataObject.optString("post_type");
 		assertTrue(page.isPostingHistoryPageIsVisible(), "Post History Page is not visible..");
-		if(!ld_platform.equalsIgnoreCase("Twitter") && !ld_posttype.equalsIgnoreCase("post_listing_video")) {
-			assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Post History page.");
-		}
 		assertTrue(page.getPostPageTitle(lPostText), "Platform title is not visible...");
 		assertTrue(!page.getPostAccountName(lPostText, ld_platform).isEmpty(), "Unable to verify account name...");
+		assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Post History page.");
 		assertTrue(page.isTextPostIconVisible(lPostText), "Unable to verify post icon");
 		assertTrue(page.isManualPostTextVisible(lPostText), "Manual Page Post text is not visible...");
+		assertTrue(!page.getPostPageDate(lPostText).isEmpty(), "Unable to verify post date on history page...");
+		assertTrue(!page.getPostPageTime(lPostText).isEmpty(), "Unable to verify post time..");
+		assertTrue(page.verifyViewPostButtonIsWorking(ld_platform, lPostText), "View post button is not working...");
+		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
+		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
+		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		emptyFile(pDataFile, "");
 	}
 }

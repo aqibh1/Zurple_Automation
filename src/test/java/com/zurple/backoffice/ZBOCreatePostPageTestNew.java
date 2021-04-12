@@ -28,6 +28,7 @@ import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
+import resources.utility.CacheFilePathsConstants;
 import resources.utility.ZurpleListingConstants;
 
 /**
@@ -41,36 +42,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	private ZBOCreatePostPage page;
 	ZBOScheduledPostHistoryPageTest sPost= new ZBOScheduledPostHistoryPageTest(); 
 	
-	private String FBTextPost = "/resources/data/zurple/backoffice/social/cache-z-social-fb-text-post.json";
-	private String FBPhotoPost = "/resources/data/zurple/backoffice/social/cache-z-social-fb-photo-post.json";
-	private String FBLinkPost = "/resources/data/zurple/backoffice/social/cache-z-social-fb-link-post.json";
-	private String FBListingPost = "/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-post.json";
-	private String FBVideoPost = "/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-video-post.json";
-	private String TwitterTextPost = "/resources/data/zurple/backoffice/social/cache-z-social-twitter-text-post.json";
-	private String TwitterLinkPost = "/resources/data/zurple/backoffice/social/cache-z-social-twitter-link-post.json";
-	private String TwitterListingPost = "/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-post.json";
-	private String TwitterVideoPost = "/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post.json";
-	private String TwitterPhotoPost = "/resources/data/zurple/backoffice/social/cache-z-social-twitter-photo-post.json";
-	private String LinkedinTextPost = "/resources/data/zurple/backoffice/social/cache-z-social-linkedin-text-post.json";
-	private String LinkedinPhotoPost = "/resources/data/zurple/backoffice/social/cache-z-social-linkedin-photo-post.json";
-	private String LinkedinLinkPost = "/resources/data/zurple/backoffice/social/cache-z-social-linkedin-link-post.json";
-	private String LinkedinListingPost = "/resources/data/zurple/backoffice/social/cache-z-social-linkedin-listing-post.json";
-	private String FBTextPostS = "/resources/data/zurple/backoffice/social/cache-z-social-fb-text-post-scheduled.json";
-	private String FBPhotoPostS = "/resources/data/zurple/backoffice/social/cache-z-social-fb-photo-post-scheduled.json";
-	private String FBLinkPostS = "/resources/data/zurple/backoffice/social/cache-z-social-fb-link-post-scheduled.json";
-	private String FBListingPostS = "/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-post-scheduled.json";
-	private String FBVideoPostS = "/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-video-post-scheduled.json";
-	private String TwitterTextPostS = "/resources/data/zurple/backoffice/social/cache-z-social-twitter-text-post-scheduled.json";
-	private String TwitterLinkPostS = "/resources/data/zurple/backoffice/social/cache-z-social-twitter-link-post-scheduled.json";
-	private String TwitterListingPostS = "/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-post-scheduled.json";
-	private String TwitterVideoPostS = "/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post-scheduled.json";
-	private String TwitterPhotoPostS = "/resources/data/zurple/backoffice/social/cache-z-social-twitter-photo-post-scheduled.json";
-	private String LinkedinTextPostS = "/resources/data/zurple/backoffice/social/cache-z-social-linkedin-text-post-scheduled.json";
-	private String LinkedinPhotoPostS = "/resources/data/zurple/backoffice/social/cache-z-social-linkedin-photo-post-scheduled.json";
-	private String LinkedinLinkPostS = "/resources/data/zurple/backoffice/social/cache-z-social-linkedin-link-post-scheduled.json";
-	private String LinkedinListingPostS = "/resources/data/zurple/backoffice/social/cache-z-social-linkedin-listing-post-scheduled.json";
-	private String YTVideoPost = "/resources/data/zurple/backoffice/social/cache-z-social-yt-video-post.json";
-
+	
 	private String ld_platform = "";
 	private String ld_posttype = "";
 	private String ld_post_text = "";
@@ -118,9 +90,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		createPostInitialVerification(pDataFile, "text");
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		schedulePost();
-		sPost.ScheduledPostVerification(FBTextPostS);
-		
-		saveData(FBTextPostS);
+		saveData(CacheFilePathsConstants.FBTextPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.FBTextPostS);
+		saveData(CacheFilePathsConstants.FBTextPost);
 	}
 	
 	@Test
@@ -135,7 +107,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		ActionHelper.staticWait(10);
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		schedulePost();
-		saveData(FBLinkPostS);
+		saveData(CacheFilePathsConstants.FBLinkPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.FBLinkPostS);
+		saveData(CacheFilePathsConstants.FBLinkPost);
 	}
 	
 	@Test
@@ -151,7 +125,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		assertTrue(page.uploadPhoto(ld_platform, ld_post_photo), "Unable to type text..");
 		schedulePost();
-		saveData(FBPhotoPostS);
+		saveData(CacheFilePathsConstants.FBPhotoPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.FBPhotoPostS);
+		saveData(CacheFilePathsConstants.FBPhotoPost);
 	}
 	
 	@Test
@@ -168,7 +144,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
 		schedulePost();
-		saveData(FBListingPostS);
+		saveData(CacheFilePathsConstants.FBListingPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.FBListingPostS);
+		saveData(CacheFilePathsConstants.FBListingPost);
 	}
 	
 	@Test
@@ -187,7 +165,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
 		schedulePost();
-		saveData(FBVideoPostS);
+		saveData(CacheFilePathsConstants.FBVideoPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.FBVideoPostS);
+		saveData(CacheFilePathsConstants.FBVideoPost);
 	}
 	
 	@Test
@@ -198,7 +178,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		createPostInitialVerification(pDataFile,"text");
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		schedulePost();
-		saveData(TwitterTextPostS);
+		saveData(CacheFilePathsConstants.TwitterTextPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.TwitterTextPostS);
+		saveData(CacheFilePathsConstants.TwitterTextPost);
 	}
 	
 	@Test
@@ -213,7 +195,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		ActionHelper.staticWait(10);
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		schedulePost();
-		saveData(TwitterLinkPostS);
+		saveData(CacheFilePathsConstants.TwitterLinkPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.TwitterLinkPostS);
+		saveData(CacheFilePathsConstants.TwitterLinkPost);
 	}
 	
 	@Test
@@ -229,7 +213,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		assertTrue(page.uploadPhoto(ld_platform, ld_post_photo), "Unable to type text..");
 		schedulePost();
-		saveData(TwitterPhotoPostS);
+		saveData(CacheFilePathsConstants.TwitterPhotoPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.TwitterPhotoPostS);
+		saveData(CacheFilePathsConstants.TwitterPhotoPost);
 	}
 	
 	@Test
@@ -246,7 +232,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
 		schedulePost();
-		saveData(TwitterListingPostS);
+		saveData(CacheFilePathsConstants.TwitterListingPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.TwitterListingPostS);
+		saveData(CacheFilePathsConstants.TwitterListingPost);
 	}
 	
 	@Test
@@ -265,7 +253,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
 		schedulePost();
-		saveData(TwitterVideoPostS);
+		saveData(CacheFilePathsConstants.TwitterVideoPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.TwitterVideoPostS);
+		saveData(CacheFilePathsConstants.TwitterVideoPost);
 	}
 	
 	@Test
@@ -276,7 +266,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		createPostInitialVerification(pDataFile,"text");
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		schedulePost();
-		saveData(LinkedinTextPostS);
+		saveData(CacheFilePathsConstants.LinkedinTextPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.LinkedinTextPostS);
+		saveData(CacheFilePathsConstants.LinkedinTextPost);
 	}
 	
 	@Test
@@ -291,7 +283,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		ActionHelper.staticWait(10);
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		schedulePost();
-		saveData(LinkedinLinkPostS);
+		saveData(CacheFilePathsConstants.LinkedinLinkPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.LinkedinLinkPostS);
+		saveData(CacheFilePathsConstants.LinkedinLinkPost);
 	}
 	
 	@Test
@@ -307,7 +301,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		assertTrue(page.uploadPhoto(ld_platform, ld_post_photo), "Unable to type text..");
 		schedulePost();
-		saveData(LinkedinPhotoPostS);
+		saveData(CacheFilePathsConstants.LinkedinPhotoPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.LinkedinPhotoPostS);
+		saveData(CacheFilePathsConstants.LinkedinPhotoPost);
 	}
 	
 	@Test
@@ -324,7 +320,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
 		schedulePost();
-		saveData(LinkedinListingPostS);
+		saveData(CacheFilePathsConstants.LinkedinListingPostS);
+		sPost.ScheduledPostVerification(CacheFilePathsConstants.LinkedinListingPostS);
+		saveData(CacheFilePathsConstants.LinkedinListingPost);
 	}
 	
 	@Test
@@ -335,7 +333,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		createPostInitialVerification(pDataFile,"text");
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		postNow();
-		saveData(FBTextPost);
+		saveData(CacheFilePathsConstants.FBTextPost);
 	}
 	
 	@Test
@@ -350,7 +348,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		ActionHelper.staticWait(10);
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		postNow();
-		saveData(FBLinkPost);
+		saveData(CacheFilePathsConstants.FBLinkPost);
 	}
 	
 	@Test
@@ -366,7 +364,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		assertTrue(page.uploadPhoto(ld_platform, ld_post_photo), "Unable to type text..");
 		postNow();
-		saveData(FBPhotoPost);
+		saveData(CacheFilePathsConstants.FBPhotoPost);
 	}
 	
 	@Test
@@ -383,7 +381,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
 		postNow();
-		saveData(FBListingPost);
+		saveData(CacheFilePathsConstants.FBListingPost);
 	}
 	
 	@Test
@@ -402,7 +400,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
 		postNow();
-		saveData(FBVideoPost);
+		saveData(CacheFilePathsConstants.FBVideoPost);
 	}
 	
 	@Test
@@ -413,7 +411,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		createPostInitialVerification(pDataFile,"text");
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		postNow();
-		saveData(TwitterTextPost);
+		saveData(CacheFilePathsConstants.TwitterTextPost);
 	}
 	
 	@Test
@@ -428,7 +426,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		ActionHelper.staticWait(10);
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		postNow();
-		saveData(TwitterLinkPost);
+		saveData(CacheFilePathsConstants.TwitterLinkPost);
 	}
 	
 	@Test
@@ -444,7 +442,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		assertTrue(page.uploadPhoto(ld_platform, ld_post_photo), "Unable to type text..");
 		postNow();
-		saveData(TwitterPhotoPost);
+		saveData(CacheFilePathsConstants.TwitterPhotoPost);
 	}
 	
 	@Test
@@ -461,7 +459,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
 		postNow();
-		saveData(TwitterListingPost);
+		saveData(CacheFilePathsConstants.TwitterListingPost);
 	}
 	
 	@Test
@@ -480,7 +478,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
 		postNow();
-		saveData(TwitterVideoPost);
+		saveData(CacheFilePathsConstants.TwitterVideoPost);
 	}
 	
 	@Test
@@ -491,7 +489,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		createPostInitialVerification(pDataFile,"text");
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		postNow();
-		saveData(LinkedinTextPost);
+		saveData(CacheFilePathsConstants.LinkedinTextPost);
 	}
 	
 	@Test
@@ -506,7 +504,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		ActionHelper.staticWait(10);
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		postNow();
-		saveData(LinkedinLinkPost);
+		saveData(CacheFilePathsConstants.LinkedinLinkPost);
 	}
 	
 	@Test
@@ -522,7 +520,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		assertTrue(page.uploadPhoto(ld_platform, ld_post_photo), "Unable to type text..");
 		postNow();
-		saveData(LinkedinPhotoPost);
+		saveData(CacheFilePathsConstants.LinkedinPhotoPost);
 	}
 	
 	@Test
@@ -539,7 +537,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
 		postNow();
-		saveData(LinkedinListingPost);
+		saveData(CacheFilePathsConstants.LinkedinListingPost);
 	}
 	
 	@Test
@@ -558,7 +556,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
 		postNow();
-		saveData(YTVideoPost);
+		saveData(CacheFilePathsConstants.YTVideoPost);
 	}
 	
 	public void createPostInitialVerification(String pDataFile, String post_type) {
@@ -603,3 +601,4 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	}
 
 }
+
