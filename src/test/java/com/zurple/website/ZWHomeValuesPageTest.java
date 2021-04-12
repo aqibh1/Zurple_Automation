@@ -193,7 +193,13 @@ public class ZWHomeValuesPageTest extends PageTest{
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		assertTrue(leadDetailPage.getLeadSource().equalsIgnoreCase("Seller Campaign"), "Lead Source value is not Seller Campaign");
 	}
-	
+
+	@Test//C40425
+	public void testVerifyHomeValueNote() {
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(leadDetailPage.verifyNoteAndTime("from Zurple Seller Campaign"), "Notes is not added in lead details for Seller lead campaign..");
+	}
+
 	private void fillInHomeValueForm(String pAddress, String pCity, String pZip, String pState, String pBeds, String pBaths, String pSqFeet,
 			String pFirstName, String pLastName, String pEmail, String pPhone, boolean pPun) {
 		assertTrue(page.typeStreetAddress(pAddress), "Unable to type address..");
