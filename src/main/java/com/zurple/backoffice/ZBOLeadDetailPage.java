@@ -21,6 +21,7 @@ import resources.alerts.zurple.backoffice.ZBOSelectCampaignAlert;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.blocks.zurple.ZBOLeadDetailsSearchBlock;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
 public class ZBOLeadDetailPage extends Page{
@@ -741,12 +742,14 @@ public class ZBOLeadDetailPage extends Page{
 		int counter = 0;
 		boolean lIsEmailVisible = false;
 		while(!lIsEmailVisible && counter<6) {
+			AutomationLogger.info("Iteration number ::"+counter+" of 6");
 			ActionHelper.ScrollDownByPixels(driver, "500");
-			if(ActionHelper.waitForElementToBeDisappeared(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-sent-tab']/descendant::div[@class='yui-dt-liner' and text()='Loading...']")), 300))
-			/* if(ActionHelper.isElementVisible(driver, flyer_email)) */ {
+			if(ActionHelper.waitForElementToBeDisappeared(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-sent-tab']/descendant::div[@class='yui-dt-liner' and text()='Loading...']")), 300)){
 				List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, xpathForTestingSubject);
 				ActionHelper.staticWait(2);
-				for(int i =0;i<subjectList.size();i++) {
+				//Do not change the loop count//
+				//The email should exist in the first 10 emails//
+				for(int i =0;i<10;i++) {
 					str = ActionHelper.getText(driver, subjectList.get(i));
 					if(str.equals(pEmailToVerify)) {
 						assertTrue(verifyEmailDateTime(), "unable to verify date");
