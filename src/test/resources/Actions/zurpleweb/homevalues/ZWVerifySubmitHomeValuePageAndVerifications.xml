@@ -16,6 +16,7 @@
 						<include name="testUserIsRedirectedToThankYouPage"/>
 						<include name="testVerifyLeadSource"/>
 						<include name="testVerifyHomeValueNote"/>
+						<include name="testVerifyHomeVlauationEmailIsTriggered"/>
 					</methods>
 				</class> 
 			</classes>

@@ -312,4 +312,14 @@ public class ZBOLeadCRMPage extends Page{
 	public boolean typeLeadEmailOnly(String pLeadEmail) {
 		return typeLeadNameOrEmail(pLeadEmail);
 	}
+	public String searchAndGetLeadId(String pLeadName) {
+		String lead_id = "";
+		if(typeLeadNameOrEmail(pLeadName) && clickOnSearchButton()) {
+			ActionHelper.waitForElementToBeDisappeared(driver, processing, 120);
+			if(ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_name_element, pLeadName))) {
+				lead_id = ActionHelper.getAttribute(ActionHelper.getDynamicElement(driver, lead_name_element, pLeadName), "href").split("lead/")[1];
+			}
+		}
+		return lead_id;
+	}
 }

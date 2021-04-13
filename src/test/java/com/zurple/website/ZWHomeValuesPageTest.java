@@ -12,6 +12,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.zurple.admin.ZAProcessEmailQueuesPage;
+import com.zurple.backoffice.ZBOLeadCRMPage;
 import com.zurple.backoffice.ZBOLeadDetailPage;
 import com.zurple.my.PageTest;
 
@@ -177,9 +179,8 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
-		assertTrue(new ZWRegisterUserPage(driver).isRegisterSuccessfully(),"Registration of user is unsuccessful..");
-		String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
-		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId,lLeadId);
+//		assertTrue(new ZWRegisterUserPage(driver).isRegisterSuccessfully(),"Registration of user is unsuccessful..");
+//		String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
 		ZWHomesForSalePage homesForSale = new ZWHomesForSalePage(driver);
 		assertTrue(homesForSale.isHomeForSalePage(), "User is not redirected to Homes for Sale Page..");
 	}
@@ -187,17 +188,42 @@ public class ZWHomeValuesPageTest extends PageTest{
 	@Test//C40426
 	public void testVerifyLeadSource() {
 		loginPreCondition();
-		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
-		String l_currentUrl = driver.getCurrentUrl().replace("/dashboard", "")+"/lead/"+lLeadId;
+		String lLeadId = serachAndSelectLeadPreCond();
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId,lLeadId);
+		String l_currentUrl = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
 		driver.navigate().to(l_currentUrl);
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		assertTrue(leadDetailPage.getLeadSource().equalsIgnoreCase("Seller Campaign"), "Lead Source value is not Seller Campaign");
+		//Triggers the alerts and email
+		if(!getIsProd()) {
+			if(leadDetailPage.isEmailVerified()) {
+				page=null;
+				getPage("/admin/processemailqueue");
+				ZAProcessEmailQueuesPage processQueue = new ZAProcessEmailQueuesPage(driver);
+				processQueue.processAlertQueue();
+				processQueue.processImmediateResponderQueue();
+				processQueue.processMassEmailQueue();
+				processQueue.processNextDayResponderQueue();
+			}
+		}
 	}
 
 	@Test//C40425
 	public void testVerifyHomeValueNote() {
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		String l_currentUrl =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
+		driver.navigate().to(l_currentUrl);
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		assertTrue(leadDetailPage.verifyNoteAndTime("from Zurple Seller Campaign"), "Notes is not added in lead details for Seller lead campaign..");
+	}
+	
+	@Test 
+	public void testVerifyHomeVlauationEmailIsTriggered() {
+		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		String l_currentUrl =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
+		driver.navigate().to(l_currentUrl);
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(leadDetailPage.verifyEmailInZurpleMesssagesTab("per your valuation request"), "Unable to find the email "+"'per your valuation request'");
 	}
 
 	private void fillInHomeValueForm(String pAddress, String pCity, String pZip, String pState, String pBeds, String pBaths, String pSqFeet,
@@ -236,6 +262,12 @@ public class ZWHomeValuesPageTest extends PageTest{
 		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
 			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
 		}
+	}
+	public String serachAndSelectLeadPreCond() {
+		String l_currentUrl = driver.getCurrentUrl().replace("/dashboard", "")+"/leads/crm";
+		driver.navigate().to(l_currentUrl);
+		ZBOLeadCRMPage leadcrmpage = new ZBOLeadCRMPage(driver);
+		return leadcrmpage.searchAndGetLeadId(l_firstname);
 	}
 	@AfterTest
 	public void closeBrowser() {
