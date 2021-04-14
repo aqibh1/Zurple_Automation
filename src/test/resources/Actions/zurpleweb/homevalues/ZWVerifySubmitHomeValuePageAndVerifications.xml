@@ -14,8 +14,11 @@
 				<class name="com.zurple.website.ZWHomeValuesPageTest">
 					<methods>
 						<include name="testUserIsRedirectedToThankYouPage"/>
+						<include name="testVerifyLeadIsAddedInBackOffice"/>
 						<include name="testVerifyLeadSource"/>
 						<include name="testVerifyHomeValueNote"/>
+						<include name="testVerifyHomeVlauationAlertIsTriggered"/>
+						<include name="testVerifyPropertUpdateIsSetToNo"/>
 						<include name="testVerifyHomeVlauationEmailIsTriggered"/>
 					</methods>
 				</class> 
