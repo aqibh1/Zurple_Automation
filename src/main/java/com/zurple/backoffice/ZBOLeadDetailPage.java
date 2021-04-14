@@ -21,6 +21,7 @@ import resources.alerts.zurple.backoffice.ZBOSelectCampaignAlert;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.blocks.zurple.ZBOLeadDetailsSearchBlock;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
 public class ZBOLeadDetailPage extends Page{
@@ -146,6 +147,7 @@ public class ZBOLeadDetailPage extends Page{
 //	String xpathForTestingSubject = "//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div";
 	String xpathForTestingSubject = "//div[@id='z-activity-details-sent-grid']/descendant::td[@headers]/div";
 	
+	
 	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div")
 	WebElement flyer_email;
 	
@@ -225,6 +227,13 @@ public class ZBOLeadDetailPage extends Page{
 	
 	@FindBy(xpath="//div[@id='lead-details-main']/descendant::span[text()='Lead Source:']/following-sibling::span")
 	WebElement lead_souce;
+	
+	@FindBy(xpath="//div[@id='z-activity-details-sent-tab']/descendant::div[@class='yui-dt-liner' and text()='Loading...']")
+	WebElement loading_popup;
+	
+	@FindBy(xpath="//div[@id='z-activity-details-alert-emails-grid']/descendant::td[@headers='yui-dt4-th-messageDateTime ']/div")
+	WebElement zurple_messages_dateTime;
+	String zurple_message_emails = "//div[@id='z-activity-details-alert-emails-grid']/descendant::td[@headers]/div";
 	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
@@ -405,6 +414,16 @@ public class ZBOLeadDetailPage extends Page{
 		boolean isSuccess = false;
 		ActionHelper.waitForElementToBeVisible(driver, xpathForTestingDate, 30);
 		String emailDateTime = ActionHelper.getText(driver, xpathForTestingDate);
+		if(!emailDateTime.equals("")) {
+			isSuccess = true;
+		}
+		return isSuccess;
+	}
+	
+	public boolean verifyEmailDateTime(WebElement pXpathForVerifyingDate) {
+		boolean isSuccess = false;
+		ActionHelper.waitForElementToBeVisible(driver, pXpathForVerifyingDate, 30);
+		String emailDateTime = ActionHelper.getText(driver, pXpathForVerifyingDate);
 		if(!emailDateTime.equals("")) {
 			isSuccess = true;
 		}
@@ -700,6 +719,13 @@ public class ZBOLeadDetailPage extends Page{
 		return isEmailReceived;
 	}
 	
+	public boolean verifyEmailInZurpleMesssagesTab(String pEmailToVerify) {
+		boolean isEmailReceived = false;
+		if(ActionHelper.Click(driver, zurple_messages_tab_button)) {
+			isEmailReceived = verifyStatusAfterSendingEmail(pEmailToVerify, zurple_message_emails, zurple_messages_dateTime);
+		}
+		return isEmailReceived;
+	}
 	public boolean verifyLeadMessagesEmailsAndDate(String pEmailToVerify) {
 		boolean isEmailReceived = false;
 		if(ActionHelper.Click(driver, leadMessages_tab_button)) {
@@ -735,31 +761,71 @@ public class ZBOLeadDetailPage extends Page{
 		ActionHelper.ScrollDownByPixels(driver, "400");
 		ActionHelper.Click(driver, myMessages_tab_button);
 	}
-
+	
+	public void waitForZurpleMessageAppearance() {
+		ActionHelper.staticWait(30);
+		ActionHelper.RefreshPage(driver);
+		ActionHelper.ScrollDownByPixels(driver, "400");
+		ActionHelper.Click(driver, zurple_messages_tab_button);
+	}
 	public boolean checkStatusAfterSendingEmail(String pEmailToVerify) {
 		String str = "";
 		int counter = 0;
 		boolean lIsEmailVisible = false;
 		while(!lIsEmailVisible && counter<6) {
+			AutomationLogger.info("Iteration number ::"+counter+" of 6");
 			ActionHelper.ScrollDownByPixels(driver, "500");
-			if(ActionHelper.waitForElementToBeDisappeared(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-sent-tab']/descendant::div[@class='yui-dt-liner' and text()='Loading...']")), 300))
-			/* if(ActionHelper.isElementVisible(driver, flyer_email)) */ {
-				List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, xpathForTestingSubject);
-				ActionHelper.staticWait(2);
-				for(int i =0;i<subjectList.size();i++) {
-					str = ActionHelper.getText(driver, subjectList.get(i));
-					if(str.equals(pEmailToVerify)) {
-						assertTrue(verifyEmailDateTime(), "unable to verify date");
-						lIsEmailVisible = true;
-						break;
-					}
+			if(ActionHelper.isElementVisible(driver, loading_popup)) {
+				ActionHelper.waitForElementToBeDisappeared(driver, loading_popup, 300);
+			}
+			List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, xpathForTestingSubject);
+			ActionHelper.staticWait(2);
+			//Do not change the loop count//
+			//The email should exist in the first 10 emails//
+			for(int i =0;i<10;i++) {
+				str = ActionHelper.getText(driver, subjectList.get(i));
+				if(str.equals(pEmailToVerify)) {
+					assertTrue(verifyEmailDateTime(), "unable to verify date");
+					lIsEmailVisible = true;
+					break;
 				}
-			} 
+			}
 			if(!lIsEmailVisible) {
 				waitForMessageAppearance();
 			}
 			counter++;
-		}
+		} 
+		return lIsEmailVisible;
+	}
+	public boolean verifyStatusAfterSendingEmail(String pEmailToVerify, String pXpathOfEmailsList, WebElement pDateTime) {
+		String str = "";
+		int counter = 0;
+		boolean lIsEmailVisible = false;
+		while(!lIsEmailVisible && counter<6) {
+			AutomationLogger.info("Iteration number ::"+counter+" of 6");
+			ActionHelper.ScrollDownByPixels(driver, "500");
+			if(ActionHelper.isElementVisible(driver, loading_popup)) {
+				ActionHelper.waitForElementToBeDisappeared(driver, loading_popup, 300);
+			}
+			List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, pXpathOfEmailsList);
+			ActionHelper.staticWait(2);
+			//Do not change the loop count//
+			//The email should exist in the first 10 emails//
+			if(subjectList.size()>0) {
+				for(int i =0;i<10;i++) {
+					str = ActionHelper.getText(driver, subjectList.get(i));
+					if(str.equals(pEmailToVerify)) {
+						assertTrue(verifyEmailDateTime(pDateTime), "unable to verify date");
+						lIsEmailVisible = true;
+						break;
+					}
+				}
+			}
+			if(!lIsEmailVisible) {
+				waitForZurpleMessageAppearance();
+			}
+			counter++;
+		} 
 		return lIsEmailVisible;
 	}
 	
