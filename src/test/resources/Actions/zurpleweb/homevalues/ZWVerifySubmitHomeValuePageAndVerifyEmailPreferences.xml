@@ -8,18 +8,12 @@
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
 	
-<test name="Verify Home Value page is populated and validation is working" >	
-	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 
+<test name="Verify the email preferences of lead captured from Home Value" >	
+	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-for-prop-update-data.json"> 
 			<classes>
 				<class name="com.zurple.website.ZWHomeValuesPageTest">
 					<methods>
-						<include name="testUserIsRedirectedToThankYouPage"/>
-						<include name="testVerifyLeadIsAddedInBackOffice"/>
-						<include name="testVerifyLeadSource"/>
-						<include name="testVerifyHomeValueNote"/>
-						<include name="testVerifyHomeVlauationAlertIsTriggered"/>
-						<include name="testVerifyPropertUpdateIsSetToNo"/>
-						<include name="testVerifyHomeVlauationEmailIsTriggered"/>
+						<include name="testVerifyPropertUpdateIsSetToYes"/>
 					</methods>
 				</class> 
 			</classes>
