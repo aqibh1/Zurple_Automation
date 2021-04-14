@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -137,4 +138,10 @@ public abstract class AbstractPage
     	}
     	return lNum;
 }
+    protected String getCuurentTime() {
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
+    	String formattedDate = dateFormat.format(new Date(System.currentTimeMillis())).toString().toLowerCase();
+    	return formattedDate;
+    	
+    }
 }

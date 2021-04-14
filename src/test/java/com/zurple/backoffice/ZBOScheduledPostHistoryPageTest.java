@@ -68,13 +68,15 @@ public class ZBOScheduledPostHistoryPageTest extends PageTest{
 		page=null;
 		getPage("/social/scheduledposts");
 		dataObject = getDataFile(lFileToRead);
+		ActionHelper.staticWait(7);
 		String lPostText = dataObject.optString("post_text");
 		String ld_platform = dataObject.optString("platform");
 		String ld_posttype = dataObject.optString("post_type");
 		boolean lSpecialVerification = false;		
+		ZBOEditPostPage editPage = new ZBOEditPostPage(driver);
 		assertTrue(page.isScheduledPostsPage(), "Scheduled post Page is not visible..");
 		if(!ld_platform.equalsIgnoreCase("Twitter") && !ld_posttype.equalsIgnoreCase("post_listing_video")) {
-			assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Post History page.");
+			assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Scheduled posts page.");
 		}
 		assertTrue(!page.getPostPageTitle(lPostText).isEmpty(), "Platform title is not visible...");
 		assertTrue(!page.getPostAccountName(lPostText, ld_platform).isEmpty(), "Unable to verify account name...");
@@ -110,43 +112,15 @@ public class ZBOScheduledPostHistoryPageTest extends PageTest{
 		case "link":
 			//assertTrue(page.isPostProcessingiconVisible(lPostText), "The post processing icon is still visble after 3 minutes");
 			assertTrue(page.isPostComputerIconVisible(lPostText), "Home post icon is not visible on post history page..");
-			assertTrue(page.isImageDisplaying(ld_platform, lPostText), "Image is not displaying on post history page..");
 			assertTrue(page.isManualLinkPostTextVisible(lPostText), "Manual Page Post text is not visible...");
-			assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, ZurpleListingConstants.zurple_prod_land_url), "Unable to verify listing website Url");
-			assertTrue(page.isListingHeadingVisible(lPostText), "Unable to verify listing title..");
-			assertTrue(page.isListingDescVisible(lPostText), "Unable to verify listing description..");
 			break;
 		}
 		
 		assertTrue(!page.getPostPageDate(lPostText).isEmpty(), "Unable to verify post date on history page...");
 		assertTrue(!page.getPostPageTime(lPostText).isEmpty(), "Unable to verify post time..");
 		//assertTrue(page.verifyViewPostButtonIsWorking(ld_platform, lPostText), "View post button is not working...");
-		
-		ZBOEditPostPage editPage = new ZBOEditPostPage(driver);
-		assertTrue(editPage.isEditPostPage(), "Edit post page is not visible..");
-		assertTrue(editPage.verifyPost(lPostText), "Unable to verify edit post..");
-		
+		assertTrue(editPage.verifyPost(lPostText), "Unable to verify edit post..");	
+		assertTrue(editPage.isEditPostPage(), "Edit post button is not visible..");
 		emptyFile(lFileToRead, "");
-	}
-	
-	public void testVerifyTextPost(String pDataFile) {
-		page=null;
-		getPage("/social/scheduledposts");
-		JSONObject dataObject = getDataFile(pDataFile);
-		String lPostText = dataObject.optString("post_text");
-		String ld_platform = dataObject.optString("platform");
-		String ld_posttype = dataObject.optString("post_type");
-		assertTrue(page.isScheduledPostsPage(), "Scheduled post Page is not visible..");
-		assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Post History page.");
-		assertTrue(!page.getPostPageTitle(lPostText).isEmpty(), "Platform title is not visible...");
-		assertTrue(!page.getPostAccountName(lPostText, ld_platform).isEmpty(), "Unable to verify account name...");
-		assertTrue(page.isTextPostIconVisible(lPostText), "Unable to verify post icon");
-		assertTrue(page.isManualPostTextVisible(lPostText), "Manual Page Post text is not visible...");
-		assertTrue(!page.getPostPageDate(lPostText).isEmpty(), "Unable to verify post date on history page...");
-		assertTrue(!page.getPostPageTime(lPostText).isEmpty(), "Unable to verify post time..");		
-		ZBOEditPostPage editPage = new ZBOEditPostPage(driver);
-		assertTrue(editPage.isEditPostPage(), "Edit post page is not visible..");
-		assertTrue(editPage.verifyPost(lPostText), "Unable to verify edit post..");
-		emptyFile(pDataFile, "");
 	}
 }

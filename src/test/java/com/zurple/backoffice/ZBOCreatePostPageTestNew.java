@@ -104,7 +104,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		String listing_link = ZurpleListingConstants.zurple_prod_land_url;
 		assertTrue(page.clickOnPostLinkButton(ld_platform), "Unable to click on Post Link button..");
 		assertTrue(page.typeLinkUrl(ld_platform, listing_link), "Unable to type listing URL");
-		ActionHelper.staticWait(10);
+		ActionHelper.staticWait(5);
 		assertTrue(page.typeTextPost(ld_platform, ld_post_text), "Unable to type text..");
 		schedulePost();
 		saveData(CacheFilePathsConstants.FBLinkPostS);
@@ -588,6 +588,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	}
 	
 	public void saveData(String fileToWrite) {
+		emptyFile(fileToWrite, "");
 		JSONObject jObject = new JSONObject();
 		jObject.put("post_text", ld_post_text);
 		jObject.put("platform", ld_platform);

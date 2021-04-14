@@ -606,6 +606,7 @@ public class ActionHelper {
 		   }
 		   return isFound;
 	   }
+	   
 	   public static boolean waitForAjaxToBeCompleted(WebDriver pWebDriver) {
 		   boolean isFound = false;
 		   try {

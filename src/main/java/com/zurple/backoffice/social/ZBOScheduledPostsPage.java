@@ -289,7 +289,7 @@ public class ZBOScheduledPostsPage extends Page{
 		if(element!=null) {
 			ActionHelper.waitForElementToBeVisible(driver, element.findElement(By.id("edit-post")), 30);
 			ActionHelper.Click(driver, element.findElement(By.id("edit-post")));
-			ActionHelper.staticWait(5);
+			ActionHelper.staticWait(3);
 			isWorking = driver.getCurrentUrl().contains("editpost");
 			
 		}

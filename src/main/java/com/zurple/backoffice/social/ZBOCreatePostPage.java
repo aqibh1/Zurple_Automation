@@ -57,6 +57,9 @@ public class ZBOCreatePostPage extends Page{
 	@FindBy(xpath="//div[contains(@class,'ui_tpicker_minute_slider')]/a[@class='ui-slider-handle ui-state-default ui-corner-all']")
 	WebElement minutes_slider;
 	
+	@FindBy(xpath="//div[contains(@class,'ui_tpicker_hour_slider')]/a[@class='ui-slider-handle ui-state-default ui-corner-all']")
+	WebElement hour_slider;
+	
 	private ZBOSelectListingAlert selectListingAlert;
 	
 	public ZBOCreatePostPage() {
@@ -196,12 +199,17 @@ public class ZBOCreatePostPage extends Page{
 			}
 			break;
 		}
-		ActionHelper.staticWait(5);
+		ActionHelper.staticWait(7);
+		String currentTime = getCuurentTime().split(":")[1];
+		int minutesNow = Integer.parseInt(currentTime);
+		if (minutesNow > 50 && minutesNow <= 59) {
+			hour_slider = ActionHelper.getDynamicElement(driver, "//div[@id='ui-datepicker-div']/descendant::div[contains(@class,'ui_tpicker_hour_slider')]/a[@class='ui-slider-handle ui-state-default ui-corner-all']", "");
+			ActionHelper.dragAndDropByPixels(driver, hour_slider, 5, 0); 
+		}
 		minutes_slider = ActionHelper.getDynamicElement(driver, "//div[@id='ui-datepicker-div']/descendant::div[contains(@class,'ui_tpicker_minute_slider')]/a[@class='ui-slider-handle ui-state-default ui-corner-all']", "");
 		if(isClicked && ActionHelper.dragAndDropByPixels(driver, minutes_slider, 30, 0)) {
 			isScheduleSelected = ActionHelper.Click(driver, datePicker_done_button);
 		}
-		
 		return isScheduleSelected;
 	}
 	public boolean clickOnPostButton() {
@@ -282,7 +290,7 @@ public class ZBOCreatePostPage extends Page{
 		return isVerified;
 	}
 	public boolean isScheduled() {
-		return ActionHelper.waitForElementToBeVisible(driver, scheduled_label, 5);
+		return ActionHelper.waitForElementToBeVisible(driver, scheduled_label, 10);
 	}
 
 	public boolean uploadPhoto(String pPlatform, String pPhotoPath) {
