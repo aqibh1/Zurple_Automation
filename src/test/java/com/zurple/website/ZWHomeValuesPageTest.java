@@ -20,6 +20,7 @@ import com.zurple.my.PageTest;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 import us.zengtest1.Page;
 
 /**
@@ -100,6 +101,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, "",l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getCityValidationMessage().isEmpty(), "City Validation message is not displayed..");
 
 	}
@@ -112,6 +114,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,"", l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getZipCodeValidationMessage().isEmpty(), "Zip Code Validation message is not displayed..");
 	}
 	
@@ -123,6 +126,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, "", l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getStateValidationMessage().isEmpty(), "State Validation message is not displayed..");
 	}
 	
@@ -134,6 +138,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,"", l_lastname, l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getFirstNameValidationMessage().isEmpty(), "First Name Validation message is not displayed..");
 	}
 	
@@ -145,6 +150,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, "", l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getLastNameValidationMessage().isEmpty(), "Last Name Validation message is not displayed..");
 	}
 	
@@ -156,6 +162,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, "",l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getEmailValidationMessage().isEmpty(), "Email Validation message is not displayed..");
 	}
 	
@@ -167,6 +174,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm("", l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getStreetValidationMessage().isEmpty(), "Address Validation message is not displayed..");
 	}
 	
