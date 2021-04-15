@@ -229,7 +229,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		assertTrue(leadDetailPage.verifyHomeEvaluationAlert("Homeowner Asked for a CMA"), "Unable to find the alert "+"'Homeowner Asked for a CMA'");
 	}
 
-	@Test //C40423
+	@Test //C40427
 	public void testVerifyPropertUpdateIsSetToNo() {
 		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
 		String l_currentUrl =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
@@ -238,7 +238,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		assertTrue(leadDetailPage.verifyEmailPreferences("Property Updates", "No"), "Property Updates value is not NO ");
 	}
 	
-	@Test//40422
+	@Test//40428
 	@Parameters({"dataFile"})
 	public void testVerifyPropertUpdateIsSetToYes(String pDataFile) {
 		getPage("/homevalues");		
