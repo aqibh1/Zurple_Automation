@@ -2538,6 +2538,36 @@
 			</classes>
 	</parameter>
 	</test>
+		
+<test name="Search and Verify Sold Properties on CMA Report page" >	
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-for-al-search.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOSendReportPageTest">
+					<methods>
+						<include name="testVerifyResultsAreDisplayedUnderSoldPropertiesSection" />
+						<include name="testVerifyResultsAreDsiplayedByAddressUnderSoldPropertiesSection" />
+						<include name="testVerifyResultsAreDsiplayedByCityUnderSoldPropertiesSection" />
+						<include name="testVerifyResultsAreDsiplayedByZipUnderSoldPropertiesSection" />
+						<include name="testVerifyResultsAreWithAllInformationSoldPropertiesSection" />
+					</methods>
+				</class> 
+			</classes>
+	</parameter>
+	</test>
+	
+	<test name="Verifications on Step2 and Step 3 of CMA Report page">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOSendReportPageTest">
+					<methods>
+						<include name="testVerifyUserIsRedirectedToStep2WhenEmailDetailsButtonIsClicked" />
+						<include name="testVerifyUserCanAddAdditionalCommentsStep2CMA" />
+						<include name="testVerifyStep3OfCMAReport" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
 	
 	<test name="Verify V2 Site Settings And Website">	
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/v2-site-settings.json"> 
