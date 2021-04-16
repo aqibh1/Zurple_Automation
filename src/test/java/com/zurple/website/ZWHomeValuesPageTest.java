@@ -262,7 +262,25 @@ public class ZWHomeValuesPageTest extends PageTest{
 		assertTrue(leadDetailPage.verifyEmailPreferences("Property Updates", "Yes"), "Property Updates value is not NO ");
 	}
 	
+	@Test//40433
+	@Parameters({"dataFile"})
+	public void testVerifyCCPACheckboxIsCheckedByDefault(String pDataFile) {
+		getPage("/homevalues");
+		dataObject = getDataFile(pDataFile);
+		setData();
+		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
+		assertTrue(page.isCCPACheckboxChecked(), "CCPA Checkbox is not checked by default");
+	}
 
+	@Test//40434
+	@Parameters({"dataFile"})
+	public void testVerifyErrorIsDisplayedIfCCPAIsUnchecked(String pDataFile) {
+		getPage("/homevalues");		
+		assertTrue(page.checkedUnCheckedCCPA(false), "Unable to uncheck CCPA checkbox");
+		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(page.isCCPAErrorDisplayed(),"CCPA error is not displayed..");
+	}
+	
 	private void fillInHomeValueForm(String pAddress, String pCity, String pZip, String pState, String pBeds, String pBaths, String pSqFeet,
 			String pFirstName, String pLastName, String pEmail, String pPhone, boolean pPun) {
 		assertTrue(page.typeStreetAddress(pAddress), "Unable to type address..");

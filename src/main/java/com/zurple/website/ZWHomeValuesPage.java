@@ -47,6 +47,11 @@ public class ZWHomeValuesPage extends Page{
 	WebElement pun;
 	@FindBy(id="submit")
 	WebElement submit;
+	@FindBy(id="privacy_accepted")
+	WebElement ccpaCheckbox;
+	
+	@FindBy(xpath="//div[@class='alert alert-danger' and text()='Please accept the Data Privacy Policy']")
+	WebElement dataPrivacy_error;
 	
 	public ZWHomeValuesPage(WebDriver pWebDriver){
 		driver = pWebDriver;
@@ -123,6 +128,16 @@ public class ZWHomeValuesPage extends Page{
 		return ActionHelper.getValidationMessage(driver, email_address);
 	}public String getStateValidationMessage() {
 		return ActionHelper.getValidationMessage(driver, state);
+	}
+	
+	public boolean isCCPACheckboxChecked() {
+		return ActionHelper.isElementSelected(driver, ccpaCheckbox);
+	}
+	public boolean checkedUnCheckedCCPA(boolean pCheck) {
+		return ActionHelper.checkUncheckInputBox(driver, ccpaCheckbox, pCheck);
+	}
+	public boolean isCCPAErrorDisplayed() {
+		return ActionHelper.waitForElementToBeVisible(driver, dataPrivacy_error, 10);
 	}
 	@Override
 	public WebElement getHeader() {
