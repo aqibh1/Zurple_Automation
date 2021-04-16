@@ -20,6 +20,7 @@ import com.zurple.my.PageTest;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 import us.zengtest1.Page;
 
 /**
@@ -100,6 +101,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, "",l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getCityValidationMessage().isEmpty(), "City Validation message is not displayed..");
 
 	}
@@ -112,6 +114,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,"", l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getZipCodeValidationMessage().isEmpty(), "Zip Code Validation message is not displayed..");
 	}
 	
@@ -123,6 +126,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, "", l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getStateValidationMessage().isEmpty(), "State Validation message is not displayed..");
 	}
 	
@@ -134,6 +138,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,"", l_lastname, l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getFirstNameValidationMessage().isEmpty(), "First Name Validation message is not displayed..");
 	}
 	
@@ -145,6 +150,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, "", l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getLastNameValidationMessage().isEmpty(), "Last Name Validation message is not displayed..");
 	}
 	
@@ -156,6 +162,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, "",l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getEmailValidationMessage().isEmpty(), "Email Validation message is not displayed..");
 	}
 	
@@ -167,6 +174,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm("", l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(2);
 		assertTrue(!page.getStreetValidationMessage().isEmpty(), "Address Validation message is not displayed..");
 	}
 	
@@ -229,7 +237,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		assertTrue(leadDetailPage.verifyHomeEvaluationAlert("Homeowner Asked for a CMA"), "Unable to find the alert "+"'Homeowner Asked for a CMA'");
 	}
 
-	@Test //C40423
+	@Test //C40427
 	public void testVerifyPropertUpdateIsSetToNo() {
 		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
 		String l_currentUrl =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
@@ -238,7 +246,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		assertTrue(leadDetailPage.verifyEmailPreferences("Property Updates", "No"), "Property Updates value is not NO ");
 	}
 	
-	@Test//40422
+	@Test//40428
 	@Parameters({"dataFile"})
 	public void testVerifyPropertUpdateIsSetToYes(String pDataFile) {
 		getPage("/homevalues");		
@@ -254,7 +262,25 @@ public class ZWHomeValuesPageTest extends PageTest{
 		assertTrue(leadDetailPage.verifyEmailPreferences("Property Updates", "Yes"), "Property Updates value is not NO ");
 	}
 	
+	@Test//40433
+	@Parameters({"dataFile"})
+	public void testVerifyCCPACheckboxIsCheckedByDefault(String pDataFile) {
+		getPage("/homevalues");
+		dataObject = getDataFile(pDataFile);
+		setData();
+		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
+		assertTrue(page.isCCPACheckboxChecked(), "CCPA Checkbox is not checked by default");
+	}
 
+	@Test//40434
+	@Parameters({"dataFile"})
+	public void testVerifyErrorIsDisplayedIfCCPAIsUnchecked(String pDataFile) {
+		getPage("/homevalues");		
+		assertTrue(page.checkedUnCheckedCCPA(false), "Unable to uncheck CCPA checkbox");
+		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(page.isCCPAErrorDisplayed(),"CCPA error is not displayed..");
+	}
+	
 	private void fillInHomeValueForm(String pAddress, String pCity, String pZip, String pState, String pBeds, String pBaths, String pSqFeet,
 			String pFirstName, String pLastName, String pEmail, String pPhone, boolean pPun) {
 		assertTrue(page.typeStreetAddress(pAddress), "Unable to type address..");
