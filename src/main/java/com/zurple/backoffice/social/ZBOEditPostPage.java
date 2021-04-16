@@ -5,6 +5,7 @@ package com.zurple.backoffice.social;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,6 +19,9 @@ import resources.utility.ActionHelper;
  * @author adar
  *
  */
+
+////////////NOT USED ANYMORE/////////////////
+
 public class ZBOEditPostPage extends Page{
 	
 //	@FindBy(xpath="//h3[text()='Edit post']")
@@ -26,8 +30,10 @@ public class ZBOEditPostPage extends Page{
 	@FindBy(className="post-text")
 	WebElement post_text_area;
 	
-//	@FindBy(className="edit-button")
-//	WebElement edit_button;
+//	@FindBy(className="link-preview-hostname")
+//	WebElement linkURL;
+	
+	String linkURL = "link-preview-hostname";
 	
 	String edit_button = "edit-button";
 	String post_text = "post-text";
@@ -61,5 +67,14 @@ public class ZBOEditPostPage extends Page{
 			}				
 		}
 		return isPostFound; 
+	}
+	
+	public boolean isListingWebsiteUrlDisplaying(String pPostToVerify, String pExpectedURL) {
+		String actualURL = ActionHelper.getTextByIndex(driver, linkURL, postIndex);
+		if(pExpectedURL.contains(actualURL.toLowerCase())) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

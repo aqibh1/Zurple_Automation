@@ -261,7 +261,7 @@ public class ActionHelper {
 		   	wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
 			AutomationLogger.info("Clicking on button -> "+pElement);
 			try {
-					pWebDriver.findElements(By.className(pElement)).get(index).getText();
+					text = pWebDriver.findElements(By.className(pElement)).get(index).getText();
 					AutomationLogger.info("Clicked on button successful..");
 				
 			}catch(Exception ex) {

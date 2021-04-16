@@ -1,107 +1,21 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Zurple Pre and Post Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+<suite name="Zurple Social Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	<listeners>		
 		<listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
-	</listeners>
-	
-<test name="Create all social posts">
-		<parameter name="FBDataFile" value="/resources/data/zurple/backoffice/social/z-social-fb-posts-data.json">
-		<parameter name="TwitterDataFile" value="/resources/data/zurple/backoffice/social/z-social-twitter-posts-data.json">
-		<parameter name="LinkedinDataFile" value="/resources/data/zurple/backoffice/social/z-social-linkedin-posts-data.json">
-		<parameter name="YTDataFile" value="/resources/data/zurple/backoffice/social/z-social-yt-posts-data.json">
-		<parameter name="FB" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-text-post.json">
-		<classes>
-			<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
-				<methods>
-	  				<include name="testCreateFBTextScheduledPost" />
-					<include name="testCreateFBLinkScheduledPost" />
-		   			<include name="testCreateFBPhotoScheduledPost" /> 					
-					<include name="testCreateFBListingScheduledPost" />
-					<include name="testCreateFBListingVideoScheduledPost" />
-	  				<include name="testCreateTwitterTextScheduledPost" />
-					<include name="testCreateTwitterLinkScheduledPost" />
-					<include name="testCreateTwitterPhotoScheduledPost" /> 
-					<include name="testCreateTwitterListingScheduledPost" />
-					<include name="testCreateTwitterListingVideoScheduledPost" />
-  					<include name="testCreateLinkedinTextScheduledPost" />
-					<include name="testCreateLinkedinLinkScheduledPost" />
-					<include name="testCreateLinkedinPhotoScheduledPost" /> 
-					<include name="testCreateLinkedinListingScheduledPost" />
-	  		  		<include name="testCreateFBTextPost" />
-					<include name="testCreateFBLinkPost" />
-					<include name="testCreateFBPhotoPost" />
-					<include name="testCreateFBListingPost" />
-					<include name="testCreateFBListingVideoPost" />
-					<include name="testCreateTwitterTextPost" />
-					<include name="testCreateTwitterLinkPost" />
-					<include name="testCreateTwitterPhotoPost" />
-					<include name="testCreateTwitterListingPost" />
-					<include name="testCreateTwitterListingVideoPost" />
-					<include name="testCreateLinkedinTextPost" />
-					<include name="testCreateLinkedinLinkPost" />
-					<include name="testCreateLinkedinPhotoPost" />
-					<include name="testCreateLinkedinListingPost" />
-					<include name="testCreateYTListingVideoPost" />
-				</methods>
-				</class>
-				  <class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
-					<methods>
-						<include name="testVerifyTextPostFB" />
-						<include name="testVerifyTextPostFBScheduled" />
-						<include name="testVerifyPhotoPostFB" />
-						<include name="testVerifyPhotoPostFBScheduled" />
-						<include name="testVerifyLinkPostFB" />
-						<include name="testVerifyLinkPostFBScheduled" />
-						<include name="testVerifyListingPostFB" />
-						<include name="testVerifyListingPostFBScheduled" />
-						<include name="testVerifyListingVideoPostFB" />
-						<include name="testVerifyListingVideoPostFBScheduled" />
-						<include name="testVerifyTextPostTwitter" />
-						<include name="testVerifyTextPostTwitterScheduled" />
-						<include name="testVerifyPhotoPostTwitter" />
-						<include name="testVerifyPhotoPostTwitterScheduled" />
-						<include name="testVerifyLinkPostTwitter" />
-						<include name="testVerifyLinkPostTwitterScheduled" />
-						<include name="testVerifyListingPostTwitter" />
-						<include name="testVerifyListingPostTwitterScheduled" />
-						<include name="testVerifyListingVideoPostTwitter" />
-						<include name="testVerifyListingVideoPostTwitterScheduled" />
-						<include name="testVerifyTextPostLinkedin" />
-						<include name="testVerifyTextPostLinkedinScheduled" />
-						<include name="testVerifyPhotoPostLinkedin" />
-						<include name="testVerifyPhotoPostLinkedinScheduled" />
-						<include name="testVerifyLinkPostLinkedin" />
-						<include name="testVerifyLinkPostLinkedinScheduled" />
-						<include name="testVerifyListingPostLinkedin" />
-						<include name="testVerifyListingPostLinkedinScheduled" />
-						<include name="testVerifyListingVideoPostYoutube" />
-					</methods>
-				</class>	
-		</classes>
-		</parameter>
-		</parameter>
-		</parameter>
-		</parameter>
-		</parameter>
-	</test>
-	
-	
-	
-	<!-- ............................ -->
-	
+	</listeners>	
 	
 	<test name="Create Facebook Scheduled posts">
 		<parameter name="FBDataFile" value="/resources/data/zurple/backoffice/social/z-social-fb-posts-data.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
 				<methods>
-	  				<include name="testCreateFBTextScheduledPost" />
+	 	  			<include name="testCreateFBTextScheduledPost" />
 					<include name="testCreateFBLinkScheduledPost" />
-		   			<include name="testCreateFBPhotoScheduledPost" /> 					
+		   			<include name="testCreateFBPhotoScheduledPost" /> 				
 					<include name="testCreateFBListingScheduledPost" />
 					<include name="testCreateFBListingVideoScheduledPost" />
 				</methods>
@@ -115,9 +29,9 @@
 		<classes>
 			<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
 				<methods>
-	  				<include name="testCreateTwitterTextScheduledPost" />
+	  	  			<include name="testCreateTwitterTextScheduledPost" />
 					<include name="testCreateTwitterLinkScheduledPost" />
-					<include name="testCreateTwitterPhotoScheduledPost" /> 
+					<include name="testCreateTwitterPhotoScheduledPost" />  
 					<include name="testCreateTwitterListingScheduledPost" />
 					<include name="testCreateTwitterListingVideoScheduledPost" />
 				</methods>
@@ -126,7 +40,7 @@
 		</parameter>
 	</test>
 	
-	<test name="Create Linkedin Scheduled posts">
+	 <test name="Create Linkedin Scheduled posts">
 		<parameter name="LinkedinDataFile" value="/resources/data/zurple/backoffice/social/z-social-linkedin-posts-data.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
@@ -198,6 +112,6 @@
 			</class>
 		</classes>
 		</parameter>
-	</test>
+	</test> 
 	
 </suite>

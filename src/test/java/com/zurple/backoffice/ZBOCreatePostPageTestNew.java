@@ -578,7 +578,6 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.clickOnPostButton(), "Unable to click on Post button");
 		ZBOSucessAlert zboSuccessAlert = new ZBOSucessAlert(driver);
 		assertTrue(zboSuccessAlert.isSuccessMessageVisible(), "Success message is not visible...");
-		// assertTrue(zboSuccessAlert.clickOnScheduledPostButton(), "Unable to click on scheduled posts button...");
 	}
 	
 	public void postNow() {
