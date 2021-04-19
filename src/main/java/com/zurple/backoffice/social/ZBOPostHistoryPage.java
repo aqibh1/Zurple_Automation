@@ -67,7 +67,14 @@ public class ZBOPostHistoryPage extends Page{
 	String computer_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'computer-icon')]";
 	String link_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Link Post']";
 	
-	String iFrame_post_text = "//div[@id='app']/descendant::span[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
+	String iFrame_post_text = "//div[@id='app']/descendant::span[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";	
+	String post_text = "post-text";
+	
+	@FindBy(className="post-text")
+	WebElement post_text_element;
+	
+	private int postIndex = 0;
+
 	public ZBOPostHistoryPage() {
 		
 	}
@@ -117,14 +124,31 @@ public class ZBOPostHistoryPage extends Page{
 		}
 		return isVisible;
 	}
+	
 	public boolean getPostPageTitle(String pPostToVerify) {
-		String lPost_title = "";	
-		boolean element = ActionHelper.getDynamicElementAfterRegularIntervals(driver, fb_post_page_title, pPostToVerify,10);
-		if(element) {
-			return true;
-		} else {
-			return false;
+		boolean isPostFound = false;
+		String actualPostText = "";
+		ActionHelper.waitForElementToBeVisible(driver, post_text_element,30);
+		List<WebElement> postData = ActionHelper.getListOfElementByClassName(driver, post_text);
+		for(WebElement elem:postData) {
+			actualPostText = ActionHelper.getText(driver, elem);
+			if(actualPostText.contains(pPostToVerify)) {
+				postIndex = postData.indexOf(elem);
+				isPostFound = true;
+				break;
+			}				
 		}
+		return isPostFound; 
+		
+		
+//		String lPost_title = "";	
+//		boolean element = ActionHelper.getDynamicElementAfterRegularIntervals(driver, fb_post_page_title, pPostToVerify,10);
+//		if(element) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+		
 //		if(element!=null) {
 //			lPost_title = ActionHelper.getText(driver, element);
 //		}
@@ -233,13 +257,20 @@ public class ZBOPostHistoryPage extends Page{
 		return isVisible;
 	}
 	public boolean isImageDisplaying(String pPlatform, String pPostToVerify) {
-		boolean isVisible = false;	
-		WebElement element;
+		boolean isVisible = false;
+		String postSource = "";
+		WebElement element,e;
 		switch(pPlatform) {
 		case "Facebook":
 			element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
 			if(element!=null) {
-				isVisible = ActionHelper.getAttribute(element.findElement(By.xpath("/descendant::div/img")), "src").contains("fbcdn");
+				e = element.findElement(By.xpath("/descendant::div[@class='post-image']/descendant::img[contains(@src,'fbcdn')]"));
+				postSource = ActionHelper.getAttribute(e, "src");
+				if(!postSource.isEmpty()) {
+					isVisible = true;
+				} else {
+					isVisible = false;
+				}
 			}
 			break;
 		case "Twitter":
@@ -354,7 +385,7 @@ public class ZBOPostHistoryPage extends Page{
 		for(int i = 0;i<5;i++) {
 			frames_list = ActionHelper.getListOfElementByXpath(driver, "//iframe[@id]");
 			//Because latest one will always be on index 0;
-			String l_frameId = ActionHelper.getAttribute(frames_list.get(0), "id");
+			String l_frameId = ActionHelper.getAttribute(frames_list.get(i), "id");
 			ActionHelper.switchToiFrame(driver, l_frameId);
 			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, iFrame_post_text, pTextToVerify, 5)) {
 				isFound = true;

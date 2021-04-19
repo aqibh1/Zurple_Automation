@@ -21,7 +21,7 @@ public class ZBODuplicatePage extends Page{
 	@FindBy(xpath="//h3[text()='Duplicate post']")
 	WebElement duplicatePost_heading;
 
-	@FindBy(id="post_text")
+	@FindBy(className="link-preview-description")
 	WebElement post_text_area;
 	
 	public ZBODuplicatePage() {
@@ -36,7 +36,7 @@ public class ZBODuplicatePage extends Page{
 	}
 	public boolean verifyPost(String pPostText) {
 		boolean isVerified = false;
-		if(ActionHelper.getTextByValue(driver, post_text_area).contains(pPostText)) {
+		if(ActionHelper.getText(driver, post_text_area).contains(pPostText)) {
 			isVerified = true;
 		}
 		return isVerified;

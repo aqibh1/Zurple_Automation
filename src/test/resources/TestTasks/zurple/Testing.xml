@@ -108,7 +108,7 @@
 		</parameter>
 	</test>
 	<test name="Verify Social Listing Video Post FB - Scheduled">
-		<parameter name="FBListingVideo" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-video-post-scheduled.json">
+		<parameter name="FBListingVideoScheduled" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-video-post-scheduled.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>

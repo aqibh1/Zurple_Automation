@@ -13,13 +13,13 @@
 			<classes>
 				<class name="com.zurple.website.ZWHomeValuesPageTest">
 					<methods>
-						<include name="testVerifyHomeValuePageIsPopulated"/>
+					<!-- <include name="testVerifyHomeValuePageIsPopulated"/>
 						<include name="testVerifyEmptyCityTriggersValidationMessage"/>
 						<include name="testVerifyEmptyZipTriggersValidationMessage"/>
 						<include name="testVerifyEmptyStateTriggersValidationMessage"/>
 						<include name="testVerifyEmptyFirstNameTriggersValidationMessage"/>
 						<include name="testVerifyEmptyLastNameTriggersValidationMessage"/>
-						<include name="testVerifyEmptyEmailTriggersValidationMessage"/>
+						<include name="testVerifyEmptyEmailTriggersValidationMessage"/> -->
 						<include name="testVerifyEmptyStreetInputTriggersValidationMessage"/>
 					</methods>
 				</class> 
