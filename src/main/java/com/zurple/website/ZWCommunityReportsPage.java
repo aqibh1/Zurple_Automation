@@ -44,6 +44,9 @@ public class ZWCommunityReportsPage extends Page{
 	@FindBy(xpath="//input[@type='submit']")
 	WebElement search_button;
 	
+	@FindBy(xpath="//div/h3[text()='No Results Found']")
+	WebElement no_Results_found;
+	
 	public ZWCommunityReportsPage() {
 		
 	}
@@ -59,5 +62,12 @@ public class ZWCommunityReportsPage extends Page{
 	}
 	public boolean clickOnSearchButton() {
 		return ActionHelper.Click(driver, search_button);
+	}
+	public boolean goToCommunityReportsFromHeaders() {
+		ZurpleWebsiteHeader webHeader = new ZurpleWebsiteHeader(driver);
+		return webHeader.goToCommunityReportsPage();
+	}
+	public boolean isNoResultsFoundVisible() {
+		return ActionHelper.isElementVisible(driver, no_Results_found);
 	}
 }

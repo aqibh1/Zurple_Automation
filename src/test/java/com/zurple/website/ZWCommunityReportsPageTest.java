@@ -69,5 +69,27 @@ public class ZWCommunityReportsPageTest extends PageTest{
 		assertTrue(page.typeZip("91910"), "Unable to type Zip");
 		assertTrue(page.clickOnSearchButton(), "Unable to click on search button..");
 	}
+	
+	@Test//39731
+	public void testVerifyLocalInfoCommunityLinkIsWorking() {
+		websiteLoginPreCond();
+		getPage("/sold-homes");
+		assertTrue(page.goToCommunityReportsFromHeaders(), "Unable to click on Community dropdown..");
+		assertTrue(page.isCommunityReportsPage(), "Community reports page is not visible..");
+	}
+	
+	@Test//39734
+	public void testVerifyNoCommunityResultsFound() {
+		getPage("/community");
+		assertTrue(page.isCommunityReportsPage(), "Community reports page is not displayed");
+		assertTrue(page.typeZip("88888"), "Unable to type Zip");
+		assertTrue(page.clickOnSearchButton(), "Unable to click on search button..");
+		assertTrue(page.isNoResultsFoundVisible(), "No Results found message is not displayed..");
+	}
+	
+	private void websiteLoginPreCond() {
+		ZWLoginPageTest loginPageTest = new ZWLoginPageTest();
+		loginPageTest.testSignIn();
+	}
 
 }

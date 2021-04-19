@@ -41,6 +41,12 @@ public class ZurpleWebsiteHeader extends Page{
 	@FindBy(xpath="//ul[@class='dropdown-menu']/li/a[text()='Custom Search']")
 	WebElement custom_search_button;
 	
+	@FindBy(xpath="//a[@title='Local Info']")
+	WebElement local_info_dropdown;
+	
+	@FindBy(xpath="//a[text()='Community']")
+	WebElement community_dropdown;
+	
 	
 	public ZurpleWebsiteHeader(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -87,6 +93,13 @@ public class ZurpleWebsiteHeader extends Page{
 			
 		}
 		return isClicked;
+	}
+	public boolean goToCommunityReportsPage() {
+		boolean isSuccessful = false;
+		if(ActionHelper.Click(driver, local_info_dropdown)) {
+			isSuccessful = ActionHelper.Click(driver, community_dropdown);
+		}
+		return isSuccessful;
 	}
 
 }
