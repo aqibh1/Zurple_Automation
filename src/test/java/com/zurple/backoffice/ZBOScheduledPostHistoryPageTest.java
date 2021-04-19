@@ -41,7 +41,6 @@ public class ZBOScheduledPostHistoryPageTest extends PageTest{
 	public AbstractPage getPage() {
 		if(page==null) {
 			driver = getDriver();
-			//page = new ZBOPostHistoryPage(driver);
 			page = new ZBOScheduledPostsPage(driver);
 			page.setDriver(driver);
 		}
@@ -51,7 +50,6 @@ public class ZBOScheduledPostHistoryPageTest extends PageTest{
 	public AbstractPage getPage(String pUrl) {
 		if(page==null) {
 			driver = getDriver();
-			//page = new ZBOPostHistoryPage(driver);
 			page = new ZBOScheduledPostsPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
@@ -72,45 +70,37 @@ public class ZBOScheduledPostHistoryPageTest extends PageTest{
 		String lPostText = dataObject.optString("post_text");
 		String ld_platform = dataObject.optString("platform");
 		String ld_posttype = dataObject.optString("post_type");
-		boolean lSpecialVerification = false;		
-		ZBOEditPostPage editPage = new ZBOEditPostPage(driver);
 		assertTrue(page.isScheduledPostsPage(), "Scheduled post Page is not visible..");
 		if(!ld_platform.equalsIgnoreCase("Twitter") && !ld_posttype.equalsIgnoreCase("post_listing_video")) {
 			assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Scheduled posts page.");
 		}
 		assertTrue(!page.getPostPageTitle(lPostText).isEmpty(), "Platform title is not visible...");
 		assertTrue(!page.getPostAccountName(lPostText, ld_platform).isEmpty(), "Unable to verify account name...");
-
+		assertTrue(page.verifyPost(lPostText), "Unable to verify edit post..");	
 		switch(ld_posttype) {
 		case "text":
 			assertTrue(page.isTextPostIconVisible(lPostText), "Unable to verify post icon");
 			assertTrue(page.isManualPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			break;
 		case "image":
-			//assertTrue(page.isPostProcessingiconVisible(lPostText), "The post processing icon is still visble after 3 minutes");
 			assertTrue(page.isPhotoPostIconVisible(lPostText), "Photo post icon is not visible on post history page..");
 			assertTrue(page.isImageDisplaying(ld_platform, lPostText), "Image is not displaying on post history page..");
 			assertTrue(page.isManualPhotPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			break;
 		case "listing":
-			//assertTrue(page.isPostProcessingiconVisible(lPostText), "The post processing icon is still visble after 3 minutes");
 			assertTrue(page.isHomePostIconVisible(lPostText), "Home post icon is not visible on post history page..");
 			assertTrue(page.isImageDisplaying(ld_platform, lPostText), "Image is not displaying on post history page..");
 			assertTrue(page.isManualListingPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")), "Unable to verify listing website Url");
 			assertTrue(page.isListingHeadingVisible(lPostText), "Unable to verify listing title..");
 			assertTrue(page.isListingDescVisible(lPostText), "Unable to verify listing description..");
-			lSpecialVerification = true;
 			break;
 		case "video":
-			//assertTrue(page.isPostProcessingiconVisible(lPostText), "The post processing icon is still visble after 3 minutes");
 			assertTrue(page.isHomePostListingVideoIconVisible(lPostText), "Home post icon is not visible on post history page..");
 			assertTrue(page.isManualListingVideoPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")), "Unable to verify listing website Url");
-			lSpecialVerification = true;
 			break;
 		case "link":
-			//assertTrue(page.isPostProcessingiconVisible(lPostText), "The post processing icon is still visble after 3 minutes");
 			assertTrue(page.isPostComputerIconVisible(lPostText), "Home post icon is not visible on post history page..");
 			assertTrue(page.isManualLinkPostTextVisible(lPostText), "Manual Page Post text is not visible...");
 			break;
@@ -118,9 +108,6 @@ public class ZBOScheduledPostHistoryPageTest extends PageTest{
 		
 		assertTrue(!page.getPostPageDate(lPostText).isEmpty(), "Unable to verify post date on history page...");
 		assertTrue(!page.getPostPageTime(lPostText).isEmpty(), "Unable to verify post time..");
-		//assertTrue(page.verifyViewPostButtonIsWorking(ld_platform, lPostText), "View post button is not working...");
-		assertTrue(editPage.verifyPost(lPostText), "Unable to verify edit post..");	
-		assertTrue(editPage.isEditPostPage(), "Edit post button is not visible..");
-		emptyFile(lFileToRead, "");
+		assertTrue(page.isEditPostPage(), "Edit post button is not visible..");
 	}
 }

@@ -17,7 +17,7 @@ import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
- * @author adar
+ * @author habibaaq
  *
  */
 public class ZBOCreatePostPage extends Page{

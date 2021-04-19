@@ -3,6 +3,8 @@
  */
 package com.zurple.backoffice.social;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +17,7 @@ import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
- * @author adar
+ * @author habibaaq
  *
  */
 public class ZBOScheduledPostsPage extends Page{
@@ -44,7 +46,16 @@ public class ZBOScheduledPostsPage extends Page{
 	String video_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'listing-video-icon')]";
 	String computer_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'computer-icon')]";
 	String link_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Link Post']";
-
+	
+	@FindBy(className="post-text")
+	WebElement post_text_area;
+	
+	String linkURL = "link-preview-hostname";
+	
+	String edit_button = "edit-button";
+	String post_text = "post-text";
+	int postIndex = 0;
+	
 	public ZBOScheduledPostsPage() {	
 	}
 	
@@ -219,15 +230,16 @@ public class ZBOScheduledPostsPage extends Page{
 		}
 		return isVisible;
 	}
-	public boolean isListingWebsiteUrlDisplaying(String pPostToVerify, String pDomainToVerify) {
-		String isVisible = "";	
-		WebElement element;
-		element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
-		if(element!=null) {
-			isVisible = ActionHelper.getText(driver, element.findElement(By.xpath("/descendant::a[contains(@class,'link-preview-hostname')]")));
-		}
-		return pDomainToVerify.contains(isVisible.toLowerCase());
-	}
+//	public boolean isListingWebsiteUrlDisplaying(String pPostToVerify, String pDomainToVerify) {
+//		String isVisible = "";	
+//		WebElement element;
+//		element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
+//		if(element!=null) {
+//			ActionHelper.waitForElementToBeVisible(driver, element, 30);
+//			isVisible = ActionHelper.getText(driver, element.findElement(By.xpath("/descendant::a[contains(@class,'link-preview-hostname')]")));
+//		}
+//		return pDomainToVerify.contains(isVisible.toLowerCase());
+//	}
 	public boolean isListingHeadingVisible(String pPostToVerify) {
 		String isVisible = "";	
 		WebElement element;
@@ -294,5 +306,37 @@ public class ZBOScheduledPostsPage extends Page{
 			
 		}
 		return isWorking;
+	}
+	
+	public boolean isEditPostPage() {
+		ActionHelper.staticWait(2);
+		if(ActionHelper.ClickByIndex(driver, edit_button, postIndex)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public boolean verifyPost(String pPostText) {
+		boolean isPostFound = false;
+		String actualPostText = "";
+		List<WebElement> postData = ActionHelper.getListOfElementByClassName(driver, post_text);
+		for(WebElement elem:postData) {
+			actualPostText = ActionHelper.getText(driver, elem);
+			if(actualPostText.contains(pPostText)) {
+				postIndex = postData.indexOf(elem);
+				isPostFound = true;
+				break;
+			}				
+		}
+		return isPostFound; 
+	}
+	
+	public boolean isListingWebsiteUrlDisplaying(String pPostToVerify, String pExpectedURL) {
+		String actualURL = ActionHelper.getTextByIndex(driver, linkURL, postIndex);
+		if(pExpectedURL.contains(actualURL.toLowerCase())) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

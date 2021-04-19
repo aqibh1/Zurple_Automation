@@ -119,12 +119,16 @@ public class ZBOPostHistoryPage extends Page{
 	}
 	public boolean getPostPageTitle(String pPostToVerify) {
 		String lPost_title = "";	
-		WebElement element = null;
-		boolean isElementFound = ActionHelper.getDynamicElementAfterRegularIntervals(driver, fb_post_page_title, pPostToVerify, 10);
+		boolean element = ActionHelper.getDynamicElementAfterRegularIntervals(driver, fb_post_page_title, pPostToVerify,10);
+		if(element) {
+			return true;
+		} else {
+			return false;
+		}
 //		if(element!=null) {
 //			lPost_title = ActionHelper.getText(driver, element);
 //		}
-		return isElementFound;
+	//	return isElementFound;
 	}
 	
 	public String getPostAccountName(String pPostToVerify, String pPlatform) {
@@ -283,6 +287,7 @@ public class ZBOPostHistoryPage extends Page{
 	public boolean isListingWebsiteUrlDisplaying(String pPostToVerify, String pDomainToVerify) {
 		String isVisible = "";	
 		WebElement element;
+		ActionHelper.staticWait(5);
 		element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
 		if(element!=null) {
 			isVisible = ActionHelper.getText(driver, element.findElement(By.xpath("/descendant::a[contains(@class,'link-preview-hostname')]")));
