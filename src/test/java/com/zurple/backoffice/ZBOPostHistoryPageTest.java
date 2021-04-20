@@ -179,9 +179,9 @@ public class ZBOPostHistoryPageTest extends PageTest{
 //			assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
 //			//Handled listing and video posts
 //			if(lSpecialVerification) {
-//				//assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
+//				assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
 //			}else {
-//				//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+//				assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 //			}	
 //			
 //		}
@@ -218,7 +218,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -244,7 +244,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -271,7 +271,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -298,7 +298,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -324,7 +324,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -350,7 +350,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -379,7 +379,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -408,7 +408,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -434,7 +434,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -460,7 +460,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
 	}
 	
 	/////Twitter////
@@ -488,7 +488,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -514,7 +514,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -541,7 +541,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -568,7 +568,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -594,7 +594,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -620,7 +620,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -649,7 +649,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -678,7 +678,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -704,7 +704,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -730,7 +730,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
 	}
 	
 	
@@ -760,7 +760,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -786,7 +786,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -813,7 +813,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -840,7 +840,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -866,7 +866,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -892,7 +892,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -921,7 +921,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
 	}
 	
 	@Test
@@ -950,7 +950,7 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
 		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
 		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
-		//assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
+		assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
 	}
 	
 	
@@ -996,5 +996,6 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		closeCurrentBrowser();
 	}	
 }
+
 
 

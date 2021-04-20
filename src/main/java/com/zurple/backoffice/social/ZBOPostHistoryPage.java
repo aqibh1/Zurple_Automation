@@ -66,13 +66,13 @@ public class ZBOPostHistoryPage extends Page{
 	String video_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'listing-video-icon')]";
 	String computer_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'computer-icon')]";
 	String link_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Link Post']";
-	
+	String listing_URL = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::a[contains(@class,'link-preview-hostname')]";
 	String iFrame_post_text = "//div[@id='app']/descendant::span[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";	
 	String post_text = "post-text";
 	
 	@FindBy(className="post-text")
 	WebElement post_text_element;
-	
+		
 	private int postIndex = 0;
 
 	public ZBOPostHistoryPage() {
@@ -318,10 +318,10 @@ public class ZBOPostHistoryPage extends Page{
 	public boolean isListingWebsiteUrlDisplaying(String pPostToVerify, String pDomainToVerify) {
 		String isVisible = "";	
 		WebElement element;
-		ActionHelper.staticWait(5);
-		element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
+		ActionHelper.staticWait(3);
+		element = ActionHelper.getDynamicElement(driver, listing_URL, pPostToVerify);
 		if(element!=null) {
-			isVisible = ActionHelper.getText(driver, element.findElement(By.xpath("/descendant::a[contains(@class,'link-preview-hostname')]")));
+			isVisible = ActionHelper.getText(driver,element);
 		}
 		return pDomainToVerify.contains(isVisible.toLowerCase());
 	}
