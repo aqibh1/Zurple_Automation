@@ -328,8 +328,10 @@ public class ZWHomeValuesPageTest extends PageTest{
 		//Triggers the alerts and email
 		if(!getIsProd()) {
 			if(pLeadDetailPage.isEmailVerified()) {
-				page=null;
-				getPage("/admin/processemailqueue");
+//				page=null;
+				String l_url = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/admin/processemailqueue";
+//				getPage("/admin/processemailqueue");
+				driver.navigate().to(l_url);
 				ZAProcessEmailQueuesPage processQueue = new ZAProcessEmailQueuesPage(driver);
 				processQueue.processAlertQueue();
 				processQueue.processImmediateResponderQueue();
