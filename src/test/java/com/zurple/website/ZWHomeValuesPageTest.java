@@ -76,8 +76,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 	
 	@Test
 	public void testVerifyHomeValuePageIsPopulated() {
-		getPage();
-		driver.navigate().to("https://www.stage01.xengtest7.com/homevalues");
+		getPage("/homevalues");
 		assertTrue(page.isTellUsAboutYourPropHeadingVisible(), "Tell us about your property heading is not visible..");
 		assertTrue(page.isTellUsReportHeadingVisible(), "Tell us report heading is not visible..");
 		assertTrue(page.isStreetAddressInputVisible(), "Street Address input is not visible..");
@@ -97,8 +96,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyEmptyCityTriggersValidationMessage(String pDataFile) {
-		getPage();
-		driver.navigate().to("https://www.stage01.xengtest7.com/homevalues");
+		getPage("/homevalues");
 		dataObject = getDataFile(pDataFile);
 		setData();
 		fillInHomeValueForm(l_streetAddress, "",l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
@@ -111,8 +109,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyEmptyZipTriggersValidationMessage(String pDataFile) {
-		getPage();
-		driver.navigate().to("https://www.stage01.xengtest7.com/homevalues");
+		getPage("/homevalues");
 		dataObject = getDataFile(pDataFile);
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,"", l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
@@ -124,8 +121,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyEmptyStateTriggersValidationMessage(String pDataFile) {
-		getPage();
-		driver.navigate().to("https://www.stage01.xengtest7.com/homevalues");
+		getPage("/homevalues");
 		dataObject = getDataFile(pDataFile);
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, "", l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
@@ -137,8 +133,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyEmptyFirstNameTriggersValidationMessage(String pDataFile) {
-		getPage();
-		driver.navigate().to("https://www.stage01.xengtest7.com/homevalues");
+		getPage("/homevalues");
 		dataObject = getDataFile(pDataFile);
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,"", l_lastname, l_email,l_phone, l_pun);
@@ -150,8 +145,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyEmptyLastNameTriggersValidationMessage(String pDataFile) {
-		getPage();
-		driver.navigate().to("https://www.stage01.xengtest7.com/homevalues");
+		getPage("/homevalues");
 		dataObject = getDataFile(pDataFile);
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, "", l_email,l_phone, l_pun);
@@ -163,8 +157,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyEmptyEmailTriggersValidationMessage(String pDataFile) {
-		getPage();
-		driver.navigate().to("https://www.stage01.xengtest7.com/homevalues");
+		getPage("/homevalues");
 		dataObject = getDataFile(pDataFile);
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, "",l_phone, l_pun);
@@ -176,23 +169,20 @@ public class ZWHomeValuesPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyEmptyStreetInputTriggersValidationMessage(String pDataFile) {
-		getPage();
-		for(int i=0; i<20;i++) {
-		driver.navigate().to("https://www.stage01.xengtest7.com/homevalues");
+		getPage("/homevalues");
 		dataObject = getDataFile(pDataFile);
 		setData();
-		fillInHomeValueForm("Test", l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,"1234567890", l_pun);
+		fillInHomeValueForm("", l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
-		}
-//		ActionHelper.staticWait(2);
-//		assertTrue(!page.getStreetValidationMessage().isEmpty(), "Address Validation message is not displayed..");
+		ActionHelper.staticWait(2);
+		assertTrue(!page.getStreetValidationMessage().isEmpty(), "Address Validation message is not displayed..");
 	}
 	
 	@Test//40422
 	@Parameters({"dataFile"})
 	public void testUserIsRedirectedToThankYouPage(String pDataFile) {
-		getPage();
-		driver.navigate().to("https://www.stage01.xengtest7.com/homevalues");
+		getPage("/homevalues");
+		
 		dataObject = getDataFile(pDataFile);
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);

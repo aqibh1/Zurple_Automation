@@ -2673,24 +2673,6 @@
      			 </class>
 			</classes>
 	</test>
-	<test name="Verify Home Value page is populated and validation is working - For Error Testing" >	
-	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 
-			<classes>
-				<class name="com.zurple.website.ZWHomeValuesPageTest">
-					<methods>
-					<!-- <include name="testVerifyHomeValuePageIsPopulated"/>
-						<include name="testVerifyEmptyCityTriggersValidationMessage"/>
-						<include name="testVerifyEmptyZipTriggersValidationMessage"/>
-						<include name="testVerifyEmptyStateTriggersValidationMessage"/>
-						<include name="testVerifyEmptyFirstNameTriggersValidationMessage"/>
-						<include name="testVerifyEmptyLastNameTriggersValidationMessage"/>
-						<include name="testVerifyEmptyEmailTriggersValidationMessage"/> -->
-						<include name="testVerifyEmptyStreetInputTriggersValidationMessage"/>
-					</methods>
-				</class> 
-			</classes>
-	</parameter>
-	</test>
 	
 	
 	<!--  
