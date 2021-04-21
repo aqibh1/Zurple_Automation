@@ -3,6 +3,7 @@
  */
 package com.zurple.backoffice.social;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -381,15 +382,24 @@ public class ZBOPostHistoryPage extends Page{
 	}
 	public boolean isTwitterVideoTextVisible(String pTextToVerify) {
 		boolean isFound = false;
-		List<WebElement> frames_list = ActionHelper.getListOfElementByXpath(driver, "//iframe[@id]");
+		String postText;
+		String l_frameId;
+		WebElement e;
+		List<WebElement> frames_list = new ArrayList<WebElement>();
 		for(int i = 0;i<5;i++) {
+			ActionHelper.switchToDefaultContent(driver);
+			frames_list.clear();
 			frames_list = ActionHelper.getListOfElementByXpath(driver, "//iframe[@id]");
-			//Because latest one will always be on index 0;
-			String l_frameId = ActionHelper.getAttribute(frames_list.get(i), "id");
+			l_frameId = ActionHelper.getAttribute(frames_list.get(i), "id");
 			ActionHelper.switchToiFrame(driver, l_frameId);
-			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, iFrame_post_text, pTextToVerify, 5)) {
-				isFound = true;
-				break;
+			if(ActionHelper.getDynamicElement(driver, iFrame_post_text, pTextToVerify)!=null) {
+				e = ActionHelper.getDynamicElement(driver, iFrame_post_text, pTextToVerify);
+				postText = ActionHelper.getText(driver, e);
+				if(postText.contains(pTextToVerify)) {
+					isFound = true;
+					ActionHelper.switchToDefaultContent(driver);
+					break;
+				}
 			}
 		}
 		return isFound;

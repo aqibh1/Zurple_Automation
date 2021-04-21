@@ -8,7 +8,7 @@
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
 	
-	<test name="Verify Social Text Post FB">
+	 <test name="Verify Social Text Post FB">
 		<parameter name="FBText" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-text-post.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
@@ -117,7 +117,7 @@
 			</class>
 		</classes>
 		</parameter>
-	</test>
+	</test> 
 	
 	<test name="Verify Social Text Post Twitter">
 		<parameter name="TWITTERText" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-text-post.json">
@@ -184,7 +184,7 @@
 			</class>
 		</classes>
 		</parameter>
-	</test>
+	</test> 
 	<test name="Verify Social Listing Post Twitter">
 		<parameter name="TWITTERListing" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-post.json">
 		<classes>
@@ -206,7 +206,7 @@
 			</class>
 		</classes>
 		</parameter>
-	</test>
+	</test>  
 	<test name="Verify Social Listing Video Post Twitter">
 		<parameter name="TWITTERListingVideo" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post.json">
 		<classes>
@@ -229,7 +229,7 @@
 		</classes>
 		</parameter>
 	</test>
-	
+  	
 	<test name="Verify Social Text Post Linkedin">
 		<parameter name="LINKEDINText" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-text-post.json">
 		<classes>
@@ -328,5 +328,5 @@
 			</class>
 		</classes>
 		</parameter>
-	</test>
+	</test> 
 </suite>
