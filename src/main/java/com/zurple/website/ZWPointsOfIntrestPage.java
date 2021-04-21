@@ -26,6 +26,9 @@ public class ZWPointsOfIntrestPage extends Page{
 	@FindBy(xpath="//input[@type='submit']")
 	WebElement search_button;
 
+	@FindBy(xpath="//div/h3[text()='No Results Found']")
+	WebElement no_Results_found;
+	
 	public ZWPointsOfIntrestPage() {
 		
 	}
@@ -41,6 +44,13 @@ public class ZWPointsOfIntrestPage extends Page{
 	}
 	public boolean clickOnSearchButton() {
 		return ActionHelper.Click(driver, search_button);
+	}
+	public boolean goToPOIReportsFromHeaders() {
+		ZurpleWebsiteHeader webHeader = new ZurpleWebsiteHeader(driver);
+		return webHeader.goToPOIlReportsPage();
+	}
+	public boolean isNoResultsFoundVisible() {
+		return ActionHelper.isElementVisible(driver, no_Results_found);
 	}
 	
 	@Override

@@ -70,4 +70,25 @@ public class ZWPointOfIntrestsReportsPageTest extends PageTest{
 		assertTrue(page.clickOnSearchButton(), "Unable to click on search button..");
 	}
 
+	@Test//39739
+	public void testVerifyLocalInfoPOILinkIsWorking() {
+		websiteLoginPreCond();
+		getPage("/sold-homes");
+		assertTrue(page.goToPOIReportsFromHeaders(), "Unable to click on POI dropdown..");
+		assertTrue(page.isPOIReportsPage(), "POI reports page is not visible..");
+	}
+	
+	@Test//39742
+	public void testVerifyNoPOIResultsFound() {
+		getPage("/points-of-interest");
+		assertTrue(page.isPOIReportsPage(), "POI reports page is not displayed");
+		assertTrue(page.typeZip("54456654"), "Unable to type Zip");
+		assertTrue(page.clickOnSearchButton(), "Unable to click on search button..");
+		assertTrue(page.isNoResultsFoundVisible(), "No Results found message is not displayed..");
+	}
+	
+	private void websiteLoginPreCond() {
+		ZWLoginPageTest loginPageTest = new ZWLoginPageTest();
+		loginPageTest.testSignIn();
+	}
 }

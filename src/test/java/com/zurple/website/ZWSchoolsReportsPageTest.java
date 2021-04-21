@@ -70,4 +70,25 @@ public class ZWSchoolsReportsPageTest extends PageTest{
 		assertTrue(page.clickOnSearchButton(), "Unable to click on search button..");
 	}
 
+	@Test//39735
+	public void testVerifyLocalInfoSchoolReportsLinkIsWorking() {
+		websiteLoginPreCond();
+		getPage("/sold-homes");
+		assertTrue(page.goToSchoolsReportsFromHeaders(), "Unable to click on Schools Reports dropdown..");
+		assertTrue(page.isSchoolReportsPage(), "Community reports page is not visible..");
+	}
+	
+	@Test//39738
+	public void testVerifyNoSchoolResultsFound() {
+		getPage("/schools");
+		assertTrue(page.isSchoolReportsPage(), "Community reports page is not displayed");
+		assertTrue(page.typeZip("54456654"), "Unable to type Zip");
+		assertTrue(page.clickOnSearchButton(), "Unable to click on search button..");
+		assertTrue(page.isNoResultsFoundVisible(), "No Results found message is not displayed..");
+	}
+	
+	private void websiteLoginPreCond() {
+		ZWLoginPageTest loginPageTest = new ZWLoginPageTest();
+		loginPageTest.testSignIn();
+	}
 }

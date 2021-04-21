@@ -47,6 +47,11 @@ public class ZurpleWebsiteHeader extends Page{
 	@FindBy(xpath="//a[text()='Community']")
 	WebElement community_dropdown;
 	
+	@FindBy(xpath="//a[text()='Schools']")
+	WebElement schools_reports_dropdown;
+	
+	@FindBy(xpath="//a[contains(@href,'points-of-interest')]")
+	WebElement poi_dropdown;
 	
 	public ZurpleWebsiteHeader(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -98,6 +103,18 @@ public class ZurpleWebsiteHeader extends Page{
 		boolean isSuccessful = false;
 		if(ActionHelper.Click(driver, local_info_dropdown)) {
 			isSuccessful = ActionHelper.Click(driver, community_dropdown);
+		}
+		return isSuccessful;
+	}public boolean goToSchoolReportsPage() {
+		boolean isSuccessful = false;
+		if(ActionHelper.Click(driver, local_info_dropdown)) {
+			isSuccessful = ActionHelper.Click(driver, schools_reports_dropdown);
+		}
+		return isSuccessful;
+	}public boolean goToPOIlReportsPage() {
+		boolean isSuccessful = false;
+		if(ActionHelper.Click(driver, local_info_dropdown)) {
+			isSuccessful = ActionHelper.Click(driver, poi_dropdown);
 		}
 		return isSuccessful;
 	}
