@@ -8,12 +8,12 @@
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
 	
-	<test name="Verify community reports link and results are working">
+	<test name="Verify POI  reports link and results are working">
 	<classes>
-    <class name="com.zurple.website.ZWCommunityReportsPageTest" >
+    <class name="com.zurple.website.ZWPointOfIntrestsReportsPageTest" >
       <methods>
-      	<include name="testVerifyLocalInfoCommunityLinkIsWorking" />
-      	<include name="testVerifyNoCommunityResultsFound" />
+      	<include name="testVerifyLocalInfoPOILinkIsWorking" />
+      	<include name="testVerifyNoPOIResultsFound" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
