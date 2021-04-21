@@ -977,6 +977,22 @@
 		</parameter>
 	</test>
 
+	<test name="Verify community reports link and results are working">
+	<classes>
+    <class name="com.zurple.website.ZWCommunityReportsPageTest" >
+      <methods>
+      	<include name="testVerifyLocalInfoCommunityLinkIsWorking" />
+      	<include name="testVerifyNoCommunityResultsFound" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+		<methods>
+			<include name="closeBrowser" />
+		</methods>
+	</class>
+    </classes>
+   	</test>
+   	
 	<test name="Verify Sorting works on Leads Page">	 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -2593,6 +2609,38 @@
 						<include name="testVerifyHomeVlauationAlertIsTriggered"/>
 						<include name="testVerifyPropertUpdateIsSetToNo"/>
 						<include name="testVerifyHomeVlauationEmailIsTriggered"/>
+					</methods>
+				</class> 
+			</classes>
+	</parameter>
+	</test>
+	
+	<test name="Verify Home Value page is populated and validation is working" >	
+	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 
+			<classes>
+				<class name="com.zurple.website.ZWHomeValuesPageTest">
+					<methods>
+						<include name="testVerifyHomeValuePageIsPopulated"/>
+						<include name="testVerifyEmptyCityTriggersValidationMessage"/>
+						<include name="testVerifyEmptyZipTriggersValidationMessage"/>
+						<include name="testVerifyEmptyStateTriggersValidationMessage"/>
+						<include name="testVerifyEmptyFirstNameTriggersValidationMessage"/>
+						<include name="testVerifyEmptyLastNameTriggersValidationMessage"/>
+						<include name="testVerifyEmptyEmailTriggersValidationMessage"/>
+						<include name="testVerifyEmptyStreetInputTriggersValidationMessage"/>
+					</methods>
+				</class> 
+			</classes>
+	</parameter>
+	</test>
+	
+	<test name="Verify CCPA checkbox is working on Home Values page" >	
+	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 
+			<classes>
+				<class name="com.zurple.website.ZWHomeValuesPageTest">
+					<methods>
+						<include name="testVerifyCCPACheckboxIsCheckedByDefault"/>
+						<include name="testVerifyErrorIsDisplayedIfCCPAIsUnchecked"/>
 					</methods>
 				</class> 
 			</classes>
