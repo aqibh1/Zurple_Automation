@@ -2597,7 +2597,7 @@
 	</parameter>
 	</test>
 	
-	<test name="Verify Home Value page is populated and validation is working" >	
+	<test name="Verify Home Value page and verifications from back office" >	
 	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 
 			<classes>
 				<class name="com.zurple.website.ZWHomeValuesPageTest">
