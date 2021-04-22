@@ -612,6 +612,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		lAd_budget = page.isMediumReachSelectedByDefault()?"$240":"";
 		assertTrue(page.typeAndSelectCity(lAddedCity), "Unable to select multiple cities on step 3");
 		clickOnNextStepPreCond();
+		ActionHelper.staticWait(3);
 		clickOnTermsAndConditionCheckbox();
 		clickOnPausedAdCheckbox();
 		clickOnPlaceAdAButton();
