@@ -1,0 +1,41 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Zurple Website Pre Release Somke Tests"
+	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+	<test name="Update and Verify email subscriptions">
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-email-subscription.json">
+	<parameter name="dataFile" value="/resources/data/zurple/lead_profile/zw-lead-email-subscription-data.json">
+				<classes>
+					<class name="com.zurple.website.ZWRegisterUserPageTest">
+						<methods>
+							<include name="testRegisterUser" />
+						</methods>
+					</class>
+					<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+					</class>
+					<class name="com.zurple.website.ZWAccountSettingsPageTest">
+						<methods>
+							<include name="testVerifyPropertyUpdatesEmailsSubscriptionStatus" />
+						</methods>
+					</class>
+					<class name="resources.CurrentPageTest">
+						<methods>
+							<include name="closeBrowser" />
+						</methods>
+					</class>
+				</classes>
+			</parameter>
+		</parameter>
+	</test>
+</suite>

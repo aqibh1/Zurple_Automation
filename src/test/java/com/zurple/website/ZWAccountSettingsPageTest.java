@@ -4,9 +4,13 @@ import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.SkipException;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.zurple.backoffice.ZBOLeadDetailPage;
+
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.DataConstants;
@@ -153,4 +157,45 @@ public class ZWAccountSettingsPageTest extends PageTest{
 		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Agent Emails", "Unsubscribed"));
 	}
 	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPropertyUpdatesEmailsSubscriptionStatus(String pDataFile) {
+		getPage("/my");
+		String l_lead_id = getLeadIDPreCondition();
+		dataObject = getDataFile(pDataFile);
+		assertTrue(page.isMyAccountPage(), "Account Setting page is not visible..");
+		clickOnChangeEmailSubscriptionLinkPreCond();
+		togglePropertyUpdatePreCond(dataObject.optBoolean("property_updates"));
+		clickUpdateButtonEmailSubscriptionPreCond();
+		String prop_update_sub = dataObject.optBoolean("property_updates")?"Subscribed":"Unsubscribed";
+		String prop_update_bo = dataObject.optBoolean("property_updates")?"Yes":"No";
+		assertTrue(page.verifySubscriptionUnsubscriptionStatus("New Property Updates", prop_update_sub));
+		verificationFromBackOffice(l_lead_id, "Property Updates", prop_update_bo);
+	}
+	
+	private void verificationFromBackOffice(String pLeadId, String pPrefToVerify, String pPrefValueToVerify) {
+		String l_lead_detais_url = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+pLeadId;
+		driver.navigate().to(l_lead_detais_url);
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(leadDetailPage.verifyEmailPreferences(pPrefToVerify, pPrefValueToVerify), "Unable to verify lead email preference"+pLeadId);
+	}
+	public void clickOnChangeEmailSubscriptionLinkPreCond() {
+		if(!page.clickOnEmailSubscriptionLink()) {
+			throw new SkipException("Unable to click on Change Email Link button [Skipping]");
+		}
+	}public void togglePropertyUpdatePreCond(boolean pToggle) {
+		if(!page.clickOnPropUpdateToggleBuuton(pToggle)) {
+			throw new SkipException("Unable to toggle Property Update button [Skipping]");
+		}
+	}public void clickUpdateButtonEmailSubscriptionPreCond() {
+		if(!page.clickOnUpdateButtonEmailSubscription()) {
+			throw new SkipException("Unable to click on Update button [Skipping]");
+		}
+	}public String getLeadIDPreCondition() {
+		String l_lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		if(l_lead_id.isEmpty() || l_lead_id==null) {
+			throw new SkipException("Lead is not registered. Lead id is empty [Skipping]");
+		}
+		return l_lead_id;
+	}
 }
