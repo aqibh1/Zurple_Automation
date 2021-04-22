@@ -23,7 +23,7 @@ public class TXBORecentVisitorsPanel extends Page {
 	@FindBy(className="customized")
 	WebElement panel_header;
 	
-	@FindBy(xpath="//div[@class='col-md-6 ']/descendant::i[@class='info-icon-white']")
+	@FindBy(xpath="//div[@class='panel-heading']/descendant::h2[contains(text(),'Recent Website Visitors')]/descendant::i[@class='info-icon-white']")
 	WebElement tooltip_text;
 	
 	@FindBy(className="full_name")
