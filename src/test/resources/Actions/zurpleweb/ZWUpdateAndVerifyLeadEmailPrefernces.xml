@@ -27,6 +27,9 @@
 					<class name="com.zurple.website.ZWAccountSettingsPageTest">
 						<methods>
 							<include name="testVerifyPropertyUpdatesEmailsSubscriptionStatus" />
+							<include name="testVerifySoldPropertyUpdatesEmailsSubscriptionStatus" />
+							<include name="testVerifyAgentsEmailsSubscriptionStatus" />
+							<include name="testVerifyMarketSnapshotEmailsSubscriptionStatus" />
 						</methods>
 					</class>
 					<class name="resources.CurrentPageTest">

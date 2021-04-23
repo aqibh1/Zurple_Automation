@@ -162,6 +162,21 @@ public class ZWAccountSettingsPage extends Page{
 	@FindBy(xpath="//div[@id='form-element-receive_update']/descendant::small")
 	WebElement receive_update_element;
 	
+	@FindBy(id="receive_soldhomes")
+	WebElement receive_soldhomes;
+	@FindBy(xpath="//div[@id='form-element-receive_soldhomes']/descendant::small")
+	WebElement receive_sold_homes_element;
+	
+	@FindBy(id="receive_autoresponder")
+	WebElement receive_autoresponder;
+	@FindBy(xpath="//div[@id='form-element-receive_autoresponder']/descendant::small")
+	WebElement receive_autoresponder_element;
+	
+	@FindBy(id="receive_digest")
+	WebElement receive_digest;
+	@FindBy(xpath="//div[@id='form-element-receive_digest']/descendant::small")
+	WebElement receive_digest_element;
+	
 	@FindBy(xpath="//div[@id='change_email_subscriptions_form']/descendant::button[@type='submit']")
 	WebElement update_button_email_sub;
 	
@@ -438,5 +453,13 @@ public class ZWAccountSettingsPage extends Page{
 		return ActionHelper.checkUncheckInputBox(driver,receive_update, receive_update_element, pToggle);
 	}public boolean clickOnUpdateButtonEmailSubscription() {
 		return ActionHelper.Click(driver, update_button_email_sub);
+	}
+	
+	public boolean clickOnSoldPropUpdateToggleBuuton(boolean pToggle) {
+		return ActionHelper.checkUncheckInputBox(driver,receive_soldhomes, receive_sold_homes_element, pToggle);
+	}public boolean clickOnAgentsEmailsToggleBuuton(boolean pToggle) {
+		return ActionHelper.checkUncheckInputBox(driver,receive_autoresponder, receive_autoresponder_element, pToggle);
+	}public boolean clickOnMarketSnapshotEmailsToggleBuuton(boolean pToggle) {
+		return ActionHelper.checkUncheckInputBox(driver,receive_digest, receive_digest_element, pToggle);
 	}
 }

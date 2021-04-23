@@ -172,7 +172,54 @@ public class ZWAccountSettingsPageTest extends PageTest{
 		assertTrue(page.verifySubscriptionUnsubscriptionStatus("New Property Updates", prop_update_sub));
 		verificationFromBackOffice(l_lead_id, "Property Updates", prop_update_bo);
 	}
-	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifySoldPropertyUpdatesEmailsSubscriptionStatus(String pDataFile) {
+		getPage("/my");
+		String l_lead_id = getLeadIDPreCondition();
+		boolean l_sold_props = dataObject.optBoolean("sold_property_updates");
+		dataObject = getDataFile(pDataFile);
+		assertTrue(page.isMyAccountPage(), "Account Setting page is not visible..");
+		clickOnChangeEmailSubscriptionLinkPreCond();
+		toggleSoldPropertyUpdatePreCond(l_sold_props);
+		clickUpdateButtonEmailSubscriptionPreCond();
+		String prop_update_sub = l_sold_props?"Subscribed":"Unsubscribed";
+		String prop_update_bo = l_sold_props?"Yes":"No";
+		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Sold Update Notifications", prop_update_sub));
+		verificationFromBackOffice(l_lead_id, "Sold Property Updates", prop_update_bo);
+	}
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyAgentsEmailsSubscriptionStatus(String pDataFile) {
+		getPage("/my");
+		String l_lead_id = getLeadIDPreCondition();
+		dataObject = getDataFile(pDataFile);
+		boolean l_agent_emails = dataObject.optBoolean("agents_emails");
+		assertTrue(page.isMyAccountPage(), "Account Setting page is not visible..");
+		clickOnChangeEmailSubscriptionLinkPreCond();
+		toggleAgentEmailsUpdatePreCond(l_agent_emails);
+		clickUpdateButtonEmailSubscriptionPreCond();
+		String prop_update_sub = l_agent_emails?"Subscribed":"Unsubscribed";
+		String prop_update_bo = l_agent_emails?"Yes":"No";
+		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Agent Emails", prop_update_sub));
+		verificationFromBackOffice(l_lead_id, "Automated Agent Emails", prop_update_bo);
+	}
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyMarketSnapshotEmailsSubscriptionStatus(String pDataFile) {
+		getPage("/my");
+		String l_lead_id = getLeadIDPreCondition();
+		boolean l_market_snapshot_emails = dataObject.optBoolean("market_snapshot_emails");
+		dataObject = getDataFile(pDataFile);
+		assertTrue(page.isMyAccountPage(), "Account Setting page is not visible..");
+		clickOnChangeEmailSubscriptionLinkPreCond();
+		toggleMarketSnapshotEmailsUpdatePreCond(l_market_snapshot_emails);
+		clickUpdateButtonEmailSubscriptionPreCond();
+		String prop_update_sub = l_market_snapshot_emails?"Subscribed":"Unsubscribed";
+		String prop_update_bo = l_market_snapshot_emails?"Yes":"No";
+		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Market Snapshots", prop_update_sub));
+		verificationFromBackOffice(l_lead_id, "Market Snapshot Emails", prop_update_bo);
+	}
 	private void verificationFromBackOffice(String pLeadId, String pPrefToVerify, String pPrefValueToVerify) {
 		String l_lead_detais_url = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+pLeadId;
 		driver.navigate().to(l_lead_detais_url);
@@ -197,5 +244,18 @@ public class ZWAccountSettingsPageTest extends PageTest{
 			throw new SkipException("Lead is not registered. Lead id is empty [Skipping]");
 		}
 		return l_lead_id;
+	}
+	public void toggleSoldPropertyUpdatePreCond(boolean pToggle) {
+		if(!page.clickOnSoldPropUpdateToggleBuuton(pToggle)) {
+			throw new SkipException("Unable to toggle Property Update button [Skipping]");
+		}
+	}public void toggleAgentEmailsUpdatePreCond(boolean pToggle) {
+		if(!page.clickOnAgentsEmailsToggleBuuton(pToggle)) {
+			throw new SkipException("Unable to toggle Property Update button [Skipping]");
+		}
+	}public void toggleMarketSnapshotEmailsUpdatePreCond(boolean pToggle) {
+		if(!page.clickOnMarketSnapshotEmailsToggleBuuton(pToggle)) {
+			throw new SkipException("Unable to toggle Property Update button [Skipping]");
+		}
 	}
 }
