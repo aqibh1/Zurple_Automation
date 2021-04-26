@@ -10,7 +10,6 @@ import java.util.HashMap;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.SkipException;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -18,6 +17,7 @@ import org.testng.asserts.SoftAssert;
 import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.backoffice.marketing.ZBOCampaignPage;
 import com.zurple.my.PageTest;
+import com.zurple.website.ZWCommunityReportsPageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
@@ -700,6 +700,28 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(leadDetailPage.isSendCMAReportButtonDisabled(), "Send CMA Report button is not disabled..");
 	}
 	
+	@Test
+	public void testVerifyCommunityReportsSearchIsDisplayed() {
+		searchCommunityResultsPreCond();
+		String l_lead_id = getLeadIDPreCondition();
+		getPage("/lead/"+l_lead_id);
+		
+		assertTrue(page.clickOnCMAReportButton(), "Send CMA report button is not working..");
+		ZBOSendCMAReportPage sendCMAReportPage = new ZBOSendCMAReportPage(driver);
+		assertTrue(sendCMAReportPage.isCMAReportHeadingVisible(), "CMA Report heading is not visible..");
+		assertTrue(driver.getCurrentUrl().contains("cma/email/lead"), "URL of CMA Report is not changed..");
+	}
+	
+	@Test
+	public void testVerifyCorrectZipIsDisplayedFroCommunityReports() {
+		getPage("/leads/crm");
+		clickOnLeadNamePreCond();
+		assertTrue(page.clickOnCMAReportButton(), "Send CMA report button is not working..");
+		ZBOSendCMAReportPage sendCMAReportPage = new ZBOSendCMAReportPage(driver);
+		assertTrue(sendCMAReportPage.isCMAReportHeadingVisible(), "CMA Report heading is not visible..");
+		assertTrue(driver.getCurrentUrl().contains("cma/email/lead"), "URL of CMA Report is not changed..");
+	}
+	
 	private void clickOnLeadNamePreCond() {
 		ZBOLeadCRMPage leadcrmpage = new ZBOLeadCRMPage(driver);
 		if(!leadcrmpage.applyFilterAndSelectlead("By Date Created", "last 7 days")) {
@@ -738,5 +760,19 @@ public class ZBOLeadDetailPageTest extends PageTest{
             new ZAProcessEmailQueuesPage(driver).processReminderQueue();
         }
     }
-
+	private void searchCommunityResultsPreCond() {
+		ZWCommunityReportsPageTest comreportsTest = new ZWCommunityReportsPageTest();
+		try {
+			comreportsTest.testSearchCommunityReports();
+		}catch(Exception ex) {
+			throw new SkipException("Skipping the test as pre condition as unable to search community reports");
+		}
+	}
+	public String getLeadIDPreCondition() {
+		String l_lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		if(l_lead_id.isEmpty() || l_lead_id==null) {
+			throw new SkipException("Lead is not registered. Lead id is empty [Skipping]");
+		}
+		return l_lead_id;
+	}
 }
