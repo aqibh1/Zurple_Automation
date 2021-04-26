@@ -235,6 +235,11 @@ public class ZBOLeadDetailPage extends Page{
 	WebElement zurple_messages_dateTime;
 	String zurple_message_emails = "//div[@id='z-activity-details-alert-emails-grid']/descendant::td[@headers]/div";
 	
+	//Local Info Searches
+	String li_date_list = "//div[@id='z-activity-details-local-information-searches-grid']/descendant::td[@headers='yui-dt7-th-date ']/div";
+	String li_location_list = "//div[@id='z-activity-details-local-information-searches-grid']/descendant::td[@headers='yui-dt7-th-location ']/div";
+	String li_type_list = "//div[@id='z-activity-details-local-information-searches-grid']/descendant::td[@headers='yui-dt7-th-type ']/div";
+
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
 
@@ -563,7 +568,7 @@ public class ZBOLeadDetailPage extends Page{
 						isRefreshPageRequired = false;
 						List<WebElement> list_of_lead_activity = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-lead-activity']/span");
 						for(WebElement element: list_of_lead_activity) {
-							alertVerified = element.getText().contains(pAlertValueToVerify);
+							alertVerified = ActionHelper.getText(driver, element).contains(pAlertValueToVerify);
 							if(alertVerified) {
 								break;
 							}
@@ -1193,4 +1198,5 @@ public class ZBOLeadDetailPage extends Page{
 	public String getLeadSource() {
 		return ActionHelper.getText(driver, lead_souce);
 	}
+	public boolean verify
 }

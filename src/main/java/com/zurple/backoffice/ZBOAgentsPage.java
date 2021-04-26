@@ -128,9 +128,10 @@ public class ZBOAgentsPage extends Page{
 		return ActionHelper.Click(driver, confirmAdd);
 	}
 	public HashMap<String,String> getAgentNameAndLeadCount(){
+		int counter = 0;
 		HashMap<String,String> agent_info_map = new HashMap<String,String>();
 		String lAgentName ="Aqib Site Owner";
-		while(lAgentName.equalsIgnoreCase("Aqib Site Owner") || lAgentName.equalsIgnoreCase("Aqib Production Testing")) {
+		while((lAgentName.equalsIgnoreCase("Aqib Site Owner") || lAgentName.equalsIgnoreCase("Aqib Production Testing")) && counter<50) {
 			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, agents_list, "", 2)) {
 				List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, agents_list);
 				List<WebElement> list_of_elements_2 = ActionHelper.getListOfElementByXpath(driver, agents_lead_count_list);
@@ -147,6 +148,7 @@ public class ZBOAgentsPage extends Page{
 				agent_info_map.put("agent_url", lAgentUrl);
 				agent_info_map.put("agent_lead_count", lAgentLeadsCount);
 			}
+			counter++;
 		}
 		return agent_info_map;
 	}
