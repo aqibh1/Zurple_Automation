@@ -39,6 +39,9 @@ public class ZBOPostHistoryPageTest extends PageTest{
 	
 	private WebDriver driver;
 	private ZBOPostHistoryPage page;
+	String lPostText = "";
+	String ld_platform = "";
+	String ld_posttype = "";
 	
 	public AbstractPage getPage() {
 		if(page==null) {
@@ -69,12 +72,225 @@ public class ZBOPostHistoryPageTest extends PageTest{
 	
 	@BeforeTest
 	public void backOfficeLogin() {
-		page = null;
 		getPage();
 		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
 			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
 		}
 	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyIsPostHistoryPageVisible(String pDataFile) {
+		page=null;
+		getPage("/social/history");
+		scrollPageForPostToBeVisible();
+		assertTrue(page.isPostingHistoryPageIsVisible(), "Post History Page is not visible..");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPostPageTitle(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.getPostPageTitle(lPostText), "Platform title is not visible...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPostAccountName(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		ld_platform = dataObject.optString("platform");
+		assertTrue(!page.getPostAccountName(lPostText, ld_platform).isEmpty(), "Unable to verify account name...");
+	}
+
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPlatformIconIsVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		ld_platform = dataObject.optString("platform");
+		assertTrue(page.verifyPlatformIconIsVisible(ld_platform, lPostText), "Post not found on Post History page.");
+	}
+
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPostProcessingiconVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isPostProcessingiconVisible(lPostText), "The post processing icon is still visble after 3 minutes");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyTextPostIconVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isTextPostIconVisible(lPostText), "Unable to verify post icon");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyManualPostTextVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isManualPostTextVisible(lPostText), "Manual Page Post text is not visible...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPostPageDate(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(!page.getPostPageDate(lPostText).isEmpty(), "Unable to verify post date on history page...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPostPageTime(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(!page.getPostPageTime(lPostText).isEmpty(), "Unable to verify post time..");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyViewPostButtonIsWorking(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		ld_platform = dataObject.optString("platform");
+		assertTrue(page.verifyViewPostButtonIsWorking(ld_platform, lPostText), "View post button is not working...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyDuplicatePostButtonIsWorking(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.verifyDuplicatePostButtonIsWorking(lPostText), "Duplicate post button is not working...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyDuplicatePostPage(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		ld_posttype = dataObject.optString("post_type");
+		ZBODuplicatePage duplicatePage = new ZBODuplicatePage(driver);
+		assertTrue(duplicatePage.isDuplicatePostPage(), "Duplicate post page is not visible..");
+		if(ld_posttype.contains("listing") || ld_posttype.contains("video")) {
+			assertTrue(duplicatePage.verifyPost("Check out this"), "Unable to verify duplicate post..");
+		} else {
+			assertTrue(duplicatePage.verifyPost(lPostText), "Unable to verify duplicate post..");
+		}
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPhotoPostIconVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isPhotoPostIconVisible(lPostText), "Photo post icon is not displaying...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyImageDisplaying(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		ld_platform = dataObject.optString("platform");
+		assertTrue(page.isImageDisplaying(ld_platform,lPostText), "Photo post image is not visible...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyManualPhotPostTextVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isManualPhotPostTextVisible(lPostText), "Photo post text is not visible...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPostComputerIconVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isPostComputerIconVisible(lPostText), "Post computer icon is not visible...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyManualLinkPostTextVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isManualLinkPostTextVisible(lPostText), "Manual link post text is not visible..");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyHomePostIconVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isHomePostIconVisible(lPostText), "Home icon for listing post is not visible...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyManualListingPostTextVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isManualListingPostTextVisible(lPostText), "Manual listing post text is not visible...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyListingWebsiteUrlDisplaying(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")), "Unable to verify listing website Url");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyListingHeadingVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isListingHeadingVisible(lPostText), "Listing heading is not visible...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyListingDescVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isListingDescVisible(lPostText), "Unable to verify listing description...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyHomePostListingVideoIconVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isHomePostListingVideoIconVisible(lPostText), "Unable to verify listing Video icon...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyManualListingVideoPostTextVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isManualListingVideoPostTextVisible(lPostText), "Unable to verify listing video post text...");
+	}
+	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyTwitterVideoTextVisible(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
+		lPostText = dataObject.optString("post_text");
+		assertTrue(page.isTwitterVideoTextVisible(lPostText), "Unable to verify twitter video text..");
+	}
+	
+/*	
 
 	/////FACEBOOK////
 	
@@ -859,6 +1075,8 @@ public class ZBOPostHistoryPageTest extends PageTest{
 		assertTrue(page.isListingWebsiteUrlDisplaying(lPostText, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")), "Unable to verify listing website Url");
 		assertTrue(!page.getPostPageTime(lPostText).isEmpty(), "Unable to verify post time..");
 	}
+	
+	*/
 	
 	public void scrollPageForPostToBeVisible() {
 		ActionHelper.RefreshPage(driver); 

@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Zurple Pre and Post Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+<suite name="Zurple social post history tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	<listeners>		
 		<listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ExtentReporterListener"/>
@@ -8,7 +8,7 @@
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
 	
-	 <test name="Verify Social Text Post FB">
+<!-- 	 <test name="Verify Social Text Post FB">
 		<parameter name="FBText" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-text-post.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
@@ -328,5 +328,741 @@
 			</class>
 		</classes>
 		</parameter>
+	</test>  -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+ 	 <test name="Verify Social Text Post FB">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-text-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyTextPostIconVisible" />
+					<include name="testVerifyManualPostTextVisible"	/>	
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Text Post FB - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-text-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyTextPostIconVisible" />
+					<include name="testVerifyManualPostTextVisible"	/>	
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Photo Post FB">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-photo-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyPhotoPostIconVisible" />
+					<include name="testVerifyImageDisplaying" />
+					<include name="testVerifyManualPhotPostTextVisible" />	
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Photo Post FB - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-photo-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyPhotoPostIconVisible" />
+					<include name="testVerifyImageDisplaying" />
+					<include name="testVerifyManualPhotPostTextVisible" />	
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Link Post FB">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-link-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyPostComputerIconVisible" />
+					<include name="testVerifyManualLinkPostTextVisible" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Link Post FB - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-link-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyPostComputerIconVisible" />
+					<include name="testVerifyManualLinkPostTextVisible" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Listing Post FB">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyHomePostIconVisible" />
+					<include name="testVerifyImageDisplaying" />
+					<include name="testVerifyManualListingPostTextVisible" />
+					<include name="testVerifyListingWebsiteUrlDisplaying" />
+					<include name="testVerifyListingHeadingVisible" />
+					<include name="testVerifyListingDescVisible" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Listing Post FB - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyHomePostIconVisible" />
+					<include name="testVerifyImageDisplaying" />
+					<include name="testVerifyManualListingPostTextVisible" />
+					<include name="testVerifyListingWebsiteUrlDisplaying" />
+					<include name="testVerifyListingHeadingVisible" />
+					<include name="testVerifyListingDescVisible" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Listing Video Post FB">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-video-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyHomePostListingVideoIconVisible" />
+					<include name="testVerifyManualListingVideoPostTextVisible" />
+					<include name="testVerifyListingWebsiteUrlDisplaying" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Listing Video Post FB - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-video-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyHomePostListingVideoIconVisible" />
+					<include name="testVerifyManualListingVideoPostTextVisible" />
+					<include name="testVerifyListingWebsiteUrlDisplaying" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
 	</test> 
+	
+	<test name="Verify Social Text Post Twitter">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-text-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyTextPostIconVisible" />
+					<include name="testVerifyManualPostTextVisible"	/>	
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Text Post Twitter - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-text-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyTextPostIconVisible" />
+					<include name="testVerifyManualPostTextVisible"	/>	
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Photo Post Twitter">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-photo-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyPhotoPostIconVisible" />
+					<include name="testVerifyImageDisplaying" />
+					<include name="testVerifyManualPhotPostTextVisible" />	
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Photo Post Twitter - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-photo-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyPhotoPostIconVisible" />
+					<include name="testVerifyImageDisplaying" />
+					<include name="testVerifyManualPhotPostTextVisible" />	
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Link Post Twitter">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-link-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyPostComputerIconVisible" />
+					<include name="testVerifyManualLinkPostTextVisible" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Link Post Twitter - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-link-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyPostComputerIconVisible" />
+					<include name="testVerifyManualLinkPostTextVisible" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test> 
+	<test name="Verify Social Listing Post Twitter">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyHomePostIconVisible" />
+					<include name="testVerifyImageDisplaying" />
+					<include name="testVerifyManualListingPostTextVisible" />
+					<include name="testVerifyListingWebsiteUrlDisplaying" />
+					<include name="testVerifyListingHeadingVisible" />
+					<include name="testVerifyListingDescVisible" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Listing Post Twitter - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyHomePostIconVisible" />
+					<include name="testVerifyImageDisplaying" />
+					<include name="testVerifyManualListingPostTextVisible" />
+					<include name="testVerifyListingWebsiteUrlDisplaying" />
+					<include name="testVerifyListingHeadingVisible" />
+					<include name="testVerifyListingDescVisible" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>  
+	<test name="Verify Social Listing Video Post Twitter">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyTwitterVideoTextVisible" />
+					<include name="testVerifyHomePostListingVideoIconVisible" />
+					<include name="testVerifyListingWebsiteUrlDisplaying" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Listing Video Post Twitter - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyTwitterVideoTextVisible" />
+					<include name="testVerifyHomePostListingVideoIconVisible" />
+					<include name="testVerifyListingWebsiteUrlDisplaying" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+  	
+	<test name="Verify Social Text Post Linkedin">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-text-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyTextPostIconVisible" />
+					<include name="testVerifyManualPostTextVisible"	/>	
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Text Post Linkedin - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-text-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyTextPostIconVisible" />
+					<include name="testVerifyManualPostTextVisible"	/>	
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Photo Post Linkedin">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-photo-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyPhotoPostIconVisible" />
+					<include name="testVerifyImageDisplaying" />
+					<include name="testVerifyManualPhotPostTextVisible" />	
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Photo Post Linkedin - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-photo-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyPhotoPostIconVisible" />
+					<include name="testVerifyImageDisplaying" />
+					<include name="testVerifyManualPhotPostTextVisible" />	
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Link Post Linkedin">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-link-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyPostComputerIconVisible" />
+					<include name="testVerifyManualLinkPostTextVisible" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Link Post Linkedin - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-link-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyPostComputerIconVisible" />
+					<include name="testVerifyManualLinkPostTextVisible" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Listing Post Linkedin">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-listing-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyHomePostIconVisible" />
+					<include name="testVerifyImageDisplaying" />
+					<include name="testVerifyManualListingPostTextVisible" />
+					<include name="testVerifyListingWebsiteUrlDisplaying" />
+					<include name="testVerifyListingHeadingVisible" />
+					<include name="testVerifyListingDescVisible" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Listing Post Linkedin - Scheduled">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-listing-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyHomePostIconVisible" />
+					<include name="testVerifyImageDisplaying" />
+					<include name="testVerifyManualListingPostTextVisible" />
+					<include name="testVerifyListingWebsiteUrlDisplaying" />
+					<include name="testVerifyListingHeadingVisible" />
+					<include name="testVerifyListingDescVisible" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+					<include name="testVerifyViewPostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostButtonIsWorking" />
+					<include name="testVerifyDuplicatePostPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Video Post Youtube">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-yt-video-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyIsPostHistoryPageVisible" />
+					<include name="testVerifyPostPageTitle" />	
+					<include name="testVerifyPostAccountName" />
+					<include name="testVerifyPlatformIconIsVisible" />
+					<include name="testVerifyPostProcessingiconVisible" />
+					<include name="testVerifyManualListingVideoPostTextVisible" />
+					<include name="testVerifyListingWebsiteUrlDisplaying" />
+					<include name="testVerifyPostPageDate" />
+					<include name="testVerifyPostPageTime" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>  
+	
+	
+	
+<!-- 	<include name="testVerifyIsPostHistoryPageVisible" />
+	<include name="testVerifyPostPageTitle" />	
+	<include name="testVerifyPostAccountName" />
+	<include name="testVerifyPlatformIconIsVisible" />
+	<include name="testVerifyPostProcessingiconVisible" />
+	<include name="testVerifyTextPostIconVisible" />
+	<include name="testVerifyManualPostTextVisible"	/>	
+	<include name="testVerifyPostPageDate" />
+	<include name="testVerifyPostPageTime" />
+	<include name="testVerifyViewPostButtonIsWorking" />
+	<include name="testVerifyDuplicatePostButtonIsWorking" />
+	<include name="testVerifyDuplicatePostPage" />
+	<include name="testVerifyPhotoPostIconVisible" />
+	<include name="testVerifyImageDisplaying" />
+	<include name="testVerifyManualPhotPostTextVisible" />
+	<include name="testVerifyPostComputerIconVisible" />
+	<include name="testVerifyManualLinkPostTextVisible" />
+	<include name="testVerifyHomePostIconVisible" />
+	<include name="testVerifyManualListingPostTextVisible" />
+	<include name="testVerifyListingWebsiteUrlDisplaying" />
+	<include name="testVerifyListingHeadingVisible" />
+	<include name="testVerifyListingDescVisible" />
+	<include name="testVerifyHomePostListingVideoIconVisible" />
+	<include name="testVerifyManualListingVideoPostTextVisible" />
+	<include name="testVerifyTwitterVideoTextVisible" />
+	 -->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </suite>
