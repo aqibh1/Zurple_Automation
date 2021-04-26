@@ -1198,5 +1198,5 @@ public class ZBOLeadDetailPage extends Page{
 	public String getLeadSource() {
 		return ActionHelper.getText(driver, lead_souce);
 	}
-	public boolean verify
+	
 }
