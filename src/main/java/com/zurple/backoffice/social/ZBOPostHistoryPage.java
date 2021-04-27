@@ -277,13 +277,25 @@ public class ZBOPostHistoryPage extends Page{
 		case "Twitter":
 			element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
 			if(element!=null) {
-				isVisible = ActionHelper.getAttribute(element.findElement(By.xpath("/descendant::div/img")), "src").contains("s3.amazonaws");
+				e = element.findElement(By.xpath("/descendant::div[@class='post-image']/descendant::img[contains(@src,'s3.amazonaws')]"));
+				postSource = ActionHelper.getAttribute(e, "src");
+				if(!postSource.isEmpty()) {
+					isVisible = true;
+				} else {
+					isVisible = false;
+				}
 			}
 			break;
 		case "LinkedIn":
 			element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
 			if(element!=null) {
-				isVisible = ActionHelper.getAttribute(element.findElement(By.xpath("/descendant::div/img")), "src").contains("s3.amazonaws");
+				e = element.findElement(By.xpath("/descendant::div[@class='post-image']/descendant::img[contains(@src,'s3.amazonaws')]"));
+				postSource = ActionHelper.getAttribute(e, "src");
+				if(!postSource.isEmpty()) {
+					isVisible = true;
+				} else {
+					isVisible = false;
+				}
 			}
 			break;
 		}
@@ -386,7 +398,7 @@ public class ZBOPostHistoryPage extends Page{
 		String l_frameId;
 		WebElement e;
 		List<WebElement> frames_list = new ArrayList<WebElement>();
-		for(int i = 0;i<5;i++) {
+		for(int i = 0;i<7;i++) {
 			ActionHelper.switchToDefaultContent(driver);
 			frames_list.clear();
 			frames_list = ActionHelper.getListOfElementByXpath(driver, "//iframe[@id]");
