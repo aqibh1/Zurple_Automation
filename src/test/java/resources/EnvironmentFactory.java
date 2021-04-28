@@ -98,6 +98,7 @@ public class EnvironmentFactory {
                     options.addArguments("--disable-gpu"); //https://stackoverflow.com/questions/51959986/how-to-solve-selenium-chromedriver-timed-out-receiving-message-from-renderer-exc
                     options.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
                     options.setCapability (CapabilityType.ACCEPT_SSL_CERTS, true);
+                    options.setAcceptInsecureCerts(true);
                 }
                 
                 
