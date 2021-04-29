@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
 
@@ -68,6 +69,7 @@ public class ZWCommunityReportsPageTest extends PageTest{
 		assertTrue(page.isCommunityReportsPage(), "Community reports page is not displayed");
 		assertTrue(page.typeZip("91910"), "Unable to type Zip");
 		assertTrue(page.clickOnSearchButton(), "Unable to click on search button..");
+		ActionHelper.staticWait(10);
 	}
 	
 	@Test//39731

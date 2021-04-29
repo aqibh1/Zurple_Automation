@@ -129,7 +129,12 @@ public abstract class AbstractPage
     	 cal.add(Calendar.DATE, -1);
     	 return dateFormat.format(cal.getTime());
 	}
-    
+    //"MM/dd/yy"
+    public String getTodaysDate(String pFormat) {
+   	 Calendar cal = Calendar.getInstance();
+   	 DateFormat dateFormat = new SimpleDateFormat(pFormat);
+   	 return dateFormat.format(cal.getTime());
+	}
     protected static int generateRandomInt(int pUpperRange){
     	Random random = new Random();
     	int lNum = random.nextInt(pUpperRange);
