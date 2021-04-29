@@ -11,7 +11,7 @@
 	</listeners>
 
 	<test name="Verify local info search shows in lead details page">
-	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-update-settings.json">
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-localinfo-search.json">
 		<classes>
 			<class name="com.zurple.website.ZWRegisterUserPageTest">
 				<methods>

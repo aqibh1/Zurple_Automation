@@ -1429,7 +1429,7 @@
 		</parameter>
 	</test>
 	
-	<test name="Verify Local Info search">
+	<test name="Verify local info search shows in lead details page">
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-localinfo-search.json">
 		<classes>
 			<class name="com.zurple.website.ZWRegisterUserPageTest">
@@ -1437,31 +1437,21 @@
 					<include name="testRegisterUser" />
 				</methods>
 			</class>
-			<class name="com.zurple.website.ZWCommunityReportsPageTest">
-				<methods>
-					<include name="testSearchCommunityReports" />
-				</methods>
-			</class>
-			<class name="com.zurple.website.ZWSchoolsReportsPageTest">
-				<methods>
-					<include name="testSearchSchoolsReports" />
-				</methods>
-			</class>
-			<class name="com.zurple.website.ZWPointOfIntrestsReportsPageTest">
-				<methods>
-					<include name="testSearchSchoolsReports" />
-				</methods>
-			</class>
 			<class name="com.zurple.backoffice.ZBOLoginPageTest">
-				<methods>
-					<include name="testBackOfficeLogin" />
-				</methods>
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
 			</class>
 			<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-				<methods>
-					<include name="testVerifyLeadLocalInfoSearch" />
-				</methods>
-			</class>
+					<methods>
+						<include name="testVerifyCommunityReportsSearchIsDisplayed" />
+						<include name="testVerifySchoolReportsSearchIsDisplayed" />
+						<include name="testVerifyPOIReportsSearchIsDisplayed" />
+						<include name="testVerifyCorrectZipIsDisplayedFroCommunityReports" />
+						<include name="testVerifyCorrectZipIsDisplayedForSchoolReports" />
+						<include name="testVerifyCorrectZipIsDisplayedForPOIReports" />
+					</methods>
+				</class>
 			<class name="resources.CurrentPageTest">
 				<methods>
 					<include name="closeBrowser" />
