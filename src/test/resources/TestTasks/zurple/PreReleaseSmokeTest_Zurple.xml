@@ -993,6 +993,70 @@
     </classes>
    	</test>
    	
+   	<test name="Verify school reports link and results are working">
+	<classes>
+    <class name="com.zurple.website.ZWSchoolsReportsPageTest" >
+      <methods>
+      	<include name="testVerifyLocalInfoSchoolReportsLinkIsWorking" />
+      	<include name="testVerifyNoSchoolResultsFound" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+		<methods>
+			<include name="closeBrowser" />
+		</methods>
+	</class>
+    </classes>
+   	</test>
+   	
+   	<test name="Verify POI reports link and results are working">
+	<classes>
+    <class name="com.zurple.website.ZWPointOfIntrestsReportsPageTest" >
+      <methods>
+      	<include name="testVerifyLocalInfoPOILinkIsWorking" />
+      	<include name="testVerifyNoPOIResultsFound" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+		<methods>
+			<include name="closeBrowser" />
+		</methods>
+	</class>
+    </classes>
+   	</test>
+   	
+   	<test name="Update and Verify email subscriptions from website">
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-email-subscription.json">
+	<parameter name="dataFile" value="/resources/data/zurple/lead_profile/zw-lead-email-subscription-data.json">
+				<classes>
+					<class name="com.zurple.website.ZWRegisterUserPageTest">
+						<methods>
+							<include name="testRegisterUser" />
+						</methods>
+					</class>
+					<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+					</class>
+					<class name="com.zurple.website.ZWAccountSettingsPageTest">
+						<methods>
+							<include name="testVerifyPropertyUpdatesEmailsSubscriptionStatus" />
+							<include name="testVerifySoldPropertyUpdatesEmailsSubscriptionStatus" />
+							<include name="testVerifyAgentsEmailsSubscriptionStatus" />
+							<include name="testVerifyMarketSnapshotEmailsSubscriptionStatus" />
+						</methods>
+					</class>
+					<class name="resources.CurrentPageTest">
+						<methods>
+							<include name="closeBrowser" />
+						</methods>
+					</class>
+				</classes>
+			</parameter>
+		</parameter>
+	</test>
+	
 	<test name="Verify Sorting works on Leads Page">	 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">

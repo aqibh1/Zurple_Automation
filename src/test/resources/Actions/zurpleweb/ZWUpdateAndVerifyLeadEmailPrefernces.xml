@@ -10,7 +10,7 @@
 		<listener class-name="resources.CustomTestNGReporter" />
 	</listeners>
 
-	<test name="Update and Verify email subscriptions">
+	<test name="Update and Verify email subscriptions from website">
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-email-subscription.json">
 	<parameter name="dataFile" value="/resources/data/zurple/lead_profile/zw-lead-email-subscription-data.json">
 				<classes>
