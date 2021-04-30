@@ -993,6 +993,70 @@
     </classes>
    	</test>
    	
+   	<test name="Verify school reports link and results are working">
+	<classes>
+    <class name="com.zurple.website.ZWSchoolsReportsPageTest" >
+      <methods>
+      	<include name="testVerifyLocalInfoSchoolReportsLinkIsWorking" />
+      	<include name="testVerifyNoSchoolResultsFound" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+		<methods>
+			<include name="closeBrowser" />
+		</methods>
+	</class>
+    </classes>
+   	</test>
+   	
+   	<test name="Verify POI reports link and results are working">
+	<classes>
+    <class name="com.zurple.website.ZWPointOfIntrestsReportsPageTest" >
+      <methods>
+      	<include name="testVerifyLocalInfoPOILinkIsWorking" />
+      	<include name="testVerifyNoPOIResultsFound" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+		<methods>
+			<include name="closeBrowser" />
+		</methods>
+	</class>
+    </classes>
+   	</test>
+   	
+   	<test name="Update and Verify email subscriptions from website">
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-email-subscription.json">
+	<parameter name="dataFile" value="/resources/data/zurple/lead_profile/zw-lead-email-subscription-data.json">
+				<classes>
+					<class name="com.zurple.website.ZWRegisterUserPageTest">
+						<methods>
+							<include name="testRegisterUser" />
+						</methods>
+					</class>
+					<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+					</class>
+					<class name="com.zurple.website.ZWAccountSettingsPageTest">
+						<methods>
+							<include name="testVerifyPropertyUpdatesEmailsSubscriptionStatus" />
+							<include name="testVerifySoldPropertyUpdatesEmailsSubscriptionStatus" />
+							<include name="testVerifyAgentsEmailsSubscriptionStatus" />
+							<include name="testVerifyMarketSnapshotEmailsSubscriptionStatus" />
+						</methods>
+					</class>
+					<class name="resources.CurrentPageTest">
+						<methods>
+							<include name="closeBrowser" />
+						</methods>
+					</class>
+				</classes>
+			</parameter>
+		</parameter>
+	</test>
+	
 	<test name="Verify Sorting works on Leads Page">	 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -1365,7 +1429,7 @@
 		</parameter>
 	</test>
 	
-	<test name="Verify Local Info search">
+	<test name="Verify local info search shows in lead details page">
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-localinfo-search.json">
 		<classes>
 			<class name="com.zurple.website.ZWRegisterUserPageTest">
@@ -1373,31 +1437,21 @@
 					<include name="testRegisterUser" />
 				</methods>
 			</class>
-			<class name="com.zurple.website.ZWCommunityReportsPageTest">
-				<methods>
-					<include name="testSearchCommunityReports" />
-				</methods>
-			</class>
-			<class name="com.zurple.website.ZWSchoolsReportsPageTest">
-				<methods>
-					<include name="testSearchSchoolsReports" />
-				</methods>
-			</class>
-			<class name="com.zurple.website.ZWPointOfIntrestsReportsPageTest">
-				<methods>
-					<include name="testSearchSchoolsReports" />
-				</methods>
-			</class>
 			<class name="com.zurple.backoffice.ZBOLoginPageTest">
-				<methods>
-					<include name="testBackOfficeLogin" />
-				</methods>
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
 			</class>
 			<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-				<methods>
-					<include name="testVerifyLeadLocalInfoSearch" />
-				</methods>
-			</class>
+					<methods>
+						<include name="testVerifyCommunityReportsSearchIsDisplayed" />
+						<include name="testVerifySchoolReportsSearchIsDisplayed" />
+						<include name="testVerifyPOIReportsSearchIsDisplayed" />
+						<include name="testVerifyCorrectZipIsDisplayedFroCommunityReports" />
+						<include name="testVerifyCorrectZipIsDisplayedForSchoolReports" />
+						<include name="testVerifyCorrectZipIsDisplayedForPOIReports" />
+					</methods>
+				</class>
 			<class name="resources.CurrentPageTest">
 				<methods>
 					<include name="closeBrowser" />
@@ -1998,6 +2052,11 @@
 	<test name="Verify Reminder Email generated from CRM page">	
 	<parameter name="dataFile" value="/resources/cache/zurple-reminder-email-verification.json"> 
 			<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
 				<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
 					<methods>
 						<include name="testVerifyReminderEmail" />

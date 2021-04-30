@@ -18,6 +18,8 @@ import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.backoffice.marketing.ZBOCampaignPage;
 import com.zurple.my.PageTest;
 import com.zurple.website.ZWCommunityReportsPageTest;
+import com.zurple.website.ZWPointOfIntrestsReportsPageTest;
+import com.zurple.website.ZWSchoolsReportsPageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
@@ -702,24 +704,54 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	
 	@Test
 	public void testVerifyCommunityReportsSearchIsDisplayed() {
+		getPage();
 		searchCommunityResultsPreCond();
 		String l_lead_id = getLeadIDPreCondition();
+		page= null;
 		getPage("/lead/"+l_lead_id);
-		
-		assertTrue(page.clickOnCMAReportButton(), "Send CMA report button is not working..");
-		ZBOSendCMAReportPage sendCMAReportPage = new ZBOSendCMAReportPage(driver);
-		assertTrue(sendCMAReportPage.isCMAReportHeadingVisible(), "CMA Report heading is not visible..");
-		assertTrue(driver.getCurrentUrl().contains("cma/email/lead"), "URL of CMA Report is not changed..");
+		clickOnSearchTab();
+		ActionHelper.staticWait(5);
+		assertTrue(page.verifyLocalInfoType("Community"), "Community search entry not found in Local Search..");
 	}
-	
+	@Test
+	public void testVerifySchoolReportsSearchIsDisplayed() {
+		getPage();
+		searchSchoolResultsPreCond();
+		String l_lead_id = getLeadIDPreCondition();
+		page= null;
+		getPage("/lead/"+l_lead_id);
+		clickOnSearchTab();
+		ActionHelper.staticWait(5);
+		assertTrue(page.verifyLocalInfoType("Schools"), "Schools search entry not found in Local Search..");
+	}
+	@Test
+	public void testVerifyPOIReportsSearchIsDisplayed() {
+		getPage();
+		searchPOIResultsPreCond();
+		String l_lead_id = getLeadIDPreCondition();
+		page= null;
+		getPage("/lead/"+l_lead_id);
+		clickOnSearchTab();
+		ActionHelper.staticWait(5);
+		assertTrue(page.verifyLocalInfoType("Points of Interest"), "Points of Interest search entry not found in Local Search..");
+	}
 	@Test
 	public void testVerifyCorrectZipIsDisplayedFroCommunityReports() {
-		getPage("/leads/crm");
-		clickOnLeadNamePreCond();
-		assertTrue(page.clickOnCMAReportButton(), "Send CMA report button is not working..");
-		ZBOSendCMAReportPage sendCMAReportPage = new ZBOSendCMAReportPage(driver);
-		assertTrue(sendCMAReportPage.isCMAReportHeadingVisible(), "CMA Report heading is not visible..");
-		assertTrue(driver.getCurrentUrl().contains("cma/email/lead"), "URL of CMA Report is not changed..");
+		String l_zip = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCommunityReportsZip);
+		ActionHelper.staticWait(5);
+		assertTrue(page.verifyLocalInfoZip("Community", l_zip), "Community Zip is not matched in Local Search..");
+	}
+	@Test
+	public void testVerifyCorrectZipIsDisplayedForSchoolReports() {
+		String l_zip = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleSchoolsReportsZip);
+		ActionHelper.staticWait(5);
+		assertTrue(page.verifyLocalInfoZip("Schools", l_zip), "School Zip is not matched in Local Search..");
+	}
+	@Test
+	public void testVerifyCorrectZipIsDisplayedForPOIReports() {
+		String l_zip = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurplePOIReportsZip);
+		ActionHelper.staticWait(5);
+		assertTrue(page.verifyLocalInfoZip("Points of Interest", l_zip), "POI Zip is not matched in Local Search..");
 	}
 	
 	private void clickOnLeadNamePreCond() {
@@ -774,5 +806,26 @@ public class ZBOLeadDetailPageTest extends PageTest{
 			throw new SkipException("Lead is not registered. Lead id is empty [Skipping]");
 		}
 		return l_lead_id;
+	}
+	public void clickOnSearchTab() {
+		if(!page.clickOnSearchTabButton()) {
+			throw new SkipException("Skipping the test as pre condition failed. Unable to click on Search tab button");
+		}
+	}
+	private void searchSchoolResultsPreCond() {
+		ZWSchoolsReportsPageTest schoolReportsTest = new ZWSchoolsReportsPageTest();
+		try {
+			schoolReportsTest.testSearchSchoolsReports();;
+		}catch(Exception ex) {
+			throw new SkipException("Skipping the test as pre condition as unable to search School reports");
+		}
+	}
+	private void searchPOIResultsPreCond() {
+		ZWPointOfIntrestsReportsPageTest comreportsTest = new ZWPointOfIntrestsReportsPageTest();
+		try {
+			comreportsTest.testSearchPOIReports();
+		}catch(Exception ex) {
+			throw new SkipException("Skipping the test as pre condition as unable to search POI reports");
+		}
 	}
 }

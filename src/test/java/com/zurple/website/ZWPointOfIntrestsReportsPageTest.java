@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
 
@@ -62,12 +63,13 @@ public class ZWPointOfIntrestsReportsPageTest extends PageTest{
 		
 	}
 	@Test
-	public void testSearchSchoolsReports() {
+	public void testSearchPOIReports() {
 		getPage("/points-of-interest");
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurplePOIReportsZip, "91910");
 		assertTrue(page.isPOIReportsPage(), "Community reports page is not displayed");
 		assertTrue(page.typeZip("91910"), "Unable to type Zip");
 		assertTrue(page.clickOnSearchButton(), "Unable to click on search button..");
+		ActionHelper.staticWait(10);
 	}
 
 	@Test//39739

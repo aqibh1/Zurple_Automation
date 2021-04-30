@@ -1198,5 +1198,33 @@ public class ZBOLeadDetailPage extends Page{
 	public String getLeadSource() {
 		return ActionHelper.getText(driver, lead_souce);
 	}
-	
+	public boolean verifyLocalInfoType(String pType) {
+		boolean isVerified = false;
+		String l_date = getTodaysDate("MM/dd/yy");
+		List<WebElement> type_elements = ActionHelper.getListOfElementByXpath(driver, li_type_list);
+		List<WebElement> date_elements = ActionHelper.getListOfElementByXpath(driver, li_date_list);
+		for(int i=0;i<type_elements.size();i++) {
+			if(ActionHelper.getText(driver, type_elements.get(i)).equalsIgnoreCase(pType)) {
+				isVerified = ActionHelper.getText(driver, date_elements.get(i)).contains(l_date);
+			}
+			if(isVerified) {
+				break;
+			}
+		}
+		return isVerified;
+	}
+	public boolean verifyLocalInfoZip(String pType, String pZip) {
+		boolean isVerified = false;
+		List<WebElement> type_elements = ActionHelper.getListOfElementByXpath(driver, li_type_list);
+		List<WebElement> location_elements = ActionHelper.getListOfElementByXpath(driver, li_location_list);
+		for(int i=0;i<type_elements.size();i++) {
+			if(ActionHelper.getText(driver, type_elements.get(i)).equalsIgnoreCase(pType)) {
+				isVerified = ActionHelper.getText(driver, location_elements.get(i)).contains(pZip);
+			}
+			if(isVerified) {
+				break;
+			}
+		}
+		return isVerified;
+	}
 }
