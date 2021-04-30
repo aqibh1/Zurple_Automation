@@ -3,7 +3,9 @@
  */
 package com.zurple.backoffice.social;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -26,7 +28,7 @@ public class ZBOPostHistoryPage extends Page{
 	WebElement post_history_heading;
 	
 	String post_xpath = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']";
-	
+	String desc_xpath = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::p[contains(@class,'link-preview-description')]";
 	String fb_post_platform_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'post-facebook-network-icon')]";
 	String tw_post_platform_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'post-twitter-network-icon')]";
 	String li_post_platform_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'post-linkedin-network-icon')]";
@@ -87,6 +89,7 @@ public class ZBOPostHistoryPage extends Page{
 	public boolean isPostingHistoryPageIsVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, post_history_heading, 30);
 	}
+	
 	public boolean verifyPlatformIconIsVisible(String pPlatform, String pPostToVerify) {
 		boolean isVisible = false;	
 		WebElement element;
@@ -350,9 +353,9 @@ public class ZBOPostHistoryPage extends Page{
 	public boolean isListingDescVisible(String pPostToVerify) {
 		String isVisible = "";	
 		WebElement element;
-		element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
+		element = ActionHelper.getDynamicElement(driver, desc_xpath, pPostToVerify);
 		if(element!=null) {
-			isVisible = ActionHelper.getText(driver, element.findElement(By.xpath("/descendant::p[contains(@class,'link-preview-description')]")));
+			isVisible = ActionHelper.getText(driver, element);
 		}
 		return isVisible.contains("Check out this listing");
 	}
