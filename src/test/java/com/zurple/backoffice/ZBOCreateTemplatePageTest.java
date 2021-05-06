@@ -54,7 +54,8 @@ public class ZBOCreateTemplatePageTest extends PageTest{
 		// TODO Auto-generated method stub
 		
 	}
-	@Test(groups="com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate",retryAnalyzer = resources.RetryFailedTestCases.class)
+	//retryAnalyzer = resources.RetryFailedTestCases.class
+	@Test(groups="com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate")
 	@Parameters({"templateData"})
 	public void testCreateTemplate(String pDataFile) {
 		getPage("/marketing/templates");

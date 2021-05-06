@@ -67,7 +67,8 @@ public class ZBOEditDistributionPageTest extends PageTest{
 	public void testVerifyAndSelectAgentForDistribution() {
 		String siteURL=EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
 		if(!getIsProd()) {
-			siteURL = siteURL.split("stage01.")[1];
+			String environment = System.getProperty("environment");
+			siteURL = siteURL.split(environment+".")[1];
 		}else {
 			siteURL = siteURL.split("www.")[1];
 		}
