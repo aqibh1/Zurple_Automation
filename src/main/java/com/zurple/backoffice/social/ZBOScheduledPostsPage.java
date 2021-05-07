@@ -25,7 +25,7 @@ public class ZBOScheduledPostsPage extends Page{
 	WebElement scheduled_posts_heading;
 	
 	String post_xpath = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']";
-	
+	String desc_xpath = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::p[contains(@class,'link-preview-description')]";
 	String fb_post_platform_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'post-facebook-network-icon')]";
 	String tw_post_platform_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'post-twitter-network-icon')]";
 	String li_post_platform_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'post-linkedin-network-icon')]";
@@ -252,9 +252,9 @@ public class ZBOScheduledPostsPage extends Page{
 	public boolean isListingDescVisible(String pPostToVerify) {
 		String isVisible = "";	
 		WebElement element;
-		element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
+		element = ActionHelper.getDynamicElement(driver, desc_xpath, pPostToVerify);
 		if(element!=null) {
-			isVisible = ActionHelper.getText(driver, element.findElement(By.xpath("/descendant::p[contains(@class,'link-preview-description')]")));
+			isVisible = ActionHelper.getText(driver, element);
 		}
 		return isVisible.contains("Check out this listing");
 	}
