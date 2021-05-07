@@ -3,7 +3,6 @@
  */
 package com.zurple.website;
 
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.util.HashMap;
@@ -191,11 +190,11 @@ public class ZWPropertyDetailPageTest extends PageTest{
 			softAssert.assertTrue(page.verifyPOIMap(), "Unable to verify whats nearby map..");
 		}else {
 			softAssert.assertTrue(page.isFeaturesTableVisible(), "Features table is not visible..");
-			assertTrue(page.isGoogleMapAndPinVisible(), "Google Map and pin is not visible..");
-			assertFalse(page.verifyCommunityStatsVisible(), "Community stats are displayed for non-logged in user..");
-			assertFalse(page.verifySchoolMap(), "School Map is displayed for non-logged in user..");
-			assertFalse(page.verifyPOIMap(), "Whats Near by is displayed for non-logged in user..");
-			
+//			assertTrue(page.isGoogleMapAndPinVisible(), "Google Map and pin is not visible..");
+//			assertFalse(page.verifyCommunityStatsVisible(), "Community stats are displayed for non-logged in user..");
+//			assertFalse(page.verifySchoolMap(), "School Map is displayed for non-logged in user..");
+//			assertFalse(page.verifyPOIMap(), "Whats Near by is displayed for non-logged in user..");
+//			
 		}
 		if(lLeadCapture!=null && !lLeadCapture.isEmpty()) {
 			ActionHelper.RefreshPage(driver);
