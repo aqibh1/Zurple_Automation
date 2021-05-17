@@ -65,7 +65,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertEquals(createTemplatePageObject.getTemplateName(), lTemplateName, "Template name is not equal..");
 	}
 	
-	@Test(groups= {"testCreateCampaign"})
+	@Test(groups= {"testCreateCampaign"}, priority=476)
 	@Parameters({"dataFile"})
 	public void testCreateCampaign(String pDataFile) {
 		dataObject = getDataFile(pDataFile);
@@ -89,7 +89,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignID, lCampaign_ID);
 	}
 	
-	@Test(dependsOnGroups= {"testUnenrollLeadFromCampaign"})
+	@Test(priority=479)
 	@Parameters({"dataFile"})
 	public void testDeleteCampaign(String pDataFile) {
 		dataObject = getDataFile(pDataFile);

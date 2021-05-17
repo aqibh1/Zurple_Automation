@@ -75,11 +75,12 @@ public class ZWRegisterUserPageTest extends PageTest{
 	@Parameters({"registerUserDataFile"})
 	public void testRegisterUser(String pDataFile) {
 		AutomationLogger.startTestCase("Register User");
+		page=null;
 		getPage("/register");
 		lDataObject = getDataFile(pDataFile);
 		String lName = updateName(lDataObject.optString("name"));
 		String lEmail = updateEmail(lDataObject.optString("email"));
-	
+		ActionHelper.staticWait(2);
 		registerUser(lName,lEmail);
 		
 		String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];

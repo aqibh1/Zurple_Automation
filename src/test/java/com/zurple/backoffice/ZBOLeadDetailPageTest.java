@@ -242,7 +242,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Added property view: "+dataObject.optString(DataConstants.Views).replace("Golf course view", "Golf Course View")), "Unable to verify views in Notes..");
 		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Added property style: "+dataObject.optString(DataConstants.Style)), "Unable to verify style in Notes..");
 		
-		assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subjectg quick question..");
+		//assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subjectg quick question..");
 		AutomationLogger.endTestCase();
 	}
 	
@@ -471,7 +471,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Market Snapshot Emails", "No"), "Market Snapshot Emails value is not set to No");
 	}
 	
-	@Test(groups= {"testEnrollLeadInCampaign"}, dependsOnGroups= {"testCreateCampaign"})
+	@Test(groups= {"testEnrollLeadInCampaign"}, dependsOnGroups= {"testCreateCampaign"}, priority=477)
 	@Parameters({"dataFile","leadFile"})
 	public void testEnrollLeadInCampaign(String pDataFile, String leadDataFile) {
 		page=null;
@@ -513,7 +513,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(campaignPage.isLeadAddedInCampaign(lc_campaignName), "Lead is not added in campaign..");
 	}
 	
-	@Test(dependsOnGroups= {"testEnrollLeadInCampaign"}, groups= {"testUnenrollLeadFromCampaign"})
+	@Test(dependsOnGroups= {"testEnrollLeadInCampaign"}, groups= {"testUnenrollLeadFromCampaign"}, priority=478)
 	@Parameters({"dataFile"})
 	public void testUnenrollLeadFromCampaign(String pDataFile) {
 		page=null;
