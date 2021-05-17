@@ -278,6 +278,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		getPage("/lead/"+lLeadId);
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
+		ActionHelper.staticWait(3);
 		assertTrue(leadDetailPage.verifyMyMessagesEmails(pEmailSubject), "Email +["+pEmailSubject+ "]+ not found in my messages in lead details page");
 }
 	@Test
