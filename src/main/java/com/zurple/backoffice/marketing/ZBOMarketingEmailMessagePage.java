@@ -135,7 +135,7 @@ public class ZBOMarketingEmailMessagePage extends Page{
 		return zboInsertImageForm;
 	}
 	public boolean isMarketingEmailPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, email_heading, 30);
+		return ActionHelper.waitForElementToBeVisible(driver, email_heading, 40);
 	}
 	public boolean selectRecipients(String pRecipient) {
 		boolean isSelected = false;

@@ -72,7 +72,7 @@ public class ZWHomeSearchPageTest extends PageTest{
 	@Test
 	@Parameters({"searchPropertyDataFile"})
 	public void testSearchPropoerty(String pDataFile) {
-		getPage("");		
+		getPage();		
 		dataObject = getDataFile(pDataFile);
 		searchProperty();
 	}
@@ -91,7 +91,7 @@ public class ZWHomeSearchPageTest extends PageTest{
 	public void searchProperty() {
 		assertTrue(page.isHomesForSaleHeadingVisible(), "Search page is not visible");
 		assertTrue(page.selectInputType(dataObject.optString("search_by")), "Unable to select Input Type search criteria");
-		ActionHelper.staticWait(5);
+		ActionHelper.staticWait(7);
 		assertTrue(page.typeInputString(dataObject.optString("input_search")), "Unable to type input string..");
 
 		if(!dataObject.optString("minimum_price").isEmpty()) {

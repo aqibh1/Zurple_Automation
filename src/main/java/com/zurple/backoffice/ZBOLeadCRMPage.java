@@ -150,7 +150,7 @@ public class ZBOLeadCRMPage extends Page{
 		this.addReminderForm = new ZBOAddReminderForm(driver);
 	}
 	public boolean isLeadCRMPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, leads_heading, 30);
+		return ActionHelper.waitForElementToBeVisible(driver, leads_heading, 40);
 	}
 	public boolean typeLeadNameOrEmail(String pNameEmail) {
 		return ActionHelper.ClearAndType(driver, lead_input_name, pNameEmail);

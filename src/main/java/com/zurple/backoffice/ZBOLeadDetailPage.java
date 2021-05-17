@@ -936,6 +936,7 @@ public class ZBOLeadDetailPage extends Page{
 		return isButtonDisabled;
 	}
 	public boolean clickOnMyMessagesTab() {
+		ActionHelper.staticWait(2);
 		return ActionHelper.Click(driver, myMessages_tab_button);
 	}
 	public boolean clickOnLeadMessagesTab() {
