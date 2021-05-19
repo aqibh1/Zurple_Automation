@@ -15,6 +15,9 @@
 				<methods>
 					<include name="testVerifyQuickAndCustomBuyerAdsAreDisplayed" />
 					<include name="testVerifyCorrectTextForQuickAndCustomBuyerAdsIsDisplayed" />
+					<include name="testVerifyCustomBuyerAdsBoxBounceOnMouseHover" />
+					<include name="testVerifyQuickBuyerAdsSlideShowIsWorking" />
+					<include name="testVerifyCustomAndSelectButtonAreVisible" />
 				</methods>
 			</class>
 		</classes>

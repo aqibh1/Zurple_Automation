@@ -245,7 +245,11 @@ public class ZBOCreateAdPage extends Page{
 	String buyer_lead_quick_Ads_heading_list = "//div[@id='buyerleadads_cont_zurp']/descendant::h4[text()='Buyer Lead  Quick Ad']";
 	String buyer_lead_quick_Ads_desc = "//div[@id='buyerleadads_cont_zurp']/descendant::div[@class='fb_ad_preview_details Mpreview']";
 	String buyer_lead_quick_select_list = "//div[@id='buyerleadads_cont_zurp']/descendant::a[text()='Select']";
-	
+	@FindBy(xpath="//*[@class='goalBox mtb-8 buyerlead_zurp']")
+	WebElement buyer_lead_custom_Ad_modal;
+	String buyer_lead_quick_Ad_slide_show = "//div[@class='slider  Zurp_BuyerAds slick-initialized slick-slider']/descendant::div[@class='slide-image current']/img";
+	@FindBy(xpath="//div[@class='slider  Zurp_BuyerAds slick-initialized slick-slider']/descendant::div[@class='playicon_slide'][1]")
+	WebElement buyer_lead_quick_Ad_play_icon;
 	private ZBOSelectListingAlert selectListingAlert;
 	private ZBOGenericAlerts alert;
 	private String listing_address_value = "";
@@ -702,7 +706,7 @@ public class ZBOCreateAdPage extends Page{
 			return isDisabled; 
 		}
 	 public boolean isBuyerLeadAdBoxVisible() {
-		 return ActionHelper.isElementVisible(driver, buyer_lead_box);
+		 return ActionHelper.waitForElementToBeVisible(driver, buyer_lead_box,30);
 	 }
 	 public boolean isBuyerLeadAdsHeadingVisible() {
 		 return ActionHelper.isElementVisible(driver, find_buyer_leads_heading);
@@ -730,24 +734,38 @@ public class ZBOCreateAdPage extends Page{
 	 public boolean verifySelectButton() {
 		 return ActionHelper.getListOfElementByXpath(driver, buyer_lead_quick_select_list).size()==4;
 	 }
+	 public boolean verifySelectButtonIsVisible() {
+		 boolean isVisible = true;
+		 List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, buyer_lead_quick_select_list);
+		 for(int i=0;i<3;i++) {
+			 if(!ActionHelper.isElementVisible(driver, list.get(i))) {
+				 isVisible = false;
+				 break;
+			 }
+		 }
+		 return isVisible;
+	 }
 	 //Checking slider ads are displayed and 4th one invisible
 	 public boolean isQuickBuyerAdsDisplayed() {
-		 boolean isDisplayed = false;
+		 boolean isDisplayed = true;
 		 int counter = 0;
 		 List<WebElement> list_quick = ActionHelper.getListOfElementByXpath(driver, quick_buyer_ads_list);
 		 if(list_quick.size()==4) {
 			 for(WebElement element: list_quick) {
 				 if(!ActionHelper.isElementVisible(driver, element)) {
-					 counter++;
+					 isDisplayed = false;
 				 }
-			 }
-			 if(counter==1) {
-				 isDisplayed = true;
 			 }
 		 }
 		 return isDisplayed;
 	 }
-	 
+	 public boolean isBuyerLeadCreateCustomBoxBouncing() {
+		 ActionHelper.MouseHoverOnElement(driver, buyer_lead_custom_Ad_modal);
+		 return buyer_lead_custom_Ad_modal.getCssValue("animation-name").equalsIgnoreCase("bounce-1");
+	 }
+	 public boolean verifyBuyerLeadQuickAdSlideShowIsWorking() {
+		 return verifyAdSlideShowIsWorkingOnStep2AdsPreview(buyer_lead_quick_Ad_slide_show, buyer_lead_quick_Ad_play_icon); 
+	 }
 	 private boolean verifyAdSlideShowIsWorkingOnStep2AdsPreview(String pSlideShowImagesPath, WebElement pPlayIcon) {
 		 ActionHelper.staticWait(5);
 		 boolean isSlideShowWorking = false;
