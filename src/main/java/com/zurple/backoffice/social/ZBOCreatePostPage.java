@@ -266,19 +266,19 @@ public class ZBOCreatePostPage extends Page{
 		switch(pPlatform) {
 		case "Facebook":
 			if(ActionHelper.waitForElementToBeVisible(driver, fb_new_post_template_element, 15)) {
-				lTitle = ActionHelper.getAttribute(fb_new_post_template_element.findElement(By.xpath("/descendant::div/img")),"src");
+				lTitle = ActionHelper.getAttribute(driver.findElement(By.xpath("//div[contains(@class,'post-facebook-network-icon')]/ancestor::div[@id='new-post-template']/descendant::div/img")),"src");
 				isVerified = lTitle.toLowerCase().contains("facebook");
 			}
 			break;
 		case "Twitter":
 			if(ActionHelper.waitForElementToBeVisible(driver, tw_new_post_template_element, 15)) {
-				lTitle = ActionHelper.getAttribute(tw_new_post_template_element.findElement(By.xpath("/descendant::div/img")),"src");
+				lTitle = ActionHelper.getAttribute(driver.findElement(By.xpath("//div[contains(@class,'post-twitter-network-icon')]/ancestor::div[@id='new-post-template']/descendant::div/img")),"src");
 				isVerified = lTitle.toLowerCase().contains("twimg");
 			}
 			break;
 		case "LinkedIn":
 			if(ActionHelper.waitForElementToBeVisible(driver, li_new_post_template_element, 15)) {
-				lTitle = ActionHelper.getAttribute(li_new_post_template_element.findElement(By.xpath("/descendant::div/img")),"src");
+				lTitle = ActionHelper.getAttribute(driver.findElement(By.xpath("//div[contains(@class,'post-linkedin-network-icon')]/ancestor::div[@id='new-post-template']/descendant::div/img")),"src");
 				isVerified = lTitle.toLowerCase().contains("linkedin");
 			}
 			break;
