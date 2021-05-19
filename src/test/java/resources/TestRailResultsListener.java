@@ -97,11 +97,11 @@ public class TestRailResultsListener implements ITestListener{
 		resultDetails.put("comment", pComments);
 		resultDetails.put("defects",pDefects);
 		
-		resultDetails.put("test_id", l_testcase_id);
+		resultDetails.put("case_id", l_testcase_id);
 		jResultsArray.put(0, resultDetails);
 		resultObject.put("results", jResultsArray);
 		try {
-			client.sendPost("/add_results/"+l_testrun_id, resultObject);
+			client.sendPost("/add_results_for_cases/"+l_testrun_id, resultObject);
 		} catch (IOException | APIException e) {
 			// TODO Auto-generated catch block
 			AutomationLogger.error(e.getMessage());
