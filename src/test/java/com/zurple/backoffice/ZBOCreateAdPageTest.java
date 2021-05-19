@@ -747,12 +747,28 @@ public class ZBOCreateAdPageTest extends PageTest{
 	public void testVerifyCorrectTextForQuickAndCustomBuyerAdsIsDisplayed() {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isBuyerLeadCustomAdTextVisible(), "Buyer custom ads box text is not visible");
-		assertTrue(page.isCustomAdButtonVisible(), "Buyer quick ads custom ad button is not visible");
+		
 		assertTrue(page.verifyBuyerLeadsAdHeadingCount(), "Buyer quick ads count is not 4");
 		assertTrue(page.verifyBuyerLeadQuickAdsDesc("Are you having trouble"), "Quick Ad 2 desc is not correct");
 		assertTrue(page.verifyBuyerLeadQuickAdsDesc("Interested in available"), "Quick Ad 3 desc is not correct");
 		assertTrue(page.verifyBuyerLeadQuickAdsDesc("Get access to the hottest properties"), "Quick Ad 1 desc is not correct");
 		assertTrue(page.verifySelectButton(), "Buyer quick ads Select button count is not 4");
+	}
+	@Test //40448
+	public void testVerifyCustomBuyerAdsBoxBounceOnMouseHover() {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isBuyerLeadCreateCustomBoxBouncing(), "Buyer Lead Custom Box does'nt bounce on mouse hover");
+	}
+	@Test //40449
+	public void testVerifyQuickBuyerAdsSlideShowIsWorking() {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.verifyBuyerLeadQuickAdSlideShowIsWorking(), "Slide show is not working for Buyer lead quick ads");
+	}
+	@Test //40450
+	public void testVerifyCustomAndSelectButtonAreVisible() {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isCustomAdButtonVisible(), "Buyer quick ads custom ad button is not visible");
+		assertTrue(page.verifySelectButtonIsVisible(), "Buyer quick ads Select button is not visible");
 	}
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {
