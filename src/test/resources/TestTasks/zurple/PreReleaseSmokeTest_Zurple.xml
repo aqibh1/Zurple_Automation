@@ -2369,7 +2369,7 @@
 				</class>
 			</classes>
 		</test>
-		
+		<!--  
 		<test name="Verify the ads overview page">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOAdsOverviewPageTest">
@@ -2566,7 +2566,7 @@
 		</classes>
 	</parameter>
 	</test>
-	
+	-->
 	<test name="Verify Send CMA Report button is visible on lead details page">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
