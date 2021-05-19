@@ -6,10 +6,8 @@
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
-        <listener class-name="TestRailResultsListener"/>
+        <listener class-name="resources.TestRailResultsListener"/>
 	</listeners>
-
-
 	
 	<test name="Verify local info search shows in lead details page">
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-localinfo-search.json">
