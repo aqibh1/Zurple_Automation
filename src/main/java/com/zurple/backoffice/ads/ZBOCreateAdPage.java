@@ -145,6 +145,8 @@ public class ZBOCreateAdPage extends Page{
 	WebElement select_section_button;
 	@FindBy(xpath="//a[text()='Edit' and contains(@href,'step-one')]")
 	WebElement edit_button_section1;
+	@FindBy(xpath="//h5[@class='inner_stephead']/i[@class='far fa-check-circle checkicon zurp_checked']/following-sibling::strong[contains(text(), '1')]")
+	WebElement step2_section1_checked;
 	
 	
 	//Step 2 Section 2 verifications
@@ -765,6 +767,15 @@ public class ZBOCreateAdPage extends Page{
 	 }
 	 public boolean verifyBuyerLeadQuickAdSlideShowIsWorking() {
 		 return verifyAdSlideShowIsWorkingOnStep2AdsPreview(buyer_lead_quick_Ad_slide_show, buyer_lead_quick_Ad_play_icon); 
+	 }
+	 public boolean clickCustomAdButtonBuyerLeadAd() {
+		 return ActionHelper.Click(driver, create_custom_ad_button);
+	 }	
+	 public boolean isSection1Checked() {
+			return ActionHelper.isElementVisible(driver, step2_section1_checked);
+	}
+	 public boolean isBuyerLeadHeadingVisible() {
+		 return !ActionHelper.getText(driver, listing_title_step2_section1).split("Buyer Lead Ad:")[1].isEmpty();
 	 }
 	 private boolean verifyAdSlideShowIsWorkingOnStep2AdsPreview(String pSlideShowImagesPath, WebElement pPlayIcon) {
 		 ActionHelper.staticWait(5);
