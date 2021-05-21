@@ -58,7 +58,9 @@ public class ZBOCampaignPage extends Page{
 				if(rowData.contains("1 Lead")) {
 					isCampaignLeadAdded = true;
 				}
-			} 
+			} else {
+				continue;
+			}
 			
 			if(isCampaignNameFound && isCampaignLeadAdded) {
 				isSuccess = true;
