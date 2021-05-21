@@ -216,6 +216,7 @@ public class ZBOLeadCRMPage extends Page{
 	}
 	public boolean searchLeadByEmail(String pLeadEmail) {
 		boolean isLeadFound = false;
+		ActionHelper.staticWait(7);
 		if(typeLeadNameOrEmail(pLeadEmail) && clickOnSearchButton()) {
 			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
 			isLeadFound = ActionHelper.getText(driver, leads_info_table).equalsIgnoreCase("Showing 1 to 1 of 1 entries");

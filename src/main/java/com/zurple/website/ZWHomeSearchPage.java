@@ -6,6 +6,7 @@ package com.zurple.website;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -109,6 +110,9 @@ public class ZWHomeSearchPage extends Page{
 	
 	String select_input = "//div[@id='jSuggestContainer']/descendant::li[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
 	
+	@FindBy(xpath="//div[@id='jSuggestContainer']/descendant::li[contains(text(),'6155 Del Mar Mesa Road 1')]")
+	WebElement select_input_retry;
+	
 	@FindBy(xpath="//div[@id='jSuggestContainer']")
 	WebElement suggestion_container;
 	
@@ -128,7 +132,13 @@ public class ZWHomeSearchPage extends Page{
 		try {
 			if(ActionHelper.ClearAndType(driver, search_input, pInputString)) {
 				ActionHelper.staticWait(5);
-				ActionHelper.getDynamicElement(driver,select_input, pInputString).click();;
+				WebElement elem = ActionHelper.getDynamicElement(driver,select_input, pInputString);
+				if(elem!=null) {
+					ActionHelper.Click(driver, elem);
+					isSuccess = true;
+				} else {
+					ActionHelper.Click(driver, select_input_retry);
+				}
 //				isSuccess = ActionHelper.Click(driver, suggested_element);
 			}
 		}catch(Exception ex) {
