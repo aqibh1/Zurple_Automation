@@ -27,7 +27,18 @@ public class TestRailResultsListener implements ITestListener{
 	int l_testcase_id = 0;
 	String l_testrun_id = "";
 	String l_scenario_name = "";
-	
+
+	private int getTestCaseId(String pMapKey) {
+		int l_testcase_id_ = 0;
+		try {
+			l_testcase_id_ = Integer.parseInt(EnvironmentFactory.configReader.getTestRailMapping(pMapKey));
+		}catch(Exception ex) {
+			AutomationLogger.error("The test case is not mapped");
+			l_testcase_id_ = 0;
+		}
+		return l_testcase_id_;
+	}
+
 	@Override
 	public void onTestStart(ITestResult result) {
 		l_testRail_Url = EnvironmentFactory.configReader.getPropertyByName("testrail_url");
@@ -35,7 +46,7 @@ public class TestRailResultsListener implements ITestListener{
 		l_testRail_password = EnvironmentFactory.configReader.getPropertyByName("testrail_password");
 		String className[] = result.getTestClass().toString().split("\\.");
 		String mapKey = className[className.length-1].replace("]", ".")+result.getName();
-		l_testcase_id =Integer.parseInt(EnvironmentFactory.configReader.getTestRailMapping(mapKey));
+		l_testcase_id =getTestCaseId(mapKey);
 		l_testrun_id = System.getProperty("testrail_testrun_id");
 		l_scenario_name = result.getTestContext().getCurrentXmlTest().getName();;
 		AutomationLogger.info("Initializing TestRail URL :: "+l_testRail_Url);
@@ -47,7 +58,9 @@ public class TestRailResultsListener implements ITestListener{
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		updateResultsOnTestRails(1, l_scenario_name, "");
+		if(l_testrun_id!=null && l_testcase_id!=0) {
+			updateResultsOnTestRails(1, l_scenario_name, "");
+		}
 	}
 
 	@Override
@@ -56,32 +69,34 @@ public class TestRailResultsListener implements ITestListener{
 		String errorMessage = result.getThrowable().getLocalizedMessage();
 		if(errorMessage.length()>230) {
 			errorMessage = result.getThrowable().getLocalizedMessage().substring(0, 230);
+		}if(l_testrun_id!=null && l_testcase_id!=0) {
+			updateResultsOnTestRails(5, l_scenario_name,errorMessage);
 		}
-		updateResultsOnTestRails(5, l_scenario_name,errorMessage);
-	        
+
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
-		updateResultsOnTestRails(3, l_scenario_name, "");
-		
+		if(l_testrun_id!=null && l_testcase_id!=0) {
+			updateResultsOnTestRails(3, l_scenario_name, "");
+		}
 	}
 
 	@Override
 	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onStart(ITestContext context) {
-	
-		
+
+
 	}
 
 	@Override
 	public void onFinish(ITestContext context) {
-	
+
 	}
 
 	private boolean updateResultsOnTestRails(int pStatus, String pComments, String pDefects) {
@@ -89,14 +104,14 @@ public class TestRailResultsListener implements ITestListener{
 		APIClient client = new APIClient(l_testRail_Url);
 		client.setUser(l_testRail_username);
 		client.setPassword(l_testRail_password);
-		
+
 		JSONObject resultObject = new JSONObject();
 		JSONArray jResultsArray = new JSONArray();
 		JSONObject resultDetails = new JSONObject();
 		resultDetails.put("status_id", pStatus);
 		resultDetails.put("comment", pComments);
 		resultDetails.put("defects",pDefects);
-		
+
 		resultDetails.put("case_id", l_testcase_id);
 		jResultsArray.put(0, resultDetails);
 		resultObject.put("results", jResultsArray);

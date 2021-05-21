@@ -1,0 +1,25 @@
+<suite name="Buyer Leads Quick And Custom Ads"
+	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+
+	<test name="Create and Verify Buyer Leads Custom Ad">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>
+					<include name="testVerifyListingPopUpAppearsOnClickingCreateCustomButtonBuyerLeadsAd" />
+					<include name="testVerifySlideShowIsWorkingStep2OfBuyerLeadsAd" />
+					<include name="testVerifyUserCanSeeAdPreviewOnStep2OfBuyerLeadsAd" />
+					<include name="testVerifySection1IsCheckedOnStep2BuyerLeadsAd" />
+					<include name="testVerifySelectAdTypeAndBuyerLeadsAdHeadingIsDisplayedOnStep2BuyerLeadsAd" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

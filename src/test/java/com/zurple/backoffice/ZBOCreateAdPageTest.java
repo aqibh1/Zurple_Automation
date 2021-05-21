@@ -93,103 +93,103 @@ public class ZBOCreateAdPageTest extends PageTest{
 		}
 	}
 	@Test
-	public void testVerifyCustomAdSectionIsDisplayed() throws ParseException {
+	public void testVerifyCustomAdSectionIsDisplayed()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isCreateAdPage(), "Create Ad Page is not visible..");
 		assertTrue(page.isCreateAdStep1Visible(), "Create Ad Page Step 1 is not visible..");
 		assertTrue(page.isCustomAdsHeadingDisplayed(), "Create Custom Ads heading is not displayed..");
 	}
 	@Test
-	public void testVerifyPromoteListingHeadingIsDisplayed() throws ParseException {
+	public void testVerifyPromoteListingHeadingIsDisplayed()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isPromoteListingHeadingIsVisible(), "Promote Listing heading is not displayed..");
 	}
 	@Test
-	public void testVerifyCorrectTextIsDisplayed() throws ParseException {
+	public void testVerifyCorrectTextIsDisplayed()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isCorrectTextDisplayed(), " 'Get more exposure, interest and engagement for your listing' is not displayed..");
 	}
 	@Test
-	public void testVerifyHomeIconIsDisplayed() throws ParseException {
+	public void testVerifyHomeIconIsDisplayed()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isHomeIconDisplayedInCreateAdBox(), "Home Icon inside Create Custom Ad box is not displayed..");
 	}
 	@Test
-	public void testVerifyCustomAdButtonIsDisplayed() throws ParseException {
+	public void testVerifyCustomAdButtonIsDisplayed()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isCreateCustomAdButtonIsDisplayed(), "Create Custom Ad button is not displayed..");
 	}
 	@Test
-	public void testVerifyCreateAdBoxIsBouncing() throws ParseException {
+	public void testVerifyCreateAdBoxIsBouncing()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isCreateCustomBoxBouncing(), "Create Custom Ad box is not bouncing on mouse hover..");
 	}
 	@Test
-	public void testSelectQuickAdsHeadingDisplayed() throws ParseException {
+	public void testSelectQuickAdsHeadingDisplayed()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isSelectQuickAdsHeadingDisplayed(), "Select a Quick Ad heading is not visible..");
 	}
 	@Test
-	public void testListingQuickAdsHeadingDisplayed() throws ParseException {
+	public void testListingQuickAdsHeadingDisplayed()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isListingQuickAdsHeadingDisplayed(), "Listing Quick Ad heading is not visible..");
 	}
 	@Test
-	public void testListingAddressIsDisplayedInQuickAdBox() throws ParseException {
+	public void testListingAddressIsDisplayedInQuickAdBox()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isListingAddressIsDisplayedInQuickAdBox(), "Listing Address is not visible in Quick Ad box..");
 	}
 	@Test
-	public void testHotPropertyHeadingVisible() throws ParseException {
+	public void testHotPropertyHeadingVisible()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isHotPropertyHeadingVisible(), "Hot Properties heading is not visible in Quick Ad box..");
 	}
 	@Test
-	public void testQuickAdThumbnailVisible() throws ParseException {
+	public void testQuickAdThumbnailVisible()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isQuickAdThumbnailVisible(), "Listing Thumbnail is not visible in Quick Ad box..");
 	}
 	@Test
-	public void testQuickAdsDescriptionDisplayed() throws ParseException {
+	public void testQuickAdsDescriptionDisplayed()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isQuickAdsDescriptionDisplayed(), "Listing description is not visible in Quick Ad box..");
 	}
 	@Test
-	public void testQuickAdDomainDomainIsCorrect() throws ParseException {
+	public void testQuickAdDomainDomainIsCorrect()  {
 		getPage("/create-ad/step-one",true);
 		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").split("www.")[1].trim();
 		assertTrue(page.getQuickAdDomain().contains(l_domain), "Correct domain is not visible in Quick Ad box..");
 	}
 	@Test
-	public void testQuickAdTitleVisible() throws ParseException {
+	public void testQuickAdTitleVisible()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isQuickAdTitleVisible(), "Quick Ad title 'Hot Proerty' is not visible..");
 	}
 	@Test
-	public void testQuickAdSelectButtonVisible() throws ParseException {
+	public void testQuickAdSelectButtonVisible()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.isQuickAdSelectButtonVisible(), "Select Button is not visible in Quick Ad box..");
 	}
 	@Test
-	public void testQuickAdSlideShowIsWorking() throws ParseException {
+	public void testQuickAdSlideShowIsWorking()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.verifyAdSlideShowIsWorking(), "Slide show is not working for Quick Ads..");
 	}
 	@Test
-	public void testVerifyListingPopUpAppearsOnClickingCreateCustomButton() throws ParseException {
+	public void testVerifyListingPopUpAppearsOnClickingCreateCustomButton()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.clickOnCustomAdButton(), "Unable to click on Create Custom Ad Button..");
 		assertTrue(page.getSelectListingAlert().isSelectListingAlert(), "Listing Alert is not visible..");
 	}
 	@Test
-	public void testVerifyCorrectTextIsDisplayedOnSelectListingPopUp() throws ParseException {
+	public void testVerifyCorrectTextIsDisplayedOnSelectListingPopUp()  {
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.getSelectListingAlert().isSelectListingAlert(), "Listing Alert is not visible..");
 		assertTrue(page.getSelectListingAlert().verifyText("Please Select the listing you"), "Crrect text is not displayed on listing pop up");
 	}
 
 	@Test
-	public void testCancelButtonClosesThePopup() throws ParseException {
+	public void testCancelButtonClosesThePopup()  {
 		getPage("/create-ad/step-one",true);
 		if(page.clickOnCustomAdButton()) {
 			AutomationLogger.info("Select Listing Pop Up is already opened..");
@@ -200,7 +200,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 
 	@Test
-	public void testVerifyUserLandsToStep2AfterClickingOk() throws ParseException {
+	public void testVerifyUserLandsToStep2AfterClickingOk()  {
 		getPage("/create-ad/step-one",true);
 		if(!page.clickOnCustomAdButton()) {
 			throw new SkipException("Skipping the test becasuse [Click on Custom Ad Button] pre-condition was failed.");
@@ -213,7 +213,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 
 	@Test
-	public void testVerifyListingAddressIsSameOnStep1AndStep2() throws ParseException {
+	public void testVerifyListingAddressIsSameOnStep1AndStep2()  {
 		getPage("/create-ad/step-one",true);
 		if(!page.clickOnCustomAdButton()) {
 			throw new SkipException("Skipping the test becasuse [Click on Custom Ad Button] pre-condition was failed.");
@@ -228,7 +228,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 
 	@Test
-	public void testVerifyEditButtonRedirectsUserOnStep1() throws ParseException {
+	public void testVerifyEditButtonRedirectsUserOnStep1()  {
 		getPage("/create-ad/step-one",true);
 		if(!page.clickOnCustomAdButton()) {
 			throw new SkipException("Skipping the test becasuse [Click on Custom Ad Button] pre-condition was failed.");
@@ -241,14 +241,14 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isCustomAdsHeadingDisplayed(), "Create Custom Ads heading is not displayed..");		
 	}
 	@Test
-	public void testSection1IsCheckedOnStep2() throws ParseException {
+	public void testSection1IsCheckedOnStep2()  {
 		getPage("/create-ad/step-one",true);
 		clickOnCustomAdButtonAndSelectListing();
 		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
 		assertTrue(page.isStep1Checked(), "Section 1 is not checked on Step 2..");		
 	}
 	@Test
-	public void testSection1AdHeadingIsVisible() throws ParseException {
+	public void testSection1AdHeadingIsVisible()  {
 		getPage("/create-ad/step-one",true);
 		clickOnCustomAdButtonAndSelectListing();
 		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
@@ -487,7 +487,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testAdDuration() throws ParseException {
+	public void testAdDuration() throws ParseException  {
 		getPage("/create-ad/step-one",true);
 		clickOnCustomAdButtonAndSelectListing();
 		clickOnSelectButton();
@@ -498,7 +498,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testVerifyTermsAndConditionDisplayed() throws ParseException {
+	public void testVerifyTermsAndConditionDisplayed()  {
 		getPage("/create-ad/step-one",true);
 		clickOnCustomAdButtonAndSelectListing();
 		clickOnSelectButton();
@@ -510,7 +510,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testVerifyTermsAndConditionLinkWorking() throws ParseException {
+	public void testVerifyTermsAndConditionLinkWorking()  {
 		getPage("/create-ad/step-one",true);
 		clickOnCustomAdButtonAndSelectListing();
 		clickOnSelectButton();
@@ -521,7 +521,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testVerifyUserCanEditAllStepsFromStep4() throws ParseException {
+	public void testVerifyUserCanEditAllStepsFromStep4()  {
 		getPage("/create-ad/step-one",true);
 		clickOnCustomAdButtonAndSelectListing();
 		clickOnSelectButton();
@@ -545,7 +545,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testVerifyTestingAdChecboxIsChecked() throws ParseException {
+	public void testVerifyTestingAdChecboxIsChecked()  {
 		getPage("/create-ad/step-one",true);
 		clickOnCustomAdButtonAndSelectListing();
 		clickOnSelectButton();
@@ -579,7 +579,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testVerifySlideShowWorkingOnStep3WhenQuickAdIsSelected() throws ParseException {
+	public void testVerifySlideShowWorkingOnStep3WhenQuickAdIsSelected()  {
 		getPage("/create-ad/step-one",true);
 		clickOnQuickAdsSelectAButton();
 		assertTrue(page.verifyInstaPreviewSlideShowIsWorkingOnStep2(), "Instagram slide show is not working in ads preview..");
@@ -587,7 +587,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testCreateAndVerifyQuickAdsListingAddress() throws ParseException {
+	public void testCreateAndVerifyQuickAdsListingAddress() {
 		getPage("/create-ad/step-one",true);
 		clickOnQuickAdsSelectAButton();
 		listing_Address = page.getListingAddressValue();
@@ -603,7 +603,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testCreateAndVerifyMultipleCitiesQuickAd() throws ParseException {
+	public void testCreateAndVerifyMultipleCitiesQuickAd()  {
 		getPage("/create-ad/step-one",true);
 		String lAddedCity = "San Diego, CA";
 		clickOnQuickAdsSelectAButton();
@@ -687,7 +687,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testVerifyPlaceAdButtonGetsDisabledAfterClick() throws ParseException {
+	public void testVerifyPlaceAdButtonGetsDisabledAfterClick()  {
 		getPage("/create-ad/step-one",true);
 		clickOnQuickAdsSelectAButton();
 		clickOnNextStepPreCond();
@@ -770,6 +770,34 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isCustomAdButtonVisible(), "Buyer quick ads custom ad button is not visible");
 		assertTrue(page.verifySelectButtonIsVisible(), "Buyer quick ads Select button is not visible");
 	}
+	
+	@Test //40467
+	public void testVerifyListingPopUpAppearsOnClickingCreateCustomButtonBuyerLeadsAd() {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.clickCustomAdButtonBuyerLeadAd(), "Unable to click on Create Custom Ad Button for Buyer Leads Ad..");
+		assertTrue(page.isCreateAdStep2Visible(), "Create Ad - Step 2 heading is not visible..");
+	}
+	
+	@Test //40469
+	public void testVerifySlideShowIsWorkingStep2OfBuyerLeadsAd() {
+		assertTrue(page.verifyInstaPreviewSlideShowIsWorkingOnStep2(), "Instagram slide show is not working..");
+		assertTrue(page.verifyFacebookPreviewSlideShowIsWorkingOnStep2(), "Facebook slide show is not working");
+	}	
+	@Test //40470
+	public void testVerifyUserCanSeeAdPreviewOnStep2OfBuyerLeadsAd() {
+		assertTrue(page.verifyFbAdPreviewDetails(), "Facebook ad preview details are not displayed");
+		assertTrue(page.verifyInstagramAdPreviewDetails(), "Instagram ad preview details are not displayed");
+	}
+	@Test //40474
+	public void testVerifySection1IsCheckedOnStep2BuyerLeadsAd() {
+		assertTrue(page.isSection1Checked(), "Section 1 checkbox is not checked on Step 2");
+	}	
+	@Test //40475
+	public void testVerifySelectAdTypeAndBuyerLeadsAdHeadingIsDisplayedOnStep2BuyerLeadsAd() {
+		assertTrue(page.isStep2Section1SelectAnAdHeadingVisible(), "Select an Ad heading is not displayed");
+		assertTrue(page.isBuyerLeadHeadingVisible(), "Buyer Lead ad heading is not visible");
+	}
+	
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {
 		if(!page.clickOnCustomAdButton()) {

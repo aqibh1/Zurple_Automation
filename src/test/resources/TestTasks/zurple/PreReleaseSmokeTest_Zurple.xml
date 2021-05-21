@@ -3494,7 +3494,7 @@
     </classes>
   </parameter>
 </test>
-
+<!--  
 <test name="Bulk update lead status to In Active" >	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -3515,10 +3515,6 @@
 			</classes>
 	</test>
 	
-	
-	
-	
-	<!--  
  <test name="Manage agents page label">
   <parameter name="manageAgentsDataFile" 
   		value="/resources/data/create-agent-data.json">
