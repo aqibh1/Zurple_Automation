@@ -18,6 +18,11 @@
 					<include name="testVerifyUserCanSeeAdPreviewOnStep2OfBuyerLeadsAd" />
 					<include name="testVerifySection1IsCheckedOnStep2BuyerLeadsAd" />
 					<include name="testVerifySelectAdTypeAndBuyerLeadsAdHeadingIsDisplayedOnStep2BuyerLeadsAd" />
+					<include name="testVerifyHeadlineDescriptionIsPrepopulatedForCustomBuyerLeadAds" />
+					<include name="testVerifySection2StepHeadingIsVisibleForCustomBuyerLeadAds" />
+					<include name="testVerifyDescriptionDoesntExceedCharactersForBuyerLeadsCustomAds" />
+					<include name="testVerifyHeadingDoesntExceedCharactersForBuyerLeadsCustomAds" />
+					<include name="testVerifyDomainFromAdsPreviewStep2ForBuyerLeadAds" />
 				</methods>
 			</class>
 		</classes>

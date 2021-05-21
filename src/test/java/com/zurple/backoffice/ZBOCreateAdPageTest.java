@@ -797,7 +797,41 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isStep2Section1SelectAnAdHeadingVisible(), "Select an Ad heading is not displayed");
 		assertTrue(page.isBuyerLeadHeadingVisible(), "Buyer Lead ad heading is not visible");
 	}
+	@Test //40476
+	public void testVerifyHeadlineDescriptionIsPrepopulatedForCustomBuyerLeadAds() {
+		assertTrue(!page.isAdHeadingPopulated().isEmpty(), "Ad Heading is not populated for Buyer Leads Ad..");
+		assertTrue(!page.isAdDescPopulated().isEmpty(), "Ad Description is not populated for Buyer Leads Ad..");
+	}
+	@Test //40477
+	public void testVerifySection2StepHeadingIsVisibleForCustomBuyerLeadAds() {
+		assertTrue(page.isCustomizeAdDetailsHeadingIsVisible(), "Step2: Customize Ad Details heading is not visible..");
+		assertTrue(page.isStep2Section2HeadingVisible(), "Step2: heading is not visible..");
+	}
 	
+	@Test //40505
+	public void testVerifyDescriptionDoesntExceedCharactersForBuyerLeadsCustomAds() {
+		String lAdDescription = page.isAdDescPopulated();
+		if(!page.typeAdDescription(lAdDescription)) {
+			throw new SkipException("Skipping the test becasuse [Type in Desc] pre-condition was failed.");
+		}
+//		assertTrue(page.isAdDescPopulated().length()==125, "Ad heading exceeds 40 characters length");
+		assertTrue(page.getDescriptionLeftCount().equalsIgnoreCase("0"), "Remaining character count didn't change");
+	}
+	@Test //40506
+	public void testVerifyHeadingDoesntExceedCharactersForBuyerLeadsCustomAds() {
+	
+		String lAdHeading = page.isAdHeadingPopulated();
+		if(!page.typeAdHeading(lAdHeading)) {
+			throw new SkipException("Skipping the test becasuse [Type in Heading] pre-condition was failed.");
+		}
+//		assertTrue(page.isAdHeadingPopulated().length()==40, "Ad heading exceeds 40 characters length");
+		assertTrue(page.geHeadlineCharacterLeftCount().equalsIgnoreCase("0"), "Remaining character count didn't change");
+	}
+	@Test
+	public void testVerifyDomainFromAdsPreviewStep2ForBuyerLeadAds() {
+		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		assertTrue(page.getQuickAdDomain().contains(l_domain), "Correct domain is not displayed under Facebook ads preview..");		
+	}
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {
 		if(!page.clickOnCustomAdButton()) {

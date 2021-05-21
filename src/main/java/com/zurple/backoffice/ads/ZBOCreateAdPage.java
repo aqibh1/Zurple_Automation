@@ -168,6 +168,10 @@ public class ZBOCreateAdPage extends Page{
 	@FindBy(xpath="//div[@id='form-element-site']/label[text()='Select Destination Site:']")
 	WebElement selectDestination_label;
 	String step2_checkbox = "//h5[@class='inner_stephead']/i[@class='far fa-check-circle checkicon zurp_checked']/ancestor::h5";
+	@FindBy(id="desc_count")
+	WebElement description_count_left;
+	@FindBy(id="title_count")
+	WebElement headline_count_left;
 	
 	//Section 3
 	@FindBy(xpath="//select[@id='fb_ad_cities']/option")
@@ -339,10 +343,10 @@ public class ZBOCreateAdPage extends Page{
 			AutomationLogger.error("Facebook ad preview title is not populated..");
 			return false;
 		}
-		if(!ActionHelper.isElementVisible(driver, fb_ad_play_icon)) {
-			AutomationLogger.error("Facebook ad slide show play button is not displayed..");
-			return false;
-		}
+//		if(!ActionHelper.isElementVisible(driver, fb_ad_play_icon)) {
+//			AutomationLogger.error("Facebook ad slide show play button is not displayed..");
+//			return false;
+//		}
 		if(!ActionHelper.isElementVisible(driver, fb_ad_learnmore_button)) {
 			AutomationLogger.error("Facebook ad Learn More button is not displayed..");
 			return false;
@@ -776,6 +780,12 @@ public class ZBOCreateAdPage extends Page{
 	}
 	 public boolean isBuyerLeadHeadingVisible() {
 		 return !ActionHelper.getText(driver, listing_title_step2_section1).split("Buyer Lead Ad:")[1].isEmpty();
+	 }
+	 public String getDescriptionLeftCount() {
+		 return ActionHelper.getText(driver, description_count_left);
+	 }
+	 public String geHeadlineCharacterLeftCount() {
+		 return ActionHelper.getText(driver, headline_count_left);
 	 }
 	 private boolean verifyAdSlideShowIsWorkingOnStep2AdsPreview(String pSlideShowImagesPath, WebElement pPlayIcon) {
 		 ActionHelper.staticWait(5);
