@@ -54,6 +54,9 @@ public class ZBOAgentsPage extends Page{
 	@FindBy(xpath="//table[@id='leads_by_status']/descendant::tr/td/a[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/td[2]")
 	WebElement agent_count;
 	
+	@FindBy(xpath="//table[@id='leads_by_status']/caption[text()='Loading...']")
+	WebElement loading;
+	
 	public List<WebElement> agentsList;
 	
 	public ZBOAgentsPage() {
@@ -154,10 +157,12 @@ public class ZBOAgentsPage extends Page{
 	}
 	public String verifyAgentName(String pAgentName) {
 		String lAgentLeadsCount = "";
-		//ActionHelper.waitForElementToBeClickAble(driver, agent_count);
-		ActionHelper.staticWait(10);
-		WebElement agent_count =  ActionHelper.getDynamicElement(driver, agent_lead_count, pAgentName.trim());
-		lAgentLeadsCount = ActionHelper.getText(driver,agent_count);
+		if(ActionHelper.waitForElementToBeDisappeared(driver, loading, 60)) {
+			//ActionHelper.waitForElementToBeClickAble(driver, agent_count);
+//			ActionHelper.staticWait(10);
+			WebElement agent_count =  ActionHelper.getDynamicElement(driver, agent_lead_count, pAgentName.trim());
+			lAgentLeadsCount = ActionHelper.getText(driver,agent_count);
+		}
 		return lAgentLeadsCount;
 	}
 }
