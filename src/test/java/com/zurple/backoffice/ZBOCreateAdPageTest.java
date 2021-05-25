@@ -827,10 +827,33 @@ public class ZBOCreateAdPageTest extends PageTest{
 //		assertTrue(page.isAdHeadingPopulated().length()==40, "Ad heading exceeds 40 characters length");
 		assertTrue(page.geHeadlineCharacterLeftCount().equalsIgnoreCase("0"), "Remaining character count didn't change");
 	}
-	@Test
+	
+	@Test //40508
 	public void testVerifyDomainFromAdsPreviewStep2ForBuyerLeadAds() {
 		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
 		assertTrue(page.getQuickAdDomain().contains(l_domain), "Correct domain is not displayed under Facebook ads preview..");		
+	}
+	@Test //40509
+	public void testVerifyFacebookAndInstaLogoAreDisplayedOnStep2ForBuyerLeadAds() {
+		assertTrue(page.verifyInstaAndFacebookLogoAreDisplayed(), "Correct domain is not displayed under Facebook ads preview..");		
+	}
+	
+	@Test //40510
+	public void testVerifyDataWhenSelectIsClickedOnStep2ForBuyerLeadsAd() {
+		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		String lAdHeading = page.isAdHeadingPopulated();
+		String lAdDescription = page.isAdDescPopulated();
+		lAdDescription = lAdDescription.replace("<br/>", "");
+		clickOnSelectButton();
+		assertTrue(page.verifyStep3Heading("Choose Audience & Reach"), "Unable to verify step3 heading..");
+		assertTrue(page.verifyAdHeadline(lAdHeading), "Unable to verify ad head line..");
+		assertTrue(page.verifyAdDesc(lAdDescription), "Unable to verify ad description..");
+		assertTrue(page.verifyUrlOnStep2Section2AfterClickingSelect(l_domain), "WebSite domain is not displayed..");
+	}
+	@Test
+	public void testIsMediumReachSelectedByDefaultForBuyerLeadsCutomAd() {
+		assertTrue(page.isMediumReachSelectedByDefault(), "Medium reach is not selected by default on step 3");
+		assertTrue(page.selectPlan("$160"), "Unable to click on select plan button");
 	}
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {

@@ -23,6 +23,9 @@
 					<include name="testVerifyDescriptionDoesntExceedCharactersForBuyerLeadsCustomAds" />
 					<include name="testVerifyHeadingDoesntExceedCharactersForBuyerLeadsCustomAds" />
 					<include name="testVerifyDomainFromAdsPreviewStep2ForBuyerLeadAds" />
+					<include name="testVerifyFacebookAndInstaLogoAreDisplayedOnStep2ForBuyerLeadAds" />
+					<include name="testVerifyDataWhenSelectIsClickedOnStep2ForBuyerLeadsAd" />
+					<include name="testIsMediumReachSelectedByDefaultForBuyerLeadsCutomAd" />
 				</methods>
 			</class>
 		</classes>
