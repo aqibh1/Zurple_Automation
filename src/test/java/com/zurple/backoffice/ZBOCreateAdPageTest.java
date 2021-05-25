@@ -855,6 +855,37 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isMediumReachSelectedByDefault(), "Medium reach is not selected by default on step 3");
 		assertTrue(page.selectPlan("$160"), "Unable to click on select plan button");
 	}
+	
+	@Test //40512
+	public void testVerifyAllThePlansAreDisplayedForByerLeadsAd() {
+		assertTrue(page.allThePlansAreDisplayed(), "All the plan buttons are not displayed");
+	}
+	
+	@Test //40514
+	public void testCityIsPrePopulatedOnStep3BuyerLeadAds() {
+		assertTrue(page.isDefaultCitySelected(), "Default City is not selected on step 3");
+	}
+	@Test //40513
+	public void testVerifyErrorIsTriggeredWhenNoCityIsSelectedForBuyerLeadsAd() {
+		assertTrue(page.clickOnRemoveCityButton(), "Unable to remove city on Step 3");
+		assertTrue(page.clickOnNextStepButton(), "Unable to click on next step button..");
+		assertTrue(page.getAlert().getErrorMessage().equalsIgnoreCase("You must enter at least one city for the ad to target."), "Correct error message is not displayed..");
+		assertTrue(page.getAlert().clickOnCloseButton(), "Unable to click on Close button..");
+		ActionHelper.staticWait(5);
+	}
+	
+	@Test //40543
+	public void testSelectCityForBuyerLeadsCustomAds() {
+		assertTrue(page.typeAndSelectCity("San Diego, CA"), "Unable to select multiple cities on step 3");
+	}
+	@Test //40535
+	public void testVerifyCorrectDataIsDisplayedWhenNextButtonIsClickedStep3BuyerLeadAds() {
+		String l_city = page.getDefaultCity().split(",")[0];
+		clickOnNextStepPreCond();
+		assertTrue(page.verifyAdCitySection3(l_city), "City is not correct on step 3..");
+		assertTrue(page.verifyAdReachSection3("$160"), "Unable to click on select plan button");
+		assertTrue(page.isSection3EditButtonEnabled(),"Edit button is not enabled for step 3..");
+	}
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {
 		if(!page.clickOnCustomAdButton()) {

@@ -26,6 +26,13 @@
 					<include name="testVerifyFacebookAndInstaLogoAreDisplayedOnStep2ForBuyerLeadAds" />
 					<include name="testVerifyDataWhenSelectIsClickedOnStep2ForBuyerLeadsAd" />
 					<include name="testIsMediumReachSelectedByDefaultForBuyerLeadsCutomAd" />
+					
+					<include name="testVerifyAllThePlansAreDisplayedForByerLeadsAd" />
+					<include name="testCityIsPrePopulatedOnStep3BuyerLeadAds" />
+					<include name="testVerifyErrorIsTriggeredWhenNoCityIsSelectedForBuyerLeadsAd" />
+					<include name="testSelectCityForBuyerLeadsCustomAds" />
+					<include name="testVerifyCorrectDataIsDisplayedWhenNextButtonIsClickedStep3BuyerLeadAds" />
+					
 				</methods>
 			</class>
 		</classes>
