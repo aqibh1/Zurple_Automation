@@ -68,6 +68,8 @@ public class ZBOAdsOverviewPage extends Page{
 	String slide_show_image ="//table[@id='ads_overview_zurple']/descendant::div[@class='fb_ad_preview_slideshow']/descendant::div[@class='slide-image current']/img";
 	String first_row_status = "//table[@id='ads_overview_zurple']/descendant::td[@class='td_center' and contains(text(),'Paused')]";
 	
+	String buyer_lead_ad_icon = "//table[@id='ads_overview_zurple']/descendant::tr/td/div[@class='adshomeicon']/img";
+	
 	private ZBOHeadersBlock header;
 	
 	public ZBOAdsOverviewPage(WebDriver pDriver) {
@@ -352,6 +354,25 @@ public class ZBOAdsOverviewPage extends Page{
 		 long diff = todaysDate.getTime() - startDate.getTime();
 		 long lDays = TimeUnit.MILLISECONDS.toDays(diff);//(diff / (1000*60*60*24));
 		 return lDays==0;
+	 }
+	
+	 public String getAdType() {
+		 String l_adType = "";
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, listing_type);
+		 if(elements_list.size()>0) {
+			 l_adType = ActionHelper.getText(driver, elements_list.get(0));
+		 }
+		 return l_adType;
+	 }
+	 public boolean verifyBuyerLeadAdIcon() {
+		 boolean isVisible = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, buyer_lead_ad_icon);
+		 if(elements_list.size()>0) {
+			 if(ActionHelper.isElementVisible(driver, elements_list.get(0))) {
+				 isVisible = ActionHelper.getAttribute(elements_list.get(0), "src").contains("bl_zurple");
+			 }
+		 }
+		 return isVisible;
 	 }
 	 private String getStartingEndingDate(boolean pIsStarting){
 		 String lDay = pIsStarting?ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(0)):ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(1));

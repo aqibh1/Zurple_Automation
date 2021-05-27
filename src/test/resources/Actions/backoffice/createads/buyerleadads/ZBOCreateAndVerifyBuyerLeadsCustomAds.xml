@@ -26,13 +26,22 @@
 					<include name="testVerifyFacebookAndInstaLogoAreDisplayedOnStep2ForBuyerLeadAds" />
 					<include name="testVerifyDataWhenSelectIsClickedOnStep2ForBuyerLeadsAd" />
 					<include name="testIsMediumReachSelectedByDefaultForBuyerLeadsCutomAd" />
-					
 					<include name="testVerifyAllThePlansAreDisplayedForByerLeadsAd" />
 					<include name="testCityIsPrePopulatedOnStep3BuyerLeadAds" />
 					<include name="testVerifyErrorIsTriggeredWhenNoCityIsSelectedForBuyerLeadsAd" />
 					<include name="testSelectCityForBuyerLeadsCustomAds" />
 					<include name="testVerifyCorrectDataIsDisplayedWhenNextButtonIsClickedStep3BuyerLeadAds" />
-					
+					<include name="testVerifyUserLandsToStep4CustomBuyerLeadsAd" />
+					<include name="testVerifyAdDurationStep4BuyerLeadAds" />
+					<include name="testVerifyTermsAndConditionDisplayedBuyerLeadsAd" />
+					<include name="testVerifyTestAdChecboxIsCheckedForBuyerLeadsAd" />
+					<include name="testVerifyPlaceAdButtonRedirectsUserToAdsOverviewForBuyerLeadsAd" />
+					<include name="testCreateAndVerifyBuyerLeadAdDurationOnAdsOverviewPage" />
+					<include name="testCreateAndVerifyBuyerLeadAdRenewalDate" />
+					<include name="testVerifyBuyerLeadsCustomAdStatus" />
+					<include name="testVerifyCityForBuyerLeadsAdOnAdsOverviewPage" />
+					<include name="testVerifyBudgetForBuyerLeadsAdOnAdsOverviewPage" />
+					<include name="testVerifyBuyerLeadsHeadingAndTypeAdOnAdsOverviewPage" />	
 				</methods>
 			</class>
 		</classes>

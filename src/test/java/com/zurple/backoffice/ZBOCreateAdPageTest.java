@@ -36,12 +36,10 @@ public class ZBOCreateAdPageTest extends PageTest{
 	private JSONObject dataObject;
 	private ZBOCreateAdPage page;
 	private WebDriver driver;
-	private String lAd_Type = "";
-	private String l_heading = "";
-	private String l_desc = "";
 	private String listing_Address = "";
 	private String lAd_budget = "";
 	private String lDefaultCity = "";
+	private String bl_ad_budget = "";
 	@Override
 	public AbstractPage getPage() {
 		if(page==null) {
@@ -850,12 +848,14 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.verifyAdDesc(lAdDescription), "Unable to verify ad description..");
 		assertTrue(page.verifyUrlOnStep2Section2AfterClickingSelect(l_domain), "WebSite domain is not displayed..");
 	}
-	@Test
+	
+	@Test //40511
 	public void testIsMediumReachSelectedByDefaultForBuyerLeadsCutomAd() {
 		assertTrue(page.isMediumReachSelectedByDefault(), "Medium reach is not selected by default on step 3");
-		assertTrue(page.selectPlan("$160"), "Unable to click on select plan button");
+		bl_ad_budget = "$160";
+		assertTrue(page.selectPlan(bl_ad_budget), "Unable to click on select plan button");
 	}
-	
+
 	@Test //40512
 	public void testVerifyAllThePlansAreDisplayedForByerLeadsAd() {
 		assertTrue(page.allThePlansAreDisplayed(), "All the plan buttons are not displayed");
@@ -886,6 +886,80 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.verifyAdReachSection3("$160"), "Unable to click on select plan button");
 		assertTrue(page.isSection3EditButtonEnabled(),"Edit button is not enabled for step 3..");
 	}
+	
+	@Test //40538
+	public void testVerifyUserLandsToStep4CustomBuyerLeadsAd() {
+		assertTrue(page.isStep3of4IsEnabled(), "Step 3 of 4 is enabled..");
+		assertTrue(page.isStepCheckBoxIsChecked("3"), "Step 3 checkbox is not checked..");
+		assertTrue(page.verifyStep4IsVisible(), "Step 4 is not visible..");
+		assertTrue(page.isStep24BottomProgressBarIsChecked(), "Bottom progress bar is not checked for step 2 pf 4");
+		assertTrue(page.isStepCheckBoxIsChecked("Step 2:"), "Step 2 check box is not checked..");
+	}
+	
+	@Test //40539
+	public void testVerifyAdDurationStep4BuyerLeadAds() throws ParseException  {
+		assertTrue(page.verifyStartEndAndRenewalDate(), "Unable to verify ad duration and renewal date.");
+	}
+	
+	@Test //40540
+	public void testVerifyTermsAndConditionDisplayedBuyerLeadsAd()  {
+		assertFalse(page.verifyIsTermsAndConditionCheckBoxChecked(), "Terms and Condition checkbox is not checked by default..");
+		assertTrue(page.clickOnTermsAndCond(), "Unable to click on terms and condition checkbox..");
+	}
+	
+	@Test //40550
+	public void testVerifyTestAdChecboxIsCheckedForBuyerLeadsAd()  {
+		assertTrue(page.isTestingAdAlreadyChecked(), "Testing ad checkbox is not checked by default..");
+		assertTrue(page.clickOnTestingAdCheckBox(), "Unable to check testing ad checkbox..");
+	}
+	
+	@Test //40551
+	public void testVerifyPlaceAdButtonRedirectsUserToAdsOverviewForBuyerLeadsAd()  {
+		assertTrue(page.clickOnPlaceAdButton(), "Unable to click on place ad button..");
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.isAdsOverviewPage(), "User is not redirected to ads overview page..");
+		assertTrue(driver.getCurrentUrl().contains("/ads/overview"), "URL is not changed");
+	}
+	
+	@Test //40544
+	public void testCreateAndVerifyBuyerLeadAdDurationOnAdsOverviewPage(){
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.verifyStartingEndingDate(), "Unable to verify starting and ending date of the ad");	
+	}
+	
+	@Test //40545
+	public void testCreateAndVerifyBuyerLeadAdRenewalDate(){
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.verifyRenewalDate(), "Unable to verify renewal date of quick ad");	
+	}
+	
+	@Test //40546
+	public void testVerifyBuyerLeadsCustomAdStatus()  {
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertEquals(adsOverviewPage.getAdStatus(),"Paused", "Unable to verify AD Status of quick ad");	
+	}
+	
+	@Test //40548
+	public void testVerifyCityForBuyerLeadsAdOnAdsOverviewPage() {
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue("San Diego, CA".contains(adsOverviewPage.getAdLocation()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+	}
+	
+	@Test //40549
+	public void testVerifyBudgetForBuyerLeadsAdOnAdsOverviewPage(){
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.verifyAdPriceIsDisplayed(bl_ad_budget), "Unable to verify ad budget on ads overview page.."+"["+lAd_budget+"]");	
+	}
+	
+	@Test //40547
+	public void testVerifyBuyerLeadsHeadingAndTypeAdOnAdsOverviewPage(){
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.getAdType().equalsIgnoreCase("Buyer Lead Ad"), "Buyer Lead heading is not displayed on ads overview page.."+"[Buyer Lead Ad]");	
+		assertTrue(adsOverviewPage.getListingAddressFirstRow().equalsIgnoreCase("Custom Ad"), "Buyer Lead heading is not displayed on ads overview page.."+"[Buyer Lead Ad]");	
+		assertTrue(adsOverviewPage.verifyBuyerLeadAdIcon(), "Unable to verify buer lead ad icon");	
+
+	}
+	
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {
 		if(!page.clickOnCustomAdButton()) {
