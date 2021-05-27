@@ -692,9 +692,13 @@ public class ZBOLeadDetailPage extends Page{
 		boolean isVerified = false;
 		List<WebElement> list_of_notes = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-note ']/div[@class='yui-dt-liner']");
 		for(WebElement element_notes: list_of_notes) {
+			ActionHelper.staticWait(2);
 			String lNotes[] = ActionHelper.getText(driver, element_notes).split("\n");
 			for (String lNote: lNotes) {
 				if(lNote.contains(pPropToVerify)) {
+					AutomationLogger.info("Property to Verify :: "+pPropToVerify);
+					AutomationLogger.info("Property Values in Notes :: "+lNote.split(":")[1].trim());
+					AutomationLogger.info("Value to Verify :: "+pValue);
 					if(lNote.split(":")[1].trim().equalsIgnoreCase(pValue)) {
 						isVerified = true;
 						break;
