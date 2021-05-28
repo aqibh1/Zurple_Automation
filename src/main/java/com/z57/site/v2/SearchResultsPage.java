@@ -58,7 +58,7 @@ public class SearchResultsPage extends Page{
     }
     public Integer getNumberOfResults(){
         String numberString = driver.findElement(By.xpath("//*[@id=\"search-result\"]/div[3]/div")).getText();
-        Pattern p = Pattern.compile("(\\d+)");
+        Pattern p = Pattern.compile("(/d+)");
         Matcher m = p.matcher(numberString);
 
         if(m.find())

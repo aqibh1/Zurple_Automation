@@ -66,6 +66,16 @@ public class EnvironmentFactory {
                 ChromeOptions options = new ChromeOptions();
                 if(System.getProperty("driver")!=null && !System.getProperty("driver").isEmpty()) {
                 	System.setProperty("webdriver.chrome.driver", System.getProperty("driver"));
+
+                    options.addArguments("headless");
+                    options.addArguments("start-maximized");
+                    options.addArguments("--no-sandbox");
+                    options.addArguments("disable-gpu");
+
+                    options.addArguments("--headless");
+                    options.addArguments("--start-maximized");
+                    options.addArguments("no-sandbox");
+                    options.addArguments("--disable-gpu");
                 }
                 if (Boolean.parseBoolean(System.getProperty("headless")))
                 {
@@ -86,6 +96,16 @@ public class EnvironmentFactory {
                 	prefs.put("profile.default_content_setting_values.notifications", 2);
                 	options.setExperimentalOption("prefs", prefs);
                     options.addArguments("--start-maximized");
+                    options.addArguments("headless");
+                    options.addArguments("start-maximized");
+                    options.addArguments("--no-sandbox");
+                    options.addArguments("disable-gpu");
+
+                    options.addArguments("--headless");
+                    options.addArguments("--start-maximized");
+                    options.addArguments("no-sandbox");
+                    options.addArguments("--disable-gpu");
+
                     // ChromeDriver is just AWFUL because every version or two it breaks unless you pass cryptic arguments
                     //AGRESSIVE: options.setPageLoadStrategy(PageLoadStrategy.NONE); // https://www.skptricks.com/2018/08/timed-out-receiving-message-from-renderer-selenium.html
                     options.addArguments("start-maximized"); // https://stackoverflow.com/a/26283818/1689770

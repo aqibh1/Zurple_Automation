@@ -1,14 +1,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Zurple Pre and Post Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
-	<listeners>		
+<suite name="Zurple Pre and Post Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="4">
+	<listeners>
 		<listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
 
-	<test name="Send Email from CRM Page">	
+	<test name="Send Email from CRM Page">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -27,8 +27,8 @@
 				</class>
 			</classes>
 	</test>
-	
-	<test name="Add Reminder from CRM page">	
+
+	<test name="Add Reminder from CRM page">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -47,9 +47,9 @@
 				</class>
 			</classes>
 	</test>
-	
-	<test name="Send standard scheduled email">	
-	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json"> 
+
+	<test name="Send standard scheduled email">
+	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -68,10 +68,10 @@
 				</class>
 			</classes>
 	</parameter>
-	</test>	
-	
-	<test name="Send Listing flyer email">	
-	<parameter name="listingEmailFlyerData" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json"> 
+	</test>
+
+	<test name="Send Listing flyer email">
+	<parameter name="listingEmailFlyerData" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -80,7 +80,8 @@
 				</class>
 				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
 					<methods>
-							<include name="testSendEmailListingFlyer" />
+							<include name="test
+							ListingFlyer" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">

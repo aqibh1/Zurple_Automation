@@ -32,8 +32,8 @@ import resources.utility.AutomationLogger;
 
 public class ExtentReporterListener implements ITestListener {
 
-	private static ExtentReports extent = ExtentManager.createInstance(System.getProperty("user.dir")+"\\target\\surefire-reports\\ExtentReportResults.html");
-	private static ExtentReports emailExtent = ExtentManager.createInstance(System.getProperty("user.dir")+"\\target\\surefire-reports\\ExtentEmailReportResults.html");
+	private static ExtentReports extent = ExtentManager.createInstance(System.getProperty("user.dir")+"/target/surefire-reports/ExtentReportResults.html");
+	private static ExtentReports emailExtent = ExtentManager.createInstance(System.getProperty("user.dir")+"/target/surefire-reports/ExtentEmailReportResults.html");
 	private static ThreadLocal<ExtentTest> emailTest = new ThreadLocal();
     private static ThreadLocal<ExtentTest> test = new ThreadLocal();
 	

@@ -96,7 +96,7 @@ public class PackagemgrNewPageTest
         String packageZurpleId = randomNum.toString();
         String packageSetupFee = randomNum.toString().substring(0,3);
         String packageEmail = packageFullName+"@test.com";
-        String packagePath = "https://dev.site1.zurple.com";
+        String packagePath = "https://dev.zengtest1.us";
         getPage().getPackageEditForm().setInputValue("full_name",packageFullName);
         getPage().getPackageEditForm().setInputValue("phone",packagePhone);
         getPage().getPackageEditForm().setInputValue("email",packageEmail);

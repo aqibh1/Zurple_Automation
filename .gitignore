@@ -1,6 +1,7 @@
 .idea/*
 target/*
 node_modules/*
+automation/*
 *.iml
 src/main/config/config.dev.properties
 debug.log
