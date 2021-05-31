@@ -76,7 +76,6 @@ public class ZBOLeadDetailPageTest extends PageTest{
 //		String lUpdatedUrl = driver.getCurrentUrl().replace("dashboard", "lead/"+lLeadId+"");
 		String lUpdatedUrl = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
 		driver.navigate().to(lUpdatedUrl);
-		
 		assertTrue(page.isLeadDetailPage(),"Lead Detail page is not opened..");
 		assertTrue(page.isPropertyTracked(lLeadAddress),"Property is not tracked under lead details page.."+lLeadAddress);
 		
