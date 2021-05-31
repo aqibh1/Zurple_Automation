@@ -256,6 +256,8 @@ public class ZBOCreateAdPage extends Page{
 	String buyer_lead_quick_Ad_slide_show = "//div[@class='slider  Zurp_BuyerAds slick-initialized slick-slider']/descendant::div[@class='slide-image current']/img";
 	@FindBy(xpath="//div[@class='slider  Zurp_BuyerAds slick-initialized slick-slider']/descendant::div[@class='playicon_slide'][1]")
 	WebElement buyer_lead_quick_Ad_play_icon;
+	@FindBy(xpath="//div[@id='buyerleadads_cont_zurp']/descendant::button[@class='slick-next slick-arrow']")
+	WebElement quick_ad_slide_arrow;
 	private ZBOSelectListingAlert selectListingAlert;
 	private ZBOGenericAlerts alert;
 	private String listing_address_value = "";
@@ -787,6 +789,19 @@ public class ZBOCreateAdPage extends Page{
 	 public String geHeadlineCharacterLeftCount() {
 		 return ActionHelper.getText(driver, headline_count_left);
 	 }
+	 public boolean clickSelectButtonForQuickAds() {
+		 int quick_Ad = generateRandomInt(5);
+		 boolean isClicked = false;
+		 if(quick_Ad==4) {
+			 if(ActionHelper.Click(driver, quick_ad_slide_arrow)) {
+				 isClicked = ActionHelper.Click(driver, ActionHelper.getListOfElementByXpath(driver, buyer_lead_quick_select_list).get(quick_Ad-1));
+			 }
+		 }else {
+			 isClicked = ActionHelper.Click(driver, ActionHelper.getListOfElementByXpath(driver, buyer_lead_quick_select_list).get(quick_Ad));
+		 }
+		 return isClicked;
+	 }
+	
 	 private boolean verifyAdSlideShowIsWorkingOnStep2AdsPreview(String pSlideShowImagesPath, WebElement pPlayIcon) {
 		 ActionHelper.staticWait(5);
 		 boolean isSlideShowWorking = false;
