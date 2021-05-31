@@ -132,6 +132,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		//Verification from notes
 		String lMinPrice = dataObject.optString(DataConstants.MinPrice).replace(",", "").replace("$", "");
 		String lMaxPrice = dataObject.optString(DataConstants.MaxPrice).replace(",", "").replace("$", "");
+		ActionHelper.staticWait(10);
 		assertTrue(page.verifyMinPrice(lMinPrice), "Unable to verify minimum price in Notes..");
 		assertTrue(page.verifyMaxPrice(lMaxPrice), "Unable to verify maximum price in Notes..");
 		assertTrue(page.verifyMinBeds(dataObject.optString(DataConstants.Beds_Criteria)), "Unable to verify Beds in Notes..");

@@ -538,7 +538,7 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.verifySoldPropsDetailIsDisplayed(), "Unable to verify Price of Sold Prop from the results..");
 	}
 	
-	@Test //40349
+	@Test //40347
 	@Parameters({"dataFile"})
 	public void testVerifyUserIsRedirectedToStep2WhenEmailDetailsButtonIsClicked(String pDataFile) {
 		//Pre Condition
