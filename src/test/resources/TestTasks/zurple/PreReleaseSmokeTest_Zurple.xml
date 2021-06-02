@@ -1091,6 +1091,7 @@
       <methods>
       	<include name="testVerifyLocalInfoCommunityLinkIsWorking" />
       	<include name="testVerifyNoCommunityResultsFound" />
+      	<include name="testSearchCommunityReports" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
@@ -1107,6 +1108,7 @@
       <methods>
       	<include name="testVerifyLocalInfoSchoolReportsLinkIsWorking" />
       	<include name="testVerifyNoSchoolResultsFound" />
+      	<include name="testSearchSchoolsReports" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
@@ -1123,6 +1125,7 @@
       <methods>
       	<include name="testVerifyLocalInfoPOILinkIsWorking" />
       	<include name="testVerifyNoPOIResultsFound" />
+      	<include name="testSearchPOIReports" />
       </methods>
       </class>
       <class name="resources.CurrentPageTest">
