@@ -88,7 +88,7 @@ public class TestRailResultsListener implements ITestListener{
 	@Override
 	public void onTestSkipped(ITestResult result) {
 		if(l_testrun_id!=null && !l_testcase_id.isEmpty()) {
-			JSONObject resultObj = composeResults(3, l_scenario_name, "");
+			JSONObject resultObj = composeResults(4, l_scenario_name, "");
 			if(resultObj!=null) {
 				postResults(resultObj);
 			}else {
