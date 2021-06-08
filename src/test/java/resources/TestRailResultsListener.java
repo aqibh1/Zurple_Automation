@@ -24,17 +24,17 @@ public class TestRailResultsListener implements ITestListener{
 	String l_testRail_Url = "";
 	String l_testRail_username = "";
 	String l_testRail_password = "";
-	int l_testcase_id = 0;
+	String l_testcase_id = "";
 	String l_testrun_id = "";
 	String l_scenario_name = "";
 
-	private int getTestCaseId(String pMapKey) {
-		int l_testcase_id_ = 0;
+	private String getTestCaseId(String pMapKey) {
+		String l_testcase_id_ = "";
 		try {
-			l_testcase_id_ = Integer.parseInt(EnvironmentFactory.configReader.getTestRailMapping(pMapKey));
+			l_testcase_id_ = EnvironmentFactory.configReader.getTestRailMapping(pMapKey);
 		}catch(Exception ex) {
 			AutomationLogger.error("The test case is not mapped");
-			l_testcase_id_ = 0;
+			l_testcase_id_ = "";
 		}
 		return l_testcase_id_;
 	}
@@ -58,8 +58,13 @@ public class TestRailResultsListener implements ITestListener{
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		if(l_testrun_id!=null && l_testcase_id!=0) {
-			updateResultsOnTestRails(1, l_scenario_name, "");
+		if(l_testrun_id!=null && !l_testcase_id.isEmpty()) {
+			JSONObject resultObj = composeResults(1, l_scenario_name, "");
+			if(resultObj!=null) {
+				postResults(resultObj);
+			}else {
+				AutomationLogger.error("Unable to compose Test Rail result object");
+			}
 		}
 	}
 
@@ -69,16 +74,26 @@ public class TestRailResultsListener implements ITestListener{
 		String errorMessage = result.getThrowable().getLocalizedMessage();
 		if(errorMessage.length()>230) {
 			errorMessage = result.getThrowable().getLocalizedMessage().substring(0, 230);
-		}if(l_testrun_id!=null && l_testcase_id!=0) {
-			updateResultsOnTestRails(5, l_scenario_name,errorMessage);
+		}if(l_testrun_id!=null && !l_testcase_id.isEmpty()) {
+			JSONObject resultObj = composeResults(5, l_scenario_name,errorMessage);
+			if(resultObj!=null) {
+				postResults(resultObj);
+			}else {
+				AutomationLogger.error("Unable to compose Test Rail result object");
+			}
 		}
 
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
-		if(l_testrun_id!=null && l_testcase_id!=0) {
-			updateResultsOnTestRails(3, l_scenario_name, "");
+		if(l_testrun_id!=null && !l_testcase_id.isEmpty()) {
+			JSONObject resultObj = composeResults(4, l_scenario_name, "");
+			if(resultObj!=null) {
+				postResults(resultObj);
+			}else {
+				AutomationLogger.error("Unable to compose Test Rail result object");
+			}
 		}
 	}
 
@@ -99,24 +114,57 @@ public class TestRailResultsListener implements ITestListener{
 
 	}
 
-	private boolean updateResultsOnTestRails(int pStatus, String pComments, String pDefects) {
+//	private boolean updateResultsOnTestRails(int pStatus, String pComments, String pDefects) {
+//		boolean isUpdatedSuccessfully = true;
+//		APIClient client = new APIClient(l_testRail_Url);
+//		client.setUser(l_testRail_username);
+//		client.setPassword(l_testRail_password);
+//
+//		JSONObject resultObject = new JSONObject();
+//		JSONArray jResultsArray = new JSONArray();
+//		JSONObject resultDetails = new JSONObject();
+//		resultDetails.put("status_id", pStatus);
+//		resultDetails.put("comment", pComments);
+//		resultDetails.put("defects",pDefects);
+//		resultDetails.put("case_id", l_testcase_id);
+//		jResultsArray.put(0, resultDetails);
+//		resultObject.put("results", jResultsArray);
+//		try {
+//			client.sendPost("/add_results_for_cases/"+l_testrun_id, resultObject);
+//		} catch (IOException | APIException e) {
+//			// TODO Auto-generated catch block
+//			AutomationLogger.error(e.getMessage());
+//			isUpdatedSuccessfully = false;
+//		} 
+//		return isUpdatedSuccessfully;
+//	}
+	private JSONObject composeResults(int pStatus, String pComments, String pDefects) {
+		JSONObject resultObject = new JSONObject();
+		try {
+			String testcase_ids[] = l_testcase_id.split(",");
+			JSONArray jResultsArray = new JSONArray();
+			for(int i=0;i<testcase_ids.length;i++) {
+				JSONObject resultDetails = new JSONObject();
+				resultDetails.put("status_id", pStatus);
+				resultDetails.put("comment", pComments);
+				resultDetails.put("defects",pDefects);
+				resultDetails.put("case_id", Integer.parseInt(testcase_ids[i]));
+				jResultsArray.put(i, resultDetails);
+			}
+			resultObject.put("results", jResultsArray);
+		}catch (Exception ex) {
+			AutomationLogger.error(ex.getLocalizedMessage());
+			resultObject = null;
+		}
+		return resultObject;
+	}
+	private boolean postResults(JSONObject pResultObj) {
 		boolean isUpdatedSuccessfully = true;
 		APIClient client = new APIClient(l_testRail_Url);
 		client.setUser(l_testRail_username);
 		client.setPassword(l_testRail_password);
-
-		JSONObject resultObject = new JSONObject();
-		JSONArray jResultsArray = new JSONArray();
-		JSONObject resultDetails = new JSONObject();
-		resultDetails.put("status_id", pStatus);
-		resultDetails.put("comment", pComments);
-		resultDetails.put("defects",pDefects);
-
-		resultDetails.put("case_id", l_testcase_id);
-		jResultsArray.put(0, resultDetails);
-		resultObject.put("results", jResultsArray);
 		try {
-			client.sendPost("/add_results_for_cases/"+l_testrun_id, resultObject);
+			client.sendPost("/add_results_for_cases/"+l_testrun_id, pResultObj);
 		} catch (IOException | APIException e) {
 			// TODO Auto-generated catch block
 			AutomationLogger.error(e.getMessage());
