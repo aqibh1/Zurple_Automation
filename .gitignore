@@ -6,7 +6,7 @@ src/main/config/config.dev.properties
 debug.log
 test-output/*
 zurple-test-reports/*
-/target/
+#/target/
 #/resources/cache/*
 .settings/org.eclipse.core.resources.prefs
 .settings/org.eclipse.m2e.core.prefs
