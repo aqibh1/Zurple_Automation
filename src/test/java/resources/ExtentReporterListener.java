@@ -2,28 +2,15 @@ package resources;
 
 
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.logging.Logger;
 
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
-
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
-import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 
 //import com.relevantcodes.extentreports.LogStatus;
@@ -32,7 +19,7 @@ import resources.utility.AutomationLogger;
 
 public class ExtentReporterListener implements ITestListener {
 
-	private static ExtentReports extent = ExtentManager.createInstance(System.getProperty("user.dir")+"\\target\\surefire-reports\\ExtentReportResults.html");
+	private static ExtentReports extent = ExtentManager.createInstance(System.getProperty("user.dir")+"\\target\\surefire-reports\\"+getExtentReportFileName()+".html");
 	private static ExtentReports emailExtent = ExtentManager.createInstance(System.getProperty("user.dir")+"\\target\\surefire-reports\\ExtentEmailReportResults.html");
 	private static ThreadLocal<ExtentTest> emailTest = new ThreadLocal();
     private static ThreadLocal<ExtentTest> test = new ThreadLocal();
@@ -102,6 +89,18 @@ public class ExtentReporterListener implements ITestListener {
 	@Override
 	public synchronized void onTestFailedButWithinSuccessPercentage(ITestResult result) {
 		
+	}
+	private static String getExtentReportFileName() {
+		String file_name = "";
+		if(System.getProperty("suite")!=null && !System.getProperty("suite").isEmpty()) {
+			String l_fileName[] = System.getProperty("suite").split("/");
+			file_name = l_fileName[l_fileName.length-1].trim();
+			file_name = file_name.split(".xml")[0];
+		}else {
+			file_name = "ExtentReportResults";
+		}
+		
+		return file_name;
 	}
 }
 
