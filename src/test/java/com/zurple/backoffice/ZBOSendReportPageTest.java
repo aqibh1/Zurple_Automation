@@ -125,7 +125,7 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.isMaxPriceInputVisible(), "Maximum Input is not visible..");
 	}
 	
-	@Test
+	@Test //40318
 	@Parameters({"dataFile"})
 	public void testVerifyLeadAddressIsPopulatedInPropertySection(String pDataFile) {
 		//Pre Condition
@@ -493,7 +493,7 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.verifyResultsOfSoldProps(l_address, "state"), "Unable to verify the state from the results Sold Props.."+l_address);
 	}
 	
-	@Test //C40323
+	@Test 
 	@Parameters({"dataFile"})
 	public void testVerifyResultsAreDsiplayedByCityUnderSoldPropertiesSection(String pDataFile) {
 		getPage();
@@ -510,7 +510,7 @@ public class ZBOSendReportPageTest extends PageTest{
 		assertTrue(page.verifyResultsOfSoldProps(l_city, "city"), "Unable to verify the city from the results Sold Props.."+l_city);
 	}
 	
-	@Test //C40324
+	@Test //C40339
 	@Parameters({"dataFile"})
 	public void testVerifyResultsAreDsiplayedByZipUnderSoldPropertiesSection(String pDataFile) {
 		getPage();

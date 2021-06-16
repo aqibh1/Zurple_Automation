@@ -675,7 +675,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subject [Quick Question] for Lead ID ["+lLeadId+"]..");
 	}
 
-	@Test
+	@Test //39969
 	public void testVerifSendCMAReportButtonIsVisible() {
 		getPage("/leads/crm");
 		clickOnLeadNamePreCond();
