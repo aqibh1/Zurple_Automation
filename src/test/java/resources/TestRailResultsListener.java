@@ -41,6 +41,7 @@ public class TestRailResultsListener implements ITestListener{
 
 	@Override
 	public void onTestStart(ITestResult result) {
+		
 		l_testRail_Url = EnvironmentFactory.configReader.getPropertyByName("testrail_url");
 		l_testRail_username = EnvironmentFactory.configReader.getPropertyByName("testrail_username");
 		l_testRail_password = EnvironmentFactory.configReader.getPropertyByName("testrail_password");
@@ -58,7 +59,7 @@ public class TestRailResultsListener implements ITestListener{
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		if(l_testrun_id!=null && !l_testcase_id.isEmpty()) {
+		if(l_testrun_id!=null && !l_testrun_id.isEmpty() && l_testcase_id!=null && !l_testcase_id.isEmpty()) {
 			JSONObject resultObj = composeResults(1, l_scenario_name, "");
 			if(resultObj!=null) {
 				postResults(resultObj);
@@ -74,7 +75,7 @@ public class TestRailResultsListener implements ITestListener{
 		String errorMessage = result.getThrowable().getLocalizedMessage();
 		if(errorMessage.length()>230) {
 			errorMessage = result.getThrowable().getLocalizedMessage().substring(0, 230);
-		}if(l_testrun_id!=null && !l_testcase_id.isEmpty()) {
+		}if(l_testrun_id!=null && !l_testrun_id.isEmpty() && l_testcase_id!=null && !l_testcase_id.isEmpty()) {
 			JSONObject resultObj = composeResults(5, l_scenario_name,errorMessage);
 			if(resultObj!=null) {
 				postResults(resultObj);
@@ -88,11 +89,15 @@ public class TestRailResultsListener implements ITestListener{
 	@Override
 	public void onTestSkipped(ITestResult result) {
 		if(l_testrun_id!=null && !l_testcase_id.isEmpty()) {
-			JSONObject resultObj = composeResults(4, l_scenario_name, "");
-			if(resultObj!=null) {
-				postResults(resultObj);
+			if(l_testcase_id!=null && !l_testcase_id.isEmpty()) {
+				JSONObject resultObj = composeResults(4, l_scenario_name, "");
+				if(resultObj!=null) {
+					postResults(resultObj);
+				}else {
+					AutomationLogger.error("Unable to compose Test Rail result object");
+				}
 			}else {
-				AutomationLogger.error("Unable to compose Test Rail result object");
+				AutomationLogger.error("Test case id is null for scenario :: "+l_scenario_name);
 			}
 		}
 	}
