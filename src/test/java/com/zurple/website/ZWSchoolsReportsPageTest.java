@@ -75,7 +75,9 @@ public class ZWSchoolsReportsPageTest extends PageTest{
 	@Test//39735
 	public void testVerifyLocalInfoSchoolReportsLinkIsWorking() {
 		websiteLoginPreCond();
+		ActionHelper.staticWait(5);
 		getPage("/sold-homes");
+		ActionHelper.staticWait(5);
 		assertTrue(page.goToSchoolsReportsFromHeaders(), "Unable to click on Schools Reports dropdown..");
 		assertTrue(page.isSchoolReportsPage(), "Community reports page is not visible..");
 	}

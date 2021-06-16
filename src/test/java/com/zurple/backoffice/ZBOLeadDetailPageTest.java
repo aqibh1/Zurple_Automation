@@ -459,7 +459,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.isBouncedEmailAttentionErrorVisible(), "Bounced email attention error is not visible..");
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send Email"), "Send Email button is not disabled..");
-		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send Text Message"), "Send Text Message button is not disabled..");
+//		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send Text Message"), "Send Text Message button is not disabled..");
 		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Enroll in Campaign"), "Enroll in Campaign button is not disabled..");
 		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send CMA Report"), "Send CMA Report button is not disabled..");
 		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");
@@ -512,7 +512,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage("/campaigns");
 		ZBOCampaignPage campaignPage = new ZBOCampaignPage(driver);
 		assertTrue(campaignPage.isLeadAddedInCampaign(lc_campaignName), "Lead is not added in campaign..");
-	}
+	}	
 	
 	@Test(dependsOnGroups= {"testEnrollLeadInCampaign"}, groups= {"testUnenrollLeadFromCampaign"}, priority=478)
 	@Parameters({"dataFile"})
