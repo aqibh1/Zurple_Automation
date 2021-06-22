@@ -65,6 +65,7 @@ public class ConfigReader {
     }
     public static ConfigReader load() {
         if (instance == null) {
+            setVMArguments(); //will setup VM arguments if none provided
             String environment = System.getProperty("environment");
 //            Object testRailMapping = System.getProperty("testrail_testrun_id");
 //            if(testRailMapping!=null) {
@@ -81,6 +82,16 @@ public class ConfigReader {
     	    String value = testRailMapping.getProperty(key);
     	    mappingHash.put(key, value);
     	}
+    }
+    
+    private static void setVMArguments() {
+    	 if(System.getProperty("project")==null) {
+       		System.getProperties().setProperty("project","zurple");
+       		System.getProperties().setProperty("threads","1");
+       		System.getProperties().setProperty("environment","stage01");
+       		System.getProperties().setProperty("ssh_user","adar");
+       		System.getProperties().setProperty("ssh_pass","bYbuAn3bP8VM");
+       	} 
     }
 //    private static void loadTestRailMapping() {
 //    	InputStream input = null;
