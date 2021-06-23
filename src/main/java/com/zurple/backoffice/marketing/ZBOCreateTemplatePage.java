@@ -3,6 +3,8 @@
  */
 package com.zurple.backoffice.marketing;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -55,6 +57,8 @@ public class ZBOCreateTemplatePage extends Page {
 	
 	@FindBy(xpath="//label[contains(text(),'Delete Template')]")
 	WebElement delete_template;
+	
+	String validation_alerts = "//form[@id='template-form']/descendant::div[@role='alert']/strong";
 	
 	ZBOPlaceHolderForm zboPlaceholderForm;
 	ZBOPreviewForm zboPreviewForm;
@@ -156,5 +160,24 @@ public class ZBOCreateTemplatePage extends Page {
 	public boolean isDeletedSuccessfully() {
 		ActionHelper.staticWait(10);
 		return !driver.getCurrentUrl().contains("/edit");
+	}
+	public boolean verifyTemplateNameValidationAlertIsTriggered(String pAlertText) {
+		return verifyAlertIsVisible(pAlertText);
+	}public boolean verifyTemplateSubjectValidationAlertIsTriggered(String pAlertText) {
+		return verifyAlertIsVisible(pAlertText);
+	}public boolean verifyTemplateBodyValidationAlertIsTriggered(String pAlertText) {
+		return verifyAlertIsVisible(pAlertText);
+	}
+	
+	private boolean verifyAlertIsVisible(String pAlertToVerify) {
+		boolean isAlertVisible = false;
+		List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, validation_alerts);
+		for(WebElement element: list_of_elements) {
+			if(ActionHelper.getText(driver, element).equalsIgnoreCase(pAlertToVerify)) {
+				isAlertVisible = true;
+				break;
+			}
+		}
+		return isAlertVisible;
 	}
 }
