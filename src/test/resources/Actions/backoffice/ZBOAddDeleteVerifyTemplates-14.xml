@@ -43,6 +43,7 @@
 				<class name="com.zurple.backoffice.ZBOCreateTemplatePageTest">
 					<methods>
 						<include name="testDeleteTemplate" />
+						<include name="testVerifyTemplateIsDeletedFromTheList" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">

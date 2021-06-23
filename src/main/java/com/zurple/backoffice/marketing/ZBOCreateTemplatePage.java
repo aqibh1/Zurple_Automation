@@ -60,6 +60,9 @@ public class ZBOCreateTemplatePage extends Page {
 	
 	String validation_alerts = "//form[@id='template-form']/descendant::div[@role='alert']/strong";
 	
+	@FindBy(id="campaign_template_id")
+	WebElement template_dropdown;
+	
 	ZBOPlaceHolderForm zboPlaceholderForm;
 	ZBOPreviewForm zboPreviewForm;
 	ZBOInsertImageForm zboInsertImageForm;
@@ -168,7 +171,40 @@ public class ZBOCreateTemplatePage extends Page {
 	}public boolean verifyTemplateBodyValidationAlertIsTriggered(String pAlertText) {
 		return verifyAlertIsVisible(pAlertText);
 	}
+	public boolean selectExistingTempplate(String pTemplateName) {
+		return ActionHelper.selectDropDownOptionIfContains(driver, template_dropdown, pTemplateName);
+	}public boolean isTemplateInputEnabled() {
+		return ActionHelper.isElementEnabled(driver, templateName_input);
+	}public boolean isTemplateSubjectInputEnabled() {
+		return ActionHelper.isElementEnabled(driver, templateSubject_input);
+	}public boolean isTemplateBodyInputEnabled() {
+		boolean isSuccess = false;
+		//We need to switch to iFrame to perform these operations
+		driver.switchTo().frame(emailBody_iframe);
+		if(ActionHelper.isElementEnabled(driver, templateBody_html)) {
+			isSuccess = true;
+			//Swicthing back to default content
+			driver.switchTo().defaultContent();
+		}
+		return isSuccess;
+	}
 	
+	public boolean isTemplateNamePopulated() {
+		return !ActionHelper.getValue(driver, templateName_input).isEmpty();
+	}public boolean isTemplateSubjectPopulated() {
+		return !ActionHelper.getValue(driver, templateSubject_input).isEmpty();
+	}public boolean isTemplateBodyPopulated() {
+		boolean isSuccess = false;
+		//We need to switch to iFrame to perform these operations
+		driver.switchTo().frame(emailBody_iframe);
+		if(ActionHelper.isElementEnabled(driver, templateBody_html)) {
+			isSuccess = !ActionHelper.getText(driver, templateBody_html).isEmpty();
+			//Switching back to default content
+			driver.switchTo().defaultContent();
+		}
+		return isSuccess;
+	
+	}
 	private boolean verifyAlertIsVisible(String pAlertToVerify) {
 		boolean isAlertVisible = false;
 		List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, validation_alerts);
