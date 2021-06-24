@@ -1344,6 +1344,29 @@ public class ActionHelper {
 		   String message = getAttribute(pElement, "validationMessage"); 
 		   return message;
 	   }
-		   
+	   /**
+	 * @param pWebDriver
+	 * @param pElementToBeClicked
+	 * @param pDropdownOptionsXpath
+	 * @param pOptionToSelect
+	 * @return boolean
+	 * Select the drop down option if contains the text
+	 */
+	   public static boolean selectDropDownOptionIfContains(WebDriver pWebDriver, WebElement pElementToBeClicked,String pOptionToSelect) {
+		   boolean isSuccessful=false;
+		   List<WebElement> list_of_options = new ArrayList<WebElement>();
+		   AutomationLogger.info("Clicking on button "+pElementToBeClicked);
+		   if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+			   list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
+			   for(WebElement element: list_of_options) {
+				   System.out.println(element.getText().trim());
+				   if(element.getText().trim().contains(pOptionToSelect)) {
+					   isSuccessful = ActionHelper.Click(pWebDriver, element);
+					   break;
+				   }
+			   }
+		   }
+		   return isSuccessful;
+	   }   
 	   
 }

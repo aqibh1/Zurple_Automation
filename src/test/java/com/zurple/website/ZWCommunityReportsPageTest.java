@@ -75,7 +75,9 @@ public class ZWCommunityReportsPageTest extends PageTest{
 	@Test//39731
 	public void testVerifyLocalInfoCommunityLinkIsWorking() {
 		websiteLoginPreCond();
+		ActionHelper.staticWait(5);
 		getPage("/sold-homes");
+		ActionHelper.staticWait(5);
 		assertTrue(page.goToCommunityReportsFromHeaders(), "Unable to click on Community dropdown..");
 		assertTrue(page.isCommunityReportsPage(), "Community reports page is not visible..");
 	}

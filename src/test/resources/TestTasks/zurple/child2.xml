@@ -292,25 +292,4 @@
 			</parameter>
 	</test>
 	
-	<test name="Verify Scheduled post and listing video posts">	 
-	<parameter name="datafile" value="/resources/data/zurple/socialapi/post-history-data.json"> 
-			<classes>
-			<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeAPILogin" />
-					</methods>
-				</class>
-  				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
-					<methods>
-				  		<include name="testGetPostHistory"/>  
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>				
-			</classes>
-			</parameter>
-	</test>
 </suite>	

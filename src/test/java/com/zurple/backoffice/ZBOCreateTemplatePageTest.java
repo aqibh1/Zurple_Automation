@@ -3,6 +3,7 @@
  */
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
@@ -134,4 +135,45 @@ public class ZBOCreateTemplatePageTest extends PageTest{
 		assertTrue(templateManagerPage.searchAndClickEditButton(lTemplate_Name), "Unable to find template..");
 		assertTrue(page.clickOnDeleteTemplateButton(), "Unable to delete the template..");
 	}
+	
+	@Test(dependsOnGroups="com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate")
+	public void testVerifyTemplateIsDeletedFromTheList() {
+		page=null;
+		getPage("/marketing/templates/create");
+		String lTemplate_Name = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleTemplateName);
+		assertFalse(page.selectExistingTempplate(lTemplate_Name), "Template is present in the list after deletion");
+	}
+	
+	@Test //39814
+	public void testVerifyValidationAlertsAreTriggered() {
+		getPage("/marketing/templates/create");
+		assertTrue(page.clickOnSaveTemplateButton(), "Unable to click on save template button..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.verifyTemplateNameValidationAlertIsTriggered("Please enter a name for your template"), "Template name validation is not triggered");
+		assertTrue(page.verifyTemplateNameValidationAlertIsTriggered("Please enter a subject for your template"), "Template subject validation is not triggered");
+		assertTrue(page.verifyTemplateNameValidationAlertIsTriggered("Please enter template body"), "Template body validation is not triggered");
+
+	}
+	/**
+	 * Verify that user can select existing templates from drop down to edit
+	 * 39809
+	 */
+	@Test
+	public void testVerifyTemplateIsSelectable() {
+		assertTrue(page.selectExistingTempplate("Test Automation"), "Unable to select test automation template from dropdown");
+		assertTrue(page.isTemplateInputEnabled(), "Template Name input is not enabled..");
+		assertTrue(page.isTemplateSubjectInputEnabled(), "Template Subject input is not enabled..");
+		assertTrue(page.isTemplateBodyInputEnabled(), "Template Body input is not enabled..");
+	}
+	/**
+	 * Verify that all data populate as added when existing template is selected on templates page
+	 * 39816
+	 */
+	@Test
+	public void testVerifyExistingTemplatePopulatesTheFields() {
+		assertTrue(page.isTemplateNamePopulated(), "Template name input is not populated..");
+		assertTrue(page.isTemplateSubjectPopulated(), "Template subject input is not populated");
+		assertTrue(page.isTemplateBodyPopulated(), "Template body input is not populated");
+	}
+	
 }

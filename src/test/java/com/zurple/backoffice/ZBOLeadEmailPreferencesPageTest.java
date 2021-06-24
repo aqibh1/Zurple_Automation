@@ -146,7 +146,7 @@ public class ZBOLeadEmailPreferencesPageTest extends PageTest{
 		assertTrue(page.clickOnSaveButton(), "Unable to click on save button..");
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send Email"), "Send Email button is not disabled..");
-		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send Text Message"), "Send Text Message button is not disabled..");
+//		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send Text Message"), "Send Text Message button is not disabled..");
 		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Enroll in Campaign"), "Enroll in Campaign button is not disabled..");
 		assertTrue(leadDetailPage.verifyNavButtonIsDisabled("Send CMA Report"), "Send CMA Report button is not disabled..");
 		assertTrue(leadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages tab..");

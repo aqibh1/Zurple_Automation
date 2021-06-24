@@ -111,7 +111,7 @@ public class GmailEmailVerification {
 			   Store store = session.getStore("pop3s");
 			   //		         store.connect("pop.gmail.com", "z57testuser@gmail.com","vindthawdqwinsqw");//change the user and password accordingly
 			   store.connect("pop.gmail.com", pEmail,pAppPassword);
-			   Folder folder = store.getFolder("inbox");
+			   Folder folder = store.getFolder("Inbox");
 			   if (!folder.exists()) {
 				   AutomationLogger.error("Class :: ActionHelper");
 				   AutomationLogger.error("Method Name :: isEmailPresentAndReply");
@@ -120,11 +120,11 @@ public class GmailEmailVerification {
 			   }
 			   
 			   folder.open(Folder.READ_ONLY);
-			   Message[] messages = folder.getMessages();
-			   if (messages.length != 0) {
-
-				   for (int i = 0, n = messages.length; i < n; i++) {
-					   Message message = messages[i];
+//			   Message[] messages = folder.getMessages();
+//			   if (messages.length != 0) {
+				   for (int i = folder.getMessageCount(); i >= 1; i--) {
+					   //Message message = messages[i];
+					   Message message = folder.getMessage(i);
 					   date = message.getSentDate();
 					   SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY");
 					   String subject = message.getSubject();
@@ -148,7 +148,7 @@ public class GmailEmailVerification {
 						   }
 						   }
 					   }
-				   }
+//				   }
 			   // close the store and folder objects
 			   folder.close(false);
 			   store.close();
@@ -236,6 +236,7 @@ public class GmailEmailVerification {
 	    	}
 	    }
 	    public boolean getIsProd() {
+	    	setIsProd();
 	    	return isProd;
 	    }
 	    
