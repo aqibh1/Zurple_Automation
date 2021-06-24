@@ -31,6 +31,8 @@
 			<class name="com.zurple.backoffice.ZBOCreateTemplatePageTest">
 				<methods>
 					<include name="testVerifyValidationAlertsAreTriggered" />
+					<include name="testVerifyTemplateIsSelectable" />
+					<include name="testVerifyExistingTemplatePopulatesTheFields" />
 				</methods>
 			</class>
 		</classes>
