@@ -5,6 +5,7 @@ import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.SkipException;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -14,6 +15,7 @@ import com.zurple.backoffice.marketing.ZBOCreateTemplatePage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
@@ -102,5 +104,42 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertTrue(campaignPage.isCampaignDetailPage(), "Campaign Page is not visible..");
 		assertTrue(campaignPage.deleteCampaign(), "Unable to delete the campaign..");
 		
+	}
+	
+	/**
+	 * Verify that correct preview should be shown for added template before saving campaign
+	 * 39823
+	 */
+	@Test
+	public void testVerifyCorrectTemplatePreviewIsShownBeforeSavingCampaign() {
+		getPage("/campaigns/create");
+		selectTemplatePreCondition();
+		assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
+		assertTrue(page.isPrviewContains(getPlaceHolderValue()), "Preview does not contains the place holder value");
+	}
+	
+	/**
+	 * Verify that validation triggers on submitting empty fields
+	 * 39851
+	 */
+	@Test
+	public void testVerifyValidationIsTriggeredForEmptyCampaignName() {
+		assertTrue(page.clickOnSaveButton(), "Unable to click on save button..");
+		assertTrue(page.isEmptyCampaignNameAlertVisible(), "Empty campaign name alert is not visible");
+	}
+	private void selectTemplatePreCondition() {
+		if(!page.clickOnAddTemplateButton() && !page.clickAndSelectAutoTemplate("Automation Template") && !page.clickOnUpdateButton()) {
+			throw new SkipException("Automation template cannot be added to campaign..");
+		}
+	}
+	private String getPlaceHolderValue() {
+		String lPlaceholderValue = "";
+		if(getIsProd()) {
+			lPlaceholderValue = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").replace("https://www.", "");
+
+		}else {
+			lPlaceholderValue = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").replace("http://www.stage01.", "");
+		}
+		return lPlaceholderValue;
 	}
 }

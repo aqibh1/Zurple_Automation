@@ -48,6 +48,15 @@ public class ZBOCreateCampaignPage extends Page{
 	@FindBy(xpath="//table[@id='steps_table']/descendant::a")
 	String template_list = "//table[@id='steps_table']/descendant::a";
 	
+	@FindBy(xpath="//table[@id='steps_table']/descendant::div[text()='Preview']")
+	WebElement template_preview_button;
+	
+	@FindBy(id="preview")
+	WebElement preview_window;
+	
+	@FindBy(xpath="//div[@role='alert']/strong[text()='Please enter campaign name']")
+	WebElement campaign_name_alert;
+	
 	ZBOAddTemplateForm zboAddTemplateForm;
 	
 	public ZBOCreateCampaignPage() {
@@ -97,6 +106,9 @@ public class ZBOCreateCampaignPage extends Page{
 		}
 		return lTemplateName;
 	}
+	public boolean clickAndSelectAutoTemplate(String pTemplateName) {
+		return ActionHelper.selectDropDownOptionIfContains(driver, template_options, pTemplateName);
+	}
 	public boolean clickOnUpdateButton() {
 		return ActionHelper.Click(driver, update_button);
 	}
@@ -119,5 +131,13 @@ public class ZBOCreateCampaignPage extends Page{
 			}
 		}
 		return isAdded;
+	}
+	public boolean clickOnPreviewButton() {
+		return ActionHelper.Click(driver, template_preview_button);
+	}public boolean isPrviewContains(String pPlaceHolderValue) {
+		return ActionHelper.getText(driver, preview_window).contains(pPlaceHolderValue);
+	}
+	public boolean isEmptyCampaignNameAlertVisible() {
+		return ActionHelper.isElementVisible(driver, campaign_name_alert);
 	}
 }
