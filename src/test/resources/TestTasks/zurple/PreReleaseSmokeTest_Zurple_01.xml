@@ -395,6 +395,33 @@
 		</classes>
 	</test>
 	
+	<test name="Verify lead import and settings">
+		<parameter name="importLeadCSV" value="/resources/data/ImportToolTest.csv">
+		<parameter name="importLeadData" value="/resources/data/zurple/backoffice/import-tool-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.my.admin.ZBOImportToolPageTest">
+					<methods>
+						<include name="testNeitherOptionsChecked" />
+						<include name="testAllOptionsChecked" />
+						<include name="testUnsubChecked" />	
+						<include name="testNextDayChecked" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+			</parameter>
+			</parameter>
+	</test>	
+	
 	<test name="Verify Send CMA Report button is visible on lead details page">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -640,6 +667,41 @@
 				</class> 
 			</classes>
 	</parameter>
+	</test>
+	
+	<test name="Enroll and unenroll lead in campaign">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/create-campaign-data.json">
+		<parameter name="leadFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testCreateCampaign" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testEnrollLeadInCampaign" />
+						<include name="testUnenrollLeadFromCampaign" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testDeleteCampaign" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+		</parameter>
 	</test>
 	
 	<test name="Verify V2 Site Settings And Website">	
