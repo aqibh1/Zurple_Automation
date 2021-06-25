@@ -8,31 +8,7 @@
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
 		 
-		<test name="Verify the ads overview page">	
-			<classes>
-				<class name="com.zurple.backoffice.ZBOAdsOverviewPageTest">
-					<methods>
-						<include name="testVerifyAdsManagerIsVisibleInHeader"/>
-						<include name="testVerifyAdsManagerDropdownOptionsVisible"/>
-						<include name="testClickAdsOverviewFromAdsManager"/>
-						<include name="testVerifyAdTypeColumnIsDisplayedOnAdsOverviewPage"/>
-						<include name="testVerifyAdIconIsDisplayedOnAdsOverviewPage"/>
-						<include name="testVerifyListingAddressIsDisplayedOnAdsOverviewPage"/>
-						<include name="testVerifyAdStartingAndEndingIsDisplayed"/>
-						<include name="testVerifyAdClickViewStatsAreDisplayed"/>
-						<include name="testVerifyAdPricesAreDisplayed"/>
-						<include name="testVerifyAdLocationIsDisplayed"/>
-						<include name="testVerifyAdRecurringDateIsDisplayed"/>
-						<include name="testVerifyAdStatusIsDisplayed"/>
-						<include name="testVerifyAdPreviewGetsDisplayedDisplayed"/>
-						<include name="testVerifyAdPreviewSlideShowIsWorking"/>
-					</methods>
-				</class>
-			</classes>
-	</test>
-	
 	<!-- Social Create Post and Verify Scheduled Post Tests-->
-	
 	<test name="Create Facebook Scheduled posts">
 		<parameter name="FBDataFile" value="/resources/data/zurple/backoffice/social/z-social-fb-posts-data.json">
 		<classes>
@@ -138,6 +114,29 @@
 		</classes>
 		</parameter>
 	</test> 
+	
+		<test name="Verify the ads overview page">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAdsOverviewPageTest">
+					<methods>
+						<include name="testVerifyAdsManagerIsVisibleInHeader"/>
+						<include name="testVerifyAdsManagerDropdownOptionsVisible"/>
+						<include name="testClickAdsOverviewFromAdsManager"/>
+						<include name="testVerifyAdTypeColumnIsDisplayedOnAdsOverviewPage"/>
+						<include name="testVerifyAdIconIsDisplayedOnAdsOverviewPage"/>
+						<include name="testVerifyListingAddressIsDisplayedOnAdsOverviewPage"/>
+						<include name="testVerifyAdStartingAndEndingIsDisplayed"/>
+						<include name="testVerifyAdClickViewStatsAreDisplayed"/>
+						<include name="testVerifyAdPricesAreDisplayed"/>
+						<include name="testVerifyAdLocationIsDisplayed"/>
+						<include name="testVerifyAdRecurringDateIsDisplayed"/>
+						<include name="testVerifyAdStatusIsDisplayed"/>
+						<include name="testVerifyAdPreviewGetsDisplayedDisplayed"/>
+						<include name="testVerifyAdPreviewSlideShowIsWorking"/>
+					</methods>
+				</class>
+			</classes>
+	</test>
 	
 	<test name="Create and Verify Buyer Leads Custom Ad">
 		<classes>
