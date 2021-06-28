@@ -57,6 +57,18 @@ public class ZBOCreateCampaignPage extends Page{
 	@FindBy(xpath="//div[@role='alert']/strong[text()='Please enter campaign name']")
 	WebElement campaign_name_alert;
 	
+	@FindBy(id="massemail_type-lead")
+	WebElement massemail_type_lead;
+	@FindBy(id="massemail_type-allunresponsiveleads")
+	WebElement massemail_type_allunresponsiveleads;
+	@FindBy(id="massemail_type-allresponsiveleads")
+	WebElement massemail_type_allresponsiveleads;
+	@FindBy(id="massemail_type-allclients")
+	WebElement massemail_type_allclients;
+	
+	@FindBy(xpath="//button[@title='close']/span")
+	WebElement close_preview;
+	
 	ZBOAddTemplateForm zboAddTemplateForm;
 	
 	public ZBOCreateCampaignPage() {
@@ -139,5 +151,21 @@ public class ZBOCreateCampaignPage extends Page{
 	}
 	public boolean isEmptyCampaignNameAlertVisible() {
 		return ActionHelper.isElementVisible(driver, campaign_name_alert);
+	}
+	public boolean verifyRecipientsOptionsAreVisible() {
+		boolean isOptionsVisible = true;
+		if(!ActionHelper.isElementVisible(driver, massemail_type_allclients)) {
+			isOptionsVisible = false;
+		}else if(!ActionHelper.isElementVisible(driver, massemail_type_allresponsiveleads)) {
+			isOptionsVisible = false;
+		}else if(!ActionHelper.isElementVisible(driver, massemail_type_allunresponsiveleads)) {
+			isOptionsVisible = false;
+		}else if(!ActionHelper.isElementVisible(driver, massemail_type_lead)) {
+			isOptionsVisible = false;
+		}
+		return isOptionsVisible;
+	}
+	public boolean closePreview() {
+		return ActionHelper.Click(driver, close_preview);
 	}
 }

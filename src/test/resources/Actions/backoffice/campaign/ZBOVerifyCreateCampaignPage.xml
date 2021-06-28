@@ -9,6 +9,7 @@
 	</listeners>
 
 	<test name="Verifications on Create campaign page">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 				<methods>
@@ -19,9 +20,12 @@
 					<methods>
 						<include name="testVerifyCorrectTemplatePreviewIsShownBeforeSavingCampaign" />
 						<include name="testVerifyValidationIsTriggeredForEmptyCampaignName" />
+						<include name="testVerifyCorrectTemplatePreviewIsShownAfterSavingCampaign" />
+						<include name="testVerifyLimitedRecipientsOptionsAreVisible" />
 					</methods>
 				</class>
 			</classes>
+			</parameter>
 	</test>
 	
 </suite>

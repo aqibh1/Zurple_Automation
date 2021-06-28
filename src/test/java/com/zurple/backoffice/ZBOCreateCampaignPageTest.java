@@ -127,9 +127,53 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertTrue(page.clickOnSaveButton(), "Unable to click on save button..");
 		assertTrue(page.isEmptyCampaignNameAlertVisible(), "Empty campaign name alert is not visible");
 	}
+	
+	/**
+	 * @param pDataFile
+	 * Verify that correct preview should be shown for added template after saving campaign
+	 * 39824
+	 */
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyCorrectTemplatePreviewIsShownAfterSavingCampaign(String pDataFile) {
+		fillCampaignNameAndDescriptionPreCondition(getDataFile(pDataFile));
+		assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
+		assertTrue(page.isPrviewContains(getPlaceHolderValue()), "Preview does not contains the place holder value");
+		assertTrue(page.closePreview(),"Unable to close preview button..");
+	}
+	
+	/**
+	 * Verify that user can see limited recipient options in Zurple
+	 * 39826
+	 */
+	@Test
+	public void testVerifyLimitedRecipientsOptionsAreVisible() {
+		assertTrue(page.verifyRecipientsOptionsAreVisible(), "All recipients options are not visible..");
+	}
 	private void selectTemplatePreCondition() {
-		if(!page.clickOnAddTemplateButton() && !page.clickAndSelectAutoTemplate("Automation Template") && !page.clickOnUpdateButton()) {
+		if(!page.clickOnAddTemplateButton()) {
 			throw new SkipException("Automation template cannot be added to campaign..");
+		}
+		ActionHelper.staticWait(2);
+		if(!page.clickAndSelectAutoTemplate("Automation Template")) {
+			throw new SkipException("Automation template cannot be added to campaign..");
+		}
+		ActionHelper.staticWait(2);
+		if(!page.clickOnUpdateButton()) {
+			throw new SkipException("Automation template cannot be added to campaign..");
+		}
+	}
+	private void fillCampaignNameAndDescriptionPreCondition(JSONObject pDataObject) {
+		String ld_campaignName = updateName(pDataObject.optString("campaign_name"));
+		String ld_campaignDesc = updateName(pDataObject.optString("campaign_desc"));
+		try {
+			assertTrue(page.typeCampaignName(ld_campaignName), "Unable to type campaign name..");
+			assertTrue(page.typeCampaignDescription(ld_campaignDesc), "Unable to type campaign desc..");
+			assertTrue(page.clickOnSaveButton(), "Unable to click on save button...");
+			assertTrue(new ZBOSucessAlert(driver).isSuccessMessageVisible(), "Success message is not visible..");
+			assertTrue(new ZBOSucessAlert(driver).clickOnOkButton(), "Unable to click on OK button..");
+		}catch(Exception ex) {
+			throw new SkipException("Campaign Name and description could not be saved..");
 		}
 	}
 	private String getPlaceHolderValue() {
