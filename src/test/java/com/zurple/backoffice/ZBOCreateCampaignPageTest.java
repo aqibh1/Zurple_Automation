@@ -150,6 +150,29 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	public void testVerifyLimitedRecipientsOptionsAreVisible() {
 		assertTrue(page.verifyRecipientsOptionsAreVisible(), "All recipients options are not visible..");
 	}
+	
+	/**
+	 * Verify that View Matching leads modal should show those leads as selected recipient
+	 * 39827
+	 */
+	@Test
+	public void testVerifyMatchingLeadsAreShown() {
+		assertTrue(page.clickOnMatchingLeadButton(), "Unable to click on matchin lead button..");
+		assertTrue(page.getZboLeadListform().isLeadListForm(),"Lead list form is not opened..");
+		assertTrue(page.getZboLeadListform().getLeadsListCount()>0, "No matching leads found");
+		assertTrue(page.getZboLeadListform().clickOnCancelButton(), "Unable to click on cancel button");
+	}
+	
+	/**
+	 * Verify that success modal should appear on successful enrollment of leads
+	 * 39832
+	 */
+	@Test
+	public void testVerifySuccessMessageIsDisplayedWehnEnrolledIsClicked() {
+		assertTrue(page.clickOnEnrollButton(), "Unable to click on enroll button");
+		assertTrue(page.getSuccessAlert().isSuccessMessageVisible(), "Success message is not displayed");
+		assertTrue(page.getSuccessAlert().clickOnOkButton(), "Unable to click on ok button");
+	}
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {
 			throw new SkipException("Automation template cannot be added to campaign..");

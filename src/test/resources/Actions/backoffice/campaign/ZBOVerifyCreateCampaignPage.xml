@@ -22,6 +22,8 @@
 						<include name="testVerifyValidationIsTriggeredForEmptyCampaignName" />
 						<include name="testVerifyCorrectTemplatePreviewIsShownAfterSavingCampaign" />
 						<include name="testVerifyLimitedRecipientsOptionsAreVisible" />
+						<include name="testVerifyMatchingLeadsAreShown" />
+						<include name="testVerifySuccessMessageIsDisplayedWehnEnrolledIsClicked" />
 					</methods>
 				</class>
 			</classes>

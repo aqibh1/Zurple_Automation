@@ -12,7 +12,9 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.forms.zurple.backoffice.ZBOAddTemplateForm;
+import resources.forms.zurple.backoffice.ZBOLeadListForm;
 import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
@@ -69,7 +71,15 @@ public class ZBOCreateCampaignPage extends Page{
 	@FindBy(xpath="//button[@title='close']/span")
 	WebElement close_preview;
 	
+	@FindBy(id="view-matching-button")
+	WebElement view_matching_button;
+	
+	@FindBy(id="enroll-button")
+	WebElement enroll_button;
+	
 	ZBOAddTemplateForm zboAddTemplateForm;
+	ZBOLeadListForm zboLeadListform;
+	ZBOSucessAlert successalert;
 	
 	public ZBOCreateCampaignPage() {
 		
@@ -77,6 +87,7 @@ public class ZBOCreateCampaignPage extends Page{
 	public ZBOCreateCampaignPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		setZboAddTemplateForm();
+		setZboLeadListform();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -85,6 +96,18 @@ public class ZBOCreateCampaignPage extends Page{
 	}
 	public void setZboAddTemplateForm() {
 		this.zboAddTemplateForm = new ZBOAddTemplateForm(driver);
+	}
+	public ZBOLeadListForm getZboLeadListform() {
+		return zboLeadListform;
+	}
+	public void setZboLeadListform() {
+		this.zboLeadListform = new ZBOLeadListForm(driver);
+	}
+	public ZBOSucessAlert getSuccessAlert() {
+		return successalert;
+	}
+	public void setSuccessAlert() {
+		successalert = new ZBOSucessAlert(driver);
 	}
 	public boolean isCampaignPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, campaign_details_heading, 15);
@@ -167,5 +190,11 @@ public class ZBOCreateCampaignPage extends Page{
 	}
 	public boolean closePreview() {
 		return ActionHelper.Click(driver, close_preview);
+	}
+	public boolean clickOnMatchingLeadButton() {
+		return ActionHelper.Click(driver, view_matching_button);
+	}
+	public boolean clickOnEnrollButton() {
+		return ActionHelper.Click(driver, enroll_button);
 	}
 }
