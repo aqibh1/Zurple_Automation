@@ -175,8 +175,8 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		getPage("/leads/crm");
 		
 		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
-		String lFilterName = "By Agent,By Email Verification";
-		String lFilterValue = getIsProd()?"Aqib Production Testing,Valid Emails":"Aqib Site Owner,Valid Emails";
+		String lFilterName = "By Agent,By Email Verification,By Email Preferences";
+		String lFilterValue = getIsProd()?"Aqib Production Testing,Valid Emails,Mass Emails: Yes":"Aqib Site Owner,Valid Emails,Mass Emails: Yes";
 		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
 		assertTrue(leadCRMPage.typeLeadEmailOnly("mailinator.com"), "Unable to type lead email..");
 		applyMultipleFilters(lFilterName, lFilterValue);
@@ -314,7 +314,9 @@ public class ZBOLeadCRMPageTest extends PageTest{
 			assertTrue(leadPage.clickAndSelectFilterNameMultiple(lFilterNameList[i],Integer.toString(i+1)),"Unable to select the filter type "+lFilterNameList[i]);
 			ActionHelper.staticWait(10);
 			assertTrue(leadPage.clickAndSelectFilterValueMultiple(lFilterValueList[i],Integer.toString(i+1)),"Unable to select the filter value "+lFilterValueList[i]);
-			assertTrue(page.clickOnAddFilterButton());
+			if(i!=2) {
+				assertTrue(page.clickOnAddFilterButton());
+			}
 		}
 		assertTrue(leadPage.clickOnSearchButton(),"Unable to click on search button..");
 	}
