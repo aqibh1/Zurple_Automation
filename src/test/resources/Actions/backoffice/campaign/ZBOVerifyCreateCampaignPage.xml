@@ -24,6 +24,8 @@
 						<include name="testVerifyLimitedRecipientsOptionsAreVisible" />
 						<include name="testVerifyMatchingLeadsAreShown" />
 						<include name="testVerifySuccessMessageIsDisplayedWehnEnrolledIsClicked" />
+						<include name="testVerifyLeadsAreEnrolledSuccessfully" />
+						<include name="testVerifyLeadCounterHasIncreased" />
 					</methods>
 				</class>
 			</classes>

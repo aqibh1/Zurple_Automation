@@ -77,6 +77,14 @@ public class ZBOCreateCampaignPage extends Page{
 	@FindBy(id="enroll-button")
 	WebElement enroll_button;
 	
+	String matching_lead_list = "//table[@id='filtered-lead-list']/tbody/tr/td/a";
+	
+	@FindBy(id="view-recipients-button")
+	WebElement view_recipients_button;
+	
+	String view_recipients_campaigns= "//table[@id='campaigns_table']/descendant::tr/td[@class=' view_recipients_button']";
+	String campaign_name_list = "//table[@id='campaigns_table']/descendant::tr/td/a[not(contains(@class,'btn'))]";
+	
 	ZBOAddTemplateForm zboAddTemplateForm;
 	ZBOLeadListForm zboLeadListform;
 	ZBOSucessAlert successalert;
@@ -88,6 +96,7 @@ public class ZBOCreateCampaignPage extends Page{
 		driver = pWebDriver;
 		setZboAddTemplateForm();
 		setZboLeadListform();
+		setSuccessAlert();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -196,5 +205,41 @@ public class ZBOCreateCampaignPage extends Page{
 	}
 	public boolean clickOnEnrollButton() {
 		return ActionHelper.Click(driver, enroll_button);
+	}
+	public List<WebElement> getMatchingLeads(){
+		return ActionHelper.getListOfElementByXpath(driver, matching_lead_list);
+	}
+	public boolean clickOnViewRecipientsButton() {
+		return ActionHelper.Click(driver, view_recipients_button);
+	}
+	public boolean verifyLeadsAreEnrolled(List<WebElement> pViewEnrolledList,List<WebElement> pViewMatchingList ) {
+		boolean isFound = false;
+		for(int i=0;i<pViewMatchingList.size();i++) {
+			String l_matching_enrolled_lead = ActionHelper.getText(driver, pViewMatchingList.get(i));
+			for(int j=0;j<pViewEnrolledList.size();j++) {
+				String l_view_enrolled_lead = ActionHelper.getText(driver, pViewMatchingList.get(j));
+				if(l_matching_enrolled_lead.equalsIgnoreCase(l_view_enrolled_lead)) {
+					isFound = true;
+					break;
+				}
+				if(!isFound) {
+					break;
+				}
+			}
+		}
+		return isFound;
+	}
+	public boolean verifyLeadCount(String pCampaignName, int pLeadCount) {
+		boolean isVerifed = false;
+		List<WebElement> l_campaignNamelist = ActionHelper.getListOfElementByXpath(driver, campaign_name_list);
+		List<WebElement> l_campaignLead_count = ActionHelper.getListOfElementByXpath(driver, view_recipients_campaigns);
+		for(int i=0;i<l_campaignNamelist.size();i++) {
+			if(ActionHelper.getText(driver, l_campaignNamelist.get(i)).equalsIgnoreCase(pCampaignName)) {
+				int lead_count = Integer.parseInt(ActionHelper.getText(driver, l_campaignLead_count.get(i)).split(" ")[0]);
+				isVerifed = lead_count==pLeadCount;
+				break;
+			}
+		}
+		return isVerifed;
 	}
 }

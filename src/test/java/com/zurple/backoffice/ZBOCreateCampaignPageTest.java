@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.SkipException;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import com.zurple.backoffice.marketing.ZBOCampaignPage;
 import com.zurple.backoffice.marketing.ZBOCreateCampaignPage;
@@ -20,6 +21,7 @@ import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 public class ZBOCreateCampaignPageTest extends PageTest{
 
@@ -158,9 +160,15 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	@Test
 	public void testVerifyMatchingLeadsAreShown() {
 		assertTrue(page.clickOnMatchingLeadButton(), "Unable to click on matchin lead button..");
+		ActionHelper.staticWait(5);
 		assertTrue(page.getZboLeadListform().isLeadListForm(),"Lead list form is not opened..");
-		assertTrue(page.getZboLeadListform().getLeadsListCount()>0, "No matching leads found");
+		int l_lead_count = page.getZboLeadListform().getLeadsListCount();
+		assertTrue(l_lead_count>0, "No matching leads found");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsList, page.getMatchingLeads());
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount, l_lead_count);
+		ActionHelper.staticWait(3);
 		assertTrue(page.getZboLeadListform().clickOnCancelButton(), "Unable to click on cancel button");
+		ActionHelper.staticWait(3);
 	}
 	
 	/**
@@ -169,10 +177,42 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	 */
 	@Test
 	public void testVerifySuccessMessageIsDisplayedWehnEnrolledIsClicked() {
+		SoftAssert softAssert = new SoftAssert();
 		assertTrue(page.clickOnEnrollButton(), "Unable to click on enroll button");
+		ActionHelper.staticWait(3);
+		softAssert.assertTrue(page.getSuccessAlert().clickOnOverrideButton());
 		assertTrue(page.getSuccessAlert().isSuccessMessageVisible(), "Success message is not displayed");
 		assertTrue(page.getSuccessAlert().clickOnOkButton(), "Unable to click on ok button");
 	}
+	
+	/**
+	 * Verify that currently enrolled leads modal should show relevant leads correctly
+	 * 39829
+	 */
+	@Test
+	public void testVerifyLeadsAreEnrolledSuccessfully() {
+		AutomationLogger.info("Waiting for leads to get enrolled.. 30 seconds wait");
+		ActionHelper.staticWait(60);
+		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on view recipients button");
+		assertTrue(page.getZboLeadListform().isEnrolledInCampaignForm(),"Enrolled in campaign form is not opened..");
+		assertTrue(page.verifyLeadsAreEnrolled(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsList)));
+	}
+	
+	/**
+	 * Verify that lead count is increased in campaigns list
+	 * 39833
+	 */
+	@Test
+	public void testVerifyLeadCounterHasIncreased() {
+		String l_current_url = driver.getCurrentUrl();
+		driver.navigate().to(l_current_url.split("/enroll")[0]);
+		String l_campaign_name = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignName);
+		int l_lead_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount);
+		assertTrue(page.verifyLeadCount(l_campaign_name, l_lead_count), "Unable to verify lead count..");
+		driver.navigate().to(l_current_url);
+		
+	}
+	
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {
 			throw new SkipException("Automation template cannot be added to campaign..");
@@ -189,6 +229,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	private void fillCampaignNameAndDescriptionPreCondition(JSONObject pDataObject) {
 		String ld_campaignName = updateName(pDataObject.optString("campaign_name"));
 		String ld_campaignDesc = updateName(pDataObject.optString("campaign_desc"));
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignName, ld_campaignName);
 		try {
 			assertTrue(page.typeCampaignName(ld_campaignName), "Unable to type campaign name..");
 			assertTrue(page.typeCampaignDescription(ld_campaignDesc), "Unable to type campaign desc..");

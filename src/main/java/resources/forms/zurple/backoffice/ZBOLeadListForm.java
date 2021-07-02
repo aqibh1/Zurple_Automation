@@ -26,6 +26,9 @@ public class ZBOLeadListForm extends AbstractForm{
 	@FindBy(xpath="//span[text()='Cancel']")
 	WebElement cancel;
 	
+	@FindBy(xpath="//h4[text()='Enrolled In Campaign']")
+	WebElement enrolled_in_campain;
+	
 	public ZBOLeadListForm(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -35,9 +38,12 @@ public class ZBOLeadListForm extends AbstractForm{
 	}
 	public int getLeadsListCount() {
 		String[] list_count = ActionHelper.getText(driver, lead_list_count).split(" ");
-		return Integer.parseInt(list_count[list_count.length-1]);
+		return Integer.parseInt(list_count[list_count.length-2]);
 	}
 	public boolean clickOnCancelButton() {
 		return ActionHelper.Click(driver, cancel);
+	}
+	public boolean isEnrolledInCampaignForm() {
+		return ActionHelper.waitForElementToBeVisible(driver, enrolled_in_campain, 30);
 	}
 }

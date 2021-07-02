@@ -55,6 +55,10 @@ public class ZBOSucessAlert extends AbstractAlert{
 	@FindBy(className="swal2-cancel")
 	WebElement permanent_update;
 	
+	@FindBy(xpath="//button[text()='Override']")
+	WebElement override_button;
+	
+	
 	public ZBOSucessAlert() {
 		
 	}
@@ -114,6 +118,13 @@ public class ZBOSucessAlert extends AbstractAlert{
 		boolean isClicked = false;
 		if(ActionHelper.waitForElementToBeVisible(driver, Unenroll_button, 30)) {
 			isClicked = ActionHelper.Click(driver, Unenroll_button) && clickOnOkButton();
+		}
+		return isClicked;
+	}
+	public boolean clickOnOverrideButton() {
+		boolean isClicked = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, override_button, 30)) {
+			isClicked = ActionHelper.Click(driver, override_button);
 		}
 		return isClicked;
 	}
