@@ -84,6 +84,10 @@ public class ZBOCreateCampaignPage extends Page{
 	
 	String view_recipients_campaigns= "//table[@id='campaigns_table']/descendant::tr/td[@class=' view_recipients_button']";
 	String campaign_name_list = "//table[@id='campaigns_table']/descendant::tr/td/a[not(contains(@class,'btn'))]";
+	String enrolled_leads_list = "//table[@id='filtered-lead-list']/descendant::input[@name]";
+	
+	@FindBy(id="unenroll-all-button")
+	WebElement unenroll_all_button;
 	
 	ZBOAddTemplateForm zboAddTemplateForm;
 	ZBOLeadListForm zboLeadListform;
@@ -241,5 +245,30 @@ public class ZBOCreateCampaignPage extends Page{
 			}
 		}
 		return isVerifed;
+	}
+	public boolean unenrollLeadFromCurrentlyEnrolledPanel(List<WebElement> pViewMatchingList, String pLeadName) {
+		boolean isUnenrolled = false;
+		pViewMatchingList = ActionHelper.getListOfElementByXpath(driver, matching_lead_list);;
+		for(int i=0;i<pViewMatchingList.size();i++) {
+			String l_matching_enrolled_lead = ActionHelper.getText(driver, pViewMatchingList.get(i));
+			if(l_matching_enrolled_lead.equalsIgnoreCase(pLeadName)) {
+				isUnenrolled = ActionHelper.Click(driver, ActionHelper.getListOfElementByXpath(driver, enrolled_leads_list).get(i+1));
+				break;
+			}
+		}
+		return isUnenrolled;
+	}
+	public String getEnrolledLead(List<WebElement> pEnrolledLeadsList) {
+		pEnrolledLeadsList = ActionHelper.getListOfElementByXpath(driver, matching_lead_list);
+		int random = generateRandomInt(pEnrolledLeadsList.size());
+		return ActionHelper.getText(driver, pEnrolledLeadsList.get(random));
+	}
+	public boolean clickOnAllLeadsCommunicated() {
+		return ActionHelper.Click(driver, massemail_type_allresponsiveleads);
+	}	public boolean clickOnAllLeadsStatusClient() {
+		return ActionHelper.Click(driver, massemail_type_allclients);
+	}
+	public boolean clickOnUnenrollButton() {
+		return ActionHelper.Click(driver, unenroll_all_button);
 	}
 }

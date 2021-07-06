@@ -29,6 +29,9 @@ public class ZBOLeadListForm extends AbstractForm{
 	@FindBy(xpath="//h4[text()='Enrolled In Campaign']")
 	WebElement enrolled_in_campain;
 	
+	@FindBy(xpath="//span[text()='Save']")
+	WebElement save;
+	
 	public ZBOLeadListForm(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -45,5 +48,8 @@ public class ZBOLeadListForm extends AbstractForm{
 	}
 	public boolean isEnrolledInCampaignForm() {
 		return ActionHelper.waitForElementToBeVisible(driver, enrolled_in_campain, 30);
+	}
+	public boolean clickOnSaveButton() {
+		return ActionHelper.Click(driver, save);
 	}
 }

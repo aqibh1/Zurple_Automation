@@ -26,6 +26,9 @@
 						<include name="testVerifySuccessMessageIsDisplayedWehnEnrolledIsClicked" />
 						<include name="testVerifyLeadsAreEnrolledSuccessfully" />
 						<include name="testVerifyLeadCounterHasIncreased" />
+						<include name="testVerifyLeadsDoesntUnEnrolledFromCurrentlyEnrolledPanelOnCancel" />
+						<include name="testVerifyLeadsGetUnEnrolledFromCurrentlyEnrolledPanel" />
+						<include name="testVerifyUnenrollButtonUnenrollLeadsFromCampaign" />
 					</methods>
 				</class>
 			</classes>

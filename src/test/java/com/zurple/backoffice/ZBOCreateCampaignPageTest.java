@@ -1,6 +1,7 @@
 package com.zurple.backoffice;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
@@ -195,7 +196,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		ActionHelper.staticWait(60);
 		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on view recipients button");
 		assertTrue(page.getZboLeadListform().isEnrolledInCampaignForm(),"Enrolled in campaign form is not opened..");
-		assertTrue(page.verifyLeadsAreEnrolled(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsList)));
+		assertTrue(page.verifyLeadsAreEnrolled(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsList)), "Unable to uncheck the lead");	
 	}
 	
 	/**
@@ -204,13 +205,49 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	 */
 	@Test
 	public void testVerifyLeadCounterHasIncreased() {
-		String l_current_url = driver.getCurrentUrl();
-		driver.navigate().to(l_current_url.split("/enroll")[0]);
-		String l_campaign_name = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignName);
-		int l_lead_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount);
-		assertTrue(page.verifyLeadCount(l_campaign_name, l_lead_count), "Unable to verify lead count..");
-		driver.navigate().to(l_current_url);
-		
+		assertTrue(verifyEnrolledLeadCount(), "Unable to verify lead count..");	
+	}
+	
+	/**
+	 * Verify that leads are not unenrolled if user selected cancel from unenrollment modal
+	 * 39835
+	 */
+	@Test
+	public void testVerifyLeadsDoesntUnEnrolledFromCurrentlyEnrolledPanelOnCancel() {
+		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on view recipients button");
+		ActionHelper.staticWait(5);
+		ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsList);
+		String l_lead_to_unenroll = page.getEnrolledLead(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsList));
+		assertTrue(page.unenrollLeadFromCurrentlyEnrolledPanel(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsList), l_lead_to_unenroll));
+		assertTrue(page.getZboLeadListform().clickOnCancelButton(), "Unable to click on save button");
+		assertTrue(verifyEnrolledLeadCount(), "Unable to verify lead count..");
+	}
+	
+	/**
+	 * Verify that if user unchecks a lead from currently enrolled modal then that lead should be unenrolled from campaign
+	 * 39830
+	 */
+	@Test
+	public void testVerifyLeadsGetUnEnrolledFromCurrentlyEnrolledPanel() {
+		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on view recipients button");
+		ActionHelper.staticWait(5);
+		ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsList);
+		String l_lead_to_unenroll = page.getEnrolledLead(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsList));
+		assertTrue(page.unenrollLeadFromCurrentlyEnrolledPanel(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsList), l_lead_to_unenroll));
+		assertTrue(page.getZboLeadListform().clickOnSaveButton(), "Unable to click on save button");
+		ActionHelper.staticWait(120);
+		assertFalse(verifyEnrolledLeadCount(), "Unable to verify lead count..");
+	}
+	
+	@Test
+	public void testVerifyUnenrollButtonUnenrollLeadsFromCampaign() {
+		enrollLeadsInCampaignPreCondition();
+		assertTrue(page.clickOnUnenrollButton(), "Unable to click on unenroll button");
+		assertTrue(page.getSuccessAlert().clickOnUnEnrollButton(), "Unable to click on Unenroll button");
+		assertTrue(page.getSuccessAlert().clickOnOkButton(), "Unable to click on ok button");
+		AutomationLogger.info("Waiting for leads to be unenrolled");
+		ActionHelper.staticWait(200);
+		assertFalse(verifyEnrolledLeadCount(), "Unable to verify lead count..");
 	}
 	
 	private void selectTemplatePreCondition() {
@@ -250,4 +287,34 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		}
 		return lPlaceholderValue;
 	}
+	
+	private boolean verifyEnrolledLeadCount() {
+		String l_current_url = driver.getCurrentUrl();
+		driver.navigate().to(l_current_url.split("/enroll")[0]);
+		String l_campaign_name = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignName);
+		int l_lead_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount);
+		boolean leadEnrolled = page.verifyLeadCount(l_campaign_name, l_lead_count);
+		driver.navigate().to(l_current_url);
+		return leadEnrolled;
+	}
+	private void enrollLeadsInCampaignPreCondition() {
+		try {
+			assertTrue(page.clickOnAllLeadsStatusClient(), "Unable to click on recipients option..");
+			assertTrue(page.clickOnMatchingLeadButton(), "Unable to click on matchin lead button..");
+			ActionHelper.staticWait(5);
+			assertTrue(page.getZboLeadListform().isLeadListForm(),"Lead list form is not opened..");
+			int l_lead_count = page.getZboLeadListform().getLeadsListCount();
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsList, page.getMatchingLeads());
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount, l_lead_count);
+			assertTrue(page.getZboLeadListform().clickOnSaveButton(),"Unable to click on cancel button..");
+			SoftAssert softAssert = new SoftAssert();
+			ActionHelper.staticWait(3);
+			softAssert.assertTrue(page.getSuccessAlert().clickOnOverrideButton());
+			assertTrue(page.getSuccessAlert().isSuccessMessageVisible(), "Success message is not displayed");
+			assertTrue(page.getSuccessAlert().clickOnOkButton(), "Unable to click on ok button");
+		}catch(Exception ex) {
+			throw new SkipException("Campaign Name and description could not be saved..");
+		}
+	}
+	
 }
