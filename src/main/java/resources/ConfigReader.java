@@ -61,7 +61,13 @@ public class ConfigReader {
 //        return testRailMapping.getProperty(propertyName);
 //    }
     public String getTestRailMapping(String propertyName){
-        return mappingHash.get(propertyName);
+        return getMappingValue(propertyName);
+    }
+    private String getMappingValue(String pPropName) {
+    	String l_mapping_value = "";
+    	l_mapping_value = mappingHash.get(pPropName);
+    	l_mapping_value = l_mapping_value==null?l_mapping_value="":l_mapping_value;
+    	return l_mapping_value;
     }
     public static ConfigReader load() {
         if (instance == null) {

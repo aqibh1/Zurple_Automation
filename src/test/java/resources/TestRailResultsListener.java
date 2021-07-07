@@ -30,12 +30,17 @@ public class TestRailResultsListener implements ITestListener{
 	private static HashMap<Long, HashMap<String, String>> thread_hash = new HashMap<Long,HashMap<String,String>>();
 	private static HashMap<String,String> test_ids_hash = new HashMap<String,String>(); 
 
-	private String getTestCaseId(String pMapKey) {
+	private String getTestCaseId(String pMapKey, ITestResult pResult) {
+		String l_scenario_name = pResult.getTestContext().getCurrentXmlTest().getName();
 		String l_testcase_id_ = "";
 		try {
 			l_testcase_id_ = EnvironmentFactory.configReader.getTestRailMapping(pMapKey).trim();
 			if(l_testcase_id_==null || l_testcase_id_.isEmpty()) {
 				AutomationLogger.info("Test case id is not fetched");
+				l_scenario_name = l_scenario_name.replace(" ", "_");
+				String scenario_mapped_key = l_scenario_name+"_"+pMapKey;
+				l_testcase_id_ = EnvironmentFactory.configReader.getTestRailMapping(scenario_mapped_key).trim();
+				
 			}
 		}catch(Exception ex) {
 			AutomationLogger.error("The test case is not mapped");
@@ -53,7 +58,7 @@ public class TestRailResultsListener implements ITestListener{
 		String className[] = result.getTestClass().toString().split("\\.");
 		String mapKey = className[className.length-1].replace("]", ".")+result.getName();
 		
-		l_testcase_id =getTestCaseId(mapKey);
+		l_testcase_id =getTestCaseId(mapKey,result);
 		populateTestHash(mapKey, l_testcase_id);
 		populateThreadHash(Thread.currentThread().getId(), test_ids_hash);
 		
