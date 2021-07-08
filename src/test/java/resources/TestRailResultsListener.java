@@ -3,6 +3,8 @@
  */
 package resources;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -26,21 +28,26 @@ public class TestRailResultsListener implements ITestListener{
 	String l_testcase_id = "";
 	String l_testrun_id = "";
 	String l_scenario_name = "";
+	private String l_map_key = "";
 	
 	private static HashMap<Long, HashMap<String, String>> thread_hash = new HashMap<Long,HashMap<String,String>>();
 	private static HashMap<String,String> test_ids_hash = new HashMap<String,String>(); 
 
+	
 	private String getTestCaseId(String pMapKey, ITestResult pResult) {
 		String l_scenario_name = pResult.getTestContext().getCurrentXmlTest().getName();
 		String l_testcase_id_ = "";
 		try {
 			l_testcase_id_ = EnvironmentFactory.configReader.getTestRailMapping(pMapKey).trim();
-			if(l_testcase_id_==null || l_testcase_id_.isEmpty()) {
-				AutomationLogger.info("Test case id is not fetched");
+			if(l_testcase_id_!=null && !l_testcase_id_.isEmpty()) {
+				AutomationLogger.info("Fetching test case ID "+l_testcase_id_);
+				setMapKey(pMapKey);
+			}else {
+				AutomationLogger.info("Fetching test case ID by Scenario name");
 				l_scenario_name = l_scenario_name.replace(" ", "_");
 				String scenario_mapped_key = l_scenario_name+"_"+pMapKey;
-				l_testcase_id_ = EnvironmentFactory.configReader.getTestRailMapping(scenario_mapped_key).trim();
-				
+				l_testcase_id_ = EnvironmentFactory.configReader.getTestRailMapping(scenario_mapped_key).trim();	
+				setMapKey(scenario_mapped_key);
 			}
 		}catch(Exception ex) {
 			AutomationLogger.error("The test case is not mapped");
@@ -55,13 +62,12 @@ public class TestRailResultsListener implements ITestListener{
 		l_testRail_Url = EnvironmentFactory.configReader.getPropertyByName("testrail_url");
 		l_testRail_username = EnvironmentFactory.configReader.getPropertyByName("testrail_username");
 		l_testRail_password = EnvironmentFactory.configReader.getPropertyByName("testrail_password");
-		String className[] = result.getTestClass().toString().split("\\.");
-		String mapKey = className[className.length-1].replace("]", ".")+result.getName();
-		
+//		String className[] = result.getTestClass().toString().split("\\.");
+//		String mapKey = className[className.length-1].replace("]", ".")+result.getName();
+		String mapKey = getMapKey(result);
 		l_testcase_id =getTestCaseId(mapKey,result);
-		populateTestHash(mapKey, l_testcase_id);
+		populateTestHash(getMapKey(), l_testcase_id);
 		populateThreadHash(Thread.currentThread().getId(), test_ids_hash);
-		
 		l_testrun_id = System.getProperty("testrail_testrun_id");
 		l_scenario_name = result.getTestContext().getCurrentXmlTest().getName();;
 		AutomationLogger.info("Initializing TestRail URL :: "+l_testRail_Url);
@@ -73,7 +79,7 @@ public class TestRailResultsListener implements ITestListener{
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
-		String testcase_id_final = getTestCaseId(Thread.currentThread().getId(),getMapKey(result));
+		String testcase_id_final = getTestCaseId(Thread.currentThread().getId(),getMapKey());
 		if(l_testrun_id!=null && !l_testrun_id.isEmpty() && testcase_id_final!=null && !testcase_id_final.isEmpty()) {
 			JSONObject resultObj = composeResults(1, l_scenario_name, "",testcase_id_final);
 			if(resultObj!=null) {
@@ -86,7 +92,7 @@ public class TestRailResultsListener implements ITestListener{
 
 	@Override
 	public void onTestFailure(ITestResult result) {
-		String testcase_id_final = getTestCaseId(Thread.currentThread().getId(),getMapKey(result));
+		String testcase_id_final = getTestCaseId(Thread.currentThread().getId(),getMapKey());
 		String errorMessage = result.getThrowable().getLocalizedMessage();
 		if(errorMessage.length()>230) {
 			errorMessage = result.getThrowable().getLocalizedMessage().substring(0, 230);
@@ -103,7 +109,7 @@ public class TestRailResultsListener implements ITestListener{
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
-		String testcase_id_final = getTestCaseId(Thread.currentThread().getId(),getMapKey(result));
+		String testcase_id_final = getTestCaseId(Thread.currentThread().getId(),getMapKey());
 		if(l_testrun_id!=null && !l_testrun_id.isEmpty()) {
 			if(testcase_id_final!=null && !testcase_id_final.isEmpty()) {
 				JSONObject resultObj = composeResults(4, l_scenario_name, "",testcase_id_final);
@@ -177,6 +183,8 @@ public class TestRailResultsListener implements ITestListener{
 		AutomationLogger.info("Populating Test Case Ids Map"+"\n Test Name::"+pTestName+"\n Test ID::"+pTestId);
 		if(pTestId!=null && !pTestId.isEmpty()) {
 			test_ids_hash.put(pTestName, pTestId);
+		}else {
+			writeStringToFile("\\resources\\testrail_mapping\\missing_tests.txt",pTestName);
 		}
 	}
 	private String getTestCaseId(long pThreadId, String pTestName) {
@@ -187,5 +195,21 @@ public class TestRailResultsListener implements ITestListener{
 		String className[] = result.getTestClass().toString().split("\\.");
 		String mapKey = className[className.length-1].replace("]", ".")+result.getName();
 		return mapKey;
+	}
+	private void writeStringToFile(String pFileToWrite, String pObjectToWrite) {
+		File lFilePath = new File(System.getProperty("user.dir")+pFileToWrite);
+		try (FileWriter file = new FileWriter(lFilePath,true)) {
+			AutomationLogger.info("Writing json to file "+pFileToWrite);
+			file.write(pObjectToWrite+"\n");
+			file.flush();
+
+		} catch (IOException e) {
+			AutomationLogger.fatal("Unable to write file "+pFileToWrite);
+		}
+	}
+	public String getMapKey() {
+		return l_map_key;
+	}public void setMapKey(String pMapKey) {
+		l_map_key = pMapKey;
 	}
 }
