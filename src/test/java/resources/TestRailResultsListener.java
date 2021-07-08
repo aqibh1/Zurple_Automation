@@ -170,7 +170,7 @@ public class TestRailResultsListener implements ITestListener{
 			AutomationLogger.info(post_results.toString());
 //			isUpdatedSuccessfully = verifyStatusIsUpdated(pResultObj);
 		} catch (IOException | APIException e) {
-			AutomationLogger.error(e.getMessage());
+			AutomationLogger.fatal(e.getMessage());
 			isUpdatedSuccessfully = false;
 		} 
 		return isUpdatedSuccessfully;
@@ -184,7 +184,8 @@ public class TestRailResultsListener implements ITestListener{
 		if(pTestId!=null && !pTestId.isEmpty()) {
 			test_ids_hash.put(pTestName, pTestId);
 		}else {
-			writeStringToFile("\\resources\\testrail_mapping\\missing_tests.txt",pTestName);
+//			writeStringToFile("\\resources\\testrail_mapping\\missing_tests.txt",pTestName);
+			AutomationLogger.fatal("Unable to populate Hash Map");
 		}
 	}
 	private String getTestCaseId(long pThreadId, String pTestName) {
