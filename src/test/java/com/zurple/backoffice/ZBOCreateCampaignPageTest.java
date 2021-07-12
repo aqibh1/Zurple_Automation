@@ -184,6 +184,8 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		softAssert.assertTrue(page.getSuccessAlert().clickOnOverrideButton());
 		assertTrue(page.getSuccessAlert().isSuccessMessageVisible(), "Success message is not displayed");
 		assertTrue(page.getSuccessAlert().clickOnOkButton(), "Unable to click on ok button");
+		String lCampaign_ID = driver.getCurrentUrl().split("enroll/")[1];
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignID, lCampaign_ID);
 	}
 	
 	/**
@@ -193,7 +195,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	@Test
 	public void testVerifyLeadsAreEnrolledSuccessfully() {
 		AutomationLogger.info("Waiting for leads to get enrolled.. 30 seconds wait");
-		ActionHelper.staticWait(60);
+		ActionHelper.staticWait(120);
 		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on view recipients button");
 		assertTrue(page.getZboLeadListform().isEnrolledInCampaignForm(),"Enrolled in campaign form is not opened..");
 		assertTrue(page.verifyLeadsAreEnrolled(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsList)), "Unable to uncheck the lead");	
@@ -250,6 +252,25 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertFalse(verifyEnrolledLeadCount(), "Unable to verify lead count..");
 	}
 	
+	/**
+	 * Verify that if invalid email is provided in individual recipient then validation should trigger
+	 * 39831
+	 */
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyValidationIsTriggeredForInvalidLeadEmail(String pDataFile) {
+		getPage("/campaigns/create");
+		dataObject = getDataFile(pDataFile);
+		selectTemplatePreCondition();
+		fillCampaignNameAndDescriptionPreCondition(dataObject);
+		assertTrue(page.clickOnIndividualLeadOption(), "Unable to click on individual lead option");
+		assertTrue(page.typeEmailAddress("xyz@xyz.com"), "Unable to type the invalid lead");
+		assertTrue(page.clickOnEnrollButton(), "Unable to click on enroll button");
+		assertTrue(page.isEmailVerificationAlertIsTriggered(), "Email verification alert is not triggered");
+		assertTrue(page.verifyInputEmailTurnsRed(), "The input field border is not red after the validation");
+		String lCampaign_ID = driver.getCurrentUrl().split("enroll/")[1];
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignID, lCampaign_ID);
+	}
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {
 			throw new SkipException("Automation template cannot be added to campaign..");

@@ -89,6 +89,12 @@ public class ZBOCreateCampaignPage extends Page{
 	@FindBy(id="unenroll-all-button")
 	WebElement unenroll_all_button;
 	
+	@FindBy(id="toemail")
+	WebElement toemail;
+	
+	@FindBy(xpath="//div[@role='alert']/strong[text()='Please verify the email address you have entered belongs to one of your active leads.']")
+	WebElement email_verify_Alert;
+	
 	ZBOAddTemplateForm zboAddTemplateForm;
 	ZBOLeadListForm zboLeadListform;
 	ZBOSucessAlert successalert;
@@ -270,5 +276,17 @@ public class ZBOCreateCampaignPage extends Page{
 	}
 	public boolean clickOnUnenrollButton() {
 		return ActionHelper.Click(driver, unenroll_all_button);
+	}
+	public boolean clickOnIndividualLeadOption() {
+		return ActionHelper.Click(driver, massemail_type_lead);
+	}
+	public boolean typeEmailAddress(String pEmail) {
+		return ActionHelper.Type(driver, toemail, pEmail);
+	}
+	public boolean isEmailVerificationAlertIsTriggered() {
+		return ActionHelper.waitForElementToBeVisible(driver, email_verify_Alert, 20);
+	}
+	public boolean verifyInputEmailTurnsRed() {
+		return ActionHelper.getCssValueOfTheElement(driver, toemail, "border-color").equalsIgnoreCase("rgb(169, 68, 66)");
 	}
 }
