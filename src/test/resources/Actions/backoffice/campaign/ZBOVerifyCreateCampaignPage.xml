@@ -30,6 +30,7 @@
 						<include name="testVerifyLeadsDoesntUnEnrolledFromCurrentlyEnrolledPanelOnCancel" />
 						<include name="testVerifyLeadsGetUnEnrolledFromCurrentlyEnrolledPanel" />
 						<include name="testVerifyUnenrollButtonUnenrollLeadsFromCampaign" />
+						<include name="testDeleteCampaign" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
