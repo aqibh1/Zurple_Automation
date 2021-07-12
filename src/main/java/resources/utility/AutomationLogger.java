@@ -43,8 +43,10 @@ public class AutomationLogger {
 	 // Need to create these methods, so that they can be called  
 	 
 	 public static void info(String message) {
-	 
-		 AutomationLogger.info("-----=====" +message+ "=====-----");
+		int line_numeber = Thread.currentThread().getStackTrace()[2].getLineNumber();
+		 String l_class_name = Thread.currentThread().getStackTrace()[2].getFileName();
+
+		 AutomationLogger.info(l_class_name+":"+line_numeber+"-----=====" +message+ "=====-----");
 		 Reporter.log("-----=====" +message+ "=====-----");
 	 
 	 }
@@ -63,7 +65,7 @@ public class AutomationLogger {
 	 
 	 public static void fatal(String message) {
 	 
-		 AutomationLogger.fatal(message);
+		 AutomationLogger.fatal("-----FATAL=====" +message+ "=====FATAL-----");
 	 
 	 }
 	 
