@@ -6,6 +6,7 @@
 		<listener
 			class-name="resources.ZurpleReporter.ScreenshotTaker" />
 		<listener class-name="resources.CustomTestNGReporter" />
+		<listener class-name="resources.TestRailResultsListener" />
 	</listeners>
 
 	<test name="Verifications on Template manager page">
@@ -14,8 +15,9 @@
 					<methods>
 						<include name="testVerifyTemplateManagerHeadingIsDisplayed" />
 						<include name="testVerifyTemplateNameLinkAreDisplayed" />
-						<include name="testVerifyPreviewIsDisplayedWhenTemplateNameIsClicked" />
 						<include name="testVerifySortingIsWorkingForColumns" />
+						<include name="testVerifyPreviewIsDisplayedWhenTemplateNameIsClicked" />
+						
 					</methods>
 				</class>
 			</classes>
