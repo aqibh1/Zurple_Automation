@@ -268,8 +268,53 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertTrue(page.clickOnEnrollButton(), "Unable to click on enroll button");
 		assertTrue(page.isEmailVerificationAlertIsTriggered(), "Email verification alert is not triggered");
 		assertTrue(page.verifyInputEmailTurnsRed(), "The input field border is not red after the validation");
-		String lCampaign_ID = driver.getCurrentUrl().split("enroll/")[1];
-		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignID, lCampaign_ID);
+		cacheCampaignId();
+	}
+	
+	/**
+	 * @param pDataFile
+	 * Verify that user can add multiple templates to a campaign
+	 * 39846
+	 */
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyMultipleTemplatesAreAdded(String pDataFile) {
+		getPage("/campaigns/create");
+		dataObject = getDataFile(pDataFile);
+		assertTrue(page.clickAndSelectMultipleTemplate(), "Unable to select mutiple templates");
+		fillCampaignNameAndDescriptionPreCondition(dataObject);
+		assertTrue(page.getAddedTemplatesCount()==2, "Multiple Templates are not added in the campaign");
+		cacheCampaignId();
+	}
+	
+	/**
+	 * Verify that recipient panel should not appear until changes are saved
+	 * 39852
+	 */
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyRecipientsOptionsAreVisibleAfterClickingSave(String pDataFile) {
+		getPage("/campaigns/create");
+		dataObject = getDataFile(pDataFile);
+		selectTemplatePreCondition();
+		assertFalse(page.verifyRecipientsOptionsAreVisible(), "Recipients options are visible before clicking on save button");
+		fillCampaignNameAndDescriptionPreCondition(dataObject);
+		assertTrue(page.verifyRecipientsOptionsAreVisible(), "Recipients options are not visible after clicking on save button");
+	}
+	
+	/**
+	 * Verify that user can rearrange priority of campaigns by drag and drop
+	 * 39847
+	 */
+	@Test
+	public void testVerifyCampaignPriorityGetsChanged() {
+		String row_0_template_before = page.getRow0TemplateId();
+		String row_1_template_before = page.getRow1TemplateId();
+		assertTrue(page.dragRow1ToRow0(), "Unable to drag and drop row 01 of template");
+		assertTrue(page.clickOnSaveButton(),"Unable to click on save button");
+		assertTrue(new ZBOSucessAlert(driver).clickOnOkButton(), "Unable to click on OK button..");
+		assertFalse(row_0_template_before.equalsIgnoreCase(page.getRow0TemplateId()), "Priority is not changed");
+		assertFalse(row_1_template_before.equalsIgnoreCase(page.getRow1TemplateId()), "Priority is not changed");
 	}
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {
@@ -337,5 +382,8 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 			throw new SkipException("Campaign Name and description could not be saved..");
 		}
 	}
-	
+	private void cacheCampaignId() {
+		String lCampaign_ID = driver.getCurrentUrl().split("enroll/")[1];
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignID, lCampaign_ID);
+	}
 }

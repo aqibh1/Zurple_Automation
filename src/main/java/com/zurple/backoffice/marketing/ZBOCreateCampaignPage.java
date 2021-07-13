@@ -4,6 +4,7 @@
 package com.zurple.backoffice.marketing;
 
 import java.util.List;
+import java.util.Random;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,6 +35,7 @@ public class ZBOCreateCampaignPage extends Page{
 	
 	@FindBy(xpath="//select[@id='templates-select']")
 	WebElement template_options;
+	String template_options_xpath = "//select[@id='templates-select']/option";
 	
 	@FindBy(xpath="//button[text()='Update']")
 	WebElement update_button;
@@ -94,6 +96,15 @@ public class ZBOCreateCampaignPage extends Page{
 	
 	@FindBy(xpath="//div[@role='alert']/strong[text()='Please verify the email address you have entered belongs to one of your active leads.']")
 	WebElement email_verify_Alert;
+	
+	String added_templates_list = "//div[@id='steps_table_wrapper']/descendant::tr[@data-template]";
+	
+	@FindBy(xpath="//div[@id='steps_table_wrapper']/descendant::tr[@id='row-0']")
+	WebElement template_row_0;
+	
+	@FindBy(xpath="//div[@id='steps_table_wrapper']/descendant::tr[@id='row-1']")
+	WebElement template_row_1;
+	
 	
 	ZBOAddTemplateForm zboAddTemplateForm;
 	ZBOLeadListForm zboLeadListform;
@@ -289,4 +300,48 @@ public class ZBOCreateCampaignPage extends Page{
 	public boolean verifyInputEmailTurnsRed() {
 		return ActionHelper.getCssValueOfTheElement(driver, toemail, "border-color").equalsIgnoreCase("rgb(169, 68, 66)");
 	}
+	public int getAddedTemplatesCount() {
+		return ActionHelper.getListOfElementByXpath(driver, added_templates_list).size();
+	}
+	public boolean clickAndSelectMultipleTemplate() {
+		boolean isClicked = false;
+		int index = 0;
+		clickOnAddTemplateButton();
+		if(ActionHelper.isElementVisible(driver, template_options)) {
+			List<WebElement> list_of_options = ActionHelper.getListOfElementByXpath(driver, template_options_xpath);
+			index = generateRandomInteger(list_of_options.size());
+			isClicked = ActionHelper.clickAndSelectByIndex(driver, template_options, template_options_xpath, index);
+			clickOnUpdateButton();
+			int index2 = generateRandomInteger(list_of_options.size(),index);
+			clickOnAddTemplateButton();
+			ActionHelper.isElementVisible(driver, template_options);
+			isClicked = ActionHelper.clickAndSelectByIndex(driver, template_options, template_options_xpath, index2);	
+			clickOnUpdateButton();
+		}
+		return isClicked;
+	}
+	public boolean dragRow1ToRow0() {
+		return ActionHelper.dragAndDrop(driver, template_row_1, template_row_0);
+	}
+	public String getRow0TemplateId() {
+		return ActionHelper.getAttribute(template_row_0, "data-template");
+	}public String getRow1TemplateId() {
+		return ActionHelper.getAttribute(template_row_0, "data-template");
+	}
+	 private int generateRandomInteger(int pUpperRange){
+	    	Random random = new Random();
+	    	int lNum = random.nextInt(pUpperRange);
+	    	if(lNum==pUpperRange) {
+	    		lNum = lNum - 1;
+	    	}else if(lNum==0) {
+	    		lNum++;
+	    	}
+	    	return lNum;
+	} private int generateRandomInteger(int pUpperRange, int pDuplicateNumber){
+		int randNum = 1;
+    	while(randNum==pDuplicateNumber) {
+    		randNum = generateRandomInt(pUpperRange);
+    	}
+    	return randNum;
+}
 }

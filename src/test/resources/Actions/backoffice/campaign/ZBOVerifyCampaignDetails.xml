@@ -1,0 +1,60 @@
+<suite name="Update and Verify User Settings suite"
+	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+		<listener class-name="resources.TestRailResultsListener" />
+	</listeners>
+
+	<test name="Verify Campaign Details">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testVerifyMultipleTemplatesAreAdded" />
+						<include name="testVerifyCampaignPriorityGetsChanged" />
+						<include name="testDeleteCampaign" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
+	
+	<test name="Verify recipients panel is not displayed before save clicking save button">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testVerifyRecipientsOptionsAreVisibleAfterClickingSave" />
+						<include name="testDeleteCampaign" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
+	
+</suite>
+
