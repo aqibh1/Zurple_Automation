@@ -105,6 +105,9 @@ public class ZBOCreateCampaignPage extends Page{
 	@FindBy(xpath="//div[@id='steps_table_wrapper']/descendant::tr[@id='row-1']")
 	WebElement template_row_1;
 	
+	String number_of_days_input = "//input[@name='days_after_last_step["+FrameworkConstants.DYNAMIC_VARIABLE+"]']";
+	
+	String drag_drop_icon = "//td[@class='row-index sorting_1']";
 	
 	ZBOAddTemplateForm zboAddTemplateForm;
 	ZBOLeadListForm zboLeadListform;
@@ -326,7 +329,17 @@ public class ZBOCreateCampaignPage extends Page{
 	public String getRow0TemplateId() {
 		return ActionHelper.getAttribute(template_row_0, "data-template");
 	}public String getRow1TemplateId() {
-		return ActionHelper.getAttribute(template_row_0, "data-template");
+		return ActionHelper.getAttribute(template_row_1, "data-template");
+	}
+	
+	public boolean typeNumberOfDaysInTemplate(String pTemplateId, String pNumOfDays) {
+		return ActionHelper.ClearAndType(driver,ActionHelper.getDynamicElement(driver, number_of_days_input, pTemplateId) , pNumOfDays);
+	}
+	public String getNumberOfDaysInTemplate(String pTemplateId) {
+		return ActionHelper.getTextByValue(driver,ActionHelper.getDynamicElement(driver, number_of_days_input, pTemplateId));
+	}
+	public boolean isDragDropIconVisible() {
+		return ActionHelper.isElementVisible(driver, ActionHelper.getListOfElementByXpath(driver, drag_drop_icon).get(0));
 	}
 	 private int generateRandomInteger(int pUpperRange){
 	    	Random random = new Random();

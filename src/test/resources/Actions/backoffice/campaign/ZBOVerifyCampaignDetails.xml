@@ -20,7 +20,9 @@
 				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
 					<methods>
 						<include name="testVerifyMultipleTemplatesAreAdded" />
+						<include name="testVerifyDragDropIconVisible" />
 						<include name="testVerifyCampaignPriorityGetsChanged" />
+						<include name="testVerifyUserCanProvideNumberOfDays" />
 						<include name="testDeleteCampaign" />
 					</methods>
 				</class>

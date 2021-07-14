@@ -316,6 +316,45 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertFalse(row_0_template_before.equalsIgnoreCase(page.getRow0TemplateId()), "Priority is not changed");
 		assertFalse(row_1_template_before.equalsIgnoreCase(page.getRow1TemplateId()), "Priority is not changed");
 	}
+	
+	/**
+	 * Verify that user can provide number of days after previous templates it should be sent
+	 * 39848
+	 */
+	@Test
+	public void testVerifyUserCanProvideNumberOfDays() {
+		assertTrue(page.typeNumberOfDaysInTemplate(page.getRow0TemplateId(), "2"), "Unable to type number of days for tempate 1");
+		assertTrue(page.typeNumberOfDaysInTemplate(page.getRow1TemplateId(), "5"), "Unable to type number of days for tempate 1");
+		assertTrue(page.clickOnSaveButton(),"Unable to click on save button");
+		assertTrue(new ZBOSucessAlert(driver).clickOnOkButton(), "Unable to click on OK button..");
+		assertTrue(page.getNumberOfDaysInTemplate(page.getRow0TemplateId()).equalsIgnoreCase("2"), "Number of days value not saved");
+		assertTrue(page.getNumberOfDaysInTemplate(page.getRow1TemplateId()).equalsIgnoreCase("5"), "Number of days value not saved");
+	}
+	
+	/**
+	 * Verify that drag and drop icon should be shown with templates
+	 * 39860
+	 */
+	@Test
+	public void testVerifyDragDropIconVisible() {
+		assertTrue(page.isDragDropIconVisible(), "Drag drop icon is not visible..");
+	}
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyOverirdeModalAppearsIfLeadsAreEnrolledInCampaign(String pDataFile) {
+		getPage("/campaigns/create");
+		dataObject = getDataFile(pDataFile);
+		selectTemplatePreCondition();
+		fillCampaignNameAndDescriptionPreCondition(dataObject);
+		page.clickOnAllLeadsCommunicated();
+		assertTrue(page.clickOnMatchingLeadButton(), "Unable to click on matchin lead button..");
+		page.clickOnEnrollButton();
+		assertTrue(page.clickOnMatchingLeadButton(), "Unable to click on matchin lead button..");
+		ActionHelper.staticWait(3);
+		assertTrue(page.getSuccessAlert().isSuccessMessageVisible(), "Success message is not displayed");
+		assertTrue(page.getSuccessAlert().clickOnOkButton(), "Unable to click on ok button");
+
+	}
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {
 			throw new SkipException("Automation template cannot be added to campaign..");
