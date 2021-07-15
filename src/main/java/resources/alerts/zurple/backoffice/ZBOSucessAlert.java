@@ -58,6 +58,9 @@ public class ZBOSucessAlert extends AbstractAlert{
 	@FindBy(xpath="//button[text()='Override']")
 	WebElement override_button;
 	
+	@FindBy(id="swal2-content")
+	WebElement override_modal_text;
+	
 	
 	public ZBOSucessAlert() {
 		
@@ -127,5 +130,11 @@ public class ZBOSucessAlert extends AbstractAlert{
 			isClicked = ActionHelper.Click(driver, override_button);
 		}
 		return isClicked;
+	}
+	public boolean waitForOverrideButton() {
+		return ActionHelper.waitForElementToBeVisible(driver, override_button, 30);
+	}
+	public String getOverrideModalText() {
+		return ActionHelper.getText(driver, override_modal_text);
 	}
 }

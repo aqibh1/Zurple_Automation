@@ -339,6 +339,12 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	public void testVerifyDragDropIconVisible() {
 		assertTrue(page.isDragDropIconVisible(), "Drag drop icon is not visible..");
 	}
+	
+	/**
+	 * @param pDataFile
+	 * Verify override modal appears if leads are already enrolled in campaign
+	 * 39864
+	 */
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyOverirdeModalAppearsIfLeadsAreEnrolledInCampaign(String pDataFile) {
@@ -346,15 +352,29 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		dataObject = getDataFile(pDataFile);
 		selectTemplatePreCondition();
 		fillCampaignNameAndDescriptionPreCondition(dataObject);
-		page.clickOnAllLeadsCommunicated();
+		enrollLeadsInCampaignPreCondition();
+		ActionHelper.staticWait(150);
+		assertTrue(page.clickOnAllLeadsCommunicated(), "Unable to click on recipients option..");
 		assertTrue(page.clickOnMatchingLeadButton(), "Unable to click on matchin lead button..");
-		page.clickOnEnrollButton();
-		assertTrue(page.clickOnMatchingLeadButton(), "Unable to click on matchin lead button..");
-		ActionHelper.staticWait(3);
-		assertTrue(page.getSuccessAlert().isSuccessMessageVisible(), "Success message is not displayed");
-		assertTrue(page.getSuccessAlert().clickOnOkButton(), "Unable to click on ok button");
-
+		ActionHelper.staticWait(5);
+		assertTrue(page.getZboLeadListform().isLeadListForm(),"Lead list form is not opened..");
+		int l_lead_count = page.getZboLeadListform().getLeadsListCount();
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount, l_lead_count);
+		assertTrue(page.getZboLeadListform().clickOnSaveButton(),"Unable to click on cancel button..");
+		assertTrue(page.getSuccessAlert().waitForOverrideButton(), "Override modal is not displayed");	
 	}
+	
+	/**
+	 * Verify that override modal shows the count of leads to be overriden correctly
+	 * 39867
+	 */
+	@Test
+	public void testVerifyOverrideModalShowCorrectLeadCount() {
+		String l_overirde_modal_text = page.getSuccessAlert().getOverrideModalText();
+		String l_lead_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount);
+		assertTrue(l_overirde_modal_text.contains(l_lead_count),"Correct count of lead is not found "+l_lead_count);
+	}
+	
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {
 			throw new SkipException("Automation template cannot be added to campaign..");
