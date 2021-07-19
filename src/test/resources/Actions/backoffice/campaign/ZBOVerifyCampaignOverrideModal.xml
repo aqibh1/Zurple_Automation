@@ -21,6 +21,8 @@
 					<methods>
 						<include name="testVerifyOverirdeModalAppearsIfLeadsAreEnrolledInCampaign" />
 						<include name="testVerifyOverrideModalShowCorrectLeadCount" />
+						<include name="testVerifySkipButtonDoesnotEnrollLeads" />
+						<include name="testVerifyOverrideButtonDoesEnrollLeads" />
 						<include name="testDeleteCampaign" />
 					</methods>
 				</class>

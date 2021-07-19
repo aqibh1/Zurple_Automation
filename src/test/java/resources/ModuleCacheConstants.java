@@ -51,5 +51,6 @@ public class ModuleCacheConstants {
 	public static final String blurbTitle = "blurb.title";
 	public static final String ZurpleAdId = "zurple.zbo.ad.id";
 	public static final String ZurpleLeadsList = "zurpe.zbo.marketing.campaigns.lead.list";
-	public static final String ZurpleLeadsCount = "zurpe.zbo.marketing.campaigns.lead.list.count";;
+	public static final String ZurpleLeadsCount = "zurpe.zbo.marketing.campaigns.lead.list.count";
+	public static final String ZurpleLeadsListName = "zurpe.zbo.marketing.campaigns.lead.list.name";
 }

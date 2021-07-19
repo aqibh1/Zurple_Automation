@@ -101,12 +101,22 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		page=null;
 		getPage("/campaigns");
 		String lc_campaign_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignID);
+		if(lc_campaign_id.contains(",")) {
+			String l_campaign_ids[] = lc_campaign_id.split(",");
+			for(int i=0;i<l_campaign_ids.length;i++) {
+				deleteCampaign(l_campaign_ids[i]);
+			}
+		}else {
+			deleteCampaign(lc_campaign_id);
+		}
+	}
+	
+	private void deleteCampaign(String pCampaignid) {
 		page = null;
-		getPage("/campaigns/enroll/"+lc_campaign_id);
+		getPage("/campaigns/enroll/"+pCampaignid);
 		ZBOCampaignPage campaignPage = new ZBOCampaignPage(driver);
 		assertTrue(campaignPage.isCampaignDetailPage(), "Campaign Page is not visible..");
 		assertTrue(campaignPage.deleteCampaign(), "Unable to delete the campaign..");
-		
 	}
 	
 	/**
@@ -348,18 +358,23 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyOverirdeModalAppearsIfLeadsAreEnrolledInCampaign(String pDataFile) {
+		addCampaignPreCondition(pDataFile);
+		page=null;
 		getPage("/campaigns/create");
 		dataObject = getDataFile(pDataFile);
 		selectTemplatePreCondition();
 		fillCampaignNameAndDescriptionPreCondition(dataObject);
-		enrollLeadsInCampaignPreCondition();
-		ActionHelper.staticWait(150);
-		assertTrue(page.clickOnAllLeadsCommunicated(), "Unable to click on recipients option..");
+//		enrollLeadsInCampaignPreCondition();
+		ActionHelper.staticWait(60);
+		cacheCampaignId();
+		assertTrue(page.clickOnAllLeadsStatusClient(), "Unable to click on recipients option..");
 		assertTrue(page.clickOnMatchingLeadButton(), "Unable to click on matchin lead button..");
 		ActionHelper.staticWait(5);
 		assertTrue(page.getZboLeadListform().isLeadListForm(),"Lead list form is not opened..");
 		int l_lead_count = page.getZboLeadListform().getLeadsListCount();
-		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount, l_lead_count);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount, Integer.toString(l_lead_count));
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsList, page.getMatchingLeads());
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName, page.getLeadsName());
 		assertTrue(page.getZboLeadListform().clickOnSaveButton(),"Unable to click on cancel button..");
 		assertTrue(page.getSuccessAlert().waitForOverrideButton(), "Override modal is not displayed");	
 	}
@@ -375,6 +390,32 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertTrue(l_overirde_modal_text.contains(l_lead_count),"Correct count of lead is not found "+l_lead_count);
 	}
 	
+	/**
+	 * Verify that if skipped then leads are kept enrolled in existing campaign
+	 * 39866
+	 */
+	@Test
+	public void testVerifySkipButtonDoesnotEnrollLeads() {
+		assertTrue(page.getSuccessAlert().clickSkipButton(), "Unable to click on skip button..");
+		assertTrue(new ZBOSucessAlert(driver).clickOnOkButton(), "Unable to click on OK button..");
+		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on currently enrolled leads..");
+		ActionHelper.staticWait(5);
+		assertFalse(page.isLeadEnrolledInTheList(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");	
+//		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName, page.getLeadsName());
+	}
+	
+	@Test
+	public void testVerifyOverrideButtonDoesEnrollLeads() {
+		assertTrue(page.getZboLeadListform().clickOnSaveButton(),"Unable to click on cancel button..");
+		assertTrue(page.clickOnEnrollButton(), "Unable to click on enroll bbutton");
+		assertTrue(page.getSuccessAlert().clickOnOverrideButton(), "Unable to click on override button..");
+		assertTrue(new ZBOSucessAlert(driver).clickOnOkButton(), "Unable to click on OK button..");
+		ActionHelper.staticWait(60);
+		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on currently enrolled leads..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.isLeadEnrolledInTheList(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");	
+
+	}
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {
 			throw new SkipException("Automation template cannot be added to campaign..");
@@ -431,6 +472,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 			int l_lead_count = page.getZboLeadListform().getLeadsListCount();
 			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsList, page.getMatchingLeads());
 			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount, l_lead_count);
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName, page.getLeadsName());
 			assertTrue(page.getZboLeadListform().clickOnSaveButton(),"Unable to click on cancel button..");
 			SoftAssert softAssert = new SoftAssert();
 			ActionHelper.staticWait(3);
@@ -443,6 +485,21 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	}
 	private void cacheCampaignId() {
 		String lCampaign_ID = driver.getCurrentUrl().split("enroll/")[1];
-		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignID, lCampaign_ID);
+		String lc_campaign_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignID);
+		if(lc_campaign_id==null) {
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignID, lCampaign_ID);
+		}else {
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignID, lCampaign_ID+","+lc_campaign_id);
+		}
+		
+	}
+	private void addCampaignPreCondition(String pDataFile) {
+		getPage("/campaigns/create");
+		dataObject = getDataFile(pDataFile);
+		selectTemplatePreCondition();
+		fillCampaignNameAndDescriptionPreCondition(dataObject);
+		enrollLeadsInCampaignPreCondition();
+		cacheCampaignId();
+		assertTrue(page.clickOnSaveButton(), "Unable to save campaign");
 	}
 }

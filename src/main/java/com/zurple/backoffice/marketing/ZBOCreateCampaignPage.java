@@ -3,6 +3,7 @@
  */
 package com.zurple.backoffice.marketing;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -233,6 +234,15 @@ public class ZBOCreateCampaignPage extends Page{
 	public List<WebElement> getMatchingLeads(){
 		return ActionHelper.getListOfElementByXpath(driver, matching_lead_list);
 	}
+	public List<String> getLeadsName(){
+		List<WebElement> list_element = getMatchingLeads();
+		List<String> name_list = new ArrayList<String>();
+		for(int i=0;i<list_element.size();i++) {
+			String l_lead_name = ActionHelper.getText(driver, list_element.get(i));
+			name_list.add(i, l_lead_name);
+		}
+		return name_list;
+	}
 	public boolean clickOnViewRecipientsButton() {
 		return ActionHelper.Click(driver, view_recipients_button);
 	}
@@ -340,6 +350,23 @@ public class ZBOCreateCampaignPage extends Page{
 	}
 	public boolean isDragDropIconVisible() {
 		return ActionHelper.isElementVisible(driver, ActionHelper.getListOfElementByXpath(driver, drag_drop_icon).get(0));
+	}
+	public boolean isLeadEnrolledInTheList(List<WebElement> pViewEnrolledList,List<String> pViewMatchingList ) {
+		boolean isFound = false;
+		for(int i=0;i<pViewMatchingList.size();i++) {
+			String l_matching_enrolled_lead = pViewMatchingList.get(i);
+			for(int j=0;j<pViewEnrolledList.size();j++) {
+				String l_view_enrolled_lead = ActionHelper.getText(driver,pViewEnrolledList.get(j));
+				if(l_matching_enrolled_lead.equalsIgnoreCase(l_view_enrolled_lead)) {
+					isFound = true;
+					break;
+				}
+			}
+			if(!isFound) {
+				break;
+			}
+		}
+		return isFound;
 	}
 	 private int generateRandomInteger(int pUpperRange){
 	    	Random random = new Random();
