@@ -3554,6 +3554,76 @@
 		</parameter>
 	</test>  	
 	
+	<test name="Verifications on Template manager page">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOTemplateManagerPageTest">
+					<methods>
+						<include name="testVerifyTemplateManagerHeadingIsDisplayed" />
+						<include name="testVerifyTemplateNameLinkAreDisplayed" />
+						<include name="testVerifySortingIsWorkingForColumns" />
+						<include name="testVerifyPreviewIsDisplayedWhenTemplateNameIsClicked" />
+						
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+	<test name="Verifications on Create campaign page">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testVerifyCorrectTemplatePreviewIsShownBeforeSavingCampaign" />
+						<include name="testVerifyValidationIsTriggeredForEmptyCampaignName" />
+						<include name="testVerifyCorrectTemplatePreviewIsShownAfterSavingCampaign" />
+						<include name="testVerifyLimitedRecipientsOptionsAreVisible" />
+						<include name="testVerifyMatchingLeadsAreShown" />
+						<include name="testVerifySuccessMessageIsDisplayedWehnEnrolledIsClicked" />
+						<include name="testVerifyLeadsAreEnrolledSuccessfully" />
+						<include name="testVerifyLeadCounterHasIncreased" />
+						<include name="testVerifyLeadsDoesntUnEnrolledFromCurrentlyEnrolledPanelOnCancel" />
+						<include name="testVerifyLeadsGetUnEnrolledFromCurrentlyEnrolledPanel" />
+						<include name="testVerifyUnenrollButtonUnenrollLeadsFromCampaign" />
+						<include name="testDeleteCampaign" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
+	
+	<test name="Verify validation is working on Campaigns Page">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testVerifyValidationIsTriggeredForInvalidLeadEmail" />
+						<include name="testDeleteCampaign" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
+	
 	<test name="Checking phone number text on dashboard">
     <parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-track-phoneNumber.json">
     <classes>

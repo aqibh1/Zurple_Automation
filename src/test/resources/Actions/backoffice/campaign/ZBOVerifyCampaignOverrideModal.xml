@@ -9,32 +9,6 @@
 		<listener class-name="resources.TestRailResultsListener" />
 	</listeners>
 
-	<test name="Verify Campaign Details">
-	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
-			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-				<methods>
-					<include name="testBackOfficeLogin" />
-				</methods>
-			</class>
-				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
-					<methods>
-						<include name="testVerifyMultipleTemplatesAreAdded" />
-						<include name="testVerifyDragDropIconVisible" />
-						<include name="testVerifyCampaignPriorityGetsChanged" />
-						<include name="testVerifyUserCanProvideNumberOfDays" />
-						<include name="testDeleteCampaign" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-				<methods>
-					<include name="closeBrowser" />
-				</methods>
-			</class>
-			</classes>
-			</parameter>
-	</test>
-	
 	<test name="Verify recipients panel is not displayed before save clicking save button">
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
 			<classes>
@@ -45,7 +19,10 @@
 			</class>
 				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
 					<methods>
-						<include name="testVerifyRecipientsOptionsAreVisibleAfterClickingSave" />
+						<include name="testVerifyOverirdeModalAppearsIfLeadsAreEnrolledInCampaign" />
+						<include name="testVerifyOverrideModalShowCorrectLeadCount" />
+						<include name="testVerifySkipButtonDoesnotEnrollLeads" />
+						<include name="testVerifyOverrideButtonDoesEnrollLeads" />
 						<include name="testDeleteCampaign" />
 					</methods>
 				</class>
@@ -57,6 +34,5 @@
 			</classes>
 			</parameter>
 	</test>
-	
 </suite>
 
