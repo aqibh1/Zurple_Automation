@@ -1619,6 +1619,34 @@
     </classes>
    </test>
    
+   <test name="Create lead update and verify status">
+		<parameter name="addLeadData"
+			value="/resources/data/zurple/backoffice/zurple-add-lead-status.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+					<methods>
+						<include name="testAddLead" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testUpdateLeadDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+   
    <test name="Assignment of lead from Add Lead Page" >	
 	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-lead-assign-agent-from-lead-data.json"> 
 			<classes>
@@ -2394,6 +2422,22 @@
 					</methods>
 				</class>
 			</classes>
+			
+	</test>
+	
+	<test name="Verify lead Replies">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+				<methods>
+					<include name="testVerifyLeadReplies" />
+				</methods>
+			</class>
+			<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+			</class>
+		</classes>
 	</test>
 	<!--  
 	<test name="Create and Verify Buyer Leads Custom Ad">

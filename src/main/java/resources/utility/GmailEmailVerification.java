@@ -66,12 +66,13 @@ public class GmailEmailVerification {
 					   SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY");
 					   String subject = message.getSubject();
 					   AutomationLogger.info("Subject :: "+subject);
-					   if (subject != null && subject.contains(pSubjectToVerify) && getTodaysDate(0).equalsIgnoreCase(sdf.format(date).toString())) {
+					   if (subject != null && subject.contains(pSubjectToVerify) /*&& getTodaysDate(0).equalsIgnoreCase(sdf.format(date).toString())*/) {
 						   AutomationLogger.info("Subject: " + subject);
 						   if(pReplyToEmail) {
 							   isEmailSent = replyToEmail(message, pEmailAddressToReply, session, pEmail, pAppPassword);
+							   break;
 						   }else {
-							   isEmailSent = true;
+							   isEmailSent = false;
 							   break;
 						   }
 					   }
