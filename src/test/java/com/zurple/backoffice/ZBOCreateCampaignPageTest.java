@@ -35,6 +35,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOCreateCampaignPage(driver);
+			page.setUrl("");
 			page.setDriver(driver);
 		}
 		return page;
