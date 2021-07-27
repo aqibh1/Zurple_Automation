@@ -11,9 +11,9 @@
 	<test name="Verify VLC settings">
 		<!-- <parameter name="FBDataFile" value="/resources/data/zurple/backoffice/social/z-social-fb-posts-data.json">-->
 		<classes>
-			<class name="com.zurple.backoffice.ZBOVariableLeadCapturePageTest">
+			<class name="com.zurple.website.ZWVariableLeadCapturePageTest">
 				<methods>
-	 	  			<include name="testVerifyVLCSettings" />
+	 	  			<include name="testVerifyVLCModal" />
 				</methods>
 			</class>
 		</classes>

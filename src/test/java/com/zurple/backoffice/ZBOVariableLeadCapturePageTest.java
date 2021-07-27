@@ -63,9 +63,13 @@ public class ZBOVariableLeadCapturePageTest extends PageTest{
 	
 	@Test
 	public void testVerifyVLCSettings() {
-		page=null;
-		getPage("/pagemgr/leadcapture/site_id/6263");
-		page.selectPageViews("");
+//		page=null;
+//		getPage("/pagemgr/leadcapture/site_id/6263");
+////		page.selectPageViews("");
+//		
+//		getPage();
+//		page.pageViews0();
+		
 	}
 	
 }

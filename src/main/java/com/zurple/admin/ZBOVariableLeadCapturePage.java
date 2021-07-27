@@ -22,7 +22,13 @@ public class ZBOVariableLeadCapturePage extends Page {
 	@FindBy(id="update")
 	WebElement submit_button;
 	
+	@FindBy(className="close")
+	WebElement close_button;
 	
+	@FindBy(className="btn-zurple-tinted")
+	WebElement case0;
+		
+	String case1 = "property-photo-grid";
 	
 	public ZBOVariableLeadCapturePage() {
 		
@@ -42,10 +48,8 @@ public class ZBOVariableLeadCapturePage extends Page {
 	}
 	
 	public boolean SubmitVLCSettings() {
-		
 		return ActionHelper.Click(driver, submit_button);
 	}
-	
 	
 }
 	
