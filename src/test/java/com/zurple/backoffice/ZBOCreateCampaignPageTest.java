@@ -177,6 +177,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertTrue(l_lead_count>0, "No matching leads found");
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsList, page.getMatchingLeads());
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount, l_lead_count);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName, page.getLeadsName());
 		ActionHelper.staticWait(3);
 		assertTrue(page.getZboLeadListform().clickOnCancelButton(), "Unable to click on cancel button");
 		ActionHelper.staticWait(3);
@@ -208,7 +209,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		ActionHelper.staticWait(120);
 		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on view recipients button");
 		assertTrue(page.getZboLeadListform().isEnrolledInCampaignForm(),"Enrolled in campaign form is not opened..");
-		assertTrue(page.verifyLeadsAreEnrolled(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsList)), "Unable to uncheck the lead");	
+		assertTrue(page.isLeadEnrolledInTheList(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Unable to uncheck the lead");	
 	}
 	
 	/**
@@ -404,6 +405,10 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 //		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName, page.getLeadsName());
 	}
 	
+	/**
+	 * Verify that if override is selected then lead is enrolled to new campaign
+	 * 39865
+	 */
 	@Test
 	public void testVerifyOverrideButtonDoesEnrollLeads() {
 		assertTrue(page.getZboLeadListform().clickOnSaveButton(),"Unable to click on cancel button..");
