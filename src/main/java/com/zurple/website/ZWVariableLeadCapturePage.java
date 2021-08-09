@@ -14,8 +14,7 @@ public class ZWVariableLeadCapturePage extends Page {
 		@FindBy(id="update")
 		WebElement submit_button;
 		
-		@FindBy(className="close")
-		WebElement close_button;
+		String close_button = "close";
 		
 		@FindBy(className="btn-zurple-tinted")
 		WebElement case0;
@@ -25,7 +24,7 @@ public class ZWVariableLeadCapturePage extends Page {
 		@FindBy(xpath="//a[@title='next property']")
 		WebElement case2;
 		
-		@FindBy(className="modal-title")
+		@FindBy(xpath="//div[@class='modal-header']/descendant::h4[@class='modal-title']")
 		WebElement lc_title;
 		
 		@FindBy(xpath="//div[@class='form-element-input']/descendant::select[@id='pageviews_before_lead_capture']")
@@ -49,7 +48,12 @@ public class ZWVariableLeadCapturePage extends Page {
 
 		@FindBy(xpath="//h3[contains(text(),' Zurple Log In')]")
 		WebElement zurpleLoginHeading;
-
+		
+		@FindBy(className="left")
+		WebElement VLC_header;
+		
+		@FindBy(className="register-form-header")
+		WebElement register_header;
 		
 		@Override
 		public WebElement getHeader() {
@@ -78,8 +82,12 @@ public class ZWVariableLeadCapturePage extends Page {
 			PageFactory.initElements(driver, this);
 		}
 				
-		public boolean checkViewsAndMethod() {
-			return ActionHelper.waitForElementToBeClickAble(driver, close_button);
+		public boolean checkViewsAndMethod(int index) {
+			if(ActionHelper.ClickByIndex(driver, close_button, index)) {
+				return true;
+			} else {
+				return false; 
+			}
 		}
 		
 		public boolean pageViews(String views) {
@@ -94,6 +102,7 @@ public class ZWVariableLeadCapturePage extends Page {
 				case "1":
 					ActionHelper.Click(driver, case0);
 					ActionHelper.ClickByXpathIndex(driver, case1, 0);
+					ActionHelper.waitForElementToBeVisible(driver, lc_title, 30);
 					if(ActionHelper.getText(driver, lc_title).contains("Register")) {
 						isSuccessful = true;
 					}
@@ -102,6 +111,7 @@ public class ZWVariableLeadCapturePage extends Page {
 					ActionHelper.Click(driver, case0);
 					ActionHelper.ClickByXpathIndex(driver, case1, 0);
 					ActionHelper.Click(driver, case2);
+					ActionHelper.waitForElementToBeVisible(driver, lc_title, 30);
 					if(ActionHelper.getText(driver, lc_title).contains("Register")) {
 						isSuccessful = true;
 					}
@@ -111,7 +121,7 @@ public class ZWVariableLeadCapturePage extends Page {
 					ActionHelper.ClickByXpathIndex(driver, case1, 0);
 					ActionHelper.Click(driver, case2);
 					ActionHelper.Click(driver, case2);
-					String text = ActionHelper.getText(driver, lc_title);
+					ActionHelper.waitForElementToBeVisible(driver, lc_title, 30);
 					if(ActionHelper.getText(driver, lc_title).contains("Register")) {
 						isSuccessful = true;
 					}
@@ -122,6 +132,7 @@ public class ZWVariableLeadCapturePage extends Page {
 					ActionHelper.Click(driver, case2);
 					ActionHelper.Click(driver, case2);
 					ActionHelper.Click(driver, case2);
+					ActionHelper.waitForElementToBeVisible(driver, lc_title, 30);
 					if(ActionHelper.getText(driver, lc_title).contains("Register")) {
 						isSuccessful = true;
 					}
@@ -133,7 +144,70 @@ public class ZWVariableLeadCapturePage extends Page {
 					ActionHelper.Click(driver, case2);
 					ActionHelper.Click(driver, case2);
 					ActionHelper.Click(driver, case2);
+					ActionHelper.waitForElementToBeVisible(driver, lc_title, 30);
 					if(ActionHelper.getText(driver, lc_title).contains("Register")) {
+						isSuccessful = true;
+					}
+					break;
+			}
+			return isSuccessful;
+		}
+		
+		public boolean pageViewsForRegister(String views) {
+			boolean isSuccessful = false;
+			switch(views) {
+				case "0":
+					if(ActionHelper.getText(driver, register_header).contains("ENGINE")) {
+						isSuccessful = true;
+					}
+					break;
+				case "1":
+					ActionHelper.Click(driver, case0);
+					ActionHelper.ClickByXpathIndex(driver, case1, 0);
+					ActionHelper.waitForElementToBeVisible(driver, register_header, 30);
+					if(ActionHelper.getText(driver, register_header).contains("ENGINE")) {
+						isSuccessful = true;
+					}
+					break;
+				case "2":
+					ActionHelper.Click(driver, case0);
+					ActionHelper.ClickByXpathIndex(driver, case1, 0);
+					ActionHelper.Click(driver, case2);
+					ActionHelper.waitForElementToBeVisible(driver, register_header, 30);
+					if(ActionHelper.getText(driver, register_header).contains("ENGINE")) {
+						isSuccessful = true;
+					}
+					break;
+				case "3":
+					ActionHelper.Click(driver, case0);
+					ActionHelper.ClickByXpathIndex(driver, case1, 0);
+					ActionHelper.Click(driver, case2);
+					ActionHelper.Click(driver, case2);
+					ActionHelper.waitForElementToBeVisible(driver, register_header, 30);
+					if(ActionHelper.getText(driver, register_header).contains("ENGINE")) {
+						isSuccessful = true;
+					}
+					break;
+				case "4":
+					ActionHelper.Click(driver, case0);
+					ActionHelper.ClickByXpathIndex(driver, case1, 0);
+					ActionHelper.Click(driver, case2);
+					ActionHelper.Click(driver, case2);
+					ActionHelper.Click(driver, case2);
+					ActionHelper.waitForElementToBeVisible(driver, register_header, 30);
+					if(ActionHelper.getText(driver, register_header).contains("ENGINE")) {
+						isSuccessful = true;
+					}
+					break;
+				case "5":
+					ActionHelper.Click(driver, case0);
+					ActionHelper.ClickByXpathIndex(driver, case1, 0);
+					ActionHelper.Click(driver, case2);
+					ActionHelper.Click(driver, case2);
+					ActionHelper.Click(driver, case2);
+					ActionHelper.Click(driver, case2);
+					ActionHelper.waitForElementToBeVisible(driver, register_header, 30);
+					if(ActionHelper.getText(driver, register_header).contains("ENGINE")) {
 						isSuccessful = true;
 					}
 					break;
@@ -168,7 +242,7 @@ public class ZWVariableLeadCapturePage extends Page {
 		}
 		
 		public boolean isLoginSuccessful() {
-			return ActionHelper.waitForElementsToBeFound(driver, searchLead_input);
+			return !ActionHelper.getText(driver, VLC_header).isEmpty();
 		}
 		
 		public ZBONewListingCreateAdAlert getAdAlert() {
@@ -182,13 +256,10 @@ public class ZWVariableLeadCapturePage extends Page {
 				typeUserName(pUsername);
 				typePassword(pPassword);
 				clickLoginButton();
-				isLoginSuccessful = isLoginSuccessful();
-				if(isLoginSuccessful) {
-					getAdAlert().closeCreateAdModal();
+				isLoginSuccessful = isLoginSuccessful();				
 				}
-			}
 			return isLoginSuccessful;
-		}
+		}		
 	}
 		
 		

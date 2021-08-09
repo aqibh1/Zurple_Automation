@@ -13,7 +13,26 @@
 		<classes>
 			<class name="com.zurple.website.ZWVariableLeadCapturePageTest">
 				<methods>
-	 	  			<include name="testVerifyVLCModal" />
+	 	   			<include name="testVerifyVLCModalForSoftViews0" />
+	 	  			<include name="testVerifyVLCModalForSoftViews1" />
+	 	  			<include name="testVerifyVLCModalForSoftViews2" />
+	 	  			<include name="testVerifyVLCModalForSoftViews3" />
+	 	  			<include name="testVerifyVLCModalForSoftViews4" />
+	 	  			<include name="testVerifyVLCModalForSoftViews5" />
+	 	  			<include name="testVerifyVLCModalForStrongViews0" />
+	 	  			<include name="testVerifyVLCModalForStrongViews1" />
+	 	  			<include name="testVerifyVLCModalForStrongViews2" />
+	 	  			<include name="testVerifyVLCModalForStrongViews3" />
+	 	  			<include name="testVerifyVLCModalForStrongViews4" />
+	 	  			<include name="testVerifyVLCModalForStrongViews5" />
+	 	  			<include name="testVerifyVLCModalForRegisterViews0" />
+	 	  			<include name="testVerifyVLCModalForRegisterViews1" />	 	  			
+	 	  			<include name="testVerifyVLCModalForRegisterViews2" />	 	  			
+	 	  			<include name="testVerifyVLCModalForRegisterViews3" />	 	  			
+	 	  			<include name="testVerifyVLCModalForRegisterViews4" />
+	 	  			<include name="testVerifyVLCModalForRegisterViews5" />	
+	 	  			<include name="testVerifyRevertSettings" />	 	 
+	 	  			<include name="closeBrowser" />	 	  				 	  				 	  				 	  			 				 	  				 	  				 	  			
 				</methods>
 			</class>
 		</classes>
