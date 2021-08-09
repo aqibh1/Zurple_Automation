@@ -37,6 +37,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	ZBOMarketingEmailMessagePage page;
 	private WebDriver driver;
 	ZBOLeadDetailPage leadDetailPage;
+	GmailEmailVerification gmailObject = new GmailEmailVerification();
 	String lToEmail;
 	String flyerSubject;
 	String emailSubject;
@@ -200,11 +201,17 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Parameters({"emailReplyData"})
 	public void testPUNS(String pDataFile) {
 		JSONObject lDataObject = getDataFile(pDataFile);
-		GmailEmailVerification gmailObject = new GmailEmailVerification();
     	boolean isSuccessful = gmailObject.isPUNSEmailPresent("auto.zurpleqa@gmail.com", "djfbxtfkdnlczaec", 
     			"New Listing Updates", "aqibstagetesting_zurpleqa@stage01.zengtest6.us", true);
     	assertTrue(isSuccessful, "PUNS email not sent");
 //		testVerifyLeadMessages(lDataObject);
+	}
+	
+	@Test
+	public void testVerifyLeadReplies() {
+		String subject = getIsProd()?"Quick Question":"[stage01] Quick Question";
+		boolean isSuccessful = gmailObject.isEmailPresentAndReply("z57testuser.zurpleqa@gmail.com", "uznhhalkthskjpyx", subject, "aqib.zurple.production@zengtest2.us",true);
+    	assertTrue(isSuccessful, "Lead reply email not sent");
 	}
 	
 	@Test(dependsOnGroups = {"com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate"})

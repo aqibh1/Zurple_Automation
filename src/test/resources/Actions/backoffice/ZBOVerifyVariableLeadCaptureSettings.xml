@@ -1,20 +1,21 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Zurple tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+<suite name="Zurple VLC Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	<listeners>		
 		<listener class-name="resources.ThreadCountChanger"/>
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
-	</listeners>
+	</listeners>	
 	
-<test name="Verify lead Replies">
+	<test name="Verify VLC settings">
+		<!-- <parameter name="FBDataFile" value="/resources/data/zurple/backoffice/social/z-social-fb-posts-data.json">-->
 		<classes>
-			<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+			<class name="com.zurple.website.ZWVariableLeadCapturePageTest">
 				<methods>
-					<include name="testVerifyLeadReplies" />
+	 	  			<include name="testVerifyVLCModal" />
 				</methods>
 			</class>
 		</classes>
 	</test>
-</suite>
+	</suite>

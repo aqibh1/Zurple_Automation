@@ -19,7 +19,21 @@
 					<include name="testCreateTwitterLinkScheduledPost" />
 					<include name="testCreateTwitterPhotoScheduledPost" />  
 					<include name="testCreateTwitterListingScheduledPost" />
-					<include name="testCreateTwitterListingVideoScheduledPost" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Create Twitter direct posts">
+		<parameter name="TwitterDataFile" value="/resources/data/zurple/backoffice/social/z-social-twitter-posts-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
+				<methods>
+	  				<include name="testCreateTwitterTextPost" />
+					<include name="testCreateTwitterLinkPost" />
+					<include name="testCreateTwitterPhotoPost" />
+					<include name="testCreateTwitterListingPost" />
+					<include name="testCreateTwitterListingVideoPost" />
 				</methods>
 			</class>
 		</classes>
@@ -750,8 +764,8 @@
 		</classes>
 		</parameter>
 	</test>  
-	<test name="Verify Social Listing Video Post Twitter - Scheduled">
-		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post-scheduled.json">
+	<test name="Verify Social Listing Video Post Twitter">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
@@ -789,4 +803,31 @@
 			</classes>
 	</parameter>
 	</test>	
+	<test name="Create lead update and verify status">
+		<parameter name="addLeadData"
+			value="/resources/data/zurple/backoffice/zurple-add-lead-status.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+					<methods>
+						<include name="testAddLead" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testUpdateLeadDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
 </suite>

@@ -1,6 +1,13 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Group Tags">
+<suite name="Verify lead status filter" preserve-order="true"
+	verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
 
   <test name="Adding Deleting Group Tags">
     <classes>

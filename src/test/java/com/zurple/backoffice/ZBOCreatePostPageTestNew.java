@@ -154,6 +154,8 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateFBListingVideoScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
+		int tryCount = 0;
+		boolean isSuccess = false;
 		createPostInitialVerification(pDataFile, "video");
 		//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
@@ -164,7 +166,23 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		ld_post_text = updateName("");
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
-		schedulePost();
+		if(!listingSchedulePost()) {
+			do {
+				ActionHelper.RefreshPage(driver);
+				createPostInitialVerification(pDataFile,"video");
+				//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
+				ActionHelper.staticWait(3);
+				assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
+				ActionHelper.staticWait(3);
+				assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
+				ActionHelper.staticWait(10);
+				ld_post_text = updateName("");
+				assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
+				ld_post_text = ld_post_text.split(" ")[0];
+				isSuccess = listingSchedulePost();
+				tryCount++;
+			} while(!isSuccess || tryCount!=3);
+		}
 		saveData(CacheFilePathsConstants.FBVideoPostS);
 		sPost.ScheduledPostVerification(CacheFilePathsConstants.FBVideoPostS);
 		saveData(CacheFilePathsConstants.FBVideoPost);
@@ -242,6 +260,8 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateTwitterListingVideoScheduledPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
+		int tryCount = 0;
+		boolean isSuccess = false;
 		createPostInitialVerification(pDataFile,"video");
 		//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
@@ -252,7 +272,23 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		ld_post_text = updateName("");
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
-		schedulePost();
+		if(!listingSchedulePost()) {
+			do {
+				ActionHelper.RefreshPage(driver);
+				createPostInitialVerification(pDataFile,"video");
+				//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
+				ActionHelper.staticWait(3);
+				assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
+				ActionHelper.staticWait(3);
+				assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
+				ActionHelper.staticWait(10);
+				ld_post_text = updateName("");
+				assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
+				ld_post_text = ld_post_text.split(" ")[0];
+				isSuccess = listingSchedulePost();
+				tryCount++;
+			} while(!isSuccess || tryCount!=3);
+		}
 		saveData(CacheFilePathsConstants.TwitterVideoPostS);
 		sPost.ScheduledPostVerification(CacheFilePathsConstants.TwitterVideoPostS);
 		saveData(CacheFilePathsConstants.TwitterVideoPost);
@@ -570,6 +606,16 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(!page.getTitle(ld_platform).isEmpty(), "Title of the create post is empty..");
 		assertTrue(!page.getUsername(ld_platform).isEmpty(), "Username of the create post is empty..");
 		assertTrue(page.verifyPlatformProfilePicsAreVisible(ld_platform), "Profile picture is not correct for "+ld_platform);
+	}
+	
+	public boolean listingSchedulePost() {
+		boolean isSuccess = false; 
+		assertTrue(page.selectSchedule(ld_platform), "Unable to select the date and time..");
+		assertTrue(page.isScheduled(), "Scheduled label is not visible on create post..");
+		assertTrue(page.clickOnPostButton(), "Unable to click on Post button");
+		ZBOSucessAlert zboSuccessAlert = new ZBOSucessAlert(driver);
+		isSuccess = zboSuccessAlert.isSuccessMessageVisible();
+		return isSuccess;
 	}
 	
 	public void schedulePost() {

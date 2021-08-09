@@ -183,7 +183,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 		
 		boolean isUserLoggedIn = new ZurpleWebsiteHeader(driver).isLeadLoggedIn();
 		
-		if(isUserLoggedIn) {
+		if(isUserLoggedIn || !isUserLoggedIn) {   //////////////////This is a genuine bug...To be Fixed/////////////////
 			softAssert.assertTrue(page.isFeaturesTableVisible(), "Features table is not visible..");
 			assertTrue(page.isGoogleMapAndPinVisible(), "Google Map and pin is not visible..");
 			assertTrue(page.verifyCommunityStatsVisible(), "Unable to verify community stats..");
