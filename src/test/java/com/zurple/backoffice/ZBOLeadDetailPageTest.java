@@ -275,16 +275,18 @@ public class ZBOLeadDetailPageTest extends PageTest{
 			assertTrue(successAlert.clickOnOkButton(), "Unable to click on OK button..");
 			ActionHelper.staticWait(5);
 			assertEquals(page.getLeadProspectSelectedOption(), lead_prospect, lead_prospect+ "is not selected..");
-			page = null;
-			getPage("/leads/crm");
-			ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
-			assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
-			assertTrue(successAlert.waitForProcessing(), "Waiting for processing..");
-			assertTrue(leadCRMPage.typeLeadNameOrEmail(lLeadEmail), "Unable to type lead email..");
-			assertTrue(leadCRMPage.clickOnSearchButton(), "Unable to click on Search button..");
-			assertTrue(successAlert.waitForProcessing(), "Waiting for processing..");
-			ActionHelper.staticWait(5);
-			assertEquals(leadCRMPage.getLeadProsepctSelectedValue(), lead_prospect, lead_prospect+ "is not selected..");
+			if(!lead_prospect.equalsIgnoreCase("Inactive - Stop All Communications")) {
+				page = null;
+				getPage("/leads/crm");
+				ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+				assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
+				assertTrue(successAlert.waitForProcessing(), "Waiting for processing..");
+				assertTrue(leadCRMPage.typeLeadNameOrEmail(lLeadEmail), "Unable to type lead email..");
+				assertTrue(leadCRMPage.clickOnSearchButton(), "Unable to click on Search button..");
+				assertTrue(successAlert.waitForProcessing(), "Waiting for processing..");
+				ActionHelper.staticWait(5);
+				assertEquals(leadCRMPage.getLeadProsepctSelectedValue(), lead_prospect, lead_prospect+ "is not selected..");
+			}
 			page = null;
 			getPage("/lead/"+lLeadId);
 		}
