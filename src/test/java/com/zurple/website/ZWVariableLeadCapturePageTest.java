@@ -76,7 +76,7 @@ public class ZWVariableLeadCapturePageTest extends PageTest{
 	@Test
 	public void testVerifyVLCModalForSoftViews0() {
 		getPage();
-		setupBOLogin(true);
+		setupBOLogin(false);
 		page.VLCSetup("0", "soft");
 		page=null;
 		getPage();
@@ -110,7 +110,7 @@ public class ZWVariableLeadCapturePageTest extends PageTest{
 	}
 	
 	@Test
-	public void testVerifyVLCModalForSoftViews3() {
+	public void testVerifyZVLCModalForSoftViews3() {
 		getPage();
 		setupBOLogin(false);
 		page.VLCSetup("3", "soft");
@@ -283,17 +283,6 @@ public class ZWVariableLeadCapturePageTest extends PageTest{
 		driver.manage().deleteAllCookies();
 	}
 	
-	@Test
-	public void testVerifyRevertSettings() {
-		getPage();
-		setupBOLogin(false);
-		page.VLCSetup("3", "soft");
-		page=null;
-		getPage();
-		assertTrue(page.pageViews("3"),"Lead capture modal doesn't appear for views 3.."); 
-		assertTrue(page.checkViewsAndMethod(0),"VLC method soft is not working for views 3..");
-	}
-	
 	public void setupBOLogin(boolean doLogin) {
 		String siteSettings = getIsProd()?"/pagemgr/leadcapture/site_id/5334":"/pagemgr/leadcapture/site_id/3215";
 		ActionHelper.openUrlInCurrentTab(driver, getBOURL()+siteSettings);
@@ -304,7 +293,7 @@ public class ZWVariableLeadCapturePageTest extends PageTest{
 		}
 	}
 	
-	@Test
+	@Test(dependsOnMethods = { "testVerifyZVLCModalForSoftViews3" })
 	public void closeBrowser() {
 		closeCurrentBrowser();
 	}
