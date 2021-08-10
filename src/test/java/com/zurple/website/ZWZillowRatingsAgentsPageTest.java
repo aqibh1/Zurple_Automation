@@ -69,7 +69,7 @@ public class ZWZillowRatingsAgentsPageTest extends PageTest {
 		if(!getIsProd()) {
 			driver.get("https://www.stage01.zengtest4.us/agents");
 			assertEquals(page.headerText(),"Agents");
-			driver.get("https://www.stage01.zengtest4.us/insider/11458");
+			driver.get("https://www.stage01.zengtest6.us/insider/12666");
 		} else {
 			driver.navigate().to("https://zengtest4.us/agents");
 			assertEquals(page.headerText(),"Agents");
