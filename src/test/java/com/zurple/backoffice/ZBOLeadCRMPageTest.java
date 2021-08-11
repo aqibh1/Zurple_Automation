@@ -296,6 +296,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(page.clickSearchedLeadName(), "Unable to click on lead name..");
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		ActionHelper.switchToSecondWindow(driver);
+		ActionHelper.staticWait(3);
 		assertTrue(leadDetailPage.verifyLeadPriorityRanking(ld_priorityToVerify), "Unable to verify lead priority ranking from lead details page");
 	}
 
