@@ -163,6 +163,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	@Test
 	public void testVerifyLimitedRecipientsOptionsAreVisible() {
 		assertTrue(page.verifyRecipientsOptionsAreVisible(), "All recipients options are not visible..");
+		assertTrue(page.clickOnAllLeadsCommunicated(), "Unable to click on all leads communicated with me option");
 	}
 	
 	/**
@@ -210,7 +211,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		ActionHelper.staticWait(120);
 		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on view recipients button");
 		assertTrue(page.getZboLeadListform().isEnrolledInCampaignForm(),"Enrolled in campaign form is not opened..");
-		assertTrue(page.isLeadEnrolledInTheList(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Unable to uncheck the lead");	
+		assertTrue(page.verifyIsLeadEnrolledInTheList(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Unable to uncheck the lead");	
 	}
 	
 	/**
@@ -402,8 +403,9 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertTrue(new ZBOSucessAlert(driver).clickOnOkButton(), "Unable to click on OK button..");
 		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on currently enrolled leads..");
 		ActionHelper.staticWait(5);
-		assertFalse(page.isLeadEnrolledInTheList(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");	
+//		assertFalse(page.isLeadEnrolledInTheList(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");	
 //		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName, page.getLeadsName());
+		assertFalse(page.verifyIsLeadEnrolledInTheList(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");
 	}
 	
 	/**
@@ -419,8 +421,13 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		ActionHelper.staticWait(60);
 		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on currently enrolled leads..");
 		ActionHelper.staticWait(5);
-		assertTrue(page.isLeadEnrolledInTheList(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");	
-
+//		assertTrue(page.isLeadEnrolledInTheList(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");	
+		assertTrue(page.verifyIsLeadEnrolledInTheList(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");
+	}
+	
+	@Test
+	public void testVerifyEnrollmentInCampaignButtonIsVisibleInLeadDetailsPage() {
+		
 	}
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {
