@@ -21,9 +21,9 @@ public class ZBOGenericAlerts extends AbstractAlert{
 	WebElement alert_message;
 	@FindBy(xpath="//button[@class='btn z57-theme-btn-cancel']")
 	WebElement close_button;
-	@FindBy(xpath="//h2[@id='swal2-title' and text()='You must select 3 Active Listings to be added to the Report']")
-	WebElement active_listing_error;
-	@FindBy(xpath="//h2[@id='swal2-title' and text()='You must select 3  Sold Properties to be added to the Report']")
+	@FindBy(xpath="//h2[@id='swal2-title' and text()='You must select at least 1 Active Listings to be added to the Report']")
+	WebElement active_listing_error; //Sold Properties
+	@FindBy(xpath="//h2[@id='swal2-title' and text()='You must select at least 1  Sold Properties to be added to the Report']")
 	WebElement sold_listing_error;
 	@FindBy(xpath="//h2[@id='swal2-title' and text()='Only 3 Sold Properties can be added to the Report']")
 	WebElement only_3_sold_listing_error;
