@@ -41,7 +41,11 @@ public class ZBOLeadListForm extends AbstractForm{
 	}
 	public int getLeadsListCount() {
 		String[] list_count = ActionHelper.getText(driver, lead_list_count).split(" ");
-		return Integer.parseInt(list_count[list_count.length-2]);
+		String lead_count = list_count[list_count.length-2];
+		if(lead_count.contains(",")) {
+			lead_count = list_count[list_count.length-2].replace(",", "");
+		}
+		return Integer.parseInt(lead_count);
 	}
 	public boolean clickOnCancelButton() {
 		return ActionHelper.Click(driver, cancel);

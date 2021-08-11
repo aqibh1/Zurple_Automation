@@ -427,7 +427,12 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	
 	@Test
 	public void testVerifyEnrollmentInCampaignButtonIsVisibleInLeadDetailsPage() {
-		
+		getPage("/leads/index/ext/prospect1");
+		ZBOLeadPage zboleadPage = new ZBOLeadPage(driver);
+		assertTrue(zboleadPage.clickOnLead(), "Unable to click on lead");
+		ZBOLeadDetailPage zboLeadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(zboLeadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages");
+		assertTrue(zboLeadDetailPage.isEnrollInCampaignButtonVisible(), "Enroll in campaign button is not visible");
 	}
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {

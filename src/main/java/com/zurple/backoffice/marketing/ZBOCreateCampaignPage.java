@@ -110,6 +110,9 @@ public class ZBOCreateCampaignPage extends Page{
 	
 	String drag_drop_icon = "//td[@class='row-index sorting_1']";
 	
+	@FindBy(xpath="//li[@id='filtered-lead-list_next']/a[text()='Next']")
+	WebElement next_button;
+	
 	ZBOAddTemplateForm zboAddTemplateForm;
 	ZBOLeadListForm zboLeadListform;
 	ZBOSucessAlert successalert;
@@ -365,6 +368,29 @@ public class ZBOCreateCampaignPage extends Page{
 			if(!isFound) {
 				break;
 			}
+		}
+		return isFound;
+	}
+	public boolean verifyIsLeadEnrolledInTheList(List<String> pViewMatchingList ) {
+		boolean isFound = false;
+		int counter = 0;
+		int enrolled_count = 0;
+		while(counter<pViewMatchingList.size()) {
+			String l_matching_enrolled_lead = pViewMatchingList.get(counter);
+			while(!isFound && ActionHelper.isElementToBeClickAble(driver, next_button)) {
+				List<WebElement> pViewEnrolledList = getMatchingLeads();
+				for(int j=0;j<pViewEnrolledList.size();j++) {
+					String l_view_enrolled_lead = ActionHelper.getText(driver,pViewEnrolledList.get(j));
+					if(l_matching_enrolled_lead.equalsIgnoreCase(l_view_enrolled_lead)) {
+						isFound = true;
+						break;
+					}
+				}
+				if(!isFound) {
+					ActionHelper.Click(driver, next_button);
+				}
+			}
+			counter++;
 		}
 		return isFound;
 	}
