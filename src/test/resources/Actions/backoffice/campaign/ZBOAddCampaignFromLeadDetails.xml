@@ -20,7 +20,7 @@
 				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
 					<methods>
 						<include name="testVerifyEnrollmentInCampaignButtonIsVisibleInLeadDetailsPage" />
-
+						<include name="testVerifyCampaignsAreShownToUserInLeadDetails" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">

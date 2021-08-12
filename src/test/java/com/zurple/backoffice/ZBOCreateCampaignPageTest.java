@@ -425,6 +425,10 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertTrue(page.verifyIsLeadEnrolledInTheList(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");
 	}
 	
+	/**
+	 * Verify that enrollment button appear in my messages section of lead details page
+	 * 39869
+	 */
 	@Test
 	public void testVerifyEnrollmentInCampaignButtonIsVisibleInLeadDetailsPage() {
 		getPage("/leads/index/ext/prospect1");
@@ -433,6 +437,29 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		ZBOLeadDetailPage zboLeadDetailPage = new ZBOLeadDetailPage(driver);
 		assertTrue(zboLeadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages");
 		assertTrue(zboLeadDetailPage.isEnrollInCampaignButtonVisible(), "Enroll in campaign button is not visible");
+	}
+	
+	/**
+	 * Verify that all available campaigns are shown to user in dropdown
+	 * 39871
+	 */
+	@Test
+	public void testVerifyCampaignsAreShownToUserInLeadDetails() {
+		ZBOLeadDetailPage zboLeadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(zboLeadDetailPage.clickOnEnrollInCampaignButton(), "Unable to click on  Enroll in Campaign button");
+		assertTrue(page.getSelectCampaignAlert().isSelectCampaignAlert(), "Select campaign alert is not visible");
+		assertTrue(page.getSelectCampaignAlert().clickOnCampaignDropdownAndFetchCampaigns().size()>0,"Campaigns are not visible in dropdown");
+	}
+	
+	/**
+	 * Verify that success message appear on successful enrollment
+	 * 39872
+	 */
+	@Test
+	public void testVerifySuccessMessageAppearsOnSuccessfullEnrollment() {
+		assertTrue(page.getSelectCampaignAlert().clickOnCmapiagnName(), "Unable to click on campaign name");
+		assertTrue(page.clickOnEnrollButton(), "Unable to click on enroll button");
+		assertTrue(page.getSuccessAlert().isSuccessMessageVisible(), "Success message is not visible");
 	}
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {

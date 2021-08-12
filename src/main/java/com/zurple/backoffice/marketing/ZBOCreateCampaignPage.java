@@ -14,6 +14,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.alerts.zurple.backoffice.ZBOSelectCampaignAlert;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.forms.zurple.backoffice.ZBOAddTemplateForm;
 import resources.forms.zurple.backoffice.ZBOLeadListForm;
@@ -116,6 +117,7 @@ public class ZBOCreateCampaignPage extends Page{
 	ZBOAddTemplateForm zboAddTemplateForm;
 	ZBOLeadListForm zboLeadListform;
 	ZBOSucessAlert successalert;
+	ZBOSelectCampaignAlert zboSelectCampaignAlert;
 	
 	public ZBOCreateCampaignPage() {
 		
@@ -125,6 +127,7 @@ public class ZBOCreateCampaignPage extends Page{
 		setZboAddTemplateForm();
 		setZboLeadListform();
 		setSuccessAlert();
+		setSelectCampaignAlert();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -151,6 +154,12 @@ public class ZBOCreateCampaignPage extends Page{
 	}
 	public boolean clickOnAddTemplateButton() {
 		return ActionHelper.Click(driver, addTemplate_button);
+	}
+	public ZBOSelectCampaignAlert getSelectCampaignAlert() {
+		return zboSelectCampaignAlert;
+	}
+	public void setSelectCampaignAlert() {
+		this.zboSelectCampaignAlert = new ZBOSelectCampaignAlert(driver);
 	}
 	public boolean clickOnTemplateLink(String pTemplateName) {
 		boolean isClicked = false;
