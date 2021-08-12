@@ -110,7 +110,7 @@ public class ZBOCreateCampaignPage extends Page{
 	
 	String drag_drop_icon = "//td[@class='row-index sorting_1']";
 	
-	@FindBy(xpath="//li[@id='filtered-lead-list_next']/a[text()='Next']")
+	@FindBy(xpath="//li[@id='filtered-lead-list_next' and @class='paginate_button next']/a[text()='Next']")
 	WebElement next_button;
 	
 	ZBOAddTemplateForm zboAddTemplateForm;
@@ -371,26 +371,23 @@ public class ZBOCreateCampaignPage extends Page{
 		}
 		return isFound;
 	}
-	public boolean verifyIsLeadEnrolledInTheList(List<String> pViewMatchingList ) {
+	public boolean verifyIsLeadEnrolledInTheList(List<String> pViewMatchingList) {
 		boolean isFound = false;
-		int counter = 0;
-		int enrolled_count = 0;
-		while(counter<pViewMatchingList.size()) {
-			String l_matching_enrolled_lead = pViewMatchingList.get(counter);
-			while(!isFound && ActionHelper.isElementToBeClickAble(driver, next_button)) {
-				List<WebElement> pViewEnrolledList = getMatchingLeads();
-				for(int j=0;j<pViewEnrolledList.size();j++) {
-					String l_view_enrolled_lead = ActionHelper.getText(driver,pViewEnrolledList.get(j));
-					if(l_matching_enrolled_lead.equalsIgnoreCase(l_view_enrolled_lead)) {
-						isFound = true;
-						break;
-					}
-				}
-				if(!isFound) {
-					ActionHelper.Click(driver, next_button);
+		String l_matching_enrolled_lead = pViewMatchingList.get(0);
+		while(!isFound) {
+			List<WebElement> pViewEnrolledList = getMatchingLeads();
+			for(int j=0;j<pViewEnrolledList.size();j++) {
+				String l_view_enrolled_lead = ActionHelper.getText(driver,pViewEnrolledList.get(j));
+				if(l_matching_enrolled_lead.equalsIgnoreCase(l_view_enrolled_lead)) {
+					isFound = true;
+					break;
 				}
 			}
-			counter++;
+			if(ActionHelper.isElementVisible(driver, next_button)) {
+				ActionHelper.Click(driver, next_button);
+			}else {
+				break;
+			}
 		}
 		return isFound;
 	}
