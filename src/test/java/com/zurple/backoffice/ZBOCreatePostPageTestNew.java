@@ -486,6 +486,8 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateTwitterListingPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
+		int tryCount = 0;
+		boolean isSuccess = false;
 		createPostInitialVerification(pDataFile,"listing");
 		assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
@@ -494,7 +496,23 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		ActionHelper.staticWait(20);
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
-		postNow();
+		if(!listingPostNow()) {
+			do {
+				ActionHelper.RefreshPage(driver);
+				createPostInitialVerification(pDataFile,"video");
+				assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
+				ActionHelper.staticWait(3);
+				//assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
+				ActionHelper.staticWait(3);
+				assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
+				ActionHelper.staticWait(10);
+				ld_post_text = updateName("");
+				assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
+				ld_post_text = ld_post_text.split(" ")[0];
+				isSuccess = listingPostNow();
+				tryCount++;
+			} while(!isSuccess || tryCount!=3);
+		}
 		saveData(CacheFilePathsConstants.TwitterListingPost);
 	}
 	
@@ -503,6 +521,8 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	public void testCreateTwitterListingVideoPost(String pDataFile) throws IOException {
 		page = null;
 		getPage("/social/createpost");
+		int tryCount = 0;
+		boolean isSuccess = false;
 		createPostInitialVerification(pDataFile,"video");
 		//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
 		ActionHelper.staticWait(3);
@@ -513,7 +533,23 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		ld_post_text = updateName("");
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
-		postNow();
+		if(!listingPostNow()) {
+			do {
+				ActionHelper.RefreshPage(driver);
+				createPostInitialVerification(pDataFile,"video");
+				//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
+				ActionHelper.staticWait(3);
+				assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
+				ActionHelper.staticWait(3);
+				assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
+				ActionHelper.staticWait(10);
+				ld_post_text = updateName("");
+				assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
+				ld_post_text = ld_post_text.split(" ")[0];
+				isSuccess = listingPostNow();
+				tryCount++;
+			} while(!isSuccess || tryCount!=3);
+		}
 		saveData(CacheFilePathsConstants.TwitterVideoPost);
 	}
 	
@@ -630,6 +666,14 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		assertTrue(page.clickOnPostButton(), "Unable to click on Post button");
 		ZBOSucessAlert zboSuccessAlert = new ZBOSucessAlert(driver);
 		assertTrue(zboSuccessAlert.isSuccessMessageVisible(), "Success message is not visible...");
+	}
+	
+	public boolean listingPostNow() {
+		boolean isSuccess = false; 
+		assertTrue(page.clickOnPostButton(), "Unable to click on Post button");
+		ZBOSucessAlert zboSuccessAlert = new ZBOSucessAlert(driver);
+		isSuccess = zboSuccessAlert.isSuccessMessageVisible();
+		return isSuccess;
 	}
 	
 	public void saveData(String fileToWrite) {
