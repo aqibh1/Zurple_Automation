@@ -89,6 +89,8 @@ public class ZBOLeadPage extends Page{
 	
 	String filter_child_dropdown_multiple = "//select[@id='location-child-"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
+	String leads_list_email = "//table[@id='DataTables_Table_0']/descendant::td/a[contains(text(),'mailinator')]";
+	
 	public ZBOLeadPage() {
 		
 	}
@@ -471,5 +473,10 @@ public class ZBOLeadPage extends Page{
 			}
 		}
 		return isSuccessful;
+	}
+	public boolean clickOnLead() {
+		List<WebElement> list_of_leads = ActionHelper.getListOfElementByXpath(driver, leads_list_email);
+		int l_index = generateRandomInt(list_of_leads.size());
+		return ActionHelper.Click(driver, list_of_leads.get(l_index));
 	}
 }

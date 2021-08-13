@@ -1232,4 +1232,7 @@ public class ZBOLeadDetailPage extends Page{
 		}
 		return isVerified;
 	}
+	public boolean isEnrollInCampaignButtonVisible() {
+		return ActionHelper.isElementVisible(driver, ENROLL_IN_CAMPAIGN_BUTTON);
+	}
 }

@@ -3,6 +3,9 @@
  */
 package resources.alerts.zurple.backoffice;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -48,5 +51,17 @@ public class ZBOSelectCampaignAlert extends AbstractAlert{
 	}
 	public boolean clickOnEnrollButton() {
 		return ActionHelper.Click(driver, Enroll_button);
+	}
+	public List<WebElement> clickOnCampaignDropdownAndFetchCampaigns() {
+		List<WebElement> list = new ArrayList<WebElement>();
+		if(ActionHelper.Click(driver, select_listing_dropdown)) {
+			list = ActionHelper.getListOfElementByXpath(driver, listing_dropdown_options);
+		}
+		return list;
+	}
+	public boolean clickOnCmapiagnName() {
+		List<WebElement> list = new ArrayList<WebElement>();
+		list = ActionHelper.getListOfElementByXpath(driver, listing_dropdown_options);
+		return ActionHelper.Click(driver, list.get(0));
 	}
 }

@@ -14,6 +14,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.alerts.zurple.backoffice.ZBOSelectCampaignAlert;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.forms.zurple.backoffice.ZBOAddTemplateForm;
 import resources.forms.zurple.backoffice.ZBOLeadListForm;
@@ -110,9 +111,13 @@ public class ZBOCreateCampaignPage extends Page{
 	
 	String drag_drop_icon = "//td[@class='row-index sorting_1']";
 	
+	@FindBy(xpath="//li[@id='filtered-lead-list_next' and @class='paginate_button next']/a[text()='Next']")
+	WebElement next_button;
+	
 	ZBOAddTemplateForm zboAddTemplateForm;
 	ZBOLeadListForm zboLeadListform;
 	ZBOSucessAlert successalert;
+	ZBOSelectCampaignAlert zboSelectCampaignAlert;
 	
 	public ZBOCreateCampaignPage() {
 		
@@ -122,6 +127,7 @@ public class ZBOCreateCampaignPage extends Page{
 		setZboAddTemplateForm();
 		setZboLeadListform();
 		setSuccessAlert();
+		setSelectCampaignAlert();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -148,6 +154,12 @@ public class ZBOCreateCampaignPage extends Page{
 	}
 	public boolean clickOnAddTemplateButton() {
 		return ActionHelper.Click(driver, addTemplate_button);
+	}
+	public ZBOSelectCampaignAlert getSelectCampaignAlert() {
+		return zboSelectCampaignAlert;
+	}
+	public void setSelectCampaignAlert() {
+		this.zboSelectCampaignAlert = new ZBOSelectCampaignAlert(driver);
 	}
 	public boolean clickOnTemplateLink(String pTemplateName) {
 		boolean isClicked = false;
@@ -363,6 +375,26 @@ public class ZBOCreateCampaignPage extends Page{
 				}
 			}
 			if(!isFound) {
+				break;
+			}
+		}
+		return isFound;
+	}
+	public boolean verifyIsLeadEnrolledInTheList(List<String> pViewMatchingList) {
+		boolean isFound = false;
+		String l_matching_enrolled_lead = pViewMatchingList.get(0);
+		while(!isFound) {
+			List<WebElement> pViewEnrolledList = getMatchingLeads();
+			for(int j=0;j<pViewEnrolledList.size();j++) {
+				String l_view_enrolled_lead = ActionHelper.getText(driver,pViewEnrolledList.get(j));
+				if(l_matching_enrolled_lead.equalsIgnoreCase(l_view_enrolled_lead)) {
+					isFound = true;
+					break;
+				}
+			}
+			if(ActionHelper.isElementVisible(driver, next_button)) {
+				ActionHelper.Click(driver, next_button);
+			}else {
 				break;
 			}
 		}

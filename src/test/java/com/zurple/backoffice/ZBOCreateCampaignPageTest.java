@@ -163,6 +163,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	@Test
 	public void testVerifyLimitedRecipientsOptionsAreVisible() {
 		assertTrue(page.verifyRecipientsOptionsAreVisible(), "All recipients options are not visible..");
+		assertTrue(page.clickOnAllLeadsCommunicated(), "Unable to click on all leads communicated with me option");
 	}
 	
 	/**
@@ -210,7 +211,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		ActionHelper.staticWait(120);
 		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on view recipients button");
 		assertTrue(page.getZboLeadListform().isEnrolledInCampaignForm(),"Enrolled in campaign form is not opened..");
-		assertTrue(page.isLeadEnrolledInTheList(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Unable to uncheck the lead");	
+		assertTrue(page.verifyIsLeadEnrolledInTheList(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Unable to uncheck the lead");	
 	}
 	
 	/**
@@ -402,8 +403,9 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertTrue(new ZBOSucessAlert(driver).clickOnOkButton(), "Unable to click on OK button..");
 		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on currently enrolled leads..");
 		ActionHelper.staticWait(5);
-		assertFalse(page.isLeadEnrolledInTheList(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");	
+//		assertFalse(page.isLeadEnrolledInTheList(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");	
 //		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName, page.getLeadsName());
+		assertFalse(page.verifyIsLeadEnrolledInTheList(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");
 	}
 	
 	/**
@@ -419,8 +421,45 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		ActionHelper.staticWait(60);
 		assertTrue(page.clickOnViewRecipientsButton(), "Unable to click on currently enrolled leads..");
 		ActionHelper.staticWait(5);
-		assertTrue(page.isLeadEnrolledInTheList(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");	
-
+//		assertTrue(page.isLeadEnrolledInTheList(page.getMatchingLeads(), ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");	
+		assertTrue(page.verifyIsLeadEnrolledInTheList(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsListName)), "Lead not found");
+	}
+	
+	/**
+	 * Verify that enrollment button appear in my messages section of lead details page
+	 * 39869
+	 */
+	@Test
+	public void testVerifyEnrollmentInCampaignButtonIsVisibleInLeadDetailsPage() {
+		getPage("/leads/index/ext/prospect1");
+		ZBOLeadPage zboleadPage = new ZBOLeadPage(driver);
+		assertTrue(zboleadPage.clickOnLead(), "Unable to click on lead");
+		ZBOLeadDetailPage zboLeadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(zboLeadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages");
+		assertTrue(zboLeadDetailPage.isEnrollInCampaignButtonVisible(), "Enroll in campaign button is not visible");
+	}
+	
+	/**
+	 * Verify that all available campaigns are shown to user in dropdown
+	 * 39871
+	 */
+	@Test
+	public void testVerifyCampaignsAreShownToUserInLeadDetails() {
+		ZBOLeadDetailPage zboLeadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(zboLeadDetailPage.clickOnEnrollInCampaignButton(), "Unable to click on  Enroll in Campaign button");
+		assertTrue(page.getSelectCampaignAlert().isSelectCampaignAlert(), "Select campaign alert is not visible");
+		assertTrue(page.getSelectCampaignAlert().clickOnCampaignDropdownAndFetchCampaigns().size()>0,"Campaigns are not visible in dropdown");
+	}
+	
+	/**
+	 * Verify that success message appear on successful enrollment
+	 * 39872
+	 */
+	@Test
+	public void testVerifySuccessMessageAppearsOnSuccessfullEnrollment() {
+		assertTrue(page.getSelectCampaignAlert().clickOnCmapiagnName(), "Unable to click on campaign name");
+		assertTrue(page.clickOnEnrollButton(), "Unable to click on enroll button");
+		assertTrue(page.getSuccessAlert().isSuccessMessageVisible(), "Success message is not visible");
 	}
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {
