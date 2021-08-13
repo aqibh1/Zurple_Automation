@@ -240,6 +240,12 @@ public class ZBOLeadDetailPage extends Page{
 	String li_location_list = "//div[@id='z-activity-details-local-information-searches-grid']/descendant::td[@headers='yui-dt7-th-location ']/div";
 	String li_type_list = "//div[@id='z-activity-details-local-information-searches-grid']/descendant::td[@headers='yui-dt7-th-type ']/div";
 
+	@FindBy(xpath="//span[@id='campaign-title']/a")
+	WebElement campaign_title;
+	
+	@FindBy(id="campaign-title")
+	WebElement campaign_detail_none;
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
 
@@ -1234,5 +1240,14 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean isEnrollInCampaignButtonVisible() {
 		return ActionHelper.isElementVisible(driver, ENROLL_IN_CAMPAIGN_BUTTON);
+	}
+	public String getCampaignTitleFromMyMessages() {
+		return ActionHelper.getText(driver, campaign_title);
+	}
+	public boolean clickOnCampaignName() {
+		return ActionHelper.Click(driver, campaign_title);
+	}
+	public String getCampaignNameFromMyMessagesNone() {
+		return ActionHelper.getText(driver, campaign_detail_none);
 	}
 }

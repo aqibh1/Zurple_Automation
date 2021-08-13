@@ -60,8 +60,14 @@ public class ZBOSelectCampaignAlert extends AbstractAlert{
 		return list;
 	}
 	public boolean clickOnCmapiagnName() {
+		boolean isClicked = false;
 		List<WebElement> list = new ArrayList<WebElement>();
-		list = ActionHelper.getListOfElementByXpath(driver, listing_dropdown_options);
-		return ActionHelper.Click(driver, list.get(0));
+		String l_campaign_name = "";
+		if(ActionHelper.Click(driver, select_listing_dropdown)) {
+			list = ActionHelper.getListOfElementByXpath(driver, listing_dropdown_options);
+			l_campaign_name = ActionHelper.getText(driver, list.get(1));
+			isClicked = ActionHelper.Click(driver, list.get(1));
+		}
+		return isClicked;
 	}
 }

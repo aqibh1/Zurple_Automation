@@ -21,6 +21,9 @@
 					<methods>
 						<include name="testVerifyEnrollmentInCampaignButtonIsVisibleInLeadDetailsPage" />
 						<include name="testVerifyCampaignsAreShownToUserInLeadDetails" />
+						<include name="testVerifySuccessMessageAppearsOnSuccessfullEnrollment" />
+						<include name="testVerifyCampaignTitleIsValidLink" />
+						<include name="testVerifyUserCanUnenrollFromCampaignFromLeadDetails" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
