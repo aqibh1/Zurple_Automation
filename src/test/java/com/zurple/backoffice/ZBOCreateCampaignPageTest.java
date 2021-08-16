@@ -433,6 +433,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	public void testVerifyEnrollmentInCampaignButtonIsVisibleInLeadDetailsPage() {
 		getPage("/leads/index/ext/prospect1");
 		ZBOLeadPage zboleadPage = new ZBOLeadPage(driver);
+		ActionHelper.staticWait(7);
 		assertTrue(zboleadPage.clickOnLead(), "Unable to click on lead");
 		ZBOLeadDetailPage zboLeadDetailPage = new ZBOLeadDetailPage(driver);
 		assertTrue(zboLeadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages");
@@ -458,8 +459,41 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	@Test
 	public void testVerifySuccessMessageAppearsOnSuccessfullEnrollment() {
 		assertTrue(page.getSelectCampaignAlert().clickOnCmapiagnName(), "Unable to click on campaign name");
-		assertTrue(page.clickOnEnrollButton(), "Unable to click on enroll button");
-		assertTrue(page.getSuccessAlert().isSuccessMessageVisible(), "Success message is not visible");
+		assertTrue(page.getSuccessAlert().clickOnEnrollButton(), "Unable to click on enroll button");
+	}
+	
+	/**
+	 * Verify that campaign name hyperlink in campaigns list redirects to campaign details page
+	 * 39870
+	 */
+	@Test
+	public void testVerifyCampaignTitleIsValidLink() {
+		ZBOLeadDetailPage zboLeadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(zboLeadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages");
+		String campaign_name = zboLeadDetailPage.getCampaignTitleFromMyMessages();
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignName, campaign_name);
+		assertTrue(!campaign_name.isEmpty(), "Campaign name is empty");
+		String l_current_url = driver.getCurrentUrl();
+		assertTrue(zboLeadDetailPage.clickOnCampaignName(), "Unable to click on campaign name");
+		assertTrue(page.isCampaignPage(), "Campaign details page is not visible");
+		ActionHelper.openUrlInCurrentTab(driver, l_current_url);	
+	}
+	
+	/**
+	 * Verify that user can unenroll from campaign from lead details page
+	 * 42722
+	 */
+	@Test
+	public void testVerifyUserCanUnenrollFromCampaignFromLeadDetails() {
+		ZBOLeadDetailPage zboLeadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(zboLeadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages");
+		//Clicking unenroll button
+		assertTrue(zboLeadDetailPage.clickOnEnrollInCampaignButton(), "Unable to click on  UnEnroll in Campaign button");
+		assertTrue(page.getSuccessAlert().clickOnUnEnrollButton(), "Unable to click on unenroll button");
+		assertTrue(zboLeadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages");
+		ActionHelper.staticWait(2);
+		assertTrue(zboLeadDetailPage.getCampaignNameFromMyMessagesNone().equalsIgnoreCase("None"), "Campaign name is displayed after unenrolling the lead");
+		
 	}
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {
