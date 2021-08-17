@@ -3710,6 +3710,38 @@
       </class>
     </classes>
   </test>
+  
+  <test name="Verify VLC settings">
+		<classes>
+			<class name="com.zurple.website.ZWVariableLeadCapturePageTest">
+				<methods>
+	 	   			<include name="testVerifyVLCModalForSoftViews0" />
+	 	  			<include name="testVerifyVLCModalForSoftViews1" />
+	 	  			<include name="testVerifyVLCModalForSoftViews2" />
+	 	  			<include name="testVerifyVLCModalForSoftViews4" />
+	 	  			<include name="testVerifyVLCModalForSoftViews5" />
+	 	  			<include name="testVerifyVLCModalForStrongViews0" />
+	 	  			<include name="testVerifyVLCModalForStrongViews1" />
+	 	  			<include name="testVerifyVLCModalForStrongViews2" />
+	 	  			<include name="testVerifyVLCModalForStrongViews3" />
+	 	  			<include name="testVerifyVLCModalForStrongViews4" />
+	 	  			<include name="testVerifyVLCModalForStrongViews5" />
+	 	  			<include name="testVerifyVLCModalForRegisterViews0" />
+	 	  			<include name="testVerifyVLCModalForRegisterViews1" />	 	  			
+	 	  			<include name="testVerifyVLCModalForRegisterViews2" />	 	  			
+	 	  			<include name="testVerifyVLCModalForRegisterViews3" />	 	  			
+	 	  			<include name="testVerifyVLCModalForRegisterViews4" />
+	 	  			<include name="testVerifyVLCModalForRegisterViews5" />	
+				</methods>
+			</class>
+			<class name="com.zurple.website.ZWVariableLeadCapturePageTest">
+				<methods>
+					<include name="testVerifyZVLCModalForSoftViews3" />
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+		</classes>
+	</test>
  <!--  
 <test name="Bulk update lead status to In Active" >	
 			<classes>
