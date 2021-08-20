@@ -495,6 +495,52 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertTrue(zboLeadDetailPage.getCampaignNameFromMyMessagesNone().equalsIgnoreCase("None"), "Campaign name is displayed after unenrolling the lead");
 		
 	}
+	
+	/**
+	 * Verify that lead enrollment option is available in actions dropdown
+	 * 39873
+	 */
+	@Test
+	public void testVerifyEnrollmentInCampaignOptionIsAvailableInActionDropDown() {
+		getPage("/leads/index/ext/prospect1");
+		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
+		assertTrue(leadPage.isLeadInputVisible(), "Lead page is not displayed..");
+		ActionHelper.staticWait(5);
+		assertTrue(leadPage.checkTheLead(), "Unable to click on lead input checkbox..");
+		assertTrue(leadPage.mouseHoverAction(), "Unable to hover mouse on Action button");
+		assertTrue(leadPage.isEnrollInCampaignButtonVisible(), "Enroll in campaign option not visble in actions dropdown");
+	}
+	
+	/**
+	 * Verify that enrollment modal should appear on clicking lead enrollment option from Actions dropdown
+	 * 39874
+	 */
+	@Test
+	public void testVerifyEnrollmentModalShouldAppearOnClickingLeadEnrollmentInAction() {
+		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
+		assertTrue(leadPage.selectAction("Enroll in Campaign"), "Enroll in Campaign option not visible..");
+		assertTrue(page.getSelectCampaignAlert().isSelectCampaignAlert(), "Select campaign alert is not visible..");
+	}
+	
+	/**
+	 * Verify that all available campaigns should appear in enrollment modal dropdown
+	 * 39875
+	 */
+	@Test
+	public void testVerifyAllCampaignsAreDisplayedInActions() {
+		assertTrue(page.getSelectCampaignAlert().clickOnCampaignDropdownAndFetchCampaigns().size()>0,"Campaigns are not visible in dropdown");
+	}
+	
+	/**
+	 * Verify that success modal should appear on successful enrollment of leads
+	 * 39876
+	 */
+	@Test
+	public void testVerifySuccessMessageAppearsOnSuccessfullEnrollmentFromAction() {
+		assertTrue(page.getSelectCampaignAlert().clickOnCmapiagnName(), "Unable to click on campaign name");
+		assertTrue(page.getSuccessAlert().clickOnEnrollButton(), "Unable to click on enroll button");
+	}
+	
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {
 			throw new SkipException("Automation template cannot be added to campaign..");
