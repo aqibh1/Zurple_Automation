@@ -290,6 +290,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 			page = null;
 			getPage("/lead/"+lLeadId);
 		}
+		ActionHelper.staticWait(5);
 		assertTrue(page.verifyEmailPreferences("Mass Email", "No"), "Unable to verify Mass email");
 		assertTrue(page.verifyEmailPreferences("Property Updates", "No"), "Unable to verify Property Updates");
 		assertTrue(page.verifyEmailPreferences("Sold Property Updates", "No"), "Unable to verify Sold Property Updates");
