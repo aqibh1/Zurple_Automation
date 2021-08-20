@@ -181,6 +181,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 				ld_post_text = ld_post_text.split(" ")[0];
 				isSuccess = listingSchedulePost();
 				tryCount++;
+				if(isSuccess || tryCount==3) {
+					break;
+				}
 			} while(!isSuccess || tryCount!=3);
 		}
 		saveData(CacheFilePathsConstants.FBVideoPostS);
@@ -287,6 +290,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 				ld_post_text = ld_post_text.split(" ")[0];
 				isSuccess = listingSchedulePost();
 				tryCount++;
+				if(isSuccess || tryCount==3) {
+					break;
+				}
 			} while(!isSuccess || tryCount!=3);
 		}
 		saveData(CacheFilePathsConstants.TwitterVideoPostS);
@@ -424,6 +430,8 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	@Parameters({"FBDataFile"})
 	public void testCreateFBListingVideoPost(String pDataFile) throws IOException {
 		page = null;
+		boolean isSuccess = false;
+		int tryCount = 0;
 		getPage("/social/createpost");
 		createPostInitialVerification(pDataFile,"video");
 		//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
@@ -435,7 +443,26 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		ld_post_text = updateName("");
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
-		postNow();
+		if(!listingPostNow()) {
+			do {
+				ActionHelper.RefreshPage(driver);
+				createPostInitialVerification(pDataFile,"video");
+				//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
+				ActionHelper.staticWait(3);
+				assertTrue(page.clickOnPostListingVideoButton(ld_platform), "Unable to click on Post Listing button..");
+				ActionHelper.staticWait(3);
+				assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
+				ActionHelper.staticWait(10);
+				ld_post_text = updateName("");
+				assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
+				ld_post_text = ld_post_text.split(" ")[0];
+				isSuccess = listingPostNow();
+				tryCount++;
+				if(isSuccess || tryCount==3) {
+					break;
+				}
+			} while(!isSuccess || tryCount!=3);
+		}		
 		saveData(CacheFilePathsConstants.FBVideoPost);
 	}
 	
@@ -511,6 +538,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 				ld_post_text = ld_post_text.split(" ")[0];
 				isSuccess = listingPostNow();
 				tryCount++;
+				if(isSuccess || tryCount==3) {
+					break;
+				}
 			} while(!isSuccess || tryCount!=3);
 		}
 		saveData(CacheFilePathsConstants.TwitterListingPost);
@@ -548,6 +578,9 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 				ld_post_text = ld_post_text.split(" ")[0];
 				isSuccess = listingPostNow();
 				tryCount++;
+				if(isSuccess || tryCount==3) {
+					break;
+				}
 			} while(!isSuccess || tryCount!=3);
 		}
 		saveData(CacheFilePathsConstants.TwitterVideoPost);
@@ -616,6 +649,8 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	@Parameters({"YTDataFile"})
 	public void testCreateYTListingVideoPost(String pDataFile) throws IOException {
 		page = null;
+		boolean isSuccess = false; 
+		int tryCount = 0;
 		getPage("/social/createpost");
 		createPostInitialVerification(pDataFile,"video");
 		//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
@@ -627,7 +662,24 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 		ld_post_text = updateName("");
 		assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
 		ld_post_text = ld_post_text.split(" ")[0];
-		postNow();
+		if(!listingPostNow()) {
+			do {
+				ActionHelper.RefreshPage(driver);
+				createPostInitialVerification(pDataFile,"video");
+				//assertTrue(page.clickOnPostListingButton(ld_platform), "Unable to click on Post Listing button..");
+				ActionHelper.staticWait(3);
+				assertTrue(page.selectTheListing(), "Unable to select the listing from Listing Alert..");
+				ActionHelper.staticWait(10);
+				ld_post_text = updateName("");
+				assertTrue(page.appendTextAtStart(ld_platform, ld_post_text), "Unable to type text..");
+				ld_post_text = ld_post_text.split(" ")[0];
+				isSuccess = listingPostNow();
+				tryCount++;
+				if(isSuccess || tryCount==3) {
+					break;
+				}
+			} while(!isSuccess || tryCount!=3);
+		}		
 		saveData(CacheFilePathsConstants.YTVideoPost);
 	}
 	
@@ -646,6 +698,7 @@ public class ZBOCreatePostPageTestNew extends PageTest{
 	
 	public boolean listingSchedulePost() {
 		boolean isSuccess = false; 
+		ActionHelper.staticWait(7);
 		assertTrue(page.selectSchedule(ld_platform), "Unable to select the date and time..");
 		assertTrue(page.isScheduled(), "Scheduled label is not visible on create post..");
 		assertTrue(page.clickOnPostButton(), "Unable to click on Post button");
