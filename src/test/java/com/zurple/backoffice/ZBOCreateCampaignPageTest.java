@@ -237,7 +237,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		String l_lead_to_unenroll = page.getEnrolledLead(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsList));
 		assertTrue(page.unenrollLeadFromCurrentlyEnrolledPanel(ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsList), l_lead_to_unenroll));
 		assertTrue(page.getZboLeadListform().clickOnCancelButton(), "Unable to click on save button");
-		ActionHelper.staticWait(50);
+		ActionHelper.staticWait(10);
 		assertTrue(verifyEnrolledLeadCount(), "Unable to verify lead count..");
 	}
 	
@@ -266,7 +266,6 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertTrue(page.getSuccessAlert().clickOnUnEnrollButton(), "Unable to click on Unenroll button");
 		softAssert.assertTrue(page.getSuccessAlert().clickOnOkButton(), "Unable to click on ok button");
 		AutomationLogger.info("Waiting for leads to be unenrolled");
-		ActionHelper.staticWait(200);
 		assertFalse(verifyEnrolledLeadCount(), "Unable to verify lead count..");
 	}
 	
@@ -585,17 +584,12 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	}
 	
 	private boolean verifyEnrolledLeadCount() {
+		ActionHelper.staticWait(250);
 		String l_current_url = driver.getCurrentUrl();
 		driver.navigate().to(l_current_url.split("/enroll")[0]);
 		String l_campaign_name = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignName);
 		int l_lead_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount);
 		boolean leadEnrolled = page.verifyLeadCount(l_campaign_name, l_lead_count);
-		if(!leadEnrolled) {
-			ActionHelper.RefreshPage(driver);
-			ActionHelper.staticWait(50);
-			ActionHelper.RefreshPage(driver);
-			leadEnrolled = page.verifyLeadCount(l_campaign_name, l_lead_count);
-		}
 		driver.navigate().to(l_current_url);
 		return leadEnrolled;
 	}
