@@ -619,11 +619,13 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	}
 	
 	private boolean verifyEnrolledLeadCount() {
-		ActionHelper.staticWait(250);
 		String l_current_url = driver.getCurrentUrl();
 		driver.navigate().to(l_current_url.split("/enroll")[0]);
 		String l_campaign_name = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignName);
 		int l_lead_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount);
+		ActionHelper.staticWait(250);
+		ActionHelper.RefreshPage(driver);
+		ActionHelper.staticWait(10);
 		boolean leadEnrolled = page.verifyLeadCount(l_campaign_name, l_lead_count);
 		driver.navigate().to(l_current_url);
 		return leadEnrolled;

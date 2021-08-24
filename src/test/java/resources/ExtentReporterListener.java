@@ -36,10 +36,11 @@ public class ExtentReporterListener implements ITestListener {
 	private static ExtentReports emailExtent = ExtentManager.createInstance(System.getProperty("user.dir")+"\\target\\surefire-reports\\ExtentEmailReportResults.html");
 	private static ThreadLocal<ExtentTest> emailTest = new ThreadLocal();
     private static ThreadLocal<ExtentTest> test = new ThreadLocal();
-	
+    ExtentTest testlog;
+
     @Override
 	public synchronized void onStart(ITestContext context) {
-    	ExtentTest parent = extent.createTest(context.getCurrentXmlTest().getName());
+    	ExtentTest parent = extent.createTest(context.getCurrentXmlTest().getName(),ExtentManager.getDetails());
     	test.set(parent);
     	ExtentTest emailParent = emailExtent.createTest(context.getCurrentXmlTest().getName());
     	emailTest.set(emailParent);
@@ -49,6 +50,7 @@ public class ExtentReporterListener implements ITestListener {
 	public synchronized void onFinish(ITestContext context) {
 		extent.flush();
 		emailExtent.flush();
+		
 	}
 	
 	@Override
@@ -103,6 +105,7 @@ public class ExtentReporterListener implements ITestListener {
 	public synchronized void onTestFailedButWithinSuccessPercentage(ITestResult result) {
 		
 	}
+	
 }
 
 //public class ExtentReporterListener implements ITestListener{
