@@ -72,7 +72,7 @@ public class ZBOCreateCampaignPage extends Page{
 	@FindBy(id="massemail_type-allclients")
 	WebElement massemail_type_allclients;
 	
-	@FindBy(xpath="//button[@title='close']/span")
+	@FindBy(className="ui-button-icon-primary")
 	WebElement close_preview;
 	
 	@FindBy(id="view-matching-button")
@@ -392,7 +392,7 @@ public class ZBOCreateCampaignPage extends Page{
 					break;
 				}
 			}
-			if(ActionHelper.isElementVisible(driver, next_button)) {
+			if(!isFound && ActionHelper.isElementVisible(driver, next_button)) {
 				ActionHelper.Click(driver, next_button);
 			}else {
 				break;

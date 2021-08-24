@@ -401,7 +401,7 @@ public class ZBOPostHistoryPage extends Page{
 		String l_frameId;
 		WebElement e;
 		List<WebElement> frames_list = new ArrayList<WebElement>();
-		for(int i = 0;i<7;i++) {
+		for(int i = 0;i<20;i++) {
 			ActionHelper.switchToDefaultContent(driver);
 			frames_list.clear();
 			frames_list = ActionHelper.getListOfElementByXpath(driver, "//iframe[@id]");
