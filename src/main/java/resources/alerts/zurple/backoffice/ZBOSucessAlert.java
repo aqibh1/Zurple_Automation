@@ -153,4 +153,11 @@ public class ZBOSucessAlert extends AbstractAlert{
 	public boolean clickSkipButton() {
 		return ActionHelper.Click(driver, skip_button);
 	}
+	public boolean clickOnEnrollButtonOnly() {
+		boolean isClicked = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, enroll_button, 30)) {
+			isClicked = ActionHelper.Click(driver, enroll_button);
+		}
+		return isClicked;
+	}
 }

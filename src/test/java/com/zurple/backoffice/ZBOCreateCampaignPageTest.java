@@ -542,7 +542,11 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	@Test
 	public void testVerifySuccessMessageAppearsOnSuccessfullEnrollmentFromAction() {
 		assertTrue(page.getSelectCampaignAlert().clickOnCmapiagnName(), "Unable to click on campaign name");
-		assertTrue(page.getSuccessAlert().clickOnEnrollButton(), "Unable to click on enroll button");
+		assertTrue(page.getSuccessAlert().clickOnEnrollButtonOnly(), "Unable to click on enroll button");
+		SoftAssert softAssert = new SoftAssert();
+		softAssert.assertTrue(page.getSuccessAlert().clickOnOverrideButton(), "Unable to click on override button");
+		assertTrue(page.getSuccessAlert().isSuccessMessageVisible(), "Success alert is not visible");
+		softAssert.assertTrue(page.getSuccessAlert().clickOnOkButton(), "Unable to click on ok button");
 	}
 	
 	/**
