@@ -541,6 +541,37 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		assertTrue(page.getSuccessAlert().clickOnEnrollButton(), "Unable to click on enroll button");
 	}
 	
+	/**
+	 * Verify that bulk lead enrollment should work on customized leads list as well
+	 * 39878
+	 */
+	@Test
+	public void testBulkEnrollSelectiveLeadsFromCRMPage() {
+		getPage("/leads/crm");
+		ZBOLeadCRMPage crmPage = new ZBOLeadCRMPage(driver);
+		assertTrue(crmPage.selectMultipleLeads(5), "Unable to select the multiple leads");
+		enrollmentOfLeadFromAction();
+	
+	}
+	/**
+	 * Verify that if user selects all leads then they should be bulk enrolled that are assigned to that agent
+	 * 39877
+	 */
+	@Test
+	public void testBulkEnrollAllLeadsFromCRMPage() {
+		getPage("/leads/crm");
+		ZBOLeadCRMPage crmPage = new ZBOLeadCRMPage(driver);
+		assertTrue(crmPage.selectAllLeads(), "Unable to select all leads");
+		enrollmentOfLeadFromAction();
+	
+	}
+	private void enrollmentOfLeadFromAction() {
+		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
+		assertTrue(leadPage.selectAction("Enroll in Campaign"), "Enroll in Campaign option not visible..");
+		assertTrue(page.getSelectCampaignAlert().isSelectCampaignAlert(), "Select campaign alert is not visible..");
+		assertTrue(page.getSelectCampaignAlert().clickOnCmapiagnName(), "Unable to click on campaign name");
+		assertTrue(page.getSuccessAlert().clickOnEnrollButton(), "Unable to click on enroll button");
+	}
 	private void selectTemplatePreCondition() {
 		if(!page.clickOnAddTemplateButton()) {
 			throw new SkipException("Automation template cannot be added to campaign..");

@@ -107,6 +107,8 @@ public class ZBOLeadCRMPage extends Page{
 	@FindBy(xpath="//button[@data-action='increase']")
 	WebElement add_filter_button;
 	
+	String lead_input_checkbox_2 = "//table[@id='leads-table']/descendant::input[@value]";
+	
 	private ZBOAddNotesForm addNoteForm;
 	private ZBOAddReminderForm addReminderForm;
 	private ZBOSendEmailForm sendEmailForm;
@@ -323,4 +325,22 @@ public class ZBOLeadCRMPage extends Page{
 		}
 		return lead_id;
 	}
+	public boolean selectMultipleLeads(int pLeadsToSelect) {
+		boolean isSelected = false;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, lead_input_checkbox_2);
+		int counter = 0;
+		for(WebElement element: list_element) {
+			if(pLeadsToSelect==counter) {
+				break;
+			}
+			isSelected = ActionHelper.Click(driver, element);
+			if(!isSelected) {
+				break;
+			}
+			counter++;
+		}
+		return isSelected;
+	}
+	public boolean selectAllLeads() {
+		return ActionHelper.Click(driver, bulk_select);	}
 }
