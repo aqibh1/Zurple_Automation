@@ -68,26 +68,30 @@ public class ZapierRestImportLead extends RestAPITest{
 	        		.setApplicationName(APPLICATION_NAME)
 	        		.build();
 	        
-	        String range = "A:H";	  
+	        String range = "A:I";	  
 	        List<String> list1 = new ArrayList<>();
-	        list1.add("Aaqib");
-	        list1.add("Habib");
+	        list1.add(updateName("Zapier"));
+	        list1.add(updateName("Import"));
 	        list1.add("14844493826");
-	        list1.add("zapimport_zurpleqa@mailinator.com");
+	        list1.add(updateEmail("zapimport_zurpleqa@mailinator.com"));
 	        list1.add("San Diego");
 	        list1.add("92130");
 	        list1.add("7");
 	        list1.add("CA");
+	        list1.add("This is zapier imported lead");
 	        List<Object> data1 = new ArrayList<>();
 	        data1.addAll(list1);
+	        
 	        List<List<Object>> data = new ArrayList<>();
 	        data.add(data1);
+	        
 	        ValueRange valueRange=new ValueRange();
 	        valueRange.setValues(data);
 	        service.spreadsheets().values().
 	        append(spreadsheetId, range, valueRange)
 	                .setValueInputOption("RAW")
 	                .execute();
+	        
 //	        ValueRange response = service.spreadsheets().values()
 //            .get(spreadsheetId, range)
 //            .execute();
