@@ -14,6 +14,11 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import resources.utility.AutomationLogger;
 
 /**
@@ -32,6 +37,7 @@ public class TestRailResultsListener implements ITestListener{
 	
 	private static HashMap<Long, HashMap<String, String>> thread_hash = new HashMap<Long,HashMap<String,String>>();
 	private static HashMap<String,String> test_ids_hash = new HashMap<String,String>(); 
+	private static HashMap<String,String> tests_executed = new HashMap<String,String>(); 
 
 	
 	private String getTestCaseId(String pMapKey, ITestResult pResult) {
@@ -79,11 +85,23 @@ public class TestRailResultsListener implements ITestListener{
 
 	@Override
 	public void onTestSuccess(ITestResult result) {
+//		l_testrun_id ="156";
+		AutomationLogger.info("--PASS--");
+		AutomationLogger.info("Initializing TestRail URL :: "+l_testRail_Url);
+		AutomationLogger.info("SCENARIO NAME :: "+l_scenario_name);
+		AutomationLogger.info("TEST NAME :: "+result.getName());
+		AutomationLogger.info("TESTCASE ID :: "+l_testcase_id);
+		AutomationLogger.info("TEST RUN ID :: "+l_testrun_id);
+		
+		AutomationLogger.info("Success Test :: "+getMapKey()+" Thread ID ::"+Thread.currentThread().getId());
 		String testcase_id_final = getTestCaseId(Thread.currentThread().getId(),getMapKey());
 		if(l_testrun_id!=null && !l_testrun_id.isEmpty() && testcase_id_final!=null && !testcase_id_final.isEmpty()) {
 			JSONObject resultObj = composeResults(1, l_scenario_name, "",testcase_id_final);
 			if(resultObj!=null) {
-				postResults(resultObj);
+				if(getTestExecuted(getMapKey())==null) {
+					setTestsExecuted(getMapKey());
+					postResults(resultObj);
+				}	
 			}else {
 				AutomationLogger.error("Unable to compose Test Rail result object");
 			}
@@ -92,6 +110,14 @@ public class TestRailResultsListener implements ITestListener{
 
 	@Override
 	public void onTestFailure(ITestResult result) {
+		AutomationLogger.info("--FAIL--");
+		AutomationLogger.info("Initializing TestRail URL :: "+l_testRail_Url);
+		AutomationLogger.info("SCENARIO NAME :: "+l_scenario_name);
+		AutomationLogger.info("TEST NAME :: "+result.getName());
+		AutomationLogger.info("TESTCASE ID :: "+l_testcase_id);
+		AutomationLogger.info("TEST RUN ID :: "+l_testrun_id);
+		
+		AutomationLogger.info("FAILED Test :: "+getMapKey()+" Thread ID ::"+Thread.currentThread().getId());
 		String testcase_id_final = getTestCaseId(Thread.currentThread().getId(),getMapKey());
 		String errorMessage = result.getThrowable().getLocalizedMessage();
 		if(errorMessage.length()>230) {
@@ -99,7 +125,10 @@ public class TestRailResultsListener implements ITestListener{
 		}if(l_testrun_id!=null && !l_testrun_id.isEmpty() && testcase_id_final!=null && !testcase_id_final.isEmpty()) {
 			JSONObject resultObj = composeResults(5, l_scenario_name,errorMessage,testcase_id_final);
 			if(resultObj!=null) {
-				postResults(resultObj);
+				if(getTestExecuted(getMapKey()).isEmpty()) {
+					setTestsExecuted(getMapKey());
+					postResults(resultObj);
+				}			
 			}else {
 				AutomationLogger.error("Unable to compose Test Rail result object");
 			}
@@ -109,12 +138,23 @@ public class TestRailResultsListener implements ITestListener{
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
+		AutomationLogger.info("--SKIPPED--");
+		AutomationLogger.info("Initializing TestRail URL :: "+l_testRail_Url);
+		AutomationLogger.info("SCENARIO NAME :: "+l_scenario_name);
+		AutomationLogger.info("TEST NAME :: "+result.getName());
+		AutomationLogger.info("TESTCASE ID :: "+l_testcase_id);
+		AutomationLogger.info("TEST RUN ID :: "+l_testrun_id);
+		
+		AutomationLogger.info("SKIPPED Test :: "+getMapKey()+" Thread ID ::"+Thread.currentThread().getId());
 		String testcase_id_final = getTestCaseId(Thread.currentThread().getId(),getMapKey());
 		if(l_testrun_id!=null && !l_testrun_id.isEmpty()) {
 			if(testcase_id_final!=null && !testcase_id_final.isEmpty()) {
 				JSONObject resultObj = composeResults(4, l_scenario_name, "",testcase_id_final);
 				if(resultObj!=null) {
-					postResults(resultObj);
+					if(getTestExecuted(getMapKey()).isEmpty()) {
+						setTestsExecuted(getMapKey());
+						postResults(resultObj);
+					}	
 				}else {
 					AutomationLogger.error("Unable to compose Test Rail result object");
 				}
@@ -149,6 +189,7 @@ public class TestRailResultsListener implements ITestListener{
 				resultDetails.put("comment", pComments);
 				resultDetails.put("defects",pDefects);
 				resultDetails.put("case_id", Integer.parseInt(testcase_ids[i].trim()));
+//				writeJsonToFile("\\resources\\testrail_mapping\\results.json",resultDetails);
 				jResultsArray.put(i, resultDetails);
 			}
 			resultObject.put("results", jResultsArray);
@@ -159,17 +200,25 @@ public class TestRailResultsListener implements ITestListener{
 		return resultObject;
 	}
 	private boolean postResults(JSONObject pResultObj) {
+//		writeJsonToFile("\\resources\\testrail_mapping\\results.json",pResultObj);
 		boolean isUpdatedSuccessfully = true;
 		APIClient client = new APIClient(l_testRail_Url);
 		client.setUser(l_testRail_username);
 		client.setPassword(l_testRail_password);
 		try {
 			AutomationLogger.info("Result Composed ::"+pResultObj.toString());
+//			Thread.sleep(3000);
 			Object post_results = client.sendPost("/add_results_for_cases/"+l_testrun_id, pResultObj);	
-//			JSONObject resultObject = new JSONObject(post_results.toString());
+			if(post_results.toString().contains("status_id")) {
+				AutomationLogger.info("Call is Successful");
+				AutomationLogger.info("API RESPONSE ---- "+post_results.toString());
+			}else {
+				AutomationLogger.fatal(post_results.toString());
+			}
 			AutomationLogger.info(post_results.toString());
 //			isUpdatedSuccessfully = verifyStatusIsUpdated(pResultObj);
-		} catch (IOException | APIException e) {
+		} catch (IOException | APIException /* | InterruptedException */ e) {
+			AutomationLogger.fatal("API EXCEPTION");
 			AutomationLogger.fatal(e.getMessage());
 			isUpdatedSuccessfully = false;
 		} 
@@ -184,7 +233,7 @@ public class TestRailResultsListener implements ITestListener{
 		if(pTestId!=null && !pTestId.isEmpty()) {
 			test_ids_hash.put(pTestName, pTestId);
 		}else {
-//			writeStringToFile("\\resources\\testrail_mapping\\missing_tests.txt",pTestName);
+			writeStringToFile("\\resources\\testrail_mapping\\missing_tests.txt",pTestName);
 			AutomationLogger.fatal("Unable to populate Hash Map");
 		}
 	}
@@ -213,4 +262,35 @@ public class TestRailResultsListener implements ITestListener{
 	}public void setMapKey(String pMapKey) {
 		l_map_key = pMapKey;
 	}
+
+	public static String getTestExecuted(String pTestName) {
+		return tests_executed.get(pTestName);
+	}
+	public static void setTestsExecuted(String pTestName) {
+		tests_executed.put(pTestName, "Executed");
+	}
+	protected void writeJsonToFile(String pFileToWrite, JSONObject pObjectToWrite) {
+    	File lFilePath = new File(System.getProperty("user.dir")+pFileToWrite);
+    	boolean isEmptyFile = lFilePath.length()==0?true:false;
+    	try (FileWriter file = new FileWriter(lFilePath,true)) {
+    		AutomationLogger.info("Writing json to file "+pFileToWrite);
+    		if(!isEmptyFile) {
+    			file.write(",");
+    		}
+    		file.write(toPrettyFormat(pObjectToWrite.toString()));
+    		file.flush();
+
+    	} catch (IOException e) {
+    		AutomationLogger.fatal("Unable to write file "+pFileToWrite);
+    	}
+    }
+	 private String toPrettyFormat(String pJsonString) 
+	    {
+	        JsonParser parser = new JsonParser();
+	        JsonObject json = parser.parse(pJsonString).getAsJsonObject();
+	        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+	        String prettyJson = gson.toJson(json);
+
+	        return prettyJson;
+	    }
 }
