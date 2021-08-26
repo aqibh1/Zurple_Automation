@@ -10,15 +10,21 @@ import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import resources.extentreports.ExtentManager;
 import resources.utility.AutomationLogger;
 
 /**
@@ -38,6 +44,12 @@ public class TestRailResultsListener implements ITestListener{
 	private static HashMap<Long, HashMap<String, String>> thread_hash = new HashMap<Long,HashMap<String,String>>();
 	private static HashMap<String,String> test_ids_hash = new HashMap<String,String>(); 
 	private static HashMap<String,String> tests_executed = new HashMap<String,String>(); 
+
+	private static ExtentReports extent = ExtentManager.createInstance(System.getProperty("user.dir")+"\\target\\surefire-reports\\ExtentReportResults.html");
+	private static ExtentReports emailExtent = ExtentManager.createInstance(System.getProperty("user.dir")+"\\target\\surefire-reports\\ExtentEmailReportResults.html");
+	private static ThreadLocal<ExtentTest> emailTest = new ThreadLocal();
+    private static ThreadLocal<ExtentTest> test = new ThreadLocal();
+    ExtentTest testlog;
 
 	
 	private String getTestCaseId(String pMapKey, ITestResult pResult) {
@@ -64,6 +76,8 @@ public class TestRailResultsListener implements ITestListener{
 
 	@Override
 	public void onTestStart(ITestResult result) {
+		
+    	
 		AutomationLogger.info("Thread ID::"+Thread.currentThread().getId());
 		l_testRail_Url = EnvironmentFactory.configReader.getPropertyByName("testrail_url");
 		l_testRail_username = EnvironmentFactory.configReader.getPropertyByName("testrail_username");
@@ -133,11 +147,42 @@ public class TestRailResultsListener implements ITestListener{
 				AutomationLogger.error("Unable to compose Test Rail result object");
 			}
 		}
+		
+//		String errorMessage = "";
+		errorMessage = result.getThrowable().getLocalizedMessage();
+		AutomationLogger.onTestPass(result.getName());
+		AutomationLogger.error(errorMessage);
+		Object currentClass = result.getInstance();
+		WebDriver webDriver = ((AbstractPageTest) currentClass).getDriver();
+		  //Take base64Screenshot screenshot.
+		 String base64Screenshot="";
+		try {
+			base64Screenshot = ExtentManager.getScreenshot(webDriver, result.getName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	       // String base64ScreenshotEmail = "data:image/png;base64,"+((TakesScreenshot)webDriver).getScreenshotAs(OutputType.BASE64);
+	        if(errorMessage==null) {
+	        	errorMessage = result.getThrowable().toString();
+	        }
+			try {
+				test.get().fail(result.getName()).info(MarkupHelper.createLabel(errorMessage, ExtentColor.RED)).addScreenCaptureFromPath(base64Screenshot);
+				emailTest.get().fail(result.getName()).info(MarkupHelper.createLabel(errorMessage, ExtentColor.RED));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 	}
 
 	@Override
 	public void onTestSkipped(ITestResult result) {
+		if(result.getThrowable().toString().contains("depends on")) {
+			test.get().skip(result.getName());
+			emailTest.get().skip(result.getName());
+		}
+		
 		AutomationLogger.info("--SKIPPED--");
 		AutomationLogger.info("Initializing TestRail URL :: "+l_testRail_Url);
 		AutomationLogger.info("SCENARIO NAME :: "+l_scenario_name);
@@ -170,12 +215,16 @@ public class TestRailResultsListener implements ITestListener{
 	}
 	@Override
 	public void onStart(ITestContext context) {
-
+		ExtentTest parent = extent.createTest(context.getCurrentXmlTest().getName(),ExtentManager.getDetails());
+    	test.set(parent);
+    	ExtentTest emailParent = emailExtent.createTest(context.getCurrentXmlTest().getName());
+    	emailTest.set(emailParent);
 
 	}
 	@Override
 	public void onFinish(ITestContext context) {
-
+		extent.flush();
+		emailExtent.flush();
 	}
 	
 	private JSONObject composeResults(int pStatus, String pComments, String pDefects, String pTestCaseIds) {
