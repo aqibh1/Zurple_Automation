@@ -23,6 +23,14 @@
 					<include name="testCreateAndVerifyMultipleCitiesQuickAd" />
 				</methods>
 			</class>
+			<class name="com.zurple.backoffice.admin.ZAAdsManagerPageTest">
+				<methods>
+					<include name="testVerifyStatusOfTheQuickListingAdFromAdsManager" />
+					<include name="testVerifyBudgetOfTheQuickListingAdFromAdsManager" />
+					<include name="testVerifyAdDurationOfTheQuickListingAdFromAdsManager" />
+					<include name="testVerifyAdLocationOfTheQuickListingAdFromAdsManger" />
+				</methods>
+			</class>
 			<class name="com.zurple.rest.sapi.ads.ZBORestGetAdsInfoListTest">
 				<methods>
 					<include name="testGetAdInfoList" />

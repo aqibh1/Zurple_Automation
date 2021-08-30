@@ -598,6 +598,8 @@ public class ZBOCreateAdPageTest extends PageTest{
 		lDefaultCity = page.getDefaultCity();
 		lAd_budget = page.isMediumReachSelectedByDefault()?"$240":"";
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAdId, driver.getCurrentUrl());
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleQLADefaultCity, lDefaultCity);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleQLABudget, lAd_budget);
 		clickOnNextStepPreCond();
 		clickOnTermsAndConditionCheckbox();
 		clickOnPausedAdCheckbox();

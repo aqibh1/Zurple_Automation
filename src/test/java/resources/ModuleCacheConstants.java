@@ -53,4 +53,6 @@ public class ModuleCacheConstants {
 	public static final String ZurpleLeadsList = "zurpe.zbo.marketing.campaigns.lead.list";
 	public static final String ZurpleLeadsCount = "zurpe.zbo.marketing.campaigns.lead.list.count";
 	public static final String ZurpleLeadsListName = "zurpe.zbo.marketing.campaigns.lead.list.name";
+	public static final String ZurpleQLADefaultCity = "zurple.zbo.ad.quick.listing.default.city";
+	public static final String ZurpleQLABudget = "zurple.zbo.ad.quick.listing.budget";;
 }
