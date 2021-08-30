@@ -32,6 +32,8 @@ public class ZAAdsManagerPage extends Page{
 	
 	@FindBy(xpath="//span[@class='fb_status' and not(contains(@id,'carousel'))]")
 	WebElement ad_status;
+	@FindBy(xpath="//span[@class='fb_status' and not(contains(@id,'carousel'))]/parent::td")
+	WebElement ad_sup_status;
 	
 	@FindBy(xpath="//table[@id='adsmgrtable']/descendant::td[contains(text(),'Client Fee')]")
 	WebElement client_fee;
@@ -44,6 +46,12 @@ public class ZAAdsManagerPage extends Page{
 	
 	@FindBy(xpath="//table[@id='adsmgrtable']/descendant::td[@class='location']")
 	WebElement ad_location;
+	
+	@FindBy(xpath="//span[@class='btn btn-default btn-refresh']")
+	WebElement manual_refresh_button;
+	
+	@FindBy(xpath="//div[@class='sa-confirm-button-container']/button")
+	WebElement refresh_ok_button;
 	
 	public ZAAdsManagerPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -65,6 +73,9 @@ public class ZAAdsManagerPage extends Page{
 	public String getAdStatus() {
 		return ActionHelper.getText(driver, ad_status);
 	}
+	public String getAdSUPStatus() {
+		return ActionHelper.getText(driver, ad_sup_status);
+	}
 	public String getAdStartingDate() {
 		return ActionHelper.getText(driver, starting_date);
 	}
@@ -76,6 +87,13 @@ public class ZAAdsManagerPage extends Page{
 	}
 	public String getAdLocation() {
 		return ActionHelper.getText(driver, ad_location);
+	}
+	public boolean refreshFBAPI() {
+		boolean isVerified = false;
+		if(ActionHelper.Click(driver, manual_refresh_button)) {
+			isVerified = ActionHelper.Click(driver, refresh_ok_button);
+		}
+		return isVerified;
 	}
 	
 }
