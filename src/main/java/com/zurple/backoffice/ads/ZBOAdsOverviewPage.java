@@ -22,6 +22,7 @@ import com.zurple.my.Page;
 import resources.blocks.zurple.ZBOHeadersBlock;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author adar
@@ -70,6 +71,8 @@ public class ZBOAdsOverviewPage extends Page{
 	
 	String buyer_lead_ad_icon = "//table[@id='ads_overview_zurple']/descendant::tr/td/div[@class='adshomeicon']/img";
 	
+	String ad_to_find = "//div[@class='adpreview_box']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	
 	private ZBOHeadersBlock header;
 	
 	public ZBOAdsOverviewPage(WebDriver pDriver) {
@@ -95,7 +98,12 @@ public class ZBOAdsOverviewPage extends Page{
 		}
 		return count;
 	}
-	private boolean verifyAdBudget(String pBudget) {
+	
+	public boolean verifyAdIsPresentInAdsOverviewPage(String adId) {
+		return ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, ad_to_find, adId)).equalsIgnoreCase(adId);
+	}
+	
+	private boolean verifyAdBudget(String pBudget,String ad_id) {
 		boolean isBudget_verified = false;
 		List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, listing_ad_rows);
 		if(ActionHelper.getText(driver, elements_list.get(row_index).findElement(By.xpath("/descendant::span[@class='adprice_cap']"))).contains(pBudget)) {

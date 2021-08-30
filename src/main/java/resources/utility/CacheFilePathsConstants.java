@@ -45,4 +45,5 @@ public class CacheFilePathsConstants {
 	public static final String LinkedinLinkPostS = "/resources/data/zurple/backoffice/social/cache-z-social-linkedin-link-post-scheduled.json";
 	public static final String LinkedinListingPostS = "/resources/data/zurple/backoffice/social/cache-z-social-linkedin-listing-post-scheduled.json";
 	public static final String YTVideoPost = "/resources/data/zurple/backoffice/social/cache-z-social-yt-video-post.json";
+	public static final String SelfServeAds = "/resources/data/zurple/backoffice/zurple-self-serve-ads-data.json";
 }
