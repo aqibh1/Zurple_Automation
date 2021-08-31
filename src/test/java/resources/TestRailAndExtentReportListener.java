@@ -107,10 +107,28 @@ public class TestRailAndExtentReportListener implements ITestListener{
 	}
 
 	@Override
-	public void onTestFailure(ITestResult result) {
+	public void onTestFailure(ITestResult result) {	
+		String mapKey = getMapKey(result);
+		String success_map_id =getTestCaseId(mapKey,result);
+		AutomationLogger.info("--FAIL-- "+result.getName()+" Thread ID::"+Thread.currentThread().getId()+" TEST ID ::"+success_map_id);
+		AutomationLogger.info("FAIL Test :: "+getMapKey()+" Thread ID ::"+Thread.currentThread().getId());
+
 		String errorMessage = result.getThrowable().getLocalizedMessage();
+		if(errorMessage.length()>230) {
+			errorMessage = result.getThrowable().getLocalizedMessage().substring(0, 230);
+		}if(l_testrun_id!=null && !l_testrun_id.isEmpty() && success_map_id!=null && !success_map_id.isEmpty()) {
+			JSONObject resultObj = composeResults(5, l_scenario_name,errorMessage,success_map_id);
+			if(resultObj!=null) {
+				if(getTestExecuted(getMapKey())==null) {
+					setTestsExecuted(getMapKey());
+					postResults(resultObj);
+				}			
+			}else {
+				AutomationLogger.error("Unable to compose Test Rail result object");
+			}
+		}
+		
 		errorMessage = result.getThrowable().getLocalizedMessage();
-		AutomationLogger.onTestPass(result.getName());
 		AutomationLogger.error(errorMessage);
 		Object currentClass = result.getInstance();
 		WebDriver webDriver = ((AbstractPageTest) currentClass).getDriver();
@@ -133,27 +151,6 @@ public class TestRailAndExtentReportListener implements ITestListener{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		String mapKey = getMapKey(result);
-		String success_map_id =getTestCaseId(mapKey,result);
-		AutomationLogger.info("--FAIL-- "+result.getName()+" Thread ID::"+Thread.currentThread().getId()+" TEST ID ::"+success_map_id);
-		AutomationLogger.info("FAIL Test :: "+getMapKey()+" Thread ID ::"+Thread.currentThread().getId());
-
-		
-		if(errorMessage.length()>230) {
-			errorMessage = result.getThrowable().getLocalizedMessage().substring(0, 230);
-		}if(l_testrun_id!=null && !l_testrun_id.isEmpty() && success_map_id!=null && !success_map_id.isEmpty()) {
-			JSONObject resultObj = composeResults(5, l_scenario_name,errorMessage,success_map_id);
-			if(resultObj!=null) {
-				if(getTestExecuted(getMapKey()).isEmpty()) {
-					setTestsExecuted(getMapKey());
-					postResults(resultObj);
-				}			
-			}else {
-				AutomationLogger.error("Unable to compose Test Rail result object");
-			}
-		}
-		
 //		String errorMessage = "";
 		
 
@@ -175,7 +172,7 @@ public class TestRailAndExtentReportListener implements ITestListener{
 			if(success_map_id!=null && !success_map_id.isEmpty()) {
 				JSONObject resultObj = composeResults(4, l_scenario_name, "",success_map_id);
 				if(resultObj!=null) {
-					if(getTestExecuted(getMapKey()).isEmpty()) {
+					if(getTestExecuted(getMapKey())==null) {
 						setTestsExecuted(getMapKey());
 						postResults(resultObj);
 					}	

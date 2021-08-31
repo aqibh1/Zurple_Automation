@@ -539,7 +539,7 @@
 			</classes>
 	</parameter>
 	</test>
-	<!--  
+	  
 		<test name="Create and Verify Quick ad from Ads Overview Page">
 	<parameter name="datafile" value="/resources/data/zurple/socialapi/ads/quick_Ad_data.json">
 		<classes>  
@@ -563,7 +563,7 @@
 		</classes>
 	</parameter>
 	</test>
-	-->
+	
 	
 		<!--\\\\\\\\\\\\\\ Social Tests ////////////-->
 		
