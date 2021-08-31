@@ -665,6 +665,8 @@ public class ZBOCreateAdPageTest extends PageTest{
 		lDefaultCity = page.getDefaultCity();
 		lAd_budget = page.selectPlan("$120")?"$120":"$240";
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAdId, driver.getCurrentUrl());
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleQLADefaultCity, lDefaultCity);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleQLABudget, lAd_budget);
 		clickOnNextStepPreCond();
 		clickOnTermsAndConditionCheckbox();
 		clickOnPausedAdCheckbox();

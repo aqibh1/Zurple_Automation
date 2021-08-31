@@ -67,7 +67,6 @@ public class ZAAdsManagerPageTest extends PageTest{
 	public void testVerifyStatusOfTheQuickListingAdFromAdsManager() {
 		getPage("/admin/ads");
 		searchAdPreCondition();
-		
 		assertTrue(verifytSUPStatusOfTheAd("PAUSED"), "Unable to verify SUP ad status");
 		assertTrue(verifytStatusOfTheAd("PAUSED"), "AD Status is not PAUSED");
 	}
@@ -98,6 +97,48 @@ public class ZAAdsManagerPageTest extends PageTest{
 	 */
 	@Test
 	public void testVerifyAdLocationOfTheQuickListingAdFromAdsManger() {
+		String l_ad_location = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleQLADefaultCity);
+		assertTrue(verifyAdLocation(l_ad_location), "Unable to verify ad location");
+	}
+	
+	/**
+	 * Verify the status of Custom Listing Ad from Ads Admin Manager
+	 * 42780
+	 */
+	@Test
+	public void testVerifyStatusOfTheCustomListingAdFromAdsManager() {
+		getPage("/admin/ads");
+		searchAdPreCondition();
+		assertTrue(verifytSUPStatusOfTheAd("Paused"), "Unable to verify SUP ad status");
+		assertTrue(verifytStatusOfTheAd("PAUSED"), "AD Status is not PAUSED");
+	}
+	
+	/**
+	 * Verify the budget of Custom Listing Ad from Ads Admin Manager
+	 * 42781
+	 */
+	@Test
+	public void testVerifyBudgetOfTheCustomListingAdFromAdsManager() {
+		String l_budget = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleQLABudget);;
+		assertTrue(verifyBudgetOfTheAd(l_budget), "AD Status is not PAUSED");
+	}
+	
+	/**
+	 * Verify the ad duration of Custom Listing Ad from Ads Admin Manager
+	 * 42782
+	 */
+	@Test
+	public void testVerifyAdDurationOfTheCustomListingAdFromAdsManager() {
+		int l_days_to_verify = 30;
+		assertTrue(verifyAdDuration(l_days_to_verify), "Unable to verify the ad duration");
+	}
+	
+	/**
+	 * Verify the location of Custom Listing Ad from Ads Admin Manager
+	 * 42783
+	 */
+	@Test
+	public void testVerifyAdLocationOfTheCustomListingAdFromAdsManger() {
 		String l_ad_location = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleQLADefaultCity);
 		assertTrue(verifyAdLocation(l_ad_location), "Unable to verify ad location");
 	}
@@ -140,7 +181,7 @@ public class ZAAdsManagerPageTest extends PageTest{
 		return page.getAdStatus().equalsIgnoreCase(pStatus);
 	}
 	private boolean verifytSUPStatusOfTheAd(String pStatus) {
-		return page.getAdSUPStatus().equalsIgnoreCase(pStatus);
+		return page.getAdSUPStatus().contains("SUP: "+pStatus);
 	}
 	private boolean verifyBudgetOfTheAd(String pBudget) {
 		return page.getClientFee().contains(pBudget);
