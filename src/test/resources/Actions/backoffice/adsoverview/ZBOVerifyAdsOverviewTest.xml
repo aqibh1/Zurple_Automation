@@ -11,6 +11,7 @@
 			<classes>
 				<class name="com.zurple.backoffice.ZBOAdsOverviewPageTest">
 					<methods>
+						<include name="testVerifyAdIsPresentInAdsOverViewPage"/>
 						<include name="testVerifyAdsManagerIsVisibleInHeader"/>
 						<include name="testVerifyAdsManagerDropdownOptionsVisible"/>
 						<include name="testClickAdsOverviewFromAdsManager"/>

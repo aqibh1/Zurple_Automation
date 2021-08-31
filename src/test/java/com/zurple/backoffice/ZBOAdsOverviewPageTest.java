@@ -9,12 +9,15 @@ import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.SkipException;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.zurple.backoffice.ads.ZBOAdsOverviewPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
 
 /**
@@ -26,6 +29,7 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 	private WebDriver driver;
 	private JSONObject dataObject;
 	private ZBOAdsOverviewPage page;
+	private String ZurpleAdId;
 	
 	@Override
 	public AbstractPage getPage() {
@@ -78,6 +82,14 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 		assertTrue(page.verifyAdsAreDisplayed(), "Ads are not showing on Ads overview page..");
 	}
 
+	@Test
+	public void testVerifyAdIsPresentInAdsOverViewPage() {
+		getPage("/ads/overview");
+		JSONObject dataObject = getDataFile("/resources/data/zurple/backoffice/zurple-self-serve-ads-data.json");
+		ZurpleAdId = dataObject.optString("zurple_ad_id");
+		assertTrue(page.verifyAdIsPresentInAdsOverviewPage(ZurpleAdId),"Ad id ("+ZurpleAdId+") doesn't exist on ads overview page..");
+	}
+	
 	@Test
 	public void testVerifyAdTypeColumnIsDisplayedOnAdsOverviewPage() {
 		getPage("/ads/overview");

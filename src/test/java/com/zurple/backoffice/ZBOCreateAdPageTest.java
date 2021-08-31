@@ -26,6 +26,7 @@ import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.CacheFilePathsConstants;
 
 /**
  * @author adar
@@ -1139,6 +1140,9 @@ public class ZBOCreateAdPageTest extends PageTest{
 		}
 	}
 	public void clickOnPlaceAdAButton() {
+		String l_current_url = driver.getCurrentUrl();
+		l_current_url = l_current_url.split("ad=")[1];
+		saveData(l_current_url,CacheFilePathsConstants.SelfServeAds);
 		if(!page.clickOnPlaceAdButton()) {
 			throw new SkipException("Skipping the test becasuse [Click on Place Ad Button] pre-condition was failed.");
 		}
@@ -1159,6 +1163,12 @@ public class ZBOCreateAdPageTest extends PageTest{
 		}
 	}
 	
+	public void saveData(String dataToWrite,String fileToWrite) {
+		emptyFile(fileToWrite, "");
+		JSONObject jObject = new JSONObject();
+		jObject.put("zurple_ad_id", dataToWrite);
+		writeJsonToFile(fileToWrite,jObject);
+	}
 
 	@AfterTest
 	public void closeBrowser() {
