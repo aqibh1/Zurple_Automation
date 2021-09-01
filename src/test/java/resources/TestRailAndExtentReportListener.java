@@ -96,6 +96,7 @@ public class TestRailAndExtentReportListener implements ITestListener{
 		if(l_testrun_id!=null && !l_testrun_id.isEmpty() && success_map_id!=null && !success_map_id.isEmpty()) {
 			JSONObject resultObj = composeResults(1, l_scenario_name, "",success_map_id);
 			if(resultObj!=null) {
+				AutomationLogger.info("JSON To Post :: "+resultObj.toString());
 				if(getTestExecuted(getMapKey())==null) {
 					setTestsExecuted(getMapKey());
 					postResults(resultObj);
@@ -119,6 +120,7 @@ public class TestRailAndExtentReportListener implements ITestListener{
 		}if(l_testrun_id!=null && !l_testrun_id.isEmpty() && success_map_id!=null && !success_map_id.isEmpty()) {
 			JSONObject resultObj = composeResults(5, l_scenario_name,errorMessage,success_map_id);
 			if(resultObj!=null) {
+				AutomationLogger.info("JSON To Post :: "+resultObj.toString());
 				if(getTestExecuted(getMapKey())==null) {
 					setTestsExecuted(getMapKey());
 					postResults(resultObj);
@@ -172,6 +174,7 @@ public class TestRailAndExtentReportListener implements ITestListener{
 			if(success_map_id!=null && !success_map_id.isEmpty()) {
 				JSONObject resultObj = composeResults(4, l_scenario_name, "",success_map_id);
 				if(resultObj!=null) {
+					AutomationLogger.info("JSON To Post :: "+resultObj.toString());
 					if(getTestExecuted(getMapKey())==null) {
 						setTestsExecuted(getMapKey());
 						postResults(resultObj);
