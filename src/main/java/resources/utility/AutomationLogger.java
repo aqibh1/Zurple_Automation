@@ -46,7 +46,7 @@ public class AutomationLogger {
 		int line_numeber = Thread.currentThread().getStackTrace()[2].getLineNumber();
 		 String l_class_name = Thread.currentThread().getStackTrace()[2].getFileName();
 
-		 AutomationLogger.info(l_class_name+":"+line_numeber+"-----=====" +message+ "=====-----");
+		 AutomationLogger.info("Thread ID = "+Thread.currentThread().getId()+" "+l_class_name+":"+line_numeber+"-----=====" +message+ "=====-----");
 		 Reporter.log("-----=====" +message+ "=====-----");
 	 
 	 }
@@ -59,13 +59,13 @@ public class AutomationLogger {
 	 
 	 public static void error(String message) {
 	 
-		 AutomationLogger.error("-----ERROR=====" +message+ "=====ERROR-----");
+		 AutomationLogger.error("Thread ID = "+Thread.currentThread().getId()+" -----ERROR=====" +message+ "=====ERROR-----");
 		 Reporter.log("-----ERROR=====" +message+ "=====ERROR-----");
 	 }
 	 
 	 public static void fatal(String message) {
 	 
-		 AutomationLogger.fatal("-----FATAL=====" +message+ "=====FATAL-----");
+		 AutomationLogger.fatal("Thread ID = "+Thread.currentThread().getId()+" -----FATAL=====" +message+ "=====FATAL-----");
 	 
 	 }
 	 
@@ -75,17 +75,17 @@ public class AutomationLogger {
 	 
 	 }
 	 public static void testStep(String message) {
-		 AutomationLogger.info("-----***** " +message+ " *****----");
+		 AutomationLogger.info("Thread ID = "+Thread.currentThread().getId()+" -----***** " +message+ " *****----");
 		 Reporter.log("-----=====" +message+ "=====-----");
 	 
 	 }
 	 public static void onTestPass(String pMessage) {
-		 AutomationLogger.error("-----PASS=====" +pMessage+ "=====PASS-----");
+		 AutomationLogger.error("Thread ID = "+Thread.currentThread().getId()+" -----PASS=====" +pMessage+ "=====PASS-----");
 		 Reporter.log("-----PASS=====" +pMessage+ "=====PASS-----");
 	 }
 	 
 	 public static void onTestFail(String pMessage) {
-		 AutomationLogger.error("-----FAIL=====" +pMessage+ "=====FAIL-----");
+		 AutomationLogger.error("Thread ID = "+Thread.currentThread().getId()+" -----FAIL=====" +pMessage+ "=====FAIL-----");
 		 Reporter.log("-----FAIL=====" +pMessage+ "=====FAIL-----");
 	 }
 	 
