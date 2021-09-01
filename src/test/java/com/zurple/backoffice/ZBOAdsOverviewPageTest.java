@@ -84,6 +84,7 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 
 	@Test
 	public void testVerifyAdIsPresentInAdsOverViewPage() {
+		page=null;
 		getPage("/ads/overview");
 		JSONObject dataObject = getDataFile("/resources/data/zurple/backoffice/zurple-self-serve-ads-data.json");
 		ZurpleAdId = dataObject.optString("zurple_ad_id");
