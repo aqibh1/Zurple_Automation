@@ -32,7 +32,7 @@ public class TestRailAndExtentReportListener implements ITestListener{
 	String l_testRail_password = "";
 	String l_testcase_id = "";
 	String l_testrun_id = "";
-	String l_scenario_name = "";
+//	String l_scenario_name = "";
 	private String l_map_key = "";
 
 	private static ExtentReports extent = ExtentManager.createInstance(System.getProperty("user.dir")+"\\target\\surefire-reports\\ExtentReportResults.html");
@@ -75,7 +75,7 @@ public class TestRailAndExtentReportListener implements ITestListener{
 		String mapKey = getMapKey(result);
 		l_testcase_id =getTestCaseId(mapKey,result);
 		l_testrun_id = System.getProperty("testrail_testrun_id");
-		l_scenario_name = result.getTestContext().getCurrentXmlTest().getName();;
+		String l_scenario_name = result.getTestContext().getCurrentXmlTest().getName();;
 		AutomationLogger.info("Initializing TestRail URL :: "+l_testRail_Url);
 		AutomationLogger.info("SCENARIO NAME :: "+l_scenario_name);
 		AutomationLogger.info("TEST NAME :: "+result.getName());
@@ -93,6 +93,7 @@ public class TestRailAndExtentReportListener implements ITestListener{
 		String success_map_id =getTestCaseId(mapKey,result);
 		AutomationLogger.info("--PASS-- "+result.getName()+" Thread ID::"+Thread.currentThread().getId()+" TEST ID ::"+success_map_id);
 		AutomationLogger.info("Success Test :: "+getMapKey()+" Thread ID ::"+Thread.currentThread().getId());
+		String l_scenario_name = result.getTestContext().getCurrentXmlTest().getName();
 		if(l_testrun_id!=null && !l_testrun_id.isEmpty() && success_map_id!=null && !success_map_id.isEmpty()) {
 			JSONObject resultObj = composeResults(1, l_scenario_name, "",success_map_id);
 			if(resultObj!=null) {
@@ -113,7 +114,7 @@ public class TestRailAndExtentReportListener implements ITestListener{
 		String success_map_id =getTestCaseId(mapKey,result);
 		AutomationLogger.info("--FAIL-- "+result.getName()+" Thread ID::"+Thread.currentThread().getId()+" TEST ID ::"+success_map_id);
 		AutomationLogger.info("FAIL Test :: "+getMapKey()+" Thread ID ::"+Thread.currentThread().getId());
-
+		String l_scenario_name = result.getTestContext().getCurrentXmlTest().getName();
 		String errorMessage = result.getThrowable().getLocalizedMessage();
 		if(errorMessage.length()>230) {
 			errorMessage = result.getThrowable().getLocalizedMessage().substring(0, 230);
@@ -169,7 +170,7 @@ public class TestRailAndExtentReportListener implements ITestListener{
 		String success_map_id =getTestCaseId(mapKey,result);
 		AutomationLogger.info("--SKIP-- "+result.getName()+" Thread ID::"+Thread.currentThread().getId()+" TEST ID ::"+success_map_id);
 		AutomationLogger.info("SKIP Test :: "+getMapKey()+" Thread ID ::"+Thread.currentThread().getId());
-		
+		String l_scenario_name = result.getTestContext().getCurrentXmlTest().getName();
 		if(l_testrun_id!=null && !l_testrun_id.isEmpty()) {
 			if(success_map_id!=null && !success_map_id.isEmpty()) {
 				JSONObject resultObj = composeResults(4, l_scenario_name, "",success_map_id);
