@@ -143,6 +143,48 @@ public class ZAAdsManagerPageTest extends PageTest{
 		assertTrue(verifyAdLocation(l_ad_location), "Unable to verify ad location");
 	}
 	
+	/**
+	 * Verify the status of Custom Buyer Lead Ad from Ads Admin Manager
+	 * 42788
+	 */
+	@Test
+	public void testVerifyStatusOfTheCustomBuyerListingAdFromAdsManager() {
+		getPage("/admin/ads");
+		searchAdPreCondition();
+		assertTrue(verifytSUPStatusOfTheAd("Paused"), "Unable to verify SUP ad status");
+		assertTrue(verifytStatusOfTheAd("PAUSED"), "Facebook AD Status is not PAUSED");
+	}
+	
+	/**
+	 * Verify the budget of Custom Buyer Lead Ad from Ads Admin Manager
+	 * 42789
+	 */
+	@Test
+	public void testVerifyBudgetOfTheCustomBuyerListingAdFromAdsManager() {
+		String l_budget = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleQLABudget);;
+		assertTrue(verifyBudgetOfTheAd(l_budget), "Unable to verify ad budget "+l_budget);
+	}
+	
+	/**
+	 *Verify the ad duration of Custom Buyer Lead Ad from Ads Admin Manager
+	 *42790 
+	 */
+	@Test
+	public void testVerifyAdDurationOfTheCustomBuyerListingAdFromAdsManager() {
+		int l_days_to_verify = 30;
+		assertTrue(verifyAdDuration(l_days_to_verify), "Unable to verify the ad duration");
+	}
+	
+	/**
+	 * Verify the location of Custom Buyer Lead Ad from Ads Admin Manager
+	 * 42791
+	 */
+	@Test
+	public void testVerifyAdLocationOfTheCustomBuyerListingAdFromAdsManger() {
+		String l_ad_location = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleQLADefaultCity);
+		assertTrue(verifyAdLocation(l_ad_location), "Unable to verify ad location");
+	}
+	
 	private boolean verifyAdLocation(String pLocation) {
 		return page.getAdLocation().contains(pLocation);
 	}

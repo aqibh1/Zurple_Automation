@@ -44,6 +44,14 @@
 					<include name="testVerifyBuyerLeadsHeadingAndTypeAdOnAdsOverviewPage" />	
 				</methods>
 			</class>
+			<class name="com.zurple.backoffice.admin.ZAAdsManagerPageTest">
+				<methods>
+					<include name="testVerifyStatusOfTheCustomBuyerListingAdFromAdsManager" />
+					<include name="testVerifyBudgetOfTheCustomBuyerListingAdFromAdsManager" />
+					<include name="testVerifyAdDurationOfTheCustomBuyerListingAdFromAdsManager" />
+					<include name="testVerifyAdLocationOfTheCustomBuyerListingAdFromAdsManger" />
+				</methods>
+			</class>
 		</classes>
 	</test>
 </suite>

@@ -804,6 +804,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	public void testVerifySelectAdTypeAndBuyerLeadsAdHeadingIsDisplayedOnStep2BuyerLeadsAd() {
 		assertTrue(page.isStep2Section1SelectAnAdHeadingVisible(), "Select an Ad heading is not displayed");
 		assertTrue(page.isBuyerLeadHeadingVisible(), "Buyer Lead ad heading is not visible");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAdId, driver.getCurrentUrl());
 	}
 	@Test //40476
 	public void testVerifyHeadlineDescriptionIsPrepopulatedForCustomBuyerLeadAds() {
@@ -864,6 +865,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isMediumReachSelectedByDefault(), "Medium reach is not selected by default on step 3");
 		bl_ad_budget = "$160";
 		assertTrue(page.selectPlan(bl_ad_budget), "Unable to click on select plan button");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleQLABudget, bl_ad_budget);
 	}
 
 	@Test //40512
@@ -887,6 +889,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	@Test //40543
 	public void testSelectCityForBuyerLeadsCustomAds() {
 		assertTrue(page.typeAndSelectCity("San Diego, CA"), "Unable to select multiple cities on step 3");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleQLADefaultCity, "San Diego, CA");
 	}
 	@Test //40535
 	public void testVerifyCorrectDataIsDisplayedWhenNextButtonIsClickedStep3BuyerLeadAds() {
