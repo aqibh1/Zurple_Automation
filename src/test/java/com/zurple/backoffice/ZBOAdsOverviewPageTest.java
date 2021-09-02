@@ -19,6 +19,7 @@ import resources.AbstractPage;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
+import resources.utility.CacheFilePathsConstants;
 
 /**
  * @author adar
@@ -80,15 +81,6 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 		assertTrue(page.getHeader().clickOnAdsOverviewButton(), "Unable to click on Ads overview dropdown button..");
 		assertTrue(page.isAdsOverviewPage(), "Ads Overview page is not displayed..");
 		assertTrue(page.verifyAdsAreDisplayed(), "Ads are not showing on Ads overview page..");
-	}
-
-	@Test
-	public void testVerifyAdIsPresentInAdsOverViewPage() {
-		page=null;
-		getPage("/ads/overview");
-		JSONObject dataObject = getDataFile("/resources/data/zurple/backoffice/zurple-self-serve-ads-data.json");
-		ZurpleAdId = dataObject.optString("zurple_ad_id");
-		assertTrue(page.verifyAdIsPresentInAdsOverviewPage(ZurpleAdId),"Ad id ("+ZurpleAdId+") doesn't exist on ads overview page..");
 	}
 	
 	@Test

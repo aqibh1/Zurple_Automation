@@ -256,6 +256,21 @@ public class ActionHelper {
 			return text;
 		}
 	   
+	   public static String getTextByXpathIndex(WebDriver pWebDriver,String pElement, int index) {
+			String text = "";
+		   	wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			AutomationLogger.info("Clicking on button -> "+pElement);
+			try {
+					pWebDriver.findElements(By.xpath(pElement)).get(index).getText();
+					AutomationLogger.info("Clicked on button successful..");
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to Click on "+pElement);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return text;
+		}
+	   
 	   public static String getTextByIndex(WebDriver pWebDriver, String pElement, int index) {
 		   String text = "";
 		   	wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);

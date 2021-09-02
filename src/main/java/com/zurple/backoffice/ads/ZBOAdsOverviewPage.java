@@ -99,22 +99,7 @@ public class ZBOAdsOverviewPage extends Page{
 		}
 		return count;
 	}
-	
-	public boolean verifyAdIsPresentInAdsOverviewPage(String adId) {
-		boolean isAdFound = false;
-		int index = 0;
-		WebElement e = ActionHelper.getDynamicElement(driver, ad_to_find, adId);
-		while(!isAdFound) {
-			ActionHelper.ClickByIndex(driver, preview_button,index);
-			isAdFound = ActionHelper.isElementVisible(driver, e);
-			index++;
-			if(index==10 || isAdFound) {
-				break;
-			}
-		}
-		return isAdFound;
-	}
-	
+		
 	private boolean verifyAdBudget(String pBudget,String ad_id) {
 		boolean isBudget_verified = false;
 		List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, listing_ad_rows);
@@ -198,9 +183,9 @@ public class ZBOAdsOverviewPage extends Page{
 		 List<WebElement> starting_day_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day);
 		 List<WebElement> starting_month_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month);
 		 List<WebElement> starting_year_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year);
-//		 List<WebElement> ending_day_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_ending_date);
-//		 List<WebElement> ending_month_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_ending_date);
-//		 List<WebElement> ending_year_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_ending_date);
+		 List<WebElement> ending_day_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_ending_date);
+		 List<WebElement> ending_month_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_ending_date);
+		 List<WebElement> ending_year_list = ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_ending_date);
 		 
 		 String l_StartDay = ActionHelper.getText(driver, starting_day_list.get(0));
 		 String l_StartMonth = ActionHelper.getText(driver,starting_month_list.get(0));
