@@ -37,6 +37,14 @@
 					<include name="testVerifyQuickBuyerLeadsHeadingAndTypeAdOnAdsOverviewPage" />
 			</methods>
 			</class>
+				<class name="com.zurple.backoffice.admin.ZAAdsManagerPageTest">
+				<methods>
+					<include name="testVerifyStatusOfTheQuickBuyerListingAdFromAdsManager" />
+					<include name="testVerifyBudgetOfTheQuickBuyerListingAdFromAdsManager" />
+					<include name="testVerifyAdDurationOfTheQuickBuyerListingAdFromAdsManager" />
+					<include name="testVerifyAdLocationOfTheQuickBuyerListingAdFromAdsManger" />
+				</methods>
+			</class>
 		</classes>
 	</test>
 </suite>
