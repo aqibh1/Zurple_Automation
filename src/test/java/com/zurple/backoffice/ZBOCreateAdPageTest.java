@@ -980,16 +980,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		getPage("/create-ad/step-one",true);
 		assertTrue(page.clickSelectButtonForQuickAds(), "Unable to click Select button for Quick Ads..");
 		assertTrue(page.verifyStep3Heading("Choose Audience & Reach"), "Unable to verify step3 heading..");
-		
-//		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
-//		assertTrue(page.clickOnQuickAdsSelectButton(), "Unable to click on select button");
-//		assertTrue(page.verifyStep3Heading("Choose Audience & Reach"), "Unable to verify step3 heading..");
-//		assertTrue(!page.getListingAddress().isEmpty(), "Listing address on step2 section 1 is not same as step 1");
-//		assertTrue(!page.getAdHeadlineStep2().isEmpty(), "Ad Heading is not populated..");
-//		assertTrue(!page.getAdDescStep2().isEmpty(), "Ad Heading is not populated..");
-//		assertTrue(page.verifyUrlOnStep2Section2AfterClickingSelect(l_domain), "WebSite domain is not displayed..");
-//		assertTrue(page.isStep1Checked(), "Step1 is not checked on Step 2..");	
-//		assertTrue(page.isStepCheckBoxIsChecked("2"), "Step 2 checkbox is not checked..");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAdId, driver.getCurrentUrl());
 	}
 	@Test //40553
 	public void testVerifySlideShowIsWorkingStep2OfBuyerLeadQuickAds() {
@@ -1032,6 +1023,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isMediumReachSelectedByDefault(), "Medium reach is not selected by default on step 3");
 		bl_quick_ad_budget = "$400";
 		assertTrue(page.selectPlan(bl_quick_ad_budget), "Unable to click on select plan button");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleQLABudget, bl_quick_ad_budget);
 	}
 	@Test //40561
 	public void testVerifyAllThePlansAreDisplayedForByerLeadsQuikcAd() {
@@ -1040,7 +1032,9 @@ public class ZBOCreateAdPageTest extends PageTest{
 	
 	@Test //40562
 	public void testCityIsPrePopulatedOnStep3BuyerLeadQuickAds() {
+		String l_default_city = page.getDefaultCity();
 		assertTrue(page.isDefaultCitySelected(), "Default City is not selected on step 3");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleQLADefaultCity, l_default_city);
 	}
 	@Test //40563
 	public void testVerifyCorrectDataIsDisplayedOnStep3WhenUserLandsOnStep4BuyerLeadQuickAds() {
