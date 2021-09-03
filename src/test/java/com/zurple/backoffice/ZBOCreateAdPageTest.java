@@ -630,31 +630,39 @@ public class ZBOCreateAdPageTest extends PageTest{
 	
 	@Test
 	public void testCreateAndVerifyQuickAdsCity() {
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(lDefaultCity.contains(adsOverviewPage.getAdLocation()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+//		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+//		assertTrue(lDefaultCity.contains(adsOverviewPage.getAdLocation()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+		String l_ad_location = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleQLADefaultCity);
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "location",l_ad_location),"Unable to get ad location for ad: "+getAdId());
 	}
 	
 	@Test
 	public void testCreateAndVerifyQuickAdBudget(){
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.verifyAdPriceIsDisplayed(lAd_budget), "Unable to verify ad budget on ads overview page.."+"["+lAd_budget+"]");	
+//		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+//		assertTrue(adsOverviewPage.verifyAdPriceIsDisplayed(lAd_budget), "Unable to verify ad budget on ads overview page.."+"["+lAd_budget+"]");
+		String l_budget = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleQLABudget);;
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "price",l_budget+" Per Month"),"Unable to get ad price for ad: "+getAdId());
 	}
 	
 	@Test
 	public void testCreateAndVerifyQuickAdDuration(){
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.verifyStartingEndingDate(), "Unable to verify starting and ending date of the ad");	
+//		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+//		assertTrue(adsOverviewPage.verifyStartingEndingDate(), "Unable to verify starting and ending date of the ad");	
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "duration",""),"Unable to get ad duration for ad: "+getAdId());
 	}
 	
 	@Test
 	public void testCreateAndVerifyQuickAdRenewalDate(){
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.verifyRenewalDate(), "Unable to verify renewal date of quick ad");	
+//		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+//		assertTrue(adsOverviewPage.verifyRenewalDate(), "Unable to verify renewal date of quick ad");	
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "date",""),"Unable to get ad date for ad: "+getAdId());
 	}
 	@Test
 	public void testCreateAndVerifyQuickAdStatus()  {
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertEquals(adsOverviewPage.getAdStatus(),"Paused", "Unable to verify AD Status of quick ad");	
+//		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+//		assertEquals(adsOverviewPage.getAdStatus(),"Paused", "Unable to verify AD Status of quick ad");	
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "status","Paused"),"Unable to get ad status for ad: "+getAdId());
+		
 	}
 	
 	@Test
@@ -936,44 +944,48 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	
 	/**
-	 * We need to pass ad id and verification type in params
+	 * We need to pass ad id, verification type and expected data in params
 	 */
 	@Test //40544
 	public void testCreateAndVerifyBuyerLeadAdDurationOnAdsOverviewPage(){
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		//ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		//assertTrue(adsOverviewPage.verifyStartingEndingDate(), "Unable to verify starting and ending date of the ad");
-		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "duration"),"Unable to get ad duration for ad: "+getAdId());
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "duration",""),"Unable to get ad duration for ad: "+getAdId());
 	}
 	
 	@Test //40545
 	public void testCreateAndVerifyBuyerLeadAdRenewalDate(){
 		//ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		//assertTrue(adsOverviewPage.verifyRenewalDate(), "Unable to verify renewal date of quick ad");	
-		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "date"),"Unable to get ad date for ad: "+getAdId());
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "date",""),"Unable to get ad date for ad: "+getAdId());
 	}
 	
 	@Test //40546
 	public void testVerifyBuyerLeadsCustomAdStatus()  {
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertEquals(adsOverviewPage.getAdStatus(),"Paused", "Unable to verify AD Status of quick ad");	
+		//ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		//assertEquals(adsOverviewPage.getAdStatus(),"Paused", "Unable to verify AD Status of quick ad");
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "status","Paused"),"Unable to get ad status for ad: "+getAdId());
 	}
 	
 	@Test //40548
 	public void testVerifyCityForBuyerLeadsAdOnAdsOverviewPage() {
 		//ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		//assertTrue("San Diego, CA".contains(adsOverviewPage.getAdLocation()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");
-		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "location"),"Unable to get ad location for ad: "+getAdId());
+		String l_ad_location = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleQLADefaultCity);
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "location",l_ad_location),"Unable to get ad location for ad: "+getAdId());
 	}
 	
 	@Test //40549
 	public void testVerifyBudgetForBuyerLeadsAdOnAdsOverviewPage(){
 		//ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		//assertTrue(adsOverviewPage.verifyAdPriceIsDisplayed(bl_ad_budget), "Unable to verify ad budget on ads overview page.."+"["+lAd_budget+"]");
-		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "price"),"Unable to get ad price for ad: "+getAdId());
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "price","160 Per Month"),"Unable to get ad price for ad: "+getAdId());
 	}
 	
 	@Test //40547
 	public void testVerifyBuyerLeadsHeadingAndTypeAdOnAdsOverviewPage(){
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "listingType","Custom Ad"),"Unable to get ad listing type for ad: "+getAdId());
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "headline","Buyer Lead Ad"),"Unable to get ad heading type for ad: "+getAdId());
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		assertTrue(adsOverviewPage.getAdType().equalsIgnoreCase("Buyer Lead Ad"), "Buyer Lead heading is not displayed on ads overview page.."+"[Buyer Lead Ad]");	
 		assertTrue(adsOverviewPage.getListingAddressFirstRow().equalsIgnoreCase("Custom Ad"), "Buyer Lead heading is not displayed on ads overview page.."+"[Buyer Lead Ad]");	
@@ -1087,37 +1099,46 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(driver.getCurrentUrl().contains("/ads/overview"), "URL is not changed");
 	}
 	@Test //40567
-	public void testCreateAndVerifyQuickAdBuyerLeadAdDurationOnAdsOverviewPage(){
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.verifyStartingEndingDate(), "Unable to verify starting and ending date of the ad");	
+	public void testCreateAndVerifyQuickAdBuyerLeadAdDurationOnAdsOverviewPage(){		
+//		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+//		assertTrue(adsOverviewPage.verifyStartingEndingDate(), "Unable to verify starting and ending date of the ad");
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "duration",""),"Unable to get ad duration for ad: "+getAdId());
+
 	}
 	
 	@Test //40568
 	public void testCreateAndVerifyBuyerLeadQuickAdRenewalDate(){
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.verifyRenewalDate(), "Unable to verify renewal date of quick ad");	
+//		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+//		assertTrue(adsOverviewPage.verifyRenewalDate(), "Unable to verify renewal date of quick ad");
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "date",""),"Unable to get ad date for ad: "+getAdId());
 	}
 	
 	@Test //40569
 	public void testVerifyBuyerLeadsQuickAdStatus()  {
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertEquals(adsOverviewPage.getAdStatus(),"Paused", "Unable to verify AD Status of quick ad");	
+//		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+//		assertEquals(adsOverviewPage.getAdStatus(),"Paused", "Unable to verify AD Status of quick ad");
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "status","Paused"),"Unable to get ad status for ad: "+getAdId());
 	}
 	
 	@Test //40571
 	public void testVerifyCityForBuyerLeadsQuickAdOnAdsOverviewPage() {
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue("San Diego, CA".contains(adsOverviewPage.getAdLocation()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+//		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+//		assertTrue("San Diego, CA".contains(adsOverviewPage.getAdLocation()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+		String l_ad_location = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleQLADefaultCity);
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "location",l_ad_location),"Unable to get ad location for ad: "+getAdId());
 	}
 	
 	@Test //40572
 	public void testVerifyBudgetForQuickBuyerLeadsAdOnAdsOverviewPage(){
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.verifyAdPriceIsDisplayed(bl_quick_ad_budget), "Unable to verify ad budget on ads overview page.."+"["+lAd_budget+"]");	
+//		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+//		assertTrue(adsOverviewPage.verifyAdPriceIsDisplayed(bl_quick_ad_budget), "Unable to verify ad budget on ads overview page.."+"["+lAd_budget+"]");	
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "price","400 Per Month"),"Unable to get ad price for ad: "+getAdId());
 	}
 	
 	@Test //40570
 	public void testVerifyQuickBuyerLeadsHeadingAndTypeAdOnAdsOverviewPage(){
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "listingType","Quick Ad"),"Unable to get ad listing type for ad: "+getAdId());
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "headline","Buyer Lead Ad"),"Unable to get ad headline type for ad: "+getAdId());
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		assertTrue(adsOverviewPage.getAdType().equalsIgnoreCase("Buyer Lead Ad"), "Buyer Lead heading is not displayed on ads overview page.."+"[Buyer Lead Ad]");	
 		assertTrue(adsOverviewPage.getListingAddressFirstRow().contains("Quick Ad"), "Buyer Lead heading is not displayed on ads overview page.."+"[Buyer Lead Ad]");	

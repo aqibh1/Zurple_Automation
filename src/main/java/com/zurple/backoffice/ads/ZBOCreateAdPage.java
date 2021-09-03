@@ -270,7 +270,8 @@ public class ZBOCreateAdPage extends Page{
 	String ad_date = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::span[@class='addate_cap']";
 	String ad_price = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::span[@class='adprice_cap']";
 	String ad_location = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::span[@class='adlocation_cap']";
-
+	String ad_listingtype = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::span[@class='listing_addr']";
+	String ad_headline = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::h4[@class='listad_headline']";
 	String first_row_ad_starting_day = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_date']";
 	String first_row_ad_starting_month = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_month']";
 	String first_row_ad_starting_year = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_yaer']";
@@ -300,22 +301,32 @@ public class ZBOCreateAdPage extends Page{
 	public String getListingAddressValue() {
 		return listing_address_value;
 	}
-	public boolean verifyAdDetailsByAdIdInAdsOverviewPage(String pAdId, String pVerificationType) {
-		boolean isSuccess = false;
-		HashMap<String, WebElement> adItems = new HashMap<String, WebElement>();
-		adItems.put("slider",ActionHelper.getDynamicElement(driver, ad_slider, pAdId));
-		adItems.put("date",ActionHelper.getDynamicElement(driver, ad_date, pAdId));
-		adItems.put("price",ActionHelper.getDynamicElement(driver, ad_price, pAdId));
-		adItems.put("location",ActionHelper.getDynamicElement(driver, ad_location, pAdId));
+	public boolean verifyAdDetailsByAdIdInAdsOverviewPage(String pAdId, String pVerificationType, String pData) {
+		boolean isSuccess = false;		
 		switch(pVerificationType){
 			case "date":
 				isSuccess = verifyRenewalDate(pAdId);
+				break;
 			case "price":
-				isSuccess = !ActionHelper.getText(driver, adItems.get("price")).isEmpty() && ActionHelper.getText(driver, adItems.get("slider")).contains("$");
+				String p = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, ad_price, pAdId));
+				isSuccess = p.contains(pData) || pData.contains(p);
+				break;
 			case "location":
-				isSuccess = !ActionHelper.getText(driver, adItems.get("location")).isEmpty();
+				String loc = "";
+				isSuccess = loc.contains(pData) || pData.contains(loc);
+				break;
 			case "duration":
 				isSuccess = verifyStartingEndingDate(pAdId);
+				break;
+			case "status":
+				isSuccess = verifyAdStatus(pAdId).contains(pData);
+				break;
+			case "listingType":
+				isSuccess = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, ad_listingtype, pAdId)).contains(pData);
+				break;
+			case "headline":
+				isSuccess = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, ad_headline, pAdId)).contains(pData);
+				break;
 		}
 		return isSuccess;
 		
@@ -924,6 +935,10 @@ public class ZBOCreateAdPage extends Page{
 		 String l_renewalDATE = "";
 		 l_renewalDATE = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, ad_date, pAdId));
 		 return l_renewalDATE;
+	 }
+	 
+	 private String verifyAdStatus(String pAdId) {
+		 return ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::td[@class='td_center']").get(3));
 	 }
 	 
 }
