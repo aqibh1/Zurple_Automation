@@ -67,7 +67,7 @@ public class ZAAdsManagerPageTest extends PageTest{
 	public void testVerifyStatusOfTheQuickListingAdFromAdsManager() {
 		getPage("/admin/ads");
 		searchAdPreCondition();
-		assertTrue(verifytSUPStatusOfTheAd("PAUSED"), "Unable to verify SUP ad status");
+		assertTrue(verifytSUPStatusOfTheAd("Paused"), "Unable to verify SUP ad status");
 		assertTrue(verifytStatusOfTheAd("PAUSED"), "AD Status is not PAUSED");
 	}
 	
