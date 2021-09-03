@@ -5,7 +5,6 @@ package com.zurple.backoffice.ads;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -823,9 +822,9 @@ public class ZBOCreateAdPage extends Page{
 		 return ActionHelper.getText(driver, headline_count_left);
 	 }
 	 public boolean clickSelectButtonForQuickAds() {
-		 int quick_Ad = generateRandomInt(5);
+		 int quick_Ad = generateRandomInt(4);
 		 boolean isClicked = false;
-		 if(quick_Ad==4) {
+		 if(quick_Ad==3) {
 			 if(ActionHelper.Click(driver, quick_ad_slide_arrow)) {
 				 isClicked = ActionHelper.Click(driver, ActionHelper.getListOfElementByXpath(driver, buyer_lead_quick_select_list).get(quick_Ad-1));
 			 }
