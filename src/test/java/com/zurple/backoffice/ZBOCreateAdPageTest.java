@@ -96,6 +96,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
 		}
 	}
+	
 	@Test
 	public void testVerifyCustomAdSectionIsDisplayed()  {
 		getPage("/create-ad/step-one",true);
@@ -934,16 +935,21 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(driver.getCurrentUrl().contains("/ads/overview"), "URL is not changed");
 	}
 	
+	/**
+	 * We need to pass ad id and verification type in params
+	 */
 	@Test //40544
 	public void testCreateAndVerifyBuyerLeadAdDurationOnAdsOverviewPage(){
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.verifyStartingEndingDate(), "Unable to verify starting and ending date of the ad");	
+		//assertTrue(adsOverviewPage.verifyStartingEndingDate(), "Unable to verify starting and ending date of the ad");
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "duration"),"Unable to get ad duration for ad: "+getAdId());
 	}
 	
 	@Test //40545
 	public void testCreateAndVerifyBuyerLeadAdRenewalDate(){
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.verifyRenewalDate(), "Unable to verify renewal date of quick ad");	
+		//ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		//assertTrue(adsOverviewPage.verifyRenewalDate(), "Unable to verify renewal date of quick ad");	
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "date"),"Unable to get ad date for ad: "+getAdId());
 	}
 	
 	@Test //40546
@@ -954,14 +960,16 @@ public class ZBOCreateAdPageTest extends PageTest{
 	
 	@Test //40548
 	public void testVerifyCityForBuyerLeadsAdOnAdsOverviewPage() {
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue("San Diego, CA".contains(adsOverviewPage.getAdLocation()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");	
+		//ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		//assertTrue("San Diego, CA".contains(adsOverviewPage.getAdLocation()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity+"]");
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "location"),"Unable to get ad location for ad: "+getAdId());
 	}
 	
 	@Test //40549
 	public void testVerifyBudgetForBuyerLeadsAdOnAdsOverviewPage(){
-		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.verifyAdPriceIsDisplayed(bl_ad_budget), "Unable to verify ad budget on ads overview page.."+"["+lAd_budget+"]");	
+		//ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		//assertTrue(adsOverviewPage.verifyAdPriceIsDisplayed(bl_ad_budget), "Unable to verify ad budget on ads overview page.."+"["+lAd_budget+"]");
+		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "price"),"Unable to get ad price for ad: "+getAdId());
 	}
 	
 	@Test //40547
@@ -982,6 +990,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.verifyStep3Heading("Choose Audience & Reach"), "Unable to verify step3 heading..");
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAdId, driver.getCurrentUrl());
 	}
+	
 	@Test //40553
 	public void testVerifySlideShowIsWorkingStep2OfBuyerLeadQuickAds() {
 		assertTrue(page.verifyInstaPreviewSlideShowIsWorkingOnStep2(), "Instagram slide show is not working..");
@@ -1139,9 +1148,6 @@ public class ZBOCreateAdPageTest extends PageTest{
 		}
 	}
 	public void clickOnPlaceAdAButton() {
-		String l_current_url = driver.getCurrentUrl();
-		l_current_url = l_current_url.split("ad=")[1];
-		saveData(l_current_url,CacheFilePathsConstants.SelfServeAds);
 		if(!page.clickOnPlaceAdButton()) {
 			throw new SkipException("Skipping the test becasuse [Click on Place Ad Button] pre-condition was failed.");
 		}
@@ -1167,6 +1173,11 @@ public class ZBOCreateAdPageTest extends PageTest{
 		JSONObject jObject = new JSONObject();
 		jObject.put("zurple_ad_id", dataToWrite);
 		writeJsonToFile(fileToWrite,jObject);
+	}
+	private String getAdId() {
+		String l_ad_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAdId);
+		l_ad_id = l_ad_id.split("ad=")[1];
+		return l_ad_id;
 	}
 
 	@AfterTest
