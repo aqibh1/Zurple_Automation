@@ -1066,6 +1066,7 @@ public class ZBOLeadDetailPage extends Page{
 				isSuccess = successAlert.clickOnUnEnrollButton();
 			}
 		}
+		ActionHelper.staticWait(10);
 		return isSuccess;
 	}
 	public boolean isCampaignNameVisibleInMyMessages(String pCampaignName) {
