@@ -225,7 +225,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		String l_currentUrl =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
 		driver.navigate().to(l_currentUrl);
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
-		assertTrue(leadDetailPage.verifyEmailInZurpleMesssagesTab("per your valuation request"), "Unable to find the email "+"'per your valuation request'");
+		assertTrue(leadDetailPage.verifyEmailInZurpleMesssagesTab("Your home valuation request"), "Unable to find the email "+"'per your valuation request'");
 	}
 	
 	@Test //C40423
