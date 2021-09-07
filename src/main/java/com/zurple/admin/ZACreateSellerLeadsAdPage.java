@@ -17,7 +17,7 @@ import resources.utility.ActionHelper;
  * @author darrraqi
  *
  */
-public class ZASellerLeadsAdPage extends Page{
+public class ZACreateSellerLeadsAdPage extends Page{
 	
 	@FindBy(id="select2-ad_package-container")
 	WebElement package_dropdown;
@@ -52,7 +52,13 @@ public class ZASellerLeadsAdPage extends Page{
 	@FindBy(xpath="//button[text()='Submit']")
 	WebElement submit_button;
 	
-	public ZASellerLeadsAdPage(WebDriver pWebDriver) {
+	@FindBy(xpath="//h1[text()='Seller Lead Ads']")
+	WebElement seller_lead_ad_heading;
+	
+	@FindBy(xpath="//div/li[text()=' Ad Saved successfully ']")
+	WebElement success_message;
+	
+	public ZACreateSellerLeadsAdPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
 	}
@@ -94,5 +100,11 @@ public class ZASellerLeadsAdPage extends Page{
 	}
 	public boolean clickOnSubmitButton() {
 		return ActionHelper.Click(driver, submit_button);
+	}
+	public boolean isSellerLeadAdPage() {
+		return ActionHelper.waitForElementToBeVisible(driver, seller_lead_ad_heading, 15);
+	}
+	public boolean isSuccessMessageVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, success_message, 10);
 	}
 }
