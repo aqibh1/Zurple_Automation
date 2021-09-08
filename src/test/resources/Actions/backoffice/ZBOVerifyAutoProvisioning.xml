@@ -1,0 +1,32 @@
+<suite name="Pre Post Release Rest API Smoke Suite Zurple"
+	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+        <listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+    </listeners>
+    
+<test name="Verify Admin Creation by Auto Provisioning">	 
+	<parameter name="packageDataFile" value="/resources/data/zurple/backoffice/create_ap_package_data.json"> 
+		<parameter name="adminDataFile" value="/resources/data/zurple/backoffice/create_ap_admin_data.json"> 
+			<classes>
+ 		   	<class name="com.restapi.autoprovision.ZBORestPostPackage">
+				<methods>
+					<include name="testPostPackage" /> 
+				</methods>
+			</class> 
+  			<class name="com.restapi.autoprovision.ZBORestPostZAdmin">
+				<methods>
+				  	<include name="testPostZAdmin"/>  
+				</methods>
+			</class>  
+			<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>				
+			</classes>
+		</parameter>
+	</parameter>
+	</test>
+</suite>
