@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.TimeZone;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -394,6 +395,10 @@ public abstract class AbstractPageTest extends AbstractTest
     		lNum = lNum - 1;
     	}
     	return lNum;
+    }
+    protected static int generateRandomInt(int pLowerRange ,int pUpperRange){
+    	int randomNum = ThreadLocalRandom.current().nextInt(pLowerRange, pUpperRange + 1);
+    	return randomNum;
     }
     protected String getCuurentTime() {
     	SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
