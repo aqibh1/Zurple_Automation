@@ -342,5 +342,9 @@ public class ZBOLeadCRMPage extends Page{
 		return isSelected;
 	}
 	public boolean selectAllLeads() {
-		return ActionHelper.Click(driver, bulk_select);	}
+		return ActionHelper.Click(driver, bulk_select);	
+		}
+	public boolean isProcessingComplete() {
+		return ActionHelper.waitForElementToBeDisappeared(driver, processing, 120);
+	}
 }
