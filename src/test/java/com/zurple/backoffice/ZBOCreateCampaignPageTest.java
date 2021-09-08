@@ -557,6 +557,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	public void testBulkEnrollSelectiveLeadsFromCRMPage() {
 		getPage("/leads/crm");
 		ZBOLeadCRMPage crmPage = new ZBOLeadCRMPage(driver);
+		crmPage.isProcessingComplete();
 		assertTrue(crmPage.selectMultipleLeads(5), "Unable to select the multiple leads");
 		enrollmentOfLeadFromAction();
 	
@@ -569,6 +570,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	public void testBulkEnrollAllLeadsFromCRMPage() {
 		getPage("/leads/crm");
 		ZBOLeadCRMPage crmPage = new ZBOLeadCRMPage(driver);
+		crmPage.isProcessingComplete();
 		assertTrue(crmPage.selectAllLeads(), "Unable to select all leads");
 		enrollmentOfLeadFromAction();
 	
