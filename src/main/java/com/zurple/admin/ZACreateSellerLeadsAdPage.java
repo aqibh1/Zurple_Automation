@@ -58,6 +58,9 @@ public class ZACreateSellerLeadsAdPage extends Page{
 	@FindBy(xpath="//div/li[text()=' Ad Saved successfully ']")
 	WebElement success_message;
 	
+	@FindBy(xpath="//input[@value='paused']")
+	WebElement paused_radio_button;
+	
 	public ZACreateSellerLeadsAdPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -66,6 +69,7 @@ public class ZACreateSellerLeadsAdPage extends Page{
 	public boolean typeAndSelectPackage(String pPackage) {
 		boolean isSuccessful = false;
 		if(ActionHelper.Click(driver, package_dropdown) && ActionHelper.Type(driver, package_input_search, pPackage)) {
+			ActionHelper.staticWait(3);
 			isSuccessful = ActionHelper.Type(driver, package_input_search, Keys.ENTER);
 		}
 		return isSuccessful;
@@ -73,6 +77,7 @@ public class ZACreateSellerLeadsAdPage extends Page{
 	public boolean typeAndSelectAdmin(String pPackage) {
 		boolean isSuccessful = false;
 		if(ActionHelper.Click(driver, admin_dropdown) && ActionHelper.Type(driver, package_input_search, pPackage)) {
+			ActionHelper.staticWait(3);
 			isSuccessful = ActionHelper.Type(driver, package_input_search, Keys.ENTER);
 		}
 		return isSuccessful;
@@ -106,5 +111,14 @@ public class ZACreateSellerLeadsAdPage extends Page{
 	}
 	public boolean isSuccessMessageVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, success_message, 10);
+	}
+	public boolean clickPausedRadioButton() {
+		boolean isSelected = false;
+		if(!ActionHelper.isElementSelected(driver, paused_radio_button)) {
+			isSelected = ActionHelper.Click(driver, paused_radio_button);
+		}else {
+			isSelected = true;
+		}
+		return isSelected;
 	}
 }

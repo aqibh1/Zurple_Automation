@@ -262,10 +262,22 @@ public class ZAAdsManagerPageTest extends PageTest{
 
 	}
 	private boolean verifytStatusOfTheAd(String pStatus) {
-		return page.getAdStatus().equalsIgnoreCase(pStatus);
+		boolean isStatusVerified = false;
+		if(page.getAdStatus().equalsIgnoreCase(pStatus)) {
+			isStatusVerified = true;
+		}else {
+			AutomationLogger.error("Facebook Ad Status :: "+page.getAdSUPStatus());
+		}
+		return isStatusVerified;
 	}
 	private boolean verifytSUPStatusOfTheAd(String pStatus) {
-		return page.getAdSUPStatus().contains("SUP: "+pStatus);
+		boolean isStatusVerified = false;
+		if(page.getAdSUPStatus().contains("SUP: "+pStatus)) {
+			isStatusVerified = true;
+		}else {
+			AutomationLogger.error("Facebook SUP Status :: "+page.getAdSUPStatus());
+		}
+		return isStatusVerified;
 	}
 	private boolean verifyBudgetOfTheAd(String pBudget) {
 		return page.getClientFee().contains(pBudget);
