@@ -40,9 +40,9 @@ public class ZAViewSellerLeadsAdPage extends Page{
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
 	}
-	
+	//The newly created ad will always be on top
 	public int getAdsCount() {
-		return ActionHelper.getListOfElementByXpath(driver, ads_count).size();
+		return 1;
 	}
 	public boolean verifyAdDate(String pDate, String pAdIndex) {
 		return ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, ad_date, pAdIndex)).contains(pDate);

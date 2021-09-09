@@ -18,7 +18,13 @@
 			</class>
 			<class name="com.zurple.backoffice.admin.ZAViewSellerLeadsAdPageTest">
 				<methods>
-					 <include name="testVerifyLeadFormSellerLeadAd" />
+					 <include name="testVerifyDateLeadFormSellerLeadAd" />
+					 <include name="testVerifyAdTypeSellerLeadFormAd" />
+					 <include name="testVerifyAdStatusSellerLeadFormAd" />
+					 <include name="testVerifyBudgetSellerLeadFormAd" />
+					 <include name="testVerifyCarouselAdStatusSellerLeadFormAd" />
+					 <include name="testVerifyCarouselDownloadAdStatusSellerLeadFormAd" />
+					 <include name="testVerifyCarouselVideoAdStatusSellerLeadFormAd" />
 				</methods>
 			</class>
 		</classes>

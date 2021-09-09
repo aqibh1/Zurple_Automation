@@ -57,5 +57,6 @@ public class ModuleCacheConstants {
 	public static final String ZurpleQLABudget = "zurple.zbo.ad.quick.listing.budget";;
 	public static final String ZurpleAPPackageId = "zurple.ap.package.id";
 	public static final String ZurpleAPAdminId = "zurple.ap.admin.id";
+	public static final String SellerAdsCount = "zurple.sl.count";
 
 }

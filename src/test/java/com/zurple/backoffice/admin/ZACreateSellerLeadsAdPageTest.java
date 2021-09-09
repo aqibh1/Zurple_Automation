@@ -61,6 +61,11 @@ public class ZACreateSellerLeadsAdPageTest extends PageTest{
 		}
 	}
 	
+	/**
+	 * @param pDataFile
+	 * Verify user can create 'Lead Form' Ad using the admin tool
+	 * 45698
+	 */
 	@Test
 	@Parameters({"dataFile"})
 	public void testCreateAndVerifyLeadFormSellerLeadAd(String pDataFile) {

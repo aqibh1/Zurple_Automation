@@ -7,7 +7,6 @@ import static org.testng.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.zurple.admin.ZAViewSellerLeadsAdPage;
@@ -59,29 +58,85 @@ public class ZAViewSellerLeadsAdPageTest extends PageTest{
 //		}
 //	}
 	
+	/**
+	 * @param pDataFile
+	 * 
+	 * Pre Requisite test for all the verifications
+	 * Verify 'Lead Form' seller lead ad date from View ads page
+	 * 45758
+	 */
 	@Test
-	@Parameters({"dataFile"})
-	public void testVerifyLeadFormSellerLeadAd(String pDataFile) {
+	public void testVerifyDateLeadFormSellerLeadAd() {
 		getPage("/admin/view-sl-ads?status=test");
-		String l_current_url = driver.getCurrentUrl();
-		String l_ad_budget = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdBudget);
 		assertTrue(page.isViewAdsPageDisplayed(), "View Seller lead ad page is not displayed..");
 		String ads_count = String.valueOf(page.getAdsCount());
-		
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.SellerAdsCount, ads_count);
 		assertTrue(page.verifyAdDate(getTodaysDate(), ads_count), "Unable to verify ad date..");
-		assertTrue(page.verifyAdType("Lead_form", ads_count), "Unable to verify the ad type");
-		assertTrue(page.verifyAdStatus("paused", ads_count), "Ad status is not paused..");
-		assertTrue(page.verifyAdBudget("$"+l_ad_budget+".00", ads_count), "Unable to verify Ad Budget");
-		
-		assertTrue(page.refreshStatusButton(ads_count), "Unable to click on refresh status button");
-		driver.navigate().to(l_current_url);
-		ActionHelper.staticWait(5);
-		
-		assertTrue(page.verifyCarouselStatus("Pending_review","Disapproved", ads_count), "Unable to veridy ad carousel status");
-		assertTrue(page.verifyCarouselDownloadStatus("Pending_review","Disapproved", ads_count), "Unable to veridy ad carousel status");
-		assertTrue(page.verifyCarouselVideoStatus("Pending_review","Disapproved", ads_count), "Unable to veridy ad carousel status");
 	}
 	
+	/**
+	 * Verify the ad type is 'Lead Form' on view seller lead ads page
+	 * 45759
+	 */
+	@Test
+	public void testVerifyAdTypeSellerLeadFormAd() {
+		String l_ad_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.SellerAdsCount);
+		assertTrue(page.verifyAdType("Lead_form", l_ad_count), "Unable to verify the ad type");
+	}
+	
+	/**
+	 * Verify the Seller lead form ad status is 'paused' on view seller lead ads page
+	 * 45760
+	 */
+	@Test
+	public void testVerifyAdStatusSellerLeadFormAd() {
+		String l_ad_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.SellerAdsCount);
+		assertTrue(page.verifyAdStatus("paused", l_ad_count), "Ad status is not paused..");	}
+	
+	/**
+	 * Verify the Seller lead form ad budget is correct view seller lead ads page.
+	 * 45761
+	 */
+	@Test
+	public void testVerifyBudgetSellerLeadFormAd() {
+		String l_ad_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.SellerAdsCount);
+		String l_ad_budget = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdBudget);
+		assertTrue(page.verifyAdBudget("$"+l_ad_budget+".00", l_ad_count), "Unable to verify Ad Budget");
+	}
+	
+	/**
+	 * Verify the Seller lead form carousel status is correct view seller lead ads page.
+	 * 45762
+	 */
+	@Test
+	public void testVerifyCarouselAdStatusSellerLeadFormAd() {
+		String l_ad_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.SellerAdsCount);
+		String l_current_url = driver.getCurrentUrl();
+		assertTrue(page.refreshStatusButton(l_ad_count), "Unable to click on refresh status button");
+		driver.navigate().to(l_current_url);
+		ActionHelper.staticWait(5);
+		assertTrue(page.verifyCarouselStatus("Pending_review","Disapproved", l_ad_count), "Unable to verify ad carousel status");
+	}
+	
+	/**
+	 * Verify the Seller lead form carousel video status is correct view seller lead ads page.
+	 * 45763
+	 */
+	@Test
+	public void testVerifyCarouselDownloadAdStatusSellerLeadFormAd() {
+		String l_ad_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.SellerAdsCount);
+		assertTrue(page.verifyCarouselDownloadStatus("Pending_review","Disapproved", l_ad_count), "Unable to verify ad carousel download status");
+	}
+	
+	/**
+	 * Verify the Seller lead form carousel download status is correct view seller lead ads page.
+	 * 45764
+	 */
+	@Test
+	public void testVerifyCarouselVideoAdStatusSellerLeadFormAd() {
+		String l_ad_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.SellerAdsCount);
+		assertTrue(page.verifyCarouselVideoStatus("Pending_review","Disapproved", l_ad_count), "Unable to verify ad carousel video status");
+	}
 	
 	@AfterTest
 	public void closeBrowser() {
