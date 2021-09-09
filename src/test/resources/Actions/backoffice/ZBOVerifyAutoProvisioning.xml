@@ -15,11 +15,16 @@
 					<include name="testPostPackage" /> 
 				</methods>
 			</class> 
-  			<class name="com.restapi.autoprovision.ZBORestPostZAdmin">
+  			<class name="com.restapi.autoprovision.ZBORestPostAdmin">
 				<methods>
-				  	<include name="testPostZAdmin"/>  
+				  	<include name="testPostAdmin"/>  
 				</methods>
-			</class>  
+			</class> 
+			<class name="com.restapi.autoprovision.ZBORestPostCheckEmail">
+				<methods>
+				  	<include name="testPostCheckEmail"/>  
+				</methods>
+			</class>   
 			<class name="resources.CurrentPageTest">
 				<methods>
 					<include name="closeBrowser" />

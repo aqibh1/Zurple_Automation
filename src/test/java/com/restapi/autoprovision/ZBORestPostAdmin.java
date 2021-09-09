@@ -31,13 +31,13 @@ import resources.utility.ZurpleListingConstants;
  * @author ahabib
  *
  */
-public class ZBORestPostZAdmin extends RestAPITest{
+public class ZBORestPostAdmin extends RestAPITest{
 	private JSONObject dataObject;
 	String lDataFile ="";
 
-	@Test
+	@Test(priority=238)
 	@Parameters({"adminDataFile"})
-	public void testPostZAdmin(String pDataFile) throws Exception {
+	public void testPostAdmin(String pDataFile) throws Exception {
 		getDriver();
 		lDataFile = pDataFile;
 		JSONObject responseObj = null;
@@ -52,7 +52,7 @@ public class ZBORestPostZAdmin extends RestAPITest{
 		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
 		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
 		responseObj = response.getJsonResponse();
-		assertTrue(validateMapResp(response),"Unable to verify the response..");
+		assertTrue(validateMapResp(response),"Unable to verify the admin response..");
 	}
 
 	@Override
@@ -83,6 +83,7 @@ public class ZBORestPostZAdmin extends RestAPITest{
 		String lAgentId = dataObject.optString("agent_id");
 		String lForward = updateEmail(dataObject.optString("forward1"));
 		String lLoginEmail = updateEmail(dataObject.optString("email"));
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAPEmail, lLoginEmail);
 		String lAltEmail = updateEmail(dataObject.optString("alt_email"));
 		String lTimeZone = dataObject.optString("time_zone");
 		String lOfficeName = dataObject.optString("office_name");
