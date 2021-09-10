@@ -12,6 +12,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.zurple.my.Page;
 
 import resources.utility.ActionHelper;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author darrraqi
@@ -61,6 +62,8 @@ public class ZACreateSellerLeadsAdPage extends Page{
 	@FindBy(xpath="//input[@value='paused']")
 	WebElement paused_radio_button;
 	
+	String carousel_image_xpath ="image_"+FrameworkConstants.DYNAMIC_VARIABLE+"_carousel";
+	
 	public ZACreateSellerLeadsAdPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -95,7 +98,18 @@ public class ZACreateSellerLeadsAdPage extends Page{
 		return ActionHelper.selectDropDownOption(driver, ad_type, "", pAdType);
 	}
 	public boolean clickAndSelectCarousel(String pCarousel) {
-		return ActionHelper.selectDropDownOption(driver, cma_carousel, "", pCarousel);
+		boolean isSuccess = false;
+		switch(pCarousel) {
+		case "IDX images":
+			break;
+		case "Custom Images":
+			
+			break;
+		case "Default Images":
+			isSuccess = ActionHelper.selectDropDownOption(driver, cma_carousel, "", pCarousel);
+			break;
+		}
+		return isSuccess;
 	}
 	public boolean clickAndSelectCMAVideo(String pCarousel) {
 		return ActionHelper.selectDropDownOption(driver, cma_video, "", pCarousel);
@@ -120,5 +134,13 @@ public class ZACreateSellerLeadsAdPage extends Page{
 			isSelected = true;
 		}
 		return isSelected;
+	}
+	private boolean uploadCarouselImages(String pImagesPath) {
+		boolean isSuccess = false;
+		String [] images_path = pImagesPath.split(",");
+		for(int i=1;i<images_path.length;i++) {
+			
+		}
+		return isSuccess;
 	}
 }

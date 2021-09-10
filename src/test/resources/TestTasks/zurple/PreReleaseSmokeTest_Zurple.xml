@@ -2635,6 +2635,14 @@
 					<include name="testCreateAndVerifyMultipleCitiesQuickAd" />
 				</methods>
 			</class>
+			<class name="com.zurple.backoffice.admin.ZAAdsManagerPageTest">
+				<methods>
+					<include name="testVerifyStatusOfTheQuickListingAdFromAdsManager" />
+					<include name="testVerifyBudgetOfTheQuickListingAdFromAdsManager" />
+					<include name="testVerifyAdDurationOfTheQuickListingAdFromAdsManager" />
+					<include name="testVerifyAdLocationOfTheQuickListingAdFromAdsManger" />
+				</methods>
+			</class>
 			<class name="com.zurple.rest.sapi.ads.ZBORestGetAdsInfoListTest">
 				<methods>
 					<include name="testGetAdInfoList" />
@@ -2644,7 +2652,7 @@
 	</parameter>
 	</test>
 	
-	<test name="Create and Verify Custom ad from Ads Overview Page">
+<test name="Create and Verify Custom ad from Ads Overview Page">
 	<parameter name="datafile" value="/resources/data/zurple/socialapi/ads/custom_Ad_data.json">
 		<classes>  
 			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
@@ -2659,6 +2667,14 @@
 					<include name="testCreateAndVerifyMultipleCitiesCustomAd" />
 				</methods>
 			</class>
+				<class name="com.zurple.backoffice.admin.ZAAdsManagerPageTest">
+				<methods>
+					<include name="testVerifyStatusOfTheCustomListingAdFromAdsManager" />
+					<include name="testVerifyBudgetOfTheCustomListingAdFromAdsManager" />
+					<include name="testVerifyAdDurationOfTheCustomListingAdFromAdsManager" />
+					<include name="testVerifyAdLocationOfTheCustomListingAdFromAdsManger" />
+				</methods>
+			</class>
 			<class name="com.zurple.rest.sapi.ads.ZBORestGetAdsInfoListTest">
 				<methods>
 					<include name="testGetAdInfoList" />
@@ -2667,7 +2683,7 @@
 		</classes>
 	</parameter>
 	</test>
-	
+		
 	<test name="Create and Verify Buyer Leads Quick Ad">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
@@ -2695,6 +2711,14 @@
 					<include name="testVerifyBudgetForQuickBuyerLeadsAdOnAdsOverviewPage" />
 					<include name="testVerifyQuickBuyerLeadsHeadingAndTypeAdOnAdsOverviewPage" />
 			</methods>
+			</class>
+				<class name="com.zurple.backoffice.admin.ZAAdsManagerPageTest">
+				<methods>
+					<include name="testVerifyStatusOfTheQuickBuyerListingAdFromAdsManager" />
+					<include name="testVerifyBudgetOfTheQuickBuyerListingAdFromAdsManager" />
+					<include name="testVerifyAdDurationOfTheQuickBuyerListingAdFromAdsManager" />
+					<include name="testVerifyAdLocationOfTheQuickBuyerListingAdFromAdsManger" />
+				</methods>
 			</class>
 		</classes>
 	</test>
