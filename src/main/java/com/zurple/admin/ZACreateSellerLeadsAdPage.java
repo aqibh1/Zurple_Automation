@@ -62,7 +62,17 @@ public class ZACreateSellerLeadsAdPage extends Page{
 	@FindBy(xpath="//input[@value='paused']")
 	WebElement paused_radio_button;
 	
-	String carousel_image_xpath ="image_"+FrameworkConstants.DYNAMIC_VARIABLE+"_carousel";
+	String carousel_image_xpath ="//input[@id='image_"+FrameworkConstants.DYNAMIC_VARIABLE+"_carousel']";
+	@FindBy(xpath="//div[@id='customModal_carousel']/descendant::button[text()='select images']")
+	WebElement select_image_carousel_button;
+	
+	String carousel_video_xpath ="//input[@id='image_"+FrameworkConstants.DYNAMIC_VARIABLE+"_video']";
+	@FindBy(xpath="//div[@id='customModal_video']/descendant::button[text()='select images']")
+	WebElement select_video_carousel_button;
+	
+	String carousel_carouselsearch_xpath ="//input[@id='image_"+FrameworkConstants.DYNAMIC_VARIABLE+"_carouselsearch']";
+	@FindBy(xpath="//div[@id='customModal_carouselsearch']/descendant::button[text()='select images']")
+	WebElement select_image_download_button;
 	
 	public ZACreateSellerLeadsAdPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -97,13 +107,14 @@ public class ZACreateSellerLeadsAdPage extends Page{
 	public boolean clickAndSelectAdType(String pAdType) {
 		return ActionHelper.selectDropDownOption(driver, ad_type, "", pAdType);
 	}
-	public boolean clickAndSelectCarousel(String pCarousel) {
+	public boolean clickAndSelectCarousel(String pCarousel, String pImagesPath) {
 		boolean isSuccess = false;
 		switch(pCarousel) {
 		case "IDX images":
 			break;
 		case "Custom Images":
-			
+			ActionHelper.selectDropDownOption(driver, cma_carousel, "", pCarousel);
+			isSuccess = uploadImages(carousel_image_xpath, pImagesPath) && ActionHelper.Click(driver, select_image_carousel_button);
 			break;
 		case "Default Images":
 			isSuccess = ActionHelper.selectDropDownOption(driver, cma_carousel, "", pCarousel);
@@ -111,11 +122,35 @@ public class ZACreateSellerLeadsAdPage extends Page{
 		}
 		return isSuccess;
 	}
-	public boolean clickAndSelectCMAVideo(String pCarousel) {
-		return ActionHelper.selectDropDownOption(driver, cma_video, "", pCarousel);
+	public boolean clickAndSelectCMAVideo(String pCarousel,String pImagesPath) {
+		boolean isSuccess = false;
+		switch(pCarousel) {
+		case "IDX images":
+			break;
+		case "Custom Images":
+			ActionHelper.selectDropDownOption(driver, cma_video, "", pCarousel);
+			isSuccess = uploadImages(carousel_video_xpath, pImagesPath) && ActionHelper.Click(driver, select_video_carousel_button);
+			break;
+		case "Default Images":
+			isSuccess = ActionHelper.selectDropDownOption(driver, cma_video, "", pCarousel);
+			break;
+		}
+		return isSuccess;
 	}
-	public boolean clickAndSelectDownloadCarousel(String pImageType) {
-		return ActionHelper.selectDropDownOption(driver, download_carousel, "", pImageType);
+	public boolean clickAndSelectDownloadCarousel(String pCarousel,String pImagesPath) {
+		boolean isSuccess = false;
+		switch(pCarousel) {
+		case "IDX images":
+			break;
+		case "Custom Images":
+			ActionHelper.selectDropDownOption(driver, download_carousel, "", pCarousel);
+			isSuccess = uploadImages(carousel_carouselsearch_xpath, pImagesPath) && ActionHelper.Click(driver, select_image_download_button);
+			break;
+		case "Default Images":
+			isSuccess = ActionHelper.selectDropDownOption(driver, download_carousel, "", pCarousel);
+			break;
+		}
+		return isSuccess;
 	}
 	public boolean clickOnSubmitButton() {
 		return ActionHelper.Click(driver, submit_button);
@@ -135,11 +170,16 @@ public class ZACreateSellerLeadsAdPage extends Page{
 		}
 		return isSelected;
 	}
-	private boolean uploadCarouselImages(String pImagesPath) {
-		boolean isSuccess = false;
+	private boolean uploadImages(String pXpath,String pImagesPath) {
+		boolean isSuccess = true;
 		String [] images_path = pImagesPath.split(",");
-		for(int i=1;i<images_path.length;i++) {
-			
+		for(int i=0;i<images_path.length;i++) {
+			pImagesPath = System.getProperty("user.dir")+images_path[i];
+//			String l_xpath = pXpath.replace(FrameworkConstants.DYNAMIC_VARIABLE, String.valueOf(i+1));
+			if(!ActionHelper.Type(driver, ActionHelper.getDynamicElement(driver, pXpath, String.valueOf(i+1)), pImagesPath)){
+				isSuccess = false;
+				break;
+			}
 		}
 		return isSuccess;
 	}

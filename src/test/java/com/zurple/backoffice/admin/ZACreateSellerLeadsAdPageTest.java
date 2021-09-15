@@ -19,6 +19,7 @@ import resources.AbstractPage;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 
 /**
  * @author darrraqi
@@ -77,6 +78,11 @@ public class ZACreateSellerLeadsAdPageTest extends PageTest{
 		assertTrue(page.isSuccessMessageVisible(), "Success message for ad is not visible");
 	}
 	
+	/**
+	 * @param pDataFile
+	 * Verify user can create 'Conversion' Ad using the admin tool
+	 * 45765
+	 */
 	@Test
 	@Parameters({"dataFile"})
 	public void testCreateAndVerifyConversionSellerLeadAd(String pDataFile) {
@@ -99,9 +105,12 @@ public class ZACreateSellerLeadsAdPageTest extends PageTest{
 		assertTrue(page.typeZipCode(pDataObject.optString("zip_code")), "Unable to type ad zip code");
 		assertTrue(page.typeAdCity(pDataObject.optString("main_city")), "Unable to type main city");
 		assertTrue(page.clickAndSelectAdType(pDataObject.optString("ad_type")), "Unable to select thead type");
-		assertTrue(page.clickAndSelectCarousel(pDataObject.optString("cma_carousel")), "Unable to select cma carousel image");
-		assertTrue(page.clickAndSelectCMAVideo(pDataObject.optString("cma_video")), "Unable to select cma video");
-		assertTrue(page.clickAndSelectDownloadCarousel(pDataObject.optString("download_carousel")), "Unable to select download carousel");
+		assertTrue(page.clickAndSelectCarousel(pDataObject.optString("cma_carousel"),pDataObject.optString("cma_carousel_images")), "Unable to select cma carousel image");
+		ActionHelper.staticWait(2);
+		assertTrue(page.clickAndSelectCMAVideo(pDataObject.optString("cma_video"),pDataObject.optString("cma_video_images")), "Unable to select cma video");
+		ActionHelper.staticWait(2);
+		assertTrue(page.clickAndSelectDownloadCarousel(pDataObject.optString("download_carousel"),pDataObject.optString("download_carousel_images")), "Unable to select download carousel");
+		ActionHelper.staticWait(2);
 		assertTrue(page.clickPausedRadioButton(), "Unable to click on Paused radio button");
 	}
 	

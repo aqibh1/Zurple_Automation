@@ -1,0 +1,11 @@
+{
+	"zip_code":"91910",
+	"main_city":"San Jose",
+	"ad_type":"Conversion",
+	"cma_carousel":"Custom Images",
+	"cma_carousel_images":"\\resources\\images\\fb-1.jpg,\\resources\\images\\fb-2.jpg,\\resources\\images\\fb-3.jpg,\\resources\\images\\yt-1.jpg,\\resources\\images\\yt-2.jpg",
+	"cma_video":"Custom Images",
+	"cma_video_images":"\\resources\\images\\fb-1.jpg,\\resources\\images\\fb-2.jpg,\\resources\\images\\fb-3.jpg,\\resources\\images\\yt-1.jpg,\\resources\\images\\yt-2.jpg",
+	"download_carousel":"Custom Images",
+	"download_carousel_images":"\\resources\\images\\fb-1.jpg,\\resources\\images\\fb-2.jpg,\\resources\\images\\fb-3.jpg,\\resources\\images\\yt-1.jpg,\\resources\\images\\yt-2.jpg"
+}
