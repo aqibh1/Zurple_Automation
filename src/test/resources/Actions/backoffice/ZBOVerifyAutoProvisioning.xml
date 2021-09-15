@@ -5,16 +5,11 @@
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
-     
+       
 <test name="Verify Admin Creation by Auto Provisioning via API calls">	 
 	<parameter name="packageDataFile" value="/resources/data/zurple/backoffice/create_ap_package_data.json"> 
 		<parameter name="adminDataFile" value="/resources/data/zurple/backoffice/create_ap_admin_data.json"> 
 			<classes>
-			<class name="com.zurple.backoffice.ZBOLoginPageTest">
-				<methods>
-					<include name="testBackOfficeLogin" />
-				</methods>
-			</class>
  		   	<class name="com.restapi.autoprovision.ZBORestPostPackage">
 				<methods>
 					<include name="testPostPackage" /> 
@@ -40,8 +35,22 @@
 	</parameter>
 	</test>	
 	
+	<test name="Verify Package Creation by Auto Provisioning from Package manager">	 
+	<parameter name="packageIdFile" value="/resources/cache/cache-ap-package-id-data.json">
+	 <parameter name="packageDataFile" value="/resources/cache/cache-ap-package-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.admin.ZAPackageManagerPageTest">
+				<methods>
+					<include name="testVerifyAutoProvisionedPackage" /> 
+				</methods>
+			</class>    
+			</classes>
+	</parameter>
+	</parameter>
+	</test>
+	
 	<test name="Verify Admin Creation by Auto Provisioning from Admin manager">	 
-	<parameter name="adminIdFile" value="/resources/cache/cache-ap-package-admin-data.json">
+	<parameter name="adminIdFile" value="/resources/cache/cache-ap-admin-id-data.json">
 	 <parameter name="adminDataFile" value="/resources/cache/cache-ap-admin-data.json">
 		<classes>
 			<class name="com.zurple.backoffice.admin.ZAAdminManagerPageTest">
@@ -53,4 +62,5 @@
 	</parameter>
 	</parameter>
 	</test>
+	
 </suite>

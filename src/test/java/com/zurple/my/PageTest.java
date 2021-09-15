@@ -69,6 +69,4 @@ public abstract class PageTest extends AbstractPageTest
 		this.loginPage = new ZBOLoginPage(pWebDriver);
 	}
 
-	
-    
 }

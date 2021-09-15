@@ -61,7 +61,7 @@ public class ZBORestPostAdmin extends RestAPITest{
 	public boolean validateMapResp(RestResponse httpCallResp) throws Exception {
 		boolean status = false;
 		status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Success");
-		String lFileToWrite = "/resources/cache/cache-ap-package-admin-data.json";
+		String lFileToWrite = "/resources/cache/cache-ap-admin-id-data.json";
 		String lPFileToWrite = "/resources/cache/permanent-ap-package-admin-data.json";
 		emptyFile(lFileToWrite,"");
 		JSONObject jObject = httpCallResp.getJsonResponse();		

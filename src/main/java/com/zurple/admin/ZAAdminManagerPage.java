@@ -78,10 +78,7 @@ public class ZAAdminManagerPage extends Page{
 	
 	@FindBy(id="owner_flag")
 	WebElement owner_id;
-	
-	@FindBy(xpath="//div[@class='form-element-input']/descendant::option[@value='1' and @selected]")
-	WebElement selected_feed; 
-	
+		
 	public ZAAdminManagerPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
