@@ -2,6 +2,7 @@ package com.restapi.autoprovision;
 
 import static org.testng.Assert.assertTrue;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.json.JSONObject;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restapi.HeadersConfig;
 import com.restapi.HttpRequestHandler;
 import com.restapi.Part;
@@ -59,7 +61,8 @@ public class ZBORestPostAdmin extends RestAPITest{
 	public boolean validateMapResp(RestResponse httpCallResp) throws Exception {
 		boolean status = false;
 		status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Success");
-		String lFileToWrite = getIsProd()?"/resources/cache/cache-ap-package-admin-data-prod.json":"/resources/cache/cache-ap-package-admin-data.json";
+		String lFileToWrite = "/resources/cache/cache-ap-package-admin-data.json";
+		String lPFileToWrite = "/resources/cache/permanent-ap-package-admin-data.json";
 		emptyFile(lFileToWrite,"");
 		JSONObject jObject = httpCallResp.getJsonResponse();		
 		if(status) {
@@ -68,6 +71,7 @@ public class ZBORestPostAdmin extends RestAPITest{
 				if(!admin_id.isEmpty()) {
 					AutomationLogger.info("Admin id is:"+admin_id);
 					writeJsonToFile(lFileToWrite,jObject);
+					writeJsonToFile(lPFileToWrite,jObject);
 				}
 			}
 		return status;
@@ -75,6 +79,7 @@ public class ZBORestPostAdmin extends RestAPITest{
 	
 	private RestContent getContent() throws Exception {
 		RestContent restContent = new RestContent();
+		String adminDataFile = "/resources/cache/cache-ap-admin-data.json";
 		Map<String, Part> multiParts = new HashMap<String, Part>();
 		String lFname = updateName(dataObject.optString("first_name"));
 		String lLname = updateName(dataObject.optString("last_name"));
@@ -108,6 +113,11 @@ public class ZBORestPostAdmin extends RestAPITest{
 		multiParts.put("dre", new Part(lDRE, PartType.STRING));
 		multiParts.put("package_id", new Part(lPackageId, PartType.STRING));
 		multiParts.put("access_token", new Part(access_token, PartType.STRING));	
+		
+		emptyFile(adminDataFile,"");
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.writeValue(new File(System.getProperty("user.dir")+adminDataFile), multiParts);
+		
 		restContent.setParts(multiParts);
 		restContent.setMultiPart(true);
 		AutomationLogger.info(restContent.getBody());

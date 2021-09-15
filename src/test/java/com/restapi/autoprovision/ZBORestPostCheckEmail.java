@@ -55,13 +55,11 @@ public class ZBORestPostCheckEmail extends RestAPITest{
 		boolean status = false;
 		status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Failed");
 		String lFileToWrite = getIsProd()?"/resources/cache/cache-ap-package-admin-data-prod.json":"/resources/cache/cache-ap-package-admin-data.json";
-		emptyFile(lFileToWrite,"");
 		JSONObject jObject = httpCallResp.getJsonResponse();		
 		if(status) {
 				String emailAlreadyAssigned = jObject.optString("admin_id").toString();
 				if(!emailAlreadyAssigned.isEmpty()) {
 					AutomationLogger.info("This email is already assigned to:"+emailAlreadyAssigned);
-					writeJsonToFile(lFileToWrite,jObject);
 				}
 			}
 		return status;
