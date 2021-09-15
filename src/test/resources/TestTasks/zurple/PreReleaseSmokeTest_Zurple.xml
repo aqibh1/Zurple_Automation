@@ -992,8 +992,24 @@
 		</parameter>
 	</test>
 	
-	<test
-		name="Capture and verify lead from back office">
+	<test name="Verify community reports link and results are working">
+	<classes>
+    <class name="com.zurple.website.ZWCommunityReportsPageTest" >
+      <methods>
+      	<include name="testVerifyLocalInfoCommunityLinkIsWorking" />
+      	<include name="testVerifyNoCommunityResultsFound" />
+      	<include name="testSearchCommunityReports" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+		<methods>
+			<include name="closeBrowser" />
+		</methods>
+	</class>
+    </classes>
+   	</test>
+   	
+	<test name="Capture and verify lead from back office">
 
 		<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-city.json">
 		<parameter name="captureLeadData" value="/resources/data/zurple/register_user/register-user-track-search.json">
@@ -1084,42 +1100,6 @@
 			</classes>
 		</parameter>
 		</test>
-		
-	
-
-	<test name="Verify community reports link and results are working">
-	<classes>
-    <class name="com.zurple.website.ZWCommunityReportsPageTest" >
-      <methods>
-      	<include name="testVerifyLocalInfoCommunityLinkIsWorking" />
-      	<include name="testVerifyNoCommunityResultsFound" />
-      	<include name="testSearchCommunityReports" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-		<methods>
-			<include name="closeBrowser" />
-		</methods>
-	</class>
-    </classes>
-   	</test>
-   	
-   	<test name="Verify school reports link and results are working">
-	<classes>
-    <class name="com.zurple.website.ZWSchoolsReportsPageTest" >
-      <methods>
-      	<include name="testVerifyLocalInfoSchoolReportsLinkIsWorking" />
-      	<include name="testVerifyNoSchoolResultsFound" />
-      	<include name="testSearchSchoolsReports" />
-      </methods>
-      </class>
-      <class name="resources.CurrentPageTest">
-		<methods>
-			<include name="closeBrowser" />
-		</methods>
-	</class>
-    </classes>
-   	</test>
    	
    	<test name="Verify POI reports link and results are working">
 	<classes>
@@ -1270,6 +1250,23 @@
 	</parameter>
 	</test>
 	
+	<test name="Verify school reports link and results are working">
+	<classes>
+    <class name="com.zurple.website.ZWSchoolsReportsPageTest" >
+      <methods>
+      	<include name="testVerifyLocalInfoSchoolReportsLinkIsWorking" />
+      	<include name="testVerifyNoSchoolResultsFound" />
+      	<include name="testSearchSchoolsReports" />
+      </methods>
+      </class>
+      <class name="resources.CurrentPageTest">
+		<methods>
+			<include name="closeBrowser" />
+		</methods>
+	</class>
+    </classes>
+   	</test>
+   	
 	<test name="Create lead and verify details">	
 	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead.json"> 
 			<classes>

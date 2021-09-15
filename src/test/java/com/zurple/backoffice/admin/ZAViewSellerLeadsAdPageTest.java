@@ -137,6 +137,84 @@ public class ZAViewSellerLeadsAdPageTest extends PageTest{
 		String l_ad_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.SellerAdsCount);
 		assertTrue(page.verifyCarouselVideoStatus("Pending_review","Disapproved", l_ad_count), "Unable to verify ad carousel video status");
 	}
+	//Conversion ad
+	
+	/**
+	 * Verify 'Conversion' seller lead ad date from View ads page
+	 * 45772
+	 */
+	@Test
+	public void testVerifyDateConversionSellerLeadAd() {
+		getPage("/admin/view-sl-ads?status=test");
+		assertTrue(page.isViewAdsPageDisplayed(), "View Seller lead ad page is not displayed..");
+		String ads_count = String.valueOf(page.getAdsCount());
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.SellerAdsCount, ads_count);
+		assertTrue(page.verifyAdDate(getTodaysDate(), ads_count), "Unable to verify ad date..");
+	}
+	
+	/**
+	 * Verify the ad type is 'Conversion' on view seller lead ads page
+	 * 45766
+	 */
+	@Test
+	public void testVerifyAdTypeSellerLeadConversionAd() {
+		String l_ad_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.SellerAdsCount);
+		assertTrue(page.verifyAdType("Conversion", l_ad_count), "Unable to verify the ad type");
+	}
+	
+	/**
+	 * Verify the Seller lead Conversion ad status is 'paused' on view seller lead ads page
+	 * 45771
+	 */
+	@Test
+	public void testVerifyAdStatusSellerLeadConversionAd() {
+		String l_ad_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.SellerAdsCount);
+		assertTrue(page.verifyAdStatus("paused", l_ad_count), "Ad status is not paused..");	}
+	
+	/**
+	 * Verify the Seller lead Conversion ad budget is correct view seller lead ads page.
+	 * 45770
+	 */
+	@Test
+	public void testVerifyBudgetSellerLeadConversionAd() {
+		String l_ad_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.SellerAdsCount);
+		String l_ad_budget = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.AdBudget);
+		assertTrue(page.verifyAdBudget("$"+l_ad_budget+".00", l_ad_count), "Unable to verify Ad Budget");
+	}
+	
+	/**
+	 * Verify the Seller lead Conversion carousel status is correct view seller lead ads page.
+	 * 45769
+	 */
+	@Test
+	public void testVerifyCarouselAdStatusSellerLeadConversionAd() {
+		String l_ad_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.SellerAdsCount);
+		String l_current_url = driver.getCurrentUrl();
+		assertTrue(page.refreshStatusButton(l_ad_count), "Unable to click on refresh status button");
+		driver.navigate().to(l_current_url);
+		ActionHelper.staticWait(5);
+		assertTrue(page.verifyCarouselStatus("Pending_review","Disapproved", l_ad_count), "Unable to verify ad carousel status");
+	}
+	
+	/**
+	 * Verify the Seller lead Conversion carousel download status is correct view seller lead ads page.
+	 * 45767
+	 */
+	@Test
+	public void testVerifyCarouselDownloadAdStatusSellerLeadConversionAd() {
+		String l_ad_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.SellerAdsCount);
+		assertTrue(page.verifyCarouselDownloadStatus("Pending_review","Disapproved", l_ad_count), "Unable to verify ad carousel download status");
+	}
+	
+	/**
+	 * Verify the Seller lead Conversion carousel video status is correct view seller lead ads page.
+	 * 45768
+	 */
+	@Test
+	public void testVerifyCarouselVideoAdStatusSellerLeadConversionAd() {
+		String l_ad_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.SellerAdsCount);
+		assertTrue(page.verifyCarouselVideoStatus("Pending_review","Disapproved", l_ad_count), "Unable to verify ad carousel video status");
+	}
 	
 	@AfterTest
 	public void closeBrowser() {

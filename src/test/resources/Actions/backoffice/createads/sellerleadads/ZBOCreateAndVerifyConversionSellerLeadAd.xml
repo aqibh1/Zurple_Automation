@@ -9,26 +9,25 @@
 	</listeners>
 
 	<test name="Create and Verify seller lead Conversion ad">
-	<parameter name="dataFile" value="/resources/data/zurple/ads/seller_lead/seller-lead-form-ad.json">
+	<parameter name="dataFile" value="/resources/data/zurple/ads/seller_lead/seller-conversion-ad.json">
 		<classes>
 			<class name="com.zurple.backoffice.admin.ZACreateSellerLeadsAdPageTest">
 				<methods>
-					 <include name="testCreateAndVerifyLeadFormSellerLeadAd" />
+					 <include name="testCreateAndVerifyConversionSellerLeadAd" />
 				</methods>
 			</class>
-			<!--  
 			<class name="com.zurple.backoffice.admin.ZAViewSellerLeadsAdPageTest">
 				<methods>
-					 <include name="testVerifyDateLeadFormSellerLeadAd" />
-					 <include name="testVerifyAdTypeSellerLeadFormAd" />
-					 <include name="testVerifyAdStatusSellerLeadFormAd" />
-					 <include name="testVerifyBudgetSellerLeadFormAd" />
-					 <include name="testVerifyCarouselAdStatusSellerLeadFormAd" />
-					 <include name="testVerifyCarouselDownloadAdStatusSellerLeadFormAd" />
-					 <include name="testVerifyCarouselVideoAdStatusSellerLeadFormAd" />
+					 <include name="testVerifyDateConversionSellerLeadAd" />
+					 <include name="testVerifyAdTypeSellerLeadConversionAd" />
+					 <include name="testVerifyAdStatusSellerLeadConversionAd" />
+					 <include name="testVerifyBudgetSellerLeadConversionAd" />
+					 <include name="testVerifyCarouselAdStatusSellerLeadConversionAd" />
+					 <include name="testVerifyCarouselDownloadAdStatusSellerLeadConversionAd" />
+					 <include name="testVerifyCarouselVideoAdStatusSellerLeadConversionAd" />
 				</methods>
 			</class>
-			-->
+			
 		</classes>
 		</parameter>
 	</test>
