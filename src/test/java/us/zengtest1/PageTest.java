@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 
+import com.zurple.backoffice.ZBOLeadCRMPage;
 import com.zurple.backoffice.ZBOLoginPage;
 
 import resources.AbstractPageTest;
@@ -74,4 +75,11 @@ public abstract class PageTest extends AbstractPageTest  implements UsingPage, T
 		return zurpleBOURL;
 	}
 
+	protected String getLeadIdFromBackOffice(String pEmailOrName) {
+		String l_bo_url = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/leads/crm";
+		getDriver().navigate().to(l_bo_url);
+		ZBOLeadCRMPage leadCrmpage = new ZBOLeadCRMPage(getDriver());
+		return leadCrmpage.searchAndGetLeadId(pEmailOrName.split(" ")[0]);
+
+	}
 }

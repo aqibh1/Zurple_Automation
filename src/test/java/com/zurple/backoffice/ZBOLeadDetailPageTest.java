@@ -226,7 +226,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		}
 		getPage("/lead/"+lLeadId);
 //		getPage("/lead/4581389");
-		
+		ActionHelper.staticWait(10);
 		assertTrue(page.verifySignupAlert(), "Unable to verify sign up alert..");
 		
 		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Updated minimum price: "+dataObject.optString(DataConstants.MinPrice).replace("$", "").replace(",", "")), "Unable to verify minimum price in Notes..");
