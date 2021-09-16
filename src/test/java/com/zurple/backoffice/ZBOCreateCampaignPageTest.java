@@ -575,11 +575,42 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		enrollmentOfLeadFromAction();
 	
 	}
+	
+	/**
+	 * Verify that user can bulk enroll leads in Zurple Campaigns
+	 * 45773
+	 */
+	@Test
+	public void testBulkEnrollLeadsInZurpleCmapaign() {
+		getPage("/leads/crm");
+		String l_campaign_url = "";
+		if(getIsProd()) {
+			l_campaign_url = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/campaigns/enroll/10";
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignName, "Referral Campaign");
+		}else {
+			l_campaign_url = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/campaigns/enroll/112";
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleCampaignName, "Campaign 11");
+		}
+		driver.navigate().to(l_campaign_url);
+		assertTrue(page.clickOnAllLeadsCommunicated(), "Unable to click on recipients communicated with me");
+		testVerifyMatchingLeadsAreShown();
+		testVerifySuccessMessageIsDisplayedWehnEnrolledIsClicked();
+		testVerifyLeadsAreEnrolledSuccessfully();
+		assertTrue(verifyEnrolledLeadCount(), "Unable to verify lead count..");	
+	
+	}
 	private void enrollmentOfLeadFromAction() {
 		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
 		assertTrue(leadPage.selectAction("Enroll in Campaign"), "Enroll in Campaign option not visible..");
 		assertTrue(page.getSelectCampaignAlert().isSelectCampaignAlert(), "Select campaign alert is not visible..");
 		assertTrue(page.getSelectCampaignAlert().clickOnCmapiagnName(), "Unable to click on campaign name");
+		assertTrue(page.getSuccessAlert().clickOnEnrollButton(), "Unable to click on enroll button");
+	}
+	private void enrollmentOfLeadFromAction(String pCampaignName) {
+		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
+		assertTrue(leadPage.selectAction("Enroll in Campaign"), "Enroll in Campaign option not visible..");
+		assertTrue(page.getSelectCampaignAlert().isSelectCampaignAlert(), "Select campaign alert is not visible..");
+		assertTrue(page.getSelectCampaignAlert().clickOnCmapiagnName(pCampaignName), "Unable to click on campaign name");
 		assertTrue(page.getSuccessAlert().clickOnEnrollButton(), "Unable to click on enroll button");
 	}
 	private void selectTemplatePreCondition() {
