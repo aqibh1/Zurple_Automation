@@ -3,6 +3,7 @@ package com.zurple.backoffice.admin;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.SkipException;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -64,14 +65,14 @@ public void backOfficeLogin() {
 	}
 }
 
-@Test(priority=240)
+@Test(priority=241)
 @Parameters({"adminIdFile","adminDataFile"})
 public void testVerifyAutoProvisionedAdmin(String pAdminIdDataFile, String pAdminDataFile) {
 	JSONObject dataIdObject = getDataFile(pAdminIdDataFile);
 	JSONObject dataObject = getDataFile(pAdminDataFile);
 	String lAdminId = dataIdObject.optString("admin_id");
 	page=null;
-	getPage("/adminmgr/edit/admin_id/"+12828); //.replaceAll("^\"|\"$", "")
+	getPage("/adminmgr/edit/admin_id/"+lAdminId); 
 	page.verifyFirstName(splitString(dataObject.optString("first_name"),"content",":","}"));
 	page.verifyLastName(splitString(dataObject.optString("last_name"),"content",":","}"));
 	page.verifyPhone(splitString(dataObject.optString("phone"),"content",":","}"));
@@ -97,6 +98,11 @@ public void testVerifyAutoProvisionedAdmin(String pAdminIdDataFile, String pAdmi
 
 public String splitString(String str, String firstSplit, String secondSplit, String thirdSplit) {
 	return str.split(firstSplit)[1].split(secondSplit)[1].split(thirdSplit)[0];
+}
+
+@AfterTest
+public void closeBrowser() {
+	closeCurrentBrowser();
 }
 
 }

@@ -60,7 +60,7 @@ public class ZBORestPostPackage extends RestAPITest{
 	public boolean validateMapResp(RestResponse httpCallResp) throws Exception {
 		boolean status = false;
 		status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Success");
-		String lFileToWrite = "/resources/cache/cache-ap-package-admin-data.json";
+		String lFileToWrite = "/resources/cache/cache-ap-package-id-data.json";
 		String lPFileToWrite = "/resources/cache/permanent-ap-package-admin-data.json";
 		emptyFile(lFileToWrite,"");
 		JSONObject jObject = httpCallResp.getJsonResponse();		
@@ -79,7 +79,7 @@ public class ZBORestPostPackage extends RestAPITest{
 	private RestContent getContent() throws Exception {
 		RestContent restContent = new RestContent();
 		Map<String, Part> multiParts = new HashMap<String, Part>();
-		String packageDataFile = "/resources/cache/cache-ap-admin-data.json";
+		String packageDataFile = "/resources/cache/cache-ap-package-data.json";
 		String lName = updateName(dataObject.optString("name"));
 		String lPhone = dataObject.optString("phone");
 		String lEmail = updateEmail(dataObject.optString("email"));
