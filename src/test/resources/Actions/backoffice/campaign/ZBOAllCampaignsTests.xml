@@ -1,0 +1,187 @@
+<suite name="Update and Verify User Settings suite"
+	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+		<listener class-name="resources.TestRailResultsListener" />
+	</listeners>
+ 
+	<test name="Add Campaign from Lead Details">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testVerifyEnrollmentInCampaignButtonIsVisibleInLeadDetailsPage" />
+						<include name="testVerifyCampaignsAreShownToUserInLeadDetails" />
+						<include name="testVerifySuccessMessageAppearsOnSuccessfullEnrollment" />
+						<include name="testVerifyCampaignTitleIsValidLink" />
+						<include name="testVerifyUserCanUnenrollFromCampaignFromLeadDetails" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
+
+<test name="Add Campaign from Customized lead page">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testVerifyEnrollmentInCampaignOptionIsAvailableInActionDropDown" />
+						<include name="testVerifyEnrollmentModalShouldAppearOnClickingLeadEnrollmentInAction" />
+						<include name="testVerifyAllCampaignsAreDisplayedInActions" />
+						<include name="testVerifySuccessMessageAppearsOnSuccessfullEnrollmentFromAction" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
+	
+	<test name="Bulk Enrollment of leads in campaign">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testBulkEnrollSelectiveLeadsFromCRMPage" />
+						<include name="testBulkEnrollAllLeadsFromCRMPage" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+	</test>
+	
+	<test name="Verify Campaign Details">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testVerifyMultipleTemplatesAreAdded" />
+						<include name="testVerifyDragDropIconVisible" />
+						<include name="testVerifyCampaignPriorityGetsChanged" />
+						<include name="testVerifyUserCanProvideNumberOfDays" />
+						<include name="testDeleteCampaign" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
+	
+	<test name="Verify recipients panel is not displayed before save clicking save button">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testVerifyRecipientsOptionsAreVisibleAfterClickingSave" />
+						<include name="testDeleteCampaign" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
+	
+	<test name="Verify validation is working on Campaigns Page">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testVerifyValidationIsTriggeredForInvalidLeadEmail" />
+						<include name="testDeleteCampaign" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
+	
+	<test name="Verifications on Create campaign page">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testVerifyCorrectTemplatePreviewIsShownBeforeSavingCampaign" />
+						<include name="testVerifyValidationIsTriggeredForEmptyCampaignName" />
+						<include name="testVerifyCorrectTemplatePreviewIsShownAfterSavingCampaign" />
+						<include name="testVerifyLimitedRecipientsOptionsAreVisible" />
+						<include name="testVerifyMatchingLeadsAreShown" />
+						<include name="testVerifySuccessMessageIsDisplayedWehnEnrolledIsClicked" />
+						<include name="testVerifyLeadsAreEnrolledSuccessfully" />
+						<include name="testVerifyLeadCounterHasIncreased" />
+						<include name="testVerifyLeadsDoesntUnEnrolledFromCurrentlyEnrolledPanelOnCancel" />
+						<include name="testVerifyLeadsGetUnEnrolledFromCurrentlyEnrolledPanel" />
+						<include name="testVerifyUnenrollButtonUnenrollLeadsFromCampaign" />
+						<include name="testDeleteCampaign" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
+</suite>
+
