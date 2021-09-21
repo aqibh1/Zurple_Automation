@@ -1,5 +1,7 @@
 package com.zurple.admin;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.zurple.my.Page;
 
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 /**
  * 
@@ -58,6 +61,8 @@ public class ZAAdminManagerPage extends Page{
 	@FindBy(id="time_zone")
 	WebElement time_zone;
 	
+	String timeZone = "//select[@id='time_zone']/option";
+	
 	@FindBy(id="office_name")
 	WebElement office_name;
 	
@@ -93,15 +98,15 @@ public class ZAAdminManagerPage extends Page{
 	}
 	
 	public boolean verifyPhone(String pExpected) {
-		return ActionHelper.getText(driver, phone).contains(pExpected);
+		return pExpected.contains(ActionHelper.getAttribute(phone, "value").replaceAll("[()\\s-]+", ""));
 	}
 	
 	public boolean verifyAliasPhone() {
-		return !ActionHelper.getText(driver, alias_phone).isEmpty();
+		return !ActionHelper.getAttribute(alias_phone, "value").isEmpty();
 	}
 	
 	public boolean verifyAgentCode(String pExpected) {
-		return ActionHelper.getText(driver, agent_id).contains(pExpected);
+		return pExpected.contains(ActionHelper.getAttribute(agent_id, "value"));
 	}
 	
 	public boolean verifyFeed(String pExpected) {
@@ -125,23 +130,31 @@ public class ZAAdminManagerPage extends Page{
 	}
 
 	public boolean verifyLoginEmail(String pExpected) {
-		return ActionHelper.getText(driver, login_email).contains(pExpected);
+		return pExpected.contains(ActionHelper.getAttribute(login_email, "value"));
 	}
 
 	public boolean verifyAltEmail(String pExpected) {
-		return ActionHelper.getText(driver, alt_email).contains(pExpected);
+		return pExpected.contains(ActionHelper.getAttribute(alt_email, "value"));
 	}
 
 	public boolean verifyFowardEmail(String pExpected) {
-		return ActionHelper.getText(driver, forward_email).contains(pExpected);
+		return pExpected.contains(ActionHelper.getAttribute(forward_email, "value"));
 	}
 
 	public boolean verifyTimeZone(String pExpected) {
-		return ActionHelper.getText(driver, time_zone).contains(pExpected);
+		String attribute = "";
+		List<WebElement> elem = ActionHelper.getListOfElementByXpath(driver, timeZone);
+		for(WebElement e:elem) {
+			if(ActionHelper.isElementSelected(driver, e)) {
+				attribute = ActionHelper.getAttribute(e, "label");
+				break;
+			}
+		}
+		return pExpected.contains(attribute.trim());
 	}
 
 	public boolean verifyOfficeName(String pExpected) {
-		return ActionHelper.getText(driver, office_name).contains(pExpected);
+		return pExpected.contains(ActionHelper.getAttribute(office_name, "value"));
 	}
 
 	public boolean verifyOfficePhone(String pExpected) {
@@ -149,11 +162,11 @@ public class ZAAdminManagerPage extends Page{
 	}
 
 	public boolean verifyOfficeAddress(String pExpected) {
-		return ActionHelper.getText(driver, office_address).contains(pExpected);
+		return pExpected.contains(ActionHelper.getAttribute(office_address, "value"));
 	}
 
 	public boolean verifyPackageId(String pExpected) {
-		return ActionHelper.getText(driver, package_id).contains(pExpected);
+		return pExpected.contains(ActionHelper.getAttribute(package_id, "value"));
 	}
 
 	public boolean verifySMSFlag() {

@@ -42,6 +42,8 @@ public class ZBORestPostPackage extends RestAPITest{
 	public void testPostPackage(String pDataFile) throws Exception {
 		getDriver();
 		lDataFile = pDataFile;
+		HashMap<String,String> ua = new HashMap<String, String>();
+		ua.put("User-Agent", "aaqib-useragent");
 		JSONObject responseObj = null;
 		String lc_cookie = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.Cookie);
 		dataObject = getDataFile(pDataFile);
@@ -50,6 +52,7 @@ public class ZBORestPostPackage extends RestAPITest{
 		request.setUrl(lUrl);
 		request.setRestContent(getContent());
 		request.setHeaders(HeadersConfig.getMultipartFormDataHeaders(lc_cookie));
+		request.setHeaders(ua);
 		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
 		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
 		responseObj = response.getJsonResponse();
@@ -62,7 +65,6 @@ public class ZBORestPostPackage extends RestAPITest{
 		status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Success");
 		String lFileToWrite = "/resources/cache/cache-ap-package-id-data.json";
 		String lPFileToWrite = "/resources/cache/permanent-ap-package-admin-data.json";
-		emptyFile(lFileToWrite,"");
 		JSONObject jObject = httpCallResp.getJsonResponse();		
 		if(status) {
 				String package_id = jObject.optString("package_id").toString();
