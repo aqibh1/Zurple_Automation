@@ -43,6 +43,8 @@ public class ZBORestPostAdmin extends RestAPITest{
 		getDriver();
 		lDataFile = pDataFile;
 		JSONObject responseObj = null;
+		HashMap<String,String> ua = new HashMap<String, String>();
+		ua.put("User-Agent", "aaqib-useragent");
 		String lc_cookie = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.Cookie);
 		dataObject = getDataFile(pDataFile);
 		RestRequest request = new RestRequest();
@@ -50,7 +52,7 @@ public class ZBORestPostAdmin extends RestAPITest{
 		request.setUrl(lUrl);
 		request.setRestContent(getContent());
 		request.setHeaders(HeadersConfig.getMultipartFormDataHeaders(lc_cookie));
-		
+		request.setHeaders(ua);
 		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
 		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
 		responseObj = response.getJsonResponse();

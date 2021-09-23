@@ -1,5 +1,7 @@
 package com.zurple.backoffice.admin;
 
+import static org.testng.Assert.assertTrue;
+
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.SkipException;
@@ -28,6 +30,9 @@ public class ZAAdminManagerPageTest extends PageTest{
 
 private WebDriver driver;
 private ZAAdminManagerPage page;
+JSONObject dataIdObject;
+JSONObject dataObject;
+String lAdminId = "";
 
 @Override
 public AbstractPage getPage() {
@@ -67,33 +72,108 @@ public void backOfficeLogin() {
 
 @Test(priority=241)
 @Parameters({"adminIdFile","adminDataFile"})
-public void testVerifyAutoProvisionedAdmin(String pAdminIdDataFile, String pAdminDataFile) {
-	JSONObject dataIdObject = getDataFile(pAdminIdDataFile);
-	JSONObject dataObject = getDataFile(pAdminDataFile);
-	String lAdminId = dataIdObject.optString("admin_id");
+public void testSetup(String pAdminIdDataFile, String pAdminDataFile) {
+	dataIdObject = getDataFile(pAdminIdDataFile);
+	dataObject = getDataFile(pAdminDataFile);
+	lAdminId = dataIdObject.optString("admin_id");
 	page=null;
-	getPage("/adminmgr/edit/admin_id/"+lAdminId); 
-	page.verifyFirstName(splitString(dataObject.optString("first_name"),"content",":","}"));
-	page.verifyLastName(splitString(dataObject.optString("last_name"),"content",":","}"));
-	page.verifyPhone(splitString(dataObject.optString("phone"),"content",":","}"));
-	page.verifyAliasPhone();
-	page.verifyAgentCode("2080");
-	page.verifyFeed("1");
-	page.verifyCMSFlag();
-	page.verifyLeadFlag();
-	page.verifyBillingFlag();
-	page.verifyPropFlag();
-	page.verifyLoginEmail(splitString(dataObject.optString("email"),"content",":","}"));
-	page.verifyAltEmail(splitString(dataObject.optString("alt_email"),"content",":","}"));
-	page.verifyFowardEmail(splitString(dataObject.optString("forward1"),"content",":","}"));
-	page.verifyTimeZone(splitString(dataObject.optString("time_zone"),"content",":","}"));
-	page.verifyOfficeName(splitString(dataObject.optString("office_name"),"content",":","}"));
-	page.verifyOfficePhone(splitString(dataObject.optString("office_phone"),"content",":","}"));
-	page.verifyOfficeAddress(splitString(dataObject.optString("office_address"),"content",":","}"));
-	page.verifyPackageId(splitString(dataObject.optString("package_id"),"content",":","}"));
-	page.verifySMSFlag();
-	page.verifySMSNotification();
-	page.verifyOwnerId("1"); 
+	getPage("/adminmgr/edit/admin_id/"+lAdminId);
+	emptyFile(pAdminIdDataFile,"");
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyFirstName() {
+	assertTrue(page.verifyFirstName(splitString(dataObject.optString("first_name"),"content",":","}")),"Unable to verify admin first name "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyLastName() {
+	assertTrue(page.verifyLastName(splitString(dataObject.optString("last_name"),"content",":","}")),"Unable to verify admin last name "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyPhone() {
+	assertTrue(page.verifyPhone(splitString(dataObject.optString("phone"),"content",":","}")),"Unable to verify admin phone "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyAliasPhone() {
+	assertTrue(page.verifyAliasPhone(),"Unable to verify alias phone "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyAgentCode() {
+	assertTrue(page.verifyAgentCode("2044"),"Unable to verify agent id "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyFeed() {
+	assertTrue(page.verifyFeed("1"),"Unable to verify feed "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyCMSFlag() {
+	assertTrue(page.verifyCMSFlag(),"Unable to verify CMS flag "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyBillingFlag() {
+	assertTrue(page.verifyBillingFlag(),"Unable to verify billing flag "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyPropFlag() {
+	assertTrue(page.verifyPropFlag(),"Unable to verify prop flag "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyLoginEmail() {
+	assertTrue(page.verifyLoginEmail(splitString(dataObject.optString("email"),"content",":","}")),"Unable to verify admin login email "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyAltEmail() {
+	assertTrue(page.verifyAltEmail(splitString(dataObject.optString("alt_email"),"content",":","}")),"Unable to verify admin alt email "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyForwardEmail() {
+	assertTrue(page.verifyFowardEmail(splitString(dataObject.optString("forward1"),"content",":","}")),"Unable to verify admin forward email "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyTimeZone() {
+	assertTrue(page.verifyTimeZone("Pacific Time Zone"),"Unable to verify admin time zone "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyOfficeName() {
+	assertTrue(page.verifyOfficeName(splitString(dataObject.optString("office_name"),"content",":","}")),"Unable to verify admin office name "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyOfficeAddress() {
+	assertTrue(page.verifyOfficeAddress(splitString(dataObject.optString("office_address"),"content",":","}")),"Unable to verify admin office address "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyPackageId() {
+	assertTrue(page.verifyPackageId(splitString(dataObject.optString("package_id"),"content",":","}")),"Unable to verify admin package id "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifySMSFlag() {
+	assertTrue(page.verifySMSFlag(),"Unable to verify sms flag "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifySMSNotificationFlag() {
+	assertTrue(page.verifySMSNotification(),"Unable to verify sms notifications flag "+lAdminId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyOwnerId() {
+	assertTrue(page.verifyOwnerId("1"),"Unable to verify owner id "+lAdminId); 
 }
 
 public String splitString(String str, String firstSplit, String secondSplit, String thirdSplit) {

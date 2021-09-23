@@ -41,7 +41,19 @@
 		<classes>
 			<class name="com.zurple.backoffice.admin.ZAPackageManagerPageTest">
 				<methods>
-					<include name="testVerifyAutoProvisionedPackage" /> 
+					<include name="testSetup" />
+					<include name="testVerifyFullName" />
+					<include name="testVerifyEmail" />
+					<include name="testVerifyPhone" />
+					<include name="testVerifyCompany" />
+					<include name="testVerifySetupFee" />
+					<include name="testVerifyURLPath" />
+					<include name="testVerifyZurpleClientId" />
+					<include name="testVerifySubscriptionDate" />
+					<include name="testVerifyPayers" />
+					<include name="testVerifyAdditionalAdmins" />
+					<include name="testVerifyPackageBundles" />
+					<include name="testVerifyFeatureBundles" />
 				</methods>
 			</class>    
 			</classes>
@@ -55,10 +67,29 @@
 		<classes>
 			<class name="com.zurple.backoffice.admin.ZAAdminManagerPageTest">
 				<methods>
-					<include name="testVerifyAutoProvisionedAdmin" /> 
+					<include name="testSetup" />
+					<include name="testVerifyFirstName" />
+					<include name="testVerifyLastName" />
+					<include name="testVerifyPhone" />
+					<include name="testVerifyAliasPhone" />
+					<include name="testVerifyAgentCode" />
+					<include name="testVerifyFeed" />
+					<include name="testVerifyCMSFlag" />
+					<include name="testVerifyBillingFlag" />
+					<include name="testVerifyPropFlag" />
+					<include name="testVerifyLoginEmail" />
+					<include name="testVerifyAltEmail" />
+					<include name="testVerifyForwardEmail" />
+					<include name="testVerifyTimeZone" />
+					<include name="testVerifyOfficeName" />
+					<include name="testVerifyOfficeAddress" />
+					<include name="testVerifyPackageId" />
+					<include name="testVerifySMSFlag" />
+					<include name="testVerifySMSNotificationFlag" />
+					<include name="testVerifyOwnerId" />
 				</methods>
 			</class>    
-			</classes>
+		</classes>
 	</parameter>
 	</parameter>
 	</test>

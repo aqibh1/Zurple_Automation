@@ -75,6 +75,10 @@ public class ZAPackageManagerPage extends Page{
 	}
 	
 	public boolean verifyURLPath(String pExpected) {
+		String adfsf = ActionHelper.getAttribute(path,"value");
+		String afdjalkf = pExpected.trim();
+		AutomationLogger.info(adfsf);
+		AutomationLogger.info(afdjalkf);
 		return ActionHelper.getAttribute(path,"value").contains(pExpected.trim());
 	}
 	

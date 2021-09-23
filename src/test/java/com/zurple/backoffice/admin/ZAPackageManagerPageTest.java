@@ -1,5 +1,7 @@
 package com.zurple.backoffice.admin;
 
+import static org.testng.Assert.assertTrue;
+
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.SkipException;
@@ -29,7 +31,9 @@ public class ZAPackageManagerPageTest extends PageTest{
 
 private WebDriver driver;
 private ZAPackageManagerPage page;
-
+JSONObject dataIdObject;
+JSONObject dataObject;
+String lPackageId = "";
 @Override
 public AbstractPage getPage() {
 	if(page==null) {
@@ -68,24 +72,73 @@ public void backOfficeLogin() {
 
 @Test(priority=240)
 @Parameters({"packageIdFile","packageDataFile"})
-public void testVerifyAutoProvisionedPackage(String pPackageIdDataFile, String pPackageDataFile) {
-	JSONObject dataIdObject = getDataFile(pPackageIdDataFile);
-	JSONObject dataObject = getDataFile(pPackageDataFile);
-	String lPackageId = dataIdObject.optString("package_id");
+public void testSetup(String pPackageIdDataFile, String pPackageDataFile) {
+	dataIdObject = getDataFile(pPackageIdDataFile);
+	dataObject = getDataFile(pPackageDataFile);
+	lPackageId = dataIdObject.optString("package_id");
 	page=null;
 	getPage("/packagemgr/edit/package_id/"+lPackageId); 
-	boolean test1 = page.verifyFullName(splitString(dataObject.optString("name"),"content",":","}"));
-	boolean test2 = page.verifyEmail(splitString(dataObject.optString("email"),"content",":","}"));
-	boolean test3 = page.verifyPhone(splitString(dataObject.optString("phone"),"content",":","}"));
-	boolean test4 = page.verifyCompany(splitString(dataObject.optString("subsidiary"),"content",":","}"));
-	boolean test5 = page.verifySetupFee();
-	boolean test6 = page.verifyURLPath(splitString(dataObject.optString("path"),"content",":","}"));
-	boolean test7 = page.verifyZRMClientId();
-	boolean test8 = page.verifySubscriptionDate(setScheduledPostDate().split(" ")[0]);
-	boolean test9 = page.verifyPayers(splitString(dataObject.optString("payers"),"content",":","}"));
-	boolean test10 = page.verifyAdditionalAdmins(splitString(dataObject.optString("additional_admins"),"content",":","}"));
-	boolean test11 = page.verifyFeatureBundles("PriorityRanking",2); //To be Improved later
-	boolean test12 = page.verifyFeatureBundles("MassSMS",3); //To be Improved later
+	emptyFile(pPackageIdDataFile,"");
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyFullName() {
+	assertTrue(page.verifyFullName(splitString(dataObject.optString("name"),"content",":","}")),"Unable to verify full name "+lPackageId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyEmail() {
+	assertTrue(page.verifyEmail(splitString(dataObject.optString("email"),"content",":","}")),"Unable to verify email "+lPackageId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyPhone() {
+	assertTrue(page.verifyPhone(splitString(dataObject.optString("phone"),"content",":","}")),"Unable to verify phone "+lPackageId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyCompany() {
+	assertTrue(page.verifyCompany(splitString(dataObject.optString("subsidiary"),"content",":","}")),"Unable to verify company "+lPackageId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifySetupFee() {
+	assertTrue(page.verifySetupFee(),"Unable to verify setup fee "+lPackageId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyURLPath() {
+	assertTrue(page.verifyURLPath(splitString(dataObject.optString("path"),"content",":","}")),"Unable to verify url path "+lPackageId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyZurpleClientId() {
+	assertTrue(page.verifyZRMClientId(),"Unable to verify client id "+lPackageId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifySubscriptionDate() {
+	assertTrue(page.verifySubscriptionDate(setScheduledPostDate().split(" ")[0]),"Unable to verify subscription date "+lPackageId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyPayers() {
+	assertTrue(page.verifyPayers(splitString(dataObject.optString("payers"),"content",":","}")),"Unable to verify payers "+lPackageId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyAdditionalAdmins() {
+	assertTrue(page.verifyAdditionalAdmins(splitString(dataObject.optString("additional_admins"),"content",":","}")),"Unable to verify additional admins "+lPackageId);
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyPackageBundles() { //same as feature bundle
+	assertTrue(page.verifyFeatureBundles("PriorityRanking",2),"Unable to verify feature bundle 1 "+lPackageId); //To be Improved later
+}
+
+@Test(dependsOnMethods = { "testSetup" })
+public void testVerifyFeatureBundles() {
+	assertTrue(page.verifyFeatureBundles("MassSMS",3),"Unable to verify feature bundle 2 "+lPackageId); //To be Improved later
 }
 
 public String splitString(String str, String firstSplit, String secondSplit, String thirdSplit) {

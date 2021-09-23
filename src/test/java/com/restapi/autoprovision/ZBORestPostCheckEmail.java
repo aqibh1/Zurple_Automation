@@ -37,13 +37,15 @@ public class ZBORestPostCheckEmail extends RestAPITest{
 	public void testPostCheckEmail() throws Exception {
 		getDriver();
 		JSONObject responseObj = null;
+		HashMap<String,String> ua = new HashMap<String, String>();
+		ua.put("User-Agent", "aaqib-useragent");
 		String lc_cookie = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.Cookie);
 		RestRequest request = new RestRequest();
 		String lUrl = getBaseUrl()+"/checkemail";
 		request.setUrl(lUrl);
 		request.setRestContent(getContent());
 		request.setHeaders(HeadersConfig.getMultipartFormDataHeaders(lc_cookie));
-		
+		request.setHeaders(ua);
 		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
 		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
 		responseObj = response.getJsonResponse();
