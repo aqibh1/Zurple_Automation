@@ -3,9 +3,9 @@
 	"main_city":"San Jose",
 	"ad_type":"Conversion",
 	"cma_carousel":"Custom Images",
-	"cma_carousel_images":"\\resources\\images\\fb-1.jpg,\\resources\\images\\fb-2.jpg,\\resources\\images\\fb-3.jpg,\\resources\\images\\yt-1.jpg,\\resources\\images\\yt-2.jpg",
-	"cma_video":"Custom Images",
-	"cma_video_images":"\\resources\\images\\fb-1.jpg,\\resources\\images\\fb-2.jpg,\\resources\\images\\fb-3.jpg,\\resources\\images\\yt-1.jpg,\\resources\\images\\yt-2.jpg",
-	"download_carousel":"Custom Images",
-	"download_carousel_images":"\\resources\\images\\fb-1.jpg,\\resources\\images\\fb-2.jpg,\\resources\\images\\fb-3.jpg,\\resources\\images\\yt-1.jpg,\\resources\\images\\yt-2.jpg"
+	"cma_carousel_images":"https://images.marketleader.com/houseimages/NEOKLAHOMA/152/f_2116152.jpg?photoaccesskey=1a733411294d83b261b8fa5e48a89e44,https://images.marketleader.com/houseimages/NEOKLAHOMA/718/f_2128718.jpg?photoaccesskey=1a733411294d83b261b8fa5e48a89e44,https://images.marketleader.com/houseimages/NEOKLAHOMA/376/f_2129376.jpg?photoaccesskey=1a733411294d83b261b8fa5e48a89e44",
+	"cma_video":"Use CMA Carousel Images",
+	"cma_video_images":"",
+	"download_carousel":"Default Images",
+	"download_carousel_images":""
 }

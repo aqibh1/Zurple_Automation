@@ -94,10 +94,24 @@ public class ZACreateSellerLeadsAdPageTest extends PageTest{
 		assertTrue(page.isSuccessMessageVisible(), "Success message for ad is not visible");
 	}
 	
+	/**
+	 * Verify user can create 'Conversion + Lead Form' Ad using the admin tool
+	 * 45774
+	 */
+	@Test
+	@Parameters({"dataFile"})
+	public void testCreateAndVerifyLeadFormConversionSellerLeadAd(String pDataFile) {
+		getPage("/admin/create-sl-ad");
+		assertTrue(page.isSellerLeadAdPage(), "Seller lead ad page is not displayed..");
+		JSONObject dataObject = getDataFile(pDataFile);
+		fillSellerLeadForm(dataObject);
+		assertTrue(page.clickOnSubmitButton(),"Unable to click on submit button..");
+		assertTrue(page.isSuccessMessageVisible(), "Success message for ad is not visible");
+	}
 	private void fillSellerLeadForm(JSONObject pDataObject) {
 		String l_package_id = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_admin_package_id");
 		String l_admin_id = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id");
-		String l_budget = String.valueOf(generateRandomInt(100,1000));
+		String l_budget = "100";//String.valueOf(generateRandomInt(100,1000));
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdBudget, l_budget);
 		assertTrue(page.typeAndSelectPackage(l_package_id), "Unable to select the package");
 		assertTrue(page.typeAndSelectAdmin(l_admin_id), "Unable to select the admin");
