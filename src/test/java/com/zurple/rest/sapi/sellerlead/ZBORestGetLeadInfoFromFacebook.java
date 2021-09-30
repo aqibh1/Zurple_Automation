@@ -18,6 +18,12 @@ import resources.utility.AutomationLogger;
 public class ZBORestGetLeadInfoFromFacebook extends RestAPITest{
 	private JSONObject dataObject;
 
+	/**
+	 * @param pDataFile
+	 * @throws Exception
+	 * Verify get lead info Facebook returns correct result
+	 * 45803
+	 */
 	@Test
 	@Parameters({"datafile"})
 	public void testGetLeadInfoFromFacebook(String pDataFile) throws Exception {
