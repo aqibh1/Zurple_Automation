@@ -2440,7 +2440,7 @@
 			</class>
 		</classes>
 	</test>
-	  
+	 <!--  
 	<test name="Create and Verify Buyer Leads Custom Ad">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
@@ -2729,7 +2729,7 @@
 			</class>
 		</classes>
 	</test>
-	
+	--> 
 	<!--  -->
 	<test name="Verify Send CMA Report button is visible on lead details page">	
 			<classes>
@@ -3915,7 +3915,7 @@
 			</class>
 		</classes>
 	</test>
-
+ <!--  
 <test name="Bulk update lead status to In Active" >	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -3935,7 +3935,7 @@
      			 </class>
 			</classes>
 	</test>
-	
+	-->
 	<!-- 
  <test name="Manage agents page label">
   <parameter name="manageAgentsDataFile" 
