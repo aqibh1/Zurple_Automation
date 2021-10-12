@@ -3,6 +3,7 @@ package com.zurple.backoffice.admin;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.testng.SkipException;
 import org.testng.annotations.AfterTest;
