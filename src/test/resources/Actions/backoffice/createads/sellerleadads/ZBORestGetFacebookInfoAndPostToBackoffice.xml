@@ -7,30 +7,13 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
-
+    
 	<test name="Get lead info from Facebook">	 
 	<parameter name="datafile" value="/resources/data/zurple/socialapi/ads/seller_lead/get_lead_info.json">
 			<classes>
  		   		<class name="com.zurple.rest.sapi.sellerlead.ZBORestGetLeadInfoFromFacebook">
 					<methods>
 						<include name="testGetLeadInfoFromFacebook" /> 
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>				
-			</classes>
-			</parameter>
-	</test>
-	
-	<test name="Post lead to Backoffice">	 
-	<parameter name="datafile" value="/resources/data/zurple/socialapi/ads/seller_lead/lead_import_data.json">
-			<classes>
- 		   		<class name="com.zurple.rest.sapi.sellerlead.ZBORestPostImportLeadToBackOffice">
-					<methods>
-						<include name="testPostImportLeadToBackOffice" /> 
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">

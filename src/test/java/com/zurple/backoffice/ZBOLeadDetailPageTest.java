@@ -4,8 +4,10 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Locale;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
@@ -759,6 +761,155 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.verifyLocalInfoZip("Points of Interest", l_zip), "POI Zip is not matched in Local Search..");
 	}
 	
+	/**
+	 * Verify Lead captured from Seller Lead ads has correct source
+	 * 45805
+	 */
+	@Test
+	public void testVerifySellerLeadHasCorrectLeadSource() {
+		getPage("/leads/crm");
+		String lead_name =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
+		ZBOLeadCRMPage leadCrmPage = new ZBOLeadCRMPage(driver);
+		String lead_id = leadCrmPage.searchAndGetLeadId(lead_name.split(" ")[0]);
+		page = null;
+		getPage("/lead/"+lead_id);
+		String lead_source = page.getLeadSource();
+//		assertTrue(lead_source.contains("(fbseller-fb_lead_form)"), "Unable to verify lead source");
+		assertTrue(lead_source.contains("Zurple Seller"), "Unable to verify lead source");
+	}
+	
+	/**
+	 * Verify Lead captured from Seller Lead ads has correct Note added
+	 * 45806
+	 */
+	@Test
+	public void testVerifySellerLeadHasCorrectNoteAdded() {
+		getPage();
+		boolean isNoteVerified = page.verifyNoteAndTime("Lead was successfully imported from Facebook.");
+		assertTrue(isNoteVerified, "Unable to verify Note and date");
+		
+	}
+	
+	/**
+	 * @param pDataFile
+	 * Verify Lead captured from Seller lead ads has a correct address
+	 * 45807
+	 */
+	@Test
+	@Parameters({"datafile"})
+	public void testVerifySellerLeadHasCorrectAddress(String pDataFile){
+		getPage();
+		dataObject = getDataFile(pDataFile);
+		String street_address = dataObject.optString("street_address");
+		String zip_code = dataObject.optString("zip_code");
+		String city = dataObject.optString("city");
+		String state =dataObject.optString("state");
+		boolean isAddressVerified = page.verifyLeadAddress(street_address, city, state, zip_code);
+		assertTrue(isAddressVerified, "Unable to verify lead address..");
+	}
+	
+	/**
+	 * Verify Lead captured from Seller lead ads has a correct phone number
+	 * 45808
+	 */
+	@Test
+	public void testVerifySellerLeadHasCorrectPhoneNumber() {
+		getPage();
+		String ld_phone = dataObject.optString("phone");
+		String phone = page.getPhoneNum();
+		assertTrue(ld_phone.equalsIgnoreCase(phone), "Unable to verify lead phone..");
+	}
+	
+	/**
+	 * Verify Lead captured from Seller lead ads has a correct location
+	 * 45809
+	 */
+	@Test
+	public void testVerifySellerLeadHasCorrectLocation() {
+		String city = dataObject.optString("city");
+		String state =dataObject.optString("state");
+		assertTrue(page.verifyIconsListText(city), "Unable to verify City");
+		assertTrue(page.verifyIconsListText(state), "Unable to verify State");
+	}
+	
+	/**
+	 * Verify Lead captured from Seller lead ads has a correct square feet value
+	 * 45810
+	 */
+	@Test
+	public void testVerifySellerLeadHasCorrectSquareFeetValue() {
+		String sqft = dataObject.optString("sqft");
+		Integer myInt = new Integer(sqft);
+		String output = NumberFormat.getNumberInstance(Locale.US).format(Integer.valueOf(myInt));
+		assertTrue(page.verifyIconsListText(output), "Unable to verify City");
+	}
+	
+	/**
+	 * Verify Lead captured from Seller lead ads has a correct bath count
+	 * 45811
+	 */
+	@Test
+	public void testVerifySellerLeadHasCorrectBathCount() {
+		String ld_bath_count = dataObject.optString("baths");
+		assertTrue(page.verifyIconsListText(ld_bath_count), "Unable to verify bath count");
+	}
+	
+	/**
+	 * Verify Lead captured from Seller lead ads has a correct bath count
+	 * 45812
+	 */
+	@Test
+	public void testVerifySellerLeadHasCorrectBedsCount() {
+		String ld_beds_count = dataObject.optString("beds");
+		assertTrue(page.verifyIconsListText(ld_beds_count), "Unable to verify bath count");
+	}
+	
+	/**
+	 * Verify Lead captured from Seller lead ads has a correct transaction goals
+	 * 45813
+	 */
+	@Test
+	public void testVerifySellerLeadHasCorrectTransactionGoals() {
+		String transaction_goals = "Seller Goals";
+		assertTrue(page.getTransactionGoalsValue().contains(transaction_goals), "Unable to verify Transaction goals");
+	}
+	
+	/**
+	 * Verify Lead captured from Seller lead ads has 'Develop' priority ranking
+	 * 45814
+	 */
+	@Test
+	public void testVerifySellerLeadHasCorrectPriorityRanking() {
+		String priority_ranking = "Target";
+		assertTrue(page.verifyLeadPriorityRanking(priority_ranking), "Unable to verify priority ranking");
+	}
+	
+	/**
+	 * Verify Lead captured from Seller lead ads has a correct Email Preferences
+	 * 45815
+	 */
+	@Test
+	public void testVerifySellerLeadHasCorrectEmailPreferences() {
+		String ld_prop_updates_value = "";
+		if(dataObject.optInt("property_updates_flag")==1) {
+			ld_prop_updates_value = "Yes";
+		}else {
+			ld_prop_updates_value = "No";
+		}
+		assertTrue(page.verifyEmailPreferences("Property Updates", ld_prop_updates_value), "Unable to verify Property Updates value");
+	}
+	
+	/**
+	 * Verify Lead captured from Seller lead ads has Buyer Search entry under Searches tab
+	 * 45816
+	 */
+	@Test
+	public void testVerifySellerLeadHasBuyerSearchEntry() {
+		String ld_location = dataObject.optString("city");
+		assertTrue(page.clickOnSearchTabButton(), "Unable to click on search tab button..");
+		ActionHelper.staticWait(10);
+		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchLocation(ld_location), "Unable to verify Buyer search location");
+	}
 	private void clickOnLeadNamePreCond() {
 		ZBOLeadCRMPage leadcrmpage = new ZBOLeadCRMPage(driver);
 		if(!leadcrmpage.applyFilterAndSelectlead("By Date Created", "last 7 days")) {

@@ -20,6 +20,8 @@ import com.restapi.RestResponse;
 import com.restapi.RestValidationAction;
 
 import resources.EnvironmentFactory;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;
 
 /**
@@ -99,6 +101,7 @@ public class ZBORestPostImportLeadToBackOffice extends RestAPITest{
 		jsonObjectToPost.put("sqft", dataObject.optString("sqft"));
 		jsonObjectToPost.put("property_updates_flag", dataObject.optInt("property_updates_flag"));
 		restContent.setBody(jsonObjectToPost.toString());
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail, jsonObjectToPost.get("first_name")+" "+jsonObjectToPost.get("last_name"));
 		return restContent;
 	}
 }
