@@ -246,6 +246,11 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(id="campaign-title")
 	WebElement campaign_detail_none;
 	
+	String icons_list_text = "//span[@class='lead-details-detail']";
+	
+	@FindBy(xpath="//span[text()='Transaction Goals:']/following::span[@class='lead-details-detail'][1]")
+	WebElement transaction_goals;
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
 
@@ -1250,5 +1255,19 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public String getCampaignNameFromMyMessagesNone() {
 		return ActionHelper.getText(driver, campaign_detail_none);
+	}
+	public boolean verifyIconsListText(String pTextToVerify) {
+		boolean isFound = false;
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, icons_list_text);
+		for(WebElement element: list) {
+			if(ActionHelper.getText(driver, element).contains(pTextToVerify)) {
+				isFound = true;
+				break;
+			}
+		}
+		return isFound;
+	}
+	public String getTransactionGoalsValue() {
+		return ActionHelper.getText(driver, transaction_goals);
 	}
 }

@@ -1,0 +1,21 @@
+{
+ "street_address":"Green Street",
+ "zip_code":"91919",
+ "email":"selleradlead_zurpleqa@mailinator.com",
+ "phone":"123456789",
+ "first_name":"SellerAd",
+ "last_name":"Lead",
+ "city":"San Jose",
+ "state":"CA",
+ "beds":"2",
+ "baths":"3",
+ "sqft":"7000",
+ "property_updates_flag":0,
+ "status_code":"200",
+	"validation":[
+		{
+			"key":"ZBORestPostImportLeadToBackOffice",
+			"value":"SUCCESS"
+		}
+	]
+}

@@ -58,28 +58,52 @@ public class ZAViewSellerLeadsAdPage extends Page{
 	}
 	public boolean verifyCarouselStatus(String pCarouselStatus, String pCarouselStatus2, String pAdIndex) {
 		boolean isVerified = false;
+		int counter = 0;
 		pCarouselStatus = "Carousel:   "+pCarouselStatus;
 		pCarouselStatus2 = "Carousel:   "+pCarouselStatus2;
-		if(verifyData(pCarouselStatus, pAdIndex) || verifyData(pCarouselStatus2, pAdIndex)) {
-			isVerified = true;
+		while(!isVerified && counter<5) {
+			if(verifyData(pCarouselStatus, pAdIndex) || verifyData(pCarouselStatus2, pAdIndex)) {
+				isVerified = true;
+				break;
+			}else {
+				ActionHelper.staticWait(30);
+				refreshStatusButton(pAdIndex);
+			}
+			counter++;
 		}
 		return isVerified;
 	}
 	public boolean verifyCarouselDownloadStatus(String pCarouselStatus, String pCarouselStatus2, String pAdIndex) {
 		boolean isVerified = false;
+		int counter = 0;
 		pCarouselStatus = "Carousel Download:   "+pCarouselStatus;
 		pCarouselStatus2 = "Carousel Download:   "+pCarouselStatus2;
-		if(verifyData(pCarouselStatus, pAdIndex) || verifyData(pCarouselStatus2, pAdIndex)) {
-			isVerified = true;
+		while(!isVerified && counter<5) {
+			if(verifyData(pCarouselStatus, pAdIndex) || verifyData(pCarouselStatus2, pAdIndex)) {
+				isVerified = true;
+				break;
+			}else {
+				ActionHelper.staticWait(30);
+				refreshStatusButton(pAdIndex);
+			}
+			counter++;
 		}
 		return isVerified;
 	}
 	public boolean verifyCarouselVideoStatus(String pCarouselVideo, String pCarouselStatus2, String pAdIndex) {
 		boolean isVerified = false;
+		int counter = 0;
 		pCarouselVideo = "Video:   "+pCarouselVideo;
 		pCarouselStatus2 = "Video:   "+pCarouselStatus2;
-		if(verifyData(pCarouselVideo, pAdIndex) || verifyData(pCarouselStatus2, pAdIndex)) {
-			isVerified = true;
+		while(!isVerified && counter<5) {
+			if(verifyData(pCarouselVideo, pAdIndex) || verifyData(pCarouselStatus2, pAdIndex)) {
+				isVerified = true;
+				break;
+			}else {
+				ActionHelper.staticWait(30);
+				refreshStatusButton(pAdIndex);
+			}
+			counter++;
 		}
 		return isVerified;
 	}

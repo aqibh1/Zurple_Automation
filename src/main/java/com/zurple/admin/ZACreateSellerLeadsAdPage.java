@@ -3,6 +3,9 @@
  */
 package com.zurple.admin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -50,7 +53,7 @@ public class ZACreateSellerLeadsAdPage extends Page{
 	@FindBy(id="carouselsearch")
 	WebElement download_carousel;
 	
-	@FindBy(xpath="//button[text()='Submit']")
+	@FindBy(xpath="//form[@id='sl_ad_form']/*/button[text()='Submit']")
 	WebElement submit_button;
 	
 	@FindBy(xpath="//h1[text()='Seller Lead Ads']")
@@ -73,6 +76,21 @@ public class ZACreateSellerLeadsAdPage extends Page{
 	String carousel_carouselsearch_xpath ="//input[@id='image_"+FrameworkConstants.DYNAMIC_VARIABLE+"_carouselsearch']";
 	@FindBy(xpath="//div[@id='customModal_carouselsearch']/descendant::button[text()='select images']")
 	WebElement select_image_download_button;
+	
+	String idx_images_caraousel_xpath = "//div[@id='idxModal_carousel']/descendant::div[@class='thumbnail']/img";
+	@FindBy(xpath="//div[@id='idxModal_carousel']/descendant::button[text()='select images']")
+	WebElement select_image_idx_carousel_button;
+	
+	String idx_images_video_xpath = "//div[@id='idxModal_video']/descendant::div[@class='thumbnail']/img";
+	@FindBy(xpath="//div[@id='idxModal_video']/descendant::button[text()='select images']")
+	WebElement select_image_idx_video_button;
+	
+	String idx_images_download_xpath = "//div[@id='idxModal_carouselsearch']/descendant::div[@class='thumbnail']/img";
+	@FindBy(xpath="//div[@id='idxModal_carouselsearch']/descendant::button[text()='select images']")
+	WebElement select_image_idx_download_button;
+	
+	@FindBy(id="sl_ad_form")
+	WebElement form;
 	
 	public ZACreateSellerLeadsAdPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -111,14 +129,20 @@ public class ZACreateSellerLeadsAdPage extends Page{
 		boolean isSuccess = false;
 		switch(pCarousel) {
 		case "IDX images":
+			ActionHelper.selectDropDownOption(driver, cma_carousel, "", pCarousel);
+			ActionHelper.staticWait(5);
+			isSuccess = selectIDXImages(idx_images_caraousel_xpath) && ActionHelper.Click(driver, select_image_idx_carousel_button);
 			break;
 		case "Custom Images":
 			ActionHelper.selectDropDownOption(driver, cma_carousel, "", pCarousel);
+			ActionHelper.staticWait(5);
 			isSuccess = uploadImages(carousel_image_xpath, pImagesPath) && ActionHelper.Click(driver, select_image_carousel_button);
 			break;
 		case "Default Images":
 			isSuccess = ActionHelper.selectDropDownOption(driver, cma_carousel, "", pCarousel);
 			break;
+			
+			
 		}
 		return isSuccess;
 	}
@@ -126,12 +150,19 @@ public class ZACreateSellerLeadsAdPage extends Page{
 		boolean isSuccess = false;
 		switch(pCarousel) {
 		case "IDX images":
+			ActionHelper.selectDropDownOption(driver, cma_video, "", pCarousel);
+			ActionHelper.staticWait(5);
+			isSuccess = selectIDXImages(idx_images_video_xpath) && ActionHelper.Click(driver, select_image_idx_video_button);;
 			break;
 		case "Custom Images":
 			ActionHelper.selectDropDownOption(driver, cma_video, "", pCarousel);
+			ActionHelper.staticWait(5);
 			isSuccess = uploadImages(carousel_video_xpath, pImagesPath) && ActionHelper.Click(driver, select_video_carousel_button);
 			break;
 		case "Default Images":
+			isSuccess = ActionHelper.selectDropDownOption(driver, cma_video, "", pCarousel);
+			break;
+		case "Use CMA Carousel Images":
 			isSuccess = ActionHelper.selectDropDownOption(driver, cma_video, "", pCarousel);
 			break;
 		}
@@ -141,19 +172,29 @@ public class ZACreateSellerLeadsAdPage extends Page{
 		boolean isSuccess = false;
 		switch(pCarousel) {
 		case "IDX images":
+			ActionHelper.selectDropDownOption(driver, download_carousel, "", pCarousel);
+			ActionHelper.staticWait(5);
+			isSuccess = selectIDXImages(idx_images_download_xpath) && ActionHelper.Click(driver, select_image_idx_download_button);
 			break;
 		case "Custom Images":
 			ActionHelper.selectDropDownOption(driver, download_carousel, "", pCarousel);
+			ActionHelper.staticWait(5);
 			isSuccess = uploadImages(carousel_carouselsearch_xpath, pImagesPath) && ActionHelper.Click(driver, select_image_download_button);
 			break;
 		case "Default Images":
+			isSuccess = ActionHelper.selectDropDownOption(driver, download_carousel, "", pCarousel);
+			break;
+		case "Use CMA Carousel Images":
 			isSuccess = ActionHelper.selectDropDownOption(driver, download_carousel, "", pCarousel);
 			break;
 		}
 		return isSuccess;
 	}
 	public boolean clickOnSubmitButton() {
-		return ActionHelper.Click(driver, submit_button);
+		ActionHelper.staticWait(5);
+		ActionHelper.MoveToElement(driver, submit_button);
+		return ActionHelper.Type(driver, submit_button, Keys.ENTER);
+
 	}
 	public boolean isSellerLeadAdPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, seller_lead_ad_heading, 15);
@@ -174,7 +215,7 @@ public class ZACreateSellerLeadsAdPage extends Page{
 		boolean isSuccess = true;
 		String [] images_path = pImagesPath.split(",");
 		for(int i=0;i<images_path.length;i++) {
-			pImagesPath = System.getProperty("user.dir")+images_path[i];
+			pImagesPath = images_path[i];
 //			String l_xpath = pXpath.replace(FrameworkConstants.DYNAMIC_VARIABLE, String.valueOf(i+1));
 			if(!ActionHelper.Type(driver, ActionHelper.getDynamicElement(driver, pXpath, String.valueOf(i+1)), pImagesPath)){
 				isSuccess = false;
@@ -182,5 +223,25 @@ public class ZACreateSellerLeadsAdPage extends Page{
 			}
 		}
 		return isSuccess;
+	}
+	private List<Integer> getRandomNumbersList(int pUpperLimit) {
+		List<Integer> l_random_num_list = new ArrayList<Integer>();
+		for(int i=0;i<5;i++) {
+			int l_rand = generateRandomInt(pUpperLimit);
+			l_random_num_list.add(i, l_rand);
+		}
+		return l_random_num_list;
+	}
+	private boolean selectIDXImages(String pImageXpath) {
+		boolean isClicked = true;
+		List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, pImageXpath);
+		List<Integer> l_rand_list = getRandomNumbersList(list_of_elements.size());
+		for(int i=0;i<l_rand_list.size();i++) {
+			if(!ActionHelper.Click(driver, list_of_elements.get(l_rand_list.get(i)))) {
+				isClicked = false;
+				break;
+			}
+		}
+		return isClicked;
 	}
 }
