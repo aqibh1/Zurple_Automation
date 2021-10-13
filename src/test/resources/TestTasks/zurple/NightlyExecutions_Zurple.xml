@@ -3884,6 +3884,67 @@
     </classes>
   </test>
   
+  <test name="Verifications on Create campaign page">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+					<methods>
+						<include name="testBulkEnrollLeadsInZurpleCmapaign" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
+  
+  	<test name="Post Seller lead to Backoffice and verify lead details">	 
+	<parameter name="datafile" value="/resources/data/zurple/socialapi/ads/seller_lead/lead_import_data.json">
+			<classes>
+			
+ 		   		<class name="com.zurple.rest.sapi.sellerlead.ZBORestPostImportLeadToBackOffice">
+					<methods>
+						<include name="testPostImportLeadToBackOffice" /> 
+					</methods>
+				</class>
+				
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+				</class>
+					<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+				<methods>
+					<include name="testVerifySellerLeadHasCorrectLeadSource" />
+					<include name="testVerifySellerLeadHasCorrectNoteAdded" />
+					<include name="testVerifySellerLeadHasCorrectAddress" />
+					<include name="testVerifySellerLeadHasCorrectPhoneNumber" />
+					<include name="testVerifySellerLeadHasCorrectLocation" />
+					<include name="testVerifySellerLeadHasCorrectSquareFeetValue" />
+					<include name="testVerifySellerLeadHasCorrectBathCount" />
+					<include name="testVerifySellerLeadHasCorrectBedsCount" />
+					<include name="testVerifySellerLeadHasCorrectTransactionGoals" />
+					<include name="testVerifySellerLeadHasCorrectEmailPreferences" />
+					<include name="testVerifySellerLeadHasBuyerSearchEntry" />
+				</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>				
+			</classes>
+			</parameter>
+	</test>
+  
   <test name="Verify VLC settings">
 		<classes>
 			<class name="com.zurple.website.ZWVariableLeadCapturePageTest">
