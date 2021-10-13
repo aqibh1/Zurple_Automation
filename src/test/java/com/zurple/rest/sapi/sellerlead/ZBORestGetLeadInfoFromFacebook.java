@@ -29,7 +29,7 @@ public class ZBORestGetLeadInfoFromFacebook extends RestAPITest{
 	public void testGetLeadInfoFromFacebook(String pDataFile) throws Exception {
 		dataObject = getDataFile(pDataFile);
 		String fb_access_token = "access_token=EAAGWKffWUQUBAHqez3dnFZAv9uAmAkGzy86NhmE3DKESKCufQh8bCmBCEyttmZCZAZBXYhab9TerZC2J2588Ya7uWUgkyZCArZAxBl2sZACpYaGFXsv2KJSzxOeZAvGaZAZBGUy9vgDWqZAuZBelaNsUpuT9M8R6AaW3jm8XjYkZCUNRaoALpZAiTEuabOS";
-		String fb_graph_api_url = "https://graph.facebook.com/v10.0/360155755681336?";
+		String fb_graph_api_url = "https://graph.facebook.com/v10.0/372380067688878?";
 		RestRequest request = new RestRequest();
 		String lUrl = fb_graph_api_url+fb_access_token;
 //		String lCookie =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.Cookie);
