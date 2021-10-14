@@ -211,6 +211,27 @@ public class ZACreateSellerLeadsAdPage extends Page{
 		}
 		return isSelected;
 	}
+	public boolean isPackageAlertVisible(String pMessageToVerify) {
+		return verifyAndHandleAlert(pMessageToVerify);	
+	}
+	public boolean isAdminAlertVisible(String pMessageToVerify) {
+		return verifyAndHandleAlert(pMessageToVerify);	
+	}
+	public boolean isBudgetLessThanHundredAlertVisible(String pMessageToVerify) {
+		return verifyAndHandleAlert(pMessageToVerify);	
+	}
+	public boolean isBudgetAlertVisible(String pMessageToVerify) {
+		return verifyAndHandleAlert(pMessageToVerify);	
+	}
+	private boolean verifyAndHandleAlert(String pTextToVerify) {
+		boolean isAlertVerified = false;
+		if(ActionHelper.getAlertText(driver).equalsIgnoreCase(pTextToVerify)) {
+			isAlertVerified = true;
+		}
+		ActionHelper.handleDisableAdAlert(driver);
+		ActionHelper.staticWait(3);
+		return isAlertVerified;
+	}
 	private boolean uploadImages(String pXpath,String pImagesPath) {
 		boolean isSuccess = true;
 		String [] images_path = pImagesPath.split(",");
@@ -244,4 +265,5 @@ public class ZACreateSellerLeadsAdPage extends Page{
 		}
 		return isClicked;
 	}
+	
 }

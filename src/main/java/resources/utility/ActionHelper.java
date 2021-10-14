@@ -1344,7 +1344,7 @@ public class ActionHelper {
 		   return pAttributeValue;
 	   }
 	   
-	   public static boolean getAlertText(WebDriver pWebDriver, WebElement pElement) {
+	   public static boolean typeInAlertText(WebDriver pWebDriver) {
 		   boolean isAlertHandled = true;
 		   try {
 			   Alert alert = wait.until(ExpectedConditions.alertIsPresent());
@@ -1384,4 +1384,15 @@ public class ActionHelper {
 		   return isSuccessful;
 	   }   
 	   
+	   public static String getAlertText(WebDriver pWebDriver) {
+		   String alert_text = "";
+		   try {
+			   if(ExpectedConditions.alertIsPresent()!=null) {
+				   alert_text=pWebDriver.switchTo().alert().getText();	   
+			   }
+		   }catch(Exception ex) {
+			   alert_text = "";
+		   }
+		   return alert_text;
+	   }
 }

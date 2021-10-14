@@ -108,6 +108,63 @@ public class ZACreateSellerLeadsAdPageTest extends PageTest{
 		assertTrue(page.clickOnSubmitButton(),"Unable to click on submit button..");
 		assertTrue(page.isSuccessMessageVisible(), "Success message for ad is not visible");
 	}
+	
+	/**
+	 * @param pDataFile
+	 * Verify the error alert is generated if Package is not provided
+	 * 47362
+	 */
+	@Test
+	public void testVerifyPackageAlertIsTriggered() {
+		getPage("/admin/create-sl-ad");
+		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(page.isPackageAlertVisible("please select package"),"Unable to verify alert text message..");
+		
+	}
+	
+	/**
+	 * Verify the error alert is generated if Admin is not provided
+	 * 47363
+	 */
+	@Test
+	public void testVerifyAdminAlertIsTriggered() {
+		getPage("/admin/create-sl-ad");
+		String l_package_id = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_admin_package_id");
+		assertTrue(page.typeAndSelectPackage(l_package_id), "Unable to select the package");
+		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(page.isAdminAlertVisible("please select admin"),"Unable to verify alert text message..");
+		
+	}
+	
+	/**
+	 * Verify the error alert is generated if budget is not provided
+	 * 47359
+	 */
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyBudgetAlertIsTriggered(String pDataFile) {
+		getPage("/admin/create-sl-ad");
+		String l_admin_id = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id");
+		assertTrue(page.typeAndSelectAdmin(l_admin_id), "Unable to select the admin");
+		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(page.isBudgetAlertVisible("please enter budget"),"Unable to verify alert text message..");		
+	}
+	
+	/**
+	 * Verify the alert is triggered if budget provided is less than $100
+	 * 47369
+	 */
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyBudgetLessThanHundredAlertIsTriggered(String pDataFile) {
+		getPage("/admin/create-sl-ad");
+		assertTrue(page.typeBudget("95"), "Unable to type ad budget");
+		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(page.isBudgetLessThanHundredAlertVisible("Budget needs to be between 100 and 1000"),"Unable to verify alert text message..");		
+	}
+	
+
+	
 	private void fillSellerLeadForm(JSONObject pDataObject) {
 		String l_package_id = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_admin_package_id");
 		String l_admin_id = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id");
