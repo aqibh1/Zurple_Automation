@@ -206,7 +206,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		String l_currentUrl = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
 		driver.navigate().to(l_currentUrl);
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
-		assertTrue(leadDetailPage.getLeadSource().equalsIgnoreCase("Seller Campaign"), "Lead Source value is not Seller Campaign");
+		assertTrue(leadDetailPage.getLeadSource().equalsIgnoreCase("Zurple Seller"), "Lead Source value is not Seller Campaign");
 		processEmailQueuesAndAlerts(leadDetailPage);
 	}
 	
@@ -216,7 +216,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		String l_currentUrl =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
 		driver.navigate().to(l_currentUrl);
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
-		assertTrue(leadDetailPage.verifyNoteAndTime("from Zurple Seller Campaign"), "Notes is not added in lead details for Seller lead campaign..");
+		assertTrue(leadDetailPage.verifyNoteAndTime("from Zurple Seller"), "Notes is not added in lead details for Seller lead campaign..");
 	}
 	
 	@Test //C40424
