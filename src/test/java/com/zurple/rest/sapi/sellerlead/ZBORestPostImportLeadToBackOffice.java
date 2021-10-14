@@ -84,6 +84,7 @@ public class ZBORestPostImportLeadToBackOffice extends RestAPITest{
 //		String l_first_name = dataObject.optString("first_name");
 		if(getIsProd()) {
 			l_email = updateName(l_email.split("_")[0])+"@mailinator.com";
+			l_email = l_email.replace(" ", "");
 		}else {
 			l_email = updateName(l_email.split("_")[0]).replace(" ", "_")+"_ZurpleQA@mailinator.com";
 		}

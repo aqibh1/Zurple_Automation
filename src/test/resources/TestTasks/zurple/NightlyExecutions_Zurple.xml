@@ -3884,7 +3884,7 @@
     </classes>
   </test>
   
-  <test name="Verifications on Create campaign page">
+  <test name="Bulk Enrollment of leads into global campaign">
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
