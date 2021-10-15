@@ -1,5 +1,7 @@
 package com.zurple.backoffice;
 
+import java.util.List;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -72,7 +74,7 @@ public class ZBODashboardPage extends Page{
 	//Zurple Updates
 	@FindBy(xpath="//div[@class='panel panel-default']/descendant::h2[text()='Latest Zurple Updates']")
 	WebElement zurple_updates;
-	@FindBy(xpath="//div[@class='panel-body']/center[1]")
+	@FindBy(xpath="//div[@class='panel-body']")
 	WebElement zurple_update_text;
 	
 	//New Leads
@@ -184,7 +186,8 @@ public class ZBODashboardPage extends Page{
 		return ActionHelper.isElementVisible(driver, zurple_updates);
 	}
 	public boolean isZurpleUpdatesTextVisible() {
-		return ActionHelper.isElementVisible(driver, zurple_update_text);
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, "//div[@class='panel-body']");
+		return ActionHelper.isElementVisible(driver, list.get(1));
 	}
 	public boolean isNewLeadsHeadingAndStatsDisplayed() {
 		boolean isDisplayed = false;
