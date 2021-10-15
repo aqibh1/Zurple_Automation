@@ -163,8 +163,53 @@ public class ZACreateSellerLeadsAdPageTest extends PageTest{
 		assertTrue(page.isBudgetLessThanHundredAlertVisible("Budget needs to be between 100 and 1000"),"Unable to verify alert text message..");		
 	}
 	
-
+	/**
+	 * Verify the error alert is generated if Zip Code is not provided
+	 * 47360
+	 */
+	@Test
+	public void testVerifyZipCodeAlertIsTriggered() {
+		getPage("/admin/create-sl-ad");
+		assertTrue(page.typeBudget("100"), "Unable to type ad budget");
+		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(page.isZipCodeAlertVisible("please select zip"),"Unable to verify alert text message..");		
+	}
 	
+	/**
+	 * Verify the error alert is generated if Main City is not provided
+	 * 47361
+	 */
+	@Test
+	public void testVerifyCityAlertIsTriggered() {
+		getPage("/admin/create-sl-ad");
+		assertTrue(page.typeZipCode("91910"), "Unable to type Zip Code");
+		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(page.isCityAlertVisible("please enter city name"),"Unable to verify alert text message..");		
+	}
+	
+	/**
+	 * Verify the error alert is generated if Ad Type is not selected
+	 * 47364
+	 */
+	@Test
+	public void testVerifyAdTypeAlertIsTriggered() {
+		getPage("/admin/create-sl-ad");
+		assertTrue(page.typeAdCity("San Jose"), "Unable to type main city");
+		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(page.isAdTypeAlertVisible("please select type"),"Unable to verify alert text message..");		
+	}
+	
+	/**
+	 * Verify the error alert is generated if CMA-Carousel is not selected
+	 * 47365
+	 */
+	@Test
+	public void testVerifyCMACarouselAlertIsTriggered() {
+		getPage("/admin/create-sl-ad");
+		assertTrue(page.clickAndSelectAdType("Conversion + Lead Form"), "Unable to select thead type");
+		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(page.isAlertMessageVisible("Image type CMA-Carousel is required"),"Unable to verify alert text message..");		
+	}
 	private void fillSellerLeadForm(JSONObject pDataObject) {
 		String l_package_id = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_admin_package_id");
 		String l_admin_id = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id");

@@ -92,6 +92,8 @@ public class ZACreateSellerLeadsAdPage extends Page{
 	@FindBy(id="sl_ad_form")
 	WebElement form;
 	
+	String images_alert_message = "//div[@class='alert alert-danger']/li[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
+	
 	public ZACreateSellerLeadsAdPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -222,6 +224,18 @@ public class ZACreateSellerLeadsAdPage extends Page{
 	}
 	public boolean isBudgetAlertVisible(String pMessageToVerify) {
 		return verifyAndHandleAlert(pMessageToVerify);	
+	}
+	public boolean isZipCodeAlertVisible(String pMessageToVerify) {
+		return verifyAndHandleAlert(pMessageToVerify);	
+	}
+	public boolean isCityAlertVisible(String pMessageToVerify) {
+		return verifyAndHandleAlert(pMessageToVerify);	
+	}
+	public boolean isAdTypeAlertVisible(String pMessageToVerify) {
+		return verifyAndHandleAlert(pMessageToVerify);	
+	}
+	public boolean isAlertMessageVisible(String pAlertMessage) {
+		return ActionHelper.getDynamicElement(driver, images_alert_message, pAlertMessage)!=null;
 	}
 	private boolean verifyAndHandleAlert(String pTextToVerify) {
 		boolean isAlertVerified = false;
