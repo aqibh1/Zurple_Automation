@@ -17,6 +17,12 @@
 					 <include name="testVerifyAdminAlertIsTriggered" />
 					 <include name="testVerifyBudgetAlertIsTriggered" />
 					 <include name="testVerifyBudgetLessThanHundredAlertIsTriggered" />
+					 <include name="testVerifyZipCodeAlertIsTriggered" />
+					 <include name="testVerifyCityAlertIsTriggered" />
+					 <include name="testVerifyAdTypeAlertIsTriggered" />
+					 <include name="testVerifyCMACarouselAlertIsTriggered" />
+					 <include name="testVerifyCMAVideoAlertIsTriggered" />
+					 <include name="testVerifyCarouselDownloadAlertIsTriggered" />
 				</methods>
 			</class>
 			

@@ -210,6 +210,31 @@ public class ZACreateSellerLeadsAdPageTest extends PageTest{
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
 		assertTrue(page.isAlertMessageVisible("Image type CMA-Carousel is required"),"Unable to verify alert text message..");		
 	}
+	
+	/**
+	 * Verify the error alert is generated if CMA-Video is not selected
+	 * 47366
+	 */
+	@Test
+	public void testVerifyCMAVideoAlertIsTriggered() {
+		getPage("/admin/create-sl-ad");
+//		assertTrue(page.clickAndSelectCarousel("Default Images",""), "Unable to select cma carousel image");
+//		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(page.isAlertMessageVisible("Image type CMA-Video is required"),"Unable to verify alert text message..");		
+	}
+	
+	/**
+	 * Verify the error alert is generated if Download - Carousel is not selected
+	 * 47367
+	 */
+	@Test
+	public void testVerifyCarouselDownloadAlertIsTriggered() {
+		getPage("/admin/create-sl-ad");
+//		assertTrue(page.clickAndSelectCMAVideo("Default Images",""), "Unable to select cma video");
+//		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(page.isAlertMessageVisible("Image type Search Homes is required"),"Unable to verify alert text message..");		
+	}
+	
 	private void fillSellerLeadForm(JSONObject pDataObject) {
 		String l_package_id = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_admin_package_id");
 		String l_admin_id = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id");
