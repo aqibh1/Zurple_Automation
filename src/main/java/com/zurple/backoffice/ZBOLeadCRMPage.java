@@ -109,6 +109,10 @@ public class ZBOLeadCRMPage extends Page{
 	
 	String lead_input_checkbox_2 = "//table[@id='leads-table']/descendant::input[@value]";
 	
+	String lead_phone_icon_list = "//tr/descendant::i[@class='fas fa-phone fa-2x']";
+	
+	String lead_phone_disabled_list = "//tr/descendant::a[@disabled]";
+	
 	private ZBOAddNotesForm addNoteForm;
 	private ZBOAddReminderForm addReminderForm;
 	private ZBOSendEmailForm sendEmailForm;
@@ -346,5 +350,19 @@ public class ZBOLeadCRMPage extends Page{
 		}
 	public boolean isProcessingComplete() {
 		return ActionHelper.waitForElementToBeDisappeared(driver, processing, 120);
+	}
+	public boolean verifyPhoneIconIsDisabled() {
+		return ActionHelper.getListOfElementByXpath(driver, lead_phone_disabled_list).size()==1;
+	}
+	public boolean isPhoneIconVisibleForLeads() {
+		boolean isVisible = true;
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, lead_phone_icon_list);
+		for(WebElement element: list) {
+			if(!ActionHelper.isElementVisible(driver, element)) {
+				isVisible = false;
+				break;
+			}
+		}
+		return isVisible;
 	}
 }

@@ -10,6 +10,7 @@ import java.text.ParseException;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.SkipException;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -17,6 +18,7 @@ import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.CurrentPageTest;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
@@ -40,6 +42,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
     	if(page == null){
         	driver = getDriver();
 			page = new ZBOLeadCRMPage(driver);
+			setLoginPage(driver);
 			page.setUrl("");
 			page.setDriver(driver);
         }
@@ -50,6 +53,17 @@ public class ZBOLeadCRMPageTest extends PageTest{
         if(page == null){
         	driver = getDriver();
 			page = new ZBOLeadCRMPage(driver);
+			setLoginPage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+        }
+        return page;
+    }
+    public AbstractPage getPage(String pUrl, boolean pForcefully){
+        if(pForcefully){
+        	driver = getDriver();
+			page = new ZBOLeadCRMPage(driver);
+			setLoginPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
         }
@@ -299,6 +313,40 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		ActionHelper.staticWait(3);
 		assertTrue(leadDetailPage.verifyLeadPriorityRanking(ld_priorityToVerify), "Unable to verify lead priority ranking from lead details page");
 	}
+	
+	/**
+	 * @param pDataFile
+	 * Verify that if lead phone number is not provided then phone icon is disabled
+	 * 39792
+	 */
+	@Test
+	@Parameters({"dataFile"})
+	public void testPhoneIconIsDisabledIfPhoneNumberIsNotProvided(String pDataFile) {
+		getPage();
+		doLogin();
+		ZBOAddLeadPageTest addLead = new ZBOAddLeadPageTest();
+		addLead.testAddLead(pDataFile);
+		getPage("/leads/crm",true);
+		String l_lead_email = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
+		page.searchLeadByEmail(l_lead_email);
+		assertTrue(page.verifyPhoneIconIsDisabled(), "Lead Phone Icon on CRM page is not disabled");
+		new CurrentPageTest().closeBrowser();;
+//		close.closeBrowser();
+	}
+	
+	/**
+	 * Verify that lead phone number icon is appearing on crm leads list
+	 * 39791
+	 */
+	@Test
+	public void testPhoneIconIsVisibleForLeads() {
+		getPage();
+		doLogin();
+		getPage("/leads/crm",true);
+		assertTrue(page.isPhoneIconVisibleForLeads(), "Lead Phone Icon on CRM page is not visible");
+		new CurrentPageTest().closeBrowser();;
+//		close.closeBrowser();
+	}
 
 	public void applyFilter(String pFilterName, String pFilterValue){
 		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
@@ -320,5 +368,10 @@ public class ZBOLeadCRMPageTest extends PageTest{
 			}
 		}
 		assertTrue(leadPage.clickOnSearchButton(),"Unable to click on search button..");
+	}
+	private void doLogin() {
+		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
+			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
 	}
 }
