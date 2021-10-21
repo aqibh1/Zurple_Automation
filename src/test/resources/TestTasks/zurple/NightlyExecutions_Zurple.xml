@@ -3945,6 +3945,23 @@
 			</parameter>
 	</test>
   
+  <test name="Get lead info from Facebook">	 
+	<parameter name="datafile" value="/resources/data/zurple/socialapi/ads/seller_lead/get_lead_info.json">
+			<classes>
+ 		   		<class name="com.zurple.rest.sapi.sellerlead.ZBORestGetLeadInfoFromFacebook">
+					<methods>
+						<include name="testGetLeadInfoFromFacebook" /> 
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>				
+			</classes>
+			</parameter>
+	</test>
+	
   <test name="Verify VLC settings">
 		<classes>
 			<class name="com.zurple.website.ZWVariableLeadCapturePageTest">

@@ -3992,6 +3992,31 @@
 			</parameter>
 	</test>
 	
+	<test name="Create and Verify seller Conversion plus lead form ad">
+	<parameter name="dataFile" value="/resources/data/zurple/ads/seller_lead/seller-conversion-lead-form-ad.json">
+		<classes>
+			<class name="com.zurple.backoffice.admin.ZACreateSellerLeadsAdPageTest">
+				<methods>
+					 <include name="testCreateAndVerifyLeadFormConversionSellerLeadAd" />
+				</methods>
+			</class>
+			
+			<class name="com.zurple.backoffice.admin.ZAViewSellerLeadsAdPageTest">
+				<methods>
+					 <include name="testVerifyDateLeadFormPlusConversionSellerLeadAd" />
+					 <include name="testVerifyAdTypeSellerLeadLeadFormPlusConversionAd" />
+					 <include name="testVerifyAdStatusSellerLeadFormPlusConversionAd" />
+					 <include name="testVerifyBudgetSellerLeadFormPlusConversionAd" />
+					 <include name="testVerifyCarouselAdStatusSellerLeadFormPlusConversionAd" />
+					 <include name="testVerifyCarouselDownloadAdStatusSellerLeadFormPlusConversionAd" />
+					 <include name="testVerifyCarouselVideoAdStatusSellerLeadFormAd" />
+				</methods>
+			</class>
+			
+		</classes>
+		</parameter>
+	</test>
+	
   <test name="Verify VLC settings">
 		<classes>
 			<class name="com.zurple.website.ZWVariableLeadCapturePageTest">
