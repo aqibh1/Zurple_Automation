@@ -49,6 +49,8 @@ public class ZBOTemplateManagerPage extends Page{
 	@FindBy(xpath="//table[@id='templates-table']/descendant::th[@aria-sort]")
 	WebElement type_sorting_activated;
 	
+	String disabled_edit_button = "//tr/descendant::td[contains(text(),'Zurple')]/following::a[@class='btn z-btn-inactive btn-default ' and text()='Edit']";
+	
 	
 	public ZBOTemplateManagerPage() {
 		
@@ -109,11 +111,25 @@ public class ZBOTemplateManagerPage extends Page{
 	}public boolean isTypeSortingWorking() {
 		return verifySortingIsWorking(type_sorting, type_sorting_activated);
 	}
+	public boolean verifyEditButtonIsDisabledForGlobalTemplates() {
+		return verifyEditButtonIsDisabledForGlobalTemplates(disabled_edit_button);
+	}
 	private boolean verifySortingIsWorking(WebElement pColumnName, WebElement pSortingActivated) {
 		boolean isSortingActivated = false;
 		if(ActionHelper.Click(driver, pColumnName)) {
 			isSortingActivated = ActionHelper.isElementVisible(driver, pSortingActivated);
 		}
 		return isSortingActivated;
+	}
+	private boolean verifyEditButtonIsDisabledForGlobalTemplates(String pElement) {
+		boolean isVerifed = false;
+		do {
+			if(ActionHelper.getListOfElementByXpath(driver, pElement).size()>0) {
+				isVerifed = true;
+			}else {
+				ActionHelper.Click(driver, next_button);
+			}
+		}while(ActionHelper.isElementVisible(driver, next_button) && !isVerifed);
+		return isVerifed;
 	}
 }

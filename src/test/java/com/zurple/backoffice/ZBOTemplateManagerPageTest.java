@@ -45,7 +45,16 @@ public class ZBOTemplateManagerPageTest extends PageTest{
 		}
 		return page;
 	}
-
+	public AbstractPage getPage(String pUrl, boolean pForcefully) {
+		if(pForcefully) {
+			driver = getDriver();
+			page = new ZBOTemplateManagerPage(driver);
+			setLoginPage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+		}
+		return page;
+	}
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub
@@ -83,6 +92,16 @@ public class ZBOTemplateManagerPageTest extends PageTest{
 		assertTrue(page.isTemplateNameSortingWorking(), "Templates name sorting is not working..");
 		assertTrue(page.isSubjectSortingWorking(), "Subject sorting is not working..");
 		assertTrue(page.isTypeSortingWorking(), "Type name sorting is not working..");
+	}
+	
+	/**
+	 * Verify that user should not be able to delete global templates
+	 * 39813
+	 */
+	@Test
+	public void testVerifyGlobalTemplatesAreNotEditable() {
+		getPage("/marketing/templates",true);
+		assertTrue(page.verifyEditButtonIsDisabledForGlobalTemplates(), "Edit button is not disabled for Global templates");
 	}
 	
 	private void navigateToURL(String pURL) {
