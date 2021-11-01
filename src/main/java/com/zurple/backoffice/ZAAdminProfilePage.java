@@ -28,62 +28,49 @@ public class ZAAdminProfilePage extends Page{
 	@FindBy(id="phone")
 	WebElement phone;
 	
-	@FindBy(id="alias_phone_number")
-	WebElement alias_phone;
+	@FindBy(id="dre")
+	WebElement license_number;
 	
-	@FindBy(id="agent_code")
-	WebElement agent_id;
+	@FindBy(id="office_name")
+	WebElement brokerage_name;
 	
-	@FindBy(id="feed_id")
-	WebElement feed_id;
+	@FindBy(id="office_address")
+	WebElement brokerage_address;
 	
-	@FindBy(id="cms_flag")
-	WebElement cms_flag;
-	
-	@FindBy(id="lead_flag")
-	WebElement lead_flag;
-	
-	@FindBy(id="billing_access_flag")
-	WebElement billing_flag;
-	
-	@FindBy(id="property_flag")
-	WebElement prop_flag;
+	@FindBy(id="office_phone")
+	WebElement brokerage_phone;
 	
 	@FindBy(id="email")
 	WebElement login_email;
 	
-	@FindBy(id="alt_email")
-	WebElement alt_email;
+	@FindBy(id="alias_email")
+	WebElement alias_email;
 	
-	@FindBy(id="forward1")
-	WebElement forward_email;
+	@FindBy(id="email_display_name")
+	WebElement display_name;
 	
-	@FindBy(id="time_zone")
-	WebElement time_zone;
+	@FindBy(id="email_unique_sign_off")
+	WebElement unique_sign_off;
+	
+	@FindBy(id="email_display_brokerage_logo")
+	WebElement display_brokerage_logo;
+	
+	@FindBy(id="email_display_profile_image")
+	WebElement display_profile_image;
+	
+	@FindBy(id="task_alert_enabled")
+	WebElement suggested_tasks;
+	
+	@FindBy(id="sms_notif_user_reply")
+	WebElement sms_reply;
 	
 	String timeZone = "//select[@id='time_zone']/option";
 	
-	@FindBy(id="office_name")
-	WebElement office_name;
+	@FindBy(id="zillow_email")
+	WebElement zillow_email;
 	
-	@FindBy(id="office_phone")
-	WebElement office_phone;
-	
-	@FindBy(id="office_address")
-	WebElement office_address;
-	
-	@FindBy(id="package_id")
-	WebElement package_id;
-	
-	@FindBy(id="sms_enabled_flag")
-	WebElement sms_flag;
-	
-	@FindBy(id="sms_notification_enabled")
-	WebElement sms_notifications;
-	
-	@FindBy(id="owner_flag")
-	WebElement owner_id;
-		
+	String zillow_connection = "//select[@id='zillow_live_connection']/option";
+			
 	public ZAAdminProfilePage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -101,44 +88,40 @@ public class ZAAdminProfilePage extends Page{
 		return pExpected.contains(ActionHelper.getAttribute(phone, "value").replaceAll("[()\\s-]+", ""));
 	}
 	
-	public boolean verifyAliasPhone() {
-		return !ActionHelper.getAttribute(alias_phone, "value").isEmpty();
+	public boolean verifySMSReplyFlag() {
+		return ActionHelper.isElementSelected(driver, sms_reply);
 	}
 	
-	public boolean verifyAgentCode(String pExpected) {
-		return pExpected.contains(ActionHelper.getAttribute(agent_id, "value"));
+	public boolean verifySuggestedTaskFlag() {
+		return ActionHelper.isElementSelected(driver, suggested_tasks);
 	}
 	
-	public boolean verifyFeed(String pExpected) {
-		return ActionHelper.getAttribute(feed_id, "value").contains(pExpected);
+	public boolean verifyDisplayProfileImageFlag() {
+		return ActionHelper.isElementSelected(driver, display_profile_image);
 	}
 	
-	public boolean verifyCMSFlag() {
-		return ActionHelper.isElementSelected(driver, cms_flag);
+	public boolean verifyDisplayBrokerageLogoFlag() {
+		return ActionHelper.isElementSelected(driver, display_brokerage_logo);
 	}
 	
-	public boolean verifyLeadFlag() {
-		return ActionHelper.isElementSelected(driver, lead_flag);
+	public boolean verifyUniqueSignOff(String pExpected) {
+		return ActionHelper.getText(driver, unique_sign_off).contains(pExpected);
 	}
 	
-	public boolean verifyBillingFlag() {
-		return ActionHelper.isElementSelected(driver, billing_flag);
-	}
-	
-	public boolean verifyPropFlag() {
-		return ActionHelper.isElementSelected(driver, prop_flag);
+	public boolean verifyDisplayName(String pExpected) {
+		return ActionHelper.getText(driver, display_name).contains(pExpected);
 	}
 
 	public boolean verifyLoginEmail(String pExpected) {
 		return pExpected.contains(ActionHelper.getAttribute(login_email, "value"));
 	}
 
-	public boolean verifyAltEmail(String pExpected) {
-		return pExpected.contains(ActionHelper.getAttribute(alt_email, "value"));
+	public boolean verifyAliasEmail(String pExpected) {
+		return pExpected.contains(ActionHelper.getAttribute(alias_email, "value"));
 	}
 
-	public boolean verifyFowardEmail(String pExpected) {
-		return pExpected.contains(ActionHelper.getAttribute(forward_email, "value"));
+	public boolean verifyLicenseNumber(String pExpected) {
+		return pExpected.contains(ActionHelper.getAttribute(license_number, "value"));
 	}
 
 	public boolean verifyTimeZone(String pExpected) {
@@ -152,33 +135,33 @@ public class ZAAdminProfilePage extends Page{
 		}
 		return pExpected.contains(attribute.trim());
 	}
-
-	public boolean verifyOfficeName(String pExpected) {
-		return pExpected.contains(ActionHelper.getAttribute(office_name, "value"));
-	}
-
-	public boolean verifyOfficePhone(String pExpected) {
-		return ActionHelper.getText(driver, office_phone).contains(pExpected);
-	}
-
-	public boolean verifyOfficeAddress(String pExpected) {
-		return pExpected.contains(ActionHelper.getAttribute(office_address, "value"));
-	}
-
-	public boolean verifyPackageId(String pExpected) {
-		return pExpected.contains(ActionHelper.getAttribute(package_id, "value"));
-	}
-
-	public boolean verifySMSFlag() {
-		return ActionHelper.isElementSelected(driver, sms_flag); 
-	}
-
-	public boolean verifySMSNotification() {
-		return ActionHelper.isElementSelected(driver, sms_notifications); 
-	}
 	
-	public boolean verifyOwnerId(String pExpected) {
-		return ActionHelper.getAttribute(owner_id, "value").equalsIgnoreCase(pExpected);
+	public boolean verifyZillowConnection(String pExpected) {
+		String attribute = "";
+		List<WebElement> elem = ActionHelper.getListOfElementByXpath(driver, zillow_connection);
+		for(WebElement e:elem) {
+			if(ActionHelper.isElementSelected(driver, e)) {
+				attribute = ActionHelper.getAttribute(e, "label");
+				break;
+			}
+		}
+		return pExpected.contains(attribute.trim());
+	}
+
+	public boolean verifyZillowEmail(String pExpected) {
+		return pExpected.contains(ActionHelper.getAttribute(zillow_email, "value"));
+	}
+
+	public boolean verifyBrokeragePhone(String pExpected) {
+		return ActionHelper.getText(driver, brokerage_phone).contains(pExpected);
+	}
+
+	public boolean verifyBrokerageAddress(String pExpected) {
+		return pExpected.contains(ActionHelper.getAttribute(brokerage_address, "value"));
+	}
+
+	public boolean verifyBrokerageName(String pExpected) {
+		return pExpected.contains(ActionHelper.getAttribute(brokerage_name, "value"));
 	}
 	
 }
