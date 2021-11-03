@@ -120,8 +120,8 @@ public class ZAAdminProfilePage extends Page{
 		return pExpected.contains(ActionHelper.getAttribute(alias_email, "value"));
 	}
 
-	public boolean verifyLicenseNumber(String pExpected) {
-		return pExpected.contains(ActionHelper.getAttribute(license_number, "value"));
+	public boolean verifyLicenseNumber() {
+		return !ActionHelper.getAttribute(license_number, "value").isEmpty();
 	}
 
 	public boolean verifyTimeZone(String pExpected) {
