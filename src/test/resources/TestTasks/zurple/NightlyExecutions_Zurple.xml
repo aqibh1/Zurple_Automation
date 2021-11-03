@@ -3993,6 +3993,39 @@
 			</class>
 		</classes>
 	</test>
+	
+	<test name="Verify Phone Icon Is Disabled if phone number is not provided">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/zurple-add-lead-phone-disabled-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+				<methods>
+					<include name="testPhoneIconIsDisabledIfPhoneNumberIsNotProvided" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	
+	<test name="Verify Phone Icon Is Visible for leads on CRM page">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+				<methods>
+					<include name="testPhoneIconIsVisibleForLeads" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Verifications Global templates are not Editable">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOTemplateManagerPageTest">
+					<methods>
+						<include name="testVerifyGlobalTemplatesAreNotEditable" />
+						
+					</methods>
+				</class>
+			</classes>
+	</test>
  <!--  
 <test name="Bulk update lead status to In Active" >	
 			<classes>

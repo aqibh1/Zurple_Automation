@@ -80,7 +80,7 @@ public class ZWRegisterUserPageTest extends PageTest{
 		lDataObject = getDataFile(pDataFile);
 		String lName = updateName(lDataObject.optString("name"));
 		String lEmail = updateEmail(lDataObject.optString("email"));
-		ActionHelper.staticWait(2);
+		ActionHelper.staticWait(5);
 		registerUser(lName,lEmail);
 		
 		String lLeadId = getLeadIdFromBackOffice(lName);//driver.getCurrentUrl().split("lead_id=")[1];
