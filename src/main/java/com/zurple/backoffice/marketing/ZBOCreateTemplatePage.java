@@ -55,7 +55,7 @@ public class ZBOCreateTemplatePage extends Page {
 	@FindBy(id="save-template")
 	WebElement save_template_button;
 	
-	@FindBy(xpath="//label[contains(text(),'Delete Template')]")
+	@FindBy(xpath="//label[@for='campaign-delete']")
 	WebElement delete_template;
 	
 	String validation_alerts = "//form[@id='template-form']/descendant::div[@role='alert']/strong";
