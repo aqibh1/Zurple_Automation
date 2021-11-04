@@ -506,18 +506,23 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		String lc_campaignName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignName);
 		ld_leadEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
 		assertTrue(page.isLeadDetailPage(), "Lead detail page is not diplayed..");
-		assertTrue(page.enrollUnenrollInCampaign(lc_campaignName,true), "Unable to enroll in campaign");
-		assertTrue(page.isCampaignNameVisibleInMyMessages(lc_campaignName), "Campaign Name not visible in My Messages..");
+		boolean isAlreadyEnrolledInCampaign = isLeadEnrolledInCampaign();
+		if(!isAlreadyEnrolledInCampaign) {
+			assertTrue(page.enrollUnenrollInCampaign(lc_campaignName,true), "Unable to enroll in campaign");
+			assertTrue(page.isCampaignNameVisibleInMyMessages(lc_campaignName), "Campaign Name not visible in My Messages..");
+		}
 		page = null;
 		getPage("/leads/crm");
 		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
 		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not displayed");
 		assertTrue(leadCRMPage.searchLeadByEmail(ld_leadEmail), "Lead not found on CRM page...");
 		assertTrue(leadCRMPage.isLeadEnrolledInCampaign(), "Lead enrollment is not displayed on CRM page");
-		page = null;
-		getPage("/campaigns");
-		ZBOCampaignPage campaignPage = new ZBOCampaignPage(driver);
-		assertTrue(campaignPage.isLeadAddedInCampaign(lc_campaignName), "Lead is not added in campaign..");
+		if(!isAlreadyEnrolledInCampaign) {
+			page = null;
+			getPage("/campaigns");
+			ZBOCampaignPage campaignPage = new ZBOCampaignPage(driver);
+			assertTrue(campaignPage.isLeadAddedInCampaign(lc_campaignName), "Lead is not added in campaign..");
+		}
 	}	
 	
 	@Test(dependsOnGroups= {"testEnrollLeadInCampaign"}, groups= {"testUnenrollLeadFromCampaign"}, priority=478)
@@ -535,18 +540,21 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		String lc_campaignName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignName);
 		//String ld_leadEmail =dataObject.optString("lead_email");
 		assertTrue(page.isLeadDetailPage(), "Lead detail page is not diplayed..");
-		assertTrue(page.enrollUnenrollInCampaign(lc_campaignName,false), "Unable to enroll in campaign");
-		assertFalse(page.isCampaignNameVisibleInMyMessages(lc_campaignName), "Campaign Name not visible in My Messages..");
+		boolean isAlreadyEnrolledInCampaign = !page.getCampaignNameFromMyMessagesNone().equalsIgnoreCase("None");
+		if(isAlreadyEnrolledInCampaign) {
+			assertTrue(page.enrollUnenrollInCampaign(lc_campaignName,false), "Unable to enroll in campaign");
+			assertFalse(page.isCampaignNameVisibleInMyMessages(lc_campaignName), "Campaign Name not visible in My Messages..");
+		}	
 		page = null;
 		getPage("/leads/crm");
 		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
 		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not displayed");
 		assertTrue(leadCRMPage.searchLeadByEmail(ld_leadEmail), "Lead not found on CRM page...");
 		assertFalse(leadCRMPage.isLeadEnrolledInCampaign(), "Lead enrollment is not displayed on CRM page");
-		page = null;
-		getPage("/campaigns");
-		ZBOCampaignPage campaignPage = new ZBOCampaignPage(driver);
-		assertFalse(campaignPage.isLeadAddedInCampaign(lc_campaignName), "Lead is not added in campaign..");
+//		page = null;
+//		getPage("/campaigns");
+//		ZBOCampaignPage campaignPage = new ZBOCampaignPage(driver);
+//		assertFalse(campaignPage.isLeadAddedInCampaign(lc_campaignName), "Lead is not added in campaign..");
 	}
 	@Test
 	public void testVerifyNewLeadEnrollmentInCampaign() {
@@ -983,5 +991,12 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		}catch(Exception ex) {
 			throw new SkipException("Skipping the test as pre condition as unable to search POI reports");
 		}
+	}
+	private boolean isLeadEnrolledInCampaign() {
+		boolean isAlreadyEnrolledInCampaign = false;
+		if(page.clickOnMyMessagesTab()) {
+			isAlreadyEnrolledInCampaign = !page.getCampaignNameFromMyMessagesNone().equalsIgnoreCase("None");
+		}
+		return isAlreadyEnrolledInCampaign;
 	}
 }
