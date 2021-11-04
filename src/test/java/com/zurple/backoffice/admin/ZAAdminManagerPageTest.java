@@ -78,7 +78,7 @@ public void testSetup(String pAdminIdDataFile, String pAdminDataFile) {
 	lAdminId = dataIdObject.optString("admin_id");
 	page=null;
 	getPage("/adminmgr/edit/admin_id/"+lAdminId);
-	emptyFile(pAdminIdDataFile,"");
+	// emptyFile(pAdminIdDataFile,"");
 }
 
 @Test(dependsOnMethods = { "testSetup" })

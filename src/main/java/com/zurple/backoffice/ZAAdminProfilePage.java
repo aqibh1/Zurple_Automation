@@ -70,7 +70,9 @@ public class ZAAdminProfilePage extends Page{
 	WebElement zillow_email;
 	
 	String zillow_connection = "//select[@id='zillow_live_connection']/option";
-			
+	
+	String l_userName,l_password = "";
+	
 	public ZAAdminProfilePage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -105,11 +107,11 @@ public class ZAAdminProfilePage extends Page{
 	}
 	
 	public boolean verifyUniqueSignOff(String pExpected) {
-		return ActionHelper.getText(driver, unique_sign_off).contains(pExpected);
+		return ActionHelper.getAttribute(unique_sign_off,"value").contains(pExpected);
 	}
 	
 	public boolean verifyDisplayName(String pExpected) {
-		return ActionHelper.getText(driver, display_name).contains(pExpected);
+		return ActionHelper.getAttribute(display_name,"value").contains(pExpected.replace("\"", ""));
 	}
 
 	public boolean verifyLoginEmail(String pExpected) {
@@ -120,8 +122,8 @@ public class ZAAdminProfilePage extends Page{
 		return pExpected.contains(ActionHelper.getAttribute(alias_email, "value"));
 	}
 
-	public boolean verifyLicenseNumber() {
-		return !ActionHelper.getAttribute(license_number, "value").isEmpty();
+	public boolean verifyLicenseNumber(String pExpected) {
+		return pExpected.contains(ActionHelper.getAttribute(license_number, "value"));
 	}
 
 	public boolean verifyTimeZone(String pExpected) {
@@ -153,7 +155,7 @@ public class ZAAdminProfilePage extends Page{
 	}
 
 	public boolean verifyBrokeragePhone(String pExpected) {
-		return ActionHelper.getText(driver, brokerage_phone).contains(pExpected);
+		return pExpected.contains(ActionHelper.getAttribute(brokerage_phone, "value"));
 	}
 
 	public boolean verifyBrokerageAddress(String pExpected) {
@@ -164,4 +166,20 @@ public class ZAAdminProfilePage extends Page{
 		return pExpected.contains(ActionHelper.getAttribute(brokerage_name, "value"));
 	}
 	
+	public String getAPAdminUsername() {
+		return l_userName;
+	}
+	
+	public void setUserName(String pUserName) {
+		this.l_userName = pUserName;
+	}
+	
+	public String getAPAdminPassword() {
+		return l_password;
+	}
+
+	public void setPassword(String pPassword) {
+		this.l_password = pPassword;
+	}
+
 }

@@ -94,4 +94,35 @@
 	</parameter>
 	</test>
 	
+		<test name="Verify Admin Creation by Auto Provisioning from Back Office">	 
+	<parameter name="adminIdFile" value="/resources/cache/cache-ap-admin-id-data.json">
+	 <parameter name="adminDataFile" value="/resources/cache/cache-ap-admin-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZAAdminProfilePageTest">
+				<methods>
+					<include name="testSetup" />
+					<include name= "testVerifyFirstName" />
+					<include name= "testVerifyFirstName" />
+					<include name= "testVerifyLastName" />
+					<include name= "testVerifyDisplayName" />
+					<include name= "testVerifyPhone" />
+					<include name= "testVerifyUniqueSignOff" />
+					<include name= "testVerifyProfileImageFlag" />
+					<include name= "testVerifyBrokerageLogoFlag" />
+					<include name= "testVerifyLicense" />
+					<include name= "testVerifyLoginEmail" />
+					<include name= "testVerifyAltEmail" />
+					<include name= "testVerifyTimeZone" />
+					<include name= "testVerifyBrokerageName" />
+					<include name= "testVerifyBrokeragePhone" />
+					<include name= "testVerifyBrokerageAddress" />
+					<include name= "testVerifyZillowConnection" />
+					<include name= "testVerifyZillowEmail" />
+				</methods>
+			</class>    
+		</classes>
+	</parameter>
+	</parameter>
+	</test>
+	
 </suite>
