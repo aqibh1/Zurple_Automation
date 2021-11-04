@@ -26,7 +26,6 @@ import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
-import resources.utility.CacheFilePathsConstants;
 
 /**
  * @author adar
@@ -1144,6 +1143,49 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(adsOverviewPage.getListingAddressFirstRow().contains("Quick Ad"), "Buyer Lead heading is not displayed on ads overview page.."+"[Buyer Lead Ad]");	
 		assertTrue(adsOverviewPage.verifyBuyerLeadAdIcon(), "Unable to verify buer lead ad icon");	
 	}
+	
+	/**
+	 * Very create a Buyer lead ad button is displayed under Create Ad heading
+	 * 40250
+	 */
+	@Test
+	public void testVerifyCreateBuyerLeadAdButtonIsDisplayed() {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isBuyerLeadAdButtonDisplayed(), "Buyer lead ad button is not displayed");	
+	}
+	
+	/**
+	 * Verify clicking 'Create a Buyer Lead Ad' button takes user to Buyer lead ads section
+	 * 47371
+	 */
+	@Test
+	public void testVerifyCreateBuyerLeadAdButtonScrollsPageDown() {
+//		assertTrue(page.clickOnCreateBuyerLeadButton(), "Unable to click on buyer lead ad button..");
+//		assertTrue(page.isCreateCustomAdButtonDisplayed(), "Create Customize Ad button is not displayed..");
+		assertTrue(page.isScrolledSuccessful("Buyer"), "Page did not scroll on clicking the button");
+	}
+	
+	/**
+	 * Verify create a listing ad button is displayed under Create Ad heading
+	 * 47370
+	 */
+	@Test
+	public void testVerifyCreateListingAdButtonIsDisplayed() {
+		getPage("/create-ad/step-one",true);
+		assertTrue(page.isListingAdButtonDisplayed(), "Listing ad button is not displayed");	
+	}
+	
+	/**
+	 * Verify clicking 'Create a Listing Ad' button takes user to Create Listing ads section
+	 * 47372
+	 */
+	@Test
+	public void testVerifyCreateListingAdButtonScrollsPageDown() {
+//		assertTrue(page.clickOnCreateListingAdButton(), "Unable to click on buyer lead ad button..");
+//		assertTrue(page.isCreateCustomAdButtonDisplayed(), "Create Customize Ad button is not displayed..");
+		assertTrue(page.isScrolledSuccessful("Listing"), "Page did not scroll on clicking the button");
+	}
+	
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {
 		if(!page.clickOnCustomAdButton()) {

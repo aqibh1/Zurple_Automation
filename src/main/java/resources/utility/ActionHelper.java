@@ -1395,4 +1395,22 @@ public class ActionHelper {
 		   }
 		   return alert_text;
 	   }
+	   public static boolean isElementDisplayed(WebDriver pWebDriver, WebElement pElement) {
+		   boolean isSuccessful =false;
+			try {
+				AutomationLogger.info("Checking if element is enabled"+pElement);
+				if(pElement.isDisplayed()) {
+					isSuccessful=true;
+				}
+			}catch(Exception ex) {
+				AutomationLogger.error("Element is not visible -> "+pElement);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessful;
+	   }
+	   public static long getVerticlePixels(WebDriver pWebDriver) {
+		   JavascriptExecutor executor = (JavascriptExecutor) pWebDriver;
+		   Long value = (Long) executor.executeScript("return window.pageYOffset;");
+		   return value;
+	   }
 }

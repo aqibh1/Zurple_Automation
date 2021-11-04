@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -264,6 +263,12 @@ public class ZBOCreateAdPage extends Page{
 	private ZBOSelectListingAlert selectListingAlert;
 	private ZBOGenericAlerts alert;
 	private String listing_address_value = "";
+	
+	@FindBy(id="cta_bl_ad")
+	WebElement createBuyerLeadAdButton;
+	
+	@FindBy(id="cta_listad")
+	WebElement createListingAdButton;
 	
 	String ad_slider = "//div[@class='adpreview_box']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	String ad_date = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::span[@class='addate_cap']";
@@ -929,12 +934,38 @@ public class ZBOCreateAdPage extends Page{
 		 long lDays = TimeUnit.MILLISECONDS.toDays(diff);//(diff / (1000*60*60*24));
 		 return lDays==31;
 	 }
-	 
+	 public boolean isBuyerLeadAdButtonDisplayed() {
+		 return ActionHelper.isElementDisplayed(driver, createBuyerLeadAdButton);
+	 }
+	 public boolean clickOnCreateBuyerLeadButton() {
+		 return ActionHelper.Click(driver, createBuyerLeadAdButton);
+	 }
+	 public boolean isCreateCustomAdButtonDisplayed() {
+		 return ActionHelper.isElementDisplayed(driver, customize_button);
+	 }
+	 public boolean isListingAdButtonDisplayed() {
+		 return ActionHelper.isElementDisplayed(driver, createListingAdButton);
+	 }
+	 public boolean clickOnCreateListingAdButton() {
+		 return ActionHelper.Click(driver, createListingAdButton);
+	 }
+	 public boolean isScrolledSuccessful(String pButtonType) {
+		 long l_old_value = ActionHelper.getVerticlePixels(driver);
+		 if(pButtonType.equalsIgnoreCase("Buyer")) {
+			 clickOnCreateBuyerLeadButton();
+		 }else {
+			 clickOnCreateListingAdButton();
+		 }
+		 long l_new_value = ActionHelper.getVerticlePixels(driver);
+		 return l_old_value!=l_new_value;
+		 
+	 }
 	 private String getRenewalDate(String pAdId) {
 		 String l_renewalDATE = "";
 		 l_renewalDATE = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, ad_date, pAdId));
 		 return l_renewalDATE;
 	 }
+	 
 	 
 	 private String verifyAdStatus(String pAdId) {
 		 return ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::td[@class='td_center']").get(3));
