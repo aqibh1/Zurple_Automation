@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.HttpStatus;
 import org.json.JSONObject;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -20,14 +19,11 @@ import com.restapi.RestAPITest;
 import com.restapi.RestContent;
 import com.restapi.RestRequest;
 import com.restapi.RestResponse;
-import com.restapi.RestValidationAction;
 
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
-import resources.utility.ZurpleListingConstants;
 
 /**
  * @author ahabib
@@ -43,6 +39,7 @@ public class ZBORestPostPackage extends RestAPITest{
 		getDriver();
 		lDataFile = pDataFile;
 		HashMap<String,String> ua = new HashMap<String, String>();
+		//TODO This should be initiliazed in RestApi constants
 		ua.put("User-Agent", "aaqib-useragent");
 		JSONObject responseObj = null;
 		String lc_cookie = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.Cookie);
@@ -65,7 +62,8 @@ public class ZBORestPostPackage extends RestAPITest{
 		status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Success");
 		String lFileToWrite = "/resources/cache/cache-ap-package-id-data.json";
 		String lPFileToWrite = "/resources/cache/permanent-ap-package-admin-data.json";
-		JSONObject jObject = httpCallResp.getJsonResponse();		
+		JSONObject jObject = httpCallResp.getJsonResponse();	
+		//TODO We need to first verify that status code is 200. Than will check status. Line 62 should be after 200 status check.
 		if(status) {
 				String package_id = jObject.optString("package_id").toString();
 				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAPPackageId, package_id);
@@ -81,6 +79,7 @@ public class ZBORestPostPackage extends RestAPITest{
 	private RestContent getContent() throws Exception {
 		RestContent restContent = new RestContent();
 		Map<String, Part> multiParts = new HashMap<String, Part>();
+		//TODO Pass this path from datafile
 		String packageDataFile = "/resources/cache/cache-ap-package-data.json";
 		String lName = updateName(dataObject.optString("name"));
 		String lPhone = dataObject.optString("phone");
@@ -91,6 +90,7 @@ public class ZBORestPostPackage extends RestAPITest{
 		String lAdditionalAdmins = dataObject.optString("additional_admins");
 		String lPayers = dataObject.optString("payers");
 		String lSubsidiary = dataObject.optString("subsidiary");
+		//TODO The variable name should be access token since we are already differnt configs files for prod and stage we do not require this check
 		String access_token = getIsProd()?EnvironmentFactory.configReader.getPropertyByName("prod_access_token"):EnvironmentFactory.configReader.getPropertyByName("stage_access_token");
 		
 		multiParts.put("name", new Part(lName, PartType.STRING));
