@@ -270,6 +270,9 @@ public class ZBOCreateAdPage extends Page{
 	@FindBy(id="cta_listad")
 	WebElement createListingAdButton;
 	
+	@FindBy(id="confirm_payment_btn")
+	WebElement confirm_payment_btn;
+	
 	String ad_slider = "//div[@class='adpreview_box']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	String ad_date = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::span[@class='addate_cap']";
 	String ad_price = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::span[@class='adprice_cap']";
@@ -959,6 +962,9 @@ public class ZBOCreateAdPage extends Page{
 		 long l_new_value = ActionHelper.getVerticlePixels(driver);
 		 return l_old_value!=l_new_value;
 		 
+	 }
+	 public boolean clickOnConfirmPaymentButton() {
+		 return ActionHelper.Click(driver, confirm_payment_btn);
 	 }
 	 private String getRenewalDate(String pAdId) {
 		 String l_renewalDATE = "";
