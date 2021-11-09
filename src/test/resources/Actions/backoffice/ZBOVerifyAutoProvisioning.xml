@@ -102,7 +102,6 @@
 				<methods>
 					<include name="testSetup" />
 					<include name= "testVerifyFirstName" />
-					<include name= "testVerifyFirstName" />
 					<include name= "testVerifyLastName" />
 					<include name= "testVerifyDisplayName" />
 					<include name= "testVerifyPhone" />

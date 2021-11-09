@@ -78,17 +78,17 @@ public class ZAAdminManagerPageTest extends PageTest{
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyFirstName() {
-		assertTrue(page.verifyFirstName(splitString(dataObject.optString("first_name"),"content",":","}")),"Unable to verify admin first name "+lAdminId);
+		assertTrue(page.verifyFirstName(dataObject.getJSONObject("first_name").optString("content")),"Unable to verify admin first name "+lAdminId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyLastName() {
-		assertTrue(page.verifyLastName(splitString(dataObject.optString("last_name"),"content",":","}")),"Unable to verify admin last name "+lAdminId);
+		assertTrue(page.verifyLastName(dataObject.getJSONObject("last_name").optString("content")),"Unable to verify admin last name "+lAdminId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyPhone() {
-		assertTrue(page.verifyPhone(splitString(dataObject.optString("phone"),"content",":","}")),"Unable to verify admin phone "+lAdminId);
+		assertTrue(page.verifyPhone(dataObject.getJSONObject("phone").optString("content")),"Unable to verify admin phone "+lAdminId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
@@ -123,17 +123,17 @@ public class ZAAdminManagerPageTest extends PageTest{
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyLoginEmail() {
-		assertTrue(page.verifyLoginEmail(splitString(dataObject.optString("email"),"content",":","}")),"Unable to verify admin login email "+lAdminId);
+		assertTrue(page.verifyLoginEmail(dataObject.getJSONObject("email").optString("content")),"Unable to verify admin login email "+lAdminId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyAltEmail() {
-		assertTrue(page.verifyAltEmail(splitString(dataObject.optString("alt_email"),"content",":","}")),"Unable to verify admin alt email "+lAdminId);
+		assertTrue(page.verifyAltEmail(dataObject.getJSONObject("alt_email").optString("content")),"Unable to verify admin alt email "+lAdminId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyForwardEmail() {
-		assertTrue(page.verifyFowardEmail(splitString(dataObject.optString("forward1"),"content",":","}")),"Unable to verify admin forward email "+lAdminId);
+		assertTrue(page.verifyFowardEmail(dataObject.getJSONObject("forward1").optString("content")),"Unable to verify admin forward email "+lAdminId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
@@ -143,17 +143,17 @@ public class ZAAdminManagerPageTest extends PageTest{
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyOfficeName() {
-		assertTrue(page.verifyOfficeName(splitString(dataObject.optString("office_name"),"content",":","}")),"Unable to verify admin office name "+lAdminId);
+		assertTrue(page.verifyOfficeName(dataObject.getJSONObject("office_name").optString("content")),"Unable to verify admin office name "+lAdminId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyOfficeAddress() {
-		assertTrue(page.verifyOfficeAddress(splitString(dataObject.optString("office_address"),"content",":","}")),"Unable to verify admin office address "+lAdminId);
+		assertTrue(page.verifyOfficeAddress(dataObject.getJSONObject("office_address").optString("content")),"Unable to verify admin office address "+lAdminId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyPackageId() {
-		assertTrue(page.verifyPackageId(splitString(dataObject.optString("package_id"),"content",":","}")),"Unable to verify admin package id "+lAdminId);
+		assertTrue(page.verifyPackageId(dataObject.getJSONObject("package_id").optString("content")),"Unable to verify admin package id "+lAdminId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
@@ -169,10 +169,6 @@ public class ZAAdminManagerPageTest extends PageTest{
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyOwnerId() {
 		assertTrue(page.verifyOwnerId("1"),"Unable to verify owner id "+lAdminId); 
-	}
-
-	public String splitString(String str, String firstSplit, String secondSplit, String thirdSplit) {
-		return str.split(firstSplit)[1].split(secondSplit)[1].split(thirdSplit)[0];
 	}
 
 	@AfterTest

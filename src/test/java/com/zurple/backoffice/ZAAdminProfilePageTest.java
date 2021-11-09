@@ -69,7 +69,7 @@ public void testSetup(String pAdminIdDataFile, String pAdminDataFile) {
 	getPage();
 	dataIdObject = getDataFile(pAdminIdDataFile);
 	dataObject = getDataFile(pAdminDataFile);
-	page.setUserName(splitString(dataObject.optString("email"),"content",":","}"));
+	page.setUserName(dataObject.getJSONObject("email").optString("content"));
 	page.setPassword(defaultPassword);
 	if(!getLoginPage().doLogin(page.getAPAdminUsername().replace("\"", ""), page.getAPAdminPassword())) {
 		throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
@@ -82,22 +82,22 @@ public void testSetup(String pAdminIdDataFile, String pAdminDataFile) {
 
 @Test(dependsOnMethods = { "testSetup" })
 public void testVerifyFirstName() {
-	assertTrue(page.verifyFirstName(splitString(dataObject.optString("first_name"),"content",":","}")),"Unable to verify admin first name "+lAdminId);
+	assertTrue(page.verifyFirstName(dataObject.getJSONObject("first_name").optString("content")),"Unable to verify admin first name "+lAdminId);
 }
 
 @Test(dependsOnMethods = { "testSetup" })
 public void testVerifyLastName() {
-	assertTrue(page.verifyLastName(splitString(dataObject.optString("last_name"),"content",":","}")),"Unable to verify admin last name "+lAdminId);
+	assertTrue(page.verifyLastName(dataObject.getJSONObject("last_name").optString("content")),"Unable to verify admin last name "+lAdminId);
 }
 
 @Test(dependsOnMethods = { "testSetup" })
 public void testVerifyDisplayName() {
-	assertTrue(page.verifyDisplayName(splitString(dataObject.optString("first_name"),"content",":","}")),"Unable to verify admin display name "+lAdminId);
+	assertTrue(page.verifyDisplayName(dataObject.getJSONObject("first_name").optString("content")),"Unable to verify admin display name "+lAdminId);
 }
 
 @Test(dependsOnMethods = { "testSetup" })
 public void testVerifyPhone() {
-	assertTrue(page.verifyPhone(splitString(dataObject.optString("phone"),"content",":","}")),"Unable to verify admin phone "+lAdminId);
+	assertTrue(page.verifyPhone(dataObject.getJSONObject("phone").optString("content")),"Unable to verify admin phone "+lAdminId);
 }
 
 @Test(dependsOnMethods = { "testSetup" })
@@ -127,17 +127,17 @@ public void testVerifyBrokerageLogoFlag() {
 
 @Test(dependsOnMethods = { "testSetup" })
 public void testVerifyLicense() {
-	assertTrue(page.verifyLicenseNumber(splitString(dataObject.optString("dre"),"content",":","}")),"Unable to verify agents DRE "+lAdminId);
+	assertTrue(page.verifyLicenseNumber(dataObject.getJSONObject("dre").optString("content")),"Unable to verify agents DRE "+lAdminId);
 }
 
 @Test(dependsOnMethods = { "testSetup" })
 public void testVerifyLoginEmail() {
-	assertTrue(page.verifyLoginEmail(splitString(dataObject.optString("email"),"content",":","}")),"Unable to verify admin login email "+lAdminId);
+	assertTrue(page.verifyLoginEmail(dataObject.getJSONObject("email").optString("content")),"Unable to verify admin login email "+lAdminId);
 }
 
 @Test(dependsOnMethods = { "testSetup" })
 public void testVerifyAltEmail() {
-	assertTrue(page.verifyAliasEmail(splitString(dataObject.optString("alt_email"),"content",":","}")),"Unable to verify admin alias email "+lAdminId);
+	assertTrue(page.verifyAliasEmail(dataObject.getJSONObject("alt_email").optString("content")),"Unable to verify admin alias email "+lAdminId);
 }
 
 @Test(dependsOnMethods = { "testSetup" })
@@ -147,17 +147,17 @@ public void testVerifyTimeZone() {
 
 @Test(dependsOnMethods = { "testSetup" })
 public void testVerifyBrokerageName() {
-	assertTrue(page.verifyBrokerageName(splitString(dataObject.optString("office_name"),"content",":","}")),"Unable to verify admin brokerage name "+lAdminId);
+	assertTrue(page.verifyBrokerageName(dataObject.getJSONObject("office_name").optString("content")),"Unable to verify admin brokerage name "+lAdminId);
 }
 
 @Test(dependsOnMethods = { "testSetup" })
 public void testVerifyBrokeragePhone() {
-	assertTrue(page.verifyBrokeragePhone(splitString(dataObject.optString("office_phone"),"content",":","}")),"Unable to verify admin brokerage phone "+lAdminId);
+	assertTrue(page.verifyBrokeragePhone(dataObject.getJSONObject("office_phone").optString("content")),"Unable to verify admin brokerage phone "+lAdminId);
 }
 
 @Test(dependsOnMethods = { "testSetup" })
 public void testVerifyBrokerageAddress() {
-	assertTrue(page.verifyBrokerageAddress(splitString(dataObject.optString("office_address"),"content",":","}")),"Unable to verify admin brokerage address "+lAdminId);
+	assertTrue(page.verifyBrokerageAddress(dataObject.getJSONObject("office_address").optString("content")),"Unable to verify admin brokerage address "+lAdminId);
 }
 
 @Test(dependsOnMethods = { "testSetup" })
@@ -167,11 +167,7 @@ public void testVerifyZillowConnection() {
 
 @Test(dependsOnMethods = { "testSetup" })
 public void testVerifyZillowEmail() {
-	assertTrue(page.verifyZillowEmail(splitString(dataObject.optString("email"),"content",":","}")),"Unable to verify zillow email "+lAdminId);
-}
-
-public String splitString(String str, String firstSplit, String secondSplit, String thirdSplit) {
-	return str.split(firstSplit)[1].split(secondSplit)[1].split(thirdSplit)[0];
+	assertTrue(page.verifyZillowEmail(dataObject.getJSONObject("email").optString("content")),"Unable to verify zillow email "+lAdminId);
 }
 
 @AfterTest

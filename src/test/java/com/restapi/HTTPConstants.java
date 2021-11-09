@@ -8,5 +8,5 @@ public class HTTPConstants {
 	public static final String GET = "GET";
 	public static final String ContentLength = "Content-Length";
 	public static final String Authorization = "Authorization";
-
+	public static final String UserAgent = "aaqib-useragent";
 }

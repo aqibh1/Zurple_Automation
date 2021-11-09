@@ -11,6 +11,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.restapi.HTTPConstants;
 import com.restapi.HeadersConfig;
 import com.restapi.HttpRequestHandler;
 import com.restapi.Part;
@@ -24,6 +25,7 @@ import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author ahabib
@@ -40,15 +42,13 @@ public class ZBORestPostPackage extends RestAPITest{
 		lDataFile = pDataFile;
 		HashMap<String,String> ua = new HashMap<String, String>();
 		//TODO This should be initiliazed in RestApi constants
-		ua.put("User-Agent", "aaqib-useragent");
+		ua.put("User-Agent", HTTPConstants.UserAgent);
 		JSONObject responseObj = null;
-		String lc_cookie = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.Cookie);
 		dataObject = getDataFile(pDataFile);
 		RestRequest request = new RestRequest();
 		String lUrl = getBaseUrl()+"/createpackage";
 		request.setUrl(lUrl);
 		request.setRestContent(getContent());
-		request.setHeaders(HeadersConfig.getMultipartFormDataHeaders(lc_cookie));
 		request.setHeaders(ua);
 		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
 		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
@@ -64,7 +64,8 @@ public class ZBORestPostPackage extends RestAPITest{
 		String lPFileToWrite = "/resources/cache/permanent-ap-package-admin-data.json";
 		JSONObject jObject = httpCallResp.getJsonResponse();	
 		//TODO We need to first verify that status code is 200. Than will check status. Line 62 should be after 200 status check.
-		if(status) {
+		if(httpCallResp.getStatus() == Integer.parseInt(dataObject.optString("status_code"))) {
+			if(status) {
 				String package_id = jObject.optString("package_id").toString();
 				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAPPackageId, package_id);
 				if(!package_id.isEmpty()) {
@@ -73,6 +74,7 @@ public class ZBORestPostPackage extends RestAPITest{
 					writeJsonToFile(lPFileToWrite,jObject);
 				}
 			}
+		}
 		return status;
 	}
 	
@@ -91,8 +93,8 @@ public class ZBORestPostPackage extends RestAPITest{
 		String lPayers = dataObject.optString("payers");
 		String lSubsidiary = dataObject.optString("subsidiary");
 		//TODO The variable name should be access token since we are already differnt configs files for prod and stage we do not require this check
-		String access_token = getIsProd()?EnvironmentFactory.configReader.getPropertyByName("prod_access_token"):EnvironmentFactory.configReader.getPropertyByName("stage_access_token");
-		
+		//String access_token = getIsProd()?EnvironmentFactory.configReader.getPropertyByName("prod_access_token"):EnvironmentFactory.configReader.getPropertyByName("stage_access_token");
+		String access_token = EnvironmentFactory.configReader.getPropertyByName("ap_access_token");
 		multiParts.put("name", new Part(lName, PartType.STRING));
 		multiParts.put("phone", new Part(lPhone, PartType.STRING));
 		multiParts.put("email", new Part(lEmail, PartType.STRING));

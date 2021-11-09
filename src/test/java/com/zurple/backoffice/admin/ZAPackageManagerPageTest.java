@@ -77,23 +77,22 @@ public class ZAPackageManagerPageTest extends PageTest{
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyFullName() {
-		//TODO User native jsonobject parsing methods to parse this. This approach is not good.
-		assertTrue(page.verifyFullName(splitString(dataObject.optString("name"),"content",":","}")),"Unable to verify full name "+lPackageId);
+		assertTrue(page.verifyFullName(dataObject.getJSONObject("name").optString("content")),"Unable to verify full name "+lPackageId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyEmail() {
-		assertTrue(page.verifyEmail(splitString(dataObject.optString("email"),"content",":","}")),"Unable to verify email "+lPackageId);
+		assertTrue(page.verifyEmail(dataObject.getJSONObject("email").optString("content")),"Unable to verify email "+lPackageId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyPhone() {
-		assertTrue(page.verifyPhone(splitString(dataObject.optString("phone"),"content",":","}")),"Unable to verify phone "+lPackageId);
+		assertTrue(page.verifyPhone(dataObject.getJSONObject("phone").optString("content")),"Unable to verify phone "+lPackageId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyCompany() {
-		assertTrue(page.verifyCompany(splitString(dataObject.optString("subsidiary"),"content",":","}")),"Unable to verify company "+lPackageId);
+		assertTrue(page.verifyCompany(dataObject.getJSONObject("subsidiary").optString("content")),"Unable to verify company "+lPackageId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
@@ -103,7 +102,7 @@ public class ZAPackageManagerPageTest extends PageTest{
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyURLPath() {
-		assertTrue(page.verifyURLPath(splitString(dataObject.optString("path"),"content",":","}")),"Unable to verify url path "+lPackageId);
+		assertTrue(page.verifyURLPath(dataObject.getJSONObject("path").optString("content")),"Unable to verify url path "+lPackageId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
@@ -118,12 +117,12 @@ public class ZAPackageManagerPageTest extends PageTest{
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyPayers() {
-		assertTrue(page.verifyPayers(splitString(dataObject.optString("payers"),"content",":","}")),"Unable to verify payers "+lPackageId);
+		assertTrue(page.verifyPayers(dataObject.getJSONObject("payers").optString("content")),"Unable to verify payers "+lPackageId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyAdditionalAdmins() {
-		assertTrue(page.verifyAdditionalAdmins(splitString(dataObject.optString("additional_admins"),"content",":","}")),"Unable to verify additional admins "+lPackageId);
+		assertTrue(page.verifyAdditionalAdmins(dataObject.getJSONObject("additional_admins").optString("content")),"Unable to verify additional admins "+lPackageId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
@@ -134,10 +133,6 @@ public class ZAPackageManagerPageTest extends PageTest{
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyFeatureBundles() {
 		assertTrue(page.verifyFeatureBundles("MassSMS",3),"Unable to verify feature bundle 2 "+lPackageId); //To be Improved later
-	}
-
-	public String splitString(String str, String firstSplit, String secondSplit, String thirdSplit) {
-		return str.split(firstSplit)[1].split(secondSplit)[1].split(thirdSplit)[0].replaceAll("^\"|\"$", "");
 	}
 
 	@AfterTest

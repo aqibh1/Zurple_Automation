@@ -12,6 +12,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.restapi.HTTPConstants;
 import com.restapi.HeadersConfig;
 import com.restapi.HttpRequestHandler;
 import com.restapi.Part;
@@ -27,6 +28,7 @@ import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 import resources.utility.ZurpleListingConstants;
 
 /**
@@ -44,14 +46,12 @@ public class ZBORestPostAdmin extends RestAPITest{
 		lDataFile = pDataFile;
 		JSONObject responseObj = null;
 		HashMap<String,String> ua = new HashMap<String, String>();
-		ua.put("User-Agent", "aaqib-useragent");
-		String lc_cookie = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.Cookie);
+		ua.put("User-Agent", HTTPConstants.UserAgent);
 		dataObject = getDataFile(pDataFile);
 		RestRequest request = new RestRequest();
 		String lUrl = getBaseUrl()+"/createadmin";
 		request.setUrl(lUrl);
 		request.setRestContent(getContent());
-		request.setHeaders(HeadersConfig.getMultipartFormDataHeaders(lc_cookie));
 		request.setHeaders(ua);
 		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
 		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
@@ -67,7 +67,8 @@ public class ZBORestPostAdmin extends RestAPITest{
 		String lPFileToWrite = "/resources/cache/permanent-ap-package-admin-data.json";
 		emptyFile(lFileToWrite,"");
 		JSONObject jObject = httpCallResp.getJsonResponse();		
-		if(status) {
+		if(httpCallResp.getStatus() == Integer.parseInt(dataObject.optString("status_code"))) {	
+			if(status) {
 				String admin_id = jObject.optString("admin_id").toString();
 				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAPAdminId, admin_id);
 				if(!admin_id.isEmpty()) {
@@ -76,6 +77,7 @@ public class ZBORestPostAdmin extends RestAPITest{
 					writeJsonToFile(lPFileToWrite,jObject);
 				}
 			}
+		}
 		return status;
 	}
 	
@@ -98,8 +100,7 @@ public class ZBORestPostAdmin extends RestAPITest{
 		String lOfficeAddress = dataObject.optString("office_address");
 		String lDRE = dataObject.optString("dre");
 		String lPackageId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAPPackageId);
-		String access_token = getIsProd()?EnvironmentFactory.configReader.getPropertyByName("prod_access_token"):EnvironmentFactory.configReader.getPropertyByName("stage_access_token");
-
+		String access_token = EnvironmentFactory.configReader.getPropertyByName("ap_access_token");
 		multiParts.put("first_name", new Part(lFname, PartType.STRING));
 		multiParts.put("last_name", new Part(lLname, PartType.STRING));
 		multiParts.put("phone", new Part(lPhone, PartType.STRING));

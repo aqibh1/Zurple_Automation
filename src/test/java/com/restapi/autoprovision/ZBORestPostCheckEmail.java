@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.restapi.HTTPConstants;
 import com.restapi.HeadersConfig;
 import com.restapi.HttpRequestHandler;
 import com.restapi.Part;
@@ -25,6 +26,7 @@ import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.FrameworkConstants;
 import resources.utility.ZurpleListingConstants;
 
 /**
@@ -38,13 +40,11 @@ public class ZBORestPostCheckEmail extends RestAPITest{
 		getDriver();
 		JSONObject responseObj = null;
 		HashMap<String,String> ua = new HashMap<String, String>();
-		ua.put("User-Agent", "aaqib-useragent");
-		String lc_cookie = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.Cookie);
+		ua.put("User-Agent", HTTPConstants.UserAgent);
 		RestRequest request = new RestRequest();
 		String lUrl = getBaseUrl()+"/checkemail";
 		request.setUrl(lUrl);
 		request.setRestContent(getContent());
-		request.setHeaders(HeadersConfig.getMultipartFormDataHeaders(lc_cookie));
 		request.setHeaders(ua);
 		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
 		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
@@ -71,7 +71,7 @@ public class ZBORestPostCheckEmail extends RestAPITest{
 		RestContent restContent = new RestContent();
 		Map<String, Part> multiParts = new HashMap<String, Part>();
 		String lEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAPEmail);
-		String access_token = getIsProd()?EnvironmentFactory.configReader.getPropertyByName("prod_access_token"):EnvironmentFactory.configReader.getPropertyByName("stage_access_token");
+		String access_token = EnvironmentFactory.configReader.getPropertyByName("ap_access_token");
 		
 		multiParts.put("name", new Part(lEmail, PartType.STRING));
 		multiParts.put("access_token", new Part(access_token, PartType.STRING));
