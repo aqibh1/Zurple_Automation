@@ -3756,7 +3756,6 @@
 				<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
 					<methods>
 						<include name="testVerifyRecipientsOptionsAreVisibleAfterClickingSave" />
-						<include name="testDeleteCampaign" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">

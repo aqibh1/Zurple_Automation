@@ -22,6 +22,7 @@ import com.zurple.my.Page;
 
 import resources.alerts.zurple.backoffice.ZBOGenericAlerts;
 import resources.alerts.zurple.backoffice.ZBOSelectListingAlert;
+import resources.forms.zurple.backoffice.ZBOAddCreditCardForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
@@ -79,7 +80,7 @@ public class ZBOCreateAdPage extends Page{
 	WebElement custom_Ads_heading;
 	@FindBy(xpath="//div[@class='adpurplebg goalbox_title']/h2")
 	WebElement promote_listing_heading;
-	@FindBy(xpath="//div[@class='goalbox_body adtype_body']")
+	@FindBy(xpath="//a[@id='promote_adtype_selector']/descendant::div[@class='goalbox_body adtype_body']")
 	WebElement create_Ad_box_text;
 	@FindBy(xpath="//div[@class='goalbox_body adtype_body']/i[@class='fa fa-home']")
 	WebElement home_icon_create_Ad_box;
@@ -97,11 +98,11 @@ public class ZBOCreateAdPage extends Page{
 	WebElement hot_properties_heading;
 	@FindBy(xpath="//div[@class='fb_ad_preview_frame pull-left']/descendant::div[@class='ad_page_dp']/img")
 	WebElement img_thumb_quick_Ad;
-	@FindBy(xpath="//div[@class='fb_ad_preview_frame pull-left']/descendant::div[@class='fb_ad_preview_details Mpreview']")
-	WebElement quick_Ad_Desc;
+	@FindBy(xpath="//div[@class='slider  Zurple_ListingAds slick-initialized slick-slider']/descendant::div[@class='fb_ad_preview_details Mpreview']")
+	WebElement listing_quick_Ad_Desc;
 	@FindBy(xpath="//div[@class='fb_ad_preview_frame pull-left']/descendant::div[@class='fb_ad_preview_domain']")
 	WebElement quick_Ad_Domain;
-	@FindBy(xpath="//div[@class='fb_ad_preview_frame pull-left']/descendant::div[@class='fb_ad_preview_title']/a")
+	@FindBy(xpath="//div[@class='slider  Zurple_ListingAds slick-initialized slick-slider']/descendant::div[@class='fb_ad_preview_title']/a")
 	WebElement quick_Ad_title;
 	@FindBy(xpath="//div[@class='ad_outerbox']/a[text()='Select']")
 	WebElement select_button_quick_ad_box;
@@ -283,6 +284,8 @@ public class ZBOCreateAdPage extends Page{
 	String first_row_ad_starting_month = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_month']";
 	String first_row_ad_starting_year = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_yaer']";
 	
+	private ZBOAddCreditCardForm addCreditCardForm;
+	
 	public ZBOCreateAdPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		setSelectListingAlert();
@@ -298,6 +301,12 @@ public class ZBOCreateAdPage extends Page{
 		this.selectListingAlert = new ZBOSelectListingAlert(driver);
 	}
 
+	public void setCreditCardForm() {
+		addCreditCardForm = new ZBOAddCreditCardForm(driver);
+	}
+	public ZBOAddCreditCardForm getCreditCardForm() {
+		return addCreditCardForm;
+	}
 	public ZBOGenericAlerts getAlert() {
 		return alert;
 	}
@@ -552,7 +561,7 @@ public class ZBOCreateAdPage extends Page{
 		return ActionHelper.getAttribute(img_thumb_quick_Ad, "src").contains("icon.jpg");
 	}
 	public boolean isQuickAdsDescriptionDisplayed() {
-		return ActionHelper.getText(driver, quick_Ad_Desc).contains("Just Listed! Click for more details and photos!");
+		return ActionHelper.getText(driver, listing_quick_Ad_Desc).contains("Just Listed! Click for more details and photos!");
 	}
 	public String getQuickAdDomain() {
 		return ActionHelper.getText(driver, quick_Ad_Domain).toLowerCase();
@@ -971,8 +980,6 @@ public class ZBOCreateAdPage extends Page{
 		 l_renewalDATE = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, ad_date, pAdId));
 		 return l_renewalDATE;
 	 }
-	 
-	 
 	 private String verifyAdStatus(String pAdId) {
 		 return ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::td[@class='td_center']").get(3));
 	 }

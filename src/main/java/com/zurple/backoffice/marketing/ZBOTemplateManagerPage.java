@@ -126,10 +126,8 @@ public class ZBOTemplateManagerPage extends Page{
 		do {
 			if(ActionHelper.getListOfElementByXpath(driver, pElement).size()>0) {
 				isVerifed = true;
-			}else {
-				ActionHelper.Click(driver, next_button);
 			}
-		}while(ActionHelper.isElementVisible(driver, next_button) && !isVerifed);
+		}while(!isVerifed && ActionHelper.Click(driver, next_button));
 		return isVerifed;
 	}
 }
