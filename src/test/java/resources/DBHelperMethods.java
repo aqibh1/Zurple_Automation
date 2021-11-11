@@ -22,7 +22,7 @@ public class DBHelperMethods {
 		testEnvironment = pTestEnvironment;
 
 	}
-
+	
 	public Notifications getNotifications(Integer pNotificationId) {
 		Notifications notification_object = testEnvironment.getNotificationObject(pNotificationId);
 		System.out.println(notification_object.getEmail_subject()+"  "+notification_object.getSentDate());
@@ -221,11 +221,10 @@ public class DBHelperMethods {
 		}
 		return result;
 	}
-	public Lead getLeadObject(String pEmailToVeirfy) {
+	public resources.orm.hibernate.models.zurple.Lead getLeadObject(String pEmailToVeirfy) {
 		//Fetching Lead object by Email
 		try {
-			Lead newLead = testEnvironment.getNewLeadObject(pEmailToVeirfy);
-			return newLead;
+			return testEnvironment.getNewLeadsObject(pEmailToVeirfy);
 		}
 		catch(Exception ex) {
 			AutomationLogger.error("No Lead found in Lead Table for email ->"+pEmailToVeirfy);

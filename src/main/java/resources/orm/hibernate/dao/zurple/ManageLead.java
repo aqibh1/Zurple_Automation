@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 
 import resources.orm.hibernate.models.zurple.Admin;
 import resources.orm.hibernate.models.zurple.Lead;
+import resources.utility.AutomationLogger;
 
 public class ManageLead {
 
@@ -97,7 +98,8 @@ public class ManageLead {
     	 Transaction tx = null;
          try{
 //             tx = session.beginTransaction();
-             leads = session.createQuery("FROM Lead WHERE email='"+pLeadEmail+"'").list();
+             leads = session.createQuery("FROM Lead WHERE email='"+pLeadEmail+"'"+"OR email='"+"ah_zurpleqa@yahoo.com"+"'").list();
+             AutomationLogger.info("QUERY RESULTS:"+leads.size());
              tx.commit();
          }catch (HibernateException e) {
              if (tx!=null) tx.rollback();

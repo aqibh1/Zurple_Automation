@@ -127,8 +127,8 @@ public class PPLeadDetailPageTest extends PageTest{
 		
 		HibernateUtil.setSessionFactoryEmpty();
 		
-		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
-		verifyLeadDetailsFromDatabase(dbHelperMethods.getLeadObject(lEmail));
+//		DBHelperMethods dbHelperMethods = new DBHelperMethods(getEnvironment());
+//		verifyLeadDetailsFromDatabase(dbHelperMethods.getLeadObject(lEmail));
 	}
 	
 	private void verifyLeadDetailsFromDatabase(Lead pLeadDBObject) {

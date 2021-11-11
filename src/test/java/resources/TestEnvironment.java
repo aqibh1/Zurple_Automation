@@ -447,6 +447,13 @@ public class TestEnvironment
         return null;
 
     }
+    
+    public resources.orm.hibernate.models.zurple.Lead getNewLeadsObject(String pLeadEmail)
+    {
+        resources.orm.hibernate.dao.zurple.ManageLead ml = new resources.orm.hibernate.dao.zurple.ManageLead(getSession());
+        return ml.getLeadByEmail(pLeadEmail);
+    }
+    
     public Listings getListingById(Integer pListingId) {
     	 String project = System.getProperty("project");
 

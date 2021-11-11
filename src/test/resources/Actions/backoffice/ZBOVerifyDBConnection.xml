@@ -10,11 +10,16 @@
 	
 <test name="Verify Zurple DB Connection">
 		<classes>
-			<class name="resources.orm.hibernate.ZurpleDBConnection">
+			<!-- <class name="resources.orm.hibernate.ZurpleDBConnection">
 				<methods>
 					<include name="testDBConnection" />
 				</methods>
-			</class>
+			</class> -->
+			<class name="com.zurple.backoffice.ZBOLeadPageTest">
+				<methods>
+					<include name="testVerifyAndSearchLead" />
+				</methods>
+			</class> 
 		</classes>
 	</test>
 </suite>

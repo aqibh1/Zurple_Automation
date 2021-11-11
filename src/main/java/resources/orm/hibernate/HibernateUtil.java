@@ -34,23 +34,40 @@ public class HibernateUtil {
             }
             else
             {
-            	JSch jsch=new JSch();
-            	jsch.addIdentity(System.getProperty("user.dir")+"//resources//aqib_openssh",configReader.getPropertyByName("zurple_ssh_password"));
-            	jsch.setConfig("StrictHostKeyChecking", "no");
-            	//enter your own EC2 instance IP here
-            	Session session=jsch.getSession(configReader.getPropertyByName("zurple_ssh_username"), configReader.getPropertyByName("zurple_ssh_host"), 33322);
-            	session.setPassword(configReader.getPropertyByName("zurple_ssh_password"));
-            	session.connect();
-            	
-            	String conString = "jdbc:mysql://"+configReader.getPropertyByName("zurple_mysql_host")+":"+configReader.getPropertyByName("zurple_mysql_port")+"/"+configReader.getPropertyByName("zurple_mysql_db");
-//            	String conString = "jdbc:mysql://"+configReader.getPropertyByName("zurple_mysql_host")+":"+assigned_port+"/"+configReader.getPropertyByName("zurple_mysql_db");
+//            	JSch jsch=new JSch();
+//            	jsch.addIdentity(System.getProperty("user.dir")+"//resources//aqib_openssh",configReader.getPropertyByName("zurple_ssh_password"));
+//            	jsch.setConfig("StrictHostKeyChecking", "no");
+//            	//enter your own EC2 instance IP here
+//            	Session session=jsch.getSession(configReader.getPropertyByName("zurple_ssh_username"), configReader.getPropertyByName("zurple_ssh_host"), 33322);
+//            	session.setPassword(configReader.getPropertyByName("zurple_ssh_password"));
+//            	session.connect();
+//            	
+//            	String conString = "jdbc:mysql://"+configReader.getPropertyByName("zurple_mysql_host")+":"+configReader.getPropertyByName("zurple_mysql_port")+"/"+configReader.getPropertyByName("zurple_mysql_db");
+////            	String conString = "jdbc:mysql://"+configReader.getPropertyByName("zurple_mysql_host")+":"+assigned_port+"/"+configReader.getPropertyByName("zurple_mysql_db");
+//
+//            	System.out.println(conString);
+//                cfg.getProperties().setProperty("hibernate.connection.url",conString);
+//                cfg.getProperties().setProperty("hibernate.connection.username",configReader.getPropertyByName("zurple_mysql_user"));
+//                cfg.getProperties().setProperty("hibernate.connection.password",configReader.getPropertyByName("zurple_mysql_pass"));
+//                cfg.configure("/zurple.hibernate.cfg.xml");
+            	try {        
+                    //ConfigReader configReader = ConfigReader.load();
+                    //Configuration cfg = new AnnotationConfiguration();
+                    cfg.setProperties(System.getProperties());
+                    String conString = "jdbc:mysql://"+configReader.getPropertyByName("zurple_mysql_host")+":"+configReader.getPropertyByName("zurple_mysql_port")+"/"+configReader.getPropertyByName("zurple_mysql_db");
+                    System.out.println(conString);
+                    cfg.getProperties().setProperty("hibernate.connection.url",conString);
+                    cfg.getProperties().setProperty("hibernate.connection.username",configReader.getPropertyByName("zurple_mysql_user"));
+                    cfg.getProperties().setProperty("hibernate.connection.password",configReader.getPropertyByName("zurple_mysql_pass"));
+                    cfg.configure("/zurple.hibernate.cfg.xml");
+                    SessionFactory sessionFactory = cfg.buildSessionFactory();
+                    return sessionFactory;
 
-            	System.out.println(conString);
-                cfg.getProperties().setProperty("hibernate.connection.url",conString);
-                cfg.getProperties().setProperty("hibernate.connection.username",configReader.getPropertyByName("zurple_mysql_user"));
-                cfg.getProperties().setProperty("hibernate.connection.password",configReader.getPropertyByName("zurple_mysql_pass"));
-                cfg.configure("/zurple.hibernate.cfg.xml");
-                                
+                }
+                catch (Throwable ex) {
+                    System.err.println("Initial SessionFactory creation failed." + ex);
+                    throw new ExceptionInInitializerError(ex);
+                }              
             }
 
             SessionFactory sessionFactory = cfg.buildSessionFactory();

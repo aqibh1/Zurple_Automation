@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
@@ -189,16 +190,18 @@ public class ZBOLeadPageTest extends PageTest{
 	}
 	@Test
 	public void testVerifyAndSearchLead() {
-		page = null;
-		getPage("/leads");
-		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
-
-		//Verification from CRM page
-		page=null;
-		getPage("/leads/crm");
-		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
-		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
-		assertTrue(leadCRMPage.searchLead(lLeadName), "Unable to find lead on lead page..");
+		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
+		dbObject.getLeadObject("yahu_zurpleqa@yahoo.com");
+//		page = null;
+//		getPage("/leads");
+//		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
+//
+//		//Verification from CRM page
+//		page=null;
+//		getPage("/leads/crm");
+//		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
+//		assertTrue(leadCRMPage.isLeadCRMPage(), "Lead CRM page is not visible..");
+//		assertTrue(leadCRMPage.searchLead(lLeadName), "Unable to find lead on lead page..");
 		
 	}
 	@Test
