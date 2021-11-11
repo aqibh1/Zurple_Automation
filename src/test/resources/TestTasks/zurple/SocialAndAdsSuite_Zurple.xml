@@ -139,7 +139,7 @@
 			</classes>
 			
 	</test>
-	
+	<!--  
 	<test name="Create and Verify Buyer Leads Custom Ad">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
@@ -429,6 +429,118 @@
 		</classes>
 	</test>
 	
+	<test name="Create and Verify seller lead form ad">
+	<parameter name="dataFile" value="/resources/data/zurple/ads/seller_lead/seller-lead-form-ad.json">
+		<classes>
+			<class name="com.zurple.backoffice.admin.ZACreateSellerLeadsAdPageTest">
+				<methods>
+					 <include name="testCreateAndVerifyLeadFormSellerLeadAd" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.admin.ZAViewSellerLeadsAdPageTest">
+				<methods>
+					 <include name="testVerifyDateLeadFormSellerLeadAd" />
+					 <include name="testVerifyAdTypeSellerLeadFormAd" />
+					 <include name="testVerifyAdStatusSellerLeadFormAd" />
+					 <include name="testVerifyBudgetSellerLeadFormAd" />
+					 <include name="testVerifyCarouselAdStatusSellerLeadFormAd" />
+					 <include name="testVerifyCarouselDownloadAdStatusSellerLeadFormAd" />
+					 <include name="testVerifyCarouselVideoAdStatusSellerLeadFormAd" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	
+	<test name="Create and Verify seller lead Conversion ad">
+	<parameter name="dataFile" value="/resources/data/zurple/ads/seller_lead/seller-conversion-ad.json">
+		<classes>
+			<class name="com.zurple.backoffice.admin.ZACreateSellerLeadsAdPageTest">
+				<methods>
+					 <include name="testCreateAndVerifyConversionSellerLeadAd" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.admin.ZAViewSellerLeadsAdPageTest">
+				<methods>
+					 <include name="testVerifyDateConversionSellerLeadAd" />
+					 <include name="testVerifyAdTypeSellerLeadConversionAd" />
+					 <include name="testVerifyAdStatusSellerLeadConversionAd" />
+					 <include name="testVerifyBudgetSellerLeadConversionAd" />
+					 <include name="testVerifyCarouselAdStatusSellerLeadConversionAd" />
+					 <include name="testVerifyCarouselDownloadAdStatusSellerLeadConversionAd" />
+					 <include name="testVerifyCarouselVideoAdStatusSellerLeadConversionAd" />
+				</methods>
+			</class>
+			
+		</classes>
+		</parameter>
+	</test>
+	
+		<test name="Post Seller lead to Backoffice and verify lead details">	 
+	<parameter name="datafile" value="/resources/data/zurple/socialapi/ads/seller_lead/lead_import_data.json">
+			<classes>
+			
+ 		   		<class name="com.zurple.rest.sapi.sellerlead.ZBORestPostImportLeadToBackOffice">
+					<methods>
+						<include name="testPostImportLeadToBackOffice" /> 
+					</methods>
+				</class>
+				
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+				</class>
+					<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+				<methods>
+					<include name="testVerifySellerLeadHasCorrectLeadSource" />
+					<include name="testVerifySellerLeadHasCorrectNoteAdded" />
+					<include name="testVerifySellerLeadHasCorrectAddress" />
+					<include name="testVerifySellerLeadHasCorrectPhoneNumber" />
+					<include name="testVerifySellerLeadHasCorrectLocation" />
+					<include name="testVerifySellerLeadHasCorrectSquareFeetValue" />
+					<include name="testVerifySellerLeadHasCorrectBathCount" />
+					<include name="testVerifySellerLeadHasCorrectBedsCount" />
+					<include name="testVerifySellerLeadHasCorrectTransactionGoals" />
+					<include name="testVerifySellerLeadHasCorrectEmailPreferences" />
+					<include name="testVerifySellerLeadHasBuyerSearchEntry" />
+				</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>				
+			</classes>
+			</parameter>
+	</test>
+	
+	<test name="Create and Verify seller Conversion plus lead form ad">
+	<parameter name="dataFile" value="/resources/data/zurple/ads/seller_lead/seller-conversion-lead-form-ad.json">
+		<classes>
+			<class name="com.zurple.backoffice.admin.ZACreateSellerLeadsAdPageTest">
+				<methods>
+					 <include name="testCreateAndVerifyLeadFormConversionSellerLeadAd" />
+				</methods>
+			</class>
+			
+			<class name="com.zurple.backoffice.admin.ZAViewSellerLeadsAdPageTest">
+				<methods>
+					 <include name="testVerifyDateLeadFormPlusConversionSellerLeadAd" />
+					 <include name="testVerifyAdTypeSellerLeadLeadFormPlusConversionAd" />
+					 <include name="testVerifyAdStatusSellerLeadFormPlusConversionAd" />
+					 <include name="testVerifyBudgetSellerLeadFormPlusConversionAd" />
+					 <include name="testVerifyCarouselAdStatusSellerLeadFormPlusConversionAd" />
+					 <include name="testVerifyCarouselDownloadAdStatusSellerLeadFormPlusConversionAd" />
+					 <include name="testVerifyCarouselVideoAdStatusSellerLeadFormAd" />
+				</methods>
+			</class>
+			
+		</classes>
+		</parameter>
+	</test>
+	
+	 -->
 	 	<test name="Verify Social Text Post FB">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-text-post.json">
 		<classes>
@@ -1054,117 +1166,7 @@
 		</classes>
 		</parameter>
 	</test>  	
-	
-  <test name="Create and Verify seller lead form ad">
-	<parameter name="dataFile" value="/resources/data/zurple/ads/seller_lead/seller-lead-form-ad.json">
-		<classes>
-			<class name="com.zurple.backoffice.admin.ZACreateSellerLeadsAdPageTest">
-				<methods>
-					 <include name="testCreateAndVerifyLeadFormSellerLeadAd" />
-				</methods>
-			</class>
-			<class name="com.zurple.backoffice.admin.ZAViewSellerLeadsAdPageTest">
-				<methods>
-					 <include name="testVerifyDateLeadFormSellerLeadAd" />
-					 <include name="testVerifyAdTypeSellerLeadFormAd" />
-					 <include name="testVerifyAdStatusSellerLeadFormAd" />
-					 <include name="testVerifyBudgetSellerLeadFormAd" />
-					 <include name="testVerifyCarouselAdStatusSellerLeadFormAd" />
-					 <include name="testVerifyCarouselDownloadAdStatusSellerLeadFormAd" />
-					 <include name="testVerifyCarouselVideoAdStatusSellerLeadFormAd" />
-				</methods>
-			</class>
-		</classes>
-		</parameter>
-	</test>
-	
-	<test name="Create and Verify seller lead Conversion ad">
-	<parameter name="dataFile" value="/resources/data/zurple/ads/seller_lead/seller-conversion-ad.json">
-		<classes>
-			<class name="com.zurple.backoffice.admin.ZACreateSellerLeadsAdPageTest">
-				<methods>
-					 <include name="testCreateAndVerifyConversionSellerLeadAd" />
-				</methods>
-			</class>
-			<class name="com.zurple.backoffice.admin.ZAViewSellerLeadsAdPageTest">
-				<methods>
-					 <include name="testVerifyDateConversionSellerLeadAd" />
-					 <include name="testVerifyAdTypeSellerLeadConversionAd" />
-					 <include name="testVerifyAdStatusSellerLeadConversionAd" />
-					 <include name="testVerifyBudgetSellerLeadConversionAd" />
-					 <include name="testVerifyCarouselAdStatusSellerLeadConversionAd" />
-					 <include name="testVerifyCarouselDownloadAdStatusSellerLeadConversionAd" />
-					 <include name="testVerifyCarouselVideoAdStatusSellerLeadConversionAd" />
-				</methods>
-			</class>
-			
-		</classes>
-		</parameter>
-	</test>
-	
-		<test name="Post Seller lead to Backoffice and verify lead details">	 
-	<parameter name="datafile" value="/resources/data/zurple/socialapi/ads/seller_lead/lead_import_data.json">
-			<classes>
-			
- 		   		<class name="com.zurple.rest.sapi.sellerlead.ZBORestPostImportLeadToBackOffice">
-					<methods>
-						<include name="testPostImportLeadToBackOffice" /> 
-					</methods>
-				</class>
-				
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-				<methods>
-					<include name="testBackOfficeLogin" />
-				</methods>
-				</class>
-					<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-				<methods>
-					<include name="testVerifySellerLeadHasCorrectLeadSource" />
-					<include name="testVerifySellerLeadHasCorrectNoteAdded" />
-					<include name="testVerifySellerLeadHasCorrectAddress" />
-					<include name="testVerifySellerLeadHasCorrectPhoneNumber" />
-					<include name="testVerifySellerLeadHasCorrectLocation" />
-					<include name="testVerifySellerLeadHasCorrectSquareFeetValue" />
-					<include name="testVerifySellerLeadHasCorrectBathCount" />
-					<include name="testVerifySellerLeadHasCorrectBedsCount" />
-					<include name="testVerifySellerLeadHasCorrectTransactionGoals" />
-					<include name="testVerifySellerLeadHasCorrectEmailPreferences" />
-					<include name="testVerifySellerLeadHasBuyerSearchEntry" />
-				</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>				
-			</classes>
-			</parameter>
-	</test>
-	
-	<test name="Create and Verify seller Conversion plus lead form ad">
-	<parameter name="dataFile" value="/resources/data/zurple/ads/seller_lead/seller-conversion-lead-form-ad.json">
-		<classes>
-			<class name="com.zurple.backoffice.admin.ZACreateSellerLeadsAdPageTest">
-				<methods>
-					 <include name="testCreateAndVerifyLeadFormConversionSellerLeadAd" />
-				</methods>
-			</class>
-			
-			<class name="com.zurple.backoffice.admin.ZAViewSellerLeadsAdPageTest">
-				<methods>
-					 <include name="testVerifyDateLeadFormPlusConversionSellerLeadAd" />
-					 <include name="testVerifyAdTypeSellerLeadLeadFormPlusConversionAd" />
-					 <include name="testVerifyAdStatusSellerLeadFormPlusConversionAd" />
-					 <include name="testVerifyBudgetSellerLeadFormPlusConversionAd" />
-					 <include name="testVerifyCarouselAdStatusSellerLeadFormPlusConversionAd" />
-					 <include name="testVerifyCarouselDownloadAdStatusSellerLeadFormPlusConversionAd" />
-					 <include name="testVerifyCarouselVideoAdStatusSellerLeadFormAd" />
-				</methods>
-			</class>
-			
-		</classes>
-		</parameter>
-	</test>
-	
+
+  
   
 </suite>
