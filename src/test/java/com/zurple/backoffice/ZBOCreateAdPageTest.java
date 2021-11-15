@@ -1242,6 +1242,17 @@ public class ZBOCreateAdPageTest extends PageTest{
 		l_ad_id = l_ad_id.split("ad=")[1];
 		return l_ad_id;
 	}
+	private void addCreditCardPaymentPlan(JSONObject pDataObject) {
+		assertTrue(page.getCreditCardForm().typeStreet(pDataObject.optString("street")), "Unable to type street");
+		assertTrue(page.getCreditCardForm().typeCity(pDataObject.optString("city")), "Unable to type City");
+		assertTrue(page.getCreditCardForm().clickAndSelectState(pDataObject.optString("state")), "Unable to type state");
+		assertTrue(page.getCreditCardForm().typeZip(pDataObject.optString("zip_code")), "Unable to type Zip Code");
+		assertTrue(page.getCreditCardForm().typeCCName(pDataObject.optString("cc_holder_name")), "Unable to type Card Holder Name");
+		assertTrue(page.getCreditCardForm().clickAndSelectCardType(pDataObject.optString("cc_type")), "Unable to select  Card Type");
+		assertTrue(page.getCreditCardForm().typeCCNumber(pDataObject.optString("cc_number")), "Unable to type credit card number");
+		assertTrue(page.getCreditCardForm().clickAndSelectCardExpiryMonth(pDataObject.optString("cc_expiry_month")), "Unable to select expiry month");
+		assertTrue(page.getCreditCardForm().clickAndSelectCardExpiryYear(pDataObject.optString("cc_expiry_year")), "Unable to select expiry year");
+	}
 
 	@AfterTest
 	public void closeBrowser() {

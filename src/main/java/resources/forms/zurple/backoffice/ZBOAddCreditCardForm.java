@@ -101,11 +101,11 @@ public class ZBOAddCreditCardForm extends AbstractForm{
 		return ActionHelper.Click(driver, update_cc_button);
 	}
 	
-	public boolean confirmDeleteAlert() {
-		boolean isDeleted = false;
-		if(ActionHelper.isAlertPresent(driver)) {
-			isDeleted = ActionHelper.handleDisableAdAlert(driver);
+	public boolean isCardAddedSuccessfully() {
+		boolean isAdded = false;
+		if(getSuccessAlert().isSuccessMessageVisible()) {
+			isAdded = getSuccessAlert().clickOnOkButton();
 		}
-		return isDeleted;
+		return isAdded;
 	}
 }
