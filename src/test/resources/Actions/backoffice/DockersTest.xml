@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Zurple tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>		
+        <listener class-name="resources.CustomTestNGReporter"/>
+	</listeners>
+	
+<test name="Hello Dockers">
+		<classes>
+			<class name="com.zurple.backoffice.ZurpleDockersImplementation">
+				<methods>
+					<include name="dummyDockersTest" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

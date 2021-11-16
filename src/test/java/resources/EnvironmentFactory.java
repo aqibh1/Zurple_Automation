@@ -1,5 +1,7 @@
 package resources;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,12 +14,17 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import resources.utility.AutomationLogger;
 
 public class EnvironmentFactory {
 
     static Map<Long,WebDriver> webDrivers = new HashMap<Long,WebDriver>();
     static Map<Long,TestEnvironment> environments = new HashMap<Long,TestEnvironment>();
     public static ConfigReader configReader = ConfigReader.load();
+    static RemoteWebDriver driver = null;
 
     //TODO
     //Add more coverage for the Microsoft Edge and Safari
@@ -112,6 +119,25 @@ public class EnvironmentFactory {
         }
 
         return driver;
+    }
+    public static RemoteWebDriver getDriver(String pURL, int pPort) {
+    	if(driver!=null) {
+    		return driver;
+    	}else {
+    		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+    		ChromeOptions options = new ChromeOptions();
+    		if(System.getProperty("driver")!=null && !System.getProperty("driver").isEmpty()) {
+    			System.setProperty("webdriver.chrome.driver", System.getProperty("driver"));
+    		}
+    		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+    		try {
+    			driver = new RemoteWebDriver(new URL(pURL+":"+pPort), capabilities);
+    		} catch (MalformedURLException e) {
+    			AutomationLogger.error("Unable to create remote driver object");
+    			e.printStackTrace();
+    		}
+    	}
+    	return driver;
     }
 
     public static void closeDriver(long thread_id){

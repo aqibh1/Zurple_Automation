@@ -29,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
@@ -65,6 +66,9 @@ public abstract class AbstractPageTest extends AbstractTest
         setThreadId(thread_id);
         setIsProd();
         return driver;
+    }
+    public RemoteWebDriver getDriver(String pUrl, int pPort) {
+    	return EnvironmentFactory.getDriver(pUrl, pPort);
     }
     private void setIsProd() {
     	if(System.getProperty("environment").equalsIgnoreCase("prod") || System.getProperty("environment").equalsIgnoreCase("autoconvoprod")){
