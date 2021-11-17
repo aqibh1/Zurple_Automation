@@ -96,7 +96,7 @@ public abstract class AbstractPageTest extends AbstractTest
     	return isDcokersEnvironment;
     }
     private boolean setDockersEnvironment() {
-    	if(System.getProperty("dockers").equalsIgnoreCase("true")) {
+    	if(System.getenv("dockers").equalsIgnoreCase("true")) {
     		isDcokersEnvironment = true;
     	}
     	return isDcokersEnvironment;
