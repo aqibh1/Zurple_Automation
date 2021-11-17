@@ -14,7 +14,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import resources.utility.AutomationLogger;
@@ -124,14 +123,14 @@ public class EnvironmentFactory {
     	if(driver!=null) {
     		return driver;
     	}else {
-    		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+//    		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
     		ChromeOptions options = new ChromeOptions();
     		if(System.getProperty("driver")!=null && !System.getProperty("driver").isEmpty()) {
     			System.setProperty("webdriver.chrome.driver", System.getProperty("driver"));
     		}
-    		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+//    		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
     		try {
-    			driver = new RemoteWebDriver(new URL(pURL+":"+pPort), capabilities);
+    			driver = new RemoteWebDriver(new URL(pURL+":"+pPort), options);
     		} catch (MalformedURLException e) {
     			AutomationLogger.error("Unable to create remote driver object");
     			e.printStackTrace();

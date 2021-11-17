@@ -55,15 +55,23 @@ public abstract class AbstractPageTest extends AbstractTest
     protected Boolean incognito=false;
     private Long threadID;
     private boolean isProd = false;
+    protected boolean isDcokersEnvironment = false;
+    protected WebDriver driver;
 
     public abstract AbstractPage getPage();
 
     public abstract void clearPage();
 
     public WebDriver getDriver(){
+    	setDockersEnvironment();
         Long thread_id = Thread.currentThread().getId();
-        WebDriver driver = EnvironmentFactory.getDriver(thread_id);
-        setThreadId(thread_id);
+        if(getDockersEnvironment()) {
+        	driver = EnvironmentFactory.getDriver("", 0);
+        }else {
+        	 driver = EnvironmentFactory.getDriver(thread_id);
+             setThreadId(thread_id);
+        }
+       
         setIsProd();
         return driver;
     }
@@ -83,6 +91,15 @@ public abstract class AbstractPageTest extends AbstractTest
     }
     public String getThreadId() {
     	return threadID.toString();
+    }
+    protected boolean getDockersEnvironment() {
+    	return isDcokersEnvironment;
+    }
+    private boolean setDockersEnvironment() {
+    	if(System.getProperty("dockers").equalsIgnoreCase("true")) {
+    		isDcokersEnvironment = true;
+    	}
+    	return isDcokersEnvironment;
     }
     @Parameters({"source_in_url","incognito"})
     @BeforeTest
