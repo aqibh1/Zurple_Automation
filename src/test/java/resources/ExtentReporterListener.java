@@ -2,28 +2,15 @@ package resources;
 
 
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.logging.Logger;
 
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
-
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
-import com.aventstack.extentreports.markuputils.Markup;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 
 //import com.relevantcodes.extentreports.LogStatus;
@@ -60,8 +47,10 @@ public class ExtentReporterListener implements ITestListener {
 
 	@Override
 	public synchronized void onTestSuccess(ITestResult result) {
-		test.get().pass(result.getName());
-		emailTest.get().pass(result.getName());
+		if(!result.getName().equalsIgnoreCase("testBackOfficeLogin") && !result.getName().equalsIgnoreCase("closeBrowser")) {
+			test.get().pass(result.getName());
+			emailTest.get().pass(result.getName());
+		}
 	}
 
 	@Override

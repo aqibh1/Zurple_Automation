@@ -13,6 +13,8 @@ import java.io.StringWriter;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,7 @@ import org.testng.IResultMap;
 import org.testng.ISuite;
 import org.testng.ISuiteResult;
 import org.testng.ITestContext;
+import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.xml.XmlSuite;
@@ -133,10 +136,18 @@ public class CustomTestNGReporter implements IReporter {
 					retBuf.append("<tr>");
 					
 					ITestContext testObj = result.getTestContext();
-					
+					result.getTestContext().getPassedTests().getAllMethods();
 					totalTestPassed = testObj.getPassedTests().getAllMethods().size();
 					totalTestSkipped = testObj.getSkippedTests().getAllMethods().size();
 					totalTestFailed = testObj.getFailedTests().getAllMethods().size();
+					
+					int totalPassedTestsToExclude = numberOfTestsToExclude(testObj, "Pass");
+					int totalFailTestsToExclude = numberOfTestsToExclude(testObj, "Fail");
+					int totalSkipTestsToExclude = numberOfTestsToExclude(testObj, "Skip");
+					
+					totalTestPassed = totalTestPassed-totalPassedTestsToExclude;
+					totalTestSkipped = totalTestSkipped - totalSkipTestsToExclude;
+					totalTestFailed = totalTestFailed - totalFailTestsToExclude;
 					
 					totalTestCount = totalTestPassed + totalTestSkipped + totalTestFailed;
 					
@@ -443,6 +454,34 @@ public class CustomTestNGReporter implements IReporter {
 			}
 		}
 		return retStrBuf.toString();
+	}
+	private int numberOfTestsToExclude(ITestContext pObj, String pTypeOfTest) {
+		int l_tests_To_exclude = 0;
+		switch(pTypeOfTest) {
+		case "Pass":
+			l_tests_To_exclude = getTestsToExclude(pObj.getPassedTests().getAllMethods());
+			break;
+		case "Fail":
+			l_tests_To_exclude = getTestsToExclude(pObj.getSkippedTests().getAllMethods());
+			break;
+		case "Skip":
+			l_tests_To_exclude = getTestsToExclude(pObj.getFailedTests().getAllMethods());
+			break;
+		}
+		return l_tests_To_exclude;
+	}
+
+	private int getTestsToExclude(Collection<ITestNGMethod> pMethodsCollection) {
+		int lTestToExclude = 0;
+		ArrayList<ITestNGMethod> methods_list = new ArrayList<>(pMethodsCollection);
+		int l_collection_size = methods_list.size();
+		for(int i = 0; i<l_collection_size;i++) {
+			if(methods_list.get(i).getMethod().getName().equalsIgnoreCase("closeBrowser") || 
+					methods_list.get(i).getMethodName().equalsIgnoreCase("testBackOfficeLogin")) {
+				lTestToExclude++;
+			}
+		}
+		return lTestToExclude;
 	}
 
 }
