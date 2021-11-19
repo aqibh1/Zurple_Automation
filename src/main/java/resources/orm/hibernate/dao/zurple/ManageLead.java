@@ -98,7 +98,7 @@ public class ManageLead {
     	 Transaction tx = null;
          try{
 //             tx = session.beginTransaction();
-             leads = session.createQuery("FROM Lead WHERE email='"+pLeadEmail+"'"+"OR email='"+"ah_zurpleqa@yahoo.com"+"'").list();
+             leads = session.createQuery("FROM Lead WHERE email='"+pLeadEmail+"'").list();
              AutomationLogger.info("QUERY RESULTS:"+leads.size());
              tx.commit();
          }catch (HibernateException e) {
@@ -106,8 +106,8 @@ public class ManageLead {
              e.printStackTrace();
          }finally {
              session.close();
+             return leads.get(0);
          }
-         return leads.get(0);
     }
     /*
         Method returns list of hot behavior flags by lead id

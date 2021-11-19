@@ -1,12 +1,16 @@
 package resources.orm.hibernate;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 import org.testng.annotations.Test;
 import resources.ConfigReader;
+import resources.orm.hibernate.models.pp.Posts;
 
-public class ZurpleDBConnection{
+
+public class ZurpleDBConnection {
 
     private static SessionFactory sessionFactory = null;
 
@@ -28,7 +32,6 @@ public class ZurpleDBConnection{
             cfg.configure("/zurple.hibernate.cfg.xml");
             SessionFactory sessionFactory = cfg.buildSessionFactory();
             return sessionFactory;
-
         }
         catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);

@@ -228,6 +228,7 @@ public class DBHelperMethods {
 		}
 		catch(Exception ex) {
 			AutomationLogger.error("No Lead found in Lead Table for email ->"+pEmailToVeirfy);
+			ex.printStackTrace();
 			return null;
 		}
 	}
