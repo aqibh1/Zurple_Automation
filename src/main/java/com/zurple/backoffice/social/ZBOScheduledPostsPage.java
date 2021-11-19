@@ -71,7 +71,7 @@ public class ZBOScheduledPostsPage extends Page{
 		WebElement element;
 		switch(pPlatform) {
 		case "Facebook":
-			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, fb_post_platform_icon, pPostToVerify,10)) {
+			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, fb_post_platform_icon, pPostToVerify,3)) {
 				element = ActionHelper.getDynamicElement(driver, fb_post_platform_icon, pPostToVerify);
 				if(element!=null) {
 					isVisible = ActionHelper.isElementVisible(driver, element);
@@ -79,7 +79,7 @@ public class ZBOScheduledPostsPage extends Page{
 			}
 			break;
 		case "Twitter":
-			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, tw_post_platform_icon, pPostToVerify,10)) {
+			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, tw_post_platform_icon, pPostToVerify,3)) {
 				element = ActionHelper.getDynamicElement(driver, tw_post_platform_icon, pPostToVerify);
 				if(element!=null) {
 					isVisible = ActionHelper.isElementVisible(driver, element);
@@ -87,7 +87,7 @@ public class ZBOScheduledPostsPage extends Page{
 			}
 			break;
 		case "LinkedIn":
-			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, li_post_platform_icon, pPostToVerify,10)) {
+			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, li_post_platform_icon, pPostToVerify,3)) {
 				element = ActionHelper.getDynamicElement(driver, li_post_platform_icon, pPostToVerify);
 				if(element!=null) {
 					isVisible = ActionHelper.isElementVisible(driver, element);
@@ -95,7 +95,7 @@ public class ZBOScheduledPostsPage extends Page{
 			}
 			break;
 		case "YouTube":
-			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, yt_post_platform_icon, pPostToVerify,10)) {
+			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, yt_post_platform_icon, pPostToVerify,3)) {
 				element = ActionHelper.getDynamicElement(driver, yt_post_platform_icon, pPostToVerify);
 				if(element!=null) {
 					isVisible = ActionHelper.isElementVisible(driver, element);
