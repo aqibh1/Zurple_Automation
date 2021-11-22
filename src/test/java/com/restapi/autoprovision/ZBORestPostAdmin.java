@@ -24,6 +24,7 @@ import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;
+import resources.utility.CacheFilePathsConstants;
 
 /**
  * @author ahabib
@@ -57,14 +58,14 @@ public class ZBORestPostAdmin extends RestAPITest{
 	public boolean validateMapResp(RestResponse httpCallResp) throws Exception {
 		boolean status = false;
 		//TODO 
-		//Line 67 should be between 75-76
+		//Line 67 should be between 75-76 
 		status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Success");
 		//TODO
-		//These paths should be declared in CacheFileConstants file
-		String lFileToWrite = "/resources/cache/cache-ap-admin-id-data.json";
-		String lPFileToWrite = "/resources/cache/permanent-ap-package-admin-data.json";
+		//These paths should be declared in CacheFileConstants file 
+		String lFileToWrite = CacheFilePathsConstants.APAdminTempData; //Done
+		String lPFileToWrite = CacheFilePathsConstants.APAdminPData; //Done
 		
-		emptyFile(lFileToWrite,"");
+		emptyFile(lFileToWrite,""); //This is fine here as admin id should not be cleared after line 75 as it is being used in BO verification
 		JSONObject jObject = httpCallResp.getJsonResponse();		
 		if(httpCallResp.getStatus() == Integer.parseInt(dataObject.optString("status_code"))) {	
 			if(status) {
@@ -83,8 +84,8 @@ public class ZBORestPostAdmin extends RestAPITest{
 	private RestContent getContent() throws Exception {
 		RestContent restContent = new RestContent();
 		//TODO
-		//Read the file path from cache file constants
-		String adminDataFile = "/resources/cache/cache-ap-admin-data.json";
+		//Read the file path from cache file constants 
+		String adminDataFile = CacheFilePathsConstants.APAdminAPIBody; //Done
 		Map<String, Part> multiParts = new HashMap<String, Part>();
 		String lFname = updateName(dataObject.optString("first_name"));
 		String lLname = updateName(dataObject.optString("last_name"));

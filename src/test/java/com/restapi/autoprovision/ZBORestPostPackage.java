@@ -24,6 +24,7 @@ import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;
+import resources.utility.CacheFilePathsConstants;
 
 /**
  * @author ahabib
@@ -58,8 +59,8 @@ public class ZBORestPostPackage extends RestAPITest{
 		boolean status = false;
 		//TODO
 		//These paths should be declared in CacheFileConstants file
-		String lFileToWrite = "/resources/cache/cache-ap-package-id-data.json";
-		String lPFileToWrite = "/resources/cache/permanent-ap-package-admin-data.json";
+		String lFileToWrite = CacheFilePathsConstants.APPackageTempData; //Done
+		String lPFileToWrite = CacheFilePathsConstants.APPackagePData; //Done
 		JSONObject jObject = httpCallResp.getJsonResponse();	
 		if(httpCallResp.getStatus() == Integer.parseInt(dataObject.optString("status_code"))) {
 			status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Success");
@@ -80,7 +81,7 @@ public class ZBORestPostPackage extends RestAPITest{
 		RestContent restContent = new RestContent();
 		Map<String, Part> multiParts = new HashMap<String, Part>();
 		//TODO Pass this path from datafile
-		String packageDataFile = "/resources/cache/cache-ap-package-data.json";
+		String packageDataFile = CacheFilePathsConstants.APPackageAPIBody; //Done
 		String lName = updateName(dataObject.optString("name"));
 		String lPhone = dataObject.optString("phone");
 		String lEmail = updateEmail(dataObject.optString("email"));
@@ -91,8 +92,7 @@ public class ZBORestPostPackage extends RestAPITest{
 		String lPayers = dataObject.optString("payers");
 		String lSubsidiary = dataObject.optString("subsidiary");
 		//TODO The variable name should be access token since we are already differnt configs files for prod and stage we do not require this check
-		//String access_token = getIsProd()?EnvironmentFactory.configReader.getPropertyByName("prod_access_token"):EnvironmentFactory.configReader.getPropertyByName("stage_access_token");
-		String access_token = EnvironmentFactory.configReader.getPropertyByName("ap_access_token");
+		String access_token = EnvironmentFactory.configReader.getPropertyByName("ap_access_token"); //Done
 		multiParts.put("name", new Part(lName, PartType.STRING));
 		multiParts.put("phone", new Part(lPhone, PartType.STRING));
 		multiParts.put("email", new Part(lEmail, PartType.STRING));
