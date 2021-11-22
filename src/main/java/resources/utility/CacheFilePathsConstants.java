@@ -48,7 +48,7 @@ public class CacheFilePathsConstants {
 	public static final String SelfServeAds = "/resources/data/zurple/backoffice/zurple-self-serve-ads-data.json";
 	public static final String APAdminTempData = "/resources/cache/cache-ap-admin-id-data.json";
 	public static final String APAdminPData = "/resources/cache/permanent-ap-package-admin-data.json";
-	public static final String APAdminAPIBody = "/resources/cache/permanent-ap-package-admin-data.json";
+	public static final String APAdminAPIBody = "/resources/cache/cache-ap-admin-data.json";
 	public static final String APPackageTempData = "/resources/cache/cache-ap-package-id-data.json";
 	public static final String APPackagePData = "/resources/cache/permanent-ap-package-admin-data.json";
 	public static final String APPackageAPIBody = "/resources/cache/cache-ap-package-data.json";
