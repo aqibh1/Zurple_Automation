@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restapi.HTTPConstants;
-import com.restapi.HeadersConfig;
 import com.restapi.HttpRequestHandler;
 import com.restapi.Part;
 import com.restapi.Part.PartType;
@@ -25,7 +24,6 @@ import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;
-import resources.utility.FrameworkConstants;
 
 /**
  * @author ahabib
@@ -41,7 +39,6 @@ public class ZBORestPostPackage extends RestAPITest{
 		getDriver();
 		lDataFile = pDataFile;
 		HashMap<String,String> ua = new HashMap<String, String>();
-		//TODO This should be initiliazed in RestApi constants
 		ua.put("User-Agent", HTTPConstants.UserAgent);
 		JSONObject responseObj = null;
 		dataObject = getDataFile(pDataFile);
@@ -59,12 +56,13 @@ public class ZBORestPostPackage extends RestAPITest{
 	@Override
 	public boolean validateMapResp(RestResponse httpCallResp) throws Exception {
 		boolean status = false;
-		status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Success");
+		//TODO
+		//These paths should be declared in CacheFileConstants file
 		String lFileToWrite = "/resources/cache/cache-ap-package-id-data.json";
 		String lPFileToWrite = "/resources/cache/permanent-ap-package-admin-data.json";
 		JSONObject jObject = httpCallResp.getJsonResponse();	
-		//TODO We need to first verify that status code is 200. Than will check status. Line 62 should be after 200 status check.
 		if(httpCallResp.getStatus() == Integer.parseInt(dataObject.optString("status_code"))) {
+			status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Success");
 			if(status) {
 				String package_id = jObject.optString("package_id").toString();
 				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAPPackageId, package_id);

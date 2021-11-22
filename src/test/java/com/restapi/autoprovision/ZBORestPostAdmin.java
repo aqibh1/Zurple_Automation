@@ -6,14 +6,12 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.HttpStatus;
 import org.json.JSONObject;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restapi.HTTPConstants;
-import com.restapi.HeadersConfig;
 import com.restapi.HttpRequestHandler;
 import com.restapi.Part;
 import com.restapi.Part.PartType;
@@ -21,15 +19,11 @@ import com.restapi.RestAPITest;
 import com.restapi.RestContent;
 import com.restapi.RestRequest;
 import com.restapi.RestResponse;
-import com.restapi.RestValidationAction;
 
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
-import resources.utility.FrameworkConstants;
-import resources.utility.ZurpleListingConstants;
 
 /**
  * @author ahabib
@@ -62,9 +56,14 @@ public class ZBORestPostAdmin extends RestAPITest{
 	@Override
 	public boolean validateMapResp(RestResponse httpCallResp) throws Exception {
 		boolean status = false;
+		//TODO 
+		//Line 67 should be between 75-76
 		status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Success");
+		//TODO
+		//These paths should be declared in CacheFileConstants file
 		String lFileToWrite = "/resources/cache/cache-ap-admin-id-data.json";
 		String lPFileToWrite = "/resources/cache/permanent-ap-package-admin-data.json";
+		
 		emptyFile(lFileToWrite,"");
 		JSONObject jObject = httpCallResp.getJsonResponse();		
 		if(httpCallResp.getStatus() == Integer.parseInt(dataObject.optString("status_code"))) {	
@@ -83,6 +82,8 @@ public class ZBORestPostAdmin extends RestAPITest{
 	
 	private RestContent getContent() throws Exception {
 		RestContent restContent = new RestContent();
+		//TODO
+		//Read the file path from cache file constants
 		String adminDataFile = "/resources/cache/cache-ap-admin-data.json";
 		Map<String, Part> multiParts = new HashMap<String, Part>();
 		String lFname = updateName(dataObject.optString("first_name"));
