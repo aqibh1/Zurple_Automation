@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.google.api.client.http.HttpStatusCodes;
 import com.restapi.HTTPConstants;
 import com.restapi.HeadersConfig;
 import com.restapi.HttpRequestHandler;
@@ -55,15 +56,17 @@ public class ZBORestPostCheckEmail extends RestAPITest{
 	@Override
 	public boolean validateMapResp(RestResponse httpCallResp) throws Exception {
 		boolean status = false;
-		status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Failed");
 		String lFileToWrite = getIsProd()?"/resources/cache/cache-ap-package-admin-data-prod.json":"/resources/cache/cache-ap-package-admin-data.json";
 		JSONObject jObject = httpCallResp.getJsonResponse();		
-		if(status) {
+		if(httpCallResp.getStatus() == HttpStatusCodes.STATUS_CODE_OK) {
+			status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Failed");
+			if(status) {
 				String emailAlreadyAssigned = jObject.optString("admin_id").toString();
 				if(!emailAlreadyAssigned.isEmpty()) {
 					AutomationLogger.info("This email is already assigned to:"+emailAlreadyAssigned);
 				}
 			}
+		}
 		return status;
 	}
 	

@@ -11,6 +11,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.http.HttpStatusCodes;
 import com.restapi.HTTPConstants;
 import com.restapi.HttpRequestHandler;
 import com.restapi.Part;
@@ -57,17 +58,13 @@ public class ZBORestPostAdmin extends RestAPITest{
 	@Override
 	public boolean validateMapResp(RestResponse httpCallResp) throws Exception {
 		boolean status = false;
-		//TODO 
-		//Line 67 should be between 75-76 
-		status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Success");
-		//TODO
-		//These paths should be declared in CacheFileConstants file 
 		String lFileToWrite = CacheFilePathsConstants.APAdminTempData; //Done
 		String lPFileToWrite = CacheFilePathsConstants.APAdminPData; //Done
 		
 		emptyFile(lFileToWrite,""); //This is fine here as admin id should not be cleared after line 75 as it is being used in BO verification
 		JSONObject jObject = httpCallResp.getJsonResponse();		
-		if(httpCallResp.getStatus() == Integer.parseInt(dataObject.optString("status_code"))) {	
+		if(httpCallResp.getStatus() == HttpStatusCodes.STATUS_CODE_OK) {
+			status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Success");
 			if(status) {
 				String admin_id = jObject.optString("admin_id").toString();
 				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAPAdminId, admin_id);
@@ -83,8 +80,6 @@ public class ZBORestPostAdmin extends RestAPITest{
 	
 	private RestContent getContent() throws Exception {
 		RestContent restContent = new RestContent();
-		//TODO
-		//Read the file path from cache file constants 
 		String adminDataFile = CacheFilePathsConstants.APAdminAPIBody; //Done
 		Map<String, Part> multiParts = new HashMap<String, Part>();
 		String lFname = updateName(dataObject.optString("first_name"));

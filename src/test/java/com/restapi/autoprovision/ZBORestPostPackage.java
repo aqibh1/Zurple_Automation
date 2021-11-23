@@ -11,6 +11,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.http.HttpStatusCodes;
 import com.restapi.HTTPConstants;
 import com.restapi.HttpRequestHandler;
 import com.restapi.Part;
@@ -57,12 +58,10 @@ public class ZBORestPostPackage extends RestAPITest{
 	@Override
 	public boolean validateMapResp(RestResponse httpCallResp) throws Exception {
 		boolean status = false;
-		//TODO
-		//These paths should be declared in CacheFileConstants file
 		String lFileToWrite = CacheFilePathsConstants.APPackageTempData; //Done
 		String lPFileToWrite = CacheFilePathsConstants.APPackagePData; //Done
 		JSONObject jObject = httpCallResp.getJsonResponse();	
-		if(httpCallResp.getStatus() == Integer.parseInt(dataObject.optString("status_code"))) {
+		if(httpCallResp.getStatus() == HttpStatusCodes.STATUS_CODE_OK) {
 			status = httpCallResp.getJsonResponse().optString("message").equalsIgnoreCase("Success");
 			if(status) {
 				String package_id = jObject.optString("package_id").toString();
