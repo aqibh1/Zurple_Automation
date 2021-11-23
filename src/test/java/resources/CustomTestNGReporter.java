@@ -159,6 +159,7 @@ public class CustomTestNGReporter implements IReporter {
 					
 					totalTestCount = totalTestPassed + totalTestSkipped + totalTestFailed;
 					
+
 					grandTotalTests = grandTotalTests+totalTestCount;
 					grandTotalTestsPassed = grandTotalTestsPassed+totalTestPassed;
 					grandTotalTestsFailed = grandTotalTestsFailed+totalTestFailed;
@@ -275,19 +276,14 @@ public class CustomTestNGReporter implements IReporter {
 				lTotalTestBuffer.append("</td>");
 				
 				/* Failed method count. */
-				if(totalTestFailed>0) {
-					lTotalTestBuffer.append("<td bgcolor=#dbeff0>");
-					lTotalTestBuffer.append("<strong>");
-					lTotalTestBuffer.append(grandTotalTestsFailed);
-					lTotalTestBuffer.append("</strong>");
-					lTotalTestBuffer.append("</td>");
-				}else {
-					lTotalTestBuffer.append("<td bgcolor=#dbeff0>");
-					lTotalTestBuffer.append("<strong>");
-					lTotalTestBuffer.append(grandTotalTestsFailed);
-					lTotalTestBuffer.append("</strong>");
-					lTotalTestBuffer.append("</td>");
-				}
+		
+				lTotalTestBuffer.append("<td bgcolor=#dbeff0>");
+				lTotalTestBuffer.append("<strong>");
+				lTotalTestBuffer.append(grandTotalTestsFailed);
+				lTotalTestBuffer.append("</strong>");
+				lTotalTestBuffer.append("</td>");
+			
+		
 				
 				/* Append browser type. */
 				lTotalTestBuffer.append("<td bgcolor=#dbeff0>");
@@ -553,10 +549,10 @@ public class CustomTestNGReporter implements IReporter {
 		case "Pass":
 			l_tests_To_exclude = getTestsToExclude(pObj.getPassedTests().getAllMethods());
 			break;
-		case "Fail":
+		case "Skip":
 			l_tests_To_exclude = getTestsToExclude(pObj.getSkippedTests().getAllMethods());
 			break;
-		case "Skip":
+		case "Fail":
 			l_tests_To_exclude = getTestsToExclude(pObj.getFailedTests().getAllMethods());
 			break;
 		}
