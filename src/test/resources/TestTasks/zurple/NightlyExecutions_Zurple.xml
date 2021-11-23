@@ -982,7 +982,6 @@
 		<parameter name="captureLeadData" value="/resources/data/zurple/register_user/register-user-track-search.json">
 
 			<classes>
-
 				<class name="com.zurple.website.ZWHomeSearchPageTest">
 					<methods>
 						<include name="testSearchPropoerty" />
@@ -4029,6 +4028,28 @@
 					</methods>
 				</class>
 			</classes>
+	</test>
+	
+	<test name="Verifications on Create Seller lead ad page">
+	<parameter name="dataFile" value="/resources/data/zurple/ads/seller_lead/seller-conversion-lead-form-ad.json">
+		<classes>
+			<class name="com.zurple.backoffice.admin.ZACreateSellerLeadsAdPageTest">
+				<methods>
+					 <include name="testVerifyPackageAlertIsTriggered" />
+					 <include name="testVerifyAdminAlertIsTriggered" />
+					 <include name="testVerifyBudgetAlertIsTriggered" />
+					 <include name="testVerifyBudgetLessThanHundredAlertIsTriggered" />
+					 <include name="testVerifyZipCodeAlertIsTriggered" />
+					 <include name="testVerifyCityAlertIsTriggered" />
+					 <include name="testVerifyAdTypeAlertIsTriggered" />
+					 <include name="testVerifyCMACarouselAlertIsTriggered" />
+					 <include name="testVerifyCMAVideoAlertIsTriggered" />
+					 <include name="testVerifyCarouselDownloadAlertIsTriggered" />
+				</methods>
+			</class>
+			
+		</classes>
+		</parameter>
 	</test>
  <!--  
 <test name="Bulk update lead status to In Active" >	
