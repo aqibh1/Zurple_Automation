@@ -7,7 +7,6 @@ import java.util.List;
 import resources.orm.hibernate.models.AbstractLead;
 import resources.orm.hibernate.models.pp.Posts;
 import resources.orm.hibernate.models.z57.IdxLeadSearches;
-import resources.orm.hibernate.models.z57.Lead;
 import resources.orm.hibernate.models.z57.ListingImages;
 import resources.orm.hibernate.models.z57.NotificationEmails;
 import resources.orm.hibernate.models.z57.NotificationMailgun;
@@ -315,7 +314,8 @@ public class DBHelperMethods {
 	public List<NotificationMailgun> getMailgunNotifications() {
 		return testEnvironment.getMailgunNotifications();
 	}
-	public Integer getZurpleLeadId(String pEmail) {
-		return testEnvironment.getLeadObject(pEmail).getId();
+	public Integer getZurpleLeadId(String pUserName) {
+		return testEnvironment.getUserByUserName(pUserName).getId();
 	}
+ 
 }

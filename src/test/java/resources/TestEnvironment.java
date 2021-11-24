@@ -657,5 +657,9 @@ public class TestEnvironment
           return posts;
 	}
 	
+	public User getUserByUserName(String pUserName) {
+		ManageUser manageUser = new ManageUser(getSession());
+		return manageUser.getUserIdByUserName(pUserName);
+	}
 	
 }

@@ -159,5 +159,25 @@ public class ManageUser
         ManageUserActivity mua = new ManageUserActivity(session);
         return mua.updateUserActivity(user_activity);
     }
+    
+    public User getUserIdByUserName(String pUserName){
+
+        User user = null;
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            List records = session.createQuery("FROM User WHERE user_name='"+pUserName+"'").list();
+            user = (User) records.get(0);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return user;
+    }
 
 }
