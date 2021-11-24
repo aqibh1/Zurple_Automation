@@ -17,6 +17,7 @@ import resources.orm.hibernate.dao.z57.ManageSites;
 import resources.orm.hibernate.dao.zurple.ManageAdmin;
 import resources.orm.hibernate.dao.zurple.ManageDistributionRules;
 import resources.orm.hibernate.dao.zurple.ManageEmailQueue;
+import resources.orm.hibernate.dao.zurple.ManageEmails;
 import resources.orm.hibernate.dao.zurple.ManageImports;
 import resources.orm.hibernate.dao.zurple.ManagePackageProducts;
 import resources.orm.hibernate.dao.zurple.ManageSessionAnonymous;
@@ -37,6 +38,7 @@ import resources.orm.hibernate.models.z57.Notifications;
 import resources.orm.hibernate.models.z57.Sites;
 import resources.orm.hibernate.models.zurple.Admin;
 import resources.orm.hibernate.models.zurple.DistributionRule;
+import resources.orm.hibernate.models.zurple.Email;
 import resources.orm.hibernate.models.zurple.EmailQueue;
 import resources.orm.hibernate.models.zurple.Import;
 import resources.orm.hibernate.models.zurple.PackageProduct;
@@ -452,6 +454,12 @@ public class TestEnvironment
     {
         resources.orm.hibernate.dao.zurple.ManageLead ml = new resources.orm.hibernate.dao.zurple.ManageLead(getSession());
         return ml.getLeadByEmail(pLeadEmail);
+    }
+    
+    public Email getNewEmailTypeObject(String pEmailType)
+    {
+        ManageEmails ml = new ManageEmails(getSession());
+        return ml.getEmailByType(pEmailType);
     }
     
     public Listings getListingById(Integer pListingId) {

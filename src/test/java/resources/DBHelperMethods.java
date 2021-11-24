@@ -13,6 +13,7 @@ import resources.orm.hibernate.models.z57.NotificationEmails;
 import resources.orm.hibernate.models.z57.NotificationMailgun;
 import resources.orm.hibernate.models.z57.Notifications;
 import resources.orm.hibernate.models.z57.Sites;
+import resources.orm.hibernate.models.zurple.Email;
 import resources.utility.AutomationLogger;
 
 public class DBHelperMethods {
@@ -228,6 +229,17 @@ public class DBHelperMethods {
 		}
 		catch(Exception ex) {
 			AutomationLogger.error("No Lead found in Lead Table for email ->"+pEmailToVeirfy);
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	public Email getEmailType(String pEmailToVerify) {
+		//Fetching Email Type
+		try {
+			return testEnvironment.getNewEmailTypeObject(pEmailToVerify);
+		}
+		catch(Exception ex) {
+			AutomationLogger.error("No Lead found in Lead Table for email ->"+pEmailToVerify);
 			ex.printStackTrace();
 			return null;
 		}

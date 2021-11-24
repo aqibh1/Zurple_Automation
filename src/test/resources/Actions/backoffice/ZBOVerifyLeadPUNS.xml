@@ -12,7 +12,7 @@
 		<parameter name="emailReplyData"
 			value="/resources/data/zurple/backoffice/marketing/puns-email-data.json">
 			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+			  	<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
 						<include name="testBackOfficeLogin" />
 					</methods>
@@ -20,6 +20,11 @@
 				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
 					<methods>
 						<include name="testPUNS" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+						<include name="testPUNSFromDB" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">

@@ -29,7 +29,7 @@ public class Email extends Abstract
     private String subject;
     private String title;
     private String body;
-    private User user;
+    private Integer user;
     private Integer order_number;
     private String dlnk;
     
@@ -95,13 +95,13 @@ public class Email extends Abstract
         this.dlnk = dlnk;
     }
     
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    public User getUser() {
+//    @ManyToOne(fetch= FetchType.LAZY)
+    @Column(name = "user_id")
+    public Integer getUser() {
         return this.user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Integer user) {
         this.user = user;
     }
 

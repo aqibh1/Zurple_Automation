@@ -20,12 +20,14 @@ import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.DBHelperMethods;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.CacheFilePathsConstants;
+import resources.utility.DBConstants;
 import resources.utility.GmailEmailVerification;
 
 /**
@@ -204,7 +206,18 @@ public class ZBOMarketingEmailPageTest extends PageTest{
     	boolean isSuccessful = gmailObject.isPUNSEmailPresent("auto.zurpleqa@gmail.com", "djfbxtfkdnlczaec", 
     			"New Listing Updates", "aqibstagetesting_zurpleqa@stage01.zengtest6.us", true);
     	assertTrue(isSuccessful, "PUNS email not sent");
-//		testVerifyLeadMessages(lDataObject);
+    	closeCurrentBrowser();
+	}
+	
+	@Test
+	public void testPUNSFromDB() throws ParseException {
+		getPage();
+		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
+		String sentDateTime, userID = "";
+		sentDateTime = dbObject.getEmailType(DBConstants.AlertTypePropertyUpdate).getSendDatetime().toString();
+		userID = dbObject.getEmailType(DBConstants.AlertTypePropertyUpdate).getUser().toString();
+		AutomationLogger.info("Today PUNs are sent to user_id: "+userID);
+		assertTrue(page.isPUNsEmailSentToday(sentDateTime),"ALERT!! PUNs are not sent today..");
 	}
 	
 	@Test

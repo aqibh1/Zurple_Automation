@@ -3,6 +3,10 @@
  */
 package com.zurple.backoffice.marketing;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -259,5 +263,13 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	}
 	public boolean checkSelectedRecipient() {
 		return ActionHelper.isElementSelected(driver, individual_recipient);
+	}
+	public boolean isPUNsEmailSentToday(String sentDate) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date dateValue = sdf.parse(sentDate);
+		SimpleDateFormat output = new SimpleDateFormat("YYYY/MM/dd");
+		String puns_sentdate = output.format(dateValue).toString();
+		String todaysDate = getTodaysDate("YYYY/MM/dd").toString();
+		return puns_sentdate.equalsIgnoreCase(todaysDate);
 	}
 }
