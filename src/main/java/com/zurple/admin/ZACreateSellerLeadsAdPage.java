@@ -92,6 +92,9 @@ public class ZACreateSellerLeadsAdPage extends Page{
 	@FindBy(id="sl_ad_form")
 	WebElement form;
 	
+	@FindBy(id="ad_naming_format")
+	WebElement seller_lead_format;
+	
 	String images_alert_message = "//div[@class='alert alert-danger']/li[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
 	
 	public ZACreateSellerLeadsAdPage(WebDriver pWebDriver) {
@@ -245,6 +248,9 @@ public class ZACreateSellerLeadsAdPage extends Page{
 		ActionHelper.handleDisableAdAlert(driver);
 		ActionHelper.staticWait(3);
 		return isAlertVerified;
+	}
+	public boolean selectAdFormat(String pFormat) {
+		return ActionHelper.selectDropDownOption(driver, seller_lead_format, "", pFormat);
 	}
 	private boolean uploadImages(String pXpath,String pImagesPath) {
 		boolean isSuccess = true;

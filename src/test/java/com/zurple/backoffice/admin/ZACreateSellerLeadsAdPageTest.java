@@ -135,7 +135,22 @@ public class ZACreateSellerLeadsAdPageTest extends PageTest{
 		assertTrue(page.isAdminAlertVisible("please select admin"),"Unable to verify alert text message..");
 		
 	}
+	/**
+	 * Verify alert is triggered if ad form type is not selected
+	 * 47392
+	 */
 	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifySLFormatAlertIsTriggered(String pDataFile) {
+		getPage("/admin/create-sl-ad");
+		String l_admin_id = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id");
+		assertTrue(page.typeAndSelectAdmin(l_admin_id), "Unable to select the admin");
+		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		assertTrue(page.isBudgetAlertVisible("please select format"),"Unable to verify alert text message..");		
+	}
+	
+
 	/**
 	 * Verify the error alert is generated if budget is not provided
 	 * 47359
@@ -144,12 +159,11 @@ public class ZACreateSellerLeadsAdPageTest extends PageTest{
 	@Parameters({"dataFile"})
 	public void testVerifyBudgetAlertIsTriggered(String pDataFile) {
 		getPage("/admin/create-sl-ad");
-		String l_admin_id = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id");
-		assertTrue(page.typeAndSelectAdmin(l_admin_id), "Unable to select the admin");
+		assertTrue(page.selectAdFormat("SL"), "Unable to select the Ad format");
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
 		assertTrue(page.isBudgetAlertVisible("please enter budget"),"Unable to verify alert text message..");		
 	}
-	
+
 	/**
 	 * Verify the alert is triggered if budget provided is less than $100
 	 * 47369
@@ -158,7 +172,7 @@ public class ZACreateSellerLeadsAdPageTest extends PageTest{
 	@Parameters({"dataFile"})
 	public void testVerifyBudgetLessThanHundredAlertIsTriggered(String pDataFile) {
 		getPage("/admin/create-sl-ad");
-		assertTrue(page.typeBudget("95"), "Unable to type ad budget");
+		assertTrue(page.typeBudget("25"), "Unable to type ad budget");
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
 		assertTrue(page.isBudgetLessThanHundredAlertVisible("Budget needs to be between 100 and 1000"),"Unable to verify alert text message..");		
 	}
