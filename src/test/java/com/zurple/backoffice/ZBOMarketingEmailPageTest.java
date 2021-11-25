@@ -24,6 +24,7 @@ import resources.DBHelperMethods;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
+import resources.orm.hibernate.models.zurple.Email;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.CacheFilePathsConstants;
@@ -210,14 +211,15 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testPUNSFromDB() throws ParseException {
+	public void testPUNSFromDB(){
 		getPage();
 		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
-		String sentDateTime, userID = "";
-		sentDateTime = dbObject.getEmailType(DBConstants.AlertTypePropertyUpdate).getSendDatetime().toString();
-		userID = dbObject.getEmailType(DBConstants.AlertTypePropertyUpdate).getUser().toString();
-		AutomationLogger.info("Today PUNs are sent to user_id: "+userID);
-		assertTrue(page.isPUNsEmailSentToday(sentDateTime),"ALERT!! PUNs are not sent today..");
+		String lSentDateTime, lUserId = "";
+		Email emailObject = dbObject.getEmailType(DBConstants.AlertTypePropertyUpdate);
+		lSentDateTime = emailObject.getSendDatetime().toString();
+		lUserId = emailObject.getUser().toString();
+		AutomationLogger.info("Today PUNs are sent to user_id: "+lUserId);
+		assertTrue(page.isPUNsEmailSentToday(lSentDateTime),"ALERT!! PUNs are not sent today..");
 	}
 	
 	@Test
