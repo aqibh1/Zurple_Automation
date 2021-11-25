@@ -207,8 +207,12 @@ public class ZBOMarketingEmailPageTest extends PageTest{
     	boolean isSuccessful = gmailObject.isPUNSEmailPresent("auto.zurpleqa@gmail.com", "djfbxtfkdnlczaec", 
     			"New Listing Updates", "aqibstagetesting_zurpleqa@stage01.zengtest6.us", true);
     	assertTrue(isSuccessful, "PUNS email not sent");
-    	closeCurrentBrowser();
 	}
+	
+	/**
+	 * Verify that PUNs emails should be received everyday at 6am
+	 * 39944
+	 */
 	
 	@Test
 	public void testPUNSFromDB(){
@@ -218,7 +222,9 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		Email emailObject = dbObject.getEmailType(DBConstants.AlertTypePropertyUpdate);
 		lSentDateTime = emailObject.getSendDatetime().toString();
 		lUserId = emailObject.getUser().toString();
-		AutomationLogger.info("Today PUNs are sent to user_id: "+lUserId);
+		if(!lUserId.isEmpty()) {
+			AutomationLogger.info("Today PUNs are sent to user_id: "+lUserId);
+		}
 		assertTrue(page.isPUNsEmailSentToday(lSentDateTime),"ALERT!! PUNs are not sent today..");
 	}
 	

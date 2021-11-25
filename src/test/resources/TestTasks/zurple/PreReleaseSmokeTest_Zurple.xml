@@ -2102,6 +2102,11 @@
 						<include name="testPUNS"/>
 					</methods>
 				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+						<include name="testPUNSFromDB" />
+					</methods>
+				</class>
 		  		<class name="resources.CurrentPageTest">
 					<methods>
 						<include name="closeBrowser" />
