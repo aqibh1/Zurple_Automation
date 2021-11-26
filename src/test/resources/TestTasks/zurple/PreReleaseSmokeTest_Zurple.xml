@@ -4098,8 +4098,9 @@
 				<methods>
 					 <include name="testVerifyPackageAlertIsTriggered" />
 					 <include name="testVerifyAdminAlertIsTriggered" />
+					 <include name="testVerifySLFormatAlertIsTriggered" />
 					 <include name="testVerifyBudgetAlertIsTriggered" />
-					 <include name="testVerifyBudgetLessThanHundredAlertIsTriggered" />
+					<!--   <include name="testVerifyBudgetLessThanHundredAlertIsTriggered" />-->
 					 <include name="testVerifyZipCodeAlertIsTriggered" />
 					 <include name="testVerifyCityAlertIsTriggered" />
 					 <include name="testVerifyAdTypeAlertIsTriggered" />
