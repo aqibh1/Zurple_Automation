@@ -4048,7 +4048,11 @@
 					 <include name="testVerifyCarouselDownloadAlertIsTriggered" />
 				</methods>
 			</class>
-			
+				<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>	
 		</classes>
 		</parameter>
 	</test>
