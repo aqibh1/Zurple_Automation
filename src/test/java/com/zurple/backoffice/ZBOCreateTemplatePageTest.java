@@ -149,9 +149,9 @@ public class ZBOCreateTemplatePageTest extends PageTest{
 		getPage("/marketing/templates/create");
 		assertTrue(page.clickOnSaveTemplateButton(), "Unable to click on save template button..");
 		ActionHelper.staticWait(5);
-		assertTrue(page.verifyTemplateNameValidationAlertIsTriggered("Please enter a name for your template"), "Template name validation is not triggered");
-		assertTrue(page.verifyTemplateNameValidationAlertIsTriggered("Please enter a subject for your template"), "Template subject validation is not triggered");
-		assertTrue(page.verifyTemplateNameValidationAlertIsTriggered("Please enter template body"), "Template body validation is not triggered");
+		assertTrue(page.verifyTemplateNameValidationAlertIsTriggered("Please enter a name for your template."), "Template name validation is not triggered");
+		assertTrue(page.verifyTemplateNameValidationAlertIsTriggered("Please enter a subject for your template."), "Template subject validation is not triggered");
+		assertTrue(page.verifyTemplateNameValidationAlertIsTriggered("Please enter template body."), "Template body validation is not triggered");
 
 	}
 	/**
