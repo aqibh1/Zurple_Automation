@@ -204,6 +204,28 @@ public class ZBOMarketingEmailPageDBTest extends PageTest{
 		assertTrue(isSuccessful,"ALERT!! PUNs are not sent today..");
 	}
 	
+	@Test
+	public void testCMAEmailFromDB(){
+		page=null;
+		getPage();
+		ZAProcessEmailQueuesPage processQueue = new ZAProcessEmailQueuesPage(driver);
+		if(!getIsProd()) {
+			page=null;
+			getPage("/admin/processemailqueue");
+			processQueue.processCMAQueue();
+		} 
+		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
+		String lSentDateTime, lUserId = "";
+		Email emailObject = dbObject.getEmailType(DBConstants.EmailTypeCMAEmails);
+		lSentDateTime = emailObject.getSendDatetime().toString();
+		lUserId = emailObject.getUser().toString();
+		boolean isSuccessful = page.isEmailSentToday(lSentDateTime);
+		if(isSuccessful) {
+			AutomationLogger.info("Today CMA email is sent to user_id: "+lUserId);
+		}
+		assertTrue(isSuccessful,"ALERT!! CMA emails are not sent today..");
+	}
+	
 	@AfterTest
 	public void closeBrowser() {
 		closeCurrentBrowser();

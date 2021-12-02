@@ -79,6 +79,9 @@ public class ZAProcessEmailQueuesPage extends Page{
 	public boolean clickOnAutoResponderQueueButton() {
 		return ActionHelper.Click(driver, autoresponder_queue_button);
 	}
+	public boolean clickOnCMAEmailQueuePage() {
+		return ActionHelper.Click(driver, CMA_Email_queue_button);
+	}
 	public boolean clickOnAlertQueueButton() {
 		return ActionHelper.Click(driver, alert_queue_button);
 	}
@@ -108,6 +111,14 @@ public class ZAProcessEmailQueuesPage extends Page{
 	public void processAutoResponderQueue() {
 		assertTrue(isProcessEmailQueuePage(), "Process Email Queue page is not visible...");
 		assertTrue(clickOnAutoResponderQueueButton(), "Unable to click on AR Queue button...");
+		ActionHelper.staticWait(5);
+		assertTrue(clickOnProcessQueueButton(), "Unable to click on process queue button...");
+		assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");
+	}
+	
+	public void processCMAQueue() {
+		assertTrue(isProcessEmailQueuePage(), "Process Email Queue page is not visible...");
+		assertTrue(clickOnCMAEmailQueuePage(), "Unable to click on CMA Queue button...");
 		ActionHelper.staticWait(5);
 		assertTrue(clickOnProcessQueueButton(), "Unable to click on process queue button...");
 		assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");
