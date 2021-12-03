@@ -265,7 +265,7 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	public boolean checkSelectedRecipient() {
 		return ActionHelper.isElementSelected(driver, individual_recipient);
 	}
-	public boolean isPUNsEmailSentToday(String sentDate){
+	public boolean isEmailSentToday(String sentDate){
 		boolean isDateVerified = false;
 		Date dateValue = null;
 		if(!sentDate.isEmpty()) {

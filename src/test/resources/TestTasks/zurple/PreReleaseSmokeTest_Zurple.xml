@@ -4142,7 +4142,123 @@
 			</classes>
 	</test>
 	
+	<test name="Verify Admin Creation by Auto Provisioning via API calls">	 
+	<parameter name="packageDataFile" value="/resources/data/zurple/backoffice/create_ap_package_data.json"> 
+		<parameter name="adminDataFile" value="/resources/data/zurple/backoffice/create_ap_admin_data.json"> 
+			<classes>
+ 		   	<class name="com.restapi.autoprovision.ZBORestPostPackage">
+				<methods>
+					<include name="testPostPackage" /> 
+				</methods>
+			</class> 
+  			<class name="com.restapi.autoprovision.ZBORestPostAdmin">
+				<methods>
+				  	<include name="testPostAdmin"/>  
+				</methods>
+			</class> 
+			<class name="com.restapi.autoprovision.ZBORestPostCheckEmail">
+				<methods>
+				  	<include name="testPostCheckEmail"/>  
+				</methods>
+			</class>
+			<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>				
+			</classes>
+		</parameter>
+	</parameter>
+	</test>	
 	
+	<test name="Verify Package Creation by Auto Provisioning from Package manager">	 
+	<parameter name="packageIdFile" value="/resources/cache/cache-ap-package-id-data.json">
+	 <parameter name="packageDataFile" value="/resources/cache/cache-ap-package-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.admin.ZAPackageManagerPageTest">
+				<methods>
+					<include name="testSetup" />
+					<include name="testVerifyFullName" />
+					<include name="testVerifyEmail" />
+					<include name="testVerifyPhone" />
+					<include name="testVerifyCompany" />
+					<include name="testVerifySetupFee" />
+					<include name="testVerifyURLPath" />
+					<include name="testVerifyZurpleClientId" />
+					<include name="testVerifySubscriptionDate" />
+					<include name="testVerifyPayers" />
+					<include name="testVerifyAdditionalAdmins" />
+					<include name="testVerifyPackageBundles" />
+					<include name="testVerifyFeatureBundles" />
+				</methods>
+			</class>    
+			</classes>
+	</parameter>
+	</parameter>
+	</test>
+	
+	<test name="Verify Admin Creation by Auto Provisioning from Admin manager">	 
+	<parameter name="adminIdFile" value="/resources/cache/cache-ap-admin-id-data.json">
+	 <parameter name="adminDataFile" value="/resources/cache/cache-ap-admin-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.admin.ZAAdminManagerPageTest">
+				<methods>
+					<include name="testSetup" />
+					<include name="testVerifyFirstName" />
+					<include name="testVerifyLastName" />
+					<include name="testVerifyPhone" />
+					<include name="testVerifyAliasPhone" />
+					<include name="testVerifyAgentCode" />
+					<include name="testVerifyFeed" />
+					<include name="testVerifyCMSFlag" />
+					<include name="testVerifyBillingFlag" />
+					<include name="testVerifyPropFlag" />
+					<include name="testVerifyLoginEmail" />
+					<include name="testVerifyAltEmail" />
+					<include name="testVerifyForwardEmail" />
+					<include name="testVerifyTimeZone" />
+					<include name="testVerifyOfficeName" />
+					<include name="testVerifyOfficeAddress" />
+					<include name="testVerifyPackageId" />
+					<include name="testVerifySMSFlag" />
+					<include name="testVerifySMSNotificationFlag" />
+					<include name="testVerifyOwnerId" />
+				</methods>
+			</class>    
+		</classes>
+	</parameter>
+	</parameter>
+	</test>
+	
+	<test name="Verify Admin Creation by Auto Provisioning from Back Office">	 
+	<parameter name="adminIdFile" value="/resources/cache/cache-ap-admin-id-data.json">
+	 <parameter name="adminDataFile" value="/resources/cache/cache-ap-admin-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZAAdminProfilePageTest">
+				<methods>
+					<include name="testSetup" />
+					<include name= "testVerifyFirstName" />
+					<include name= "testVerifyLastName" />
+					<include name= "testVerifyDisplayName" />
+					<include name= "testVerifyPhone" />
+					<include name= "testVerifyUniqueSignOff" />
+					<include name= "testVerifyProfileImageFlag" />
+					<include name= "testVerifyBrokerageLogoFlag" />
+					<include name= "testVerifyLicense" />
+					<include name= "testVerifyLoginEmail" />
+					<include name= "testVerifyAltEmail" />
+					<include name= "testVerifyTimeZone" />
+					<include name= "testVerifyBrokerageName" />
+					<include name= "testVerifyBrokeragePhone" />
+					<include name= "testVerifyBrokerageAddress" />
+					<include name= "testVerifyZillowConnection" />
+					<include name= "testVerifyZillowEmail" />
+				</methods>
+			</class>    
+		</classes>
+	</parameter>
+	</parameter>
+	</test>
 	
 	<!-- 
  <test name="Manage agents page label">

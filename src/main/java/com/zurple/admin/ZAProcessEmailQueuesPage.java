@@ -35,6 +35,12 @@ public class ZAProcessEmailQueuesPage extends Page{
 	@FindBy(xpath="//button[text()='Mass Email Queue']")
 	WebElement mass_email_queue_button;
 	
+	@FindBy(xpath="//button[text()='Create C1 Summary Emails']")
+	WebElement create_c1_summary;
+	
+	@FindBy(xpath="//button[text()='Send C1 Summary Emails']")
+	WebElement send_c1_summary;
+	
 	@FindBy(xpath="//button[text()='Reminder Email Queue']")
 	WebElement reminderemail_queue_button;
 	
@@ -70,6 +76,12 @@ public class ZAProcessEmailQueuesPage extends Page{
 	public boolean isProcessEmailQueuePage() {
 		return ActionHelper.waitForElementToBeVisible(driver, process_email_queue_heading, 30);
 	}
+	public boolean clickOnAutoResponderQueueButton() {
+		return ActionHelper.Click(driver, autoresponder_queue_button);
+	}
+	public boolean clickOnCMAEmailQueuePage() {
+		return ActionHelper.Click(driver, CMA_Email_queue_button);
+	}
 	public boolean clickOnAlertQueueButton() {
 		return ActionHelper.Click(driver, alert_queue_button);
 	}
@@ -88,6 +100,28 @@ public class ZAProcessEmailQueuesPage extends Page{
 	
 	public boolean clickOnNextDayQueueButton() {
 		return ActionHelper.Click(driver, nextday_responder_queue_button);
+	}
+	public boolean clickOnCreateC1SummaryEmailsQueueButton() {
+		return ActionHelper.Click(driver, create_c1_summary);
+	}
+	public boolean clickOnSendC1SummaryEmailsQueueButton() {
+		return ActionHelper.Click(driver, send_c1_summary);
+	}
+	
+	public void processAutoResponderQueue() {
+		assertTrue(isProcessEmailQueuePage(), "Process Email Queue page is not visible...");
+		assertTrue(clickOnAutoResponderQueueButton(), "Unable to click on AR Queue button...");
+		ActionHelper.staticWait(5);
+		assertTrue(clickOnProcessQueueButton(), "Unable to click on process queue button...");
+		assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");
+	}
+	
+	public void processCMAQueue() {
+		assertTrue(isProcessEmailQueuePage(), "Process Email Queue page is not visible...");
+		assertTrue(clickOnCMAEmailQueuePage(), "Unable to click on CMA Queue button...");
+		ActionHelper.staticWait(5);
+		assertTrue(clickOnProcessQueueButton(), "Unable to click on process queue button...");
+		assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");
 	}
 	
 	public void processAlertQueue() {
@@ -117,6 +151,18 @@ public class ZAProcessEmailQueuesPage extends Page{
 		assertTrue(clickOnNextDayQueueButton(), "Unable to click on Mass Email Queue button...");
 		ActionHelper.staticWait(5);
 		assertTrue(clickOnProcessQueueButton(), "Unable to click on process queue button...");
+		assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");
+	}
+	public void processCreateC1SummaryQueue() {
+		assertTrue(isProcessEmailQueuePage(), "Process Email Queue page is not visible...");
+		assertTrue(clickOnCreateC1SummaryEmailsQueueButton(), "Unable to click on Create C1 Email Queue button...");
+		ActionHelper.staticWait(5);
+		assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");
+	}
+	public void processSendC1SummaryQueue() {
+		assertTrue(isProcessEmailQueuePage(), "Process Email Queue page is not visible...");
+		assertTrue(clickOnSendC1SummaryEmailsQueueButton(), "Unable to click on Send C1 Email Queue button...");
+		ActionHelper.staticWait(5);
 		assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");
 	}
 	

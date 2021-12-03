@@ -209,25 +209,6 @@ public class ZBOMarketingEmailPageTest extends PageTest{
     	assertTrue(isSuccessful, "PUNS email not sent");
 	}
 	
-	/**
-	 * Verify that PUNs emails should be received everyday at 6am
-	 * 39944
-	 */
-	
-	@Test
-	public void testPUNSFromDB(){
-		getPage();
-		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
-		String lSentDateTime, lUserId = "";
-		Email emailObject = dbObject.getEmailType(DBConstants.AlertTypePropertyUpdate);
-		lSentDateTime = emailObject.getSendDatetime().toString();
-		lUserId = emailObject.getUser().toString();
-		if(!lUserId.isEmpty()) {
-			AutomationLogger.info("Today PUNs are sent to user_id: "+lUserId);
-		}
-		assertTrue(page.isPUNsEmailSentToday(lSentDateTime),"ALERT!! PUNs are not sent today..");
-	}
-	
 	@Test
 	public void testVerifyLeadReplies() {
 		String subject = getIsProd()?"Quick Question":"[stage01] Quick Question";
