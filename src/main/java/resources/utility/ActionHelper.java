@@ -662,7 +662,7 @@ public class ActionHelper {
 		   
 		   boolean displayed = false;
 		   int counter = 0;
-		   pXpathToAppend = "/descendant::span[text()='FAILED']";
+//		   pXpathToAppend = "/descendant::span[text()='FAILED']";
 		    while (counter<pTotalAttempts) {
 		    	try {
 		    	WebElement elementFund = pEelement.findElement(By.xpath(pXpathToAppend));
