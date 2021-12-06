@@ -20,6 +20,7 @@ import org.testng.annotations.Test;
 
 import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
+import com.zurple.my.DBPageTest;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
@@ -38,75 +39,15 @@ import resources.utility.GmailEmailVerification;
  * @author habibaaq
  *
  */
-public class ZBOMarketingEmailPageDBTest extends PageTest{
-
-	ZBOMarketingEmailMessagePage page;
-	private WebDriver driver;
-		
-	@Override
-	public AbstractPage getPage() {
-		// TODO Auto-generated method stub
-		if(page==null) {
-			driver = getDriver();
-			page = new ZBOMarketingEmailMessagePage(driver);
-			setLoginPage(driver);
-			page.setUrl("");
-			page.setDriver(driver);
-		}
-		return page;
-	}
-	
-	public AbstractPage getPage(String pUrl) {
-		if(page==null) {
-			driver = getDriver();
-			page = new ZBOMarketingEmailMessagePage(driver);
-			setLoginPage(driver);
-			page.setUrl(pUrl);
-			page.setDriver(driver);
-		}
-		return page;
-	}
-
-	@Override
-	public void clearPage() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@BeforeTest
-	public void backOfficeLogin() {
-		getPage();
-		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
-			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
-		}
-	}
+public class ZBOMarketingEmailPageDBTest extends DBPageTest{
 	
 	/**
 	 * C47393	Verify that agent is able to receive C1 summary emails
 	 */
 	@Test
 	public void testAlertSummaryEmailFromDB() {
-		page=null;
-		getPage();
-		ZAProcessEmailQueuesPage processQueue = new ZAProcessEmailQueuesPage(driver);
-		if(!getIsProd()) {
-			page=null;
-			getPage("/admin/processemailqueue");
-			processQueue.processAlertQueue();
-			processQueue.processCreateC1SummaryQueue();
-			processQueue.processSendC1SummaryQueue();
-			processQueue.processSendC1SummaryQueue(); // this is called twice to make sure any failed attempt should be retried. 
-		} 
-		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
-		String lSentDateTime, lUserId = "";
-		Email emailObject = dbObject.getEmailType(DBConstants.EmailTypeAlertSummary);
-		lSentDateTime = emailObject.getSendDatetime().toString();
-		lUserId = emailObject.getUser().toString();
-		boolean isSuccessful = page.isEmailSentToday(lSentDateTime);
-		if(isSuccessful) {
-			AutomationLogger.info("Today "+lSentDateTime+" alert summary emails are sent..");
-		}
-		assertTrue(isSuccessful,"ALERT!! Alert Summary Emails are not sent today..");
+		processEmailQueues(DBConstants.EmailTypeAlertSummary);
+		dbVerification(DBConstants.EmailTypeAlertSummary);
 	}
 	
 	/**
@@ -114,24 +55,8 @@ public class ZBOMarketingEmailPageDBTest extends PageTest{
 	 */
 	@Test
 	public void testCampaignEmailFromDB() {
-		page=null;
-		getPage();
-		ZAProcessEmailQueuesPage processQueue = new ZAProcessEmailQueuesPage(driver);
-		if(!getIsProd()) {
-			page=null;
-			getPage("/admin/processemailqueue");
-			processQueue.processMassEmailQueue();
-		} 
-		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
-		String lSentDateTime, lUserId = "";
-		Email emailObject = dbObject.getEmailType(DBConstants.EmailTypeCampaign);
-		lSentDateTime = emailObject.getSendDatetime().toString();
-		lUserId = emailObject.getUser().toString();
-		boolean isSuccessful = page.isEmailSentToday(lSentDateTime);
-		if(isSuccessful) {
-			AutomationLogger.info("Today campaign emails are sent to: "+lUserId);
-		}
-		assertTrue(isSuccessful,"ALERT!! Campaign Emails are not sent today..");
+		processEmailQueues(DBConstants.EmailTypeCampaign);
+		dbVerification(DBConstants.EmailTypeCampaign);
 	}
 	
 	/**
@@ -139,24 +64,8 @@ public class ZBOMarketingEmailPageDBTest extends PageTest{
 	 */
 	@Test
 	public void testMassEmailFromDB() {
-		page=null;
-		getPage();
-		ZAProcessEmailQueuesPage processQueue = new ZAProcessEmailQueuesPage(driver);
-		if(!getIsProd()) {
-			page=null;
-			getPage("/admin/processemailqueue");
-			processQueue.processMassEmailQueue();
-		} 
-		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
-		String lSentDateTime, lUserId = "";
-		Email emailObject = dbObject.getEmailType(DBConstants.EmailTypeMassEmails);
-		lSentDateTime = emailObject.getSendDatetime().toString();
-		lUserId = emailObject.getUser().toString();
-		boolean isSuccessful = page.isEmailSentToday(lSentDateTime);
-		if(isSuccessful) {
-			AutomationLogger.info("Today Mass emails are sent to: "+lUserId);
-		}
-		assertTrue(isSuccessful,"ALERT!! Mass Emails are not sent today..");
+		processEmailQueues(DBConstants.EmailTypeMassEmails);
+		dbVerification(DBConstants.EmailTypeMassEmails);
 	}
 	
 	/**
@@ -164,24 +73,8 @@ public class ZBOMarketingEmailPageDBTest extends PageTest{
 	 */
 	@Test
 	public void testAutoResponderEmailFromDB() {
-		page=null;
-		getPage();
-		ZAProcessEmailQueuesPage processQueue = new ZAProcessEmailQueuesPage(driver);
-		if(!getIsProd()) {
-			page=null;
-			getPage("/admin/processemailqueue");
-			processQueue.processAutoResponderQueue();
-		} 
-		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
-		String lSentDateTime, lUserId = "";
-		Email emailObject = dbObject.getEmailType(DBConstants.EmailTypeAutoResponder);
-		lSentDateTime = emailObject.getSendDatetime().toString();
-		lUserId = emailObject.getUser().toString();
-		boolean isSuccessful = page.isEmailSentToday(lSentDateTime);
-		if(isSuccessful) {
-			AutomationLogger.info("Today Auto Responder emails are sent to: "+lUserId);
-		}
-		assertTrue(isSuccessful,"ALERT!! Auto Responder Emails are not sent today..");
+		processEmailQueues(DBConstants.EmailTypeAutoResponder);
+		dbVerification(DBConstants.EmailTypeAutoResponder);
 	}
 	
 	/**
@@ -191,43 +84,36 @@ public class ZBOMarketingEmailPageDBTest extends PageTest{
 	
 	@Test
 	public void testPUNSFromDB(){
-		getPage();
-		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
-		String lSentDateTime, lUserId = "";
-		Email emailObject = dbObject.getEmailType(DBConstants.EmailTypePropertyUpdate);
-		lSentDateTime = emailObject.getSendDatetime().toString();
-		lUserId = emailObject.getUser().toString();
-		boolean isSuccessful = page.isEmailSentToday(lSentDateTime);
-		if(isSuccessful) {
-			AutomationLogger.info("Today PUNs are sent to user_id: "+lUserId);
-		}
-		assertTrue(isSuccessful,"ALERT!! PUNs are not sent today..");
+		dbVerification(DBConstants.EmailTypePropertyUpdate);
 	}
 	
 	@Test
 	public void testCMAEmailFromDB(){
-		page=null;
-		getPage();
-		ZAProcessEmailQueuesPage processQueue = new ZAProcessEmailQueuesPage(driver);
+		processEmailQueues(DBConstants.EmailTypeCMAEmails);
+		dbVerification(DBConstants.EmailTypeCMAEmails);
+	}
+	
+	private void processEmailQueues(String pEmailType) {
+		ZAProcessEmailQueuePageTest processEmailQueuePageTest = new ZAProcessEmailQueuePageTest();
 		if(!getIsProd()) {
-			page=null;
-			getPage("/admin/processemailqueue");
-			processQueue.processCMAQueue();
-		} 
-		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
-		String lSentDateTime, lUserId = "";
-		Email emailObject = dbObject.getEmailType(DBConstants.EmailTypeCMAEmails);
-		lSentDateTime = emailObject.getSendDatetime().toString();
-		lUserId = emailObject.getUser().toString();
-		boolean isSuccessful = page.isEmailSentToday(lSentDateTime);
-		if(isSuccessful) {
-			AutomationLogger.info("Today CMA email is sent to user_id: "+lUserId);
+			processEmailQueuePageTest.testProcessEmailsQueues(pEmailType);
 		}
-		assertTrue(isSuccessful,"ALERT!! CMA emails are not sent today..");
 	}
 	
 	@AfterTest
 	public void closeBrowser() {
 		closeCurrentBrowser();
+	}
+
+	@Override
+	public AbstractPage getPage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void clearPage() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -265,22 +265,4 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	public boolean checkSelectedRecipient() {
 		return ActionHelper.isElementSelected(driver, individual_recipient);
 	}
-	public boolean isEmailSentToday(String sentDate){
-		boolean isDateVerified = false;
-		Date dateValue = null;
-		if(!sentDate.isEmpty()) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			try {
-				dateValue = sdf.parse(sentDate);
-			} catch (ParseException e) {
-				AutomationLogger.error("Unable to Parse sent date");
-				e.printStackTrace();
-			}
-			SimpleDateFormat output = new SimpleDateFormat("YYYY/MM/dd");
-			String puns_sentdate = output.format(dateValue).toString();
-			String todaysDate = getTodaysDate("YYYY/MM/dd").toString();
-			isDateVerified = puns_sentdate.equalsIgnoreCase(todaysDate);
-		}
-		return isDateVerified;
-	}
 }

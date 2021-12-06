@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Instant;
@@ -368,9 +369,15 @@ public abstract class AbstractPageTest extends AbstractTest
         	Date resultDate = c1.getTime();
         	currentDate = df.format(resultDate);
     	}
-    	return currentDate;
-    	
+    	return currentDate;	
     }
+    
+    //"MM/dd/yy"
+    public String getTodaysDate(String pFormat) {
+   	 Calendar cal = Calendar.getInstance();
+   	 DateFormat dateFormat = new SimpleDateFormat(pFormat);
+   	 return dateFormat.format(cal.getTime());
+	}
     
     protected String getTodaysDateInPST(int pDays, String pFormat) {
     	Date date = new Date();

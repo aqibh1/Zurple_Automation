@@ -177,4 +177,27 @@ public class ZAProcessEmailQueuesPage extends Page{
 		assertTrue(clickOnProcessQueueButton(), "Unable to click on process queue button...");
 		assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");
 	}
+	
+	public void processEmailsQueues(String emailType) {
+		switch(emailType) {
+			case "c1.alert-summary":
+				processAlertQueue();
+				processCreateC1SummaryQueue();
+				processSendC1SummaryQueue();
+				processSendC1SummaryQueue(); // this is called twice to make sure any failed attempt should be retried. 
+				break;
+			case "mass_email":
+			case "campaign":
+				processMassEmailQueue();
+				break;
+			case "auto_responder":
+				processAutoResponderQueue();
+				break;
+			case "cma_personal_offer":
+				processCMAQueue();
+				break;
+			default:
+				break;
+		}
+	}
 }
