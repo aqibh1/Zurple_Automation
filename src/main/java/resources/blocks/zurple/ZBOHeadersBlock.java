@@ -19,6 +19,11 @@ public class ZBOHeadersBlock extends AbstractBlock{
 	@FindBy(xpath="//li[@id='social-dropdown']/descendant::span[text()='Ads Overview']")
 	WebElement adsOverview_dropdown;
 	
+	String agent_dropdown = "//ul/li/a[@data-toggle='dropdown']/span[@class='caret']";
+	
+	@FindBy(xpath="//li/a[text()='Logout']")
+	WebElement logout;
+	
 	public ZBOHeadersBlock(WebDriver pDriver) {
 		driver = pDriver;
 		PageFactory.initElements(driver, this);
@@ -48,5 +53,12 @@ public class ZBOHeadersBlock extends AbstractBlock{
 			}
 		}
 		return isVerified;
+	}
+	public boolean logoutFromBackOffice() {
+		boolean isLogout = false;
+		if(ActionHelper.MouseHoverOnElement(driver, ActionHelper.getListOfElementByXpath(driver, agent_dropdown).get(1))) {
+			isLogout = ActionHelper.Click(driver, logout);
+		}
+		return isLogout;
 	}
 }

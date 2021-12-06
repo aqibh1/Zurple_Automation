@@ -3650,7 +3650,11 @@
 						<include name="testVerifyTemplateNameLinkAreDisplayed" />
 						<include name="testVerifySortingIsWorkingForColumns" />
 						<include name="testVerifyPreviewIsDisplayedWhenTemplateNameIsClicked" />
-						
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
 					</methods>
 				</class>
 			</classes>

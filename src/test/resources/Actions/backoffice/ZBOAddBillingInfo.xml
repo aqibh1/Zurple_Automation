@@ -1,0 +1,34 @@
+<suite name="Update and Verify User Settings suite"
+	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+	<test name="Add Billing Payement Plan">
+		<parameter name="dataFile" value="/resources/data/create-agent-data.json">
+		<parameter name="dataFile1" value="/resources/data/zurple/ads/credit-card-ad-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOBillingPageTest">
+					<methods>
+						<include name="testIsAddPaymentPlanButtonVisibleOnBillingPage" />
+						<include name="testVerifyAddPaymentPlanButtonTakesUserToCreditCardForm" />
+						<include name="testAddPaymentPlan" />
+						<include name="testVerifySuccessMessageIsDisplayedAfterClickingCCSubmitButton" />
+						<include name="testVerifyCardInfoIsDsiplayedOnBillingInfoPage" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+		</parameter>
+	</test>
+</suite>
+

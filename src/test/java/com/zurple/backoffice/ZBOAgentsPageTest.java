@@ -80,6 +80,7 @@ public class ZBOAgentsPageTest extends PageTest {
 		getPage("/agent/create");
 		addUpdateAgent(pDataFile);
 		agentURL = page.getURL();
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAgentIdUrl, driver.getCurrentUrl());
 		
 		AutomationLogger.endTestCase();
 	}
@@ -93,8 +94,9 @@ public class ZBOAgentsPageTest extends PageTest {
 	}
 	
 	@Test
-	private void testDelAgent() {
-		AutomationLogger.startTestCase("Create Agents");	
+	public void testDelAgent() {
+		AutomationLogger.startTestCase("Create Agents");
+		agentURL = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAgentIdUrl);
 		driver.navigate().to(agentURL);
 		deleteAgent();
 		ActionHelper.staticWait(5);
@@ -171,21 +173,32 @@ public class ZBOAgentsPageTest extends PageTest {
 		assertTrue(page.typeAgentLastName(updateName(lName).replaceAll("\\s+","")), "Unable to type Agent lName..");
 		
 		String agentEmail = dataObject.optString(DataConstants.Email);
-		assertTrue(page.typeAgentEmail(updateEmail(agentEmail).replaceAll("\\s+","")), "Unable to type Agent email..");
+		agentEmail = updateEmail(agentEmail).replaceAll("\\s+","");
+		assertTrue(page.typeAgentEmail(agentEmail), "Unable to type Agent email..");
 		
 		String agentPass = dataObject.optString(DataConstants.Password);
 		assertTrue(page.typeAgentPassword(agentPass), "Unable to type Agent password..");
 		
 		String confirmPass = dataObject.optString(DataConstants.ConfirmPassword);
 		assertTrue(page.typeAgentConfirmPassword(confirmPass), "Unable to type Agent confirm password..");
-
+		ActionHelper.staticWait(5);
 		assertTrue(page.addAgentButton(), "Unable to click add agent button..");
 		assertTrue(page.confirmAgent(), "Unable to confirm agent from confirmation modal..");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAgentEmail, agentEmail);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAgentPassword, agentPass);
 	}
 	
 	private void deleteAgent() {
-		page.delAgent();
+		assertTrue(page.delAgent(),"Unable to click on delete agent button");
 		ActionHelper.staticWait(5);
-		page.confirmDelAgent();
+		assertTrue(page.confirmDelAgent(),"Confirm dialog is not displayed");
+	}
+	
+	public void deleteAgentFromAgentDetailsPage(String pUrl) {
+		getPage();
+		driver.navigate().to(pUrl);
+		deleteAgent();
+		ActionHelper.staticWait(5);
+		AutomationLogger.endTestCase();
 	}
 }

@@ -60,4 +60,7 @@ public class ModuleCacheConstants {
 	public static final String ZurpleAPEmail = "zurple.ap.email.id";
 	public static final String SellerAdsCount = "zurple.sl.count";
 	public static final String SellerConversionCount = "zurple.sl.conversion";
+	public static final String ZurpleAgentEmail = "zurple.agent.email";
+	public static final String ZurpleAgentPassword = "zurple.agent.password";
+	public static final String ZurpleAgentIdUrl = "zurple.agent.id.url";
 }
