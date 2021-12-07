@@ -379,6 +379,14 @@ public abstract class AbstractPageTest extends AbstractTest
    	 return dateFormat.format(cal.getTime());
 	}
     
+    // Month/Day/Year
+    public String getYesterdaysDate(String pFormat) {
+    	final Calendar cal = Calendar.getInstance();
+    	cal.add(Calendar.DATE, -1);
+      	DateFormat dateFormat = new SimpleDateFormat(pFormat);
+      	return dateFormat.format(cal.getTime());
+	}
+    
     protected String getTodaysDateInPST(int pDays, String pFormat) {
     	Date date = new Date();
     	SimpleDateFormat df  = new SimpleDateFormat(pFormat);
