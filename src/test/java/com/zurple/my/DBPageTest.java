@@ -36,7 +36,8 @@ public abstract class DBPageTest extends AbstractPageTest
 			SimpleDateFormat output = new SimpleDateFormat("YYYY/MM/dd");
 			String puns_sentdate = output.format(dateValue).toString();
 			String todaysDate = getTodaysDate("YYYY/MM/dd").toString();
-			isDateVerified = puns_sentdate.equalsIgnoreCase(todaysDate);
+			String yesterdaysDate = getYesterdaysDate("YYYY/MM/dd").toString();
+			isDateVerified = puns_sentdate.equalsIgnoreCase(todaysDate) || puns_sentdate.equalsIgnoreCase(yesterdaysDate);
 		}
 		return isDateVerified;
 	}
