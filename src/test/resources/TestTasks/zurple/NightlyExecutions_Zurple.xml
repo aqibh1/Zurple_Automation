@@ -4063,6 +4063,24 @@
 		</classes>
 		</parameter>
 	</test>
+	
+	<test name="Add Billing Payement Plan">
+		<parameter name="dataFile" value="/resources/data/create-agent-data.json">
+		<parameter name="dataFile1" value="/resources/data/zurple/ads/credit-card-ad-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOBillingPageTest">
+					<methods>
+						<include name="testIsAddPaymentPlanButtonVisibleOnBillingPage" />
+						<include name="testVerifyAddPaymentPlanButtonTakesUserToCreditCardForm" />
+						<include name="testAddPaymentPlan" />
+						<include name="testVerifySuccessMessageIsDisplayedAfterClickingCCSubmitButton" />
+						<include name="testVerifyCardInfoIsDsiplayedOnBillingInfoPage" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+		</parameter>
+	</test>
  <!--  
 <test name="Bulk update lead status to In Active" >	
 			<classes>

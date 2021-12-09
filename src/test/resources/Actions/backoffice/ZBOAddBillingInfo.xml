@@ -12,11 +12,6 @@
 		<parameter name="dataFile" value="/resources/data/create-agent-data.json">
 		<parameter name="dataFile1" value="/resources/data/zurple/ads/credit-card-ad-data.json">
 			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeLogin" />
-					</methods>
-				</class>
 				<class name="com.zurple.backoffice.ZBOBillingPageTest">
 					<methods>
 						<include name="testIsAddPaymentPlanButtonVisibleOnBillingPage" />
