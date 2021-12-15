@@ -62,33 +62,193 @@
 				</class>
 			</classes>
 	</test>
-	<test name="Verify Alert emails from DB">
+	<test name="Verify Schedule Alert emails from DB">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
 					<methods>
 						<include name="testScheduleAlertFromDB" />
-						<include name="testAgentInquiryAlertFromDB" /> 
-						<include name="testCheckinAlertFromDB" /> 
-						<include name="testCMAAlertFromDB" /> 
-						<include name="testCMAFollowUpAlertFromDB" /> 
-						<include name="testCommunitySearchAlertFromDB" /> 
-						<include name="testDownloadSellerAlertFromDB" /> 
-						<include name="testFavoritesAlertFromDB" /> 
-						<include name="testHighActivityAlertFromDB" /> 
-						<include name="testHighAppreciationFromDB" /> 
-						<include name="testHighReturnAlertFromDB" /> 
-						<include name="testHiighValueAlertFromDB" /> 
-						<include name="testImportedLeadAlertFromDB" /> 
-						<include name="testNewSignUpLeadAlertFromDB" /> 
-						<include name="testNextDayFollowUpLeadAlertFromDB" /> 
-						<include name="testPOILeadAlertFromDB" /> 
-						<include name="testPreferredPropertyLeadAlertFromDB" /> 
-						<include name="testPropertyInquiryLeadAlertFromDB" /> 
-						<include name="testSchoolReportAlertFromDB" /> 
-						<include name="testUserReplyAlertFromDB" /> 
+					</methods>
+				</class>	
+			</classes>
+		</test>	
+		<test name="Verify AgentInquiry Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>
+						<include name="testAgentInquiryAlertFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	 
+		<test name="Verify Checkin Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				
+						<include name="testCheckinAlertFromDB" />
+						</methods>
+				</class>	
+			</classes>
+		</test>	 
+		<test name="Verify CMA Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				 
+						<include name="testCMAAlertFromDB" />
+						</methods>
+				</class>	
+			</classes>
+		</test>	 
+		<test name="Verify CMA Follow Up Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				 
+						<include name="testCMAFollowUpAlertFromDB" />
+						</methods>
+				</class>	
+			</classes>
+		</test>	  
+		<test name="Verify Community Search Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				
+						<include name="testCommunitySearchAlertFromDB" />
+						</methods>
+				</class>	
+			</classes>
+		</test>	 
+		<test name="Verify Download Seller Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				 
+						<include name="testDownloadSellerAlertFromDB" />
+						</methods>
+				</class>	
+			</classes>
+		</test>	  
+		<test name="Verify Favorites Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				
+						<include name="testFavoritesAlertFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	 
+		<test name="Verify High Activity Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				 
+						<include name="testHighActivityAlertFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	 
+		<test name="Verify High Appreciation Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				 
+						<include name="testHighAppreciationFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	  
+		<test name="Verify High Return Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				
+						<include name="testHighReturnAlertFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	 	
+		<test name="Verify Hiigh Value Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				 
+						<include name="testHiighValueAlertFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	 	 
+		<test name="Verify Imported Lead Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				
+						<include name="testImportedLeadAlertFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	 	
+		<test name="Verify New Sign Up Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				 
+						<include name="testNewSignUpLeadAlertFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	 	 
+		<test name="Verify Next Day Followed Up Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				
+						<include name="testNextDayFollowUpLeadAlertFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	 	
+		<test name="Verify POI Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				 
+						<include name="testPOILeadAlertFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	 	
+		<test name="Verify Prefferred Property Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				 
+						<include name="testPreferredPropertyLeadAlertFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	 	
+		<test name="Verify Property Inquiry Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				 
+						<include name="testPropertyInquiryLeadAlertFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	 	
+		<test name="Verify School Report Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				 
+						<include name="testSchoolReportAlertFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	 	
+		<test name="Verify User Reply Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				 
+						<include name="testUserReplyAlertFromDB" />
+					</methods>
+				</class>	
+			</classes>
+		</test>	 	
+		<test name="Verify Seller Inquiry Alert emails from DB">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAlertsPageDBTest">
+					<methods>				 
 						<include name="testSellerInquiryAlertFromDB" /> 
 					</methods>
 				</class>
 			</classes>
-	</test>
+		</test>	
 </suite>
