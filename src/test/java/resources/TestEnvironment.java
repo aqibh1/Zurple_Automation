@@ -15,6 +15,7 @@ import resources.orm.hibernate.dao.z57.ManageNotificationMailgun;
 import resources.orm.hibernate.dao.z57.ManageNotifications;
 import resources.orm.hibernate.dao.z57.ManageSites;
 import resources.orm.hibernate.dao.zurple.ManageAdmin;
+import resources.orm.hibernate.dao.zurple.ManageAlertRule;
 import resources.orm.hibernate.dao.zurple.ManageDistributionRules;
 import resources.orm.hibernate.dao.zurple.ManageEmailQueue;
 import resources.orm.hibernate.dao.zurple.ManageEmails;
@@ -26,6 +27,7 @@ import resources.orm.hibernate.dao.zurple.ManageSite;
 import resources.orm.hibernate.dao.zurple.ManageTransactionGoals;
 import resources.orm.hibernate.dao.zurple.ManageTransactions;
 import resources.orm.hibernate.dao.zurple.ManageUser;
+import resources.orm.hibernate.dao.zurple.ManageUserAlert;
 import resources.orm.hibernate.dao.zurple.ManageViewDetailedProperty;
 import resources.orm.hibernate.models.AbstractLead;
 import resources.orm.hibernate.models.pp.Posts;
@@ -37,6 +39,7 @@ import resources.orm.hibernate.models.z57.NotificationMailgun;
 import resources.orm.hibernate.models.z57.Notifications;
 import resources.orm.hibernate.models.z57.Sites;
 import resources.orm.hibernate.models.zurple.Admin;
+import resources.orm.hibernate.models.zurple.AlertRule;
 import resources.orm.hibernate.models.zurple.DistributionRule;
 import resources.orm.hibernate.models.zurple.Email;
 import resources.orm.hibernate.models.zurple.EmailQueue;
@@ -49,6 +52,7 @@ import resources.orm.hibernate.models.zurple.Site;
 import resources.orm.hibernate.models.zurple.Transaction;
 import resources.orm.hibernate.models.zurple.TransactionGoal;
 import resources.orm.hibernate.models.zurple.User;
+import resources.orm.hibernate.models.zurple.UserAlert;
 import resources.utility.AutomationLogger;
 
 public class TestEnvironment
@@ -460,6 +464,18 @@ public class TestEnvironment
     {
         ManageEmails ml = new ManageEmails(getSession());
         return ml.getEmailByType(pEmailType);
+    }
+    
+    public UserAlert getUserAlertObject(Integer pAlertType)
+    {
+        ManageUserAlert mu = new ManageUserAlert(getSession());
+        return mu.getAlertByType(pAlertType);
+    }
+    
+    public AlertRule getAlertRuleObject(Integer pAlertType)
+    {
+        ManageAlertRule mu = new ManageAlertRule(getSession());
+        return mu.getAlertNameById(pAlertType);
     }
     
     public Listings getListingById(Integer pListingId) {

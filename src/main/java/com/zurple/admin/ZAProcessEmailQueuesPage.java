@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.asserts.SoftAssert;
 
 import com.zurple.my.Page;
 
@@ -125,11 +126,12 @@ public class ZAProcessEmailQueuesPage extends Page{
 	}
 	
 	public void processAlertQueue() {
+		SoftAssert softAssertion= new SoftAssert();
 		assertTrue(isProcessEmailQueuePage(), "Process Email Queue page is not visible...");
 		assertTrue(clickOnAlertQueueButton(), "Unable to click on Alert Queue button...");
 		ActionHelper.staticWait(5);
 		assertTrue(clickOnProcessQueueButton(), "Unable to click on process queue button...");
-		assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");
+		softAssertion.assertTrue(isPorcessingComplete(), "Processing didn't complete in 5 minutes");
 	}
 	public void processImmediateResponderQueue() {
 		assertTrue(isProcessEmailQueuePage(), "Process Email Queue page is not visible...");
@@ -180,6 +182,9 @@ public class ZAProcessEmailQueuesPage extends Page{
 	
 	public void processEmailsQueues(String emailType) {
 		switch(emailType) {
+			case "alerts":
+				processAlertQueue(); 
+				break;
 			case "c1.alert-summary":
 				processAlertQueue();
 				processCreateC1SummaryQueue();

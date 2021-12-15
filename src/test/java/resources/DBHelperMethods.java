@@ -12,7 +12,9 @@ import resources.orm.hibernate.models.z57.NotificationEmails;
 import resources.orm.hibernate.models.z57.NotificationMailgun;
 import resources.orm.hibernate.models.z57.Notifications;
 import resources.orm.hibernate.models.z57.Sites;
+import resources.orm.hibernate.models.zurple.AlertRule;
 import resources.orm.hibernate.models.zurple.Email;
+import resources.orm.hibernate.models.zurple.UserAlert;
 import resources.utility.AutomationLogger;
 
 public class DBHelperMethods {
@@ -243,6 +245,29 @@ public class DBHelperMethods {
 			return null;
 		}
 	}
+	
+	public UserAlert getAlertType(Integer pAlertRuleToVerify) {
+		try {
+			return testEnvironment.getUserAlertObject(pAlertRuleToVerify);
+		}
+		catch(Exception ex) {
+			AutomationLogger.error("No Lead found in User Alerts Table for alert -> "+pAlertRuleToVerify);
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
+	public AlertRule getAlertRuleType(Integer pAlertRuleToVerify) {
+		try {
+			return testEnvironment.getAlertRuleObject(pAlertRuleToVerify);
+		}
+		catch(Exception ex) {
+			AutomationLogger.error("No Lead found in Alert Rule Table for alert -> "+pAlertRuleToVerify);
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
 	public boolean isWebSiteHTTPSEnables(String pWebSite) {
 		boolean isHttpsEnabled = false;
 		try {
