@@ -181,5 +181,4 @@ public class ZAAdminProfilePage extends Page{
 	public void setPassword(String pPassword) {
 		this.l_password = pPassword;
 	}
-
 }
