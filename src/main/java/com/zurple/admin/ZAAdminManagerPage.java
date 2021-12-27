@@ -83,6 +83,9 @@ public class ZAAdminManagerPage extends Page{
 	
 	@FindBy(id="owner_flag")
 	WebElement owner_id;
+	
+	@FindBy(id="update")
+	WebElement update_button;
 		
 	public ZAAdminManagerPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -179,6 +182,35 @@ public class ZAAdminManagerPage extends Page{
 	
 	public boolean verifyOwnerId(String pExpected) {
 		return ActionHelper.getAttribute(owner_id, "value").equalsIgnoreCase(pExpected);
+	}
+	
+	public boolean updateFirstName() {
+		String fName = updateName(ActionHelper.getAttribute(first_name, "value"));
+		return ActionHelper.ClearAndType(driver, first_name, fName);
+	}
+	
+	public boolean updateLastName() {
+		String lName = updateName(ActionHelper.getAttribute(last_name, "value"));
+		return ActionHelper.ClearAndType(driver, last_name, lName);
+	}
+	
+	public boolean updateEmail() {
+		String email = updateEmail(ActionHelper.getAttribute(login_email, "value"));
+		return ActionHelper.ClearAndType(driver, login_email, email);
+	}
+	
+	public boolean updatePhone() {
+		String Phone = ActionHelper.getAttribute(phone, "value").replace('7', '0');
+		return ActionHelper.ClearAndType(driver, phone, Phone);
+	}
+	
+	public boolean updateOfficeName() {
+		String officeName = ActionHelper.getAttribute(office_name, "value")+" Updated";
+		return ActionHelper.ClearAndType(driver, office_name, officeName);
+	}
+	
+	public boolean clickUpdateButton() {
+		return ActionHelper.Click(driver, update_button);
 	}
 	
 }

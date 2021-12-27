@@ -63,4 +63,6 @@ public class ModuleCacheConstants {
 	public static final String ZurpleAgentEmail = "zurple.agent.email";
 	public static final String ZurpleAgentPassword = "zurple.agent.password";
 	public static final String ZurpleAgentIdUrl = "zurple.agent.id.url";
+	public static final String ZapierLeadFName = "zapier.lead.first.name";
+	public static final String ZapierLeadEmail = "zapier.lead.last.name";
 }

@@ -1,6 +1,10 @@
 package com.zurple.rest.zapier;
 
-//Java program to write data in excel sheet using java code
+//Java program to write data in google sheet using java code
+
+/**
+ * @author habibaaq
+ */
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
@@ -17,6 +21,11 @@ import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import com.restapi.RestAPITest;
 import com.restapi.RestResponse;
+
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
+import resources.utility.AutomationLogger;
+
 import com.google.api.client.*;
 
 import java.io.File;
@@ -36,6 +45,8 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.json.JSONObject;
+import org.testng.annotations.Parameters;
 //import org.apache.poi.ss.usermodel.Cell;
 //import org.apache.poi.ss.usermodel.WorkbookFactory;
 //import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -48,20 +59,21 @@ public class ZapierRestImportLead extends RestAPITest{
 	    private static final String APPLICATION_NAME = "Quickstart";
 	    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 	    private static final String TOKENS_DIRECTORY_PATH = "tokens";
+
 	    /**
 	     * Global instance of the scopes required by this quickstart.
 	     * If modifying these scopes, delete your previously saved tokens/ folder.
 	     */
 	    private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS);
 	    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
-
+	    
 	    /**
-	     * Prints the names and majors of students in a sample spreadsheet:
-	     * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+	     * Add a new row in spreadsheet:
+	     * https://docs.google.com/spreadsheets/d/1Vc8xkLBO2uJp7HFXIxQoY-HJwY5TEemTBDQ37vvye1E
 	     */
-	    @Test
-	    public void testVerifyGoogleSheet() throws IOException, GeneralSecurityException{
-	        // Build a new authorized API client service.
+	    
+	    public void testVerifyGoogleSheet(JSONObject dataObject) throws IOException, GeneralSecurityException{
+	    	// Build a new authorized API client service.
 	        NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport(); //new NetHttpTransport();  
 	        final String spreadsheetId = "1Vc8xkLBO2uJp7HFXIxQoY-HJwY5TEemTBDQ37vvye1E";
 	        Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
@@ -70,20 +82,24 @@ public class ZapierRestImportLead extends RestAPITest{
 	        
 	        String range = "A:I";	  
 	        List<String> list1 = new ArrayList<>();
-	        list1.add(updateName("Zapier"));
-	        list1.add(updateName("Import"));
-	        list1.add("14844493826");
-	        list1.add(updateEmail("zapimport_zurpleqa@mailinator.com"));
-	        list1.add("San Diego");
-	        list1.add("92130");
-	        list1.add("7");
-	        list1.add("CA");
-	        list1.add("This is zapier imported lead");
+	        list1.add(updateName(dataObject.optString("first_name")));
+	        list1.add(dataObject.optString("last_name"));
+	        list1.add(dataObject.optString("phone"));
+	        list1.add(updateEmail(dataObject.optString("email")));
+	        list1.add(dataObject.optString("city"));
+	        list1.add(dataObject.optString("zip"));
+	        list1.add(dataObject.optString("street"));
+	        list1.add(dataObject.optString("state"));
+	        list1.add(dataObject.optString("note"));
 	        List<Object> data1 = new ArrayList<>();
 	        data1.addAll(list1);
 	        
 	        List<List<Object>> data = new ArrayList<>();
 	        data.add(data1);
+	        
+	        getDriver();
+	        ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZapierLeadFName, list1.get(0).toString());
+	        ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZapierLeadEmail, list1.get(3).toString());
 	        
 	        ValueRange valueRange=new ValueRange();
 	        valueRange.setValues(data);
@@ -91,20 +107,6 @@ public class ZapierRestImportLead extends RestAPITest{
 	        append(spreadsheetId, range, valueRange)
 	                .setValueInputOption("RAW")
 	                .execute();
-	        
-//	        ValueRange response = service.spreadsheets().values()
-//            .get(spreadsheetId, range)
-//            .execute();
-//    List<List<Object>> values = response.getValues();
-//    if (values == null || values.isEmpty()) {
-//        System.out.println("No data found.");
-//    } else {
-//        for (List row : values) {
-//            // Print columns A and E, which correspond to indices 0 and 4.
-//            System.out.printf("%s, %s\n", row.get(0), row.get(4));
-//        }
-//    }
-
 	    }
 	    
 	    /**
@@ -138,79 +140,3 @@ public class ZapierRestImportLead extends RestAPITest{
 			return false;
 		}
 	}
-	
-	
-//	// any exceptions need to be caught
-//	@Test
-//	public void testVerifyZap() throws Exception
-//	{
-//		// workbook object
-//		try {
-////			XSSFWorkbook workbook = new XSSFWorkbook();
-////		
-////			// spreadsheet object
-////			XSSFSheet spreadsheet = workbook.createSheet(" Student Data ");
-////	
-////			// creating a row object
-//			XSSFRow row;
-//	
-//			String excelFilePath = "https://1drv.ms/x/s!AgAEpogDAeQ6qFAUufdP9haAvs-m?e=iC7qUC";
-//			FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
-//			XSSFWorkbook workbook = (XSSFWorkbook) WorkbookFactory.create(inputStream);
-//			
-//			XSSFSheet spreadsheet = workbook.getSheetAt(0);
-//
-//			// This data needs to be written (Object[])
-//			Map<String, Object[]> studentData = new TreeMap<String, Object[]>();
-//			studentData.put("1", new Object[] { "First Name", "Last Name", "Phone","Email","City","Zip","Street" });
-//	
-//			studentData.put("2", new Object[] { "Aaqib", "ZapImport", "1234567890","testleadimport01_zurpleqa@mailinator.com","San Diego","92130","11" });
-//	
-////			studentData.put(
-////				"3",
-////				new Object[] { "129", "Narayana", "2nd year" });
-////	
-////			studentData.put("4", new Object[] { "130", "Mohan",
-////												"2nd year" });
-////	
-////			studentData.put("5", new Object[] { "131", "Radha",
-////												"2nd year" });
-////	
-////			studentData.put("6", new Object[] { "132", "Gopal",
-////												"2nd year" });
-//	
-//			Set<String> keyid = studentData.keySet();
-//	
-//			//int rowid = 0;
-//	
-//			// writing the data into the sheets...
-//			int rowid = spreadsheet.getPhysicalNumberOfRows();
-//			for (String key : keyid) {				
-//				row = spreadsheet.createRow(rowid++);
-//				Object[] objectArr = studentData.get(key);
-//				int cellid = 0;
-//	
-//				for (Object obj : objectArr) {
-//					Cell cell = row.createCell(cellid++);
-//					cell.setCellValue((String)obj);
-//				}
-//		}
-//	
-//			// .xlsx is the format for Excel Sheets...
-//			// writing the workbook into the file...
-//			FileOutputStream out = new FileOutputStream(new File(System.getProperty("user.dir")+"/Zapier.xlsx"));
-//	
-//			workbook.write(out);
-//			out.close();
-//		} catch(Exception e) {
-//			e.getMessage();
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	@Override
-//	public boolean validateMapResp(RestResponse httpCallResp) throws Exception {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-//}

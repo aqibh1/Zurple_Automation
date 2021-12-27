@@ -72,7 +72,16 @@ public class ZBOLeadDetailPage extends Page{
 
 	@FindBy(xpath="//div[@id='z-lead-notes']/descendant::div[text()='No records found.']")
 	WebElement lead_notes_no_record;
-
+	
+	@FindBy(xpath="//div[@id='z-lead-notes']/descendant::div[text()='Lead was successfully imported from Zapier']")
+	WebElement lead_note_zapier_system;
+	
+	@FindBy(xpath="//div[@id='z-lead-notes']/descendant::div[text()='This is zapier imported lead via Automation tests']")
+	WebElement lead_note_zapier_manual;
+	
+	@FindBy(xpath="//div[@id='z-lead-notes']/descendant::div[text()='Original Lead Source: Zapier']")
+	WebElement lead_note_zapier_source;
+	
 	String email_prefernces_xpath = "//ul[@class='z-lead-preferences z-grid-view-content']/descendant::span";
 	String leadName_xpath = "//div[@id='lead-details-main']/descendant::h2[@class='panel-title']";
 
@@ -410,6 +419,18 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean isNotesEmpty() {
 		return ActionHelper.isElementVisible(driver, lead_notes_no_record);
+	}
+	
+	public boolean isZapierManualNoteEmpty() {
+		return ActionHelper.isElementVisible(driver, lead_note_zapier_manual);
+	}
+	
+	public boolean isZapierSystemNoteEmpty() {
+		return ActionHelper.isElementVisible(driver, lead_note_zapier_system);
+	}
+	
+	public boolean isZapierSourceNoteEmpty() {
+		return ActionHelper.isElementVisible(driver, lead_note_zapier_source);
 	}
 
 	public HashMap<String,String> populateEmailPreferencesMap() {
@@ -1214,6 +1235,9 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public String getLeadSource() {
 		return ActionHelper.getText(driver, lead_souce);
+	}
+	public boolean verifyLeadSource(String Zapier) {
+		return getLeadSource().equalsIgnoreCase(Zapier);
 	}
 	public boolean verifyLocalInfoType(String pType) {
 		boolean isVerified = false;
