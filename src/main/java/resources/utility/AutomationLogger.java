@@ -1,14 +1,15 @@
 package resources.utility;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Reporter;
 
 public class AutomationLogger {
 	
-	private static Logger AutomationLogger = Logger.getLogger(AutomationLogger.class.getName());
+	private static Logger AutomationLogger = LogManager.getLogger(AutomationLogger.class);
 	 // This is to print log for the beginning of the test case, as we usually run so many test cases as a test suite
 	 public static void setLog4jPopFile() {
-		 PropertyConfigurator.configure("log4j.properties");
+//		 PropertyConfigurator.configure("log4j.properties");
 	 }
 	 public static void startTestCase(String pTestCaseName){
 	 
