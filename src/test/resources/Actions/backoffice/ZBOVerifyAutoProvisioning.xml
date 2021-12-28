@@ -5,7 +5,7 @@
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
-       
+     
 <test name="Verify Admin Creation by Auto Provisioning via API calls">	 
 	<parameter name="packageDataFile" value="/resources/data/zurple/backoffice/create_ap_package_data.json"> 
 		<parameter name="adminDataFile" value="/resources/data/zurple/backoffice/create_ap_admin_data.json"> 
@@ -122,11 +122,10 @@
 		</classes>
 	</parameter>
 	</parameter>
-	</test>
+	</test> 
 	
-	<test name="Verify Admin Update by Auto Provisioning from Admin Manager">	 
-	<parameter name="adminIdFile" value="/resources/cache/cache-ap-admin-id-data.json">
-	 <parameter name="adminDataFile" value="/resources/cache/cache-ap-admin-data.json">
+	<test name="Verify Admin Update from Admin Manager">	 
+	<parameter name="dataFile" value="/resources/cache/cache-ap-updated-data.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZAUpdateAdminManagerPageTest">
 				<methods>
@@ -136,11 +135,23 @@
 					<include name= "testUpdateEmail" />
 					<include name= "testUpdatePhone" />
 					<include name= "testUpdateOfficeName" />
+					<include name= "testUpdateLicense" />
 					<include name= "testSubmitUpdates" />					
 				</methods>
-			</class>    
+			</class>
 		</classes>
 	</parameter>
+	</test>
+	
+	<test name="Verify Admin Update by Auto Provisioning via API call">	 
+	<parameter name="dataFile" value="/resources/cache/cache-ap-updated-data.json">
+		<classes>
+			<class name="com.restapi.autoprovision.ZBORestPostFetchNSRecord">
+			    <methods>
+					<include name="testPostFetchNSRecord" />			
+				</methods>
+			</class>
+		</classes>
 	</parameter>
 	</test>
 </suite>
