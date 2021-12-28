@@ -155,6 +155,15 @@ public abstract class AbstractPageTest extends AbstractTest
 		pName=date_to_append+generateRandomInt(1000)+" "+pName;
 		return pName;
     }
+    
+    protected String updatePhoneNumber() {
+		return String.format("(%03d) %03d-%04d", 
+    	        (int) Math.floor(999*Math.random()), 
+    	        (int) Math.floor(999*Math.random()),
+    	        (int) Math.floor(9999*Math.random()));
+    }
+    
+    
     public void closeBootStrapModal() {
     	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
 

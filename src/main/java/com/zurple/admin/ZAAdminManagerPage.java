@@ -86,6 +86,9 @@ public class ZAAdminManagerPage extends Page{
 	
 	@FindBy(id="update")
 	WebElement update_button;
+	
+	@FindBy(id="dre")
+	WebElement update_dre;
 		
 	public ZAAdminManagerPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -184,29 +187,28 @@ public class ZAAdminManagerPage extends Page{
 		return ActionHelper.getAttribute(owner_id, "value").equalsIgnoreCase(pExpected);
 	}
 	
-	public boolean updateFirstName() {
-		String fName = updateName(ActionHelper.getAttribute(first_name, "value"));
+	public boolean updateFirstName(String fName) {
 		return ActionHelper.ClearAndType(driver, first_name, fName);
 	}
 	
-	public boolean updateLastName() {
-		String lName = updateName(ActionHelper.getAttribute(last_name, "value"));
+	public boolean updateLastName(String lName) {
 		return ActionHelper.ClearAndType(driver, last_name, lName);
 	}
 	
-	public boolean updateEmail() {
-		String email = updateEmail(ActionHelper.getAttribute(login_email, "value"));
+	public boolean updatelEmail(String email) {
 		return ActionHelper.ClearAndType(driver, login_email, email);
 	}
 	
-	public boolean updatePhone() {
-		String Phone = ActionHelper.getAttribute(phone, "value").replace('7', '0');
+	public boolean updatePhone(String Phone) {
 		return ActionHelper.ClearAndType(driver, phone, Phone);
 	}
 	
-	public boolean updateOfficeName() {
-		String officeName = ActionHelper.getAttribute(office_name, "value")+" Updated";
+	public boolean updateOfficeName(String officeName) {
 		return ActionHelper.ClearAndType(driver, office_name, officeName);
+	}
+	
+	public boolean updateLicense(String license) {
+		return ActionHelper.ClearAndType(driver, update_dre, license);
 	}
 	
 	public boolean clickUpdateButton() {
