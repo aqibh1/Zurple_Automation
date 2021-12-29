@@ -40,6 +40,27 @@ public class ZBOLeadStatusFiltersPage extends Page{
 	
 	private ZBOLeadCRMPage leadCRMObject;
 	
+	@FindBy(xpath="//a[@href='/leads/crm/ext/active1']")
+	WebElement prospect_active_filter_crm;
+	
+	@FindBy(xpath="//a[@href='/leads/crm/ext/new']")
+	WebElement prospect_new_filter_crm; 
+	
+	@FindBy(xpath="//a[@href='/leads/crm/ext/prospect1']")
+	WebElement prospect_unresponsive_filter_crm;
+	
+	@FindBy(xpath="//a[@href='/leads/crm/ext/prospect2']")
+	WebElement prospect_communicated_filter_crm;
+	
+	@FindBy(xpath="//a[@href='/leads/crm/ext/client']")
+	WebElement client_active_filter_crm;
+
+	@FindBy(xpath="//a[@href='/leads/crm/ext/client2']")
+	WebElement client_sold_filter_crm;
+	
+	@FindBy(xpath="//a[@href='/leads/crm/ext/inactive']")
+	WebElement client_inactive_filter_crm;
+	
 	public ZBOLeadStatusFiltersPage() {
 	}
 
@@ -81,9 +102,39 @@ public class ZBOLeadStatusFiltersPage extends Page{
 			break;
 		}
 	}
+		
+		public void selectCRMFilter(String filter) {
+			switch(filter) {
+			case "new":
+				ActionHelper.Click(driver, prospect_new_filter_crm);
+				break;
+			case "unresponsive":
+				ActionHelper.Click(driver, prospect_unresponsive_filter_crm);
+				break;
+			case "active":
+				ActionHelper.Click(driver, prospect_active_filter_crm);
+				break;
+			case "communicated":
+				ActionHelper.Click(driver, prospect_communicated_filter_crm);
+				break;
+			case "opportunity":
+				ActionHelper.Click(driver, client_active_filter_crm);
+				break;
+			case "sold":
+				ActionHelper.Click(driver, client_sold_filter_crm);
+				break;
+			case "inactive":
+				ActionHelper.Click(driver, client_inactive_filter_crm);
+				break;
+			}
+	}
 
 	public boolean searchStatusLead(String pNameEmail) {
 		return leadCRMObject.searchLeadCustomizedList(pNameEmail);
+	}
+	
+	public boolean searchCRMStatusLead(String pNameEmail) {
+		return leadCRMObject.searchLead(pNameEmail);
 	}
 	
 	public String pageTitle() {
