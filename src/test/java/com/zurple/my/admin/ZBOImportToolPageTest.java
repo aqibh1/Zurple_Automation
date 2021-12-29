@@ -83,9 +83,9 @@ public class ZBOImportToolPageTest extends PageTest{
 		assertTrue(emailVerification(),"Unable to verify lead source..");
 		page=null;
 		getPage(currentUrl);
-		if(!getIsProd()) {
-			assertTrue(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
-		}
+//		if(!getIsProd()) {
+//			assertTrue(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
+//		}
 		assertEquals(page.getMassEmailSettings(),"Yes");
 	}
 	
@@ -127,9 +127,9 @@ public class ZBOImportToolPageTest extends PageTest{
 		assertTrue(emailVerification(),"Unable to verify lead source..");
 		page=null;
 		getPage(currentUrl);
-		if(!getIsProd()) {
-			assertTrue(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
-		}
+//		if(!getIsProd()) {
+//			assertTrue(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
+//		}
 		assertEquals(page.getMassEmailSettings(),"No");
 	}
 	

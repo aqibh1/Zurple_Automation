@@ -60,6 +60,7 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
     		statusFilter = lDataObject.optString("lead_filters");
     		statusFilter = statusFilter.split(",")[i];
     		verifyLeadFilter(lDataObject,statusFilter,"With Status: "+leadStatus);
+    		verifyCRMLeadsFilter(lDataObject,statusFilter,leadStatus);
     	}
     }
     
@@ -70,5 +71,14 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
     	assertEquals(page.pageTitle().trim(),pPageTitle);
     	String leadName = pDataObject.optString("leadNameEmail");
     	assertTrue(page.searchStatusLead(leadName),"Unable to search lead..");
+    }
+    
+    public void verifyCRMLeadsFilter(JSONObject pDataObject, String pfilterName, String pPageTitle) {
+    	page=null;
+    	getPage("/leads/crm");
+    	page.selectCRMFilter(pfilterName);
+    	assertEquals(page.pageTitle().trim(),pPageTitle);
+    	String leadName = pDataObject.optString("leadNameEmail");
+    	assertTrue(page.searchCRMStatusLead(leadName),"Unable to search lead..");
     }
 }
