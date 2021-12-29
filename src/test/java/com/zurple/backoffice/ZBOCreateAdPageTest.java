@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.SkipException;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.zurple.backoffice.ads.ZBOAdsOverviewPage;
@@ -24,6 +25,7 @@ import resources.AbstractPage;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.blocks.zurple.ZBOHeadersBlock;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
@@ -45,12 +47,15 @@ public class ZBOCreateAdPageTest extends PageTest{
 	private String lDefaultCity = "";
 	private String bl_ad_budget = "";
 	private String bl_quick_ad_budget;
+	private ZBOAgentsPageTest agentPageTest;
+	
 	@Override
 	public AbstractPage getPage() {
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOCreateAdPage(driver);
 			setLoginPage(driver);
+			agentPageTest = new ZBOAgentsPageTest();
 			page.setUrl("");
 			page.setDriver(driver);
 		}
@@ -61,6 +66,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		if(page==null) {
 			driver = getDriver();
 			page = new ZBOCreateAdPage(driver);
+			agentPageTest = new ZBOAgentsPageTest();
 			setLoginPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
@@ -71,12 +77,14 @@ public class ZBOCreateAdPageTest extends PageTest{
 		if(page==null && !pSetupForcefully) {
 			driver = getDriver();
 			page = new ZBOCreateAdPage(driver);
+			agentPageTest = new ZBOAgentsPageTest();
 			setLoginPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
 		}else if(page!=null && pSetupForcefully){
 			driver = getDriver();
 			page = new ZBOCreateAdPage(driver);
+			agentPageTest = new ZBOAgentsPageTest();
 			setLoginPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
@@ -1061,7 +1069,9 @@ public class ZBOCreateAdPageTest extends PageTest{
 		String l_city = page.getDefaultCity().split(",")[0];
 		clickOnNextStepPreCond();
 		assertTrue(page.verifyAdCitySection3(l_city), "City is not correct on step 3..");
-		assertTrue(page.verifyAdReachSection3(bl_quick_ad_budget), "Unable to click on select plan button");
+		if(bl_quick_ad_budget!=null) {
+			assertTrue(page.verifyAdReachSection3(bl_quick_ad_budget), "Unable to click on select plan button");
+		}
 		assertTrue(page.isSection3EditButtonEnabled(),"Edit button is not enabled for step 3..");
 	}
 	
@@ -1186,6 +1196,35 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isScrolledSuccessful("Listing"), "Page did not scroll on clicking the button");
 	}
 	
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyPaymentPlanButtonIsVisibleOn4thStepOfAdCreation(String pDataFile) {
+		getPage();
+		preConditionForAddBilling(pDataFile);
+		testVerifyUserIsRedirectedToStep3OnClickingSelectButtonQuickBuyerLeadsAd();
+		testVerifyCorrectDataIsDisplayedOnStep3WhenUserLandsOnStep4BuyerLeadQuickAds();
+		testVerifyTestAdChecboxIsCheckedForBuyerLeadsQuickAd();
+		assertTrue(page.isConfirmPaymentPlanButtonVisible(), "Confirm Payment Plan button is not visible on 4th step");
+	}
+	
+	@Test
+	public void testVerifyConfirmPaymentPlanButtonTakesUserToCreditCardDialog() {
+		assertTrue(page.clickOnConfirmPaymentButton(), "Unable to click on Confirm Payment button");
+		assertTrue(page.getCreditCardForm().isAddCreditCardForm(), "Credit card form is not visible..");
+	}
+	
+	@Test
+	public void testVerifyPlaceAdButtonGetsEnabledAfterCreditCardInfoIsAdded() {
+		addCreditCardPaymentPlan(dataObject);
+		assertTrue(page.isPlaceAdButtonEnabled(), "Place Ad Button is not enabled..");
+	}
+	
+	@Test
+	public void testVerifyPlaceAdButtonTakesUserToAdsOverviewPage() {
+		assertTrue(page.clickOnPlaceAdButton(),"Unable to click on place ad button");
+		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
+		assertTrue(adsOverviewPage.isAdsOverviewPage(), "User is not redirected to ads overview page");
+	}
 	//Pre Condition verification method
 	public void clickOnCustomAdButtonAndSelectListing() {
 		if(!page.clickOnCustomAdButton()) {
@@ -1243,7 +1282,41 @@ public class ZBOCreateAdPageTest extends PageTest{
 		return l_ad_id;
 	}
 	
+	public void preConditionForAddBilling(String pDataFile) {
+		addAgent(pDataFile);
+		//Logout
+		ZBOHeadersBlock headers = new ZBOHeadersBlock(driver);
+		assertTrue(headers.logoutFromBackOffice(), "Unable to logout from back office.");
+		//Login with agent email
+		String l_agent_email = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAgentEmail);
+		String l_agent_password = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAgentPassword);
+		assertTrue(getLoginPage().doLogin(l_agent_email, l_agent_password), "Unable to login");
+	}
+	
+	public void postConditionsForBilling() {
+		ZBOHeadersBlock headers = new ZBOHeadersBlock(driver);
+		assertTrue(headers.logoutFromBackOffice(), "Unable to logout from back office.");
+		assertTrue(getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword()), "Unable to login");
+		String l_agent_Details_url = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAgentIdUrl);
+		agentPageTest.deleteAgentFromAgentDetailsPage(l_agent_Details_url);
+	}
+	private void addAgent(String pDataFile) {
+		agentPageTest.testCreateAgents(pDataFile);
+	}
 
+	public void addCreditCardPaymentPlan(JSONObject pDataObject) {
+		assertTrue(page.getCreditCardForm().typeStreet(pDataObject.optString("street")), "Unable to type street");
+		assertTrue(page.getCreditCardForm().typeCity(pDataObject.optString("city")), "Unable to type City");
+		assertTrue(page.getCreditCardForm().clickAndSelectState(pDataObject.optString("state")), "Unable to type state");
+		assertTrue(page.getCreditCardForm().typeZip(pDataObject.optString("zip_code")), "Unable to type Zip Code");
+		assertTrue(page.getCreditCardForm().typeCCName(pDataObject.optString("cc_holder_name")), "Unable to type Card Holder Name");
+		assertTrue(page.getCreditCardForm().clickAndSelectCardType(pDataObject.optString("cc_type")), "Unable to select  Card Type");
+		assertTrue(page.getCreditCardForm().typeCCNumber(pDataObject.optString("cc_number")), "Unable to type credit card number");
+		assertTrue(page.getCreditCardForm().clickAndSelectCardExpiryMonth(pDataObject.optString("cc_expiry_month")), "Unable to select expiry month");
+		assertTrue(page.getCreditCardForm().clickAndSelectCardExpiryYear(pDataObject.optString("cc_expiry_year")), "Unable to select expiry year");
+		
+	}
+	
 	@AfterTest
 	public void closeBrowser() {
 		closeCurrentBrowser();

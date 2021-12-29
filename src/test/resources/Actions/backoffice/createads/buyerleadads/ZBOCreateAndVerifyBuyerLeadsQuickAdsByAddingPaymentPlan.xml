@@ -1,0 +1,35 @@
+<suite name="Buyer Leads Quick And Custom Ads"
+	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+
+	<test name="Create and Verify Buyer Leads Quick Ad">
+	 <parameter name="dataFile"
+  		value="/resources/data/zurple/backoffice/agent-data-ad-billing.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>
+					<include name="testVerifyPaymentPlanButtonIsVisibleOn4thStepOfAdCreation" />
+					<include name="testVerifyConfirmPaymentPlanButtonTakesUserToCreditCardDialog" />
+					<include name="testVerifyPlaceAdButtonGetsEnabledAfterCreditCardInfoIsAdded" />
+					<include name="testVerifyPlaceAdButtonTakesUserToAdsOverviewPage" />
+			</methods>
+			</class>
+				<class name="com.zurple.backoffice.admin.ZAAdsManagerPageTest">
+				<methods>
+					<include name="testVerifyStatusOfTheQuickBuyerListingAdFromAdsManager" />
+					<include name="testVerifyBudgetOfTheQuickBuyerListingAdFromAdsManager" />
+					<include name="testVerifyAdDurationOfTheQuickBuyerListingAdFromAdsManager" />
+					<include name="testVerifyAdLocationOfTheQuickBuyerListingAdFromAdsManger" />
+				</methods>
+			</class>
+		</classes>
+		</parameter> 
+	</test>
+</suite>
