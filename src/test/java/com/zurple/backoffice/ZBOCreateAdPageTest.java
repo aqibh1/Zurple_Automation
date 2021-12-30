@@ -1203,7 +1203,8 @@ public class ZBOCreateAdPageTest extends PageTest{
 		preConditionForAddBilling(pDataFile);
 		testVerifyUserIsRedirectedToStep3OnClickingSelectButtonQuickBuyerLeadsAd();
 		testVerifyCorrectDataIsDisplayedOnStep3WhenUserLandsOnStep4BuyerLeadQuickAds();
-		testVerifyTestAdChecboxIsCheckedForBuyerLeadsQuickAd();
+//		testVerifyTestAdChecboxIsCheckedForBuyerLeadsQuickAd();
+		clickOnTermsAndConditionCheckbox();
 		assertTrue(page.isConfirmPaymentPlanButtonVisible(), "Confirm Payment Plan button is not visible on 4th step");
 	}
 	
@@ -1214,7 +1215,9 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	
 	@Test
-	public void testVerifyPlaceAdButtonGetsEnabledAfterCreditCardInfoIsAdded() {
+	@Parameters({"dataFile1"})
+	public void testVerifyPlaceAdButtonGetsEnabledAfterCreditCardInfoIsAdded(String pDataFile) {
+		JSONObject dataObject = getDataFile(pDataFile);
 		addCreditCardPaymentPlan(dataObject);
 		assertTrue(page.isPlaceAdButtonEnabled(), "Place Ad Button is not enabled..");
 	}
@@ -1314,7 +1317,8 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.getCreditCardForm().typeCCNumber(pDataObject.optString("cc_number")), "Unable to type credit card number");
 		assertTrue(page.getCreditCardForm().clickAndSelectCardExpiryMonth(pDataObject.optString("cc_expiry_month")), "Unable to select expiry month");
 		assertTrue(page.getCreditCardForm().clickAndSelectCardExpiryYear(pDataObject.optString("cc_expiry_year")), "Unable to select expiry year");
-		
+		assertTrue(page.getCreditCardForm().clickOnSaveButton(), "Unable to click on Save button");
+		assertTrue(page.getCreditCardForm().isCardAddedSuccessfully(), "Card is not added successfully");
 	}
 	
 	@AfterTest

@@ -289,6 +289,7 @@ public class ZBOCreateAdPage extends Page{
 	public ZBOCreateAdPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		setSelectListingAlert();
+		setCreditCardForm();
 		setAlert();
 		PageFactory.initElements(driver, this);
 	}
