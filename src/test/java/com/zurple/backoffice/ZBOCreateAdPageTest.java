@@ -1196,6 +1196,10 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isScrolledSuccessful("Listing"), "Page did not scroll on clicking the button");
 	}
 	
+	/**
+	 * Verify if billing is not added 'Confirm Payment' plan is visible on step 4 of Buyer Lead Ads
+	 * 47667
+	 */
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyPaymentPlanButtonIsVisibleOn4thStepOfAdCreation(String pDataFile) {
@@ -1208,12 +1212,20 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isConfirmPaymentPlanButtonVisible(), "Confirm Payment Plan button is not visible on 4th step");
 	}
 	
+	/**
+	 * Verify on step 4 clicking on 'Confirm Payment' plan takes user to Credit Card info dialog
+	 * 47668
+	 */
 	@Test
 	public void testVerifyConfirmPaymentPlanButtonTakesUserToCreditCardDialog() {
 		assertTrue(page.clickOnConfirmPaymentButton(), "Unable to click on Confirm Payment button");
 		assertTrue(page.getCreditCardForm().isAddCreditCardForm(), "Credit card form is not visible..");
 	}
 	
+	/**
+	 * Verify that 'Place Ad' button gets enabled when Credit Card info is added
+	 * 47669
+	 */
 	@Test
 	@Parameters({"dataFile1"})
 	public void testVerifyPlaceAdButtonGetsEnabledAfterCreditCardInfoIsAdded(String pDataFile) {
@@ -1222,6 +1234,10 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.isPlaceAdButtonEnabled(), "Place Ad Button is not enabled..");
 	}
 	
+	/**
+	 * Verify user is redirected to Ads Overview page after adding payment plan and clicking place ad button
+	 * 47697
+	 */
 	@Test
 	public void testVerifyPlaceAdButtonTakesUserToAdsOverviewPage() {
 		assertTrue(page.clickOnPlaceAdButton(),"Unable to click on place ad button");
