@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;
@@ -56,8 +57,9 @@ public class ZBOV2TemplatePageTest extends PageTest{
 		AutomationLogger.startTestCase("Verify V2 site settings");
 		dataObject = getDataFile(pDataFile);
 		getPage();
-		siteId = getIsProd()?dataObject.optString("site_id_prod"):dataObject.optString("site_id_stage");
-		domainName = getIsProd()?dataObject.optString("domain_name_prod"):dataObject.optString("domain_name_stage");
+		siteId =EnvironmentFactory.configReader.getPropertyByName("site_id");// getIsProd()?dataObject.optString("site_id_prod"):dataObject.optString("site_id_stage");
+//		domainName = getIsProd()?dataObject.optString("domain_name_prod"):dataObject.optString("domain_name_stage");
+		domainName = getDomainName();
 		page=null;
 		getPage("/pagemgr/index/site_id/"+siteId);
 		assertEquals(page.getDomainName(),domainName);
