@@ -84,7 +84,9 @@ public class ZBOCreateTemplatePageTest extends PageTest{
 			lPlaceholderValue = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").replace("https://www.", "");
 
 		}else {
-			lPlaceholderValue = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").replace("http://www.stage01.", "");
+			String environment = System.getProperty("environment");
+			lPlaceholderValue = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").split(environment+".")[1];
+//			lPlaceholderValue = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").replace("https://www."+environment+".", "");
 		}
 				
 		
