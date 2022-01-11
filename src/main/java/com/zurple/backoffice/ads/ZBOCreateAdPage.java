@@ -289,6 +289,7 @@ public class ZBOCreateAdPage extends Page{
 	public ZBOCreateAdPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		setSelectListingAlert();
+		setCreditCardForm();
 		setAlert();
 		PageFactory.initElements(driver, this);
 	}
@@ -975,6 +976,13 @@ public class ZBOCreateAdPage extends Page{
 	 public boolean clickOnConfirmPaymentButton() {
 		 return ActionHelper.Click(driver, confirm_payment_btn);
 	 }
+	 public boolean isConfirmPaymentPlanButtonVisible() {
+		 return ActionHelper.isElementVisible(driver, confirm_payment_btn);
+	 }
+	 public boolean isPlaceAdButtonEnabled() {
+		 return ActionHelper.isElementVisible(driver, fb_placead_callout);
+	 }
+	 
 	 private String getRenewalDate(String pAdId) {
 		 String l_renewalDATE = "";
 		 l_renewalDATE = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, ad_date, pAdId));

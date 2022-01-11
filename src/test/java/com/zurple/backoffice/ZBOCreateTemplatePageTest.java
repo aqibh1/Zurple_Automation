@@ -16,7 +16,6 @@ import com.zurple.backoffice.marketing.ZBOTemplateManagerPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
-import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
@@ -79,14 +78,7 @@ public class ZBOCreateTemplatePageTest extends PageTest{
 		assertTrue(page.typeTemplateSubject(lTemplateSubject), "Unable to type template subject..");
 		assertTrue(page.typeTemplateBody(dataObject.optString("template_body")), "Unable to type template body");
 		String lTemplateBody = dataObject.optString("template_body").split("%")[0].trim();
-		String lPlaceholderValue = "";
-		if(getIsProd()) {
-			lPlaceholderValue = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").replace("https://www.", "");
-
-		}else {
-			lPlaceholderValue = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").replace("http://www.stage01.", "");
-		}
-				
+		String lPlaceholderValue = getDomainName();
 		
 		//For Attachment of the file
 		if(dataObject.optString("file_path")!=null && !dataObject.optString("file_path").isEmpty()) {

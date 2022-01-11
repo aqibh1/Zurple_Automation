@@ -256,6 +256,7 @@ public class ZACreateSellerLeadsAdPageTest extends PageTest{
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.AdBudget, l_budget);
 		assertTrue(page.typeAndSelectPackage(l_package_id), "Unable to select the package");
 		assertTrue(page.typeAndSelectAdmin(l_admin_id), "Unable to select the admin");
+		assertTrue(page.selectAdFormat("SL"), "Unable to select the Ad format");
 		assertTrue(page.typeBudget(l_budget), "Unable to type ad budget");
 		assertTrue(page.typeZipCode(pDataObject.optString("zip_code")), "Unable to type ad zip code");
 		assertTrue(page.typeAdCity(pDataObject.optString("main_city")), "Unable to type main city");
