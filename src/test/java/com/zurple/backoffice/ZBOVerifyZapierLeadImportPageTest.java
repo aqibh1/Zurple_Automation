@@ -23,10 +23,8 @@ import resources.utility.ActionHelper;
 
 public class ZBOVerifyZapierLeadImportPageTest extends PageTest {
 	private WebDriver driver;
-	ZapierRestImportLead zapier = new ZapierRestImportLead();
 	ZBOLeadCRMPage page;
 	private JSONObject dataObject;
-	int counter = 0;
 	ZBOLeadDetailPage leadDetails;
 	String lFName,lEmail = "";
 	
@@ -66,6 +64,7 @@ public class ZBOVerifyZapierLeadImportPageTest extends PageTest {
 	@Parameters({"datafile"})
 	public void testVerifyZapierImportedLeads(String pDataFile) throws IOException, GeneralSecurityException {
 		getPage();
+		ZapierRestImportLead zapier = new ZapierRestImportLead();
 		dataObject = getDataFile(pDataFile);
 		zapier.testVerifyGoogleSheet(dataObject);
 		leadDetails = new ZBOLeadDetailPage(driver);
@@ -73,15 +72,7 @@ public class ZBOVerifyZapierLeadImportPageTest extends PageTest {
 		getPage("/leads/crm");
 		lEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZapierLeadEmail);
 		lFName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZapierLeadFName);
-		boolean isLeadFound = false;
-		while(!isLeadFound || counter!=2) {
-			isLeadFound = page.searchLeadByEmail(lEmail);
-			if(isLeadFound) {
-				break;
-			}
-			ActionHelper.staticWait(30);
-			counter++;
-		}
+		boolean isLeadFound = verifyIsLeadFound();
 		assertTrue(page.clickSearchedLeadName(),"Unable to click searched lead name..");
 		ActionHelper.staticWait(7);
 		ActionHelper.switchToOriginalWindow(driver);
@@ -118,6 +109,20 @@ public class ZBOVerifyZapierLeadImportPageTest extends PageTest {
 		assertTrue(leadDetails.isZapierManualNoteEmpty(),"Unable to verify zapier manually added lead note..");
 		assertTrue(leadDetails.isZapierSystemNoteEmpty(),"Unable to verify zapier system added lead note..");
 		assertTrue(leadDetails.isZapierSourceNoteEmpty(),"Unable to verify zapier system added lead note for source..");
+	}
+	
+	public boolean verifyIsLeadFound() {
+		boolean isLeadFound = false;
+		int counter = 0;
+		while(!isLeadFound || counter!=2) {
+			isLeadFound = page.searchLeadByEmail(lEmail);
+			if(isLeadFound) {
+				break;
+			}
+			ActionHelper.staticWait(30);
+			counter++;
+		}
+		return isLeadFound;
 	}
 
 	@AfterTest
