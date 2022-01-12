@@ -98,7 +98,11 @@ public class ZAAdsManagerPageTest extends PageTest{
 	@Test
 	public void testVerifyAdLocationOfTheQuickListingAdFromAdsManger() {
 		String l_ad_location = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleQLADefaultCity);
-		assertTrue(verifyAdLocation(l_ad_location), "Unable to verify ad location");
+		String l_loc[] = l_ad_location.split(",");
+		for(String loc: l_loc) {
+			assertTrue(verifyAdLocation(loc), "Unable to verify ad location");
+		}
+		
 	}
 	
 	/**
@@ -234,7 +238,7 @@ public class ZAAdsManagerPageTest extends PageTest{
 	private boolean verifyAdDuration(int pDays) {
 		boolean isVerifed = false;
 		String l_start_date = page.getAdStartingDate();
-		String l_end_date = page.getAdEndingDate();
+		String l_end_date = getTodaysDate();
 		if(!l_start_date.isEmpty() && !l_end_date.isEmpty()) {
 			l_start_date = l_start_date.split(" ")[0];
 			String l_today_date = getTodaysDate("yyyy-MM-dd");

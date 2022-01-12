@@ -336,11 +336,11 @@ public class ZBOAdsOverviewPage extends Page{
 		 return lDays==30;	
 	 }
 	 public boolean verifyRenewalDate(String pAdId){
-		 String l_consolidatedStartingDate = getStartingEndingDate(false,pAdId);
+		 String l_consolidatedStartingDate = getStartingEndingDate(true,pAdId);
 		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		 Date renewalDate = null, startDate = null;
 		 try {
-			 renewalDate = (Date) sdf.parseObject(getRenewalDate());
+			 renewalDate = (Date) sdf.parseObject(getStartingEndingDate(false,pAdId));
 			 startDate = (Date) sdf.parseObject(l_consolidatedStartingDate);
 		 } catch (ParseException e) {
 			 // TODO Auto-generated catch block
@@ -407,7 +407,7 @@ public class ZBOAdsOverviewPage extends Page{
 	
 	 public String getAdLocation(String pAdId) {
 		 String l_adLocation = "";
-		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, l_adLocation, pAdId));
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_location, pAdId));
 		 if(elements_list.size()>0) {
 			 l_adLocation = ActionHelper.getText(driver, elements_list.get(0));
 		 }
