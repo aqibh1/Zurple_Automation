@@ -22,7 +22,6 @@ import com.zurple.backoffice.ads.ZBOCreateAdPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
-import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.blocks.zurple.ZBOHeadersBlock;
@@ -169,7 +168,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	@Test
 	public void testQuickAdDomainDomainIsCorrect()  {
 		getPage("/create-ad/step-one",true);
-		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").split("www.")[1].trim();
+		String l_domain = getDomainName();// EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").split("www.")[1].trim();
 		assertTrue(page.getQuickAdDomain().contains(l_domain), "Correct domain is not visible in Quick Ad box..");
 	}
 	@Test
@@ -365,7 +364,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	public void testVerifyDomainFromAdsPreviewStep2() {
 		getPage("/create-ad/step-one",true);
 		clickOnCustomAdButtonAndSelectListing();
-		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		String l_domain =getDomainName();// EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
 		assertTrue(page.getQuickAdDomain().contains(l_domain), "Correct domain is not displayed under Facebook ads preview..");		
 	}
 	
@@ -373,7 +372,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	public void testVerifySelectSiteDropDown() {
 		getPage("/create-ad/step-one",true);
 		clickOnCustomAdButtonAndSelectListing();
-		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		String l_domain = getDomainName();//.configReader.getPropertyByName("zurple_site_base_url");
 		if(!getIsProd()) {
 		assertTrue(page.isSelectDestinationLabelVisible(), "Select destination site label is not visible..");	
 		assertTrue(page.selectSite(l_domain), "Unable to select site from dropdown");
@@ -386,7 +385,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	public void testVerifyDataWhenSelectIsClickedOnStep2() {
 		getPage("/create-ad/step-one",true);
 		clickOnCustomAdButtonAndSelectListing();
-		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		String l_domain = getDomainName();//.configReader.getPropertyByName("zurple_site_base_url");
 		String lAdHeading = page.isAdHeadingPopulated();
 		String lAdDescription = page.isAdDescPopulated();
 		lAdDescription = lAdDescription.replace("<br/>", "");
@@ -572,7 +571,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	@Test
 	public void testVerifyUserLandsToStep3WhenQuickAdIsSelected(){
 		getPage("/create-ad/step-one",true);
-		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		String l_domain = getDomainName();//EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
 		assertTrue(page.clickOnQuickAdsSelectButton(), "Unable to click on select button");
 		assertTrue(page.verifyStep3Heading("Choose Audience & Reach"), "Unable to verify step3 heading..");
 		assertTrue(!page.getListingAddress().isEmpty(), "Listing address on step2 section 1 is not same as step 1");
@@ -613,14 +612,16 @@ public class ZBOCreateAdPageTest extends PageTest{
 		clickOnPausedAdCheckbox();
 		clickOnPlaceAdAButton();
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.getListingAddressFirstRow().contains(listing_Address), "Unable to verify listing address on ads overview page.."+"["+listing_Address+"]");	
+		assertTrue(adsOverviewPage.getListingAddressFirstRow(getAdId()).contains(listing_Address), "Unable to verify listing address on ads overview page.."+"["+listing_Address+"]");	
 	}
 	
 	@Test
 	public void testCreateAndVerifyMultipleCitiesQuickAd()  {
 		getPage("/create-ad/step-one",true);
-		String lAddedCity = "San Diego, CA";
+		String lAddedCity = "San Jose, CA";
 		clickOnQuickAdsSelectAButton();
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleAdId, driver.getCurrentUrl());
+		
 		listing_Address = page.getListingAddressValue();
 		lDefaultCity = page.getDefaultCity();
 		lAd_budget = page.isMediumReachSelectedByDefault()?"$240":"";
@@ -630,9 +631,11 @@ public class ZBOCreateAdPageTest extends PageTest{
 		clickOnTermsAndConditionCheckbox();
 		clickOnPausedAdCheckbox();
 		clickOnPlaceAdAButton();
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleQLADefaultCity, lDefaultCity+","+lAddedCity);
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleQLABudget, lAd_budget);
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.getAdLocation().contains(lDefaultCity.split(",")[0].trim()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity.split(",")[0]+"]");	
-		assertTrue(adsOverviewPage.getAdLocation().contains(lAddedCity.split(",")[0].trim()), "Unable to verify ad location on ads overview page.."+"["+lAddedCity.split(",")[0]+"]");	
+		assertTrue(adsOverviewPage.getAdLocation(getAdId()).contains(lDefaultCity.split(",")[0].trim()), "Unable to verify ad location on ads overview page.."+"["+lDefaultCity.split(",")[0]+"]");	
+		assertTrue(adsOverviewPage.getAdLocation(getAdId()).contains(lAddedCity.split(",")[0].trim()), "Unable to verify ad location on ads overview page.."+"["+lAddedCity.split(",")[0]+"]");	
 	}
 	
 	@Test
@@ -688,7 +691,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		clickOnPausedAdCheckbox();
 		clickOnPlaceAdAButton();
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.getListingAddressFirstRow().contains(listing_Address), "Unable to verify listing address on ads overview page.."+"["+listing_Address+"]");	
+		assertTrue(adsOverviewPage.getListingAddressFirstRow(getAdId()).contains(listing_Address), "Unable to verify listing address on ads overview page.."+"["+listing_Address+"]");	
 	}
 	
 	@Test
@@ -735,13 +738,13 @@ public class ZBOCreateAdPageTest extends PageTest{
 	@Test
 	public void testCreateAndVerifyCustomAdDuration(){
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.verifyStartingEndingDate(), "Unable to verify starting and ending date of the ad");	
+		assertTrue(adsOverviewPage.verifyStartingEndingDate(getAdId()), "Unable to verify starting and ending date of the ad");	
 	}
 	
 	@Test
 	public void testCreateAndVerifyCustomAdRenewalDate(){
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.verifyRenewalDate(), "Unable to verify renewal date of quick ad");	
+		assertTrue(adsOverviewPage.verifyRenewalDate(getAdId()), "Unable to verify renewal date of quick ad");	
 	}
 	@Test
 	public void testCreateAndVerifyCustomAdStatus()  {
@@ -751,7 +754,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	@Test
 	public void testVerifyQuickAdStartDateIsCorrect()  {
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.verifyStartDate(), "Start date is not correct...");	
+		assertTrue(adsOverviewPage.verifyStartDate(getAdId()), "Start date is not correct...");	
 	}
 	@Test
 	public void testVerifyUserIsRedirectedToAdsOverviewPage()  {
@@ -855,7 +858,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	
 	@Test //40508
 	public void testVerifyDomainFromAdsPreviewStep2ForBuyerLeadAds() {
-		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		String l_domain =getDomainName();// EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
 		assertTrue(page.getQuickAdDomain().contains(l_domain), "Correct domain is not displayed under Facebook ads preview..");		
 	}
 	@Test //40509
@@ -865,7 +868,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	
 	@Test //40510
 	public void testVerifyDataWhenSelectIsClickedOnStep2ForBuyerLeadsAd() {
-		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		String l_domain = getDomainName();// EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
 		String lAdHeading = page.isAdHeadingPopulated();
 		String lAdDescription = page.isAdDescPopulated();
 		lAdDescription = lAdDescription.replace("<br/>", "");
@@ -995,7 +998,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "headline","Buyer Lead Ad"),"Unable to get ad heading type for ad: "+getAdId());
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		assertTrue(adsOverviewPage.getAdType().equalsIgnoreCase("Buyer Lead Ad"), "Buyer Lead heading is not displayed on ads overview page.."+"[Buyer Lead Ad]");	
-		assertTrue(adsOverviewPage.getListingAddressFirstRow().equalsIgnoreCase("Custom Ad"), "Buyer Lead heading is not displayed on ads overview page.."+"[Buyer Lead Ad]");	
+		assertTrue(adsOverviewPage.getListingAddressFirstRow(getAdId()).equalsIgnoreCase("Custom Ad"), "Buyer Lead heading is not displayed on ads overview page.."+"[Buyer Lead Ad]");	
 		assertTrue(adsOverviewPage.verifyBuyerLeadAdIcon(), "Unable to verify buer lead ad icon");	
 	}
 	
@@ -1029,7 +1032,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}	
 	@Test //40557
 	public void testVerifyDomainFromAdsPreviewOnStep3ForBuyerLeadAds() {
-		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		String l_domain = getDomainName();// EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
 		assertTrue(page.getQuickAdDomain().contains(l_domain), "Correct domain is not displayed under Facebook ads preview..");		
 	}
 	@Test //40558
@@ -1038,7 +1041,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	}
 	@Test //40559
 	public void testVerifyRecapOfStep2FromStep3BuyerLeadQuickAds(){
-		String l_domain = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
+		String l_domain =getDomainName();// EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url");
 //		assertTrue(page.clickOnQuickAdsSelectButton(), "Unable to click on select button");
 		assertTrue(page.verifyStep3Heading("Choose Audience & Reach"), "Unable to verify step3 heading..");
 		assertTrue(!page.getListingAddress().isEmpty(), "Listing address on step2 section 1 is not same as step 1");
@@ -1150,7 +1153,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "headline","Buyer Lead Ad"),"Unable to get ad headline type for ad: "+getAdId());
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 		assertTrue(adsOverviewPage.getAdType().equalsIgnoreCase("Buyer Lead Ad"), "Buyer Lead heading is not displayed on ads overview page.."+"[Buyer Lead Ad]");	
-		assertTrue(adsOverviewPage.getListingAddressFirstRow().contains("Quick Ad"), "Buyer Lead heading is not displayed on ads overview page.."+"[Buyer Lead Ad]");	
+		assertTrue(adsOverviewPage.getListingAddressFirstRow(getAdId()).contains("Quick Ad"), "Buyer Lead heading is not displayed on ads overview page.."+"[Buyer Lead Ad]");	
 		assertTrue(adsOverviewPage.verifyBuyerLeadAdIcon(), "Unable to verify buer lead ad icon");	
 	}
 	

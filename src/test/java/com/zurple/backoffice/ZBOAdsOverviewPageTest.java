@@ -15,6 +15,9 @@ import com.zurple.backoffice.ads.ZBOAdsOverviewPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
 
 /**
@@ -148,6 +151,30 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 			throw new SkipException("Skipping the test becasuse Preview button is not clicked..");
 		}
 		assertTrue(page.verifyAdSlideShowIsWorking(), "Ads preview slide show is not working after clickings on preview button..");
+	}
+	
+	@Test
+	public void testVerifyLearnMoreButtonRedirectsUserToAgentWebsite() {
+		loginIntoBackOffice();
+		page = null;
+		getPage("/ads/overview");
+		assertTrue(page.clickOnLearnMoreButton(), "Unable to click on learn more button");
+		ActionHelper.staticWait(5);
+		ActionHelper.switchToSecondWindow(driver);
+		String l_current_url = driver.getCurrentUrl();
+		assertTrue(l_current_url.contains(EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")));
+	}
+	
+	private String getAdId() {
+		String l_ad_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleAdId);
+		l_ad_id = l_ad_id.split("ad=")[1];
+		return l_ad_id;
+	}
+	public void loginIntoBackOffice() {
+		getPage();
+		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
+			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
 	}
 	@AfterTest
 	public void closeBrowser() {

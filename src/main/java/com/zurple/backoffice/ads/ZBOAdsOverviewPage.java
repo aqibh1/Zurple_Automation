@@ -75,6 +75,14 @@ public class ZBOAdsOverviewPage extends Page{
 	
 	String ad_to_find = "//div[@class='adpreview_box']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	String preview_button = "btn-pro";
+	String learn_more_button_list = "//table[@id='ads_overview_zurple']/descendant::div[@class='ad_details_wrapper']/*/a[@href]";
+	
+	String ad_slider = "//div[@class='adpreview_box']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	String ad_date = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::span[@class='addate_cap']";
+	String ad_price = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::span[@class='adprice_cap']";
+	String ad_location = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::span[@class='adlocation_cap']";
+	String ad_listingtype = "//tr[@role='row']/descendant::div[@id='slider_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/descendant::span[@class='listing_addr']";
+
 	
 	private ZBOHeadersBlock header;
 	
@@ -170,12 +178,12 @@ public class ZBOAdsOverviewPage extends Page{
 		 }
 		 return isAdsDisplayed;
 	 }
-	 public boolean isListingAddressIsVisible() {
-		 return !getListingAddressFirstRow().isEmpty();
-	 }
-	 public String getListingAddressFirstRow() {
+//	 public boolean isListingAddressIsVisible() {
+//		 return !getListingAddressFirstRow().isEmpty();
+//	 }
+	 public String getListingAddressFirstRow(String pAdId) {
 		 String l_listingAddress = "";
-		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, listing_address);
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_listingtype, pAdId));
 		 if(elements_list.size()>0) {
 			 l_listingAddress = ActionHelper.getText(driver, elements_list.get(0));
 		 }
@@ -308,9 +316,9 @@ public class ZBOAdsOverviewPage extends Page{
 		 }
 		 return isSlideShowWorking; 
 	 }
-	 public boolean verifyStartingEndingDate(){
-		 String l_consolidatedStartingDate = getStartingEndingDate(true);
-		 String l_consolidatedEndingDate = getStartingEndingDate(false);
+	 public boolean verifyStartingEndingDate(String pAdId){
+		 String l_consolidatedStartingDate = getStartingEndingDate(true,pAdId);
+		 String l_consolidatedEndingDate = getStartingEndingDate(false,pAdId);
 
 		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		 Date startDate = null;
@@ -327,12 +335,12 @@ public class ZBOAdsOverviewPage extends Page{
 		 long lDays = TimeUnit.MILLISECONDS.toDays(diff);//(diff / (1000*60*60*24));
 		 return lDays==30;	
 	 }
-	 public boolean verifyRenewalDate(){
-		 String l_consolidatedStartingDate = getStartingEndingDate(true);
+	 public boolean verifyRenewalDate(String pAdId){
+		 String l_consolidatedStartingDate = getStartingEndingDate(true,pAdId);
 		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		 Date renewalDate = null, startDate = null;
 		 try {
-			 renewalDate = (Date) sdf.parseObject(getRenewalDate());
+			 renewalDate = (Date) sdf.parseObject(getStartingEndingDate(false,pAdId));
 			 startDate = (Date) sdf.parseObject(l_consolidatedStartingDate);
 		 } catch (ParseException e) {
 			 // TODO Auto-generated catch block
@@ -347,12 +355,12 @@ public class ZBOAdsOverviewPage extends Page{
 	 public String getAdStatus() {
 		 return ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_status).get(0));
 	 }
-	 public boolean verifyStartDate(){
+	 public boolean verifyStartDate(String pAdId){
 		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		 Date startDate = null;
 		 Date todaysDate = null;
 		try {
-			startDate = (Date) sdf.parseObject(getStartingEndingDate(true));
+			startDate = (Date) sdf.parseObject(getStartingEndingDate(true,pAdId));
 			todaysDate = (Date) sdf.parseObject(getTodaysDate());
 		} catch (ParseException e) {
 			AutomationLogger.error("Error in date format");
@@ -382,13 +390,36 @@ public class ZBOAdsOverviewPage extends Page{
 		 }
 		 return isVisible;
 	 }
-	 private String getStartingEndingDate(boolean pIsStarting){
-		 String lDay = pIsStarting?ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(0)):ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(1));
-		 String lMonth = pIsStarting?ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month).get(0)):ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month).get(1));
-		 String lYear = pIsStarting?ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year).get(0)):ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year).get(1));
-		 String l_consolidatedStartingDate = getMonth(lMonth)+"/"+lDay+"/"+lYear;
-		 return l_consolidatedStartingDate;
+	 public boolean clickOnLearnMoreButton() {
+		 boolean isClickedOnLearnMoreButton = false;
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, preview_button_xpath);
+		 List<WebElement> elements_list2 = ActionHelper.getListOfElementByXpath(driver, learn_more_button_list);
+		 if(elements_list.size()>0) {
+			 isClickedOnLearnMoreButton = ActionHelper.Click(driver, elements_list.get(0));
+			 isClickedOnLearnMoreButton = ActionHelper.waitForElementToBeVisible(driver, elements_list2.get(0), 15);
+			 if(isClickedOnLearnMoreButton) {
+				 isClickedOnLearnMoreButton = ActionHelper.Click(driver, elements_list2.get(0));
+			 }
+		 }
+		 return isClickedOnLearnMoreButton; 
+
 	 }
+	
+	 public String getAdLocation(String pAdId) {
+		 String l_adLocation = "";
+		 List<WebElement> elements_list = ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_location, pAdId));
+		 if(elements_list.size()>0) {
+			 l_adLocation = ActionHelper.getText(driver, elements_list.get(0));
+		 }
+		 return l_adLocation;
+	 }
+//	 private String getStartingEndingDate(boolean pIsStarting){
+//		 String lDay = pIsStarting?ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(0)):ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_day).get(1));
+//		 String lMonth = pIsStarting?ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month).get(0)):ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_month).get(1));
+//		 String lYear = pIsStarting?ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year).get(0)):ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, first_row_ad_starting_year).get(1));
+//		 String l_consolidatedStartingDate = getMonth(lMonth)+"/"+lDay+"/"+lYear;
+//		 return l_consolidatedStartingDate;
+//	 }
 	 private int getMonth(String pMonth){
 		 Date date = new Date();
 		 try {
@@ -402,5 +433,13 @@ public class ZBOAdsOverviewPage extends Page{
 		 int month = cal.get(Calendar.MONTH)+1;
 		 return month;
 	 }
-	
+	 private String getStartingEndingDate(boolean pIsStarting, String pAdId){
+		 String l_consolidatedStartingDate = "";
+		 if(pIsStarting) {
+			 l_consolidatedStartingDate = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_date, pAdId)).get(0));
+		 } else {
+			 l_consolidatedStartingDate = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_date, pAdId)).get(1));
+		 }
+		 return l_consolidatedStartingDate;
+	 }
 }

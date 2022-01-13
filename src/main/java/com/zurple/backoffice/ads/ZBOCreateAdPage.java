@@ -326,10 +326,10 @@ public class ZBOCreateAdPage extends Page{
 				break;
 			case "price":
 				String p = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, ad_price, pAdId));
-				isSuccess = p.contains(pData) || pData.contains(p);
+				isSuccess = p.contains(pData.toLowerCase()) || pData.toLowerCase().contains(p);
 				break;
 			case "location":
-				String loc = "";
+				String loc = ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, ad_location, pAdId));;
 				isSuccess = loc.contains(pData) || pData.contains(loc);
 				break;
 			case "duration":
@@ -883,15 +883,18 @@ public class ZBOCreateAdPage extends Page{
 	 private String getStartingEndingDate(boolean pIsStarting, String pAdId){
 		 String l_consolidatedStartingDate = "";
 		 if(pIsStarting) {
-			String lDay = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_date']").get(0));
-			String lMonth = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_month']").get(0));
-			String lYear = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_yaer']").get(0));
-			l_consolidatedStartingDate = getMonth(lMonth)+"/"+lDay+"/"+lYear;
+			 l_consolidatedStartingDate = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_date, pAdId)).get(0));
+//			String lDay = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_date']").get(0));
+//			String lMonth = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_month']").get(0));
+//			String lYear = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_yaer']").get(0));
+//			l_consolidatedStartingDate = getMonth(lMonth)+"/"+lDay+"/"+lYear;
 		 } else {
-				String lDay = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_date']").get(1));
-				String lMonth = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_month']").get(1));
-				String lYear = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_yaer']").get(1));
-				l_consolidatedStartingDate = getMonth(lMonth)+"/"+lDay+"/"+lYear;
+			 l_consolidatedStartingDate = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, ad_date, pAdId)).get(1));
+
+//				String lDay = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_date']").get(1));
+//				String lMonth = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_month']").get(1));
+//				String lYear = ActionHelper.getText(driver, ActionHelper.getListOfElementByXpath(driver, "//tr[@role='row']/descendant::div[@id='slider_"+pAdId+"']/ancestor::tr/descendant::div[@class='ad_datebox']/descendant::span[@class='ad_yaer']").get(1));
+//				l_consolidatedStartingDate = getMonth(lMonth)+"/"+lDay+"/"+lYear;
 		 }
 		 
 //		 String lDay = pIsStarting?ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, first_row_ad_starting_day, pAdId)):ActionHelper.getText(driver, ActionHelper.getDynamicElement(driver, first_row_ad_starting_day, pAdId));
@@ -923,6 +926,7 @@ public class ZBOCreateAdPage extends Page{
 		 try {
 			 startDate = (Date) sdf.parseObject(l_consolidatedStartingDate);
 			 endDate = (Date) sdf.parseObject(l_consolidatedEndingDate);
+			 endDate =(Date) sdf.parseObject( getTodaysDate("MM/dd/yyyy"));
 		 } catch (ParseException e) {
 			 // TODO Auto-generated catch block
 			 AutomationLogger.error("Error in date format");
@@ -930,14 +934,15 @@ public class ZBOCreateAdPage extends Page{
 		 }
 		 long diff = endDate.getTime() - startDate.getTime();
 		 long lDays = TimeUnit.MILLISECONDS.toDays(diff);//(diff / (1000*60*60*24));
-		 return lDays==30;	
+		 return lDays==0;	
 	 }
 	 public boolean verifyRenewalDate(String pAdId){
 		 String l_consolidatedStartingDate = getStartingEndingDate(true, pAdId);
+		 String l_renewal_date = getStartingEndingDate(false, pAdId);
 		 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		 Date renewalDate = null, startDate = null;
 		 try {
-			 renewalDate = (Date) sdf.parseObject(getRenewalDate(pAdId));
+			 renewalDate = (Date) sdf.parseObject(l_renewal_date);
 			 startDate = (Date) sdf.parseObject(l_consolidatedStartingDate);
 		 } catch (ParseException e) {
 			 // TODO Auto-generated catch block
