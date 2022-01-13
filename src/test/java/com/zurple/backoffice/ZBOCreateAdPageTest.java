@@ -738,7 +738,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	@Test
 	public void testCreateAndVerifyCustomAdDuration(){
 		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
-		assertTrue(adsOverviewPage.verifyStartingEndingDate(getAdId()), "Unable to verify starting and ending date of the ad");	
+		assertTrue(adsOverviewPage.verifyStartDate(getAdId()), "Unable to verify starting and ending date of the ad");	
 	}
 	
 	@Test

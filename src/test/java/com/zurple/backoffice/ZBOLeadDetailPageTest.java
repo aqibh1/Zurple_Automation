@@ -12,6 +12,7 @@ import java.util.Locale;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.SkipException;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -21,6 +22,7 @@ import com.zurple.backoffice.marketing.ZBOCampaignPage;
 import com.zurple.my.PageTest;
 import com.zurple.website.ZWCommunityReportsPageTest;
 import com.zurple.website.ZWPointOfIntrestsReportsPageTest;
+import com.zurple.website.ZWRegisterUserPageTest;
 import com.zurple.website.ZWSchoolsReportsPageTest;
 
 import resources.AbstractPage;
@@ -918,6 +920,44 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		ActionHelper.staticWait(10);
 		assertTrue(page.getLeadDetailSearchBlock().verifyBuyerSearchLocation(ld_location), "Unable to verify Buyer search location");
 	}
+	
+	/**
+	 * Verify the lead capture from learn more link is assigned to the same agent
+	 * 47699
+	 */
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyLeadHasSameAgentAssigned(@Optional String pDataFile) {
+		getPage();
+		String lLeadId = getLeadId(pDataFile);
+		gotoLeadDetailPage(lLeadId);
+		String l_agent_name = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_site_owner");
+		assertTrue(page.verifyLeadAssignedToAgent(l_agent_name), "Agent not assigned to lead.."+l_agent_name);
+		
+	}
+	
+	/**
+	 * Verify the lead source shows as 'Paid Social' when the lead gets captured from learn more link
+	 * 47700
+	 */
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyLeadSourceIsPaidSocial(@Optional String pDataFile) {
+		getPage();
+		String lLeadId = getLeadId(pDataFile);	
+		gotoLeadDetailPage(lLeadId);
+		assertTrue(page.getLeadSource().contains("Paid Social"), "Unable to verify the lead source ");
+		
+	}
+	private String getLeadId(String pDataFile) {
+		String lLeadId = ModuleCommonCache.getElement(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId);
+		if(lLeadId==null) {
+			ZWRegisterUserPageTest registerLead = new ZWRegisterUserPageTest();
+			registerLead.testRegisterUser(pDataFile);	
+			lLeadId = ModuleCommonCache.getElement(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId);
+		}
+		return lLeadId;
+	}
 	private void clickOnLeadNamePreCond() {
 		ZBOLeadCRMPage leadcrmpage = new ZBOLeadCRMPage(driver);
 		if(!leadcrmpage.applyFilterAndSelectlead("By Date Created", "last 7 days")) {
@@ -998,5 +1038,9 @@ public class ZBOLeadDetailPageTest extends PageTest{
 			isAlreadyEnrolledInCampaign = !page.getCampaignNameFromMyMessagesNone().equalsIgnoreCase("None");
 		}
 		return isAlreadyEnrolledInCampaign;
+	}
+	private void gotoLeadDetailPage(String pLeadId) {
+		String lUpdatedUrl = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+pLeadId;
+		driver.navigate().to(lUpdatedUrl);
 	}
 }

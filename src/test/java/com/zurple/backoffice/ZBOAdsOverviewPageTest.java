@@ -153,6 +153,10 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 		assertTrue(page.verifyAdSlideShowIsWorking(), "Ads preview slide show is not working after clickings on preview button..");
 	}
 	
+	/**
+	 * Verify clicking on Learn More button on ads overview page takes user to Agent website
+	 * 47698
+	 */
 	@Test
 	public void testVerifyLearnMoreButtonRedirectsUserToAgentWebsite() {
 		loginIntoBackOffice();
@@ -162,6 +166,7 @@ public class ZBOAdsOverviewPageTest extends PageTest{
 		ActionHelper.staticWait(5);
 		ActionHelper.switchToSecondWindow(driver);
 		String l_current_url = driver.getCurrentUrl();
+		assertTrue(l_current_url.contains("source=paid_social"), "Paid Social is not appended to URL");
 		assertTrue(l_current_url.contains(EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")));
 	}
 	
