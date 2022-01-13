@@ -50,18 +50,7 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
     public void testLeadStatusFilter(String pDataFile) { 
     	getPage();
     	JSONObject lDataObject = getDataFile(pDataFile);
-    	String statusFilter, leadStatus;
-    	for(int i=0; i<6; i++) {
-    		marketingEmailObject.redirectToLeadsPage(lDataObject);
-    		leadStatus = lDataObject.optString("lead_prospect").split(",")[i];
-    		if(!leadStatus.trim().equalsIgnoreCase(page.getLeadStatus().trim())) {
-    			marketingEmailObject.leadStatus(lDataObject,i);
-    		}
-    		statusFilter = lDataObject.optString("lead_filters");
-    		statusFilter = statusFilter.split(",")[i];
-    		verifyLeadFilter(lDataObject,statusFilter,"With Status: "+leadStatus);
-    		verifyCRMLeadsFilter(lDataObject,statusFilter,leadStatus);
-    	}
+    	updateLeadStatus(lDataObject); 
     }
     
     public void verifyLeadFilter(JSONObject pDataObject, String pfilterName, String pPageTitle) {
@@ -80,5 +69,20 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
     	assertEquals(page.pageTitle().trim(),pPageTitle);
     	String leadName = pDataObject.optString("leadNameEmail");
     	assertTrue(page.searchCRMStatusLead(leadName),"Unable to search lead..");
+    }
+    
+    public void updateLeadStatus(JSONObject lDataObject) {
+    	String statusFilter, leadStatus;
+    	for(int i=0; i<6; i++) {
+    		marketingEmailObject.redirectToLeadsPage(lDataObject);
+    		leadStatus = lDataObject.optString("lead_prospect").split(",")[i];
+    		if(!leadStatus.trim().equalsIgnoreCase(page.getLeadStatus().trim())) {
+    			marketingEmailObject.leadStatus(lDataObject,i);
+    		}
+    		statusFilter = lDataObject.optString("lead_filters");
+    		statusFilter = statusFilter.split(",")[i];
+    		verifyLeadFilter(lDataObject,statusFilter,"With Status: "+leadStatus);
+    		verifyCRMLeadsFilter(lDataObject,statusFilter,leadStatus);
+    	}
     }
 }
