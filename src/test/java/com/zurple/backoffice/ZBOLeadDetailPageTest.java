@@ -929,9 +929,10 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	@Parameters({"dataFile"})
 	public void testVerifyLeadHasSameAgentAssigned(@Optional String pDataFile) {
 		getPage();
+		gotoWebsiteAdPage();
 		String lLeadId = getLeadId(pDataFile);
 		gotoLeadDetailPage(lLeadId);
-		String l_agent_name = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_site_owner");
+		String l_agent_name = EnvironmentFactory.configReader.getPropertyByName("sub_admin_name");
 		assertTrue(page.verifyLeadAssignedToAgent(l_agent_name), "Agent not assigned to lead.."+l_agent_name);
 		
 	}
@@ -944,6 +945,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	@Parameters({"dataFile"})
 	public void testVerifyLeadSourceIsPaidSocial(@Optional String pDataFile) {
 		getPage();
+		gotoWebsiteAdPage();
 		String lLeadId = getLeadId(pDataFile);	
 		gotoLeadDetailPage(lLeadId);
 		assertTrue(page.getLeadSource().contains("Paid Social"), "Unable to verify the lead source ");
@@ -1041,6 +1043,12 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	}
 	private void gotoLeadDetailPage(String pLeadId) {
 		String lUpdatedUrl = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+pLeadId;
+		driver.navigate().to(lUpdatedUrl);
+	}
+	private void gotoWebsiteAdPage() {
+		String l_subadmin_id = EnvironmentFactory.configReader.getPropertyByName("sub_admin_id");
+		String l_paid_ad_url = "/search?source=paid_social&admin_id="+l_subadmin_id; 
+		String lUpdatedUrl = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")+l_paid_ad_url;
 		driver.navigate().to(lUpdatedUrl);
 	}
 }
