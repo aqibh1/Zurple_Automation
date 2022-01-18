@@ -113,6 +113,8 @@ public class ZBOLeadCRMPage extends Page{
 	
 	String lead_phone_disabled_list = "//tr/descendant::a[@disabled]";
 	
+	String lead_name_row_one = "//table[@id='leads-table']/descendant::a[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')][1]";
+	
 	private ZBOAddNotesForm addNoteForm;
 	private ZBOAddReminderForm addReminderForm;
 	private ZBOSendEmailForm sendEmailForm;
@@ -201,6 +203,14 @@ public class ZBOLeadCRMPage extends Page{
 			if(ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_name_element, pLeadName))) {
 				isLeadSelected = ActionHelper.Click(driver, lead_input_checkbox);
 			}
+		}
+		return isLeadSelected;
+	}
+	public boolean searchLeadContains(String pLeadName) {
+		boolean isLeadSelected = false;
+		if(typeLeadNameOrEmail(pLeadName) && clickOnSearchButton()) {
+			ActionHelper.waitForElementToBeDisappeared(driver, processing, 120);
+			isLeadSelected = ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_name_row_one, pLeadName));
 		}
 		return isLeadSelected;
 	}
@@ -302,7 +312,7 @@ public class ZBOLeadCRMPage extends Page{
 		return Integer.parseInt(ActionHelper.getText(driver, massemail_sent_count))!=0;
 	}
 	public boolean priorityRankingToVeify(String pPriorityRanking) {
-		return ActionHelper.getDynamicElement(driver, priority_ranking, pPriorityRanking)!=null;
+		return ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, priority_ranking, pPriorityRanking)).get(0)!=null;
 	}
 	public boolean clickOnAddFilterButton() {
 		return ActionHelper.Click(driver, add_filter_button);
