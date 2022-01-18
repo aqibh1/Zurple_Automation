@@ -4278,6 +4278,24 @@
 		</parameter>
 	</test>
 	
+	<test name="Verify Zapier lead import from Google Sheets">
+		<parameter name="datafile" value="/resources/data/zurple/backoffice/zapier-data-file.json">
+		<classes>
+		  <class name="com.zurple.backoffice.ZBOVerifyZapierLeadImportPageTest">
+				<methods>
+	 	   			<include name="testVerifyZapierImportedLeads"/>
+	 	   			<include name="testVerifyZapierLeadName"/>
+	 	   			<include name="testVerifyZapierLeadPhone"/>
+	 	   			<include name="testVerifyZapierLeadAddress"/>
+	 	   			<include name="testVerifyZapierLeadEmail"/>
+	 	   			<include name="testVerifyZapierLeadSource"/>
+	 	   			<include name="testVerifyZapierLeadNotes"/>
+				</methods>
+			</class>
+		</classes>
+	</parameter>
+	</test>
+	
 	<!-- 
  <test name="Manage agents page label">
   <parameter name="manageAgentsDataFile" 
