@@ -189,7 +189,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		getPage("/leads/crm");
 		
 		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
-		String lFilterName = "By Agent,By Email Verification,By Email Preferences";
+		String lFilterName = "By Agent,By Email Verification,By Contact Preference";
 		String lFilterValue = getIsProd()?"Aqib Production Testing,Valid Emails,Mass Emails: Yes":"Aqib Site Owner,Valid Emails,Mass Emails: Yes";
 		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
 		assertTrue(leadCRMPage.typeLeadEmailOnly("mailinator.com"), "Unable to type lead email..");
@@ -300,12 +300,13 @@ public class ZBOLeadCRMPageTest extends PageTest{
 	public void testVerifyPriorityRanking(String pDataFile) {
 		getPage("/leads/crm");
 		dataObject = getDataFile(pDataFile);
-		String lLeadName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
+		//searching for lead who has contacted the agent
+		String lLeadName = "Contact";//ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
 		String ld_priorityToVerify = dataObject.optString("priority_ranking");
 		
 		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
 		ActionHelper.staticWait(10);
-		assertTrue(page.searchLead(lLeadName), "Unable to search lead..");
+		assertTrue(page.searchLeadContains(lLeadName), "Unable to search lead..");
 		assertTrue(page.priorityRankingToVeify(ld_priorityToVerify), "Unable to verify the priority ranking");
 		assertTrue(page.clickSearchedLeadName(), "Unable to click on lead name..");
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);

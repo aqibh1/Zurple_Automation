@@ -2167,18 +2167,11 @@
    </test>
    
    	
-<test name="Verify priority Ranking for the lead">	
-		
-			<parameter name="contactAgentData"
-			value="/resources/data/zurple/register_user/lead-priority-ranking-data.json">
+<test name="Verify priority Ranking for the lead">			
 			<parameter name="dataFile"
 			value="/resources/data/zurple/register_user/lead-priority-ranking-data.json">
 				<classes>
-					<class name="com.zurple.website.ZWPropertyDetailPageTest">
-					<methods>
-						<include name="testContactAgentOnListingDetail" />
-					</methods>
-				</class>
+
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
 						<include name="testBackOfficeLogin" />
@@ -2195,7 +2188,6 @@
 					</methods>
 				</class>
 			</classes>
-			</parameter>
 			</parameter>
 	</test>
 	

@@ -30,7 +30,7 @@ public class ZBODashboardPage extends Page{
 	//Key Stats
 	@FindBy(id="key-stats-header")
 	WebElement key_stats;
-	@FindBy(xpath="//div[@id='new-leads-key-stat']/descendant::div[@class='row1']")
+	@FindBy(xpath="//div[@id='new-leads-key-stat']/descendant::div[@class='row1 stat_title']")
 	WebElement new_leads;
 	@FindBy(xpath="//div[@id='new-leads-key-stat']/descendant::div[@class='row2']")
 	WebElement last_30_days;
@@ -38,13 +38,13 @@ public class ZBODashboardPage extends Page{
 	WebElement leads_key_stats;
 	
 	//Leads Managed
-	@FindBy(xpath="//div[@id='all-leads-key-stat']/descendant::div[@class='row1']")
+	@FindBy(xpath="//div[@id='all-leads-key-stat']/descendant::div[@class='row1 stat_title']")
 	WebElement leads_managed;
 	@FindBy(id="key-stats-leads-managed")
 	WebElement leads_key_leads_managed;
 	
 	//Messages sent
-	@FindBy(xpath="//div[@id='messages-sent-key-stat']/descendant::div[@class='row1']")
+	@FindBy(xpath="//div[@id='messages-sent-key-stat']/descendant::div[@class='row1 stat_title']")
 	WebElement messages_sent;
 	@FindBy(xpath="//div[@id='messages-sent-key-stat']/descendant::div[@class='row2']")
 	WebElement _messages_last_30_days;
@@ -52,7 +52,7 @@ public class ZBODashboardPage extends Page{
 	WebElement messages_sent_stats;
 	
 	//Messages Open rate
-	@FindBy(xpath="//div[@id='open-rate-key-stat']/descendant::div[@class='row1']")
+	@FindBy(xpath="//div[@id='open-rate-key-stat']/descendant::div[@class='row1 stat_title']")
 	WebElement messages_open_rate;
 	@FindBy(xpath="//div[@id='open-rate-key-stat']/descendant::div[@class='row2']")
 	WebElement _messages_open_last_30_days;
@@ -126,7 +126,7 @@ public class ZBODashboardPage extends Page{
 	public boolean isKeyStatsVisible() {
 		boolean isVisible = false;
 		if(ActionHelper.isElementVisible(driver, key_stats) && ActionHelper.isElementVisible(driver, new_leads)
-				&&ActionHelper.isElementVisible(driver, last_30_days) && ActionHelper.isElementVisible(driver, leads_key_stats)) {
+				 && ActionHelper.isElementVisible(driver, leads_key_stats)) {
 			isVisible = true;
 		}
 		return isVisible;
@@ -140,16 +140,14 @@ public class ZBODashboardPage extends Page{
 	}
 	public boolean isMessagesSentVisible() {
 		boolean isVisible = false;
-		if(ActionHelper.isElementVisible(driver, messages_sent) && ActionHelper.isElementVisible(driver, _messages_last_30_days)
-				&& ActionHelper.isElementVisible(driver, messages_sent_stats)) {
+		if(ActionHelper.isElementVisible(driver, messages_sent) && ActionHelper.isElementVisible(driver, messages_sent_stats)) {
 			isVisible = true;
 		}
 		return isVisible;
 	}
 	public boolean isMessagesOpenRateVisible() {
 		boolean isVisible = false;
-		if(ActionHelper.isElementVisible(driver, messages_open_rate) && ActionHelper.isElementVisible(driver, _messages_open_last_30_days)
-				&& ActionHelper.isElementVisible(driver, messages_open_stats)) {
+		if(ActionHelper.isElementVisible(driver, messages_open_rate) && ActionHelper.isElementVisible(driver, messages_open_stats)) {
 			isVisible = true;
 		}
 		return isVisible;
