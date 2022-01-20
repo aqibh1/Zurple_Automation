@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -337,6 +338,7 @@ public class ZBOCreateCampaignPage extends Page{
 			index = generateRandomInteger(list_of_options.size());
 			isClicked = ActionHelper.clickAndSelectByIndex(driver, template_options, template_options_xpath, index);
 			clickOnUpdateButton();
+			ActionHelper.staticWait(3);
 			int index2 = generateRandomInteger(list_of_options.size(),index);
 			clickOnAddTemplateButton();
 			ActionHelper.isElementVisible(driver, template_options);
@@ -346,12 +348,15 @@ public class ZBOCreateCampaignPage extends Page{
 		return isClicked;
 	}
 	public boolean dragRow1ToRow0() {
-		return ActionHelper.dragAndDrop(driver, template_row_1, template_row_0);
+		return ActionHelper.dragAndDropByPixels(driver, template_row_1, 0, -125);
+//		return ActionHelper.dragAndDrop(driver, row_1, row_0);
 	}
 	public String getRow0TemplateId() {
-		return ActionHelper.getAttribute(template_row_0, "data-template");
+		WebElement row_0 = driver.findElement(By.xpath("//div[@id='steps_table_wrapper']/descendant::tr[@id='row-0']"));
+		return ActionHelper.getAttribute(row_0, "data-template");
 	}public String getRow1TemplateId() {
-		return ActionHelper.getAttribute(template_row_1, "data-template");
+		WebElement row_1 = driver.findElement(By.xpath("//div[@id='steps_table_wrapper']/descendant::tr[@id='row-1']"));
+		return ActionHelper.getAttribute(row_1, "data-template");
 	}
 	
 	public boolean typeNumberOfDaysInTemplate(String pTemplateId, String pNumOfDays) {
