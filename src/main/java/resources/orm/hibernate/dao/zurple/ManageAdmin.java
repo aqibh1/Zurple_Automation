@@ -53,5 +53,23 @@ public class ManageAdmin
         }
         return admin;
     }
+    
+    /* Method to  READ admin by email */
+    public List<Admin> getListOfSubAdmins(Integer pSiteOwner){
+        Admin admin = null;
+        List<Admin> admin_list = null;
+        try {
+            Query q = session.createQuery("FROM Admin WHERE owner_id='"+pSiteOwner+"' OR admin_id='"+pSiteOwner+"'");
+            List<Admin> admins_list = q.list();
+            Hibernate.initialize(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return admin_list;
+    }
 
 }

@@ -327,9 +327,12 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	public void testVerifyCampaignPriorityGetsChanged() {
 		String row_0_template_before = page.getRow0TemplateId();
 		String row_1_template_before = page.getRow1TemplateId();
+		ActionHelper.staticWait(10);
 		assertTrue(page.dragRow1ToRow0(), "Unable to drag and drop row 01 of template");
+		ActionHelper.staticWait(5);
 		assertTrue(page.clickOnSaveButton(),"Unable to click on save button");
 		assertTrue(new ZBOSucessAlert(driver).clickOnOkButton(), "Unable to click on OK button..");
+		ActionHelper.staticWait(2);
 		assertFalse(row_0_template_before.equalsIgnoreCase(page.getRow0TemplateId()), "Priority is not changed");
 		assertFalse(row_1_template_before.equalsIgnoreCase(page.getRow1TemplateId()), "Priority is not changed");
 	}

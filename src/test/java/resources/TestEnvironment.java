@@ -1,5 +1,6 @@
 package resources;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -15,6 +16,7 @@ import resources.orm.hibernate.dao.z57.ManageNotificationMailgun;
 import resources.orm.hibernate.dao.z57.ManageNotifications;
 import resources.orm.hibernate.dao.z57.ManageSites;
 import resources.orm.hibernate.dao.zurple.ManageAdmin;
+import resources.orm.hibernate.dao.zurple.ManageAdminDashboardStats;
 import resources.orm.hibernate.dao.zurple.ManageAlertRule;
 import resources.orm.hibernate.dao.zurple.ManageDistributionRules;
 import resources.orm.hibernate.dao.zurple.ManageEmailQueue;
@@ -39,6 +41,7 @@ import resources.orm.hibernate.models.z57.NotificationMailgun;
 import resources.orm.hibernate.models.z57.Notifications;
 import resources.orm.hibernate.models.z57.Sites;
 import resources.orm.hibernate.models.zurple.Admin;
+import resources.orm.hibernate.models.zurple.AdminDashboardStats;
 import resources.orm.hibernate.models.zurple.AlertRule;
 import resources.orm.hibernate.models.zurple.DistributionRule;
 import resources.orm.hibernate.models.zurple.Email;
@@ -677,5 +680,16 @@ public class TestEnvironment
 		ManageUser manageUser = new ManageUser(getSession());
 		return manageUser.getUserIdByUserName(pUserName);
 	}
-	
+	public AdminDashboardStats getAdminDashBoardStats(int pAdminId) {
+		ManageAdminDashboardStats manageAdminDashboardStats = new ManageAdminDashboardStats(getSession());
+		return manageAdminDashboardStats.getAdminStatsById(pAdminId);
+	}
+	public List<Admin> getListOfSubAdmins(Integer pAdminId){
+		ManageAdmin manageAdmin = new ManageAdmin(getSession());
+		return manageAdmin.getListOfSubAdmins(pAdminId);
+	}
+	public List<User> getListOfUsersByLeadSource(Integer pAdminId, String pLeadSource, Date pCreateDateTime){
+		ManageUser manageUser = new ManageUser(getSession());
+		return manageUser.getListOfUsers(pAdminId, pLeadSource, pCreateDateTime);
+	}
 }

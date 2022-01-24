@@ -179,5 +179,24 @@ public class ManageUser
         }
         return user;
     }
+    
+    public List<User> getListOfUsers(Integer pAdminId, String pTrafficSource, Date pCreateDateTime){
+
+        List<User> list_of_users = null;
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            list_of_users = session.createQuery("FROM User WHERE admin_id='"+pAdminId+"' AND traffic_source='"+pTrafficSource+"' and create_datetime='"+pCreateDateTime+"'").list();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return list_of_users;
+    }
 
 }

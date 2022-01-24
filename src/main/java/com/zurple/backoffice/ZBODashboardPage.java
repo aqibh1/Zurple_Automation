@@ -93,6 +93,9 @@ public class ZBODashboardPage extends Page{
 	//New Leads
 	String lead_new = "//div[@id='z-new-leads-grid']/descendant::a[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
 	
+	@FindBy(id="loading-key-stats-modal")
+	WebElement loading_key_stats_modal;
+	
 	public ZBODashboardPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -212,5 +215,20 @@ public class ZBODashboardPage extends Page{
 	}
 	public boolean clickOnLeadName(String pLeadName) {
 		return ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, lead_new, pLeadName));
+	}
+	public String getNewLeadsCountFromKeyStats() {
+		return ActionHelper.getText(driver, leads_key_stats);
+	}
+	public String getLeadsManagedCountFromKeyStats() {
+		return ActionHelper.getText(driver, leads_key_leads_managed).replace(",","");
+	}
+	public String getMessagesSentCountFromKeyStats() {
+		return ActionHelper.getText(driver, messages_sent_stats).replace(",","");
+	}
+	public String getMessagesOpenRateCountFromKeyStats() {
+		return ActionHelper.getText(driver, messages_open_stats).replace("%","");
+	}
+	public boolean waitForLoadingKeyStatsToDisappear() {
+		return ActionHelper.waitForElementToBeDisappeared(driver, loading_key_stats_modal, 60);
 	}
 }
