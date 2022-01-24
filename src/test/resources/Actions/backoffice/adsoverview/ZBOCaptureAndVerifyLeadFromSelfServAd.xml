@@ -7,7 +7,7 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
 
-	<!--  
+	 
 	<test name="Verify learn more ad button redirects user to website">
 	<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-paid-social.json">
 			<classes>
@@ -27,7 +27,7 @@
 			</classes>
 			</parameter>
 	</test>
-	-->
+	
 	<test name="Capture and verify lead from Self Serv ad">
 	<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-paid-social.json">
 			<classes>
