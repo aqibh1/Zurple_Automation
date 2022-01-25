@@ -37,10 +37,10 @@ public class ManageAdmin
         Admin admin = null;
         try {
             Query q = session.createQuery("FROM Admin WHERE email='"+email+"'");
-            List leads = q.list();
-            for (Iterator iterator =
+            List<Admin> leads = q.list();
+            for (Iterator<Admin> iterator =
                     leads.iterator(); iterator.hasNext();){
-                admin = (Admin) iterator.next();
+                admin = iterator.next();
             }
 
             Hibernate.initialize(admin);
@@ -56,18 +56,28 @@ public class ManageAdmin
     
     /* Method to  READ admin by email */
     public List<Admin> getListOfSubAdmins(Integer pSiteOwner){
-        Admin admin = null;
         List<Admin> admin_list = null;
+        Admin admin = null;
         try {
-            Query q = session.createQuery("FROM Admin WHERE owner_id='"+pSiteOwner+"' OR admin_id='"+pSiteOwner+"'");
-            List<Admin> admins_list = q.list();
-            Hibernate.initialize(admin);
+//        	Criteria cr = session.createCriteria(Admin.class)
+//            .add(Restrictions.disjunction()
+//                .add(Restrictions.eq("owner_id", pSiteOwner))
+//                .add(Restrictions.eq("admin_id", pSiteOwner))
+//            );
+        	
+            Query q = session.createQuery("FROM Admin WHERE admin_id="+pSiteOwner+" OR owner_id="+pSiteOwner+" AND delete_flag=0");
+            admin_list = q.list();
+//            for (Iterator iterator =
+//            		admin_list.iterator(); iterator.hasNext();){
+//            	admin = (Admin) iterator.next();
+//            }
+            Hibernate.initialize(admin_list);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
+//            if (session != null && session.isOpen()) {
+//                session.close();
+//            }
         }
         return admin_list;
     }

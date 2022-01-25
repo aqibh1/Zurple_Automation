@@ -96,6 +96,9 @@ public class ZBODashboardPage extends Page{
 	@FindBy(id="loading-key-stats-modal")
 	WebElement loading_key_stats_modal;
 	
+	@FindBy(id="key-stats-auto-leads")
+	WebElement zurple_autoleads_stats_count;
+	
 	public ZBODashboardPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -230,5 +233,8 @@ public class ZBODashboardPage extends Page{
 	}
 	public boolean waitForLoadingKeyStatsToDisappear() {
 		return ActionHelper.waitForElementToBeDisappeared(driver, loading_key_stats_modal, 60);
+	}
+	public String getZurpleAutoLeadsStatsCount() {
+		return ActionHelper.getText(driver, zurple_autoleads_stats_count);
 	}
 }

@@ -1,6 +1,8 @@
 package com.zurple.backoffice;
 import static org.testng.Assert.assertTrue;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -175,17 +177,25 @@ public class ZBODashboardTest extends PageTest
     	DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
     	List<Admin> list_of_admin = dbObject.getListOfSubAdmins(l_admin_id);
     	int zurple_auto_leads_count = getZurpleAutoLeadCount(list_of_admin);
+    	int zurple_autoleads_count_ui = Integer.valueOf(page.getZurpleAutoLeadsStatsCount());
+    	assertTrue(zurple_auto_leads_count==zurple_autoleads_count_ui, "Zurple Auto leads count mismatched: "+zurple_auto_leads_count);
     }
     private int getZurpleAutoLeadCount(List<Admin> list_of_admin) {
     	int totalLeadCount = 0;
     	DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
     	String create_date = getDateAfterSubtractingNumberOfDays(-30, "YYYY-MM-dd");
-    	Date create_date_format = new Date(create_date);
+    	Date create_date_format = null;
+		try {
+			create_date_format = new SimpleDateFormat("YYYY-MM-dd").parse(create_date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for(Admin admObject: list_of_admin) {
 			int admin_id = admObject.getId();
 			int lead_count_hv = dbObject.getListOfUsers(admin_id, "home-valuation", create_date_format).size();
 			int lead_count_unknown = dbObject.getListOfUsers(admin_id, "unknown", create_date_format).size();
-			totalLeadCount = lead_count_hv+lead_count_unknown;
+			totalLeadCount += lead_count_hv+lead_count_unknown;
 		}
 		return totalLeadCount;
 	}

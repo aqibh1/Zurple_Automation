@@ -38,7 +38,8 @@ public class Admin extends Abstract
     private String email_display_name;
     private Set<Site> sites;
     private Set<Import> imports;
-
+    private Integer owner_id;
+    private Integer delete_flag;
     public Admin() {
     }
 
@@ -189,5 +190,22 @@ public class Admin extends Abstract
 
     public void setEmailDisplayName(String email_display_name) {
         this.email_display_name = email_display_name;
+    }
+   
+    @Column(name = "owner_id", unique = true, nullable = false)
+    public Integer getOwnerId() {
+        return this.owner_id;
+    }
+
+    public void setOwnerId(Integer lead_id) {
+        this.owner_id = lead_id;
+    }
+    @Column(name = "delete_flag", unique = true, nullable = false)
+    public Integer getDeleteFlag() {
+        return this.owner_id;
+    }
+
+    public void setDeleteFlag(Integer lead_id) {
+        this.owner_id = lead_id;
     }
 }
