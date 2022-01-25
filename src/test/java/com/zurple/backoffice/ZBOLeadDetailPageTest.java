@@ -931,8 +931,8 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage();
 		gotoWebsiteAdPage();
 		String lLeadId = getLeadId(pDataFile);
+		String l_agent_name = getAgentName(EnvironmentFactory.configReader.getPropertyByName("sub_admin_id"));
 		gotoLeadDetailPage(lLeadId);
-		String l_agent_name = EnvironmentFactory.configReader.getPropertyByName("sub_admin_name");
 		assertTrue(page.verifyLeadAssignedToAgent(l_agent_name), "Agent not assigned to lead.."+l_agent_name);
 		
 	}
@@ -1050,5 +1050,13 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		String l_paid_ad_url = "/search?source=paid_social&admin_id="+l_subadmin_id; 
 		String lUpdatedUrl = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")+l_paid_ad_url;
 		driver.navigate().to(lUpdatedUrl);
+	}
+	private String getAgentName(String pAdminId) {
+		String l_agent_profile_url = "/agent/edit/admin_id/"+pAdminId; 
+		String lUpdatedUrl = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+l_agent_profile_url;
+		driver.navigate().to(lUpdatedUrl);
+		ZBOAgentsPage zboAgentPage = new ZBOAgentsPage(driver);
+		return zboAgentPage.getAgentFirstName()+" "+zboAgentPage.getAgentLastName();
+		
 	}
 }

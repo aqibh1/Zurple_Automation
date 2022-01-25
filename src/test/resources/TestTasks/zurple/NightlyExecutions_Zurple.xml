@@ -4103,14 +4103,6 @@
 					<include name="testVerifyLearnMoreButtonRedirectsUserToAgentWebsite" />
 				</methods>
 			</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-						<include name="testVerifyLeadHasSameAgentAssigned" />
-						<include name="testVerifyLeadSourceIsPaidSocial" />
-			
-					</methods>
-				</class>
-
 			</classes>
 			</parameter>
 	</test>
