@@ -47,6 +47,8 @@
 		<mapping class="resources.orm.hibernate.models.zurple.Package"></mapping>
 		<mapping
 			class="resources.orm.hibernate.models.zurple.EmailQueue"></mapping>
+			<mapping
+			class="resources.orm.hibernate.models.zurple.AdminDashboardStats"></mapping>
 
 	</session-factory>
 </hibernate-configuration>

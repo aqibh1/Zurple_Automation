@@ -4075,6 +4075,60 @@
 		</parameter>
 		</parameter>
 	</test>
+	
+	<test name="Verify Buyer Leads Quick Ad by Adding Payment Plan">
+	 <parameter name="dataFile"
+  		value="/resources/data/zurple/backoffice/agent-data-ad-billing.json">
+  		 <parameter name="dataFile1"
+  		value="/resources/data/zurple/ads/credit-card-ad-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>
+					<include name="testVerifyPaymentPlanButtonIsVisibleOn4thStepOfAdCreation" />
+					<include name="testVerifyConfirmPaymentPlanButtonTakesUserToCreditCardDialog" />
+					<include name="testVerifyPlaceAdButtonGetsEnabledAfterCreditCardInfoIsAdded" />
+					<include name="testVerifyPlaceAdButtonTakesUserToAdsOverviewPage" />
+				</methods>
+			</class>
+		</classes>
+		</parameter> 
+		</parameter>
+	</test>
+	
+	<test name="Verify learn more ad button redirects user to website">
+	<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-paid-social.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOAdsOverviewPageTest">
+				<methods>
+					<include name="testVerifyLearnMoreButtonRedirectsUserToAgentWebsite" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
+	
+	<test name="Capture and verify lead from Self Serv ad">
+	<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-paid-social.json">
+			<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyLeadHasSameAgentAssigned" />
+						<include name="testVerifyLeadSourceIsPaidSocial" />
+					</methods>
+				</class>
+					<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
  <!--  
 <test name="Bulk update lead status to In Active" >	
 			<classes>

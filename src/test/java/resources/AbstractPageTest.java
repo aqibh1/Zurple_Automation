@@ -439,6 +439,12 @@ public abstract class AbstractPageTest extends AbstractTest
 		lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
 		return lDate; //08/18/2020
 	}
+    public String getDateAfterSubtractingNumberOfDays(int pDays, String pFormat) {
+    	final Calendar cal = Calendar.getInstance();
+    	cal.add(Calendar.DATE, pDays);
+      	DateFormat dateFormat = new SimpleDateFormat(pFormat);
+      	return dateFormat.format(cal.getTime());
+    }
     
     public String setScheduledPostDate() {
 		String lDate = "";

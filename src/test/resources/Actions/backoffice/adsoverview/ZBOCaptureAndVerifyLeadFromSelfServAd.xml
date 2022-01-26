@@ -7,7 +7,7 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
 
-	<!--  
+	 <!--  
 	<test name="Verify learn more ad button redirects user to website">
 	<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-paid-social.json">
 			<classes>
@@ -16,14 +16,6 @@
 					<include name="testVerifyLearnMoreButtonRedirectsUserToAgentWebsite" />
 				</methods>
 			</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-						<include name="testVerifyLeadHasSameAgentAssigned" />
-						<include name="testVerifyLeadSourceIsPaidSocial" />
-			
-					</methods>
-				</class>
-
 			</classes>
 			</parameter>
 	</test>

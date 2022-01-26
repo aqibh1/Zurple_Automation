@@ -2,6 +2,7 @@ package resources;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import resources.orm.hibernate.models.AbstractLead;
@@ -12,8 +13,11 @@ import resources.orm.hibernate.models.z57.NotificationEmails;
 import resources.orm.hibernate.models.z57.NotificationMailgun;
 import resources.orm.hibernate.models.z57.Notifications;
 import resources.orm.hibernate.models.z57.Sites;
+import resources.orm.hibernate.models.zurple.Admin;
+import resources.orm.hibernate.models.zurple.AdminDashboardStats;
 import resources.orm.hibernate.models.zurple.AlertRule;
 import resources.orm.hibernate.models.zurple.Email;
+import resources.orm.hibernate.models.zurple.User;
 import resources.orm.hibernate.models.zurple.UserAlert;
 import resources.utility.AutomationLogger;
 
@@ -342,5 +346,13 @@ public class DBHelperMethods {
 	public Integer getZurpleLeadId(String pUserName) {
 		return testEnvironment.getUserByUserName(pUserName).getId();
 	}
- 
+	public AdminDashboardStats getAdminStatsByAdminId(int pAdminId) {
+		return testEnvironment.getAdminDashBoardStats(pAdminId);
+	}
+	public List<Admin> getListOfSubAdmins(int pAdminId) {
+		return testEnvironment.getListOfSubAdmins(pAdminId);
+	}
+	public List<User> getListOfUsers(int pAdminId, String pSource, Date pCreateTime) {
+		return testEnvironment.getListOfUsersByLeadSource(pAdminId, pSource, pCreateTime);
+	}
 }

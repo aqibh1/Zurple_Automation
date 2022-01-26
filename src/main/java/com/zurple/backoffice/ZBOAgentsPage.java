@@ -165,4 +165,10 @@ public class ZBOAgentsPage extends Page{
 		}
 		return lAgentLeadsCount;
 	}
+	public String getAgentFirstName() {
+		return ActionHelper.getTextByValue(driver, agent_first_name);
+	}
+	public String getAgentLastName() {
+		return ActionHelper.getTextByValue(driver, agent_last_name);
+	}
 }
