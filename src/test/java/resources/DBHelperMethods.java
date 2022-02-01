@@ -17,6 +17,8 @@ import resources.orm.hibernate.models.zurple.Admin;
 import resources.orm.hibernate.models.zurple.AdminDashboardStats;
 import resources.orm.hibernate.models.zurple.AlertRule;
 import resources.orm.hibernate.models.zurple.Email;
+import resources.orm.hibernate.models.zurple.NSTransaction;
+import resources.orm.hibernate.models.zurple.NetSuiteSyncTasks;
 import resources.orm.hibernate.models.zurple.User;
 import resources.orm.hibernate.models.zurple.UserAlert;
 import resources.utility.AutomationLogger;
@@ -354,5 +356,11 @@ public class DBHelperMethods {
 	}
 	public List<User> getListOfUsers(int pAdminId, String pSource, Date pCreateTime) {
 		return testEnvironment.getListOfUsersByLeadSource(pAdminId, pSource, pCreateTime);
+	}
+	public List<NSTransaction> getListOfNSTransactionsByDate(String pCreateDateTime){
+		return testEnvironment.getListOfNSTransactionsByDate(pCreateDateTime);
+	}
+	public List<NetSuiteSyncTasks> getListOfFailedNetsuiteSyncTaskTransactions(String pDateProcessed){
+		return testEnvironment.getListOfFailedNetsuiteSyncTaskTransactions(pDateProcessed);
 	}
 }
