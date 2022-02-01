@@ -53,4 +53,5 @@ public class CacheFilePathsConstants {
 	public static final String APPackagePData = "/resources/cache/permanent-ap-package-admin-data.json";
 	public static final String APPackageAPIBody = "/resources/cache/cache-ap-package-data.json";
 	public static final String APNSUpdatedData = "/resources/cache/cache-ap-updated-data.json";
+	public static final String APNSUpdatedDataForAdminProfile = "/resources/cache/cache-ap-updated-data-admin-profile.json";
 }

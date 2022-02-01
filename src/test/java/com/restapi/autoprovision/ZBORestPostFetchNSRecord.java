@@ -41,6 +41,21 @@ public class ZBORestPostFetchNSRecord extends RestAPITest{
 		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
 		assertTrue(validateMapResp(response),"Unable to verify the NS record data..");
 	}
+	
+	@Test(priority=247)
+	@Parameters({"dataFile"})
+	public void testPostFetchNSRecordForAdminProfile(String pDataFile) throws Exception {
+		getDriver();
+		lDataFile = pDataFile;
+		dataObject = getDataFile(pDataFile);
+		RestRequest request = new RestRequest();
+		String lUrl = getBaseUrl()+"/getnsrecord";
+		request.setUrl(lUrl);
+		request.setRestContent(getContent());
+		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
+		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
+		assertTrue(validateMapResp(response),"Unable to verify the NS record data..");
+	}
 
 	@Override
 	public boolean validateMapResp(RestResponse httpCallResp) throws Exception {

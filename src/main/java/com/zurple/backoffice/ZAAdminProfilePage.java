@@ -73,6 +73,9 @@ public class ZAAdminProfilePage extends Page{
 	
 	String l_userName,l_password = "";
 	
+	@FindBy(id="edit-agent-button")
+	WebElement save;
+	
 	public ZAAdminProfilePage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -180,5 +183,33 @@ public class ZAAdminProfilePage extends Page{
 
 	public void setPassword(String pPassword) {
 		this.l_password = pPassword;
+	}
+	
+	public boolean updateFirstName(String fName) {
+		return ActionHelper.ClearAndType(driver, first_name, fName);
+	}
+	
+	public boolean updateLastName(String lName) {
+		return ActionHelper.ClearAndType(driver, last_name, lName);
+	}
+	
+	public boolean updatelEmail(String email) {
+		return ActionHelper.ClearAndType(driver, login_email, email);
+	}
+	
+	public boolean updatePhone(String Phone) {
+		return ActionHelper.ClearAndType(driver, phone, Phone);
+	}
+	
+	public boolean updateOfficeName(String officeName) {
+		return ActionHelper.ClearAndType(driver, brokerage_name, officeName);
+	}
+	
+	public boolean updateLicense(String license) {
+		return ActionHelper.ClearAndType(driver, license_number, license);
+	}
+	
+	public boolean clickSubmitButton() {
+		return ActionHelper.Click(driver, save);
 	}
 }
