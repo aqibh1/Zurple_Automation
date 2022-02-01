@@ -251,4 +251,25 @@
 				</class>
 			</classes>
 		</test>	
+		
+		
+	<test name="Verify Add Update Credit Card Transactions are Working">
+			<classes>
+				<class name="com.zurple.database.ZDBNetsuiteSyncTasksTest">
+					<methods>
+						<include name="testVerifyNetsuiteSyncTaskTransactionsAreWorking" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+	<test name="Verify Billing Info History is Populating">
+			<classes>
+				<class name="com.zurple.database.ZDBNetsuiteTransactionsTest">
+					<methods>
+						<include name="testVerifyNetsuiteTransactions" />
+					</methods>
+				</class>
+			</classes>
+	</test>
 </suite>
