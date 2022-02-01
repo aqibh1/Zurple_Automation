@@ -1,0 +1,20 @@
+<suite name="Verify Alert emails" preserve-order="true"
+	verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+	<test name="Verify Billing Info History is Populating">
+			<classes>
+				<class name="com.zurple.database.ZDBNetsuiteTransactionsTest">
+					<methods>
+						<include name="testVerifyNetsuiteTransactions" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+</suite>

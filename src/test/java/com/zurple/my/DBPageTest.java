@@ -6,21 +6,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.json.JSONObject;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.Test;
-
-import com.zurple.backoffice.ZBOLeadCRMPage;
-import com.zurple.backoffice.ZBOLeadPage;
-import com.zurple.backoffice.ZBOLoginPage;
-
 import resources.AbstractPageTest;
 import resources.DBHelperMethods;
-import resources.EnvironmentFactory;
 import resources.orm.hibernate.models.zurple.AlertRule;
 import resources.orm.hibernate.models.zurple.Email;
 import resources.orm.hibernate.models.zurple.UserAlert;
-import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 public abstract class DBPageTest extends AbstractPageTest
@@ -74,4 +64,5 @@ public abstract class DBPageTest extends AbstractPageTest
 		}
 		assertTrue(isSuccessful,"ALERT!! Alert_Type "+lAlertName+" Emails are not sent today. They were last sent on: "+lAlertTrigger);
 	}
+	
 }

@@ -22,12 +22,13 @@ import resources.orm.hibernate.dao.zurple.ManageDistributionRules;
 import resources.orm.hibernate.dao.zurple.ManageEmailQueue;
 import resources.orm.hibernate.dao.zurple.ManageEmails;
 import resources.orm.hibernate.dao.zurple.ManageImports;
+import resources.orm.hibernate.dao.zurple.ManageNSTransactions;
+import resources.orm.hibernate.dao.zurple.ManageNetsuiteSyncTasks;
 import resources.orm.hibernate.dao.zurple.ManagePackageProducts;
 import resources.orm.hibernate.dao.zurple.ManageSessionAnonymous;
 import resources.orm.hibernate.dao.zurple.ManageSessionUser;
 import resources.orm.hibernate.dao.zurple.ManageSite;
 import resources.orm.hibernate.dao.zurple.ManageTransactionGoals;
-import resources.orm.hibernate.dao.zurple.ManageTransactions;
 import resources.orm.hibernate.dao.zurple.ManageUser;
 import resources.orm.hibernate.dao.zurple.ManageUserAlert;
 import resources.orm.hibernate.dao.zurple.ManageViewDetailedProperty;
@@ -47,12 +48,13 @@ import resources.orm.hibernate.models.zurple.DistributionRule;
 import resources.orm.hibernate.models.zurple.Email;
 import resources.orm.hibernate.models.zurple.EmailQueue;
 import resources.orm.hibernate.models.zurple.Import;
+import resources.orm.hibernate.models.zurple.NSTransaction;
+import resources.orm.hibernate.models.zurple.NetSuiteSyncTasks;
 import resources.orm.hibernate.models.zurple.PackageProduct;
 import resources.orm.hibernate.models.zurple.Property;
 import resources.orm.hibernate.models.zurple.SessionAnonymous;
 import resources.orm.hibernate.models.zurple.SessionUser;
 import resources.orm.hibernate.models.zurple.Site;
-import resources.orm.hibernate.models.zurple.Transaction;
 import resources.orm.hibernate.models.zurple.TransactionGoal;
 import resources.orm.hibernate.models.zurple.User;
 import resources.orm.hibernate.models.zurple.UserAlert;
@@ -69,7 +71,7 @@ public class TestEnvironment
 
     private List<PackageProduct> packageProducts;
 
-    private List<Transaction> transactions;
+    private List<NSTransaction> transactions;
 
     private Import imp;
 
@@ -114,15 +116,15 @@ public class TestEnvironment
         return packageProducts;
     }
 
-    public List<Transaction> getTransactionsList( )
+    public List<NSTransaction> getTransactionsList( )
     {
         if(transactions == null){
 
-            ManageTransactions mt = new ManageTransactions(getSession());
+            ManageNSTransactions mt = new ManageNSTransactions(getSession());
             transactions = mt.getTransactionsListByCustomerId(agentToCheck);
 
         }else{
-            for(Transaction trans : transactions){
+            for(NSTransaction trans : transactions){
                 getSession().refresh(trans);
             }
         }
@@ -691,5 +693,13 @@ public class TestEnvironment
 	public List<User> getListOfUsersByLeadSource(Integer pAdminId, String pLeadSource, Date pCreateDateTime){
 		ManageUser manageUser = new ManageUser(getSession());
 		return manageUser.getListOfUsers(pAdminId, pLeadSource, pCreateDateTime);
+	}
+	public List<NSTransaction> getListOfNSTransactionsByDate(String pCreateDateTime){
+		ManageNSTransactions manageNSTransactions= new ManageNSTransactions(getSession());
+		return manageNSTransactions.getListOfNSTransactionsByDate(pCreateDateTime);
+	}
+	public List<NetSuiteSyncTasks> getListOfFailedNetsuiteSyncTaskTransactions(String pDateProcessed){
+		ManageNetsuiteSyncTasks manageNetsuiteSyncTasks = new ManageNetsuiteSyncTasks(getSession());
+		return manageNetsuiteSyncTasks.getListOfFailedNetsuiteSyncTaskTransactions(pDateProcessed);
 	}
 }
