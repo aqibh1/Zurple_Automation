@@ -127,12 +127,20 @@ public class ZAPackageManagerPageTest extends PageTest{
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyPackageBundles() { //same as feature bundle
-		assertTrue(page.verifyFeatureBundles("ZP - Conversations Plus Platform",2),"Unable to verify feature bundle 1 "+lPackageId); //To be Improved later
+		if(getIsProd()) {
+			assertTrue(page.verifyFeatureBundles("ZP - Conversations Plus Platform",2),"Unable to verify feature bundle 1 "+lPackageId);
+		} else {
+			assertTrue(page.verifyFeatureBundles("PriorityRanking",2),"Unable to verify feature bundle 1 "+lPackageId); 
+		}
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyFeatureBundles() {
-		assertTrue(page.verifyFeatureBundles("ZP - Lead Intelligence Bundle",3),"Unable to verify feature bundle 2 "+lPackageId); //To be Improved later
+		if(getIsProd()) {
+			assertTrue(page.verifyFeatureBundles("ZP - Lead Intelligence Bundle",3),"Unable to verify feature bundle 2 "+lPackageId);
+		} else {
+			assertTrue(page.verifyFeatureBundles("MassSMS",3),"Unable to verify feature bundle 2 "+lPackageId); 
+		}
 	}
 
 	@AfterTest
