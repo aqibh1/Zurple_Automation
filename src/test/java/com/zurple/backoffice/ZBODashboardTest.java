@@ -173,12 +173,49 @@ public class ZBODashboardTest extends PageTest
     @Test
     public void testVerifyZurpleAutoLeadsCountOnDashboard() {
     	getPage();
-    	int l_admin_id = Integer.parseInt(EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id"));
-    	DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
-    	List<Admin> list_of_admin = dbObject.getListOfSubAdmins(l_admin_id);
-    	int zurple_auto_leads_count = getZurpleAutoLeadCount(list_of_admin);
-    	int zurple_autoleads_count_ui = Integer.valueOf(page.getZurpleAutoLeadsStatsCount());
-    	assertTrue(zurple_auto_leads_count==zurple_autoleads_count_ui, "Zurple Auto leads count mismatched: "+zurple_auto_leads_count);
+    	AdminDashboardStats adminDashboardStatsObject = getAdminDashboardStatsObject();
+    	int l_auto_leads_count_db = adminDashboardStatsObject.getAuto_leads();
+    	int l_auto_leads_ui = Integer.parseInt(page.getZurpleAutoLeadsStatsCount());
+    	assertTrue(l_auto_leads_count_db==l_auto_leads_ui, "Zurple Auto leads count mismatched: "+l_auto_leads_count_db);
+    }
+    
+    /**
+     * Verify 'Lead Replies' show correct count under Key Stats section
+     * 47707
+     */
+    @Test
+    public void testVerifyLeadReplyCountOnDashboard() {
+    	getPage();
+    	AdminDashboardStats adminDashboardStatsObject = getAdminDashboardStatsObject();
+    	int l_lead_replies_rate_count_db = adminDashboardStatsObject.getLead_replies();
+    	int l_lead_replies_rate_ui = Integer.parseInt(page.getZurpleLeadRepliesStatsCount());
+    	assertTrue(l_lead_replies_rate_count_db==l_lead_replies_rate_ui, "Lead Replies count is not same on dashboard key stats section");
+    }
+    
+    /**
+     * Verify 'Alerts Triggered' show correct count under Key Stats section
+     * 47709
+     */
+    @Test
+    public void testVerifyAlertsTriggeredCountCountOnDashboard() {
+    	getPage();
+    	AdminDashboardStats adminDashboardStatsObject = getAdminDashboardStatsObject();
+    	int l_alert_triggered_count_db = adminDashboardStatsObject.getAlert_triggered();
+    	int l_alert_triggered_count_ui = Integer.parseInt(page.getAlertTriggeredFromKeyStats());
+    	assertTrue(l_alert_triggered_count_db==l_alert_triggered_count_ui, "Alert Triggered count is not same on dashboard key stats section");
+    }
+    
+    /**
+     * Verify 'Website Visit' show correct count under Key Stats section
+     * 47708
+     */
+    @Test
+    public void testVerifyWebsiteVisitsCountCountOnDashboard() {
+    	getPage();
+    	AdminDashboardStats adminDashboardStatsObject = getAdminDashboardStatsObject();
+    	int l_website_stats_count_db = adminDashboardStatsObject.getWebsite_visits();
+    	int l_website_stats_count_ui = Integer.parseInt(page.getWebsiteVisitFromKeyStats());
+    	assertTrue(l_website_stats_count_db==l_website_stats_count_ui, "Website stats count is not same on dashboard key stats section");
     }
     private int getZurpleAutoLeadCount(List<Admin> list_of_admin) {
     	int totalLeadCount = 0;

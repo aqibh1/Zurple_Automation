@@ -15,13 +15,17 @@
 				<methods>
 					<include name="testBackOfficeLogin" />
 				</methods>
-			</class>
+			</class> 
 			<class name="com.zurple.backoffice.ZBODashboardTest">
 				<methods>
-					<include name="testVerifyNewLeadsCountOnDashboard" />
-					<include name="testVerifyManageLeadsCountOnDashboard" />
-					<include name="testVerifyMessagesSentCountOnDashboard" />
-					<include name="testVerifyOpenRateCountOnDashboard" />
+				<include name="testVerifyLeadReplyCountOnDashboard" />
+				<include name="testVerifyAlertsTriggeredCountCountOnDashboard" />
+				<include name="testVerifyWebsiteVisitsCountCountOnDashboard" />
+			  	<include name="testVerifyZurpleAutoLeadsCountOnDashboard" />
+				<include name="testVerifyNewLeadsCountOnDashboard" />
+				<include name="testVerifyManageLeadsCountOnDashboard" />
+				<include name="testVerifyMessagesSentCountOnDashboard" />
+				<include name="testVerifyOpenRateCountOnDashboard" />
 				</methods>
 			</class>
 

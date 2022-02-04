@@ -99,6 +99,16 @@ public class ZBODashboardPage extends Page{
 	@FindBy(id="key-stats-auto-leads")
 	WebElement zurple_autoleads_stats_count;
 	
+	@FindBy(id="key-stats-lead-replies")
+	WebElement lead_replies_stats_count;
+	
+	@FindBy(id="key-stats-alerttriggered")
+	WebElement alert_triggered_stats_count;
+	
+	@FindBy(id="key-stats-website-visits")
+	WebElement website_visit_stats_count;
+	
+	
 	public ZBODashboardPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -236,5 +246,14 @@ public class ZBODashboardPage extends Page{
 	}
 	public String getZurpleAutoLeadsStatsCount() {
 		return ActionHelper.getText(driver, zurple_autoleads_stats_count);
+	}
+	public String getZurpleLeadRepliesStatsCount() {
+		return ActionHelper.getText(driver, lead_replies_stats_count).replace(",","");
+	}
+	public String getAlertTriggeredFromKeyStats() {
+		return ActionHelper.getText(driver, alert_triggered_stats_count).replace(",","");
+	}
+	public String getWebsiteVisitFromKeyStats() {
+		return ActionHelper.getText(driver, website_visit_stats_count).replace(",","");
 	}
 }

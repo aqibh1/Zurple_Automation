@@ -17,6 +17,10 @@ import resources.orm.hibernate.models.Abstract;
  * @author darrraqi
  *
  */
+/**
+ * @author darrraqi
+ *
+ */
 @Entity
 @Table(name = "admin_dashboard_stats", uniqueConstraints = {
         @UniqueConstraint(columnNames = "admin_id")})
@@ -28,6 +32,10 @@ public class AdminDashboardStats extends Abstract implements java.io.Serializabl
 	private Integer messages_sent;
 	private Integer open_rate;
 	private Date create_datetime;
+	private Integer lead_replies;
+	private Integer alert_triggered;
+	private Integer website_visits;
+	private Integer auto_leads;
 
 	@Id
 	@Column(name = "admin_id", unique = true, nullable = false)
@@ -76,6 +84,35 @@ public class AdminDashboardStats extends Abstract implements java.io.Serializabl
 	public void setCreate_datetime(Date create_datetime) {
 		this.create_datetime = create_datetime;
 	}
+	public Integer getLead_replies() {
+		return lead_replies;
+	}
+	@Column(name = "lead_replies", unique = false, nullable = false)
+	public void setLead_replies(Integer lead_replies) {
+		this.lead_replies = lead_replies;
+	}
 
+	public Integer getAlert_triggered() {
+		return alert_triggered;
+	}
+	@Column(name = "alert_triggered", unique = false, nullable = false)
+	public void setAlert_triggered(Integer alert_triggered) {
+		this.alert_triggered = alert_triggered;
+	}
+
+	public Integer getWebsite_visits() {
+		return website_visits;
+	}
+	@Column(name = "website_stats", unique = false, nullable = false)
+	public void setWebsite_visits(Integer website_visits) {
+		this.website_visits = website_visits;
+	}
+	public Integer getAuto_leads() {
+		return auto_leads;
+	}
+	@Column(name = "auto_leads", unique = false, nullable = false)
+	public void setAuto_leads(Integer auto_leads) {
+		this.auto_leads = auto_leads;
+	}
 
 }
