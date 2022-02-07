@@ -29,7 +29,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
@@ -66,7 +65,9 @@ public abstract class AbstractPageTest extends AbstractTest
     	setDockersEnvironment();
         Long thread_id = Thread.currentThread().getId();
         if(getDockersEnvironment()) {
-        	driver = EnvironmentFactory.getDriver("", 0);
+        	String l_dockers_ip = System.getProperty("dockers_ip");
+        	String l_dockers_port = System.getProperty("dockers_port");
+        	driver = EnvironmentFactory.getDriver(l_dockers_ip, Integer.valueOf(l_dockers_port));
         }else {
         	 driver = EnvironmentFactory.getDriver(thread_id);
              setThreadId(thread_id);
@@ -75,9 +76,9 @@ public abstract class AbstractPageTest extends AbstractTest
         setIsProd();
         return driver;
     }
-    public RemoteWebDriver getDriver(String pUrl, int pPort) {
-    	return EnvironmentFactory.getDriver(pUrl, pPort);
-    }
+//    public RemoteWebDriver getDriver(String pUrl, int pPort) {
+//    	return EnvironmentFactory.getDriver(pUrl, pPort);
+//    }
     private void setIsProd() {
     	if(System.getProperty("environment").equalsIgnoreCase("prod") || System.getProperty("environment").equalsIgnoreCase("autoconvoprod")){
     		isProd = true; 
