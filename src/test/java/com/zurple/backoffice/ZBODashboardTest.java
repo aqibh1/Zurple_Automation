@@ -1,11 +1,6 @@
 package com.zurple.backoffice;
 import static org.testng.Assert.assertTrue;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
@@ -18,7 +13,6 @@ import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
-import resources.orm.hibernate.models.zurple.Admin;
 import resources.orm.hibernate.models.zurple.AdminDashboardStats;
 import resources.utility.AutomationLogger;
 import resources.utility.DataConstants;
@@ -30,12 +24,14 @@ public class ZBODashboardTest extends PageTest
     private ZBODashboardPage page;
     private WebDriver driver;
     private JSONObject dataObject;
+    private AdminDashboardStats adminDashboardStatsObject;
     
     public AbstractPage getPage() {
     	page=null;
     	if(page == null){
         	driver = getDriver();
 			page = new ZBODashboardPage(driver);
+			adminDashboardStatsObject=getAdminDashboardStatsObject();
 			page.setUrl("");
 			page.setDriver(driver);
         }
@@ -46,6 +42,7 @@ public class ZBODashboardTest extends PageTest
         if(page == null){
         	driver = getDriver();
 			page = new ZBODashboardPage(driver);
+			adminDashboardStatsObject=getAdminDashboardStatsObject();
 			page.setUrl(pUrl);
 			page.setDriver(driver);
         }
@@ -121,7 +118,7 @@ public class ZBODashboardTest extends PageTest
     @Test
     public void testVerifyNewLeadsCountOnDashboard() {
     	getPage();
-    	AdminDashboardStats adminDashboardStatsObject = getAdminDashboardStatsObject();
+    	adminDashboardStatsObject = getAdminDashboardStatsObject();
     	int l_new_leads_count_db = adminDashboardStatsObject.getNew_leads();
     	int l_new_leads_count_ui = Integer.parseInt(page.getNewLeadsCountFromKeyStats());
     	assertTrue(l_new_leads_count_db==l_new_leads_count_ui, "New leads count is not same on dashboard key stats section");	
@@ -134,7 +131,6 @@ public class ZBODashboardTest extends PageTest
     @Test
     public void testVerifyManageLeadsCountOnDashboard() {
     	getPage();
-    	AdminDashboardStats adminDashboardStatsObject = getAdminDashboardStatsObject();
     	int l_managed_leads_count_db = adminDashboardStatsObject.getLeads_managed();
     	int l_managed_leads_count_ui = Integer.parseInt(page.getLeadsManagedCountFromKeyStats());
     	assertTrue(l_managed_leads_count_db==l_managed_leads_count_ui, "Managed leads count is not same on dashboard key stats section");
@@ -147,7 +143,6 @@ public class ZBODashboardTest extends PageTest
     @Test
     public void testVerifyMessagesSentCountOnDashboard() {
     	getPage();
-    	AdminDashboardStats adminDashboardStatsObject = getAdminDashboardStatsObject();
     	int l_messages_sent_count_db = adminDashboardStatsObject.getMessages_sent();
     	int l_messages_sent_count_ui = Integer.parseInt(page.getMessagesSentCountFromKeyStats());
     	assertTrue(l_messages_sent_count_db==l_messages_sent_count_ui, "Messages Sent count is not same on dashboard key stats section");
@@ -160,7 +155,6 @@ public class ZBODashboardTest extends PageTest
     @Test
     public void testVerifyOpenRateCountOnDashboard() {
     	getPage();
-    	AdminDashboardStats adminDashboardStatsObject = getAdminDashboardStatsObject();
     	int l_messages_open_rate_count_db = adminDashboardStatsObject.getOpen_rate();
     	int l_messages_open_rate_ui = Integer.parseInt(page.getMessagesOpenRateCountFromKeyStats());
     	assertTrue(l_messages_open_rate_count_db==l_messages_open_rate_ui, "Messages Open Rate count is not same on dashboard key stats section");
@@ -173,7 +167,6 @@ public class ZBODashboardTest extends PageTest
     @Test
     public void testVerifyZurpleAutoLeadsCountOnDashboard() {
     	getPage();
-    	AdminDashboardStats adminDashboardStatsObject = getAdminDashboardStatsObject();
     	int l_auto_leads_count_db = adminDashboardStatsObject.getAuto_leads();
     	int l_auto_leads_ui = Integer.parseInt(page.getZurpleAutoLeadsStatsCount());
     	assertTrue(l_auto_leads_count_db==l_auto_leads_ui, "Zurple Auto leads count mismatched: "+l_auto_leads_count_db);
@@ -186,7 +179,6 @@ public class ZBODashboardTest extends PageTest
     @Test
     public void testVerifyLeadReplyCountOnDashboard() {
     	getPage();
-    	AdminDashboardStats adminDashboardStatsObject = getAdminDashboardStatsObject();
     	int l_lead_replies_rate_count_db = adminDashboardStatsObject.getLead_replies();
     	int l_lead_replies_rate_ui = Integer.parseInt(page.getZurpleLeadRepliesStatsCount());
     	assertTrue(l_lead_replies_rate_count_db==l_lead_replies_rate_ui, "Lead Replies count is not same on dashboard key stats section");
@@ -197,9 +189,8 @@ public class ZBODashboardTest extends PageTest
      * 47709
      */
     @Test
-    public void testVerifyAlertsTriggeredCountCountOnDashboard() {
+    public void testVerifyAlertsTriggeredCountOnDashboard() {
     	getPage();
-    	AdminDashboardStats adminDashboardStatsObject = getAdminDashboardStatsObject();
     	int l_alert_triggered_count_db = adminDashboardStatsObject.getAlert_triggered();
     	int l_alert_triggered_count_ui = Integer.parseInt(page.getAlertTriggeredFromKeyStats());
     	assertTrue(l_alert_triggered_count_db==l_alert_triggered_count_ui, "Alert Triggered count is not same on dashboard key stats section");
@@ -210,32 +201,31 @@ public class ZBODashboardTest extends PageTest
      * 47708
      */
     @Test
-    public void testVerifyWebsiteVisitsCountCountOnDashboard() {
+    public void testVerifyWebsiteVisitsCountOnDashboard() {
     	getPage();
-    	AdminDashboardStats adminDashboardStatsObject = getAdminDashboardStatsObject();
     	int l_website_stats_count_db = adminDashboardStatsObject.getWebsite_visits();
     	int l_website_stats_count_ui = Integer.parseInt(page.getWebsiteVisitFromKeyStats());
     	assertTrue(l_website_stats_count_db==l_website_stats_count_ui, "Website stats count is not same on dashboard key stats section");
     }
-    private int getZurpleAutoLeadCount(List<Admin> list_of_admin) {
-    	int totalLeadCount = 0;
-    	DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
-    	String create_date = getDateAfterSubtractingNumberOfDays(-30, "YYYY-MM-dd");
-    	Date create_date_format = null;
-		try {
-			create_date_format = new SimpleDateFormat("YYYY-MM-dd").parse(create_date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		for(Admin admObject: list_of_admin) {
-			int admin_id = admObject.getId();
-			int lead_count_hv = dbObject.getListOfUsers(admin_id, "home-valuation", create_date_format).size();
-			int lead_count_unknown = dbObject.getListOfUsers(admin_id, "unknown", create_date_format).size();
-			totalLeadCount += lead_count_hv+lead_count_unknown;
-		}
-		return totalLeadCount;
-	}
+//    private int getZurpleAutoLeadCount(List<Admin> list_of_admin) {
+//    	int totalLeadCount = 0;
+//    	DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());
+//    	String create_date = getDateAfterSubtractingNumberOfDays(-30, "YYYY-MM-dd");
+//    	Date create_date_format = null;
+//		try {
+//			create_date_format = new SimpleDateFormat("YYYY-MM-dd").parse(create_date);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		for(Admin admObject: list_of_admin) {
+//			int admin_id = admObject.getId();
+//			int lead_count_hv = dbObject.getListOfUsers(admin_id, "home-valuation", create_date_format).size();
+//			int lead_count_unknown = dbObject.getListOfUsers(admin_id, "unknown", create_date_format).size();
+//			totalLeadCount += lead_count_hv+lead_count_unknown;
+//		}
+//		return totalLeadCount;
+//	}
 
 	private AdminDashboardStats getAdminDashboardStatsObject() {
     	DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());	
