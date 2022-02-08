@@ -19,8 +19,8 @@
 			<class name="com.zurple.backoffice.ZBODashboardTest">
 				<methods>
 				<include name="testVerifyLeadReplyCountOnDashboard" />
-				<include name="testVerifyAlertsTriggeredCountCountOnDashboard" />
-				<include name="testVerifyWebsiteVisitsCountCountOnDashboard" />
+				<include name="testVerifyAlertsTriggeredCountOnDashboard" />
+				<include name="testVerifyWebsiteVisitsCountOnDashboard" />
 			  	<include name="testVerifyZurpleAutoLeadsCountOnDashboard" />
 				<include name="testVerifyNewLeadsCountOnDashboard" />
 				<include name="testVerifyManageLeadsCountOnDashboard" />
