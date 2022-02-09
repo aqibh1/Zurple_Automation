@@ -22,7 +22,7 @@ public class ManageNetsuiteSyncTasks{
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			List records = session.createQuery("FROM NetSuiteSyncTasks WHERE results='FAIL' AND date_processed>='"+pDateProcessed+"'").list();
+			List records = session.createQuery("FROM NetSuiteSyncTasks WHERE results='FAIL' AND admin_id!=15129 AND date_processed>='"+pDateProcessed+"'").list();
 
 			for (Iterator iterator =
 					records.iterator(); iterator.hasNext();){
