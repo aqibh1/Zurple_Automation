@@ -17,6 +17,7 @@ import com.restapi.RestContent;
 import com.restapi.RestRequest;
 import com.restapi.RestResponse;
 import resources.EnvironmentFactory;
+import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
 /**
@@ -54,6 +55,7 @@ public class ZBORestPostFetchNSRecord extends RestAPITest{
 		request.setRestContent(getContent());
 		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
 		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
+		ActionHelper.staticWait(2);
 		assertTrue(validateMapResp(response),"Unable to verify the NS record data..");
 	}
 
