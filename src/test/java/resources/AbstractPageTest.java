@@ -157,7 +157,7 @@ public abstract class AbstractPageTest extends AbstractTest
     }
     
     protected String updatePhoneNumber() {
-		return String.format("(%03d) %03d-%04d", 
+		return String.format("(1612) %03d-%04d", 
     	        (int) Math.floor(999*Math.random()), 
     	        (int) Math.floor(999*Math.random()),
     	        (int) Math.floor(9999*Math.random()));

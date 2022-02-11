@@ -98,7 +98,7 @@ public class ZAAdminManagerPageTest extends PageTest{
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyAgentCode() {
-		assertTrue(page.verifyAgentCode("2044"),"Unable to verify agent id "+lAdminId);
+		assertTrue(page.verifyAgentCode("2455"),"Unable to verify agent id "+lAdminId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
