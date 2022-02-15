@@ -2005,28 +2005,6 @@
 			</classes>
 	</test>
 	
-	<test name="Verify lead status filter">	
-	<parameter name="dataFile" value="/resources/data/zurple/backoffice/status-filters-data.json"> 
-			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeLogin" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadStatusFiltersPageTest">
-					<methods>
-						<include name="testLeadStatusFilter"/>
-					</methods>
-				</class>
-		  		<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
-			</classes>
-	</parameter>
-	</test>
-	
 	<test name="Verify lead import and settings">
 		<parameter name="importLeadCSV" value="/resources/data/ImportToolTest.csv">
 		<parameter name="importLeadData" value="/resources/data/zurple/backoffice/import-tool-data.json"> 
@@ -4308,6 +4286,20 @@
 			</class>
 		</classes>
 	</parameter>
+	</test>
+	
+	<test name="Verify lead status filter">
+		<parameter name="dataFile"
+			value="/resources/data/zurple/backoffice/status-filters-data.json">
+			<classes>
+				<class
+					name="com.zurple.backoffice.ZBOLeadStatusFiltersPageTest">
+					<methods>
+						<include name="testLeadStatusFilter" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
 	</test>
  <!--  
 <test name="Bulk update lead status to In Active" >	
