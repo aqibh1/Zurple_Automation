@@ -1,0 +1,153 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Zurple Pre and Post Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>		
+		<listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+	</listeners>
+
+	<test name="Track Property in Lead Details">
+
+		<parameter name="registerUserDataFile"
+			value="/resources/data/zurple/register_user/register-user-track-search.json">
+			<parameter name="searchPropertyDataFile"
+				value="/resources/data/zurple/property_search/zurple-property-search-city.json">
+
+				<classes>
+					<class name="com.zurple.website.ZWRegisterUserPageTest">
+						<methods>
+							<include name="testRegisterUser" />
+						</methods>
+					</class>
+					<class name="com.zurple.website.ZWHomeSearchPageTest">
+						<methods>
+							<include name="testSearchPropoerty" />
+						</methods>
+					</class>
+					<class name="com.zurple.website.ZWHomesForSalePageTest">
+						<methods>
+							<include name="testHomesForSale" />
+						</methods>
+					</class>
+					<class name="com.zurple.website.ZWPropertyDetailPageTest">
+						<methods>
+							<include name="testVerifyPropertyDetails" />
+						</methods>
+					</class>
+					<class name="com.zurple.backoffice.ZBOLoginPageTest">
+						<methods>
+							<include name="testBackOfficeLogin" />
+						</methods>
+					</class>
+					<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+						<methods>
+							<include name="testVerifyLeadPropTracking" />
+						</methods>
+					</class>
+					<class name="resources.CurrentPageTest">
+						<methods>
+							<include name="closeBrowser" />
+						</methods>
+					</class>
+				</classes>
+
+			</parameter>
+		</parameter>
+	</test>
+	
+	<test name="Schedule showing listing">
+		<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-schedule-showing.json">
+			<classes>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testScheduleShowingUserNotLoggedIn" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWRegisterUserPageTest">
+					<methods>
+						<include name="testRegisterUserScheduleShowing" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWPropertyDetailPageTest">
+					<methods>
+						<include name="testScheduleShowingUserLoggedIn" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+						<methods>
+							<include name="closeBrowser" />
+						</methods>
+					</class>
+			</classes>
+		</parameter>
+		</test>
+		
+		<test name="Update and Verify email subscriptions from website">
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-email-subscription.json">
+	<parameter name="dataFile" value="/resources/data/zurple/lead_profile/zw-lead-email-subscription-data.json">
+				<classes>
+					<class name="com.zurple.website.ZWRegisterUserPageTest">
+						<methods>
+							<include name="testRegisterUser" />
+						</methods>
+					</class>
+					<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+					</class>
+					<class name="com.zurple.website.ZWAccountSettingsPageTest">
+						<methods>
+							<include name="testVerifyPropertyUpdatesEmailsSubscriptionStatus" />
+							<include name="testVerifySoldPropertyUpdatesEmailsSubscriptionStatus" />
+							<include name="testVerifyAgentsEmailsSubscriptionStatus" />
+							<include name="testVerifyMarketSnapshotEmailsSubscriptionStatus" />
+						</methods>
+					</class>
+					<class name="resources.CurrentPageTest">
+						<methods>
+							<include name="closeBrowser" />
+						</methods>
+					</class>
+				</classes>
+			</parameter>
+		</parameter>
+	</test>
+	
+	<test name="Verify lead buyer search">
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-buyer-search.json">
+	<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-buyer-search-data.json">
+		<classes>
+			<class name="com.zurple.website.ZWRegisterUserPageTest">
+				<methods>
+					<include name="testRegisterUser" />
+				</methods>
+			</class>
+			<class name="com.zurple.website.ZWHomeSearchPageTest">
+				<methods>
+					<include name="testSearchPropoerty" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+			<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+				<methods>
+					<include name="testVerifyLeadBuyersSearch" />
+				</methods>
+			</class>
+			<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+		</parameter>
+	</test>
+  
+</suite>
