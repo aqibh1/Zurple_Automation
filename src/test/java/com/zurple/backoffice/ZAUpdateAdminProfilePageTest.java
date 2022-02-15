@@ -25,6 +25,7 @@ import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
+import resources.utility.ActionHelper;
 import resources.utility.CacheFilePathsConstants;
 
 public class ZAUpdateAdminProfilePageTest extends PageTest {
@@ -64,6 +65,7 @@ public class ZAUpdateAdminProfilePageTest extends PageTest {
 	@Parameters({"dataFile"})
 	public void testSetup(String pDataFile) {
 		getPage();
+		ActionHelper.staticWait(2);
 		JSONObject adminDataObject = getDataFile(pDataFile);
 		page.setUserName(adminDataObject.getJSONObject("email").optString("content"));
 		page.setPassword(defaultPassword);
