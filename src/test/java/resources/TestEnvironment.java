@@ -23,6 +23,7 @@ import resources.orm.hibernate.dao.zurple.ManageEmailQueue;
 import resources.orm.hibernate.dao.zurple.ManageEmails;
 import resources.orm.hibernate.dao.zurple.ManageImports;
 import resources.orm.hibernate.dao.zurple.ManageNSTransactions;
+import resources.orm.hibernate.dao.zurple.ManageNetsuiteSyncQueue;
 import resources.orm.hibernate.dao.zurple.ManageNetsuiteSyncTasks;
 import resources.orm.hibernate.dao.zurple.ManagePackageProducts;
 import resources.orm.hibernate.dao.zurple.ManageSessionAnonymous;
@@ -50,6 +51,7 @@ import resources.orm.hibernate.models.zurple.EmailQueue;
 import resources.orm.hibernate.models.zurple.Import;
 import resources.orm.hibernate.models.zurple.NSTransaction;
 import resources.orm.hibernate.models.zurple.NetSuiteSyncTasks;
+import resources.orm.hibernate.models.zurple.NetsuiteSyncQueue;
 import resources.orm.hibernate.models.zurple.PackageProduct;
 import resources.orm.hibernate.models.zurple.Property;
 import resources.orm.hibernate.models.zurple.SessionAnonymous;
@@ -701,5 +703,9 @@ public class TestEnvironment
 	public List<NetSuiteSyncTasks> getListOfFailedNetsuiteSyncTaskTransactions(String pDateProcessed){
 		ManageNetsuiteSyncTasks manageNetsuiteSyncTasks = new ManageNetsuiteSyncTasks(getSession());
 		return manageNetsuiteSyncTasks.getListOfFailedNetsuiteSyncTaskTransactions(pDateProcessed);
+	}
+	public List<NetsuiteSyncQueue> getListOfFailedNetsuiteSyncQueueItems(String pDateProcessed){
+		ManageNetsuiteSyncQueue manageNetsuiteSyncQueue = new ManageNetsuiteSyncQueue(getSession());
+		return manageNetsuiteSyncQueue.getListOfFailedNetsuiteSyncQueueTransactions(pDateProcessed);
 	}
 }

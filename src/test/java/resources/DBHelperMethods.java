@@ -19,6 +19,7 @@ import resources.orm.hibernate.models.zurple.AlertRule;
 import resources.orm.hibernate.models.zurple.Email;
 import resources.orm.hibernate.models.zurple.NSTransaction;
 import resources.orm.hibernate.models.zurple.NetSuiteSyncTasks;
+import resources.orm.hibernate.models.zurple.NetsuiteSyncQueue;
 import resources.orm.hibernate.models.zurple.User;
 import resources.orm.hibernate.models.zurple.UserAlert;
 import resources.utility.AutomationLogger;
@@ -362,5 +363,8 @@ public class DBHelperMethods {
 	}
 	public List<NetSuiteSyncTasks> getListOfFailedNetsuiteSyncTaskTransactions(String pDateProcessed){
 		return testEnvironment.getListOfFailedNetsuiteSyncTaskTransactions(pDateProcessed);
+	}
+	public List<NetsuiteSyncQueue> getListOfFailedNetsuiteSyncQueueItems(String pDateProcessed){
+		return testEnvironment.getListOfFailedNetsuiteSyncQueueItems(pDateProcessed);
 	}
 }
