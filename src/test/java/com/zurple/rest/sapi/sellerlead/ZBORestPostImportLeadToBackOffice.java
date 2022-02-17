@@ -101,6 +101,8 @@ public class ZBORestPostImportLeadToBackOffice extends RestAPITest{
 		jsonObjectToPost.put("baths", dataObject.optString("baths"));
 		jsonObjectToPost.put("sqft", dataObject.optString("sqft"));
 		jsonObjectToPost.put("property_updates_flag", dataObject.optInt("property_updates_flag"));
+		jsonObjectToPost.put("listing_id","");
+		jsonObjectToPost.put("social_lead_type", "seller_lead_ad");
 		restContent.setBody(jsonObjectToPost.toString());
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail, jsonObjectToPost.get("first_name")+" "+jsonObjectToPost.get("last_name"));
 		return restContent;
