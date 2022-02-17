@@ -37,5 +37,6 @@
 		<mapping class="resources.orm.hibernate.models.zurple.EmailQueue"></mapping>
 		<mapping class="resources.orm.hibernate.models.zurple.AdminDashboardStats"></mapping>
 		<mapping class="resources.orm.hibernate.models.zurple.NetSuiteSyncTasks"></mapping>
+		<mapping class="resources.orm.hibernate.models.zurple.NetsuiteSyncQueue"></mapping>
 	</session-factory>
 </hibernate-configuration>

@@ -28,7 +28,7 @@ public class ZBORestPostFetchNSRecord extends RestAPITest{
 	private JSONObject dataObject;
 	String lDataFile ="";
 	
-	@Test(priority=245)
+	@Test(priority=245,dependsOnGroups={"ZAUpdateAdminManagerPageTest.testSubmitUpdates"})
 	@Parameters({"dataFile"})
 	public void testPostFetchNSRecord(String pDataFile) throws Exception {
 		getDriver();
@@ -43,7 +43,7 @@ public class ZBORestPostFetchNSRecord extends RestAPITest{
 		assertTrue(validateMapResp(response),"Unable to verify the NS record data..");
 	}
 	
-	@Test(priority=247)
+	@Test(priority=248,dependsOnGroups={"ZAUpdateAdminProfilePageTest.testSubmitUpdates"})
 	@Parameters({"dataFile"})
 	public void testPostFetchNSRecordForAdminProfile(String pDataFile) throws Exception {
 		getDriver();
@@ -55,7 +55,6 @@ public class ZBORestPostFetchNSRecord extends RestAPITest{
 		request.setRestContent(getContent());
 		HttpRequestHandler httpRequestHandler = new HttpRequestHandler();
 		RestResponse response = httpRequestHandler.doPost(this.getClass().getName(), request, true);
-		ActionHelper.staticWait(2);
 		assertTrue(validateMapResp(response),"Unable to verify the NS record data..");
 	}
 
