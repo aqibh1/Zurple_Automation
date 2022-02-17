@@ -61,7 +61,7 @@ public class ZAUpdateAdminProfilePageTest extends PageTest {
 		
 	}
 
-	@Test(priority=246)
+	@Test(priority=246,dependsOnGroups={"ZAUpdateAdminManagerPageTest.testSubmitUpdates"})
 	@Parameters({"dataFile"})
 	public void testSetup(String pDataFile) {
 		getPage();
@@ -119,7 +119,7 @@ public class ZAUpdateAdminProfilePageTest extends PageTest {
 		multiParts.put("dre", new Part(updatedLicense, PartType.STRING));
 	}
 	
-	@Test(priority=244,dependsOnMethods = { "testSetup" })
+	@Test(priority=247,dependsOnMethods = { "testSetup" },groups={"ZAUpdateAdminProfilePageTest.testSubmitUpdates"})
 	public void testSubmitUpdates() throws JsonGenerationException, JsonMappingException, IOException {
 		assertTrue(page.clickSubmitButton(),"Unable to submit admin updates  "+lAdminId);
 		emptyFile(CacheFilePathsConstants.APNSUpdatedDataForAdminProfile,"");

@@ -1079,7 +1079,7 @@
 	</parameter>
 	</test>
 	
-	<test name="Verify Admin Update by Auto Provisioning via API call">	 
+	<test name="Verify Admin Update by Auto Provisioning via API call for Admin Manager">	 
 	<parameter name="dataFile" value="/resources/cache/cache-ap-updated-data.json">
 		<classes>
 			<class name="com.restapi.autoprovision.ZBORestPostFetchNSRecord">

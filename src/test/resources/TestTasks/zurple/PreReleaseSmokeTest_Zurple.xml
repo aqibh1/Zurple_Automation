@@ -4242,6 +4242,68 @@
 		</classes>
 	</parameter>
 	</parameter>
+	</test> 
+	
+	<test name="Verify Admin Update from Admin Manager">	 
+	<parameter name="dataFile" value="/resources/cache/cache-ap-updated-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZAUpdateAdminManagerPageTest">
+				<methods>
+					<include name="testSetup" />
+					<include name= "testUpdateFirstName" />
+					<include name= "testUpdateLastName" />
+					<include name= "testUpdateEmail" />
+					<include name= "testUpdatePhone" />
+					<include name= "testUpdateOfficeName" />
+					<include name= "testUpdateLicense" />
+					<include name= "testSubmitUpdates" />					
+				</methods>
+			</class>
+		</classes>
+	</parameter>
+	</test>
+	
+	<test name="Verify Admin Update by Auto Provisioning via API call for Admin Manager">	 
+	<parameter name="dataFile" value="/resources/cache/cache-ap-updated-data.json">
+		<classes>
+			<class name="com.restapi.autoprovision.ZBORestPostFetchNSRecord">
+			    <methods>
+					<include name="testPostFetchNSRecord" />			
+				</methods>
+			</class>
+		</classes>
+	</parameter>
+	</test>
+	
+	<test name="Verify Admin Update from Back Office">	 
+	<parameter name="dataFile" value="/resources/cache/cache-ap-updated-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZAUpdateAdminProfilePageTest">
+				<methods>
+					<include name="testSetup" />
+					<include name= "testUpdateFirstName" />
+					<include name= "testUpdateLastName" />
+					<include name= "testUpdateEmail" />
+					<include name= "testUpdatePhone" />
+					<include name= "testUpdateOfficeName" />
+					<include name= "testUpdateLicense" />
+					<include name= "testSubmitUpdates" />					
+				</methods>
+			</class>
+		</classes>
+	</parameter>
+	</test>
+	
+	<test name="Verify Admin Update by Auto Provisioning via API call for Back Office">	 
+	<parameter name="dataFile" value="/resources/cache/cache-ap-updated-data-admin-profile.json">
+		<classes>
+			<class name="com.restapi.autoprovision.ZBORestPostFetchNSRecord">
+			    <methods>
+					<include name="testPostFetchNSRecordForAdminProfile" />			
+				</methods>
+			</class>
+		</classes>
+	</parameter>
 	</test>
 	
 	<test name="Add Billing Payement Plan">
