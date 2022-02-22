@@ -21,8 +21,7 @@ public class ManageNetsuiteSyncQueue {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			List records = session.createQuery("FROM NetsuiteSyncQueue WHERE action IN ('CREATE_SUB_ADMIN','WELCOME_EMAIL','UPDATE_ACCOUNT','FAILURE_EMAIL') "
-					+ "AND ERROR IS NOT NULL AND create_datetime>='"+pCreateDateTime+"'").list();
+			List records = session.createQuery("FROM NetsuiteSyncQueue WHERE ERROR IS NOT NULL AND create_datetime>='"+pCreateDateTime+"'").list();
 
 			for (Iterator iterator = records.iterator(); iterator.hasNext();)
 			{
