@@ -2,10 +2,12 @@
 
 <suite name="Zurple Pre and Post Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	<listeners>		
-		<listener class-name="resources.ThreadCountChanger"/>
-        <listener class-name="resources.ExtentReporterListener"/>
-        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+			<listener class-name="resources.ThreadCountChanger"/>
+     <!--     <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>-->
         <listener class-name="resources.CustomTestNGReporter"/>
+        <listener class-name="resources.TestRailAndExtentReportListener"/>
+        <listener class-name="resources.FailedTestsListener"/>
 	</listeners>
 
 	<test name="Send Email from CRM Page">	
@@ -119,9 +121,7 @@
 	<test name="Update and Verify User Settings">
 		<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-update-settings.json">
 		<parameter name="userSettings" value="/resources/data/zurple/zurple-user-settings.json">
-		 
 			<classes>
-			
 				<class name="com.zurple.website.ZWRegisterUserPageTest">
 					<methods>
 							<include name="testRegisterUser" />
@@ -573,8 +573,7 @@
 	</test>
 
 
-	<test
-		name="Search and Verify property by Bed Bath Price and Features with User Logged In">
+	<test name="Search and Verify property by Bed Bath Price and Features with User Logged In">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-01.json">
 			<classes>
@@ -607,8 +606,7 @@
 		</parameter>
 	</test>
 
-	<test
-		name="Search and Verify property by City with User Logged In">
+	<test name="Search and Verify property by City with User Logged In">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-city.json">
 			<classes>
@@ -709,8 +707,7 @@
 		</parameter>
 	</test>
 
-	<test
-		name="Search and Verify property by City Style Feature View with User Logged In">
+	<test name="Search and Verify property by City Style Feature View with User Logged In">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-city-style-view.json">
 			<classes>
@@ -776,8 +773,7 @@
 		</parameter>
 	</test>
 
-	<test
-		name="Search and Verify property by Address with User Logged In">
+	<test name="Search and Verify property by Address with User Logged In">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-address.json">
 			<classes>
@@ -810,8 +806,7 @@
 		</parameter>
 	</test>
 
-	<test
-		name="Search and Verify property by County with User Logged In">
+	<test name="Search and Verify property by County with User Logged In">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-county.json">
 			<classes>
@@ -844,8 +839,7 @@
 		</parameter>
 	</test>
 
-	<test
-		name="Search and Verify property by Square Feet with User Logged In">
+	<test name="Search and Verify property by Square Feet with User Logged In">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-squarefeet.json">
 			<classes>
@@ -879,12 +873,10 @@
 	</test>
 
 	<test name="Track Property in Lead Details">
-
 		<parameter name="registerUserDataFile"
 			value="/resources/data/zurple/register_user/register-user-track-search.json">
 			<parameter name="searchPropertyDataFile"
 				value="/resources/data/zurple/property_search/zurple-property-search-city.json">
-
 				<classes>
 					<class name="com.zurple.website.ZWRegisterUserPageTest">
 						<methods>
@@ -922,18 +914,13 @@
 						</methods>
 					</class>
 				</classes>
-
 			</parameter>
 		</parameter>
 	</test>
 	
 	<test name="Lead Capture Form appears for user not signed in on Listing">
-
-		<parameter name="searchPropertyDataFile"
-			value="/resources/data/zurple/property_search/zurple-property-search-lead-capture.json">
-
+		<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-lead-capture.json">
 			<classes>
-
 				<class name="com.zurple.website.ZWHomeSearchPageTest">
 					<methods>
 						<include name="testSearchPropoerty" />
@@ -977,10 +964,8 @@
    	</test>
    	
 	<test name="Capture and verify lead from back office">
-
 		<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-city.json">
 		<parameter name="captureLeadData" value="/resources/data/zurple/register_user/register-user-track-search.json">
-
 			<classes>
 				<class name="com.zurple.website.ZWHomeSearchPageTest">
 					<methods>
@@ -1008,24 +993,18 @@
 					</methods>
 				</class>
 			</classes>
-		
 		</parameter>
 		</parameter>
 	</test>
 	
 	<test name="Fill out contact agent form and verify lead">
-
-		<parameter name="contactAgentData"
-			value="/resources/data/zurple/register_user/lead-data-contact-agent.json">
-
+		<parameter name="contactAgentData" value="/resources/data/zurple/register_user/lead-data-contact-agent.json">
 			<classes>
-
 				<class name="com.zurple.website.ZWPropertyDetailPageTest">
 					<methods>
 						<include name="testContactAgentOnListingDetail" />
 					</methods>
 				</class>
-
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
 						<include name="testBackOfficeLogin" />
@@ -1143,7 +1122,6 @@
 	
 	<test name="Verify Filter works on Lead Page">	 
 	<parameter name="filterDataFile" value="/resources/data/zurple/backoffice/zurple-filter-data.json">
-	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -1378,13 +1356,11 @@
 						<include name="testBackOfficeLogin" />
 					</methods>
 				</class>
-			
 				<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
 					<methods>
 						<include name="testAddLead" />
 					</methods>
 				</class>
-			
 				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
 					<methods>
 							<include name="testAddAndVerifyLeadNotes" />
@@ -1787,7 +1763,6 @@
 	</parameter>
 	</test>
 	
-	
 	<test name="Verify Leads Distribution">
 	 <parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-localinfo-search.json">
 		<classes>
@@ -1857,7 +1832,6 @@
 	
 	
 	<test name="Verify bounced emails">
-
 		<parameter name="registerUserDataFile"
 			value="/resources/data/zurple/register_user/register-user-bounced-email-data.json">
 				<classes>
@@ -1935,7 +1909,6 @@
 			</classes>
 	</parameter>
 	</test>
-	
 	
 	<test name="Verify lead enrollment is disabled for new leads" >	
 	<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-campaign.json"> 
@@ -2055,7 +2028,7 @@
 	</test>	
 	
 	<test name="Register new lead and verify from Dashboard">	
-<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-dashboard-verification.json">
+		<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-dashboard-verification.json">
 			<classes>
 			<class name="com.zurple.website.ZWRegisterUserPageTest">
 				<methods>
@@ -2082,7 +2055,6 @@
 	</test>
 	
 	<test name="Verify Dashboard stats for non site owner">
-   
     <parameter name="dataFile" value="/resources/data/zurple/backoffice/zurple-agent-credentials.json">
 	<classes>
 		<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -2106,11 +2078,8 @@
    
    	
 <test name="Verify priority Ranking for the lead">	
-		
-			<parameter name="dataFile"
-			value="/resources/data/zurple/register_user/lead-priority-ranking-data.json">
+			<parameter name="dataFile" value="/resources/data/zurple/register_user/lead-priority-ranking-data.json">
 				<classes>
-
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
 						<include name="testBackOfficeLogin" />
@@ -2128,7 +2097,6 @@
 				</class>
 			</classes>
 			</parameter>
-
 	</test>
 	
 	<test name="Verify Reminder Email generated from CRM page">	
@@ -2316,9 +2284,7 @@
 		</parameter>
 	</test>
 	
-	
 	<test name="Verify Reminder email generated from Lead Detail Page">
-		
 		<classes>
 			<class name="com.zurple.backoffice.ZBOLoginPageTest">
 				<methods>
@@ -2330,7 +2296,6 @@
 					<include name="testVerifyAgentReminderEmail" />
 				</methods>
 			</class>
-	
 			<class name="resources.CurrentPageTest">
 				<methods>
 					<include name="closeBrowser" />
@@ -2339,7 +2304,6 @@
 		</classes>
 	</test>
 	
-		
 		<test name="Verify Schedule Showing  Alert">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -2400,8 +2364,7 @@
 						<include name="testVerifyAdPreviewSlideShowIsWorking"/>
 					</methods>
 				</class>
-			</classes>
-			
+			</classes>	
 	</test>
 	
 	<test name="Verify lead Replies">
@@ -2418,6 +2381,7 @@
 			</class>
 		</classes>
 	</test>
+	
 	 <!--  
 	<test name="Create and Verify Buyer Leads Custom Ad">
 		<classes>
@@ -2708,7 +2672,7 @@
 		</classes>
 	</test>
 	--> 
-	<!--  -->
+
 	<test name="Verify Send CMA Report button is visible on lead details page">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -2748,6 +2712,7 @@
 				</class>
 			</classes>
 	</test>
+	
 	<test name="Verify Send CMA Report page">
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/cma-lead-data.json">	
 			<classes>
@@ -3004,6 +2969,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Text Post FB - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-text-post-scheduled.json">
 		<classes>
@@ -3024,6 +2990,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Photo Post FB">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-photo-post.json">
 		<classes>
@@ -3045,6 +3012,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Photo Post FB - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-photo-post-scheduled.json">
 		<classes>
@@ -3066,6 +3034,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Link Post FB">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-link-post.json">
 		<classes>
@@ -3086,6 +3055,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Link Post FB - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-link-post-scheduled.json">
 		<classes>
@@ -3106,6 +3076,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Post FB">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-post.json">
 		<classes>
@@ -3130,6 +3101,7 @@
 		</classes>
 		</parameter>
 	</test> 
+	
 	<test name="Verify Social Listing Post FB - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-post-scheduled.json">
 		<classes>
@@ -3154,12 +3126,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Video Post FB">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-video-post.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
-	  				
 					<include name="testVerifyFacebookPostPageTitle" />	
 					<include name="testVerifyFacebookPostAccountName" />
 					<include name="testVerifyFacebookPlatformIconIsVisible" />			
@@ -3176,12 +3148,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Video Post FB - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-video-post-scheduled.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
-				<methods>
-	  				
+				<methods>	
 					<include name="testVerifyFacebookPostPageTitle" />	
 					<include name="testVerifyFacebookPostAccountName" />
 					<include name="testVerifyFacebookPlatformIconIsVisible" />			
@@ -3204,7 +3176,6 @@
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
-	  				
 					<include name="testVerifyTwitterPostPageTitle" />	
 					<include name="testVerifyTwitterPostAccountName" />
 					<include name="testVerifyTwitterPlatformIconIsVisible" />
@@ -3220,12 +3191,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Text Post Twitter - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-text-post-scheduled.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
-				<methods>
-	  				
+				<methods>	
 					<include name="testVerifyTwitterPostPageTitle" />	
 					<include name="testVerifyTwitterPostAccountName" />
 					<include name="testVerifyTwitterPlatformIconIsVisible" />
@@ -3241,12 +3212,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Photo Post Twitter">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-photo-post.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
-	  				
 					<include name="testVerifyTwitterPostPageTitle" />	
 					<include name="testVerifyTwitterPostAccountName" />
 					<include name="testVerifyTwitterPlatformIconIsVisible" />	
@@ -3263,12 +3234,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Photo Post Twitter - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-photo-post-scheduled.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
-	  				
 					<include name="testVerifyTwitterPostPageTitle" />	
 					<include name="testVerifyTwitterPostAccountName" />
 					<include name="testVerifyTwitterPlatformIconIsVisible" />	
@@ -3285,12 +3256,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Link Post Twitter">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-link-post.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
-	  				
 					<include name="testVerifyTwitterPostPageTitle" />	
 					<include name="testVerifyTwitterPostAccountName" />
 					<include name="testVerifyTwitterPlatformIconIsVisible" />
@@ -3306,12 +3277,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Link Post Twitter - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-link-post-scheduled.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
-	  				
 					<include name="testVerifyTwitterPostPageTitle" />	
 					<include name="testVerifyTwitterPostAccountName" />
 					<include name="testVerifyTwitterPlatformIconIsVisible" />
@@ -3327,12 +3298,12 @@
 		</classes>
 		</parameter>
 	</test> 
+	
 	<test name="Verify Social Listing Post Twitter">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-post.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
-	  				
 					<include name="testVerifyTwitterPostPageTitle" />	
 					<include name="testVerifyTwitterPostAccountName" />
 					<include name="testVerifyTwitterPlatformIconIsVisible" />
@@ -3352,12 +3323,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Post Twitter - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-post-scheduled.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
-				<methods>
-	  				
+				<methods>	
 					<include name="testVerifyTwitterPostPageTitle" />	
 					<include name="testVerifyTwitterPostAccountName" />
 					<include name="testVerifyTwitterPlatformIconIsVisible" />
@@ -3377,6 +3348,7 @@
 		</classes>
 		</parameter>
 	</test>  
+	
 	<test name="Verify Social Listing Video Post Twitter">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post.json">
 		<classes>
@@ -3395,6 +3367,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Video Post Twitter - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post-scheduled.json">
 		<classes>
@@ -3419,7 +3392,6 @@
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
-	  				
 					<include name="testVerifyLinkedinPostPageTitle" />	
 					<include name="testVerifyLinkedinPostAccountName" />
 					<include name="testVerifyLinkedinPlatformIconIsVisible" />
@@ -3435,12 +3407,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Text Post Linkedin - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-text-post-scheduled.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
-				<methods>
-	  				
+				<methods>	
 					<include name="testVerifyLinkedinPostPageTitle" />	
 					<include name="testVerifyLinkedinPostAccountName" />
 					<include name="testVerifyLinkedinPlatformIconIsVisible" />
@@ -3456,12 +3428,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Photo Post Linkedin">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-photo-post.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
-	  				
 					<include name="testVerifyLinkedinPostPageTitle" />	
 					<include name="testVerifyLinkedinPostAccountName" />
 					<include name="testVerifyLinkedinPlatformIconIsVisible" />
@@ -3478,12 +3450,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Photo Post Linkedin - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-photo-post-scheduled.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
-	  				
 					<include name="testVerifyLinkedinPostPageTitle" />	
 					<include name="testVerifyLinkedinPostAccountName" />
 					<include name="testVerifyLinkedinPlatformIconIsVisible" />
@@ -3500,12 +3472,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Link Post Linkedin">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-link-post.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
-	  				
 					<include name="testVerifyLinkedinPostPageTitle" />	
 					<include name="testVerifyLinkedinPostAccountName" />
 					<include name="testVerifyLinkedinPlatformIconIsVisible" />
@@ -3521,12 +3493,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Link Post Linkedin - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-link-post-scheduled.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
-	  				
 					<include name="testVerifyLinkedinPostPageTitle" />	
 					<include name="testVerifyLinkedinPostAccountName" />
 					<include name="testVerifyLinkedinPlatformIconIsVisible" />
@@ -3542,12 +3514,12 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Post Linkedin">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-listing-post.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
 				<methods>
-	  				
 					<include name="testVerifyLinkedinPostPageTitle" />	
 					<include name="testVerifyLinkedinPostAccountName" />
 					<include name="testVerifyLinkedinPlatformIconIsVisible" />
@@ -3567,6 +3539,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Post Linkedin - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-listing-post-scheduled.json">
 		<classes>
@@ -4401,7 +4374,5 @@
 				</class>
 			</classes>
 	</test>
-	
   -->
-  
 </suite>

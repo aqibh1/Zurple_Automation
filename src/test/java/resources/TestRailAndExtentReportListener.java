@@ -4,7 +4,9 @@
 package resources;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,6 +27,10 @@ import resources.utility.AutomationLogger;
  * @author adar
  *
  */
+/**
+ * @author darrraqi
+ *
+ */
 public class TestRailAndExtentReportListener implements ITestListener{
 
 	String l_testRail_Url = "";
@@ -40,6 +46,8 @@ public class TestRailAndExtentReportListener implements ITestListener{
 	private static ThreadLocal<ExtentTest> emailTest = new ThreadLocal();
     private static ThreadLocal<ExtentTest> test = new ThreadLocal();
 	private static HashMap<String,String> tests_executed = new HashMap<String,String>(); 
+	private static List<String> failed_test_list = new ArrayList<String>();
+	
     ExtentTest testlog;
 
 	
@@ -117,6 +125,7 @@ public class TestRailAndExtentReportListener implements ITestListener{
 		AutomationLogger.info("--FAIL-- "+result.getName()+" Thread ID::"+Thread.currentThread().getId()+" TEST ID ::"+success_map_id);
 		AutomationLogger.info("FAIL Test :: "+getMapKey()+" Thread ID ::"+Thread.currentThread().getId());
 		String l_scenario_name = result.getTestContext().getCurrentXmlTest().getName();
+		setFailedTestList(l_scenario_name);
 		String errorMessage = result.getThrowable().getLocalizedMessage();
 		if(errorMessage.length()>230) {
 			errorMessage = result.getThrowable().getLocalizedMessage().substring(0, 230);
@@ -269,6 +278,20 @@ public class TestRailAndExtentReportListener implements ITestListener{
 	}
 	public static void setTestsExecuted(String pTestName) {
 		tests_executed.put(pTestName, "Executed");
+	}
+
+	public static List<String> getFailedTestList() {
+		return failed_test_list;
+	}
+
+	private static void setFailedTestList(String pScenarioName) {
+		if(failed_test_list.size()>0) {
+			if(!failed_test_list.contains(pScenarioName)) {
+				TestRailAndExtentReportListener.failed_test_list.add(pScenarioName);
+			}
+		}else {
+			TestRailAndExtentReportListener.failed_test_list.add(pScenarioName);
+		}	
 	}
 	 
 }

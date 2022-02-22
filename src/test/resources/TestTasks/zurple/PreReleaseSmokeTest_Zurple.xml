@@ -6,6 +6,7 @@
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
+         <listener class-name="resources.FailedTestsListener"/>
 	</listeners>
 
 	<test name="Send Email from CRM Page">	
@@ -4394,6 +4395,34 @@
 			</class>
 			</classes>
 			</parameter>
+	</test>
+	
+	<test name="Verify Dashboard Key Stats from the Dasboard">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class> 
+			<class name="com.zurple.backoffice.ZBODashboardTest">
+				<methods>
+				<include name="testVerifyLeadReplyCountOnDashboard" />
+				<include name="testVerifyAlertsTriggeredCountOnDashboard" />
+				<include name="testVerifyWebsiteVisitsCountOnDashboard" />
+			  	<include name="testVerifyZurpleAutoLeadsCountOnDashboard" />
+				<include name="testVerifyNewLeadsCountOnDashboard" />
+				<include name="testVerifyManageLeadsCountOnDashboard" />
+				<include name="testVerifyMessagesSentCountOnDashboard" />
+				<include name="testVerifyOpenRateCountOnDashboard" />
+				</methods>
+			</class>
+
+			<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+		</classes>
 	</test>
 	
 	<!-- 
