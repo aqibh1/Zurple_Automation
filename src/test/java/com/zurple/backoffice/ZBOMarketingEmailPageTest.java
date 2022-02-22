@@ -3,6 +3,7 @@
  */
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.text.ParseException;
@@ -213,7 +214,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	public void testVerifyLeadReplies() {
 		String subject = getIsProd()?"Quick Question":"[stage01] Quick Question";
 		boolean isSuccessful = gmailObject.isEmailPresentAndReply("z57testuser.zurpleqa@gmail.com", "uznhhalkthskjpyx", subject, "aqib.zurple.production@zengtest2.us",true);
-    	assertTrue(isSuccessful, "Lead reply email not sent");
+    	assertFalse(isSuccessful, "Lead reply email not sent");
 	}
 	
 	@Test(dependsOnGroups = {"com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate"})
