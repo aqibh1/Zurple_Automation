@@ -1,0 +1,10 @@
+<doc>
+<test name="Verify lead Replies">
+<classes>
+<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+<methods>
+<include name="testVerifyLeadReplies" />
+</methods>
+</class>
+</classes>
+</test></doc>
