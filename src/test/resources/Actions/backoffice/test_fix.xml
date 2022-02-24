@@ -6,6 +6,8 @@
         <listener class-name="resources.ExtentReporterListener"/>
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
+        <listener class-name="resources.TestRailAndExtentReportListener"/>
+        <listener class-name="resources.FailedTestsListener"/>
 	</listeners>
 	
 <test name="Verify lead Replies">

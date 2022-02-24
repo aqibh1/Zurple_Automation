@@ -1,0 +1,44 @@
+2022-02-23 02:14:19,214 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:63-----=====Fetching test case ID by Scenario name=====-----
+2022-02-23 02:14:19,226 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:182-----=====--SKIP-- testVerifyLeadReplies Thread ID::15 TEST ID ::=====-----
+2022-02-23 02:14:19,226 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:183-----=====SKIP Test :: Verify_lead_Replies_ZBOMarketingEmailPageTest.testVerifyLeadReplies Thread ID ::15=====-----
+2022-02-23 02:15:19,466 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:63-----=====Fetching test case ID by Scenario name=====-----
+2022-02-23 02:15:19,470 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:182-----=====--SKIP-- testVerifyLeadReplies Thread ID::15 TEST ID ::=====-----
+2022-02-23 02:15:19,470 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:183-----=====SKIP Test :: Verify_lead_Replies_ZBOMarketingEmailPageTest.testVerifyLeadReplies Thread ID ::15=====-----
+2022-02-23 02:16:49,211 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-02-23 02:16:49,212 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyLeadReplies       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:79-----=====Thread ID::15=====-----
+2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:63-----=====Fetching test case ID by Scenario name=====-----
+2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:87-----=====Initializing TestRail URL :: https://z57.testrail.com/=====-----
+2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:88-----=====SCENARIO NAME :: Verify lead Replies=====-----
+2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:89-----=====TEST NAME :: testVerifyLeadReplies=====-----
+2022-02-23 02:16:49,214 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:90-----=====TESTCASE ID :: =====-----
+2022-02-23 02:16:49,214 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:91-----=====TEST RUN ID :: null=====-----
+2022-02-23 02:16:51,925 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:68-----=====Subject :: Finish setting up your new Google Account=====-----
+2022-02-23 02:16:52,186 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:68-----=====Subject :: 2-Step Verification turned on=====-----
+2022-02-23 02:16:52,446 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:68-----=====Subject :: App password created=====-----
+2022-02-23 02:16:52,700 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:68-----=====Subject :: Quick Question=====-----
+2022-02-23 02:16:52,963 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:68-----=====Subject :: Security alert=====-----
+2022-02-23 02:16:53,221 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:68-----=====Subject :: [stage01] Quick Question=====-----
+2022-02-23 02:16:53,221 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:70-----=====Subject: [stage01] Quick Question=====-----
+2022-02-23 02:16:53,222 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:169-----=====From: Aqib Site Owner <aqibstagetesting_zurpleqa@stage01.zengtest6.us>=====-----
+2022-02-23 02:16:53,223 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:173-----=====Reply-to: aqib.zurple.production@zengtest2.us=====-----
+2022-02-23 02:16:53,223 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:177-----=====To: z57testuser.zurpleqa@gmail.com=====-----
+2022-02-23 02:16:59,553 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----PASS=====testVerifyLeadReplies=====PASS-----
+2022-02-23 02:16:59,554 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----ERROR=====Lead reply email not sent expected [false] but found [true]=====ERROR-----
+2022-02-23 02:17:00,012 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:63-----=====Fetching test case ID by Scenario name=====-----
+2022-02-23 02:17:00,012 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:125-----=====--FAIL-- testVerifyLeadReplies Thread ID::15 TEST ID ::=====-----
+2022-02-23 02:17:00,013 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:126-----=====FAIL Test :: Verify_lead_Replies_ZBOMarketingEmailPageTest.testVerifyLeadReplies Thread ID ::15=====-----
+2022-02-23 02:17:00,013 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----ERROR=====Lead reply email not sent expected [false] but found [true]=====ERROR-----
+2022-02-23 02:17:00,451 INFO r.u.AutomationLogger [main] Thread ID = 1 FailedTestsListener.java:88-----=====
+<test name="Verify lead Replies">
+<classes>
+<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+<methods>
+<include name="testVerifyLeadReplies" />
+</methods>
+</class>
+</classes>
+</test>=====-----

@@ -6,7 +6,12 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
 
+<<<<<<< HEAD
+ 
+	<test name="Home Seacrh Test 01" preserve-order="true">
+=======
   <test name="Home Seacrh Test 01" preserve-order="true">
+>>>>>>> ea72c72f310d1cd054210014ec3d2b80e29e47e6
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-01.json">
 	<classes>
       <class name="com.z57.site.v2.HomePageTest" >
@@ -62,6 +67,8 @@
     
     <test name="Home Seacrh Test 03" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-03.json">
+<<<<<<< HEAD
+=======
 	<classes>
       <class name="com.z57.site.v2.HomePageTest" >
         <methods>
@@ -143,6 +150,7 @@
       
     <test name="Home Seacrh Test 06" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-06.json">
+>>>>>>> ea72c72f310d1cd054210014ec3d2b80e29e47e6
 	<classes>
       <class name="com.z57.site.v2.HomePageTest" >
         <methods>
@@ -167,6 +175,8 @@
      </classes>
      </parameter>
     </test>
+<<<<<<< HEAD
+=======
      
     <test name="Home Seacrh Test 07" preserve-order="true">
 	<parameter name="dataFile" value="/resources/data/home_search_data/home-property-search-07.json">
@@ -437,4 +447,5 @@
      </classes>
      </parameter>
     </test>
+>>>>>>> ea72c72f310d1cd054210014ec3d2b80e29e47e6
 </suite>
