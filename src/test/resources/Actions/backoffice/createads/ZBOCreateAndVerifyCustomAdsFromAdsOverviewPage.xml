@@ -1,0 +1,42 @@
+<suite name="Create Ads Suite"
+	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+	<test name="Create and Verify Custom ad from Ads Overview Page">
+	<parameter name="datafile" value="/resources/data/zurple/socialapi/ads/custom_Ad_data.json">
+		<classes>  
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>
+					<include name="testCreateAndVerifyCustomAdsListingAddress" />
+					<include name="testVerifyUserIsRedirectedToAdsOverviewPage" />
+					<include name="testCreateAndVerifyCustomAdsCity" />
+					<include name="testCreateAndVerifyCustomAdBudget" />
+					<include name="testCreateAndVerifyCustomAdDuration" />
+					<include name="testCreateAndVerifyCustomAdRenewalDate" />
+					<include name="testCreateAndVerifyCustomAdStatus" />
+					<include name="testCreateAndVerifyMultipleCitiesCustomAd" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.admin.ZAAdsManagerPageTest">
+				<methods>
+					<include name="testVerifyStatusOfTheCustomListingAdFromAdsManager" />
+					<include name="testVerifyBudgetOfTheCustomListingAdFromAdsManager" />
+					<include name="testVerifyAdDurationOfTheCustomListingAdFromAdsManager" />
+					<include name="testVerifyAdLocationOfTheCustomListingAdFromAdsManger" />
+				</methods>
+			</class>
+			<class name="com.zurple.rest.sapi.ads.ZBORestGetAdsInfoListTest">
+				<methods>
+					<include name="testGetAdInfoList" />
+				</methods>
+			</class>
+		</classes>
+	</parameter>
+	</test>
+</suite>

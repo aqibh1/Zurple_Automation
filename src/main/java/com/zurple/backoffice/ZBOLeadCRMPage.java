@@ -107,6 +107,14 @@ public class ZBOLeadCRMPage extends Page{
 	@FindBy(xpath="//button[@data-action='increase']")
 	WebElement add_filter_button;
 	
+	String lead_input_checkbox_2 = "//table[@id='leads-table']/descendant::input[@value]";
+	
+	String lead_phone_icon_list = "//tr/descendant::i[@class='fas fa-phone fa-2x']";
+	
+	String lead_phone_disabled_list = "//tr/descendant::a[@disabled]";
+	
+	String lead_name_row_one = "//table[@id='leads-table']/descendant::a[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')][1]";
+	
 	private ZBOAddNotesForm addNoteForm;
 	private ZBOAddReminderForm addReminderForm;
 	private ZBOSendEmailForm sendEmailForm;
@@ -150,7 +158,7 @@ public class ZBOLeadCRMPage extends Page{
 		this.addReminderForm = new ZBOAddReminderForm(driver);
 	}
 	public boolean isLeadCRMPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, leads_heading, 30);
+		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, leads_heading,25,10);
 	}
 	public boolean typeLeadNameOrEmail(String pNameEmail) {
 		return ActionHelper.ClearAndType(driver, lead_input_name, pNameEmail);
@@ -198,6 +206,14 @@ public class ZBOLeadCRMPage extends Page{
 		}
 		return isLeadSelected;
 	}
+	public boolean searchLeadContains(String pLeadName) {
+		boolean isLeadSelected = false;
+		if(typeLeadNameOrEmail(pLeadName) && clickOnSearchButton()) {
+			ActionHelper.waitForElementToBeDisappeared(driver, processing, 120);
+			isLeadSelected = ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_name_row_one, pLeadName));
+		}
+		return isLeadSelected;
+	}
 	public boolean verifyAgentName(String pAgentName) {
 		return ActionHelper.getText(driver, lead_owner_crm).contains(pAgentName);
 	}
@@ -216,6 +232,7 @@ public class ZBOLeadCRMPage extends Page{
 	}
 	public boolean searchLeadByEmail(String pLeadEmail) {
 		boolean isLeadFound = false;
+		ActionHelper.staticWait(7);
 		if(typeLeadNameOrEmail(pLeadEmail) && clickOnSearchButton()) {
 			ActionHelper.waitForElementToBeDisappeared(driver, processing, 60);
 			isLeadFound = ActionHelper.getText(driver, leads_info_table).equalsIgnoreCase("Showing 1 to 1 of 1 entries");
@@ -295,9 +312,67 @@ public class ZBOLeadCRMPage extends Page{
 		return Integer.parseInt(ActionHelper.getText(driver, massemail_sent_count))!=0;
 	}
 	public boolean priorityRankingToVeify(String pPriorityRanking) {
-		return ActionHelper.getDynamicElement(driver, priority_ranking, pPriorityRanking)!=null;
+		return ActionHelper.getListOfElementByXpath(driver, ActionHelper.getDynamicElementXpath(driver, priority_ranking, pPriorityRanking)).get(0)!=null;
 	}
 	public boolean clickOnAddFilterButton() {
 		return ActionHelper.Click(driver, add_filter_button);
+	}
+	public boolean applyFilterAndSelectlead(String pFilterName, String pFilterValue) {
+		boolean isSuccess = false;
+		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
+		if(leadPage.applyFilter(pFilterName, pFilterValue)) {
+			isSuccess = clickSearchedLeadName();
+		}
+		return isSuccess;
+	}
+	
+	public boolean typeLeadEmailOnly(String pLeadEmail) {
+		return typeLeadNameOrEmail(pLeadEmail);
+	}
+	public String searchAndGetLeadId(String pLeadName) {
+		String lead_id = "";
+		if(typeLeadNameOrEmail(pLeadName) && clickOnSearchButton()) {
+			ActionHelper.waitForElementToBeDisappeared(driver, processing, 120);
+			if(ActionHelper.isElementVisible(driver, ActionHelper.getDynamicElement(driver, lead_name_element, pLeadName))) {
+				lead_id = ActionHelper.getAttribute(ActionHelper.getDynamicElement(driver, lead_name_element, pLeadName), "href").split("lead/")[1];
+			}
+		}
+		return lead_id;
+	}
+	public boolean selectMultipleLeads(int pLeadsToSelect) {
+		boolean isSelected = false;
+		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, lead_input_checkbox_2);
+		int counter = 0;
+		for(WebElement element: list_element) {
+			if(pLeadsToSelect==counter) {
+				break;
+			}
+			isSelected = ActionHelper.Click(driver, element);
+			if(!isSelected) {
+				break;
+			}
+			counter++;
+		}
+		return isSelected;
+	}
+	public boolean selectAllLeads() {
+		return ActionHelper.Click(driver, bulk_select);	
+		}
+	public boolean isProcessingComplete() {
+		return ActionHelper.waitForElementToBeDisappeared(driver, processing, 120);
+	}
+	public boolean verifyPhoneIconIsDisabled() {
+		return ActionHelper.getListOfElementByXpath(driver, lead_phone_disabled_list).size()==1;
+	}
+	public boolean isPhoneIconVisibleForLeads() {
+		boolean isVisible = true;
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, lead_phone_icon_list);
+		for(WebElement element: list) {
+			if(!ActionHelper.isElementVisible(driver, element)) {
+				isVisible = false;
+				break;
+			}
+		}
+		return isVisible;
 	}
 }

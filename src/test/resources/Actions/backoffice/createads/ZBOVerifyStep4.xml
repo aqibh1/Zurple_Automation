@@ -1,0 +1,25 @@
+<suite name="Create Ads Suite"
+	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+	<test name="Verify Custom ads on step 4">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>    
+					<include name="testVerifyUserLandsToStep4"/>
+					<include name="testAdDuration"/>
+					<include name="testVerifyTermsAndConditionDisplayed"/>
+					<include name="testVerifyUserCanEditAllStepsFromStep4"/>
+					<include name="testVerifyTestingAdChecboxIsChecked"/>
+					<include name="testVerifyTermsAndConditionLinkWorking"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

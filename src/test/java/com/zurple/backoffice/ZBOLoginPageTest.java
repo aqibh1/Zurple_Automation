@@ -55,6 +55,7 @@ public class ZBOLoginPageTest extends PageTest{
 	@Test(priority=-1,groups="testBackOfficeLogin")
 	@Parameters({"dataFile"})
 	public void testBackOfficeLogin(@Optional String pDataFile) {
+		page=null;
 		getPage();
 		dataObject = getDataFile(pDataFile);
 		setUserNamePassword();
@@ -65,6 +66,7 @@ public class ZBOLoginPageTest extends PageTest{
 			assertTrue(page.isForgotPasswordLinkExists(),"Forgot password link doesn't exist on login page..");
 			assertTrue(page.clickLoginButton(),"Unable to click on Login button..");
 			assertTrue(page.isLoginSuccessful(),"Login Failed..");
+			page.getAdAlert().closeCreateAdModal();
 		}else {
 			assertTrue(page.isLoginSuccessful(),"Login is not successful..");
 		}
@@ -100,7 +102,7 @@ public class ZBOLoginPageTest extends PageTest{
 		AutomationLogger.endTestCase();
 	}
 	
-	@Test //Just for TestRail Integration
+	@Test(retryAnalyzer = resources.RetryFailedTestCases.class) //Just for TestRail Integration
 	public void testAnInvalidLogin() {
 		page=null;
 		getPage();

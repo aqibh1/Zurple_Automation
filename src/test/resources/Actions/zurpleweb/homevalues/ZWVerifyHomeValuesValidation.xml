@@ -1,0 +1,106 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Zurple Website Pre Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>		
+		<listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+	</listeners>
+	
+<test name="Verify Home Value page is populated and validation is working" >	
+	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 
+			<classes>
+				<class name="com.zurple.website.ZWHomeValuesPageTest">
+					<methods>
+						<include name="testVerifyHomeValuePageIsPopulated"/>
+						<include name="testVerifyEmptyCityTriggersValidationMessage"/>
+						<include name="testVerifyEmptyZipTriggersValidationMessage"/>
+						<include name="testVerifyEmptyStateTriggersValidationMessage"/>
+						<include name="testVerifyEmptyFirstNameTriggersValidationMessage"/>
+						<include name="testVerifyEmptyLastNameTriggersValidationMessage"/>
+						<include name="testVerifyEmptyEmailTriggersValidationMessage"/>
+						<include name="testVerifyEmptyStreetInputTriggersValidationMessage"/>
+					</methods>
+				</class> 
+			</classes>
+	</parameter>
+	</test>
+	<!-- <test name="Verify Social Listing Post FB">
+		<parameter name="FBListing" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyListingPostFB" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Listing Video Post FB - Scheduled">
+		<parameter name="FBListingVideoScheduled" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-video-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyListingVideoPostFBScheduled" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Text Post Twitter - Scheduled">
+		<parameter name="TWITTERTextS" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-text-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyTextPostTwitterScheduled" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Listing Post Twitter">
+		<parameter name="TWITTERListing" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyListingPostTwitter" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Listing Video Post Twitter">
+		<parameter name="TWITTERListingVideo" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyListingVideoPostTwitter" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Listing Video Post Twitter - Scheduled">
+		<parameter name="TWITTERListingVideoScheduled" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyListingVideoPostTwitterScheduled" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	<test name="Verify Social Link Post Linkedin - Scheduled">
+		<parameter name="LINKEDINLinkScheduled" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-link-post-scheduled.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+				<methods>
+	  				<include name="testVerifyLinkPostLinkedinScheduled" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>-->
+</suite>

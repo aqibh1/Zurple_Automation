@@ -5,6 +5,7 @@ package com.zurple.backoffice.marketing;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,7 +28,8 @@ public class ZBOCampaignPage extends Page{
 	@FindBy(id="campaign-create-button")
 	WebElement create_button;
 	
-	String campaign_list = "//div[@id='campaigns_table_wrapper']/descendant::tr[@class]/td";
+	String campaign_list = "//div[@id='campaigns_table_wrapper']/descendant::tr[@class='odd']/td";
+//	String campaign_list = "odd";
 	
 	@FindBy(xpath="//label[text()='Delete Campaign']")
 	WebElement deleteCampaign_button;
@@ -47,22 +49,19 @@ public class ZBOCampaignPage extends Page{
 	}
 	public boolean isLeadAddedInCampaign(String pCampaignName) {
 		boolean isSuccess = false;
-		boolean isCampaignNameFound = false;
-		boolean isCampaignLeadAdded = false;
-		List<WebElement> list_of_data = ActionHelper.getListOfElementByXpath(driver, campaign_list);
+		List<WebElement> list_of_data = ActionHelper.getListOfElementByXpath(driver, "//table[@id='campaigns_table']/descendant::tbody/tr[@class]");
 		for(WebElement row_data: list_of_data) {
-			if(ActionHelper.getText(driver, row_data).equalsIgnoreCase(pCampaignName)) {
-				isCampaignNameFound = true;
-			} 
-			if(ActionHelper.getText(driver, row_data).equalsIgnoreCase("1 Lead")) {
-				isCampaignLeadAdded = true;
-			}
-			if(isCampaignNameFound && isCampaignLeadAdded) {
-				isSuccess = true;
-				break;
+//			row_data.findElement(By.xpath("td/a[not(contains(@class,'z-btn-inactive'))]"));
+			WebElement campaign_name = row_data.findElement(By.xpath("td/a[not(contains(@class,'z-btn-inactive'))]"));
+			if(ActionHelper.getText(driver, campaign_name).equalsIgnoreCase(pCampaignName)) {
+				WebElement lead_count = row_data.findElement(By.xpath("td[@class=' view_recipients_button']"));
+				if(ActionHelper.getText(driver, lead_count).equalsIgnoreCase("1 Lead")) {
+					isSuccess = true;
+				}else {
+					break;
+				}
 			}
 		}
-
 		return isSuccess;
 		
 	}

@@ -6,39 +6,29 @@
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
 	
-<test name="Add Reminder from CRM page">	
+<test name="Verify Scheduled FB post">	 
+	<parameter name="datafile" value="/resources/data/zurple/socialapi/scheduled_post_data.json"> 
 			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
-						<include name="testBackOfficeLogin" />
+						<include name="testBackOfficeAPILogin" />
 					</methods>
 				</class>
-				<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+ 		   		<class name="com.zurple.rest.ZBORestPostStatusTest">
 					<methods>
-						<include name="testAddAndVerifyReminder" />
+						<include name="testPostStatus" /> 
+					</methods>
+				</class> 
+  				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
+					<methods>
+				  		<include name="testGetScheduledPostHistory"/>  
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
 					<methods>
 						<include name="closeBrowser" />
 					</methods>
-				</class>
-			</classes>
-	</test>
-	
-	<test name="Verify Reminder Email">	
-	<parameter name="dataFile" value="/resources/cache/zurple-reminder-email-verification.json"> 
-			<classes>
-				<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
-					<methods>
-						<include name="testVerifyReminderEmail" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
+				</class>				
 			</classes>
 			</parameter>
 	</test>

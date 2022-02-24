@@ -100,12 +100,13 @@ public class ZBOImportToolPage extends Page {
 	}
 	
 	public boolean selectPackage(String pPackageId) {
+		ActionHelper.waitForElementToBeVisible(driver, package_dropdown_button, 30);
 		return ActionHelper.selectDropDownOption(driver, package_dropdown_button,"",pPackageId);
 	}
 	
 	public boolean selectAdmin(String pAdminId) {
 		boolean isSelected = false;
-		if(ActionHelper.waitforDropdownToBePopulated(driver, admin_dropdown_button, 10)) {
+		if(ActionHelper.waitforDropdownToBePopulated(driver, admin_dropdown_button, 20)) {
 			isSelected = ActionHelper.selectDropDownOption(driver,admin_dropdown_button,"",pAdminId);
 		}
 		return isSelected;
@@ -113,7 +114,7 @@ public class ZBOImportToolPage extends Page {
 	
 	public boolean selectSite(String pSite) {
 		boolean isSelected = false;
-		if(ActionHelper.waitforDropdownToBePopulated(driver, sites_dropdown_button, 10)) {
+		if(ActionHelper.waitforDropdownToBePopulated(driver, sites_dropdown_button, 20)) {
 			isSelected = ActionHelper.selectDropDownOption(driver,sites_dropdown_button,"",pSite);
 		}
 		return isSelected;
@@ -129,7 +130,7 @@ public class ZBOImportToolPage extends Page {
 	
 	public boolean selectCity(String pCity) {
 		boolean isSelected = false;
-		if(ActionHelper.waitforDropdownToBePopulated(driver, cities_dropdown_button, 10)) {
+		if(ActionHelper.waitforDropdownToBePopulated(driver, cities_dropdown_button, 20)) {
 			isSelected = ActionHelper.selectDropDownOption(driver,cities_dropdown_button,"",pCity);
 		}
 		return isSelected;
@@ -180,7 +181,7 @@ public class ZBOImportToolPage extends Page {
 	public boolean isImportCheckinEmailGenerated() {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<4) {
+		while(!isVerified && counter<3) {
 			ActionHelper.staticWait(15);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "300");
@@ -198,7 +199,7 @@ public class ZBOImportToolPage extends Page {
 			ActionHelper.staticWait(3);
 			isEmailExists = ActionHelper.waitForElementToBeVisible(driver, import_checkin_subject, 30);
 			if(isEmailExists) {
-				isTimeDateCorrect = ActionHelper.getText(driver, date_time_email).contains(getTodaysDate().replace("2020", "20"));
+				isTimeDateCorrect = ActionHelper.getText(driver, date_time_email).contains(getTodaysDate().replace("2021", "21"));
 			}
 			isVerified = (isEmailExists && isTimeDateCorrect)?true:false;
 		}

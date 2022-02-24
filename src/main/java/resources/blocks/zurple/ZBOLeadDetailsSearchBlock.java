@@ -49,8 +49,12 @@ public class ZBOLeadDetailsSearchBlock extends AbstractBlock{
 	}
 	
 	public boolean verifyBuyerSearchLocation(String pLocation) {
+		boolean isVerified = false;
 		List<WebElement> list_of_locs = ActionHelper.getListOfElementByXpath(driver, buyersearch_location_list);
-		return pLocation.contains(ActionHelper.getText(driver, list_of_locs.get(0)));
+		if(list_of_locs.size()>0) {
+			 isVerified = pLocation.contains(ActionHelper.getText(driver, list_of_locs.get(0)));
+		}
+		return isVerified;
 	}
 	public boolean verifyBuyerSearchDate() {
 		List<WebElement> list_of_locs = ActionHelper.getListOfElementByXpath(driver, buyersearch_date);

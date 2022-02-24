@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.zurple.backoffice.ZBOLoginPage;
 import com.zurple.my.Page;
 
 import resources.alerts.zurple.backoffice.ZBOSelectListingAlert;
@@ -16,7 +17,7 @@ import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
- * @author adar
+ * @author habibaaq
  *
  */
 public class ZBOCreatePostPage extends Page{
@@ -55,6 +56,9 @@ public class ZBOCreatePostPage extends Page{
 	
 	@FindBy(xpath="//div[contains(@class,'ui_tpicker_minute_slider')]/a[@class='ui-slider-handle ui-state-default ui-corner-all']")
 	WebElement minutes_slider;
+	
+	@FindBy(xpath="//div[contains(@class,'ui_tpicker_hour_slider')]/a[@class='ui-slider-handle ui-state-default ui-corner-all']")
+	WebElement hour_slider;
 	
 	private ZBOSelectListingAlert selectListingAlert;
 	
@@ -195,12 +199,17 @@ public class ZBOCreatePostPage extends Page{
 			}
 			break;
 		}
-		ActionHelper.staticWait(5);
+		ActionHelper.staticWait(7);
+		String currentTime = getCuurentTime().split(":")[1];
+		int minutesNow = Integer.parseInt(currentTime);
+		if (minutesNow > 50 && minutesNow <= 59) {
+			hour_slider = ActionHelper.getDynamicElement(driver, "//div[@id='ui-datepicker-div']/descendant::div[contains(@class,'ui_tpicker_hour_slider')]/a[@class='ui-slider-handle ui-state-default ui-corner-all']", "");
+			ActionHelper.dragAndDropByPixels(driver, hour_slider, 5, 0); 
+		}
 		minutes_slider = ActionHelper.getDynamicElement(driver, "//div[@id='ui-datepicker-div']/descendant::div[contains(@class,'ui_tpicker_minute_slider')]/a[@class='ui-slider-handle ui-state-default ui-corner-all']", "");
-		if(isClicked && ActionHelper.dragAndDropByPixels(driver, minutes_slider, 15, 0)) {
+		if(isClicked && ActionHelper.dragAndDropByPixels(driver, minutes_slider, 30, 0)) {
 			isScheduleSelected = ActionHelper.Click(driver, datePicker_done_button);
 		}
-		
 		return isScheduleSelected;
 	}
 	public boolean clickOnPostButton() {
@@ -257,19 +266,19 @@ public class ZBOCreatePostPage extends Page{
 		switch(pPlatform) {
 		case "Facebook":
 			if(ActionHelper.waitForElementToBeVisible(driver, fb_new_post_template_element, 15)) {
-				lTitle = ActionHelper.getAttribute(fb_new_post_template_element.findElement(By.xpath("/descendant::div/img")),"src");
+				lTitle = ActionHelper.getAttribute(driver.findElement(By.xpath("//div[contains(@class,'post-facebook-network-icon')]/ancestor::div[@id='new-post-template']/descendant::div/img")),"src");
 				isVerified = lTitle.toLowerCase().contains("facebook");
 			}
 			break;
 		case "Twitter":
 			if(ActionHelper.waitForElementToBeVisible(driver, tw_new_post_template_element, 15)) {
-				lTitle = ActionHelper.getAttribute(tw_new_post_template_element.findElement(By.xpath("/descendant::div/img")),"src");
+				lTitle = ActionHelper.getAttribute(driver.findElement(By.xpath("//div[contains(@class,'post-twitter-network-icon')]/ancestor::div[@id='new-post-template']/descendant::div/img")),"src");
 				isVerified = lTitle.toLowerCase().contains("twimg");
 			}
 			break;
 		case "LinkedIn":
 			if(ActionHelper.waitForElementToBeVisible(driver, li_new_post_template_element, 15)) {
-				lTitle = ActionHelper.getAttribute(li_new_post_template_element.findElement(By.xpath("/descendant::div/img")),"src");
+				lTitle = ActionHelper.getAttribute(driver.findElement(By.xpath("//div[contains(@class,'post-linkedin-network-icon')]/ancestor::div[@id='new-post-template']/descendant::div/img")),"src");
 				isVerified = lTitle.toLowerCase().contains("linkedin");
 			}
 			break;
@@ -281,7 +290,7 @@ public class ZBOCreatePostPage extends Page{
 		return isVerified;
 	}
 	public boolean isScheduled() {
-		return ActionHelper.waitForElementToBeVisible(driver, scheduled_label, 5);
+		return ActionHelper.waitForElementToBeVisible(driver, scheduled_label, 10);
 	}
 
 	public boolean uploadPhoto(String pPlatform, String pPhotoPath) {

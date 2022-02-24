@@ -1,0 +1,32 @@
+<suite name="Create Ads Suite"
+	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+	<test name="Verify Create Buyer Ad button takes user to buyer lead ad section">
+		<classes>  
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>
+					<include name="testVerifyCreateBuyerLeadAdButtonIsDisplayed" />
+					<include name="testVerifyCreateBuyerLeadAdButtonScrollsPageDown" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Verify Create Listing Ad button takes user to buyer lead ad section">
+		<classes>  
+			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
+				<methods>
+					<include name="testVerifyCreateListingAdButtonIsDisplayed" />
+					<include name="testVerifyCreateListingAdButtonScrollsPageDown" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

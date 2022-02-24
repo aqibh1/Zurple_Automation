@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.ActionHelper;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
 
@@ -68,6 +69,31 @@ public class ZWCommunityReportsPageTest extends PageTest{
 		assertTrue(page.isCommunityReportsPage(), "Community reports page is not displayed");
 		assertTrue(page.typeZip("91910"), "Unable to type Zip");
 		assertTrue(page.clickOnSearchButton(), "Unable to click on search button..");
+		ActionHelper.staticWait(10);
+	}
+	
+	@Test//39731
+	public void testVerifyLocalInfoCommunityLinkIsWorking() {
+		websiteLoginPreCond();
+		ActionHelper.staticWait(5);
+		getPage("/sold-homes");
+		ActionHelper.staticWait(5);
+		assertTrue(page.goToCommunityReportsFromHeaders(), "Unable to click on Community dropdown..");
+		assertTrue(page.isCommunityReportsPage(), "Community reports page is not visible..");
+	}
+	
+	@Test//39734
+	public void testVerifyNoCommunityResultsFound() {
+		getPage("/community");
+		assertTrue(page.isCommunityReportsPage(), "Community reports page is not displayed");
+		assertTrue(page.typeZip("88888"), "Unable to type Zip");
+		assertTrue(page.clickOnSearchButton(), "Unable to click on search button..");
+		assertTrue(page.isNoResultsFoundVisible(), "No Results found message is not displayed..");
+	}
+	
+	private void websiteLoginPreCond() {
+		ZWLoginPageTest loginPageTest = new ZWLoginPageTest();
+		loginPageTest.testSignIn();
 	}
 
 }

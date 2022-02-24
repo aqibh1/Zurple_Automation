@@ -1,11 +1,15 @@
 package resources.orm.hibernate.models.zurple;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,7 +25,6 @@ import javax.persistence.UniqueConstraint;
 public class AlertRule
         implements java.io.Serializable {
 
-    private Integer alert_rule_id;
     private String alert_name;
     private Site site;
     private String alert_type;
@@ -33,17 +36,55 @@ public class AlertRule
     private Integer alert_rule_priority;
     private Integer immediate_dispatch;
     private Integer nextday_dispatch;
+    private Integer arule_id;
+    
+//    @ManyToOne(targetEntity = UserAlert.class, cascade = CascadeType.ALL)
+//    @JoinColumn(name="alert_rule_id")
+//    private UserAlert ua;
+    
+    
+//    @Id
+//    @Column(name = "arule_id")
+//    private Integer alert_rule_id;
+//    
+//    @OneToMany(targetEntity = UserAlert.class, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "alert_rule_id",referencedColumnName="arule_id")
+//    private List<AlertRule> userAlerts;
+//    
+//    public Integer getAlertRuleID() {
+//        return this.alert_rule_id;
+//    }
+//
+//    public void setAlertRuleID(Integer alert_rule_id)
+//    {
+//        this.alert_rule_id = alert_rule_id;
+//    }
+//    
+//    public List<AlertRule> getUserAlerts() {
+//        return userAlerts;
+//    }
+//
+//    public void setUserAlerts(List<AlertRule> userAlerts) {
+//        this.userAlerts = userAlerts;
+//    }
+    
+//    public UserAlert getUa() {
+//		return ua;
+//	}
+//
+//	public void setUa(UserAlert ua) {
+//		this.ua = ua;
+//	}
 
-    private Set<UserAlert> user_alerts;
-
+	////////////////////////////////////////////////
     @Id
     @Column(name = "arule_id", unique = true, nullable = false)
     public Integer getId() {
-        return this.alert_rule_id;
+        return this.arule_id;
     }
 
     public void setId(Integer alert_rule_id) {
-        this.alert_rule_id = alert_rule_id;
+        this.arule_id = alert_rule_id;
     }
     
     @ManyToOne(fetch=FetchType.LAZY)
@@ -168,14 +209,14 @@ public class AlertRule
         this.nextday_dispatch = nextday_dispatch;
     }
 
-    @OneToMany(fetch=FetchType.LAZY, mappedBy="alertRule")
-    public Set<UserAlert> getUserAlerts() {
-        return this.user_alerts;
-    }
-
-    public void setUserAlerts(Set<UserAlert> user_alerts)
-    {
-        this.user_alerts = user_alerts;
-    }
+//    @OneToMany(fetch=FetchType.LAZY, mappedBy="alertRule")
+//    public Set<UserAlert> getUserAlerts() {
+//        return this.user_alerts;
+//    }
+//
+//    public void setUserAlerts(Set<UserAlert> user_alerts)
+//    {
+//        this.user_alerts = user_alerts;
+//    }
 
 }

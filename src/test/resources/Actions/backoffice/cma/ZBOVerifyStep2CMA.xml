@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Zurple Website Pre Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>		
+		<listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+	</listeners>
+ <test name="Verifications on Step2 and Step 3 of CMA Report page">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOSendReportPageTest">
+					<methods>
+						<include name="testVerifyUserIsRedirectedToStep2WhenEmailDetailsButtonIsClicked" />
+						<include name="testVerifyUserCanAddAdditionalCommentsStep2CMA" />
+						<include name="testVerifyStep3OfCMAReport" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+</suite>

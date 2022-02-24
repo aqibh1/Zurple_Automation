@@ -7,7 +7,7 @@
         <listener class-name="resources.CustomTestNGReporter"/>
     </listeners>
 
-	<test name="Verify Ads Manager heading is visible">	
+	<test name="Verify Ads Manager heading is visible">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOAdsOverviewPageTest">
 					<methods>

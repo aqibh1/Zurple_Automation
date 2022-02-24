@@ -3,6 +3,8 @@
  */
 package com.zurple.backoffice.marketing;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -53,8 +55,13 @@ public class ZBOCreateTemplatePage extends Page {
 	@FindBy(id="save-template")
 	WebElement save_template_button;
 	
-	@FindBy(xpath="//label[contains(text(),'Delete Template')]")
+	@FindBy(xpath="//label[@for='campaign-delete']")
 	WebElement delete_template;
+	
+	String validation_alerts = "//form[@id='template-form']/descendant::div[@role='alert']/strong";
+	
+	@FindBy(id="campaign_template_id")
+	WebElement template_dropdown;
 	
 	ZBOPlaceHolderForm zboPlaceholderForm;
 	ZBOPreviewForm zboPreviewForm;
@@ -156,5 +163,57 @@ public class ZBOCreateTemplatePage extends Page {
 	public boolean isDeletedSuccessfully() {
 		ActionHelper.staticWait(10);
 		return !driver.getCurrentUrl().contains("/edit");
+	}
+	public boolean verifyTemplateNameValidationAlertIsTriggered(String pAlertText) {
+		return verifyAlertIsVisible(pAlertText);
+	}public boolean verifyTemplateSubjectValidationAlertIsTriggered(String pAlertText) {
+		return verifyAlertIsVisible(pAlertText);
+	}public boolean verifyTemplateBodyValidationAlertIsTriggered(String pAlertText) {
+		return verifyAlertIsVisible(pAlertText);
+	}
+	public boolean selectExistingTempplate(String pTemplateName) {
+		return ActionHelper.selectDropDownOptionIfContains(driver, template_dropdown, pTemplateName);
+	}public boolean isTemplateInputEnabled() {
+		return ActionHelper.isElementEnabled(driver, templateName_input);
+	}public boolean isTemplateSubjectInputEnabled() {
+		return ActionHelper.isElementEnabled(driver, templateSubject_input);
+	}public boolean isTemplateBodyInputEnabled() {
+		boolean isSuccess = false;
+		//We need to switch to iFrame to perform these operations
+		driver.switchTo().frame(emailBody_iframe);
+		if(ActionHelper.isElementEnabled(driver, templateBody_html)) {
+			isSuccess = true;
+			//Swicthing back to default content
+			driver.switchTo().defaultContent();
+		}
+		return isSuccess;
+	}
+	
+	public boolean isTemplateNamePopulated() {
+		return !ActionHelper.getValue(driver, templateName_input).isEmpty();
+	}public boolean isTemplateSubjectPopulated() {
+		return !ActionHelper.getValue(driver, templateSubject_input).isEmpty();
+	}public boolean isTemplateBodyPopulated() {
+		boolean isSuccess = false;
+		//We need to switch to iFrame to perform these operations
+		driver.switchTo().frame(emailBody_iframe);
+		if(ActionHelper.isElementEnabled(driver, templateBody_html)) {
+			isSuccess = !ActionHelper.getText(driver, templateBody_html).isEmpty();
+			//Switching back to default content
+			driver.switchTo().defaultContent();
+		}
+		return isSuccess;
+	
+	}
+	private boolean verifyAlertIsVisible(String pAlertToVerify) {
+		boolean isAlertVisible = false;
+		List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, validation_alerts);
+		for(WebElement element: list_of_elements) {
+			if(ActionHelper.getText(driver, element).equalsIgnoreCase(pAlertToVerify)) {
+				isAlertVisible = true;
+				break;
+			}
+		}
+		return isAlertVisible;
 	}
 }

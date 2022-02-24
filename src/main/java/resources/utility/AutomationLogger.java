@@ -1,14 +1,15 @@
 package resources.utility;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Reporter;
 
 public class AutomationLogger {
 	
-	private static Logger AutomationLogger = Logger.getLogger(AutomationLogger.class.getName());
+	private static Logger AutomationLogger = LogManager.getLogger(AutomationLogger.class);
 	 // This is to print log for the beginning of the test case, as we usually run so many test cases as a test suite
 	 public static void setLog4jPopFile() {
-		 PropertyConfigurator.configure("log4j.properties");
+//		 PropertyConfigurator.configure("log4j.properties");
 	 }
 	 public static void startTestCase(String pTestCaseName){
 	 
@@ -43,8 +44,10 @@ public class AutomationLogger {
 	 // Need to create these methods, so that they can be called  
 	 
 	 public static void info(String message) {
-	 
-		 AutomationLogger.info("-----=====" +message+ "=====-----");
+		int line_numeber = Thread.currentThread().getStackTrace()[2].getLineNumber();
+		 String l_class_name = Thread.currentThread().getStackTrace()[2].getFileName();
+
+		 AutomationLogger.info("Thread ID = "+Thread.currentThread().getId()+" "+l_class_name+":"+line_numeber+"-----=====" +message+ "=====-----");
 		 Reporter.log("-----=====" +message+ "=====-----");
 	 
 	 }
@@ -57,13 +60,13 @@ public class AutomationLogger {
 	 
 	 public static void error(String message) {
 	 
-		 AutomationLogger.error("-----ERROR=====" +message+ "=====ERROR-----");
+		 AutomationLogger.error("Thread ID = "+Thread.currentThread().getId()+" -----ERROR=====" +message+ "=====ERROR-----");
 		 Reporter.log("-----ERROR=====" +message+ "=====ERROR-----");
 	 }
 	 
 	 public static void fatal(String message) {
 	 
-		 AutomationLogger.fatal(message);
+		 AutomationLogger.fatal("Thread ID = "+Thread.currentThread().getId()+" -----FATAL=====" +message+ "=====FATAL-----");
 	 
 	 }
 	 
@@ -73,17 +76,17 @@ public class AutomationLogger {
 	 
 	 }
 	 public static void testStep(String message) {
-		 AutomationLogger.info("-----***** " +message+ " *****----");
+		 AutomationLogger.info("Thread ID = "+Thread.currentThread().getId()+" -----***** " +message+ " *****----");
 		 Reporter.log("-----=====" +message+ "=====-----");
 	 
 	 }
 	 public static void onTestPass(String pMessage) {
-		 AutomationLogger.error("-----PASS=====" +pMessage+ "=====PASS-----");
+		 AutomationLogger.error("Thread ID = "+Thread.currentThread().getId()+" -----PASS=====" +pMessage+ "=====PASS-----");
 		 Reporter.log("-----PASS=====" +pMessage+ "=====PASS-----");
 	 }
 	 
 	 public static void onTestFail(String pMessage) {
-		 AutomationLogger.error("-----FAIL=====" +pMessage+ "=====FAIL-----");
+		 AutomationLogger.error("Thread ID = "+Thread.currentThread().getId()+" -----FAIL=====" +pMessage+ "=====FAIL-----");
 		 Reporter.log("-----FAIL=====" +pMessage+ "=====FAIL-----");
 	 }
 	 

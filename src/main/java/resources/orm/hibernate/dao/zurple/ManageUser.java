@@ -1,5 +1,7 @@
 package resources.orm.hibernate.dao.zurple;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -158,6 +160,47 @@ public class ManageUser
         );
         ManageUserActivity mua = new ManageUserActivity(session);
         return mua.updateUserActivity(user_activity);
+    }
+    
+    public User getUserIdByUserName(String pUserName){
+
+        User user = null;
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            List records = session.createQuery("FROM User WHERE user_name='"+pUserName+"'").list();
+            user = (User) records.get(0);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return user;
+    }
+    
+    public List<User> getListOfUsers(Integer pAdminId, String pTrafficSource, Date pCreateDateTime){
+
+        List<User> list_of_users = null;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String l_time = dateFormat.format(pCreateDateTime);
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            list_of_users = session.createQuery("FROM User WHERE admin_id="+pAdminId+" AND traffic_source='"+pTrafficSource+"' AND create_datetime>='"+l_time+"'").list();
+            tx.commit();
+        } catch (Exception e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+        return list_of_users;
     }
 
 }

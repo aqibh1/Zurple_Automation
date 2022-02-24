@@ -49,4 +49,20 @@ public class ModuleCacheConstants {
 	public static final String Cookie = "zurple.cookie";
 	public static final String ZurpleListingURL = "zurple.listing.url";
 	public static final String blurbTitle = "blurb.title";
+	public static final String ZurpleAdId = "zurple.zbo.ad.id";
+	public static final String ZurpleLeadsList = "zurpe.zbo.marketing.campaigns.lead.list";
+	public static final String ZurpleLeadsCount = "zurpe.zbo.marketing.campaigns.lead.list.count";
+	public static final String ZurpleLeadsListName = "zurpe.zbo.marketing.campaigns.lead.list.name";
+	public static final String ZurpleQLADefaultCity = "zurple.zbo.ad.quick.listing.default.city";
+	public static final String ZurpleQLABudget = "zurple.zbo.ad.quick.listing.budget";;
+	public static final String ZurpleAPPackageId = "zurple.ap.package.id";
+	public static final String ZurpleAPAdminId = "zurple.ap.admin.id";
+	public static final String ZurpleAPEmail = "zurple.ap.email.id";
+	public static final String SellerAdsCount = "zurple.sl.count";
+	public static final String SellerConversionCount = "zurple.sl.conversion";
+	public static final String ZurpleAgentEmail = "zurple.agent.email";
+	public static final String ZurpleAgentPassword = "zurple.agent.password";
+	public static final String ZurpleAgentIdUrl = "zurple.agent.id.url";
+	public static final String ZapierLeadFName = "zapier.lead.first.name";
+	public static final String ZapierLeadEmail = "zapier.lead.last.name";
 }

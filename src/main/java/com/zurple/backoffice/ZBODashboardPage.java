@@ -1,5 +1,7 @@
 package com.zurple.backoffice;
 
+import java.util.List;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,7 +30,7 @@ public class ZBODashboardPage extends Page{
 	//Key Stats
 	@FindBy(id="key-stats-header")
 	WebElement key_stats;
-	@FindBy(xpath="//div[@id='new-leads-key-stat']/descendant::div[@class='row1']")
+	@FindBy(xpath="//div[@id='new-leads-key-stat']/descendant::div[@class='row1 stat_title']")
 	WebElement new_leads;
 	@FindBy(xpath="//div[@id='new-leads-key-stat']/descendant::div[@class='row2']")
 	WebElement last_30_days;
@@ -36,13 +38,13 @@ public class ZBODashboardPage extends Page{
 	WebElement leads_key_stats;
 	
 	//Leads Managed
-	@FindBy(xpath="//div[@id='all-leads-key-stat']/descendant::div[@class='row1']")
+	@FindBy(xpath="//div[@id='all-leads-key-stat']/descendant::div[@class='row1 stat_title']")
 	WebElement leads_managed;
 	@FindBy(id="key-stats-leads-managed")
 	WebElement leads_key_leads_managed;
 	
 	//Messages sent
-	@FindBy(xpath="//div[@id='messages-sent-key-stat']/descendant::div[@class='row1']")
+	@FindBy(xpath="//div[@id='messages-sent-key-stat']/descendant::div[@class='row1 stat_title']")
 	WebElement messages_sent;
 	@FindBy(xpath="//div[@id='messages-sent-key-stat']/descendant::div[@class='row2']")
 	WebElement _messages_last_30_days;
@@ -50,7 +52,7 @@ public class ZBODashboardPage extends Page{
 	WebElement messages_sent_stats;
 	
 	//Messages Open rate
-	@FindBy(xpath="//div[@id='open-rate-key-stat']/descendant::div[@class='row1']")
+	@FindBy(xpath="//div[@id='open-rate-key-stat']/descendant::div[@class='row1 stat_title']")
 	WebElement messages_open_rate;
 	@FindBy(xpath="//div[@id='open-rate-key-stat']/descendant::div[@class='row2']")
 	WebElement _messages_open_last_30_days;
@@ -72,7 +74,7 @@ public class ZBODashboardPage extends Page{
 	//Zurple Updates
 	@FindBy(xpath="//div[@class='panel panel-default']/descendant::h2[text()='Latest Zurple Updates']")
 	WebElement zurple_updates;
-	@FindBy(xpath="//div[@class='panel-body']/center[1]")
+	@FindBy(xpath="//div[@class='panel-body']")
 	WebElement zurple_update_text;
 	
 	//New Leads
@@ -91,6 +93,22 @@ public class ZBODashboardPage extends Page{
 	//New Leads
 	String lead_new = "//div[@id='z-new-leads-grid']/descendant::a[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]";
 	
+	@FindBy(id="loading-key-stats-modal")
+	WebElement loading_key_stats_modal;
+	
+	@FindBy(id="key-stats-auto-leads")
+	WebElement zurple_autoleads_stats_count;
+	
+	@FindBy(id="key-stats-lead-replies")
+	WebElement lead_replies_stats_count;
+	
+	@FindBy(id="key-stats-alerttriggered")
+	WebElement alert_triggered_stats_count;
+	
+	@FindBy(id="key-stats-website-visits")
+	WebElement website_visit_stats_count;
+	
+	
 	public ZBODashboardPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -105,9 +123,10 @@ public class ZBODashboardPage extends Page{
 	
 	public boolean verifyPhoneAlert() {
 		boolean isVerified = false;
-		
+		ActionHelper.switchToOriginalWindow(driver);
 		ActionHelper.resizeWindow(driver, 444, 562);
 		ActionHelper.RefreshPage(driver);
+		ActionHelper.switchToOriginalWindow(driver);
 		ActionHelper.Click(driver, phoneNumber);
 
 		isVerified = ActionHelper.sendSpecialKeys(driver,Keys.ESCAPE);
@@ -123,7 +142,7 @@ public class ZBODashboardPage extends Page{
 	public boolean isKeyStatsVisible() {
 		boolean isVisible = false;
 		if(ActionHelper.isElementVisible(driver, key_stats) && ActionHelper.isElementVisible(driver, new_leads)
-				&&ActionHelper.isElementVisible(driver, last_30_days) && ActionHelper.isElementVisible(driver, leads_key_stats)) {
+				 && ActionHelper.isElementVisible(driver, leads_key_stats)) {
 			isVisible = true;
 		}
 		return isVisible;
@@ -137,16 +156,14 @@ public class ZBODashboardPage extends Page{
 	}
 	public boolean isMessagesSentVisible() {
 		boolean isVisible = false;
-		if(ActionHelper.isElementVisible(driver, messages_sent) && ActionHelper.isElementVisible(driver, _messages_last_30_days)
-				&& ActionHelper.isElementVisible(driver, messages_sent_stats)) {
+		if(ActionHelper.isElementVisible(driver, messages_sent) && ActionHelper.isElementVisible(driver, messages_sent_stats)) {
 			isVisible = true;
 		}
 		return isVisible;
 	}
 	public boolean isMessagesOpenRateVisible() {
 		boolean isVisible = false;
-		if(ActionHelper.isElementVisible(driver, messages_open_rate) && ActionHelper.isElementVisible(driver, _messages_open_last_30_days)
-				&& ActionHelper.isElementVisible(driver, messages_open_stats)) {
+		if(ActionHelper.isElementVisible(driver, messages_open_rate) && ActionHelper.isElementVisible(driver, messages_open_stats)) {
 			isVisible = true;
 		}
 		return isVisible;
@@ -183,7 +200,8 @@ public class ZBODashboardPage extends Page{
 		return ActionHelper.isElementVisible(driver, zurple_updates);
 	}
 	public boolean isZurpleUpdatesTextVisible() {
-		return ActionHelper.isElementVisible(driver, zurple_update_text);
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, "//div[@class='panel-body']");
+		return ActionHelper.isElementVisible(driver, list.get(1));
 	}
 	public boolean isNewLeadsHeadingAndStatsDisplayed() {
 		boolean isDisplayed = false;
@@ -210,5 +228,32 @@ public class ZBODashboardPage extends Page{
 	}
 	public boolean clickOnLeadName(String pLeadName) {
 		return ActionHelper.Click(driver, ActionHelper.getDynamicElement(driver, lead_new, pLeadName));
+	}
+	public String getNewLeadsCountFromKeyStats() {
+		return ActionHelper.getText(driver, leads_key_stats);
+	}
+	public String getLeadsManagedCountFromKeyStats() {
+		return ActionHelper.getText(driver, leads_key_leads_managed).replace(",","");
+	}
+	public String getMessagesSentCountFromKeyStats() {
+		return ActionHelper.getText(driver, messages_sent_stats).replace(",","");
+	}
+	public String getMessagesOpenRateCountFromKeyStats() {
+		return ActionHelper.getText(driver, messages_open_stats).replace("%","");
+	}
+	public boolean waitForLoadingKeyStatsToDisappear() {
+		return ActionHelper.waitForElementToBeDisappeared(driver, loading_key_stats_modal, 60);
+	}
+	public String getZurpleAutoLeadsStatsCount() {
+		return ActionHelper.getText(driver, zurple_autoleads_stats_count);
+	}
+	public String getZurpleLeadRepliesStatsCount() {
+		return ActionHelper.getText(driver, lead_replies_stats_count).replace(",","");
+	}
+	public String getAlertTriggeredFromKeyStats() {
+		return ActionHelper.getText(driver, alert_triggered_stats_count).replace(",","");
+	}
+	public String getWebsiteVisitFromKeyStats() {
+		return ActionHelper.getText(driver, website_visit_stats_count).replace(",","");
 	}
 }

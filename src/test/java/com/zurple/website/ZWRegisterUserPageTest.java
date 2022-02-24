@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import resources.DBHelperMethods;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
@@ -75,21 +76,28 @@ public class ZWRegisterUserPageTest extends PageTest{
 	@Parameters({"registerUserDataFile"})
 	public void testRegisterUser(String pDataFile) {
 		AutomationLogger.startTestCase("Register User");
+		page=null;
 		getPage("/register");
 		lDataObject = getDataFile(pDataFile);
 		String lName = updateName(lDataObject.optString("name"));
 		String lEmail = updateEmail(lDataObject.optString("email"));
-	
+		ActionHelper.staticWait(5);
 		registerUser(lName,lEmail);
 		
-		String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
+		if(!getIsProd()) {
+			lEmail = lEmail.replace("@", "_ZurpleQA@");
+		}
+		
+		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());	
+		String lUserName = lEmail.split("@")[0];
+		String lLeadId = dbObject.getZurpleLeadId(lUserName).toString();
+		
+//		String lLeadId = getLeadIdFromBackOffice(lName);//driver.getCurrentUrl().split("lead_id=")[1];
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.RegisterFormLeadEmail, lEmail);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),lEmail,lLeadId);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId,lLeadId);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadName,lName);
-		if(!getIsProd()) {
-			lEmail = lEmail.replace("@", "_ZurpleQA@");
-		}
+		
 		leadData.put("email", lEmail);
 		leadData.put("name", lName);
 		ActionHelper.staticWait(30);
@@ -107,7 +115,16 @@ public class ZWRegisterUserPageTest extends PageTest{
 		String lEmail = updateEmail(lDataObject.optString("email"));
 		
 		registerUser(lName,lEmail);
-		String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
+		
+		if(!getIsProd()) {
+			lEmail = lEmail.replace("@", "_ZurpleQA@");
+		}
+		
+		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());	
+		String lUserName = lEmail.split("@")[0];
+		String lLeadId = dbObject.getZurpleLeadId(lUserName).toString();
+		
+//		String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
 		
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.RegisterFormLeadEmail, lEmail);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),lEmail,lLeadId);
@@ -126,6 +143,7 @@ public class ZWRegisterUserPageTest extends PageTest{
 	lDataObject = getDataFile(pDataFile);
 	String lName = updateName(lDataObject.optString("name"));
 	String lEmail = updateEmail(lDataObject.optString("email"));
+	String lUserName = "";
 	
 	ZWLoginPage loginPage = new ZWLoginPage(driver);
 	assertTrue(loginPage.isLoginPage(), "Login Page is not displayed");
@@ -133,7 +151,16 @@ public class ZWRegisterUserPageTest extends PageTest{
 	
 	registerUser(lName,lEmail);
 	
-	String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
+	if(!getIsProd()) {
+		lEmail = lEmail.replace("@", "_ZurpleQA@");
+	}
+	ActionHelper.staticWait(5);
+	lUserName = lEmail.split("@")[0];
+	
+	DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());	
+	String lLeadId = dbObject.getZurpleLeadId(lUserName).toString();
+	
+//	String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
 	
 	ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.ZurpleLeadEmail, lEmail);
 	ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),lEmail,lLeadId);
@@ -148,14 +175,14 @@ public class ZWRegisterUserPageTest extends PageTest{
 		assertTrue(page.isRegisterPage(),"Register page is not opened..");
 		assertTrue(page.typeName(pName),"Unable to type name..");
 		assertTrue(page.typeEmail(pEmail),"Unable to type email..");
-		if(!lDataObject.optString("phone").isEmpty()) {
+		if(!lDataObject.optString("phone").isEmpty() && page.isPhoneInputDisplayed()) {
 			assertTrue(page.typePhone(lDataObject.optString("phone")),"Unable to type phone..");
 		}
 		assertTrue(page.isTermsAndCondCheckboxChecked(),"Terms and conditions checkbox is not checked..");
 		assertTrue(page.clickRegisterButton(),"Unable to click on register button..");
-//		ActionHelper.staticWait(5);
+		ActionHelper.staticWait(10);
 //		page.handleAlert();
-		assertTrue(page.isRegisterSuccessfully(),"Registration of user is unsuccessful..");
+//		assertTrue(page.isRegisterSuccessfully(),"Registration of user is unsuccessful..");
 		
 	}
 	

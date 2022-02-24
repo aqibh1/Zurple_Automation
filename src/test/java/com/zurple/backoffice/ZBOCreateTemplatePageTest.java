@@ -3,6 +3,7 @@
  */
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
@@ -15,7 +16,6 @@ import com.zurple.backoffice.marketing.ZBOTemplateManagerPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
-import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
@@ -54,6 +54,7 @@ public class ZBOCreateTemplatePageTest extends PageTest{
 		// TODO Auto-generated method stub
 		
 	}
+	//retryAnalyzer = resources.RetryFailedTestCases.class
 	@Test(groups="com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate")
 	@Parameters({"templateData"})
 	public void testCreateTemplate(String pDataFile) {
@@ -77,14 +78,7 @@ public class ZBOCreateTemplatePageTest extends PageTest{
 		assertTrue(page.typeTemplateSubject(lTemplateSubject), "Unable to type template subject..");
 		assertTrue(page.typeTemplateBody(dataObject.optString("template_body")), "Unable to type template body");
 		String lTemplateBody = dataObject.optString("template_body").split("%")[0].trim();
-		String lPlaceholderValue = "";
-		if(getIsProd()) {
-			lPlaceholderValue = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").replace("http://www.", "");
-
-		}else {
-			lPlaceholderValue = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").replace("http://www.stage01.", "");
-		}
-				
+		String lPlaceholderValue = getDomainName();
 		
 		//For Attachment of the file
 		if(dataObject.optString("file_path")!=null && !dataObject.optString("file_path").isEmpty()) {
@@ -133,4 +127,45 @@ public class ZBOCreateTemplatePageTest extends PageTest{
 		assertTrue(templateManagerPage.searchAndClickEditButton(lTemplate_Name), "Unable to find template..");
 		assertTrue(page.clickOnDeleteTemplateButton(), "Unable to delete the template..");
 	}
+	
+	@Test(dependsOnGroups="com.zurple.backoffice.ZBOCreateTemplatePageTest.testCreateTemplate")
+	public void testVerifyTemplateIsDeletedFromTheList() {
+		page=null;
+		getPage("/marketing/templates/create");
+		String lTemplate_Name = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleTemplateName);
+		assertFalse(page.selectExistingTempplate(lTemplate_Name), "Template is present in the list after deletion");
+	}
+	
+	@Test //39814
+	public void testVerifyValidationAlertsAreTriggered() {
+		getPage("/marketing/templates/create");
+		assertTrue(page.clickOnSaveTemplateButton(), "Unable to click on save template button..");
+		ActionHelper.staticWait(5);
+		assertTrue(page.verifyTemplateNameValidationAlertIsTriggered("Please enter a name for your template."), "Template name validation is not triggered");
+		assertTrue(page.verifyTemplateNameValidationAlertIsTriggered("Please enter a subject for your template."), "Template subject validation is not triggered");
+		assertTrue(page.verifyTemplateNameValidationAlertIsTriggered("Please enter template body."), "Template body validation is not triggered");
+
+	}
+	/**
+	 * Verify that user can select existing templates from drop down to edit
+	 * 39809
+	 */
+	@Test
+	public void testVerifyTemplateIsSelectable() {
+		assertTrue(page.selectExistingTempplate("Test Automation"), "Unable to select test automation template from dropdown");
+		assertTrue(page.isTemplateInputEnabled(), "Template Name input is not enabled..");
+		assertTrue(page.isTemplateSubjectInputEnabled(), "Template Subject input is not enabled..");
+		assertTrue(page.isTemplateBodyInputEnabled(), "Template Body input is not enabled..");
+	}
+	/**
+	 * Verify that all data populate as added when existing template is selected on templates page
+	 * 39816
+	 */
+	@Test
+	public void testVerifyExistingTemplatePopulatesTheFields() {
+		assertTrue(page.isTemplateNamePopulated(), "Template name input is not populated..");
+		assertTrue(page.isTemplateSubjectPopulated(), "Template subject input is not populated");
+		assertTrue(page.isTemplateBodyPopulated(), "Template body input is not populated");
+	}
+	
 }

@@ -2,14 +2,14 @@
 
 <suite name="Close browser">
 
-  <test name="Close Browser">
-    <classes>
-      <class name="resources.CurrentPageTest">
-        <methods>
-          <include name="closeBrowser" />
-        </methods>
-      </class>
-    </classes>
-  </test>
+	<test name="Close Browser">
+		<classes>
+			<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+		</classes>
+	</test>
 
 </suite>

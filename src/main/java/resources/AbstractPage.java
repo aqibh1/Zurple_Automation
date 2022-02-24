@@ -5,8 +5,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.TimeZone;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -32,6 +34,12 @@ public abstract class AbstractPage
     public void setDriver(WebDriver driver, String pIdxUrl){
         this.driver=driver;
         driver.get(pIdxUrl);
+        focusOnPage();
+    }
+    
+    public void setDriver(WebDriver driver, String pIdxUrl,boolean variable){
+        this.driver=driver;
+        driver.get(getFullUrl());
         focusOnPage();
     }
     public WebDriver getWebDriver() {
@@ -122,7 +130,12 @@ public abstract class AbstractPage
     	 cal.add(Calendar.DATE, -1);
     	 return dateFormat.format(cal.getTime());
 	}
-    
+    //"MM/dd/yy"
+    public String getTodaysDate(String pFormat) {
+   	 Calendar cal = Calendar.getInstance();
+   	 DateFormat dateFormat = new SimpleDateFormat(pFormat);
+   	 return dateFormat.format(cal.getTime());
+	}
     protected static int generateRandomInt(int pUpperRange){
     	Random random = new Random();
     	int lNum = random.nextInt(pUpperRange);
@@ -131,4 +144,38 @@ public abstract class AbstractPage
     	}
     	return lNum;
 }
+    protected String getCuurentTime() {
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
+    	String formattedDate = dateFormat.format(new Date(System.currentTimeMillis())).toString().toLowerCase();
+    	return formattedDate;
+    }
+    
+    protected String updateEmail(String pEmail) {
+//    	Date dateObj = new Date();
+//		long date_to_append=dateObj.getTime()/3600;
+		String date_to_append = getCurrentPSTTime().replace("-", "");
+		int at = pEmail.indexOf('@');
+		String firstPart = pEmail.substring(0, at);
+		String lastPart = pEmail.substring(at);
+//		pEmail=firstPart+"_"+Long.toString(date_to_append)+lastPart;
+		pEmail=date_to_append+generateRandomInt(1000)+"-"+firstPart+lastPart;
+		return pEmail;
+    }
+    
+    protected String updateName(String pName) {
+//    	Date dateObj = new Date();
+//		long date_to_append=dateObj.getTime()/3600;
+    	String date_to_append = getCurrentPSTTime().replace("-", "");
+//		pName=pName+" "+Long.toString(date_to_append);
+		pName=date_to_append+generateRandomInt(1000)+" "+pName;
+		return pName;
+    }
+    
+    protected String getCurrentPSTTime() {
+    	SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy-ss");
+    	dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
+    	String formattedDate = dateFormat.format(new Date(System.currentTimeMillis())).toString().toLowerCase();
+    	return formattedDate;
+    	
+    }
 }

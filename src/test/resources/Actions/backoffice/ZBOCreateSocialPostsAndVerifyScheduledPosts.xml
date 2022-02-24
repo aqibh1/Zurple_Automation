@@ -1,0 +1,117 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Zurple Social Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>		
+		<listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+	</listeners>	
+	
+	<test name="Create Facebook Scheduled posts">
+		<parameter name="FBDataFile" value="/resources/data/zurple/backoffice/social/z-social-fb-posts-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
+				<methods>
+	 	  			<include name="testCreateFBTextScheduledPost" />
+					<include name="testCreateFBLinkScheduledPost" />
+		   			<include name="testCreateFBPhotoScheduledPost" /> 				
+					<include name="testCreateFBListingScheduledPost" />
+					<include name="testCreateFBListingVideoScheduledPost" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	
+	<test name="Create Twitter Scheduled posts">
+		<parameter name="TwitterDataFile" value="/resources/data/zurple/backoffice/social/z-social-twitter-posts-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
+				<methods>
+	  	  			<include name="testCreateTwitterTextScheduledPost" />
+					<include name="testCreateTwitterLinkScheduledPost" />
+					<include name="testCreateTwitterPhotoScheduledPost" />  
+					<include name="testCreateTwitterListingScheduledPost" />
+					<include name="testCreateTwitterListingVideoScheduledPost" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	
+	 <test name="Create Linkedin Scheduled posts">
+		<parameter name="LinkedinDataFile" value="/resources/data/zurple/backoffice/social/z-social-linkedin-posts-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
+				<methods>
+	  				<include name="testCreateLinkedinTextScheduledPost" />
+					<include name="testCreateLinkedinLinkScheduledPost" />
+					<include name="testCreateLinkedinPhotoScheduledPost" /> 
+					<include name="testCreateLinkedinListingScheduledPost" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	
+	<test name="Create Facebook direct posts">
+		<parameter name="FBDataFile" value="/resources/data/zurple/backoffice/social/z-social-fb-posts-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
+				<methods>
+	  				<include name="testCreateFBTextPost" />
+					<include name="testCreateFBLinkPost" />
+					<include name="testCreateFBPhotoPost" />
+					<include name="testCreateFBListingPost" />
+					<include name="testCreateFBListingVideoPost" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	
+	<test name="Create Twitter direct posts">
+		<parameter name="TwitterDataFile" value="/resources/data/zurple/backoffice/social/z-social-twitter-posts-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
+				<methods>
+	  				<include name="testCreateTwitterTextPost" />
+					<include name="testCreateTwitterLinkPost" />
+					<include name="testCreateTwitterPhotoPost" />
+					<include name="testCreateTwitterListingPost" />
+					<include name="testCreateTwitterListingVideoPost" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	
+	<test name="Create Linkedin direct posts">
+		<parameter name="LinkedinDataFile" value="/resources/data/zurple/backoffice/social/z-social-linkedin-posts-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
+				<methods>
+	  				<include name="testCreateLinkedinTextPost" />
+					<include name="testCreateLinkedinLinkPost" />
+					<include name="testCreateLinkedinPhotoPost" />
+					<include name="testCreateLinkedinListingPost" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test>
+	
+	<test name="Create Youtube video post">
+		<parameter name="YTDataFile" value="/resources/data/zurple/backoffice/social/z-social-yt-posts-data.json">
+		<classes>
+			<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
+				<methods>
+	  				<include name="testCreateYTListingVideoPost" />
+				</methods>
+			</class>
+		</classes>
+		</parameter>
+	</test> 
+	
+</suite>

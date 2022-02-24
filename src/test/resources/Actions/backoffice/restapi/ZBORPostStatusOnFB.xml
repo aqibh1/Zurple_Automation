@@ -1,21 +1,23 @@
 <suite name="Update and Verify User Settings suite"
 	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
 	<listeners>
-        <listener class-name="resources.ThreadCountChanger"/>
-        <listener class-name="resources.ExtentReporterListener"/>
-        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
-        <listener class-name="resources.CustomTestNGReporter"/>
-    </listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
 
-	<test name="Verify status post on Facebook">	 
-	<parameter name="datafile" value="/resources/data/zurple/socialapi/post_fb_status_data.json"> 
+	<test name="Verify status post on Facebook">
+		<parameter name="datafile"
+			value="/resources/data/zurple/socialapi/post_fb_status_data.json">
 			<classes>
-			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
 						<include name="testBackOfficeAPILogin" />
 					</methods>
 				</class>
-			<class name="com.zurple.rest.ZBORestPostStatusTest">
+				<class name="com.zurple.rest.ZBORestPostStatusTest">
 					<methods>
 						<include name="testPostStatus" />
 					</methods>
@@ -30,8 +32,8 @@
 						<include name="closeBrowser" />
 					</methods>
 				</class>
-				
+
 			</classes>
-			</parameter>
+		</parameter>
 	</test>
 </suite>

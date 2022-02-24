@@ -10,28 +10,28 @@
 
 		<parameter name="registerUserDataFile"
 			value="/resources/data/zurple/register_user/register-user-bounced-email-data.json">
-				<classes>
-					<class name="com.zurple.website.ZWRegisterUserPageTest">
-						<methods>
-							<include name="testRegisterUser" />
-						</methods>
-					</class>
-					<class name="com.zurple.backoffice.ZBOLoginPageTest">
-						<methods>
-							<include name="testBackOfficeLogin" />
-						</methods>
-					</class>
-					<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-						<methods>
-							<include name="testVerifyBouncedEmail" />
-						</methods>
-					</class>
-					<class name="resources.CurrentPageTest">
-						<methods>
-							<include name="closeBrowser" />
-						</methods>
-					</class>
-				</classes>
-			</parameter>
+			<classes>
+				<class name="com.zurple.website.ZWRegisterUserPageTest">
+					<methods>
+						<include name="testRegisterUser" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyBouncedEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
 	</test>
 </suite>

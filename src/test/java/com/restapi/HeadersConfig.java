@@ -23,4 +23,14 @@ public class HeadersConfig {
 //		headers.put("Accept","*/*");
 		return headers;
 	}
+	public static Map<String, String> getSAPIHeaders(String pAuthToken) {
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put(HTTPConstants.Authorization, pAuthToken);
+		return headers;
+	}
+	public static Map<String, String> getSellerLeadHeaders(String pContentType) {
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put(HTTPConstants.ContentType, pContentType);
+		return headers;
+	}
 }

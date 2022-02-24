@@ -3,6 +3,8 @@
  */
 package com.zurple.backoffice.social;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +17,7 @@ import resources.utility.ActionHelper;
 import resources.utility.FrameworkConstants;
 
 /**
- * @author adar
+ * @author habibaaq
  *
  */
 public class ZBOScheduledPostsPage extends Page{
@@ -23,7 +25,7 @@ public class ZBOScheduledPostsPage extends Page{
 	WebElement scheduled_posts_heading;
 	
 	String post_xpath = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']";
-	
+	String desc_xpath = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::p[contains(@class,'link-preview-description')]";
 	String fb_post_platform_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'post-facebook-network-icon')]";
 	String tw_post_platform_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'post-twitter-network-icon')]";
 	String li_post_platform_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'post-linkedin-network-icon')]";
@@ -44,7 +46,16 @@ public class ZBOScheduledPostsPage extends Page{
 	String video_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'listing-video-icon')]";
 	String computer_icon = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[contains(@class,'computer-icon')]";
 	String link_post_text = "//p[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')]/ancestor::div[@class='post-container col-md-12']/descendant::div[text()='Manual Link Post']";
-
+	
+	@FindBy(className="post-text")
+	WebElement post_text_area;
+	
+	String linkURL = "link-preview-hostname";
+	
+	String edit_button = "edit-button";
+	String post_text = "post-text";
+	int postIndex = 0;
+	
 	public ZBOScheduledPostsPage() {	
 	}
 	
@@ -52,7 +63,7 @@ public class ZBOScheduledPostsPage extends Page{
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
 	}
-	public boolean isShceduledPostsPage() {
+	public boolean isScheduledPostsPage() {
 		return ActionHelper.waitForElementToBeVisible(driver, scheduled_posts_heading, 30);
 	}
 	public boolean verifyPlatformIconIsVisible(String pPlatform, String pPostToVerify) {
@@ -60,7 +71,7 @@ public class ZBOScheduledPostsPage extends Page{
 		WebElement element;
 		switch(pPlatform) {
 		case "Facebook":
-			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, fb_post_platform_icon, pPostToVerify,10)) {
+			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, fb_post_platform_icon, pPostToVerify,3)) {
 				element = ActionHelper.getDynamicElement(driver, fb_post_platform_icon, pPostToVerify);
 				if(element!=null) {
 					isVisible = ActionHelper.isElementVisible(driver, element);
@@ -68,7 +79,7 @@ public class ZBOScheduledPostsPage extends Page{
 			}
 			break;
 		case "Twitter":
-			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, tw_post_platform_icon, pPostToVerify,10)) {
+			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, tw_post_platform_icon, pPostToVerify,3)) {
 				element = ActionHelper.getDynamicElement(driver, tw_post_platform_icon, pPostToVerify);
 				if(element!=null) {
 					isVisible = ActionHelper.isElementVisible(driver, element);
@@ -76,7 +87,7 @@ public class ZBOScheduledPostsPage extends Page{
 			}
 			break;
 		case "LinkedIn":
-			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, li_post_platform_icon, pPostToVerify,10)) {
+			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, li_post_platform_icon, pPostToVerify,3)) {
 				element = ActionHelper.getDynamicElement(driver, li_post_platform_icon, pPostToVerify);
 				if(element!=null) {
 					isVisible = ActionHelper.isElementVisible(driver, element);
@@ -84,7 +95,7 @@ public class ZBOScheduledPostsPage extends Page{
 			}
 			break;
 		case "YouTube":
-			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, yt_post_platform_icon, pPostToVerify,10)) {
+			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, yt_post_platform_icon, pPostToVerify,3)) {
 				element = ActionHelper.getDynamicElement(driver, yt_post_platform_icon, pPostToVerify);
 				if(element!=null) {
 					isVisible = ActionHelper.isElementVisible(driver, element);
@@ -219,15 +230,16 @@ public class ZBOScheduledPostsPage extends Page{
 		}
 		return isVisible;
 	}
-	public boolean isListingWebsiteUrlDisplaying(String pPostToVerify, String pDomainToVerify) {
-		String isVisible = "";	
-		WebElement element;
-		element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
-		if(element!=null) {
-			isVisible = ActionHelper.getText(driver, element.findElement(By.xpath("/descendant::a[contains(@class,'link-preview-hostname')]")));
-		}
-		return pDomainToVerify.contains(isVisible.toLowerCase());
-	}
+//	public boolean isListingWebsiteUrlDisplaying(String pPostToVerify, String pDomainToVerify) {
+//		String isVisible = "";	
+//		WebElement element;
+//		element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
+//		if(element!=null) {
+//			ActionHelper.waitForElementToBeVisible(driver, element, 30);
+//			isVisible = ActionHelper.getText(driver, element.findElement(By.xpath("/descendant::a[contains(@class,'link-preview-hostname')]")));
+//		}
+//		return pDomainToVerify.contains(isVisible.toLowerCase());
+//	}
 	public boolean isListingHeadingVisible(String pPostToVerify) {
 		String isVisible = "";	
 		WebElement element;
@@ -240,9 +252,9 @@ public class ZBOScheduledPostsPage extends Page{
 	public boolean isListingDescVisible(String pPostToVerify) {
 		String isVisible = "";	
 		WebElement element;
-		element = ActionHelper.getDynamicElement(driver, post_xpath, pPostToVerify);
+		element = ActionHelper.getDynamicElement(driver, desc_xpath, pPostToVerify);
 		if(element!=null) {
-			isVisible = ActionHelper.getText(driver, element.findElement(By.xpath("/descendant::p[contains(@class,'link-preview-description')]")));
+			isVisible = ActionHelper.getText(driver, element);
 		}
 		return isVisible.contains("Check out this listing");
 	}
@@ -289,10 +301,42 @@ public class ZBOScheduledPostsPage extends Page{
 		if(element!=null) {
 			ActionHelper.waitForElementToBeVisible(driver, element.findElement(By.id("edit-post")), 30);
 			ActionHelper.Click(driver, element.findElement(By.id("edit-post")));
-			ActionHelper.staticWait(5);
+			ActionHelper.staticWait(3);
 			isWorking = driver.getCurrentUrl().contains("editpost");
 			
 		}
 		return isWorking;
+	}
+	
+	public boolean isEditPostPage() {
+		ActionHelper.staticWait(2);
+		if(ActionHelper.ClickByIndex(driver, edit_button, postIndex)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public boolean verifyPost(String pPostText) {
+		boolean isPostFound = false;
+		String actualPostText = "";
+		List<WebElement> postData = ActionHelper.getListOfElementByClassName(driver, post_text);
+		for(WebElement elem:postData) {
+			actualPostText = ActionHelper.getText(driver, elem);
+			if(actualPostText.contains(pPostText)) {
+				postIndex = postData.indexOf(elem);
+				isPostFound = true;
+				break;
+			}				
+		}
+		return isPostFound; 
+	}
+	
+	public boolean isListingWebsiteUrlDisplaying(String pPostToVerify, String pExpectedURL) {
+		String actualURL = ActionHelper.getTextByIndex(driver, linkURL, postIndex);
+		if(pExpectedURL.contains(actualURL.toLowerCase())) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

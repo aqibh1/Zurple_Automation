@@ -3,6 +3,9 @@
  */
 package resources.alerts.zurple.backoffice;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -48,5 +51,38 @@ public class ZBOSelectCampaignAlert extends AbstractAlert{
 	}
 	public boolean clickOnEnrollButton() {
 		return ActionHelper.Click(driver, Enroll_button);
+	}
+	public List<WebElement> clickOnCampaignDropdownAndFetchCampaigns() {
+		List<WebElement> list = new ArrayList<WebElement>();
+		if(ActionHelper.Click(driver, select_listing_dropdown)) {
+			list = ActionHelper.getListOfElementByXpath(driver, listing_dropdown_options);
+		}
+		return list;
+	}
+	public boolean clickOnCmapiagnName() {
+		boolean isClicked = false;
+		List<WebElement> list = new ArrayList<WebElement>();
+		String l_campaign_name = "";
+		if(ActionHelper.Click(driver, select_listing_dropdown)) {
+			list = ActionHelper.getListOfElementByXpath(driver, listing_dropdown_options);
+			l_campaign_name = ActionHelper.getText(driver, list.get(1));
+			isClicked = ActionHelper.Click(driver, list.get(1));
+		}
+		return isClicked;
+	}
+	public boolean clickOnCmapiagnName(String pCampaignName) {
+		boolean isClicked = false;
+		List<WebElement> list = new ArrayList<WebElement>();
+		String l_campaign_name = "";
+		if(ActionHelper.Click(driver, select_listing_dropdown)) {
+			list = ActionHelper.getListOfElementByXpath(driver, listing_dropdown_options);
+			for(WebElement element: list) {
+				l_campaign_name = ActionHelper.getText(driver, element);
+				if(l_campaign_name.equalsIgnoreCase(pCampaignName)) {
+					isClicked = ActionHelper.Click(driver, element);
+				}
+			}	
+		}
+		return isClicked;
 	}
 }

@@ -21,6 +21,7 @@ import resources.alerts.zurple.backoffice.ZBOSelectCampaignAlert;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.blocks.zurple.ZBOLeadDetailsSearchBlock;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
 public class ZBOLeadDetailPage extends Page{
@@ -71,7 +72,16 @@ public class ZBOLeadDetailPage extends Page{
 
 	@FindBy(xpath="//div[@id='z-lead-notes']/descendant::div[text()='No records found.']")
 	WebElement lead_notes_no_record;
-
+	
+	@FindBy(xpath="//div[@id='z-lead-notes']/descendant::div[text()='Lead was successfully imported from Zapier']")
+	WebElement lead_note_zapier_system;
+	
+	@FindBy(xpath="//div[@id='z-lead-notes']/descendant::div[text()='This is zapier imported lead via Automation tests']")
+	WebElement lead_note_zapier_manual;
+	
+	@FindBy(xpath="//div[@id='z-lead-notes']/descendant::div[text()='Original Lead Source: Zapier']")
+	WebElement lead_note_zapier_source;
+	
 	String email_prefernces_xpath = "//ul[@class='z-lead-preferences z-grid-view-content']/descendant::span";
 	String leadName_xpath = "//div[@id='lead-details-main']/descendant::h2[@class='panel-title']";
 
@@ -146,6 +156,7 @@ public class ZBOLeadDetailPage extends Page{
 //	String xpathForTestingSubject = "//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div";
 	String xpathForTestingSubject = "//div[@id='z-activity-details-sent-grid']/descendant::td[@headers]/div";
 	
+	
 	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::td[@headers='yui-dt5-th-subject ']/div")
 	WebElement flyer_email;
 	
@@ -217,6 +228,37 @@ public class ZBOLeadDetailPage extends Page{
 	WebElement favorites_tab_button;
 	@FindBy(xpath="//div[@class='lead-rank']/span[@class='rank']")
 	WebElement lead_priority_ranking;
+	
+	@FindBy(xpath="//a[text()='Send CMA Report']")
+	WebElement sendCMAReport_button;
+	@FindBy(xpath="//a[@class='btn lead-btn-disabled btn-sm' and @title='Please update Lead’s Email Address to be valid']")
+	WebElement sendCMAReport_disabled_button;
+	
+	@FindBy(xpath="//div[@id='lead-details-main']/descendant::span[text()='Lead Source:']/following-sibling::span")
+	WebElement lead_souce;
+	
+	@FindBy(xpath="//div[@id='z-activity-details-sent-tab']/descendant::div[@class='yui-dt-liner' and text()='Loading...']")
+	WebElement loading_popup;
+	
+	@FindBy(xpath="//div[@id='z-activity-details-alert-emails-grid']/descendant::td[@headers='yui-dt4-th-messageDateTime ']/div")
+	WebElement zurple_messages_dateTime;
+	String zurple_message_emails = "//div[@id='z-activity-details-alert-emails-grid']/descendant::td[@headers]/div";
+	
+	//Local Info Searches
+	String li_date_list = "//div[@id='z-activity-details-local-information-searches-grid']/descendant::td[@headers='yui-dt7-th-date ']/div";
+	String li_location_list = "//div[@id='z-activity-details-local-information-searches-grid']/descendant::td[@headers='yui-dt7-th-location ']/div";
+	String li_type_list = "//div[@id='z-activity-details-local-information-searches-grid']/descendant::td[@headers='yui-dt7-th-type ']/div";
+
+	@FindBy(xpath="//span[@id='campaign-title']/a")
+	WebElement campaign_title;
+	
+	@FindBy(id="campaign-title")
+	WebElement campaign_detail_none;
+	
+	String icons_list_text = "//span[@class='lead-details-detail']";
+	
+	@FindBy(xpath="//span[text()='Transaction Goals:']/following::span[@class='lead-details-detail'][1]")
+	WebElement transaction_goals;
 	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
@@ -378,6 +420,18 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean isNotesEmpty() {
 		return ActionHelper.isElementVisible(driver, lead_notes_no_record);
 	}
+	
+	public boolean isZapierManualNoteEmpty() {
+		return ActionHelper.isElementVisible(driver, lead_note_zapier_manual);
+	}
+	
+	public boolean isZapierSystemNoteEmpty() {
+		return ActionHelper.isElementVisible(driver, lead_note_zapier_system);
+	}
+	
+	public boolean isZapierSourceNoteEmpty() {
+		return ActionHelper.isElementVisible(driver, lead_note_zapier_source);
+	}
 
 	public HashMap<String,String> populateEmailPreferencesMap() {
 		List<WebElement> list_element = ActionHelper.getListOfElementByXpath(driver, email_prefernces_xpath);
@@ -397,6 +451,16 @@ public class ZBOLeadDetailPage extends Page{
 		boolean isSuccess = false;
 		ActionHelper.waitForElementToBeVisible(driver, xpathForTestingDate, 30);
 		String emailDateTime = ActionHelper.getText(driver, xpathForTestingDate);
+		if(!emailDateTime.equals("")) {
+			isSuccess = true;
+		}
+		return isSuccess;
+	}
+	
+	public boolean verifyEmailDateTime(WebElement pXpathForVerifyingDate) {
+		boolean isSuccess = false;
+		ActionHelper.waitForElementToBeVisible(driver, pXpathForVerifyingDate, 30);
+		String emailDateTime = ActionHelper.getText(driver, pXpathForVerifyingDate);
 		if(!emailDateTime.equals("")) {
 			isSuccess = true;
 		}
@@ -448,7 +512,7 @@ public class ZBOLeadDetailPage extends Page{
 			ActionHelper.staticWait(3);
 			isEmailExists = ActionHelper.waitForElementToBeVisible(driver, quick_question_subject, 30);
 			if(isEmailExists) {
-				isTimeDateCorrect = ActionHelper.getText(driver, date_time_email).contains(getTodaysDate().replace("2021", "21"));
+				isTimeDateCorrect = ActionHelper.getText(driver, date_time_email).contains(getTodaysDate().replace("2022", "22"));
 			}
 			isVerified = (isEmailExists && isTimeDateCorrect)?true:false;
 		}
@@ -506,11 +570,14 @@ public class ZBOLeadDetailPage extends Page{
 					if(alertVerified) {
 						if(ActionHelper.getText(driver, driver.findElement(By.xpath("//span[@class='z-alert-datetime']")))!=null) {
 							String lDate = ActionHelper.getText(driver, driver.findElement(By.xpath("//span[@class='z-alert-datetime']")));
-							dateVerified = lDate.contains(getTodaysDate().replace("2021", "21"))?true:false;
+							dateVerified = lDate.contains(getTodaysDate("MM/dd/yy"))?true:false;
 						}
 					}
+					if(alertVerified && dateVerified) {
+						isVerified = true;
+						break;
+					}
 				}
-				isVerified = (alertVerified && dateVerified)?true:false;
 				break;
 
 			case "Requested Showing":
@@ -519,7 +586,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = element.getText().trim().contains("Requested Showing");
 					if(alertVerified) {
 						alertVerified = element.findElement(By.tagName("a")).getText().trim().contains(pAlertValueToVerify);
-						dateVerified = element.getText().trim().contains(getTodaysDate().replace("2021", "21"));
+						dateVerified = element.getText().trim().contains(getTodaysDate("MM/dd/yy"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -536,12 +603,12 @@ public class ZBOLeadDetailPage extends Page{
 						isRefreshPageRequired = false;
 						List<WebElement> list_of_lead_activity = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-activity-details-alerts-grid']/descendant::tr[@id]/descendant::span[@class='z-lead-activity']/span");
 						for(WebElement element: list_of_lead_activity) {
-							alertVerified = element.getText().contains(pAlertValueToVerify);
+							alertVerified = ActionHelper.getText(driver, element).contains(pAlertValueToVerify);
 							if(alertVerified) {
 								break;
 							}
 						}
-						dateVerified = list_lead_activity_pref.get(i).getText().trim().contains(getTodaysDate().replace("2021", "21"));
+						dateVerified = list_lead_activity_pref.get(i).getText().trim().contains(getTodaysDate("MM/dd/yy"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -557,7 +624,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = ActionHelper.getText(driver, list_lead_activity_cma.get(i)).contains("Homeowner Asked for a CMA") ;
 					if(alertVerified) {
 
-						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time.get(i)).contains(getTodaysDate().replace("2021", "21"));
+						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time.get(i)).contains(getTodaysDate("MM/dd/yy"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -574,7 +641,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = ActionHelper.getText(driver, list_lead_activity_high.get(i)).contains("Lots of Browsing") ;
 					if(alertVerified) {
 
-						dateVerified = ActionHelper.getText(driver,list_lead_high_activity_date_time.get(i)).contains(getTodaysDate().replace("2021", "21"));
+						dateVerified = ActionHelper.getText(driver,list_lead_high_activity_date_time.get(i)).contains(getTodaysDate("MM/dd/yy"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -590,7 +657,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = ActionHelper.getText(driver, list_lead_activity_high_return.get(i)).contains("High Return") ;
 					if(alertVerified) {
 
-						dateVerified = ActionHelper.getText(driver,list_lead_high_return_activity_date_time.get(i)).contains(getTodaysDate().replace("2021", "21"));
+						dateVerified = ActionHelper.getText(driver,list_lead_high_return_activity_date_time.get(i)).contains(getTodaysDate("MM/dd/yy"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -606,7 +673,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = ActionHelper.getText(driver, list_lead_activity_list.get(i)).contains("Agent Inquiry") ;
 					if(alertVerified) {
 
-						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate().replace("2021", "21"));
+						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate("MM/dd/yy"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -622,7 +689,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = ActionHelper.getText(driver, list_lead_activity_list.get(i)).contains(pAlertToVerify) ;
 					if(alertVerified) {
 
-						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate().replace("2021", "21"));
+						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate("MM/dd/yy"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -641,7 +708,7 @@ public class ZBOLeadDetailPage extends Page{
 					alertVerified = ActionHelper.getText(driver, list_lead_activity_list.get(i)).contains(pAlertToVerify) ;
 					if(alertVerified) {
 
-						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate().replace("2021", "21"));
+						dateVerified = ActionHelper.getText(driver,list_lead_activity_date_time_list.get(i)).contains(getTodaysDate("MM/dd/yy"));
 					}
 					if(alertVerified && dateVerified) {
 						isVerified = true;
@@ -660,9 +727,13 @@ public class ZBOLeadDetailPage extends Page{
 		boolean isVerified = false;
 		List<WebElement> list_of_notes = ActionHelper.getListOfElementByXpath(driver, "//div[@id='z-lead-notes']/descendant::td[@headers='yui-dt0-th-note ']/div[@class='yui-dt-liner']");
 		for(WebElement element_notes: list_of_notes) {
+			ActionHelper.staticWait(2);
 			String lNotes[] = ActionHelper.getText(driver, element_notes).split("\n");
 			for (String lNote: lNotes) {
 				if(lNote.contains(pPropToVerify)) {
+					AutomationLogger.info("Property to Verify :: "+pPropToVerify);
+					AutomationLogger.info("Property Values in Notes :: "+lNote.split(":")[1].trim());
+					AutomationLogger.info("Value to Verify :: "+pValue);
 					if(lNote.split(":")[1].trim().equalsIgnoreCase(pValue)) {
 						isVerified = true;
 						break;
@@ -692,6 +763,13 @@ public class ZBOLeadDetailPage extends Page{
 		return isEmailReceived;
 	}
 	
+	public boolean verifyEmailInZurpleMesssagesTab(String pEmailToVerify) {
+		boolean isEmailReceived = false;
+		if(ActionHelper.Click(driver, zurple_messages_tab_button)) {
+			isEmailReceived = verifyStatusAfterSendingEmail(pEmailToVerify, zurple_message_emails, zurple_messages_dateTime);
+		}
+		return isEmailReceived;
+	}
 	public boolean verifyLeadMessagesEmailsAndDate(String pEmailToVerify) {
 		boolean isEmailReceived = false;
 		if(ActionHelper.Click(driver, leadMessages_tab_button)) {
@@ -727,31 +805,71 @@ public class ZBOLeadDetailPage extends Page{
 		ActionHelper.ScrollDownByPixels(driver, "400");
 		ActionHelper.Click(driver, myMessages_tab_button);
 	}
-
+	
+	public void waitForZurpleMessageAppearance() {
+		ActionHelper.staticWait(30);
+		ActionHelper.RefreshPage(driver);
+		ActionHelper.ScrollDownByPixels(driver, "400");
+		ActionHelper.Click(driver, zurple_messages_tab_button);
+	}
 	public boolean checkStatusAfterSendingEmail(String pEmailToVerify) {
 		String str = "";
 		int counter = 0;
 		boolean lIsEmailVisible = false;
 		while(!lIsEmailVisible && counter<6) {
+			AutomationLogger.info("Iteration number ::"+counter+" of 6");
 			ActionHelper.ScrollDownByPixels(driver, "500");
-			if(ActionHelper.waitForElementToBeDisappeared(driver, driver.findElement(By.xpath("//div[@id='z-activity-details-sent-tab']/descendant::div[@class='yui-dt-liner' and text()='Loading...']")), 300))
-			/* if(ActionHelper.isElementVisible(driver, flyer_email)) */ {
-				List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, xpathForTestingSubject);
-				ActionHelper.staticWait(2);
-				for(int i =0;i<10;i++) {
-					str = ActionHelper.getText(driver, subjectList.get(i));
-					if(str.equals(pEmailToVerify)) {
-						assertTrue(verifyEmailDateTime(), "unable to verify date");
-						lIsEmailVisible = true;
-						break;
-					}
+			if(ActionHelper.isElementVisible(driver, loading_popup)) {
+				ActionHelper.waitForElementToBeDisappeared(driver, loading_popup, 300);
+			}
+			List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, xpathForTestingSubject);
+			ActionHelper.staticWait(2);
+			//Do not change the loop count//
+			//The email should exist in the first 10 emails//
+			for(int i =0;i<10;i++) {
+				str = ActionHelper.getText(driver, subjectList.get(i));
+				if(str.equals(pEmailToVerify)) {
+					assertTrue(verifyEmailDateTime(), "unable to verify date");
+					lIsEmailVisible = true;
+					break;
 				}
-			} 
+			}
 			if(!lIsEmailVisible) {
 				waitForMessageAppearance();
 			}
 			counter++;
-		}
+		} 
+		return lIsEmailVisible;
+	}
+	public boolean verifyStatusAfterSendingEmail(String pEmailToVerify, String pXpathOfEmailsList, WebElement pDateTime) {
+		String str = "";
+		int counter = 0;
+		boolean lIsEmailVisible = false;
+		while(!lIsEmailVisible && counter<6) {
+			AutomationLogger.info("Iteration number ::"+counter+" of 6");
+			ActionHelper.ScrollDownByPixels(driver, "500");
+			if(ActionHelper.isElementVisible(driver, loading_popup)) {
+				ActionHelper.waitForElementToBeDisappeared(driver, loading_popup, 300);
+			}
+			List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, pXpathOfEmailsList);
+			ActionHelper.staticWait(2);
+			//Do not change the loop count//
+			//The email should exist in the first 10 emails//
+			if(subjectList.size()>0) {
+				for(int i =0;i<10;i++) {
+					str = ActionHelper.getText(driver, subjectList.get(i));
+					if(str.equals(pEmailToVerify)) {
+						assertTrue(verifyEmailDateTime(pDateTime), "unable to verify date");
+						lIsEmailVisible = true;
+						break;
+					}
+				}
+			}
+			if(!lIsEmailVisible) {
+				waitForZurpleMessageAppearance();
+			}
+			counter++;
+		} 
 		return lIsEmailVisible;
 	}
 	
@@ -809,6 +927,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyNoteAndTime(String pNoteToVerify) {
 		boolean isVerified = false;
 		boolean isNoteFound = false;
+		ActionHelper.staticWait(20);
 		int counter = 0;
 		List<WebElement> list_of_notes = ActionHelper.getListOfElementByXpath(driver, notes_Added_xpath);
 		for(int i =0;i<list_of_notes.size();i++) {
@@ -856,6 +975,7 @@ public class ZBOLeadDetailPage extends Page{
 		return isButtonDisabled;
 	}
 	public boolean clickOnMyMessagesTab() {
+		ActionHelper.staticWait(2);
 		return ActionHelper.Click(driver, myMessages_tab_button);
 	}
 	public boolean clickOnLeadMessagesTab() {
@@ -928,7 +1048,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyScheduledEmail(String pEmailToVerify) {
 		boolean isEmailReceived = false;
 		if(ActionHelper.Click(driver, myMessages_tab_button)) {
-			ActionHelper.staticWait(2);
+			ActionHelper.staticWait(7);
 			isEmailReceived = checkScheduledEmail(pEmailToVerify);
 		}
 		return isEmailReceived;
@@ -975,12 +1095,15 @@ public class ZBOLeadDetailPage extends Page{
 				isSuccess = successAlert.clickOnUnEnrollButton();
 			}
 		}
+		ActionHelper.staticWait(10);
 		return isSuccess;
 	}
 	public boolean isCampaignNameVisibleInMyMessages(String pCampaignName) {
 		boolean isSuccess = false;
+		ActionHelper.waitForElementToBeClickAble(driver, myMessages_tab_button);
 		if(ActionHelper.Click(driver, myMessages_tab_button)) {
 			ActionHelper.staticWait(5);
+			ActionHelper.waitForStringXpathToBeVisible(driver, enrollInCampaign,30);
 			isSuccess = ActionHelper.getDynamicElementAfterRegularIntervals(driver, enrollInCampaign, pCampaignName, 2);
 		}
 		return isSuccess;
@@ -1103,5 +1226,75 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public boolean verifyLeadPriorityRanking(String pRanking) {
 		return ActionHelper.getText(driver, lead_priority_ranking).equalsIgnoreCase(pRanking);
+	}
+	public boolean verifySendCMAReportButtonIsVisible() {
+		return ActionHelper.isElementVisible(driver, sendCMAReport_button);
+	}
+	public boolean clickOnCMAReportButton() {
+		return ActionHelper.Click(driver, sendCMAReport_button);
+	}
+	public boolean isSendCMAReportButtonDisabled() {
+		return ActionHelper.isElementVisible(driver, sendCMAReport_disabled_button);
+	}
+	public String getLeadSource() {
+		return ActionHelper.getText(driver, lead_souce);
+	}
+	public boolean verifyLeadSource(String Zapier) {
+		return getLeadSource().equalsIgnoreCase(Zapier);
+	}
+	public boolean verifyLocalInfoType(String pType) {
+		boolean isVerified = false;
+		String l_date = getTodaysDate("MM/dd/yy");
+		List<WebElement> type_elements = ActionHelper.getListOfElementByXpath(driver, li_type_list);
+		List<WebElement> date_elements = ActionHelper.getListOfElementByXpath(driver, li_date_list);
+		for(int i=0;i<type_elements.size();i++) {
+			if(ActionHelper.getText(driver, type_elements.get(i)).equalsIgnoreCase(pType)) {
+				isVerified = ActionHelper.getText(driver, date_elements.get(i)).contains(l_date);
+			}
+			if(isVerified) {
+				break;
+			}
+		}
+		return isVerified;
+	}
+	public boolean verifyLocalInfoZip(String pType, String pZip) {
+		boolean isVerified = false;
+		List<WebElement> type_elements = ActionHelper.getListOfElementByXpath(driver, li_type_list);
+		List<WebElement> location_elements = ActionHelper.getListOfElementByXpath(driver, li_location_list);
+		for(int i=0;i<type_elements.size();i++) {
+			if(ActionHelper.getText(driver, type_elements.get(i)).equalsIgnoreCase(pType)) {
+				isVerified = ActionHelper.getText(driver, location_elements.get(i)).contains(pZip);
+			}
+			if(isVerified) {
+				break;
+			}
+		}
+		return isVerified;
+	}
+	public boolean isEnrollInCampaignButtonVisible() {
+		return ActionHelper.isElementVisible(driver, ENROLL_IN_CAMPAIGN_BUTTON);
+	}
+	public String getCampaignTitleFromMyMessages() {
+		return ActionHelper.getText(driver, campaign_title);
+	}
+	public boolean clickOnCampaignName() {
+		return ActionHelper.Click(driver, campaign_title);
+	}
+	public String getCampaignNameFromMyMessagesNone() {
+		return ActionHelper.getText(driver, campaign_detail_none);
+	}
+	public boolean verifyIconsListText(String pTextToVerify) {
+		boolean isFound = false;
+		List<WebElement> list = ActionHelper.getListOfElementByXpath(driver, icons_list_text);
+		for(WebElement element: list) {
+			if(ActionHelper.getText(driver, element).contains(pTextToVerify)) {
+				isFound = true;
+				break;
+			}
+		}
+		return isFound;
+	}
+	public String getTransactionGoalsValue() {
+		return ActionHelper.getText(driver, transaction_goals);
 	}
 }

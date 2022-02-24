@@ -1,7 +1,5 @@
 package resources;
 
-import java.io.IOException;
-
 import org.testng.annotations.Test;
 
 import resources.utility.AutomationLogger;
@@ -14,7 +12,7 @@ public class CurrentPageTest extends AbstractPageTest
     };
 
     @Test(priority=500)
-    public void closeBrowser() throws IOException{
+    public void closeBrowser(){
         Long thread_id = Thread.currentThread().getId();
         AutomationLogger.info("Thread ID "+thread_id);
         EnvironmentFactory.quitDriver(thread_id);

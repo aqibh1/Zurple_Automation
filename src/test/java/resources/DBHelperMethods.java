@@ -2,17 +2,26 @@ package resources;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import resources.orm.hibernate.models.AbstractLead;
 import resources.orm.hibernate.models.pp.Posts;
 import resources.orm.hibernate.models.z57.IdxLeadSearches;
-import resources.orm.hibernate.models.z57.Lead;
 import resources.orm.hibernate.models.z57.ListingImages;
 import resources.orm.hibernate.models.z57.NotificationEmails;
 import resources.orm.hibernate.models.z57.NotificationMailgun;
 import resources.orm.hibernate.models.z57.Notifications;
 import resources.orm.hibernate.models.z57.Sites;
+import resources.orm.hibernate.models.zurple.Admin;
+import resources.orm.hibernate.models.zurple.AdminDashboardStats;
+import resources.orm.hibernate.models.zurple.AlertRule;
+import resources.orm.hibernate.models.zurple.Email;
+import resources.orm.hibernate.models.zurple.NSTransaction;
+import resources.orm.hibernate.models.zurple.NetSuiteSyncTasks;
+import resources.orm.hibernate.models.zurple.NetsuiteSyncQueue;
+import resources.orm.hibernate.models.zurple.User;
+import resources.orm.hibernate.models.zurple.UserAlert;
 import resources.utility.AutomationLogger;
 
 public class DBHelperMethods {
@@ -22,7 +31,7 @@ public class DBHelperMethods {
 		testEnvironment = pTestEnvironment;
 
 	}
-
+	
 	public Notifications getNotifications(Integer pNotificationId) {
 		Notifications notification_object = testEnvironment.getNotificationObject(pNotificationId);
 		System.out.println(notification_object.getEmail_subject()+"  "+notification_object.getSentDate());
@@ -221,17 +230,51 @@ public class DBHelperMethods {
 		}
 		return result;
 	}
-	public Lead getLeadObject(String pEmailToVeirfy) {
+	public resources.orm.hibernate.models.zurple.Lead getLeadObject(String pEmailToVeirfy) {
 		//Fetching Lead object by Email
 		try {
-			Lead newLead = testEnvironment.getNewLeadObject(pEmailToVeirfy);
-			return newLead;
+			return testEnvironment.getNewLeadsObject(pEmailToVeirfy);
 		}
 		catch(Exception ex) {
 			AutomationLogger.error("No Lead found in Lead Table for email ->"+pEmailToVeirfy);
+			ex.printStackTrace();
 			return null;
 		}
 	}
+	public Email getEmailType(String pEmailToVerify) {
+		//Fetching Email Type
+		try {
+			return testEnvironment.getNewEmailTypeObject(pEmailToVerify);
+		}
+		catch(Exception ex) {
+			AutomationLogger.error("No Lead found in Lead Table for email ->"+pEmailToVerify);
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
+	public UserAlert getAlertType(Integer pAlertRuleToVerify) {
+		try {
+			return testEnvironment.getUserAlertObject(pAlertRuleToVerify);
+		}
+		catch(Exception ex) {
+			AutomationLogger.error("No Lead found in User Alerts Table for alert -> "+pAlertRuleToVerify);
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
+	public AlertRule getAlertRuleType(Integer pAlertRuleToVerify) {
+		try {
+			return testEnvironment.getAlertRuleObject(pAlertRuleToVerify);
+		}
+		catch(Exception ex) {
+			AutomationLogger.error("No Lead found in Alert Rule Table for alert -> "+pAlertRuleToVerify);
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
 	public boolean isWebSiteHTTPSEnables(String pWebSite) {
 		boolean isHttpsEnabled = false;
 		try {
@@ -303,7 +346,25 @@ public class DBHelperMethods {
 	public List<NotificationMailgun> getMailgunNotifications() {
 		return testEnvironment.getMailgunNotifications();
 	}
-	public Integer getZurpleLeadId(String pEmail) {
-		return testEnvironment.getLeadObject(pEmail).getId();
+	public Integer getZurpleLeadId(String pUserName) {
+		return testEnvironment.getUserByUserName(pUserName).getId();
+	}
+	public AdminDashboardStats getAdminStatsByAdminId(int pAdminId) {
+		return testEnvironment.getAdminDashBoardStats(pAdminId);
+	}
+	public List<Admin> getListOfSubAdmins(int pAdminId) {
+		return testEnvironment.getListOfSubAdmins(pAdminId);
+	}
+	public List<User> getListOfUsers(int pAdminId, String pSource, Date pCreateTime) {
+		return testEnvironment.getListOfUsersByLeadSource(pAdminId, pSource, pCreateTime);
+	}
+	public List<NSTransaction> getListOfNSTransactionsByDate(String pCreateDateTime){
+		return testEnvironment.getListOfNSTransactionsByDate(pCreateDateTime);
+	}
+	public List<NetSuiteSyncTasks> getListOfFailedNetsuiteSyncTaskTransactions(String pDateProcessed){
+		return testEnvironment.getListOfFailedNetsuiteSyncTaskTransactions(pDateProcessed);
+	}
+	public List<NetsuiteSyncQueue> getListOfFailedNetsuiteSyncQueueItems(String pDateProcessed){
+		return testEnvironment.getListOfFailedNetsuiteSyncQueueItems(pDateProcessed);
 	}
 }

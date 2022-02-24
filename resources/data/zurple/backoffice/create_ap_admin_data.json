@@ -1,0 +1,19 @@
+{
+"first_name": "Automation",
+"last_name": "APAdmin",
+"phone": "16102458417",
+"feed_id": "312",
+"agent_id": "2455",
+"email": "automationadmin@mailinator.com",
+"forward1": "automationadminf@mailinator.com",
+"alt_email": "automation@nengtest30.com",
+"internal_id": "11618893",
+"time_zone": "-5",
+"office_name": "SDX",
+"office_phone": "16102458410",
+"office_address": "SDX Avenue",
+"dre": "24767",
+"netsuite_id": "11618893",
+"package_id": "13",
+"status_code":"200"
+}

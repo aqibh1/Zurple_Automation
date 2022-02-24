@@ -75,6 +75,9 @@ public class ZBOLeadPage extends Page{
 	@FindBy(id="update-lead-status-button")
 	WebElement update_lead_status_button;
 	
+	@FindBy(id="assign-campaign-button")
+	WebElement campaign_enroll_action_button;
+	
 	@FindBy(className="swal2-confirm")
 	WebElement update_status_from_modal;
 	
@@ -88,6 +91,10 @@ public class ZBOLeadPage extends Page{
 	String filter_dropdown_multiple = "//select[@id='location-parent-"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
 	String filter_child_dropdown_multiple = "//select[@id='location-child-"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	
+	String leads_list_email = "//table[@id='DataTables_Table_0']/descendant::td/a[contains(text(),'mailinator')]";
+	
+	String lead_checkbox_list = "//table[@id='DataTables_Table_0']/descendant::input[@value]";
 	
 	public ZBOLeadPage() {
 		
@@ -309,6 +316,7 @@ public class ZBOLeadPage extends Page{
 			isClicked = ActionHelper.Click(driver, update_lead_status_button);
 			break;
 		case "Enroll in Campaign":
+			isClicked = ActionHelper.Click(driver, campaign_enroll_action_button);
 			break;
 		}
 		return isClicked;
@@ -459,5 +467,36 @@ public class ZBOLeadPage extends Page{
 	}
 	public boolean clickAndSelectFilterValueMultiple(String pFilterValue, String pIndex) {
 		return ActionHelper.selectDropDownOption(driver, ActionHelper.getDynamicElement(driver, filter_child_dropdown_multiple, pIndex), "", pFilterValue);	
+	}
+	public boolean applyFilter(String pFilterName, String pFilterValue){
+		boolean isSuccessful = false;
+		if(clickAndSelectFilterName(pFilterName)){
+			ActionHelper.staticWait(10);
+			isSuccessful = clickAndSelectFilterValue(pFilterValue);
+			if(isSuccessful) {
+				isSuccessful = clickOnSearchButton();
+				ActionHelper.staticWait(10);
+			}
+		}
+		return isSuccessful;
+	}
+	public boolean clickOnLead() {
+		List<WebElement> list_of_leads = ActionHelper.getListOfElementByXpath(driver, leads_list_email);
+		int l_index = generateRandomInt(list_of_leads.size());
+		return ActionHelper.Click(driver, list_of_leads.get(l_index));
+	}
+	public boolean checkTheLead() {
+		List<WebElement> list_of_leads = ActionHelper.getListOfElementByXpath(driver, lead_checkbox_list);
+		int l_index = generateRandomInt(list_of_leads.size());
+		return ActionHelper.Click(driver, list_of_leads.get(l_index));	
+	}
+	public boolean mouseHoverAction() {
+		return ActionHelper.MouseHoverOnElement(driver, action_button);
+	}
+	public boolean isEnrollInCampaignButtonVisible() {
+		return ActionHelper.isElementVisible(driver, campaign_enroll_action_button); 
+	}
+	public boolean isLeadInputVisible() {
+		return ActionHelper.isElementVisible(driver, lead_input);
 	}
 }

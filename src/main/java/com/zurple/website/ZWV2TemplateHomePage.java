@@ -39,8 +39,13 @@ public class ZWV2TemplateHomePage extends Page{
 	@FindBy(className="blurb-text")
 	WebElement blurb_text;
 	
-	@FindBy(className="close")
-	WebElement close_modal;
+	@FindBy(className="register-form-header")
+	WebElement lc_header;
+	
+//	@FindBy(className="close")
+//	WebElement close_modal;
+	
+	String close_modal = "close";
 	
 	@FindBy(className="top-listing-counter-block")
 	WebElement listings_page;
@@ -164,12 +169,14 @@ public class ZWV2TemplateHomePage extends Page{
 	}
 	
 	public boolean clickSearchButton() {
+		ActionHelper.waitForElementToBeClickAble(driver, search_button);
 		return ActionHelper.Click(driver, search_button);
 	}
 	
 	public boolean closeModalAndListingsPage() {
-		if(ActionHelper.Click(driver, close_modal)==true) {
-			return ActionHelper.waitForElementToBeVisible(driver, listings_page,30);
+		boolean isPresent = ActionHelper.ClickByIndex(driver, close_modal, 1);
+		if(isPresent) {
+			return titleText();
 		} else {
 			return titleText();
 		}
@@ -185,11 +192,12 @@ public class ZWV2TemplateHomePage extends Page{
 	}
 	
 	public boolean searchFromAdvanceSearchModal() {
+		ActionHelper.waitForElementToBeClickAble(driver, search_from_modal);
 		return ActionHelper.Click(driver, search_from_modal);
 	}
 	
 	public boolean titleText() {
-		if(!ActionHelper.getText(driver, banner_text).isEmpty()) {
+		if(!ActionHelper.getText(driver, banner_text).isEmpty() || !ActionHelper.getText(driver, lc_header).isEmpty()) {
 			return true;
 		} else {
 			return false;

@@ -5,6 +5,9 @@ import static org.testng.Assert.assertTrue;
 
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.testng.SkipException;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -29,6 +32,7 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
     	if(page == null){
         	driver = getDriver();
 			page = new ZBOLeadStatusFiltersPage(driver);
+			setLoginPage(driver);
 			page.setUrl("");
 			page.setDriver(driver);
         }
@@ -39,17 +43,48 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
         if(page == null){
         	driver = getDriver();
 			page = new ZBOLeadStatusFiltersPage(driver);
+			setLoginPage(driver);
 			page.setUrl(pUrl);
 			page.setDriver(driver);
         }
         return page;
     }
     
+    @BeforeTest
+	public void backOfficeLogin() {
+		getPage();
+		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
+			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
+	}
+    
     @Test
     @Parameters({"dataFile"})
     public void testLeadStatusFilter(String pDataFile) { 
     	getPage();
     	JSONObject lDataObject = getDataFile(pDataFile);
+    	updateLeadStatus(lDataObject); 
+    }
+    
+    public boolean verifyLeadFilter(JSONObject pDataObject, String pfilterName, String pPageTitle) {
+    	page=null;
+    	getPage("/leads");
+    	page.selectFilter(pfilterName);
+    	assertEquals(page.pageTitle().trim(),pPageTitle);
+    	String leadName = pDataObject.optString("leadNameEmail");
+    	return page.searchStatusLead(leadName);
+    }
+    
+    public boolean verifyCRMLeadsFilter(JSONObject pDataObject, String pfilterName, String pPageTitle) {
+    	page=null;
+    	getPage("/leads/crm");
+    	page.selectCRMFilter(pfilterName);
+    	assertEquals(page.pageTitle().trim(),pPageTitle);
+    	String leadName = pDataObject.optString("leadNameEmail");
+    	return page.searchCRMStatusLead(leadName);
+    }
+    
+    public void updateLeadStatus(JSONObject lDataObject) {
     	String statusFilter, leadStatus;
     	for(int i=0; i<6; i++) {
     		marketingEmailObject.redirectToLeadsPage(lDataObject);
@@ -59,16 +94,13 @@ public class ZBOLeadStatusFiltersPageTest extends PageTest{
     		}
     		statusFilter = lDataObject.optString("lead_filters");
     		statusFilter = statusFilter.split(",")[i];
-    		verifyLeadFilter(lDataObject,statusFilter,"With Status: "+leadStatus);
+    		assertTrue(verifyLeadFilter(lDataObject,statusFilter,"With Status: "+leadStatus),"Unable to verify customized leads list filters..");
+    		assertTrue(verifyCRMLeadsFilter(lDataObject,statusFilter,leadStatus),"Unable to verify customized leads list filters..");
     	}
     }
     
-    public void verifyLeadFilter(JSONObject pDataObject, String pfilterName, String pPageTitle) {
-    	page=null;
-    	getPage("/leads");
-    	page.selectFilter(pfilterName);
-    	assertEquals(page.pageTitle().trim(),pPageTitle);
-    	String leadName = pDataObject.optString("leadNameEmail");
-    	assertTrue(page.searchStatusLead(leadName),"Unable to search lead..");
-    }
+    @AfterTest
+	public void closeBrowser() {
+		closeCurrentBrowser();
+	}
 }

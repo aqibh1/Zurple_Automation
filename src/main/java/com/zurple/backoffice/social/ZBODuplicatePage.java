@@ -36,7 +36,8 @@ public class ZBODuplicatePage extends Page{
 	}
 	public boolean verifyPost(String pPostText) {
 		boolean isVerified = false;
-		if(ActionHelper.getTextByValue(driver, post_text_area).contains(pPostText)) {
+		String textArea = ActionHelper.getAttribute(post_text_area, "value");
+		if(textArea.contains(pPostText)) {
 			isVerified = true;
 		}
 		return isVerified;

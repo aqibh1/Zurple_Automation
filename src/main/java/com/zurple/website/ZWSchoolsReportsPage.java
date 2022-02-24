@@ -25,7 +25,8 @@ public class ZWSchoolsReportsPage extends Page{
 	
 	@FindBy(xpath="//input[@type='submit']")
 	WebElement search_button;
-
+	@FindBy(xpath="//div/h3[text()='No Results Found']")
+	WebElement no_Results_found;
 	public ZWSchoolsReportsPage() {
 		
 	}
@@ -42,7 +43,13 @@ public class ZWSchoolsReportsPage extends Page{
 	public boolean clickOnSearchButton() {
 		return ActionHelper.Click(driver, search_button);
 	}
-	
+	public boolean goToSchoolsReportsFromHeaders() {
+		ZurpleWebsiteHeader webHeader = new ZurpleWebsiteHeader(driver);
+		return webHeader.goToSchoolReportsPage();
+	}
+	public boolean isNoResultsFoundVisible() {
+		return ActionHelper.isElementVisible(driver, no_Results_found);
+	}
 	@Override
 	public WebElement getHeader() {
 		// TODO Auto-generated method stub

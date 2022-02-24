@@ -50,6 +50,21 @@ public abstract class PageTest extends AbstractPageTest
 		}
 		assertTrue(leadPage.clickOnSearchButton(),"Unable to click on search button..");
 	}
+    
+    /**
+     * @return simplify domain name like zengtest2.us or zengtest6.us
+     */
+    protected String getDomainName() {
+    	String l_domain_name = "";
+    	if(getIsProd()) {
+    		l_domain_name = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").replace("https://www.", "");
+
+		}else {
+			String environment = System.getProperty("environment");
+			l_domain_name = EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url").split(environment+".")[1];
+		}
+    	return l_domain_name;
+    }
 	public String getZurpeBOUsername() {
 		return l_userName;
 	}
@@ -69,6 +84,4 @@ public abstract class PageTest extends AbstractPageTest
 		this.loginPage = new ZBOLoginPage(pWebDriver);
 	}
 
-	
-    
 }

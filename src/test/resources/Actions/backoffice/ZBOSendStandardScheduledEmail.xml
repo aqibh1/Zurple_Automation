@@ -1,14 +1,16 @@
 <suite name="Update and Verify User Settings suite"
 	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
 	<listeners>
-        <listener class-name="resources.ThreadCountChanger"/>
-        <listener class-name="resources.ExtentReporterListener"/>
-        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
-        <listener class-name="resources.CustomTestNGReporter"/>
-    </listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
 
-	<test name="Send standard scheduled email">	
-	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json"> 
+	<test name="Send standard scheduled email">
+		<parameter name="standardEmailData"
+			value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -17,7 +19,7 @@
 				</class>
 				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
 					<methods>
-							<include name="testSendScheduledStandardEmail" />
+						<include name="testSendScheduledStandardEmail" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
@@ -26,6 +28,6 @@
 					</methods>
 				</class>
 			</classes>
-	</parameter>
-	</test>	
+		</parameter>
+	</test>
 </suite>

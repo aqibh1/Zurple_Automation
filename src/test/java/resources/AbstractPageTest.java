@@ -5,6 +5,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.Instant;
@@ -19,6 +22,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.TimeZone;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -151,6 +155,15 @@ public abstract class AbstractPageTest extends AbstractTest
 		pName=date_to_append+generateRandomInt(1000)+" "+pName;
 		return pName;
     }
+    
+    protected String updatePhoneNumber() {
+		return String.format("(1612) %03d-%04d", 
+    	        (int) Math.floor(999*Math.random()), 
+    	        (int) Math.floor(999*Math.random()),
+    	        (int) Math.floor(9999*Math.random()));
+    }
+    
+    
     public void closeBootStrapModal() {
     	BootstrapModal bootstrapModalObj = new BootstrapModal(getPage().getWebDriver());
 
@@ -365,9 +378,40 @@ public abstract class AbstractPageTest extends AbstractTest
         	Date resultDate = c1.getTime();
         	currentDate = df.format(resultDate);
     	}
-    	return currentDate;
-    	
+    	return currentDate;	
     }
+    
+    //"MM/dd/yy"
+    public String getTodaysDate(String pFormat) {
+   	 Calendar cal = Calendar.getInstance();
+   	 DateFormat dateFormat = new SimpleDateFormat(pFormat);
+   	 return dateFormat.format(cal.getTime());
+	}
+    
+    // Month/Day/Year
+    public String getYesterdaysDate(String pFormat) {
+    	final Calendar cal = Calendar.getInstance();
+    	cal.add(Calendar.DATE, -1);
+      	DateFormat dateFormat = new SimpleDateFormat(pFormat);
+      	return dateFormat.format(cal.getTime());
+	}
+    
+    protected String getTodaysDateInPST(int pDays, String pFormat) {
+    	Date date = new Date();
+    	SimpleDateFormat df  = new SimpleDateFormat(pFormat);
+    	df.setTimeZone(TimeZone.getTimeZone("PST"));
+    	Calendar c1 = Calendar.getInstance();
+    	String currentDate = df.format(date);// get current date here
+    	
+    	if(pDays>0) {
+        	c1.add(Calendar.DAY_OF_YEAR, pDays);
+        	df = new SimpleDateFormat("MM/dd/YYYY");
+        	Date resultDate = c1.getTime();
+        	currentDate = df.format(resultDate);
+    	}
+    	return currentDate;	
+    }
+    
     protected static int generateRandomInt(int pUpperRange){
     	Random random = new Random();
     	int lNum = random.nextInt(pUpperRange);
@@ -375,6 +419,10 @@ public abstract class AbstractPageTest extends AbstractTest
     		lNum = lNum - 1;
     	}
     	return lNum;
+    }
+    protected static int generateRandomInt(int pLowerRange ,int pUpperRange){
+    	int randomNum = ThreadLocalRandom.current().nextInt(pLowerRange, pUpperRange + 1);
+    	return randomNum;
     }
     protected String getCuurentTime() {
     	SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
@@ -391,6 +439,13 @@ public abstract class AbstractPageTest extends AbstractTest
 		lDate = tempDate[1]+"/"+tempDate[2]+"/"+tempDate[0];
 		return lDate; //08/18/2020
 	}
+    //"yyyy-MM-dd"
+    public String getDateAfterSubtractingNumberOfDays(int pDays, String pFormat) {
+    	final Calendar cal = Calendar.getInstance();
+    	cal.add(Calendar.DATE, pDays);
+      	DateFormat dateFormat = new SimpleDateFormat(pFormat);
+      	return dateFormat.format(cal.getTime());
+    }
     
     public String setScheduledPostDate() {
 		String lDate = "";
@@ -409,5 +464,18 @@ public abstract class AbstractPageTest extends AbstractTest
          driver.quit();
          EnvironmentFactory.webDrivers.remove(thread_id);
     }
-
+    
+    public String getDataFileContentJsonArray(String pDataFile) throws IOException {
+        String data = ""; 
+        data = new String(Files.readAllBytes(Paths.get(pDataFile))); 
+        return "["+data+"]"; 
+    }
+    
+    public String convertToJSONArray(String pDataFile) throws IOException {
+        String data = ""; 
+        data = new String(Files.readAllBytes(Paths.get(pDataFile))); 
+        String output = "{"+"\"data\":"+"["+data+"]"+"}";
+        return output; 
+    }
+  
 }

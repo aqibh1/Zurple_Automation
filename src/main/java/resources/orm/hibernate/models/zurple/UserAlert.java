@@ -1,13 +1,18 @@
 package resources.orm.hibernate.models.zurple;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,7 +30,7 @@ public class UserAlert extends Abstract
     private Integer user_alert_id;
     private UserActivity user_activity;
     private AlertRule alert_rule;
-    private User user;
+    private Integer user;
     private Email email;
     private Integer user_alert_target;
     private Integer user_alert_active;
@@ -33,12 +38,33 @@ public class UserAlert extends Abstract
     private Date user_alert_dispatched;
     private Date user_alert_stopped;
     private String user_alert_data;
-       
+    private Integer alert_rule_id;    
     
     public UserAlert() {
     }
+    
+    public AlertRule alertrule;
+    
+//    @ManyToOne
+//    @JoinColumn(name="alert_rule_id",referencedColumnName="arule_id")
+//    public AlertRule getalertrule() {
+//		return alertrule;
+//	}
+//
+//	public void setalertrule(AlertRule alertrule) {
+//		this.alertrule = alertrule;
+//	}
+///////////////////////
+    @Column(name = "alert_rule_id", unique = true, nullable = false)
+    public Integer getAlert_rule_id() {
+		return alert_rule_id;
+	}
 
-    @Id
+	public void setAlert_rule_id(Integer alert_rule_id) {
+		this.alert_rule_id = alert_rule_id;
+	}
+
+	@Id
     @Column(name = "user_alert_id", unique = true, nullable = false)
     public Integer getId()
     {
@@ -62,14 +88,14 @@ public class UserAlert extends Abstract
         this.user_activity = user_activity_id;
     }
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    public User getUser()
+    //@ManyToOne(fetch=FetchType.LAZY)
+    @Column(name = "user_id")
+    public Integer getUser()
     {
         return user;
     }
 
-    public void setUser(User user_id)
+    public void setUser(Integer user_id)
     {
         this.user = user_id;
     }
@@ -86,17 +112,17 @@ public class UserAlert extends Abstract
         this.email = email_id;
     }
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "alert_rule_id")
-    public AlertRule getAlertRule()
-    {
-        return alert_rule;
-    }
-
-    public void setAlertRule(AlertRule alert_rule)
-    {
-        this.alert_rule = alert_rule;
-    }
+//    @ManyToOne(fetch=FetchType.LAZY)
+//    @JoinColumn(name = "arule_id")
+//    public AlertRule getAlertRule()
+//    {
+//        return alert_rule;
+//    }
+//
+//    public void setAlertRule(AlertRule alert_rule)
+//    {
+//        this.alert_rule = alert_rule;
+//    }
 
     @Column(name = "user_alert_target", unique = false, nullable = false)
     public Integer getUserAlertTarget()

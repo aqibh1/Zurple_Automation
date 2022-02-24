@@ -1,5 +1,6 @@
 package resources;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -15,16 +16,22 @@ import resources.orm.hibernate.dao.z57.ManageNotificationMailgun;
 import resources.orm.hibernate.dao.z57.ManageNotifications;
 import resources.orm.hibernate.dao.z57.ManageSites;
 import resources.orm.hibernate.dao.zurple.ManageAdmin;
+import resources.orm.hibernate.dao.zurple.ManageAdminDashboardStats;
+import resources.orm.hibernate.dao.zurple.ManageAlertRule;
 import resources.orm.hibernate.dao.zurple.ManageDistributionRules;
 import resources.orm.hibernate.dao.zurple.ManageEmailQueue;
+import resources.orm.hibernate.dao.zurple.ManageEmails;
 import resources.orm.hibernate.dao.zurple.ManageImports;
+import resources.orm.hibernate.dao.zurple.ManageNSTransactions;
+import resources.orm.hibernate.dao.zurple.ManageNetsuiteSyncQueue;
+import resources.orm.hibernate.dao.zurple.ManageNetsuiteSyncTasks;
 import resources.orm.hibernate.dao.zurple.ManagePackageProducts;
 import resources.orm.hibernate.dao.zurple.ManageSessionAnonymous;
 import resources.orm.hibernate.dao.zurple.ManageSessionUser;
 import resources.orm.hibernate.dao.zurple.ManageSite;
 import resources.orm.hibernate.dao.zurple.ManageTransactionGoals;
-import resources.orm.hibernate.dao.zurple.ManageTransactions;
 import resources.orm.hibernate.dao.zurple.ManageUser;
+import resources.orm.hibernate.dao.zurple.ManageUserAlert;
 import resources.orm.hibernate.dao.zurple.ManageViewDetailedProperty;
 import resources.orm.hibernate.models.AbstractLead;
 import resources.orm.hibernate.models.pp.Posts;
@@ -36,17 +43,23 @@ import resources.orm.hibernate.models.z57.NotificationMailgun;
 import resources.orm.hibernate.models.z57.Notifications;
 import resources.orm.hibernate.models.z57.Sites;
 import resources.orm.hibernate.models.zurple.Admin;
+import resources.orm.hibernate.models.zurple.AdminDashboardStats;
+import resources.orm.hibernate.models.zurple.AlertRule;
 import resources.orm.hibernate.models.zurple.DistributionRule;
+import resources.orm.hibernate.models.zurple.Email;
 import resources.orm.hibernate.models.zurple.EmailQueue;
 import resources.orm.hibernate.models.zurple.Import;
+import resources.orm.hibernate.models.zurple.NSTransaction;
+import resources.orm.hibernate.models.zurple.NetSuiteSyncTasks;
+import resources.orm.hibernate.models.zurple.NetsuiteSyncQueue;
 import resources.orm.hibernate.models.zurple.PackageProduct;
 import resources.orm.hibernate.models.zurple.Property;
 import resources.orm.hibernate.models.zurple.SessionAnonymous;
 import resources.orm.hibernate.models.zurple.SessionUser;
 import resources.orm.hibernate.models.zurple.Site;
-import resources.orm.hibernate.models.zurple.Transaction;
 import resources.orm.hibernate.models.zurple.TransactionGoal;
 import resources.orm.hibernate.models.zurple.User;
+import resources.orm.hibernate.models.zurple.UserAlert;
 import resources.utility.AutomationLogger;
 
 public class TestEnvironment
@@ -60,7 +73,7 @@ public class TestEnvironment
 
     private List<PackageProduct> packageProducts;
 
-    private List<Transaction> transactions;
+    private List<NSTransaction> transactions;
 
     private Import imp;
 
@@ -105,15 +118,15 @@ public class TestEnvironment
         return packageProducts;
     }
 
-    public List<Transaction> getTransactionsList( )
+    public List<NSTransaction> getTransactionsList( )
     {
         if(transactions == null){
 
-            ManageTransactions mt = new ManageTransactions(getSession());
+            ManageNSTransactions mt = new ManageNSTransactions(getSession());
             transactions = mt.getTransactionsListByCustomerId(agentToCheck);
 
         }else{
-            for(Transaction trans : transactions){
+            for(NSTransaction trans : transactions){
                 getSession().refresh(trans);
             }
         }
@@ -447,6 +460,31 @@ public class TestEnvironment
         return null;
 
     }
+    
+    public resources.orm.hibernate.models.zurple.Lead getNewLeadsObject(String pLeadEmail)
+    {
+        resources.orm.hibernate.dao.zurple.ManageLead ml = new resources.orm.hibernate.dao.zurple.ManageLead(getSession());
+        return ml.getLeadByEmail(pLeadEmail);
+    }
+    
+    public Email getNewEmailTypeObject(String pEmailType)
+    {
+        ManageEmails ml = new ManageEmails(getSession());
+        return ml.getEmailByType(pEmailType);
+    }
+    
+    public UserAlert getUserAlertObject(Integer pAlertType)
+    {
+        ManageUserAlert mu = new ManageUserAlert(getSession());
+        return mu.getAlertByType(pAlertType);
+    }
+    
+    public AlertRule getAlertRuleObject(Integer pAlertType)
+    {
+        ManageAlertRule mu = new ManageAlertRule(getSession());
+        return mu.getAlertNameById(pAlertType);
+    }
+    
     public Listings getListingById(Integer pListingId) {
     	 String project = System.getProperty("project");
 
@@ -642,5 +680,32 @@ public class TestEnvironment
           return posts;
 	}
 	
-	
+	public User getUserByUserName(String pUserName) {
+		ManageUser manageUser = new ManageUser(getSession());
+		return manageUser.getUserIdByUserName(pUserName);
+	}
+	public AdminDashboardStats getAdminDashBoardStats(int pAdminId) {
+		ManageAdminDashboardStats manageAdminDashboardStats = new ManageAdminDashboardStats(getSession());
+		return manageAdminDashboardStats.getAdminStatsById(pAdminId);
+	}
+	public List<Admin> getListOfSubAdmins(Integer pAdminId){
+		ManageAdmin manageAdmin = new ManageAdmin(getSession());
+		return manageAdmin.getListOfSubAdmins(pAdminId);
+	}
+	public List<User> getListOfUsersByLeadSource(Integer pAdminId, String pLeadSource, Date pCreateDateTime){
+		ManageUser manageUser = new ManageUser(getSession());
+		return manageUser.getListOfUsers(pAdminId, pLeadSource, pCreateDateTime);
+	}
+	public List<NSTransaction> getListOfNSTransactionsByDate(String pCreateDateTime){
+		ManageNSTransactions manageNSTransactions= new ManageNSTransactions(getSession());
+		return manageNSTransactions.getListOfNSTransactionsByDate(pCreateDateTime);
+	}
+	public List<NetSuiteSyncTasks> getListOfFailedNetsuiteSyncTaskTransactions(String pDateProcessed){
+		ManageNetsuiteSyncTasks manageNetsuiteSyncTasks = new ManageNetsuiteSyncTasks(getSession());
+		return manageNetsuiteSyncTasks.getListOfFailedNetsuiteSyncTaskTransactions(pDateProcessed);
+	}
+	public List<NetsuiteSyncQueue> getListOfFailedNetsuiteSyncQueueItems(String pDateProcessed){
+		ManageNetsuiteSyncQueue manageNetsuiteSyncQueue = new ManageNetsuiteSyncQueue(getSession());
+		return manageNetsuiteSyncQueue.getListOfFailedNetsuiteSyncQueueTransactions(pDateProcessed);
+	}
 }

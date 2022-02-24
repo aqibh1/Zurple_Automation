@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.utility.AutomationLogger;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
 
@@ -95,7 +96,11 @@ public class ZWHomeEvaluationPageTest extends PageTest{
 		assertTrue(new ZWRegisterUserPage(driver).isRequestSubmittedSuccessfully(), "User is not registered..");
 		
 		String lLeadId = driver.getCurrentUrl().split("lead_id=")[1];
-		
+		if(lLeadId!=null && !lLeadId.isEmpty()) {
+			AutomationLogger.error("Lead ID Is not empty");
+		}else {
+			AutomationLogger.error("Lead ID Is empty");
+		}
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(), ModuleCacheConstants.ZurpleLeadEmail, ld_email);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ld_email,lLeadId);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId,lLeadId);

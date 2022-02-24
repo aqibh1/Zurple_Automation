@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -255,12 +256,27 @@ public class ActionHelper {
 			return text;
 		}
 	   
+	   public static String getTextByXpathIndex(WebDriver pWebDriver,String pElement, int index) {
+			String text = "";
+		   	wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
+			AutomationLogger.info("Clicking on button -> "+pElement);
+			try {
+					pWebDriver.findElements(By.xpath(pElement)).get(index).getText();
+					AutomationLogger.info("Clicked on button successful..");
+				
+			}catch(Exception ex) {
+				AutomationLogger.error("Unable to Click on "+pElement);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return text;
+		}
+	   
 	   public static String getTextByIndex(WebDriver pWebDriver, String pElement, int index) {
 		   String text = "";
 		   	wait=new WebDriverWait(pWebDriver, GLOBAL_WAIT_COUNT);
 			AutomationLogger.info("Clicking on button -> "+pElement);
 			try {
-					pWebDriver.findElements(By.className(pElement)).get(index).getText();
+					text = pWebDriver.findElements(By.className(pElement)).get(index).getText();
 					AutomationLogger.info("Clicked on button successful..");
 				
 			}catch(Exception ex) {
@@ -451,6 +467,7 @@ public class ActionHelper {
 	   public static void MoveToElement(WebDriver pWebDriver, WebElement pElement) {
 		   new Actions(pWebDriver).moveToElement(pElement).perform();
 	   }
+	   
 	   public static String getAttribute(WebElement pElement,String pAttributeName) {
 		   try {
 			   AutomationLogger.info("Fetching attribute: "+pAttributeName);
@@ -459,7 +476,6 @@ public class ActionHelper {
 			   AutomationLogger.error("Unable to fetch attribute ");
 			   return "";
 		   }
-		   
 	   }
 	   
 	   public static WebElement getDynamicElement(WebDriver pWebDriver,String pXpath,String pDynamicVariable) {
@@ -605,6 +621,7 @@ public class ActionHelper {
 		   }
 		   return isFound;
 	   }
+	   
 	   public static boolean waitForAjaxToBeCompleted(WebDriver pWebDriver) {
 		   boolean isFound = false;
 		   try {
@@ -645,7 +662,7 @@ public class ActionHelper {
 		   
 		   boolean displayed = false;
 		   int counter = 0;
-		   pXpathToAppend = "/descendant::span[text()='FAILED']";
+//		   pXpathToAppend = "/descendant::span[text()='FAILED']";
 		    while (counter<pTotalAttempts) {
 		    	try {
 		    	WebElement elementFund = pEelement.findElement(By.xpath(pXpathToAppend));
@@ -1132,6 +1149,7 @@ public class ActionHelper {
 				AutomationLogger.info("Waiting for the visibility of element ->"+pInputField);
 				if(wait.until(ExpectedConditions.visibilityOf(pInputField))!=null) {
 					pInputField.sendKeys(Keys.CONTROL,Keys.HOME);
+					staticWait(5);
 					pInputField.sendKeys(pStringToType);
 					AutomationLogger.info("String typed ->"+pStringToType);
 					isSuccessfull=true;
@@ -1282,5 +1300,117 @@ public class ActionHelper {
 		   }
 		   return isSuccessfull;
 	   }
+	   public static boolean isElementEnabled(WebDriver pWebDriver,WebElement pElement) {
+			boolean isSuccessful =false;
+			try {
+				AutomationLogger.info("Checking if element is enabled"+pElement);
+				if(pElement.isEnabled()) {
+					isSuccessful=true;
+				}
+			}catch(Exception ex) {
+				AutomationLogger.error("Element is not visible -> "+pElement);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessful;
+		}
+	   public static boolean clickThroughJS(WebDriver pWebDriver,WebElement pElement) {
+		   boolean isSuccess = true;
+		   try {
+		   JavascriptExecutor executor = (JavascriptExecutor)pWebDriver;
+		   executor.executeScript("arguments[0].click();", pElement);
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Click failed through JS Executor "+pElement);
+			   isSuccess = false;
+		   }
+		   return isSuccess;
+	   }
+	   public static boolean sendSpecialKeys(WebElement pElement,Keys pKey) {
+		   boolean isSuccessfull=false;
+		   try {
+			   pElement.sendKeys(pKey);
+			   isSuccessfull=true;
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Unable to Click on "+pKey);
+			   AutomationLogger.error(ex.getMessage());
+		   }
+		   return isSuccessfull;
+	   }
+	   //This function return the CSS property value
+	   public static String getCssValueOfTheElement(WebDriver pWebDriver, WebElement pElement, String pPropName) {
+		   String pAttributeValue = "";
+		   if(isElementVisible(pWebDriver, pElement)) {
+			   pAttributeValue = pElement.getCssValue(pPropName).trim();
+		   }
+		   return pAttributeValue;
+	   }
 	   
+	   public static boolean typeInAlertText(WebDriver pWebDriver) {
+		   boolean isAlertHandled = true;
+		   try {
+			   Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+			   //Type your message
+			   alert.sendKeys("Selenium");
+		   }catch(Exception ex) {
+			   isAlertHandled = false;
+		   }
+		   return isAlertHandled;
+	   }
+	   public static String getValidationMessage(WebDriver pWebDriver, WebElement pElement) {
+		   String message = getAttribute(pElement, "validationMessage"); 
+		   return message;
+	   }
+	   /**
+	 * @param pWebDriver
+	 * @param pElementToBeClicked
+	 * @param pDropdownOptionsXpath
+	 * @param pOptionToSelect
+	 * @return boolean
+	 * Select the drop down option if contains the text
+	 */
+	   public static boolean selectDropDownOptionIfContains(WebDriver pWebDriver, WebElement pElementToBeClicked,String pOptionToSelect) {
+		   boolean isSuccessful=false;
+		   List<WebElement> list_of_options = new ArrayList<WebElement>();
+		   AutomationLogger.info("Clicking on button "+pElementToBeClicked);
+		   if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+			   list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
+			   for(WebElement element: list_of_options) {
+				   System.out.println(element.getText().trim());
+				   if(element.getText().trim().contains(pOptionToSelect)) {
+					   isSuccessful = ActionHelper.Click(pWebDriver, element);
+					   break;
+				   }
+			   }
+		   }
+		   return isSuccessful;
+	   }   
+	   
+	   public static String getAlertText(WebDriver pWebDriver) {
+		   String alert_text = "";
+		   try {
+			   if(ExpectedConditions.alertIsPresent()!=null) {
+				   alert_text=pWebDriver.switchTo().alert().getText();	   
+			   }
+		   }catch(Exception ex) {
+			   alert_text = "";
+		   }
+		   return alert_text;
+	   }
+	   public static boolean isElementDisplayed(WebDriver pWebDriver, WebElement pElement) {
+		   boolean isSuccessful =false;
+			try {
+				AutomationLogger.info("Checking if element is enabled"+pElement);
+				if(pElement.isDisplayed()) {
+					isSuccessful=true;
+				}
+			}catch(Exception ex) {
+				AutomationLogger.error("Element is not visible -> "+pElement);
+				AutomationLogger.error(ex.getMessage());
+			}
+			return isSuccessful;
+	   }
+	   public static long getVerticlePixels(WebDriver pWebDriver) {
+		   JavascriptExecutor executor = (JavascriptExecutor) pWebDriver;
+		   Long value = (Long) executor.executeScript("return window.pageYOffset;");
+		   return value;
+	   }
 }

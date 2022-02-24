@@ -54,6 +54,9 @@ public class ZBOAgentsPage extends Page{
 	@FindBy(xpath="//table[@id='leads_by_status']/descendant::tr/td/a[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/ancestor::tr/td[2]")
 	WebElement agent_count;
 	
+	@FindBy(xpath="//table[@id='leads_by_status']/caption[text()='Loading...']")
+	WebElement loading;
+	
 	public List<WebElement> agentsList;
 	
 	public ZBOAgentsPage() {
@@ -128,15 +131,17 @@ public class ZBOAgentsPage extends Page{
 		return ActionHelper.Click(driver, confirmAdd);
 	}
 	public HashMap<String,String> getAgentNameAndLeadCount(){
+		int counter = 0;
 		HashMap<String,String> agent_info_map = new HashMap<String,String>();
 		String lAgentName ="Aqib Site Owner";
-		while(lAgentName.equalsIgnoreCase("Aqib Site Owner") || lAgentName.equalsIgnoreCase("Aqib Production Testing")) {
+		while((lAgentName.equalsIgnoreCase("Aqib Site Owner") || lAgentName.equalsIgnoreCase("Aqib Production Testing")) && counter<50) {
 			if(ActionHelper.getDynamicElementAfterRegularIntervals(driver, agents_list, "", 2)) {
 				List<WebElement> list_of_elements = ActionHelper.getListOfElementByXpath(driver, agents_list);
 				List<WebElement> list_of_elements_2 = ActionHelper.getListOfElementByXpath(driver, agents_lead_count_list);
 				int element_index = generateRandomInt(list_of_elements.size());
 				WebElement agent_web_element = list_of_elements.get(element_index);
-				WebElement agent_leads_count = list_of_elements_2.get(element_index);
+				//0 Index is lead Total lead count
+				WebElement agent_leads_count = list_of_elements_2.get(element_index+1);
 
 				lAgentName =ActionHelper.getText(driver, agent_web_element);
 				String lAgentUrl = ActionHelper.getAttribute(agent_web_element, "href");
@@ -146,15 +151,24 @@ public class ZBOAgentsPage extends Page{
 				agent_info_map.put("agent_url", lAgentUrl);
 				agent_info_map.put("agent_lead_count", lAgentLeadsCount);
 			}
+			counter++;
 		}
 		return agent_info_map;
 	}
 	public String verifyAgentName(String pAgentName) {
 		String lAgentLeadsCount = "";
-		//ActionHelper.waitForElementToBeClickAble(driver, agent_count);
-		ActionHelper.staticWait(10);
-		WebElement agent_count =  ActionHelper.getDynamicElement(driver, agent_lead_count, pAgentName.trim());
-		lAgentLeadsCount = ActionHelper.getText(driver,agent_count);
+		if(ActionHelper.waitForElementToBeDisappeared(driver, loading, 60)) {
+			//ActionHelper.waitForElementToBeClickAble(driver, agent_count);
+//			ActionHelper.staticWait(10);
+			WebElement agent_count =  ActionHelper.getDynamicElement(driver, agent_lead_count, pAgentName.trim());
+			lAgentLeadsCount = ActionHelper.getText(driver,agent_count);
+		}
 		return lAgentLeadsCount;
+	}
+	public String getAgentFirstName() {
+		return ActionHelper.getTextByValue(driver, agent_first_name);
+	}
+	public String getAgentLastName() {
+		return ActionHelper.getTextByValue(driver, agent_last_name);
 	}
 }

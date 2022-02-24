@@ -31,7 +31,7 @@ public class ZWHomeSearchPageTest extends PageTest{
 			driver = getDriver();
 			page = new ZWHomeSearchPage(driver);
 			page.setUrl("");
-//			page.setDriver(driver);
+			page.setDriver(driver);
 		}
 		return page;
 	}
@@ -72,7 +72,7 @@ public class ZWHomeSearchPageTest extends PageTest{
 	@Test
 	@Parameters({"searchPropertyDataFile"})
 	public void testSearchPropoerty(String pDataFile) {
-		getPage("");		
+		getPage();		
 		dataObject = getDataFile(pDataFile);
 		searchProperty();
 	}
@@ -80,14 +80,18 @@ public class ZWHomeSearchPageTest extends PageTest{
 	@Test
 	@Parameters({"searchPropertyDataFile"})
 	public void testSearchPropoertyAfterLoggedIn(String pDataFile) {
-		getPage();
+		getPage("");
+		ZurpleWebsiteHeader webHeader = new ZurpleWebsiteHeader(driver);
+		assertTrue(webHeader.clickOnCustomSearch(), "Unable to click on custom search button..");
 		dataObject = getDataFile(pDataFile);
+		ActionHelper.staticWait(5);
 		searchProperty();
 	}
 	
 	public void searchProperty() {
+		assertTrue(page.isHomesForSaleHeadingVisible(), "Search page is not visible");
 		assertTrue(page.selectInputType(dataObject.optString("search_by")), "Unable to select Input Type search criteria");
-		ActionHelper.staticWait(15);
+		ActionHelper.staticWait(7);
 		assertTrue(page.typeInputString(dataObject.optString("input_search")), "Unable to type input string..");
 
 		if(!dataObject.optString("minimum_price").isEmpty()) {

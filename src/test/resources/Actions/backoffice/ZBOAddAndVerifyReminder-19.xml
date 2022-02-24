@@ -3,37 +3,51 @@
 	<listeners>
 		<listener class-name="resources.ThreadCountChanger" />
 		<listener class-name="resources.ExtentReporterListener" />
-		<listener class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
 		<listener class-name="resources.CustomTestNGReporter" />
 	</listeners>
-
-	<test name="Add and Verify reminder email">
-	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-reminder.json">
-		
-		<classes>
-			<class name="com.zurple.website.ZWRegisterUserPageTest">
-				<methods>
-					<include name="testRegisterUser" />
-				</methods>
-			</class>
-			<class name="com.zurple.backoffice.ZBOLoginPageTest">
-				<methods>
-					<include name="testBackOfficeLogin" />
-				</methods>
-			</class>
-			<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-				<methods>
-					<include name="testAddAndVerifyReminder" />
-				</methods>
-			</class>
-	
-			<class name="resources.CurrentPageTest">
-				<methods>
-					<include name="closeBrowser" />
-				</methods>
-			</class>
-		</classes>
-		</parameter>
+<test name="Send Standard email">	
+	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/standard-email-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+							<include name="testSendStandardEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
+	<test name="Verify standard email">	
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/standard-email-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+							<include name="testVerifyStandardEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
 	</test>
 </suite>
 

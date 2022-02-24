@@ -3,6 +3,10 @@
  */
 package com.zurple.backoffice.marketing;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,6 +17,7 @@ import com.zurple.my.Page;
 import resources.forms.zurple.backoffice.ZBOAttachFileForm;
 import resources.forms.zurple.backoffice.ZBOInsertImageForm;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 
 /**
  * @author adar
@@ -135,7 +140,7 @@ public class ZBOMarketingEmailMessagePage extends Page{
 		return zboInsertImageForm;
 	}
 	public boolean isMarketingEmailPage() {
-		return ActionHelper.waitForElementToBeVisible(driver, email_heading, 30);
+		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver, email_heading, 20, 10);
 	}
 	public boolean selectRecipients(String pRecipient) {
 		boolean isSelected = false;

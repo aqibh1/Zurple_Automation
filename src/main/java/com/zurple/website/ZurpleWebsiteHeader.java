@@ -35,6 +35,24 @@ public class ZurpleWebsiteHeader extends Page{
 	@FindBy(xpath="//ul[@class='dropdown-menu pull-right']/descendant::a[@href='/my']")
 	WebElement myAccount_dropdown;
 	
+	@FindBy(xpath="//a[@title='Search']")
+	WebElement search_dropdown_button;
+	
+	@FindBy(xpath="//ul[@class='dropdown-menu']/li/a[text()='Custom Search']")
+	WebElement custom_search_button;
+	
+	@FindBy(xpath="//a[@title='Local Info']")
+	WebElement local_info_dropdown;
+	
+	@FindBy(xpath="//a[text()='Community']")
+	WebElement community_dropdown;
+	
+	@FindBy(xpath="//a[text()='Schools']")
+	WebElement schools_reports_dropdown;
+	
+	@FindBy(xpath="//a[contains(@href,'points-of-interest')]")
+	WebElement poi_dropdown;
+	
 	public ZurpleWebsiteHeader(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -69,6 +87,36 @@ public class ZurpleWebsiteHeader extends Page{
 			isClick = ActionHelper.Click(driver, myAccount_dropdown);
 		}
 		return isClick;
+	}
+	public boolean clickOnCustomSearch() {
+		boolean isClicked = false;
+		if(ActionHelper.waitForElementToBeVisible(driver, search_dropdown_button, 30) &&
+				ActionHelper.Click(driver, search_dropdown_button)) {
+			if(ActionHelper.waitForElementToBeVisible(driver, custom_search_button, 5)) {
+				isClicked = ActionHelper.Click(driver, custom_search_button);
+			}
+			
+		}
+		return isClicked;
+	}
+	public boolean goToCommunityReportsPage() {
+		boolean isSuccessful = false;
+		if(ActionHelper.Click(driver, local_info_dropdown)) {
+			isSuccessful = ActionHelper.Click(driver, community_dropdown);
+		}
+		return isSuccessful;
+	}public boolean goToSchoolReportsPage() {
+		boolean isSuccessful = false;
+		if(ActionHelper.Click(driver, local_info_dropdown)) {
+			isSuccessful = ActionHelper.Click(driver, schools_reports_dropdown);
+		}
+		return isSuccessful;
+	}public boolean goToPOIlReportsPage() {
+		boolean isSuccessful = false;
+		if(ActionHelper.Click(driver, local_info_dropdown)) {
+			isSuccessful = ActionHelper.Click(driver, poi_dropdown);
+		}
+		return isSuccessful;
 	}
 
 }

@@ -13,6 +13,7 @@ import org.hibernate.Transaction;
 
 import resources.orm.hibernate.models.zurple.Admin;
 import resources.orm.hibernate.models.zurple.Lead;
+import resources.utility.AutomationLogger;
 
 public class ManageLead {
 
@@ -98,14 +99,15 @@ public class ManageLead {
          try{
 //             tx = session.beginTransaction();
              leads = session.createQuery("FROM Lead WHERE email='"+pLeadEmail+"'").list();
+             AutomationLogger.info("QUERY RESULTS:"+leads.size());
              tx.commit();
          }catch (HibernateException e) {
              if (tx!=null) tx.rollback();
              e.printStackTrace();
          }finally {
              session.close();
+             return leads.get(0);
          }
-         return leads.get(0);
     }
     /*
         Method returns list of hot behavior flags by lead id
