@@ -96,6 +96,29 @@
 	</parameter>
 	</test>	
 	
+	<test name="Capture and verify lead from Self Serv ad">
+	<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-paid-social.json">
+			<classes>
+			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<methods>
+					<include name="testBackOfficeLogin" />
+				</methods>
+			</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyLeadHasSameAgentAssigned" />
+						<include name="testVerifyLeadSourceIsPaidSocial" />
+					</methods>
+				</class>
+					<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+			</classes>
+			</parameter>
+	</test>
+	
 	<test name="Send Bulk Email">	
 	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/standard-email-data.json"> 
 			<classes>
@@ -4052,29 +4075,6 @@
 				<class name="com.zurple.backoffice.ZBOAdsOverviewPageTest">
 				<methods>
 					<include name="testVerifyLearnMoreButtonRedirectsUserToAgentWebsite" />
-				</methods>
-			</class>
-			</classes>
-			</parameter>
-	</test>
-	
-	<test name="Capture and verify lead from Self Serv ad">
-	<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-paid-social.json">
-			<classes>
-			<class name="com.zurple.backoffice.ZBOLoginPageTest">
-				<methods>
-					<include name="testBackOfficeLogin" />
-				</methods>
-			</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-						<include name="testVerifyLeadHasSameAgentAssigned" />
-						<include name="testVerifyLeadSourceIsPaidSocial" />
-					</methods>
-				</class>
-					<class name="resources.CurrentPageTest">
-				<methods>
-					<include name="closeBrowser" />
 				</methods>
 			</class>
 			</classes>
