@@ -3,10 +3,6 @@
  */
 package com.zurple.backoffice.marketing;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,7 +13,6 @@ import com.zurple.my.Page;
 import resources.forms.zurple.backoffice.ZBOAttachFileForm;
 import resources.forms.zurple.backoffice.ZBOInsertImageForm;
 import resources.utility.ActionHelper;
-import resources.utility.AutomationLogger;
 
 /**
  * @author adar
@@ -117,6 +112,9 @@ public class ZBOMarketingEmailMessagePage extends Page{
 
 	@FindBy(id="massemail_type-lead")
 	WebElement individual_recipient;
+	
+	@FindBy(id="listing_subject")
+	WebElement listing_subject;
 	
 	private ZBOInsertImageForm zboInsertImageForm;
 	private ZBOAttachFileForm zbAttachFileForm;
@@ -264,5 +262,14 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	}
 	public boolean checkSelectedRecipient() {
 		return ActionHelper.isElementSelected(driver, individual_recipient);
+	}
+	public boolean isListingSubjectVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, listing_subject, 30);
+	}
+	public boolean typeListingEmailSubject(String pSubject) {
+		return ActionHelper.Type(driver, listing_subject, pSubject);
+	}
+	public boolean isEmailListingFlyerButtonVisible() {
+		return ActionHelper.waitForElementToBeVisible(driver, emailListingFlyer_button,30);
 	}
 }

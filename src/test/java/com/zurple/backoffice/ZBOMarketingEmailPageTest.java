@@ -20,15 +20,12 @@ import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
-import resources.DBHelperMethods;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
-import resources.orm.hibernate.models.zurple.Email;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.CacheFilePathsConstants;
-import resources.utility.DBConstants;
 import resources.utility.GmailEmailVerification;
 
 /**
@@ -222,6 +219,27 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		String lTemplateName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleTemplateName);
 		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
 		assertTrue(page.isTemplateExists(lTemplateName), "Template does not exist in Mass email drop down..");	
+	}
+	
+	/**
+	 * Verify "Email listing Flyer" Button name is now updated to "Send Listings"
+	 * 48815
+	 */
+	@Test
+	public void testVerifySendListingButtonIsVisible() {
+		getPage("/marketing/massemail");
+		assertTrue(page.isEmailListingFlyerButtonVisible(), "Send Listing Button is not visible");
+	}
+	
+	/**
+	 * Verify Subject field is visible once Send Listings Button is clicked
+	 * 48816
+	 */
+	@Test
+	public void testVerifyListingEmailSubjectIsVisibleWhenSendListingIsClciked() {
+		getPage("/marketing/massemail");
+		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
+		assertTrue(page.isListingSubjectVisible(), "Subject input field is not visble");
 	}
 	
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
