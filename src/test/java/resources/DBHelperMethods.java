@@ -367,4 +367,8 @@ public class DBHelperMethods {
 	public List<NetsuiteSyncQueue> getListOfFailedNetsuiteSyncQueueItems(String pDateProcessed){
 		return testEnvironment.getListOfFailedNetsuiteSyncQueueItems(pDateProcessed);
 	}
+	public List<User> getListOfUsersWithAdminId0(String pDateCreated){
+		return testEnvironment.getListOfUsersWithAdminId0(pDateCreated);
+	}
+	
 }

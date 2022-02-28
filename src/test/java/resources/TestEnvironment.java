@@ -708,4 +708,8 @@ public class TestEnvironment
 		ManageNetsuiteSyncQueue manageNetsuiteSyncQueue = new ManageNetsuiteSyncQueue(getSession());
 		return manageNetsuiteSyncQueue.getListOfFailedNetsuiteSyncQueueTransactions(pDateProcessed);
 	}
+	public List<User> getListOfUsersWithAdminId0(String pDateCreated){
+		ManageUser manageUsers = new ManageUser(getSession());
+		return manageUsers.getListOfUsersWithAdminId0(pDateCreated);
+	}
 }
