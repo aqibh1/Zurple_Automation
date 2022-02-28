@@ -180,7 +180,7 @@ public class ZWRegisterUserPageTest extends PageTest{
 		}
 		assertTrue(page.isTermsAndCondCheckboxChecked(),"Terms and conditions checkbox is not checked..");
 		assertTrue(page.clickRegisterButton(),"Unable to click on register button..");
-		ActionHelper.staticWait(10);
+		ActionHelper.staticWait(20);
 //		page.handleAlert();
 //		assertTrue(page.isRegisterSuccessfully(),"Registration of user is unsuccessful..");
 		

@@ -7,7 +7,7 @@ debug.log
 test-output/*
 zurple-test-reports/*
 #/target/
-#/resources/cache/*
+/resources/cache/*
 .settings/org.eclipse.core.resources.prefs
 .settings/org.eclipse.m2e.core.prefs
 .settings/org.eclipse.jdt.ui.prefs
@@ -16,3 +16,4 @@ zurple-test-reports/*
 .settings/org.eclipse.jdt.core.prefs
 .settings/org.testng.eclipse.maven.prefs
 /target/
+/logs/*
