@@ -21,6 +21,7 @@ import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
@@ -241,6 +242,89 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		getPage("/marketing/massemail");
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
 		assertTrue(page.isListingSubjectVisible(), "Subject input field is not visble");
+	}
+	
+	/**
+	 * Verify Search By options are visible and clickable
+	 * 48817
+	 */
+	@Test
+	public void testVerifySearchOptionsAreVisibleForListingEmail() {
+		getPage("/marketing/massemail");
+		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
+		assertTrue(page.isAddressRadioButtonVisible(), "Address radio button is not visible..");
+		assertTrue(page.isCityRadioButtonVisible(), "City radio button is not visible..");
+		assertTrue(page.isMLSRadioButtonVisible(), "MLS radio button is not visible..");
+		assertTrue(page.isZipRadioButtonVisible(), "Zip radio button is not visible..");
+	}
+	
+	/**
+	 * Verify correct Search option is visible when respective filter is clicked
+	 * 48818
+	 */
+	public void testSearchAndVerifyListingsByMLSID() {
+		getPage("/marketing/massemail");
+		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
+		assertTrue(page.clickOnMLSRadioButton(), "Unable to click on MLS ID radio button");
+		String mls_id = EnvironmentFactory.configReader.getPropertyByName("zurple_mls_id").toString();
+		assertTrue(page.typeInputField(mls_id), "Unable to type MLS ID");
+		assertTrue(page.clickOnSearchButton(), "Unable to click on search button");
+		assertTrue(page.isListingWithMLSIDPresent(mlsID), "Listing is not present in search results");
+	}
+	
+	/**
+	 * Verify validation message is displayed if no Subject is provided and Next button is clicked
+	 * 48854
+	 */
+	public void testVerifyValidationMessageIsDisplayedIfNoSubjectIsProvided() {
+		getPage("/marketing/massemail");
+		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
+		assertTrue(page.clickOnNextButton(), "Unable to click on next button..");
+		assertTrue(page.isSubjectValidationMessageVisible(), "Subject Validation message is not visble");
+	}
+	
+	/**
+	 * Verify Validation message is displayed if no listing is added and Next button is clicked
+	 * 48843
+	 */
+	public void testVerifyValidationMessageIsDisplayedIfNoListingIsSelected() {
+		getPage("/marketing/massemail");
+		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
+		assertTrue(page.clickOnNextButton(), "Unable to click on next button..");
+		assertTrue(page.isSelectListingValidationMessageVisible(), "Select listing Validation message is not visble");
+	}
+	
+	/**
+	 * Verify added listings can be removed by clicking on "x" button
+	 * 48844
+	 */
+	public void testVerifyUserCanRemoveAddedListing() {
+		getPage("/marketing/massemail");
+		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
+		assertTrue(page.clickOnAddListingButton(), "Unable to click on Add listing button");
+		assertTrue(page.clickOnRemoveButton(), "Unable to click on remove listing button");
+	}
+	
+	/**
+	 * Verify Calendar button pops Time selector once clicked on
+	 * 48845
+	 */
+	public void testVerifyDatePickerOpenWhenCalendarButtonIsClicked() {
+		getPage("/marketing/massemail");
+		assertTrue(page.clickOnCalendarButton(), "Unable to click on calendar button");
+		assertTrue(page.getDatePicker().isDatePickerVisible(), "Date Picker is not visible");
+	}
+	
+	/**
+	 * Verify Time Zone is set as Admin Time zone once calendar button is clicked
+	 * 48847
+	 */
+	public void testVerifyAdminTimeZone() {
+		getPage("/marketing/massemail");
+		int l_admin_id =Integer.valueOf(EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id"));
+		double admin_time_zone = getEnvironment().getAdmin(l_admin_id).getTimeZone();
+		String l_Agent_time_zone = admin_time_zone==-8.0?"Pacific":"Central";
+		assertTrue(page.getDatePicker().getTimeZone().contains(l_Agent_time_zone), "Incorrect time zone on date picker..Agent Time Zone "+l_Agent_time_zone);
 	}
 	
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
