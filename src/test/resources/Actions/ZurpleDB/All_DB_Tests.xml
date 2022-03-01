@@ -272,4 +272,13 @@
 				</class>
 			</classes>
 	</test>
+	<test name="Verify Netsuite Syncing for AutoProvisioning is Working">
+			<classes>
+				<class name="com.zurple.database.ZDBNetsuiteAPSyncingTest">
+					<methods>
+						<include name="testVerifyNetsuiteAPSyncingIsWorking" />
+					</methods>
+				</class>
+			</classes>
+	</test>
 </suite>
