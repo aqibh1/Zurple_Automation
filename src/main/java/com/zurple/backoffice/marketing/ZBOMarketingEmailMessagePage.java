@@ -10,12 +10,18 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.zurple.my.Page;
 
+import resources.blocks.zurple.ZBODatePickerBlock;
 import resources.forms.zurple.backoffice.ZBOAttachFileForm;
 import resources.forms.zurple.backoffice.ZBOInsertImageForm;
 import resources.utility.ActionHelper;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author adar
+ *
+ */
+/**
+ * @author darrraqi
  *
  */
 public class ZBOMarketingEmailMessagePage extends Page{
@@ -116,15 +122,61 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	@FindBy(id="listing_subject")
 	WebElement listing_subject;
 	
+	@FindBy(xpath="//strong[text()='Address']/preceding::input[1]")
+	WebElement address_radio_input;
+	@FindBy(xpath="//strong[text()='City']/preceding::input[1]")
+	WebElement city_radio_input;
+	@FindBy(xpath="//strong[text()='Zip']/preceding::input[1]")
+	WebElement zip_radio_input;
+	@FindBy(xpath="//strong[text()='MLS ID']/preceding::input[1]")
+	WebElement mls_radio_input;
+	
+	@FindBy(id="name")
+	WebElement search_input;
+	
+	@FindBy(id="propertiesGrid_processing")
+	WebElement processing;
+	
+	@FindBy(id="z-properties-grid-filter-button")
+	WebElement search_button;
+	
+	String mls_number_in_search_results = "//span[@data-mls_number='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	
+	@FindBy(id="nextbtn")
+	WebElement next_button;
+	
+	@FindBy(id="subject_validation")
+	WebElement subject_validation;
+	
+	@FindBy(id="selected_validation")
+	WebElement selected_validation;
+	
+	String add_listing_button_list = "//span[@class='not-added-property']/span";
+	String remove_listing_button_list = "//ul[@class='select2-selection__rendered']/li/span";
+	String added_label_list = "//span[@class='added-property' and text()='Added']";
+	
+	@FindBy(id="new-post-schedule")
+	WebElement calendar_button;
+	
 	private ZBOInsertImageForm zboInsertImageForm;
 	private ZBOAttachFileForm zbAttachFileForm;
+	private ZBODatePickerBlock datePicker;
 	
 	public ZBOMarketingEmailMessagePage(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		setInsertImageForm();
 		setAttachFileForm();
+		setDatePicker();
 		PageFactory.initElements(driver, this);
 	}
+	public ZBODatePickerBlock getDatePicker() {
+		return datePicker;
+	}
+
+	private void setDatePicker() {
+		this.datePicker = new ZBODatePickerBlock(driver);
+	}
+
 	private void setAttachFileForm() {
 		zbAttachFileForm = new ZBOAttachFileForm(driver);
 	}
@@ -271,5 +323,56 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	}
 	public boolean isEmailListingFlyerButtonVisible() {
 		return ActionHelper.waitForElementToBeVisible(driver, emailListingFlyer_button,30);
+	}
+	public boolean isAddressRadioButtonVisible() {
+		return ActionHelper.isElementVisible(driver, address_radio_input);
+	}
+	public boolean isCityRadioButtonVisible() {
+		return ActionHelper.isElementVisible(driver, city_radio_input);
+	}
+	public boolean isZipRadioButtonVisible() {
+		return ActionHelper.isElementVisible(driver, zip_radio_input);
+	}
+	public boolean isMLSRadioButtonVisible() {
+		return ActionHelper.isElementVisible(driver, mls_radio_input);
+	}
+	public boolean clickOnMLSRadioButton() {
+		return ActionHelper.Click(driver, mls_radio_input);
+	}
+	public boolean typeInputField(String pStringToType) {
+		return ActionHelper.Type(driver, search_input, pStringToType);	
+	}
+	public boolean clickOnSearchButton() {
+		boolean isClicked = false;
+		if(ActionHelper.Click(driver, search_button)) {
+			ActionHelper.waitForElementToBeDisappeared(driver, processing,60);
+			isClicked = true;
+		}
+		return isClicked;
+	}
+	public boolean isListingWithMLSIDPresent(String pMLSID) {
+		return ActionHelper.getDynamicElement(driver, mls_number_in_search_results, pMLSID)!=null;
+	}
+	public boolean clickOnNextButton() {
+		return ActionHelper.Click(driver, next_button);
+	}
+	public boolean isSubjectValidationMessageVisible() {
+		return ActionHelper.isElementVisible(driver, subject_validation);
+	}
+	public boolean isSelectListingValidationMessageVisible() {
+		return ActionHelper.isElementVisible(driver, selected_validation);
+	}
+	public boolean clickOnAddListingButton() {
+		boolean isAdded = false;
+		if(ActionHelper.Click(driver, ActionHelper.getListOfElementByXpath(driver, add_listing_button_list).get(0))) {
+			isAdded = ActionHelper.getListOfElementByXpath(driver, added_label_list).size()>0;
+		}
+		return isAdded;
+	}
+	public boolean clickOnRemoveButton() {
+		return ActionHelper.Click(driver, ActionHelper.getListOfElementByXpath(driver, remove_listing_button_list).get(0));
+	}
+	public boolean clickOnCalendarButton() {
+		return ActionHelper.Click(driver, calendar_button);
 	}
 }

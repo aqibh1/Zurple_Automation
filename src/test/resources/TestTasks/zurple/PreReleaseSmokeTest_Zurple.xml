@@ -3,8 +3,7 @@
 <suite name="Zurple Pre and Post Release Somke Tests" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
 	<listeners>		
 		<listener class-name="resources.ThreadCountChanger"/>
-        <listener class-name="resources.ExtentReporterListener"/>
-        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.TestRailAndExtentReportListener"/>
         <listener class-name="resources.CustomTestNGReporter"/>
          <listener class-name="resources.FailedTestsListener"/>
 	</listeners>

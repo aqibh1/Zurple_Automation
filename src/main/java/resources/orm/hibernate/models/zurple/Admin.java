@@ -40,6 +40,7 @@ public class Admin extends Abstract
     private Set<Import> imports;
     private Integer owner_id;
     private Integer delete_flag;
+    private Double time_zone;
     public Admin() {
     }
 
@@ -202,10 +203,16 @@ public class Admin extends Abstract
     }
     @Column(name = "delete_flag", unique = true, nullable = false)
     public Integer getDeleteFlag() {
-        return this.owner_id;
+        return this.delete_flag;
     }
-
     public void setDeleteFlag(Integer lead_id) {
-        this.owner_id = lead_id;
+        this.delete_flag = lead_id;
+    }
+    @Column(name = "time_zone", unique = true, nullable = false)
+    public Double getTimeZone() {
+        return this.time_zone;
+    }
+    public void setTimeZone(Double pTimeZone) {
+        this.time_zone = pTimeZone;
     }
 }
