@@ -1,0 +1,31 @@
+<suite name="Verify Lead Captured With Specific URL parameter" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>		
+		<listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+	</listeners>
+	
+	<test name="Verify Lead Capture With SellC URL Parameter">	
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-email-subscription.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBORedirectedLeadTest">
+					<methods>
+						<include name="testVerifyRegisterLeadWithSellC" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>
+	<test name="Verify Lead Capture With MLB URL Parameter">	
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-email-subscription.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBORedirectedLeadTest">
+					<methods>
+						<include name="testVerifyRegisterLeadWithMlb" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>		
+</suite>
