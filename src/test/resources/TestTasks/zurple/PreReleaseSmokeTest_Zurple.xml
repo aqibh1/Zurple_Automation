@@ -573,8 +573,7 @@
 	</test>
 
 
-	<test
-		name="Search and Verify property by Bed Bath Price and Features with User Logged In">
+	<test name="Search and Verify property by Bed Bath Price and Features with User Logged In">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-01.json">
 			<classes>
@@ -607,8 +606,7 @@
 		</parameter>
 	</test>
 
-	<test
-		name="Search and Verify property by City with User Logged In">
+	<test name="Search and Verify property by City with User Logged In">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-city.json">
 			<classes>
@@ -709,8 +707,7 @@
 		</parameter>
 	</test>
 
-	<test
-		name="Search and Verify property by City Style Feature View with User Logged In">
+	<test name="Search and Verify property by City Style Feature View with User Logged In">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-city-style-view.json">
 			<classes>
@@ -776,8 +773,7 @@
 		</parameter>
 	</test>
 
-	<test
-		name="Search and Verify property by Address with User Logged In">
+	<test name="Search and Verify property by Address with User Logged In">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-address.json">
 			<classes>
@@ -810,8 +806,7 @@
 		</parameter>
 	</test>
 
-	<test
-		name="Search and Verify property by County with User Logged In">
+	<test name="Search and Verify property by County with User Logged In">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-county.json">
 			<classes>
@@ -844,8 +839,7 @@
 		</parameter>
 	</test>
 
-	<test
-		name="Search and Verify property by Square Feet with User Logged In">
+	<test name="Search and Verify property by Square Feet with User Logged In">
 		<parameter name="searchPropertyDataFile"
 			value="/resources/data/zurple/property_search/zurple-property-search-squarefeet.json">
 			<classes>
@@ -2764,6 +2758,7 @@
 				</class>
 			</classes>
 	</test>
+	
 	<test name="Verify Send CMA Report page">
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/cma-lead-data.json">	
 			<classes>
@@ -3040,6 +3035,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Photo Post FB">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-photo-post.json">
 		<classes>
@@ -3082,6 +3078,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Link Post FB">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-link-post.json">
 		<classes>
@@ -3102,6 +3099,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Link Post FB - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-link-post-scheduled.json">
 		<classes>
@@ -3122,6 +3120,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Post FB">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-post.json">
 		<classes>
@@ -3146,6 +3145,7 @@
 		</classes>
 		</parameter>
 	</test> 
+	
 	<test name="Verify Social Listing Post FB - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-post-scheduled.json">
 		<classes>
@@ -3170,6 +3170,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Video Post FB">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-video-post.json">
 		<classes>
@@ -3192,6 +3193,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Video Post FB - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-fb-listing-video-post-scheduled.json">
 		<classes>
@@ -3236,6 +3238,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Text Post Twitter - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-text-post-scheduled.json">
 		<classes>
@@ -3257,6 +3260,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Photo Post Twitter">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-photo-post.json">
 		<classes>
@@ -3279,6 +3283,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Photo Post Twitter - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-photo-post-scheduled.json">
 		<classes>
@@ -3301,6 +3306,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Link Post Twitter">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-link-post.json">
 		<classes>
@@ -3322,6 +3328,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Link Post Twitter - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-link-post-scheduled.json">
 		<classes>
@@ -3343,6 +3350,7 @@
 		</classes>
 		</parameter>
 	</test> 
+	
 	<test name="Verify Social Listing Post Twitter">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-post.json">
 		<classes>
@@ -3368,6 +3376,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Post Twitter - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-post-scheduled.json">
 		<classes>
@@ -3393,6 +3402,7 @@
 		</classes>
 		</parameter>
 	</test>  
+	
 	<test name="Verify Social Listing Video Post Twitter">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post.json">
 		<classes>
@@ -3411,6 +3421,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Video Post Twitter - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post-scheduled.json">
 		<classes>
@@ -3451,6 +3462,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Text Post Linkedin - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-text-post-scheduled.json">
 		<classes>
@@ -3472,6 +3484,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Photo Post Linkedin">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-photo-post.json">
 		<classes>
@@ -3494,6 +3507,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Photo Post Linkedin - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-photo-post-scheduled.json">
 		<classes>
@@ -3516,6 +3530,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Link Post Linkedin">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-link-post.json">
 		<classes>
@@ -3537,6 +3552,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Link Post Linkedin - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-link-post-scheduled.json">
 		<classes>
@@ -3558,6 +3574,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Post Linkedin">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-listing-post.json">
 		<classes>
@@ -3583,6 +3600,7 @@
 		</classes>
 		</parameter>
 	</test>
+	
 	<test name="Verify Social Listing Post Linkedin - Scheduled">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-listing-post-scheduled.json">
 		<classes>
