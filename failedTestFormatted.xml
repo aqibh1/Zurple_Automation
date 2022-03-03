@@ -6,7 +6,7 @@
         	<listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         	<listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
-<test name="Verify Lead Capture With SellC URL Parameter">	
+<test name="Verify Lead Capture With SellC URL Parameter123">	
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-email-subscription.json"> 
 			<classes>
 				<class name="com.zurple.backoffice.ZBORedirectedLeadTest">
