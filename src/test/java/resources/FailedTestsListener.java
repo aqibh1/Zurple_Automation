@@ -42,7 +42,7 @@ public class FailedTestsListener implements ISuiteListener{
 	public void onFinish(ISuite suite) {
 		List<String> failedTestList = TestRailAndExtentReportListener.getFailedTestList();	
 //		List<String> failedTestList = new ArrayList<String>();
-//		failedTestList.add("Schedule showing listing");
+//		failedTestList.add("Verify lead buyer search");
 //		failedTestList.add("Search and Verify property by Price City Features");
 //		failedTestList.add("Track Property in Lead Details");
 //		failedTestList.add("Verify Sold Homes search");
@@ -62,6 +62,7 @@ public class FailedTestsListener implements ISuiteListener{
 		try{  
 			String xml_file = System.getProperty("suite");
 			String l_XMLFilePath = System.getProperty("user.dir")+"\\src\\test\\resources\\"+xml_file;
+			
 			//creating a constructor of file class and parsing an XML file  
 			File file = new File(l_XMLFilePath);  
 			// In looping through files:
@@ -103,12 +104,19 @@ public class FailedTestsListener implements ISuiteListener{
 	}
 	
 	private void writeAllTheContentInXml(List<String> content_list) {
+		String l_header_tag = "<suite name=\"Zurple Pre and Post Release Somke Tests\" preserve-order=\"true\" verbose=\"2\" parallel=\"tests\" thread-count=\"1\">\r\n"
+				+ "	<listeners>		\r\n"
+				+ "			<listener class-name=\"resources.ThreadCountChanger\"/>\r\n"
+				+ "     	<listener class-name=\"resources.ExtentReporterListener\"/>\r\n"
+				+ "        	<listener class-name=\"resources.ZurpleReporter.ScreenshotTaker\"/>\r\n"
+				+ "        	<listener class-name=\"resources.CustomTestNGReporter\"/>\r\n"
+				+ "	</listeners>";
 		setWriter("failedTest.xml");
-		writeToFile("<doc>", false);
+		writeToFile(l_header_tag, false);
 		for(String strToWrite: content_list) {
 			writeToFile(strToWrite,false);
 		}
-		writeToFile("</doc>",true);
+		writeToFile("</suite>",true);
 	}
 
 	private String convertXMLToPrettyFormat() {
