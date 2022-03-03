@@ -1,17 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<<<<<<< HEAD
-<doc>
-<test name="Verify lead Replies">
-<classes>
-<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
-<methods>
-<include name="testVerifyLeadReplies"/>
-</methods>
-</class>
-</classes>
-</test>
-</doc>
-=======
 <suite name="Zurple Pre and Post Release Somke Tests" parallel="tests" preserve-order="true" thread-count="1" verbose="2">
 	<listeners>		
 			<listener class-name="resources.ThreadCountChanger"/>
@@ -31,4 +18,3 @@
 	</parameter>
 	</test>
 </suite>
->>>>>>> 96f90e52c9ceb78b6a16fbc075c2bfc1164625e6
