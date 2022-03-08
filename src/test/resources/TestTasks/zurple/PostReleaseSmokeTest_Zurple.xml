@@ -1085,4 +1085,13 @@
 	</parameter>
 	</test>
 	
+	<test name="Verify Admin id is assigned correctly to leads">
+			<classes>
+				<class name="com.zurple.database.ZDBAdminIdTest">
+					<methods>
+						<include name="testVerifyAdminIdFromUsersTable" />
+					</methods>
+				</class>
+			</classes>
+	</test>
 </suite>
