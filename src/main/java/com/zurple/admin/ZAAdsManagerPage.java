@@ -11,6 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.zurple.my.Page;
 
 import resources.utility.ActionHelper;
+import resources.utility.FrameworkConstants;
 
 /**
  * @author darrraqi
@@ -52,6 +53,8 @@ public class ZAAdsManagerPage extends Page{
 	
 	@FindBy(xpath="//div[@class='sa-confirm-button-container']/button")
 	WebElement refresh_ok_button;
+	
+	String ad_end_Date = "//tr[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::td[text()='Ongoing']";
 	
 	public ZAAdsManagerPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -95,5 +98,7 @@ public class ZAAdsManagerPage extends Page{
 		}
 		return isVerified;
 	}
-	
+	public boolean getEndDateAd(String pAdId) {
+		return ActionHelper.getDynamicElement(driver, ad_end_Date, pAdId)!=null;
+	}
 }
