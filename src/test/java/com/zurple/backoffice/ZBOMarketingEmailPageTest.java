@@ -3,7 +3,6 @@
  */
 package com.zurple.backoffice;
 
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.text.ParseException;
@@ -325,6 +324,18 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		double admin_time_zone = getEnvironment().getAdmin(l_admin_id).getTimeZone();
 		String l_Agent_time_zone = admin_time_zone==-8.0?"Pacific":"Central";
 		assertTrue(page.getDatePicker().getTimeZone().contains(l_Agent_time_zone), "Incorrect time zone on date picker..Agent Time Zone "+l_Agent_time_zone);
+	}
+	
+	/**
+	 * Verify Scheduled date and time is displayed once Done button is clicked
+	 * 48850
+	 */
+	public void testVerifyScheduleLabelIsDisplayed() {
+		getPage("/marketing/massemail");
+		assertTrue(page.getDatePicker().clickOnNowButton(), "Unable to click on now button");
+		assertTrue(page.getDatePicker().clickOnDoneButton(), "Unable to click on Done button");
+		assertTrue(!page.getScheduleLabel().isEmpty(), "Schedule label is empty");
+		
 	}
 	
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
