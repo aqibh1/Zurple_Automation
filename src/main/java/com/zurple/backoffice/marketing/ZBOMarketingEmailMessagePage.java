@@ -158,6 +158,9 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	@FindBy(id="new-post-schedule")
 	WebElement calendar_button;
 	
+	@FindBy(xpath="//*[@id='scheduled-label']/descendant::span[@class='schedule-label']")
+	WebElement schedule_label;
+	
 	private ZBOInsertImageForm zboInsertImageForm;
 	private ZBOAttachFileForm zbAttachFileForm;
 	private ZBODatePickerBlock datePicker;
@@ -374,5 +377,12 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	}
 	public boolean clickOnCalendarButton() {
 		return ActionHelper.Click(driver, calendar_button);
+	}
+	public String getScheduleLabel() {
+		String lSchedule = "";
+		if(ActionHelper.waitForElementToBeVisible(driver, schedule_label, 30)) {
+			lSchedule = ActionHelper.getText(driver, schedule_label);
+		}
+		return lSchedule;
 	}
 }

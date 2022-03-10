@@ -1089,6 +1089,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	
 	@Test //40565
 	public void testVerifyAdDurationStep4BuyerLeadQuickAds() throws ParseException  {
+		ActionHelper.staticWait(15);
 		assertTrue(page.verifyStartEndAndRenewalDate(), "Unable to verify ad duration and renewal date.");
 	}
 	@Test //40566
@@ -1122,6 +1123,7 @@ public class ZBOCreateAdPageTest extends PageTest{
 	public void testCreateAndVerifyBuyerLeadQuickAdRenewalDate(){
 //		ZBOAdsOverviewPage adsOverviewPage = new ZBOAdsOverviewPage(driver);
 //		assertTrue(adsOverviewPage.verifyRenewalDate(), "Unable to verify renewal date of quick ad");
+		ActionHelper.staticWait(10);
 		assertTrue(page.verifyAdDetailsByAdIdInAdsOverviewPage(getAdId(), "date",""),"Unable to get ad date for ad: "+getAdId());
 	}
 	

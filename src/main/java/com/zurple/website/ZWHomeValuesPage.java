@@ -45,7 +45,7 @@ public class ZWHomeValuesPage extends Page{
 	WebElement phone_number;
 	@FindBy(id="pun")
 	WebElement pun;
-	@FindBy(id="submit")
+	@FindBy(id="submitBtn")
 	WebElement submit;
 	@FindBy(id="privacy_accepted")
 	WebElement ccpaCheckbox;

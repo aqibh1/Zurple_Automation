@@ -307,6 +307,8 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
 		ActionHelper.staticWait(10);
 		assertTrue(page.searchLeadContains(lLeadName), "Unable to search lead..");
+		applyFilter("By Priority Ranking", ld_priorityToVerify);
+		applyFilter("By Date Created", "last 7 days");
 		assertTrue(page.priorityRankingToVeify(ld_priorityToVerify), "Unable to verify the priority ranking");
 		assertTrue(page.clickSearchedLeadName(), "Unable to click on lead name..");
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);

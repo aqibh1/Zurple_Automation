@@ -87,8 +87,8 @@ public class ZAAdsManagerPageTest extends PageTest{
 	 */
 	@Test
 	public void testVerifyAdDurationOfTheQuickListingAdFromAdsManager() {
-		int l_days_to_verify = 0;
-		assertTrue(verifyAdDuration(l_days_to_verify), "Unable to verify the ad duration");
+		String l_ad_id = getAdId();
+		assertTrue(verifyAdDuration(l_ad_id), "Unable to verify the ad duration");
 	}
 	
 	/**
@@ -133,7 +133,7 @@ public class ZAAdsManagerPageTest extends PageTest{
 	 */
 	@Test
 	public void testVerifyAdDurationOfTheCustomListingAdFromAdsManager() {
-		int l_days_to_verify = 0;
+		String l_days_to_verify = getAdId();
 		assertTrue(verifyAdDuration(l_days_to_verify), "Unable to verify the ad duration");
 	}
 	
@@ -175,7 +175,7 @@ public class ZAAdsManagerPageTest extends PageTest{
 	 */
 	@Test
 	public void testVerifyAdDurationOfTheCustomBuyerListingAdFromAdsManager() {
-		int l_days_to_verify = 0;
+		String l_days_to_verify = getAdId();
 		assertTrue(verifyAdDuration(l_days_to_verify), "Unable to verify the ad duration");
 	}
 	
@@ -218,7 +218,7 @@ public class ZAAdsManagerPageTest extends PageTest{
 	@Test
 	public void testVerifyAdDurationOfTheQuickBuyerListingAdFromAdsManager() {
 		int l_days_to_verify = 30;
-		assertTrue(verifyAdDuration(l_days_to_verify), "Unable to verify the ad duration");
+		assertTrue(verifyAdDuration(getAdId()), "Unable to verify the ad duration");
 	}
 	
 	/**
@@ -235,18 +235,22 @@ public class ZAAdsManagerPageTest extends PageTest{
 		return page.getAdLocation().contains(pLocation);
 	}
 	
-	private boolean verifyAdDuration(int pDays) {
-		boolean isVerifed = false;
+//	private boolean verifyAdDuration(int pDays) {
+//		boolean isVerifed = false;
+//		String l_start_date = page.getAdStartingDate();
+//		String l_end_date = getTodaysDate();
+//		if(!l_start_date.isEmpty() && !l_end_date.isEmpty()) {
+//			l_start_date = l_start_date.split(" ")[0];
+//			String l_today_date = getTodaysDate("yyyy-MM-dd");
+//			l_end_date = l_end_date.split(" ")[0];
+//			isVerifed = verifyTheDates(l_start_date, l_today_date,pDays);
+//		}	
+//		return isVerifed;
+//	}
+	private boolean verifyAdDuration(String pAdId) {
 		String l_start_date = page.getAdStartingDate();
-		String l_end_date = getTodaysDate();
-		if(!l_start_date.isEmpty() && !l_end_date.isEmpty()) {
-			l_start_date = l_start_date.split(" ")[0];
-			String l_today_date = getTodaysDate("yyyy-MM-dd");
-			l_end_date = l_end_date.split(" ")[0];
-			isVerifed = verifyTheDates(l_start_date, l_today_date,pDays);
-		}
-		
-		return isVerifed;
+		boolean l_end_date = page.getEndDateAd(pAdId);
+		return l_start_date!=null && l_end_date;
 	}
 //	private boolean verifyAdDuration(int pDays) {
 //		boolean isVerifed = false;
