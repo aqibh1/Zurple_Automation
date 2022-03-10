@@ -161,6 +161,12 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	@FindBy(xpath="//*[@id='scheduled-label']/descendant::span[@class='schedule-label']")
 	WebElement schedule_label;
 	
+	@FindBy(id="remove-schedule")
+	WebElement remove_Schedule_button;
+	
+	@FindBy(xpath="//*[@id='preview_heading']/h3[text()='Preview Email']")
+	WebElement preview_heading;
+	
 	private ZBOInsertImageForm zboInsertImageForm;
 	private ZBOAttachFileForm zbAttachFileForm;
 	private ZBODatePickerBlock datePicker;
@@ -384,5 +390,14 @@ public class ZBOMarketingEmailMessagePage extends Page{
 			lSchedule = ActionHelper.getText(driver, schedule_label);
 		}
 		return lSchedule;
+	}
+	public boolean clickOnRemoveScheduleButton() {
+		return ActionHelper.Click(driver, remove_Schedule_button);
+	}
+	public boolean isScheduleButtonVisible() {
+		return ActionHelper.isElementVisible(driver, schedule_button);
+	}
+	public boolean isPreviewHeadingVisibleForSendListingEmail() {
+		return ActionHelper.isElementVisible(driver, preview_heading);
 	}
 }
