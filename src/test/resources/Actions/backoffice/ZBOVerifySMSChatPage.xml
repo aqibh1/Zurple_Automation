@@ -1,0 +1,20 @@
+<suite name="Verify SMS chat page" preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>		
+		<listener class-name="resources.ThreadCountChanger"/>
+        <listener class-name="resources.ExtentReporterListener"/>
+        <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        <listener class-name="resources.CustomTestNGReporter"/>
+	</listeners>
+	
+	<test name="Verify SMS chat page">	
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/standard-email-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+							<include name="testVerifyStandardEmail" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
+</suite>
