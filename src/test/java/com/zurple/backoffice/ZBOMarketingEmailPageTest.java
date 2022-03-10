@@ -201,10 +201,11 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Test
 	@Parameters({"emailReplyData"})
 	public void testPUNS(String pDataFile) {
-		JSONObject lDataObject = getDataFile(pDataFile);
-    	boolean isSuccessful = gmailObject.isPUNSEmailPresent("auto.zurpleqa@gmail.com", "djfbxtfkdnlczaec", 
-    			"New Listing Updates", "aqibstagetesting_zurpleqa@stage01.zengtest6.us", true);
-    	assertTrue(isSuccessful, "PUNS email not sent");
+//		JSONObject lDataObject = getDataFile(pDataFile);
+		new ZBOMarketingEmailPageDBTest().testPUNSFromDB();
+//    	boolean isSuccessful = gmailObject.isPUNSEmailPresent("auto.zurpleqa@gmail.com", "djfbxtfkdnlczaec", 
+//    			"New Listing Updates", "aqibstagetesting_zurpleqa@stage01.zengtest6.us", true);
+//    	assertTrue(isSuccessful, "PUNS email not sent");
 	}
 	
 	@Test
