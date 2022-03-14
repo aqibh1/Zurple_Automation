@@ -339,6 +339,38 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		
 	}
 	
+	/**
+	 * Verify Calender button is removed once time is selected and done button is clicked
+	 * 48857
+	 */
+	public void testVerifyCalendarButtonIsRemovedOnceEmailHasBeenScheduled() {
+		getPage("/marketing/massemail");
+		assertTrue(page.isScheduleButtonVisible(), "Schedule label is not removed.");
+	}
+	
+	/**
+	 * Verify Scheduled date and time is removed once "x" is clicked
+	 * 48851
+	 */
+	public void testVerifyRemoveScheduleLabelButton() {
+		getPage("/marketing/massemail");
+		assertTrue(page.clickOnRemoveScheduleButton(), "Unable to click on remove schedule label button");
+		assertTrue(page.isScheduleButtonVisible(), "Schedule label is not removed.");
+	}
+	
+	/**
+	 * Verify Preview Email page is opened once Next button is clicked after selecting listings
+	 * 48852
+	 */
+	public void testVerifyPreviewEmailPageIsOpenedWhenNextButtonIsClicked() {
+		getPage("/marketing/massemail");
+		assertTrue(page.clickOnAddListingButton(), "Unable to click on Add listing button");
+		assertTrue(page.clickOnNextButton(), "Unable to click on next button");
+		assertTrue(page.isPreviewHeadingVisibleForSendListingEmail(), "Preview heading is not visible");
+	}
+	
+	
+	
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
 		lToEmail = pDataObject.optString("toemail");
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");
