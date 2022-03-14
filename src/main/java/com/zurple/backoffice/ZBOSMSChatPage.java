@@ -1,5 +1,7 @@
 package com.zurple.backoffice;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,11 +37,17 @@ public class ZBOSMSChatPage extends Page{
 	@FindBy(className="initial")
 	WebElement sender_initials;
 	
-	@FindBy(className="blue_msg_bg")
-	WebElement sent_message;
+//	@FindBy(className="blue_msg_bg")
+//	WebElement sent_message;
 	
-	@FindBy(className="timestamp")
-	WebElement message_timestamp;
+//	@FindBy(className="timestamp")
+//	WebElement message_timestamp;
+	
+	String message_timestamp = "//section[@id='chat_message_body']/descendant::span[contains(@class,'timestamp')]";
+	
+	String sent_message = "//section[@id='chat_message_body']/descendant::div[contains(@class,'msg_box')]/span";
+	
+	List<WebElement> messagesList;
 	
 	public ZBOSMSChatPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
@@ -63,14 +71,14 @@ public class ZBOSMSChatPage extends Page{
 	}
 	
 	public boolean clickLeadDetails() {
-		return ActionHelper.Click(driver, lead_details);
+		return !ActionHelper.getAttribute(lead_details,"href").isEmpty();
 	}
 	
-	public boolean clickMessageBox(String pText) {
+	public boolean typeMessage(String pText) {
 		return ActionHelper.ClearAndType(driver, text_area, pText);
 	}
 	
-	public boolean sendMessage(String pText) {
+	public boolean sendMessage() {
 		return ActionHelper.Click(driver, send_button);
 	}
 	
@@ -78,12 +86,13 @@ public class ZBOSMSChatPage extends Page{
 		return ActionHelper.getText(driver, sender_initials).equals(pExpected);
 	}
 	
-	public boolean getMessageTimestamp(String pExpected) {
-		return ActionHelper.getText(driver, message_timestamp).equals(pExpected);
+	public boolean getMessage(String pExpected) {
+		messagesList = ActionHelper.getListOfElementByXpath(driver, sent_message);
+		return ActionHelper.getTextByXpathIndex(driver, sent_message, messagesList.size()-1).trim().equals(pExpected);
 	}
 	
-	public boolean getMessage(String pExpected) {
-		return ActionHelper.getText(driver, message_timestamp).equals(pExpected);
+	public boolean getMessageTimestamp(String pExpected) {
+		//List<WebElement> timestampList = ActionHelper.getListOfElementByClassName(driver, message_timestamp);
+		return ActionHelper.getTextByXpathIndex(driver, message_timestamp, messagesList.size()-1).trim().contains(pExpected);
 	}
-
 }
