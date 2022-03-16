@@ -100,7 +100,7 @@ public class ZBORestPostAdmin extends RestAPITest{
 		String access_token = EnvironmentFactory.configReader.getPropertyByName("ap_access_token");
 		multiParts.put("first_name", new Part(lFname, PartType.STRING));
 		multiParts.put("last_name", new Part(lLname, PartType.STRING));
-		multiParts.put("phone", new Part(lPhone, PartType.STRING));
+		//multiParts.put("phone", new Part(lPhone, PartType.STRING));
 		multiParts.put("feed_id", new Part(lFeed, PartType.STRING));
 		multiParts.put("agent_id", new Part(lAgentId, PartType.STRING));
 		multiParts.put("email", new Part(lLoginEmail, PartType.STRING));

@@ -100,9 +100,9 @@ public class ZAUpdateAdminProfilePageTest extends PageTest {
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testUpdatePhone() {
-		String updatedPhone = updatePhoneNumber();
-		assertTrue(page.updatePhone(updatedPhone),"Unable to update admin phone "+lAdminId);
-		multiParts.put("phone", new Part(updatedPhone, PartType.STRING));
+//		String updatedPhone = updatePhoneNumber();
+//		assertTrue(page.updatePhone(updatedPhone),"Unable to update admin phone "+lAdminId);
+//		multiParts.put("phone", new Part(updatedPhone, PartType.STRING));
 	}
 	
 	@Test(dependsOnMethods = { "testSetup" })
