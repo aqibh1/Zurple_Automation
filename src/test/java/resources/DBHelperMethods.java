@@ -370,5 +370,8 @@ public class DBHelperMethods {
 	public List<User> getListOfUsersWithAdminId0(String pDateCreated){
 		return testEnvironment.getListOfUsersWithAdminId0(pDateCreated);
 	}
+	public Email getEmailBySubject(String pEmailSubject){
+		return testEnvironment.getEmailBySubject(pEmailSubject);
+	}
 	
 }

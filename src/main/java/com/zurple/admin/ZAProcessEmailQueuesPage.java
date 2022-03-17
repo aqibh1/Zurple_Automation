@@ -192,6 +192,8 @@ public class ZAProcessEmailQueuesPage extends Page{
 				processSendC1SummaryQueue(); // this is called twice to make sure any failed attempt should be retried. 
 				break;
 			case "mass_email":
+				processMassEmailQueue();
+				break;
 			case "campaign":
 				processMassEmailQueue();
 				break;

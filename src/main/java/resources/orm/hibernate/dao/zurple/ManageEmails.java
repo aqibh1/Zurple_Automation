@@ -1,7 +1,6 @@
 package resources.orm.hibernate.dao.zurple;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import resources.orm.hibernate.models.zurple.Admin;
 import resources.orm.hibernate.models.zurple.Email;
 import resources.orm.hibernate.models.zurple.Lead;
 import resources.utility.AutomationLogger;
@@ -164,39 +162,23 @@ public class ManageEmails {
         }
         return flagList;
     }
-    /* Method to UPDATE salary for an employee */
-    public void updateLead(Integer LeadID, String email ){
-
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            Lead lead =
-                    (Lead)session.get(Lead.class, LeadID);
-            lead.setEmail( email );
-            session.update(lead);
-            tx.commit();
-        }catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
-            e.printStackTrace();
-        }finally {
-            session.close();
-        }
-    }
-    /* Method to DELETE an employee from the records */
-    public void deleteLead(Integer LeadID){
-
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            Lead lead =
-                    (Lead)session.get(Lead.class, LeadID);
-            session.delete(lead);
-            tx.commit();
-        }catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
-            e.printStackTrace();
-        }finally {
-            session.close();
-        }
+    public Email getEmailBySubject(String pEmailSubject){
+    	List<Email> emails = new ArrayList<>();
+    	 Transaction tx = null;
+         try{
+            // tx = session.beginTransaction();
+             emails = session.createQuery("FROM Email WHERE subject='"+pEmailSubject+"' Order by sent_datetime desc").setMaxResults(1).list();
+             AutomationLogger.info("QUERY RESULTS:"+emails.size());
+             tx.commit();
+         }catch (HibernateException e) {
+             if (tx!=null) tx.rollback();
+             e.printStackTrace();
+         }finally {
+        	 if (session != null && session.isOpen()) {
+                 session.close();
+             }
+             return emails.get(0);
+         }
+         
     }
 }

@@ -82,7 +82,6 @@ public class EnvironmentFactory {
                 	//Pass the argument 1 to allow and 2 to block
                 	prefs.put("profile.default_content_setting_values.notifications", 2);
                 	options.setExperimentalOption("prefs", prefs);
-                    options.addArguments("--start-maximized");
                     // ChromeDriver is just AWFUL because every version or two it breaks unless you pass cryptic arguments
                     //AGRESSIVE: options.setPageLoadStrategy(PageLoadStrategy.NONE); // https://www.skptricks.com/2018/08/timed-out-receiving-message-from-renderer-selenium.html
                     options.addArguments("start-maximized"); // https://stackoverflow.com/a/26283818/1689770

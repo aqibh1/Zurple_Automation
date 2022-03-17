@@ -712,4 +712,8 @@ public class TestEnvironment
 		ManageUser manageUsers = new ManageUser(getSession());
 		return manageUsers.getListOfUsersWithAdminId0(pDateCreated);
 	}
+	public Email getEmailBySubject(String pSubject){
+		ManageEmails ml = new ManageEmails(getSession());
+		return ml.getEmailBySubject(pSubject);
+	}
 }

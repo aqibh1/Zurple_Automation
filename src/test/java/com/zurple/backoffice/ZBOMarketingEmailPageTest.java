@@ -20,6 +20,7 @@ import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
@@ -101,9 +102,10 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	public void testVerifyEmailListingFlyer(String pDataFile) {
 		page=null;
 		getPage();
-		JSONObject lDataObject = getDataFile(pDataFile);
 		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.EmailListingFlyerCache);
-		assertTrue(testVerifyEmailInMyMessages(lDataObject, lCacheObject.optString("email_subject")), "Unable to verify listing flyer email");
+		String l_email_subject = lCacheObject.optString("email_subject");
+		int lLeadId = new DBHelperMethods(getEnvironment()).getEmailBySubject(lCacheObject.optString("email_subject")).getUser();	
+		assertTrue(testVerifyEmailInMyMessages(l_email_subject,String.valueOf(lLeadId)), "Unable to verify listing flyer email");
 	}
 	@Test
 	@Parameters({"standardEmailData"})
@@ -251,7 +253,6 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	@Test
 	public void testVerifySearchOptionsAreVisibleForListingEmail() {
 		getPage("/marketing/massemail");
-		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
 		assertTrue(page.isAddressRadioButtonVisible(), "Address radio button is not visible..");
 		assertTrue(page.isCityRadioButtonVisible(), "City radio button is not visible..");
 		assertTrue(page.isMLSRadioButtonVisible(), "MLS radio button is not visible..");
@@ -262,23 +263,23 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	 * Verify correct Search option is visible when respective filter is clicked
 	 * 48818
 	 */
+	@Test
 	public void testSearchAndVerifyListingsByMLSID() {
 		getPage("/marketing/massemail");
-		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
 		assertTrue(page.clickOnMLSRadioButton(), "Unable to click on MLS ID radio button");
 		String mls_id = EnvironmentFactory.configReader.getPropertyByName("zurple_mls_id").toString();
 		assertTrue(page.typeInputField(mls_id), "Unable to type MLS ID");
 		assertTrue(page.clickOnSearchButton(), "Unable to click on search button");
-		assertTrue(page.isListingWithMLSIDPresent(mlsID), "Listing is not present in search results");
+		assertTrue(page.isListingWithMLSIDPresent(mls_id), "Listing is not present in search results");
 	}
 	
 	/**
 	 * Verify validation message is displayed if no Subject is provided and Next button is clicked
 	 * 48854
 	 */
+	@Test
 	public void testVerifyValidationMessageIsDisplayedIfNoSubjectIsProvided() {
 		getPage("/marketing/massemail");
-		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
 		assertTrue(page.clickOnNextButton(), "Unable to click on next button..");
 		assertTrue(page.isSubjectValidationMessageVisible(), "Subject Validation message is not visble");
 	}
@@ -287,9 +288,12 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	 * Verify Validation message is displayed if no listing is added and Next button is clicked
 	 * 48843
 	 */
+	@Test
 	public void testVerifyValidationMessageIsDisplayedIfNoListingIsSelected() {
 		getPage("/marketing/massemail");
-		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
+		String l_email_subject = updateName("Listing Email");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject, l_email_subject);
+		assertTrue(page.typeListingEmailSubject(l_email_subject), "Unable to type email subject");
 		assertTrue(page.clickOnNextButton(), "Unable to click on next button..");
 		assertTrue(page.isSelectListingValidationMessageVisible(), "Select listing Validation message is not visble");
 	}
@@ -298,9 +302,9 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	 * Verify added listings can be removed by clicking on "x" button
 	 * 48844
 	 */
+	@Test
 	public void testVerifyUserCanRemoveAddedListing() {
 		getPage("/marketing/massemail");
-		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
 		assertTrue(page.clickOnAddListingButton(), "Unable to click on Add listing button");
 		assertTrue(page.clickOnRemoveButton(), "Unable to click on remove listing button");
 	}
@@ -309,6 +313,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	 * Verify Calendar button pops Time selector once clicked on
 	 * 48845
 	 */
+	@Test
 	public void testVerifyDatePickerOpenWhenCalendarButtonIsClicked() {
 		getPage("/marketing/massemail");
 		assertTrue(page.clickOnCalendarButton(), "Unable to click on calendar button");
@@ -319,6 +324,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	 * Verify Time Zone is set as Admin Time zone once calendar button is clicked
 	 * 48847
 	 */
+	@Test
 	public void testVerifyAdminTimeZone() {
 		getPage("/marketing/massemail");
 		int l_admin_id =Integer.valueOf(EnvironmentFactory.configReader.getPropertyByName("zurple_bo_default_agent_id"));
@@ -331,6 +337,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	 * Verify Scheduled date and time is displayed once Done button is clicked
 	 * 48850
 	 */
+	@Test
 	public void testVerifyScheduleLabelIsDisplayed() {
 		getPage("/marketing/massemail");
 		assertTrue(page.getDatePicker().clickOnNowButton(), "Unable to click on now button");
@@ -343,6 +350,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	 * Verify Calender button is removed once time is selected and done button is clicked
 	 * 48857
 	 */
+	@Test
 	public void testVerifyCalendarButtonIsRemovedOnceEmailHasBeenScheduled() {
 		getPage("/marketing/massemail");
 		assertTrue(page.isScheduleButtonVisible(), "Schedule label is not removed.");
@@ -352,6 +360,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	 * Verify Scheduled date and time is removed once "x" is clicked
 	 * 48851
 	 */
+	@Test
 	public void testVerifyRemoveScheduleLabelButton() {
 		getPage("/marketing/massemail");
 		assertTrue(page.clickOnRemoveScheduleButton(), "Unable to click on remove schedule label button");
@@ -362,14 +371,79 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	 * Verify Preview Email page is opened once Next button is clicked after selecting listings
 	 * 48852
 	 */
+	@Test
 	public void testVerifyPreviewEmailPageIsOpenedWhenNextButtonIsClicked() {
 		getPage("/marketing/massemail");
 		assertTrue(page.clickOnAddListingButton(), "Unable to click on Add listing button");
 		assertTrue(page.clickOnNextButton(), "Unable to click on next button");
 		assertTrue(page.isPreviewHeadingVisibleForSendListingEmail(), "Preview heading is not visible");
+		assertTrue(page.isSeeListingButtonVisible(), "See Listing button is not visible..");
 	}
 	
+	/**
+	 * Verify Success message is displayed when user clicks Send Now button
+	 * 48893
+	 */
+	@Test
+	public void testVerifySuccessMessageIsDisplayedWhenSendNowButtonIsClicked() {
+		getPage("/marketing/massemail");
+		assertTrue(page.clickOnSendNowButtonListingPreview(), "Unable to click on Send Now button");
+		assertTrue(page.isSuccessMessage(), "Success message is not displayed");
+		String l_email_subject = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject);
+		processEmailQueue("mass_email",l_email_subject, CacheFilePathsConstants.EmailListingFlyerCache);
+	}
 	
+	/**
+	 * Verify 'Email has been scheduled' message is displayed when schedule Listing email is sent
+	 * 48898
+	 */
+	@Test
+	public void testSendScheduleListingEmail() {
+		getPage("/marketing/massemail");
+		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
+		String l_email_subject = updateName("Scheduled Listing Email");
+		assertTrue(page.typeListingEmailSubject(l_email_subject), "Unable to type email subject");
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleEmailFlyerSubject, l_email_subject);
+		assertTrue(page.clickOnAddListingButton(), "Unable to click on Add listing button");
+		assertTrue(page.clickOnCalendarButton(), "Unable to click on calendar button");
+		assertTrue(page.getDatePicker().clickOnNowButton(), "Unable to click on now button");
+		assertTrue(page.getDatePicker().clickOnDoneButton(), "Unable to click on Done button");
+		assertTrue(page.clickOnNextButton(), "Unable to click on next button");
+		assertTrue(page.clickOnSendNowButtonListingPreview(), "Unable to click on Send Now button");
+		assertTrue(page.isScheduledMessageDisplayed(), "Success message is not displayed");
+		processEmailQueue("mass_email",l_email_subject, CacheFilePathsConstants.ScheduledEmailListingFlyerCache);
+	}
+	
+	/**
+	 * Verify Leads are able to receive listings when sent in Bulk from Mass email page
+	 * 48896
+	 */
+	@Test
+	public void testVerifyScheduledEmailListingFlyerIsSent() {
+		getPage();
+		boolean isEmailSent = false;
+		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.ScheduledEmailListingFlyerCache);
+		String l_email_subject = lCacheObject.optString("email_subject");
+		int lLeadId = new DBHelperMethods(getEnvironment()).getEmailBySubject(l_email_subject).getUser();	
+		if(lLeadId>0) {
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadId, lLeadId);
+			isEmailSent = true;
+		}
+		assertTrue(isEmailSent, "Unable to verify listing flyer email from DB");
+	}
+	
+	/**
+	 * Verify Listing email is visible in Lead detail page once sent
+	 * 48897
+	 */
+	@Test
+	public void testVerifyScheduledEmailListingFlyerFromMyMessages() {
+		getPage();
+		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.ScheduledEmailListingFlyerCache);
+		String l_email_subject = lCacheObject.optString("email_subject");
+		int lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		assertTrue(testVerifyEmailInMyMessages(l_email_subject,String.valueOf(lLeadId)), "Unable to verify listing flyer email from lead details my messages section");
+	}
 	
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
 		lToEmail = pDataObject.optString("toemail");
@@ -602,12 +676,25 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		return duration+1;
 	}
 	
-	private void processEmailQueue() {
+	private void processEmailQueue(String pEmailToProcess,String pEmailSubject, String pFileToWrite) {
 		if(!getIsProd()) {
 			page=null;
 			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+			new ZAProcessEmailQueuesPage(driver).processEmailsQueues(pEmailToProcess);
 		} 
+		JSONObject cacheObject = new JSONObject();
+		cacheObject.put("email_subject", pEmailSubject);
+		emptyFile(pFileToWrite, "");
+		writeJsonToFile(pFileToWrite, cacheObject);
 	}
+	
+	public boolean testVerifyEmailInMyMessages(String pEmailSubject, String pLeadId) {
+		boolean isEmailSentSuccessfully = false;
+		page=null;
+		getPage();	
+		getPage("/lead/"+pLeadId);
+		isEmailSentSuccessfully = leadDetailPage.verifyMyMessagesEmails(pEmailSubject);
+		return isEmailSentSuccessfully;
+}
 
 }

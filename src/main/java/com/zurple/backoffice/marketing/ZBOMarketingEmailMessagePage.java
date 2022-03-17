@@ -3,6 +3,7 @@
  */
 package com.zurple.backoffice.marketing;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -155,17 +156,25 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	String remove_listing_button_list = "//ul[@class='select2-selection__rendered']/li/span";
 	String added_label_list = "//span[@class='added-property' and text()='Added']";
 	
-	@FindBy(id="new-post-schedule")
-	WebElement calendar_button;
+	@FindBy(xpath="//form[@id='active-listings-form']/descendant::span[@id='new-post-schedule']")
+	WebElement calendar_button_listing;
 	
 	@FindBy(xpath="//*[@id='scheduled-label']/descendant::span[@class='schedule-label']")
 	WebElement schedule_label;
 	
-	@FindBy(id="remove-schedule")
+	@FindBy(xpath="//form[@id='active-listings-form']/descendant::span[@id='remove-schedule']")
 	WebElement remove_Schedule_button;
 	
 	@FindBy(xpath="//*[@id='preview_heading']/h3[text()='Preview Email']")
 	WebElement preview_heading;
+	
+	String list_of_listings = "//table[@class='repeatable-mls-listing-block']/descendant::b/a[@href]";
+	
+	@FindBy(xpath="//a[@href and text()='See Listing']")
+	WebElement see_listing_button;
+	
+	@FindBy(id="send_now_btn")
+	WebElement send_now_button;
 	
 	private ZBOInsertImageForm zboInsertImageForm;
 	private ZBOAttachFileForm zbAttachFileForm;
@@ -382,7 +391,7 @@ public class ZBOMarketingEmailMessagePage extends Page{
 		return ActionHelper.Click(driver, ActionHelper.getListOfElementByXpath(driver, remove_listing_button_list).get(0));
 	}
 	public boolean clickOnCalendarButton() {
-		return ActionHelper.Click(driver, calendar_button);
+		return ActionHelper.Click(driver, calendar_button_listing);
 	}
 	public String getScheduleLabel() {
 		String lSchedule = "";
@@ -395,9 +404,18 @@ public class ZBOMarketingEmailMessagePage extends Page{
 		return ActionHelper.Click(driver, remove_Schedule_button);
 	}
 	public boolean isScheduleButtonVisible() {
-		return ActionHelper.isElementVisible(driver, schedule_button);
+		return ActionHelper.isElementVisible(driver, calendar_button_listing);
 	}
 	public boolean isPreviewHeadingVisibleForSendListingEmail() {
 		return ActionHelper.isElementVisible(driver, preview_heading);
+	}
+	public boolean isSeeListingButtonVisible() {
+		return ActionHelper.isElementVisible(driver, see_listing_button);
+	}
+	public boolean clickOnEscapeButton() {
+		return ActionHelper.Type(driver, emailListingFlyer_button, Keys.ESCAPE);
+	}
+	public boolean clickOnSendNowButtonListingPreview() {
+		return ActionHelper.Click(driver, send_now_button);
 	}
 }
