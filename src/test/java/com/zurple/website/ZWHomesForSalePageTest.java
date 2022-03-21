@@ -81,36 +81,41 @@ public class ZWHomesForSalePageTest extends PageTest{
 	public void testHomesForSale(@Optional String pDataFile) {
 		getPage();
 		dataObject = getDataFile(pDataFile);
-		assertTrue(page.isHomeForSalePage(),"Homes for Sale page is not found..");
-		assertTrue(page.verifyNavigationTabs(),"Unable to verify navigation tabs on Homes for Sale page..");
-		ActionHelper.staticWait(20);
-		int totalListings = page.getTotalListings();
-		boolean isClickSuccessful = false;
-		int counter =0;
-		AutomationLogger.info("Total listings are " + totalListings);
-		do {
-			counter++;
-			if(totalListings>0) {
-				int props = page.getPageNumOfProps();
-				AutomationLogger.info("Page number of props are " + props);
-				int rand = getRandomNumber(props);
-				rand = rand>2?rand-1:rand;
-				AutomationLogger.info("Random number is " + rand);
-				isClickSuccessful = page.clickOnListing(rand);
-				
-
+		if (page.isHomeForSalePage()) {
+			assertTrue(page.verifyNavigationTabs(),"Unable to verify navigation tabs on Homes for Sale page..");
+			ActionHelper.staticWait(20);
+			boolean isClickSuccessful = false;
+			int totalListings = page.getTotalListings();
+			int counter =0;
+			AutomationLogger.info("Total listings are " + totalListings);
+			do {
+				counter++;
+				if(totalListings > 0) {
+					int props = page.getPageNumOfProps();
+					AutomationLogger.info("Page number of props are " + props);
+					int rand = getRandomNumber(props);
+					rand = rand>2?rand-1:rand;
+					AutomationLogger.info("Random number is " + rand);
+					isClickSuccessful = page.clickOnListing(rand);	
+				}else {
+					AutomationLogger.error("No Listing found on search criteria..");
+				}
+			}while(!isClickSuccessful &&counter<5);
+			assertTrue(isClickSuccessful,"Unable to click on the listing..");
+			if(page.neighbourHoodValueFromXpath(dataObject.getString("input_search")).equalsIgnoreCase(dataObject.getString("input_search"))) {
+				if(dataObject.optBoolean("view_address")) {
+					ActionHelper.staticWait(30);
+					assertTrue(new ZWPropertyDetailPage(driver).clickOnViewAddress(),"Unable to click on the listing..");
+				}	
 			}else {
-				AutomationLogger.error("No Listing found on search criteria..");
+				AutomationLogger.onTestFail("Not Same Neighbourhood Property");	
 			}
-		}while(!isClickSuccessful &&counter<5);
-		assertTrue(isClickSuccessful,"Unable to click on the listing..");
-		
-		if(dataObject.optBoolean("view_address")) {
-			ActionHelper.staticWait(30);
-			assertTrue(new ZWPropertyDetailPage(driver).clickOnViewAddress(),"Unable to click on the listing..");
-
+		}else if(!page.neighbourHoodValueFromXpath(dataObject.getString("input_search")).equalsIgnoreCase(dataObject.getString("input_search"))){
+			AutomationLogger.onTestFail("Not Same Neighbourhood Property");
+		}else {
+			AutomationLogger.info("Home for sale Page is not found");
 		}
-		ActionHelper.staticWait(30);
+  		ActionHelper.staticWait(30);
 	}
 	
 	@Test(groups="testHomesForSale")

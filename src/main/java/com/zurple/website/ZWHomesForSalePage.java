@@ -5,6 +5,7 @@ package com.zurple.website;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,6 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import resources.forms.zurple.website.ZWLeadCaptureForm;
 import resources.utility.ActionHelper;
+import resources.utility.FrameworkConstants;
 import us.zengtest1.Page;
 
 /**
@@ -36,6 +38,12 @@ public class ZWHomesForSalePage extends Page{
 	WebElement showingListingCount;
 	
 	String allListings_xpath = "//div[@class='row property-photo-grid']/descendant::a";
+	String neighbourHoodValueXpath="//table[@id='propdetail_table']/descendant::td[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
+	
+	public String neighbourHoodValueFromXpath(String cityName) {
+		 String cityXpath = ActionHelper.getDynamicElementXpath(driver, neighbourHoodValueXpath, cityName);
+			return  driver.findElement(By.xpath(cityXpath)).getText();
+		}
 	
 	public ZWHomesForSalePage(WebDriver pWebDriver) {
 		driver = pWebDriver;
