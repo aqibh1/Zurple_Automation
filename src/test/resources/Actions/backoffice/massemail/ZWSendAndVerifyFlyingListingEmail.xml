@@ -7,7 +7,7 @@
 			class-name="resources.ZurpleReporter.ScreenshotTaker" />
 		<listener class-name="resources.CustomTestNGReporter" />
 	</listeners>
-<!-- 
+
 	<test name="Send Listing flyer email">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -40,7 +40,7 @@
 				</class>
 			</classes>
 	</test>
-	-->
+	
 	<test name="Send Scheduled Listing flyer email">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
@@ -60,7 +60,7 @@
 				</class>
 			</classes>
 	</test>
-	 
+	
 	<test name="Verify listing flyer email">	
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json"> 
 			<classes>
