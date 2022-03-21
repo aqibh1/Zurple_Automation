@@ -163,12 +163,13 @@ public class ManageEmails {
         return flagList;
     }
     public Email getEmailBySubject(String pEmailSubject){
-    	List<Email> emails = new ArrayList<>();
+//    	List<Email> emails = new ArrayList<>();
+    	Email emails = null;
     	 Transaction tx = null;
          try{
             // tx = session.beginTransaction();
-             emails = session.createQuery("FROM Email WHERE subject='"+pEmailSubject+"' Order by sent_datetime desc").setMaxResults(1).list();
-             AutomationLogger.info("QUERY RESULTS:"+emails.size());
+             emails = (Email) session.createQuery("FROM Email WHERE subject='"+pEmailSubject+"' Order by sent_datetime desc").setMaxResults(1).list().get(0);
+//             AutomationLogger.info("QUERY RESULTS:"+emails.size());
              tx.commit();
          }catch (HibernateException e) {
              if (tx!=null) tx.rollback();
@@ -177,7 +178,8 @@ public class ManageEmails {
         	 if (session != null && session.isOpen()) {
                  session.close();
              }
-             return emails.get(0);
+        	 
+             return emails;
          }
          
     }

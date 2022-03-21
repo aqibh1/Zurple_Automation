@@ -25,6 +25,7 @@ import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.alerts.zurple.backoffice.ZBOSucessAlert;
+import resources.orm.hibernate.models.zurple.Email;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.CacheFilePathsConstants;
@@ -424,11 +425,15 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		boolean isEmailSent = false;
 		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.ScheduledEmailListingFlyerCache);
 		String l_email_subject = lCacheObject.optString("email_subject");
-		int lLeadId = new DBHelperMethods(getEnvironment()).getEmailBySubject(l_email_subject).getUser();	
-		if(lLeadId>0) {
-			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadId, lLeadId);
-			isEmailSent = true;
-		}
+		Email email = new DBHelperMethods(getEnvironment()).getEmailBySubject(l_email_subject);
+		int lLeadId = 0;
+		if(email!=null) {
+			lLeadId = email.getUser();
+			if(lLeadId>0) {
+				ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadId, lLeadId);
+				isEmailSent = true;
+			}
+		}	
 		assertTrue(isEmailSent, "Unable to verify listing flyer email from DB");
 	}
 	
