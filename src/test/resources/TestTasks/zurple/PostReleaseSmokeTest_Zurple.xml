@@ -1085,6 +1085,16 @@
 	</parameter>
 	</test>
 	
+	<test name="Verify Phone number is deprovisioned">	 
+		<classes>
+			<class name="com.restapi.autoprovision.ZBORestPostDeprovisionPhone">
+			    <methods>
+					<include name="testPostFetchAndRemoveAliasPhone" />			
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
 	<test name="Verify Admin id is assigned correctly to leads">
 			<classes>
 				<class name="com.zurple.database.ZDBAdminIdTest">

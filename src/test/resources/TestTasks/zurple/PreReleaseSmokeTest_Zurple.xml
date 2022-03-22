@@ -4324,6 +4324,16 @@
 	</parameter>
 	</test>
 	
+	<test name="Verify Phone number is deprovisioned">	 
+		<classes>
+			<class name="com.restapi.autoprovision.ZBORestPostDeprovisionPhone">
+			    <methods>
+					<include name="testPostFetchAndRemoveAliasPhone" />			
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
 	<test name="Add Billing Payement Plan">
 		<parameter name="dataFile" value="/resources/data/create-agent-data.json">
 		<parameter name="dataFile1" value="/resources/data/zurple/ads/credit-card-ad-data.json">
