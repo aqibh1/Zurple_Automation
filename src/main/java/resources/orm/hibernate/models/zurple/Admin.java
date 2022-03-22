@@ -41,6 +41,7 @@ public class Admin extends Abstract
     private Integer owner_id;
     private Integer delete_flag;
     private Double time_zone;
+    private String alias_phone;
     public Admin() {
     }
 
@@ -116,6 +117,15 @@ public class Admin extends Abstract
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+    
+    @Column(name = "alias_phone_number", unique = false, nullable = false, length = 255)
+    public String getAliasPhone() {
+        return this.alias_phone;
+    }
+
+    public void setaliasPhone(String alias_phone) {
+        this.alias_phone = alias_phone;
     }
 
     @Column(name = "password_hash", unique = false, nullable = false, length = 255)

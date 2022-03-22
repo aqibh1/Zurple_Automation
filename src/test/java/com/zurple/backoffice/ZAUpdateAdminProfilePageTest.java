@@ -61,7 +61,7 @@ public class ZAUpdateAdminProfilePageTest extends PageTest {
 		
 	}
 
-	@Test(priority=246,dependsOnGroups={"ZAUpdateAdminManagerPageTest.testSubmitUpdates"})
+	@Test(priority=246)//,dependsOnGroups={"ZAUpdateAdminManagerPageTest.testSubmitUpdates"})
 	@Parameters({"dataFile"})
 	public void testSetup(String pDataFile) {
 		getPage();
@@ -100,9 +100,9 @@ public class ZAUpdateAdminProfilePageTest extends PageTest {
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testUpdatePhone() {
-//		String updatedPhone = updatePhoneNumber();
-//		assertTrue(page.updatePhone(updatedPhone),"Unable to update admin phone "+lAdminId);
-//		multiParts.put("phone", new Part(updatedPhone, PartType.STRING));
+		String updatedPhone = updatePhoneNumber();
+		assertTrue(page.updatePhone(updatedPhone),"Unable to update admin phone "+lAdminId);
+		multiParts.put("phone", new Part(updatedPhone, PartType.STRING));
 	}
 	
 	@Test(dependsOnMethods = { "testSetup" })
@@ -119,12 +119,13 @@ public class ZAUpdateAdminProfilePageTest extends PageTest {
 		multiParts.put("dre", new Part(updatedLicense, PartType.STRING));
 	}
 	
-	@Test(priority=247,dependsOnMethods = { "testSetup" },groups={"ZAUpdateAdminProfilePageTest.testSubmitUpdates"})
+	@Test(priority=247,dependsOnMethods = { "testSetup" })//,groups={"ZAUpdateAdminProfilePageTest.testSubmitUpdates"})
 	public void testSubmitUpdates() throws JsonGenerationException, JsonMappingException, IOException {
 		assertTrue(page.clickSubmitButton(),"Unable to submit admin updates  "+lAdminId);
 		emptyFile(CacheFilePathsConstants.APNSUpdatedDataForAdminProfile,"");
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.writeValue(new File(System.getProperty("user.dir")+CacheFilePathsConstants.APNSUpdatedDataForAdminProfile), multiParts);
+		ActionHelper.staticWait(10);
 	}
 
 	@AfterTest

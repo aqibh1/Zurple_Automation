@@ -6,8 +6,10 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import resources.orm.hibernate.models.zurple.Admin;
+import resources.orm.hibernate.models.zurple.User;
 
 public class ManageAdmin
 {
@@ -81,5 +83,24 @@ public class ManageAdmin
         }
         return admin_list;
     }
+    
+    /* Method to  READ admin by Last Name */
+    public List<Admin> getAllAPAdminsWithPhone(String pLastName){
+            List<Admin> list_of_admins = null;
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                list_of_admins = session.createQuery("FROM Admin WHERE last_name LIKE '%"+pLastName+"%' AND alias_phone_number IS NOT NULL").list();
+                tx.commit();
+            } catch (Exception e) {
+                if (tx!=null) tx.rollback();
+                e.printStackTrace();
+            } finally {
+                if (session != null && session.isOpen()) {
+                    session.close();
+                }
+            }
+            return list_of_admins;
+        }
 
 }

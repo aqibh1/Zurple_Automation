@@ -28,10 +28,10 @@ public class ZBORestPostFetchNSRecord extends RestAPITest{
 	private JSONObject dataObject;
 	String lDataFile ="";
 	
-	@Test(priority=245,dependsOnGroups={"ZAUpdateAdminManagerPageTest.testSubmitUpdates"})
+	@Test(priority=245)//,dependsOnGroups={"ZAUpdateAdminManagerPageTest.testSubmitUpdates"})
 	@Parameters({"dataFile"})
 	public void testPostFetchNSRecord(String pDataFile) throws Exception {
-		getDriver();
+		getPage();
 		lDataFile = pDataFile;
 		dataObject = getDataFile(pDataFile);
 		RestRequest request = new RestRequest();
@@ -43,10 +43,11 @@ public class ZBORestPostFetchNSRecord extends RestAPITest{
 		assertTrue(validateMapResp(response),"Unable to verify the NS record data..");
 	}
 	
-	@Test(priority=248,dependsOnGroups={"ZAUpdateAdminProfilePageTest.testSubmitUpdates"})
+	@Test(priority=248)//,dependsOnGroups={"ZAUpdateAdminProfilePageTest.testSubmitUpdates"},groups={"ZBORestPostFetchNSRecord.testPostFetchNSRecordForAdminProfile"})
 	@Parameters({"dataFile"})
 	public void testPostFetchNSRecordForAdminProfile(String pDataFile) throws Exception {
-		getDriver();
+		page=null;
+		getPage();
 		lDataFile = pDataFile;
 		dataObject = getDataFile(pDataFile);
 		RestRequest request = new RestRequest();
@@ -66,7 +67,7 @@ public class ZBORestPostFetchNSRecord extends RestAPITest{
 			fName = jObject.optString("first_name").equalsIgnoreCase(dataObject.getJSONObject("fName").optString("content"));
 			lName = jObject.optString("last_name").equalsIgnoreCase(dataObject.getJSONObject("lName").optString("content"));
 			email = jObject.optString("login_email").equalsIgnoreCase(dataObject.getJSONObject("email").optString("content"));
-			phone = true;//jObject.optString("phone").replaceAll("[()\\s-]+", "").contains(dataObject.getJSONObject("phone").optString("content").replaceAll("[()\\s-]+", ""));
+			phone = jObject.optString("phone").replaceAll("[()\\s-]+", "").contains(dataObject.getJSONObject("phone").optString("content").replaceAll("[()\\s-]+", ""));
 			oName = jObject.optString("office_name").equalsIgnoreCase(dataObject.getJSONObject("oName").optString("content"));
 			dre = jObject.optString("dre").equalsIgnoreCase(dataObject.getJSONObject("dre").optString("content"));
 			if(fName && lName && email && phone && oName && dre) {

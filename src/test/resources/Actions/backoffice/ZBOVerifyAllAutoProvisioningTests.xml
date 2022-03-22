@@ -185,4 +185,15 @@
 		</classes>
 	</parameter>
 	</test>
+	
+	<test name="Verify Phone number is deprovisioned">	 
+		<classes>
+			<class name="com.restapi.autoprovision.ZBORestPostDeprovisionPhone">
+			    <methods>
+					<include name="testPostFetchAndRemoveAliasPhone" />			
+				</methods>
+			</class>
+		</classes>
+	</test>
+
 </suite>
