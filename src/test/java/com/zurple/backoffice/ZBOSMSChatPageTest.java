@@ -65,7 +65,7 @@ public class ZBOSMSChatPageTest extends PageTest {
     @Test(groups="testsetup")
     public void testSetup() {
     	page = null;
-		getPage("/lead/smschatlog/"+EnvironmentFactory.configReader.getPropertyByName("lead_id"));
+		getPage("/lead/smschatlog/"+EnvironmentFactory.configReader.getPropertyByName("zurple_lead_id"));
     }
 	
 	@Test(dependsOnGroups={"testsetup"})
