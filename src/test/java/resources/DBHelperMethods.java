@@ -373,5 +373,8 @@ public class DBHelperMethods {
 	public Email getEmailBySubject(String pEmailSubject){
 		return testEnvironment.getEmailBySubject(pEmailSubject);
 	}
+	public List<Admin> getAllAPAdminsWithPhone(String pLastName){
+		return testEnvironment.getAllAPAdminsWithPhone(pLastName);
+	}
 	
 }
