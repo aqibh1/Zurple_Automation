@@ -12,14 +12,6 @@ import com.zurple.my.Page;
 
 public class ZBOGetMoreLeadsPage extends Page{
 	
-//	@FindBy(xpath="//ul[@class='dropdown-menu']/descendant::button[text()=' Get More Leads Today! ']")
-//	WebElement get_more_leads_button;
-	
-
-//	
-//	@FindBy(xpath="//h2[text()='Create Ad']")
-//	WebElement create_ad_heading;
-//	
 	@FindBy(xpath = "//h3[contains(text(),'Get More Leads')]")
 	WebElement get_more_leads_heading;
 	
@@ -34,12 +26,6 @@ public class ZBOGetMoreLeadsPage extends Page{
 	
 	@FindBy(xpath="//div[@class='logo_cont']/descendant::img[@alt='marketleader']")
 	WebElement market_leader;
-	
-//	@FindBy(xpath="//a[@aria-label='Go to the Zapier Homepage']//*[name()='svg']")
-//	WebElement zapier_sign;
-	
-//	@FindBy(xpath="//h2[@id=4]/strong[normalize-space()='Realtor.com Integration']")
-//	WebElement realtor_integration;
 	
 	@FindBy(xpath="//h3[normalize-space()='Zurple Auto Leads']")
 	WebElement zurple_auto_lead_heading;
@@ -58,8 +44,6 @@ public class ZBOGetMoreLeadsPage extends Page{
 	
 	@FindBy(id="zurple_seller_check_availability")
 	WebElement seller_plus_check_availability;
-	
-	// 48899,48907
 	
 	public ZBOGetMoreLeadsPage(WebDriver driver) {
 		// TODO Auto-generated constructor stub
