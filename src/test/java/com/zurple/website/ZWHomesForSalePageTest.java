@@ -112,8 +112,6 @@ public class ZWHomesForSalePageTest extends PageTest{
 			}
 		}else if(!page.neighbourHoodValueFromXpath(dataObject.getString("input_search")).equalsIgnoreCase(dataObject.getString("input_search"))){
 			AutomationLogger.onTestFail("Not Same Neighbourhood Property");
-		}else {
-			AutomationLogger.info("Home for sale Page is not found");
 		}
   		ActionHelper.staticWait(30);
 	}

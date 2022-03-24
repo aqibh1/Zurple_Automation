@@ -41,7 +41,7 @@ public class ZWHomesForSalePage extends Page{
 	String neighbourHoodValueXpath="//table[@id='propdetail_table']/descendant::td[text()='"+FrameworkConstants.DYNAMIC_VARIABLE+"']";
 	
 	public String neighbourHoodValueFromXpath(String cityName) {
-		 String cityXpath = ActionHelper.getDynamicElementXpath(driver, neighbourHoodValueXpath, cityName);
+		 String cityXpath =  ActionHelper.getDynamicElementXpath(driver, neighbourHoodValueXpath, cityName);
 			return  driver.findElement(By.xpath(cityXpath)).getText();
 		}
 	
