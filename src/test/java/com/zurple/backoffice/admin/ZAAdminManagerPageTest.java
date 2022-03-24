@@ -90,13 +90,13 @@ public class ZAAdminManagerPageTest extends PageTest{
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyPhone() {
 		AutomationLogger.info("Skipping");
-		//assertTrue(page.verifyPhone(dataObject.getJSONObject("phone").optString("content")),"Unable to verify admin phone "+lAdminId);
+		assertTrue(page.verifyPhone(dataObject.getJSONObject("phone").optString("content")),"Unable to verify admin phone "+lAdminId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })
 	public void testVerifyAliasPhone() {
 		AutomationLogger.info("Skipping");
-		//assertTrue(page.verifyAliasPhone(),"Unable to verify alias phone "+lAdminId);
+		assertTrue(page.verifyAliasPhone(),"Unable to verify alias phone "+lAdminId);
 	}
 
 	@Test(dependsOnMethods = { "testSetup" })

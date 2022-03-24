@@ -127,7 +127,7 @@ public class ZAUpdateAdminManagerPageTest extends PageTest{
 		multiParts.put("dre", new Part(updatedLicense, PartType.STRING));
 	}
 	
-	@Test(priority=244,dependsOnMethods = { "testSetup" },groups={"ZAUpdateAdminManagerPageTest.testSubmitUpdates"})
+	@Test(priority=244,dependsOnMethods = { "testSetup" })//,groups={"ZAUpdateAdminManagerPageTest.testSubmitUpdates"})
 	public void testSubmitUpdates() throws JsonGenerationException, JsonMappingException, IOException {
 		assertTrue(page.clickUpdateButton(),"Unable to submit admin updates  "+lAdminId);
 		emptyFile(CacheFilePathsConstants.APNSUpdatedData,"");

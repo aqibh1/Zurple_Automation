@@ -716,4 +716,8 @@ public class TestEnvironment
 		ManageEmails ml = new ManageEmails(getSession());
 		return ml.getEmailBySubject(pSubject);
 	}
+	public List<Admin> getAllAPAdminsWithPhone(String pLName){
+		ManageAdmin a = new ManageAdmin(getSession());
+		return a.getAllAPAdminsWithPhone(pLName);
+	}
 }

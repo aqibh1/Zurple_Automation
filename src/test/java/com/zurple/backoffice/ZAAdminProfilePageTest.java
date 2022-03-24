@@ -99,7 +99,7 @@ public void testVerifyDisplayName() {
 @Test(dependsOnMethods = { "testSetup" })
 public void testVerifyPhone() {
 	AutomationLogger.info("Skipping");
-	//assertTrue(page.verifyPhone(dataObject.getJSONObject("phone").optString("content")),"Unable to verify admin phone "+lAdminId);
+	assertTrue(page.verifyPhone(dataObject.getJSONObject("phone").optString("content")),"Unable to verify admin phone "+lAdminId);
 }
 
 @Test(dependsOnMethods = { "testSetup" })
