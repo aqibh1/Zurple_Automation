@@ -3,6 +3,7 @@
  */
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.text.ParseException;
@@ -276,7 +277,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	
 	/**
 	 * Verify validation message is displayed if no Subject is provided and Next button is clicked
-	 * 48854
+	 * 48853
 	 */
 	@Test
 	public void testVerifyValidationMessageIsDisplayedIfNoSubjectIsProvided() {
@@ -450,6 +451,34 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(testVerifyEmailInMyMessages(l_email_subject,String.valueOf(lLeadId)), "Unable to verify listing flyer email from lead details my messages section");
 	}
 	
+	/**
+	 * Verify current machine time is displayed by default once calendar button is clicked on
+	 * 48846
+	 */
+	@Test
+	public void testVerifyCurrentTimeIsDsiplayedInCalendar() {
+		getPage("/marketing/massemail");
+		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
+		assertTrue(page.clickOnCalendarButton(), "Unable to click on calendar button");
+		String l_time = page.getCurrentTime();
+		long difference = getDifference(l_time);
+		assertTrue(difference==1, "Machine time and calendar time are not same");	
+	}
+	
+	/**
+	 * Verify Email listings are not sent to individual lead from mass email page
+	 * 48855
+	 */
+	@Test
+	public void testVerifyListingEmailIsNotSentToIndividualLead() {
+		getPage("/marketing/massemail");
+		assertTrue(page.selectRecipients("Individual Lead with any Status other than Inactive"), "Unable to select individual recipient");
+		ActionHelper.staticWait(5);
+		assertTrue(page.isInputLeadEmailIsVisible(), "Email Input field is not visible");
+		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
+		ActionHelper.staticWait(5);
+		assertFalse(page.isInputLeadEmailIsVisible(), "Email Input field is not visible");
+	}
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
 		lToEmail = pDataObject.optString("toemail");
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");

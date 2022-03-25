@@ -351,6 +351,39 @@ public class ZBOLeadCRMPageTest extends PageTest{
 //		close.closeBrowser();
 	}
 
+	@Test
+	public void testVerifyEmailButtonTakesUserToListingFlyerModal() {
+		getPage("/leads/crm");
+		applyMultipleFilters("By Email Verification,By Contact Preference", "Valid Emails,Mass Emails: Yes");
+		page.isProcessingComplete();
+		assertTrue(page.clickOnEmailButton(), "Unable to click on email button");
+		assertTrue(page.getSendEmailForm().isSendEmailForm(), "Send email form is not displayed..");
+		assertTrue(page.getSendEmailForm().clickOnSendEmailButton(), "Unable to click on send email button..");
+	}
+	
+	@Test
+	public void testVerifyToInputIsFilledByLeadEmail() {
+		getPage("/leads/crm");
+		assertTrue(!page.getSendEmailForm().getToEamil().isEmpty(),"Lead email address is not populated in the To input field");
+	}
+	
+	@Test 
+	public void testVerifyUserCanSearchTheListingByMLS() {
+		getPage("/leads/crm");
+		String l_mls_id = EnvironmentFactory.configReader.getPropertyByName("zurple_mls_id");
+		assertTrue(page.getSendEmailForm().typeAndSearchListingByMLS(l_mls_id), "Unable to type and search listing by MLS");
+		assertTrue(page.getSendEmailForm().isListingHeadingFetched(), "Listing heading is not fetched by MLS");
+	}
+	
+	@Test
+	public void testVerifySuccessMessageIsDisplayedWhenUserClicksSendButton() {
+		getPage("/leads/crm");
+		String l_subject = updateSubject("Listing Email CRM");
+		assertTrue(page.getSendEmailForm().typeEmailListingSubject(l_subject), "Unable to type the subject..");
+		assertTrue(page.getSendEmailForm().isSuccessMessageDisplayed(), "Success message is not displayed");
+		
+	}
+	
 	public void applyFilter(String pFilterName, String pFilterValue){
 		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
 		assertTrue(leadPage.clickAndSelectFilterName(pFilterName),"Unable to select the filter type "+pFilterName);
