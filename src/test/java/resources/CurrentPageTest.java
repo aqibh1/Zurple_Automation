@@ -15,6 +15,7 @@ public class CurrentPageTest extends AbstractPageTest
     public void closeBrowser(){
         Long thread_id = Thread.currentThread().getId();
         AutomationLogger.info("Thread ID "+thread_id);
+        EnvironmentFactory.closeDriver(thread_id);
         EnvironmentFactory.quitDriver(thread_id);
         AutomationLogger.info("Browser closed Successfully");
     }
