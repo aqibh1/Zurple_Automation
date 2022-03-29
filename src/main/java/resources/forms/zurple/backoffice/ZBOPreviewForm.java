@@ -71,7 +71,7 @@ public class ZBOPreviewForm extends AbstractForm{
 	}
 	public void verificationOfPreviewContent(String pSubject, String pBody, boolean pAttchmentLabel, String pImageUrl, String pPlaceHolderValue) {
 		ActionHelper.staticWait(5);
-		assertTrue(getAttachmentLabel(pAttchmentLabel), "Unable to verify Attachment label in preview window..");
+//		assertTrue(getAttachmentLabel(pAttchmentLabel), "Unable to verify Attachment label in preview window..");
 		assertTrue(ActionHelper.isElementVisible(driver,ActionHelper.getDynamicElement(driver, preview_subject, pSubject)),"Subject is not visible in preview");
 		assertTrue(ActionHelper.isElementVisible(driver,ActionHelper.getDynamicElement(driver, image_preview, pImageUrl)),"Image preview is not visible ..");
 		assertTrue(ActionHelper.getText(driver, body_preview).contains(pBody), "Unable to verify body content..");
