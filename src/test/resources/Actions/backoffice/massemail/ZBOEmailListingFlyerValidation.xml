@@ -1,0 +1,103 @@
+<suite name="Capture Lead From About Me Page"
+	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+		<test name="Verify current time is visible in calendar">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+						<include name="testVerifyCurrentTimeIsDsiplayedInCalendar" /> 
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>	
+	
+	<test name="Verify Listing email is not sent to individual lead">	
+	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+						<include name="testVerifyListingEmailIsNotSentToIndividualLead" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>	
+	
+	<test name="Verify Agent cannot send listing email to lead assigned to other agent">
+		<classes>
+		
+			<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+				<methods>
+					<include name="testVerifyEmailIsNotSentToOtherThenAssignedAgent" />
+				</methods>
+			</class>
+			<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Send listing flyer email from leads CRM page">
+		<classes>
+		
+			<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+				<methods>
+					<include name="testVerifyEmailButtonTakesUserToListingFlyerModal" />
+					<include name="testVerifyToInputIsFilledByLeadEmail" />
+					<include name="testVerifyUserCanSearchTheListingByMLS" />
+					<include name="testVerifySuccessMessageIsDisplayedWhenUserClicksSendButton" />
+				</methods>
+			</class>
+			<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+	
+	<test name="Verify CRM listing flyer email from My Messages leads details page">
+		<classes>
+		
+			<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+				<methods>
+					<include name="testVerifyCRMListingFlyerEmailFromMyMessages" />
+				</methods>
+			</class>
+			<class name="resources.CurrentPageTest">
+				<methods>
+					<include name="closeBrowser" />
+				</methods>
+			</class>
+		</classes>
+	</test>
+
+</suite>

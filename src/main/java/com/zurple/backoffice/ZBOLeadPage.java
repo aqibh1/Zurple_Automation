@@ -50,9 +50,11 @@ public class ZBOLeadPage extends Page{
 	
 	@FindBy(xpath="//select[@id='location-parent-1']")
 	WebElement filter_dropdown;
+	String select_location_filter ="//*[contains(@id,'filter-dependent-selects')]/descendant::select[contains(@id,'location-parent')]";
 	
 	@FindBy(xpath="//select[@id='location-child-1']")
 	WebElement filter_child_dropdown;
+	String select_child_filter ="//*[contains(@id,'filter-dependent-selects')]/descendant::select[contains(@id,'location-child')]";
 	
 	@FindBy(id="leads-grid-filter-button")
 	WebElement search_button;
@@ -168,13 +170,23 @@ public class ZBOLeadPage extends Page{
 	}
 	
 	public boolean clickAndSelectFilterName(String pFilterName) {
-		return ActionHelper.selectDropDownOption(driver, filter_dropdown, "", pFilterName);
-		
+		return ActionHelper.selectDropDownOption(driver, filter_dropdown, "", pFilterName);	
 	}
 	public boolean clickAndSelectFilterValue(String pFilterValue) {
 		return ActionHelper.selectDropDownOption(driver, filter_child_dropdown, "", pFilterValue);	
 	}
-	
+	public boolean clickAndSelectFilterNameLast(String pFilterName) {
+		List<WebElement> list_of_element = ActionHelper.getListOfElementByXpath(driver,select_location_filter);
+		return ActionHelper.selectDropDownOption(driver, list_of_element.get(list_of_element.size()-1), "", pFilterName);	
+	}
+	public boolean clickAndSelectFilterValueLast(String pFilterValue) {
+		List<WebElement> list_of_element = ActionHelper.getListOfElementByXpath(driver,select_child_filter);
+		return ActionHelper.selectDropDownOption(driver, list_of_element.get(list_of_element.size()-1), "", pFilterValue);	
+	}
+	public boolean clickAndSelectFilterValueExcept(String pFilterValueNotToSelect) {
+		List<WebElement> list_of_element = ActionHelper.getListOfElementByXpath(driver,select_child_filter);
+		return ActionHelper.selectDropDownaAnyOptionExcept(driver, list_of_element.get(list_of_element.size()-1), pFilterValueNotToSelect);	
+	}
 	private boolean isSortingWorking(String pXpathAscending, String pXpathDescending,String pDynamicVariable) {
 		boolean isWorking = false;
 		ActionHelper.staticWait(3);

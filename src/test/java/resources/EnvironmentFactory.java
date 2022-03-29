@@ -92,6 +92,9 @@ public class EnvironmentFactory {
                     options.addArguments("--disable-dev-shm-usage"); //https://stackoverflow.com/a/50725918/1689770
                     options.addArguments("--disable-browser-side-navigation"); //https://stackoverflow.com/a/49123152/1689770
                     options.addArguments("--disable-gpu"); //https://stackoverflow.com/questions/51959986/how-to-solve-selenium-chromedriver-timed-out-receiving-message-from-renderer-exc
+                    options.addArguments("--disable-extensions");
+                    options.addArguments("--dns-prefetch-disable");
+//                    options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
                     options.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.ACCEPT);
                     options.setCapability (CapabilityType.ACCEPT_SSL_CERTS, true);
                     options.setAcceptInsecureCerts(true);
