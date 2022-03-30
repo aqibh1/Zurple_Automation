@@ -52,8 +52,7 @@
 	</parameter>
 	</test>	
 	
-	<test name="Send Listing flyer email">	
-	<parameter name="listingEmailFlyerData" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json"> 
+	<test name="Send Listing flyer email from marketing">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -61,8 +60,21 @@
 					</methods>
 				</class>
 				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
-					<methods>
-							<include name="testSendEmailListingFlyer" />
+					<methods> 
+						<include name="testVerifySendListingButtonIsVisible" />
+						<include name="testVerifyListingEmailSubjectIsVisibleWhenSendListingIsClciked" />
+						<include name="testVerifySearchOptionsAreVisibleForListingEmail" />
+						<include name="testSearchAndVerifyListingsByMLSID" />
+						<include name="testVerifyValidationMessageIsDisplayedIfNoSubjectIsProvided" />
+						<include name="testVerifyValidationMessageIsDisplayedIfNoListingIsSelected" />
+						<include name="testVerifyUserCanRemoveAddedListing" />
+						<include name="testVerifyDatePickerOpenWhenCalendarButtonIsClicked" />
+						<include name="testVerifyAdminTimeZone" />
+						<include name="testVerifyScheduleLabelIsDisplayed" />
+						<include name="testVerifyRemoveScheduleLabelButton" />
+						<include name="testVerifyCalendarButtonIsRemovedOnceEmailHasBeenScheduled" />
+						<include name="testVerifyPreviewEmailPageIsOpenedWhenNextButtonIsClicked" />
+						<include name="testVerifySuccessMessageIsDisplayedWhenSendNowButtonIsClicked" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
@@ -71,7 +83,26 @@
 					</methods>
 				</class>
 			</classes>
-	</parameter>
+	</test>
+	
+	<test name="Send Scheduled Listing flyer email from marketing">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods> 
+						<include name="testSendScheduleListingEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
 	</test>
 	
 	<test name="Send Standard email">	
@@ -2261,6 +2292,29 @@
 				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
 					<methods>
 							<include name="testVerifyBulkEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
+	
+	<test name="Verify listing flyer email sent from marketing page">	
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+							<include name="testVerifyScheduledEmailListingFlyerIsSent" />
+							<include name="testVerifyScheduledEmailListingFlyerFromMyMessages" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
