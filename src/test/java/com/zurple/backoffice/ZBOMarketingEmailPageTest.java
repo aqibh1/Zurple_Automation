@@ -536,26 +536,26 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			assertTrue(page.typeToEmail(lToEmail), "Unable to type lead email..");
 		}
 		ActionHelper.staticWait(2);
-		if(pDataObject.optString("file_path")!=null && !pDataObject.optString("file_path").isEmpty()) {
-			assertTrue(page.clickOnAttachFileButton(), "Unable to click on attach file button..");
-			ActionHelper.staticWait(2);
-			page.getAttachFileForm().switchToBrowserToNewWindow();
-			ActionHelper.staticWait(10);
-//			assertTrue(page.getAttachFileForm().isUploadFileFormVisible(), "Upload file form is not visible..");
-			assertTrue(page.getAttachFileForm().clickAndSelectFile(), "Unable to select the file from upload form ..");
-			ActionHelper.staticWait(5);
-			page.getAttachFileForm().switchToOriginalWindow();
-			ActionHelper.staticWait(5);
-			assertTrue(page.isAttachmentRemoveButtonVisible(), "Remove button after attaching file is not visible..");
-			
-			assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
-			ActionHelper.staticWait(2);
-			assertTrue(page.isAttachmentLabelVisible(), "Attachment file is not visible in preview..");
-			ActionHelper.staticWait(2);
-			assertTrue(page.closePreviewWindow(), "Unable to close Preview window..");
-			ActionHelper.staticWait(2);
-			
-		}
+//		if(pDataObject.optString("file_path")!=null && !pDataObject.optString("file_path").isEmpty()) {
+//			assertTrue(page.clickOnAttachFileButton(), "Unable to click on attach file button..");
+//			ActionHelper.staticWait(2);
+//			page.getAttachFileForm().switchToBrowserToNewWindow();
+//			ActionHelper.staticWait(10);
+////			assertTrue(page.getAttachFileForm().isUploadFileFormVisible(), "Upload file form is not visible..");
+//			assertTrue(page.getAttachFileForm().clickAndSelectFile(), "Unable to select the file from upload form ..");
+//			ActionHelper.staticWait(5);
+//			page.getAttachFileForm().switchToOriginalWindow();
+//			ActionHelper.staticWait(5);
+//			assertTrue(page.isAttachmentRemoveButtonVisible(), "Remove button after attaching file is not visible..");
+//			
+//			assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
+//			ActionHelper.staticWait(2);
+//			assertTrue(page.isAttachmentLabelVisible(), "Attachment file is not visible in preview..");
+//			ActionHelper.staticWait(2);
+//			assertTrue(page.closePreviewWindow(), "Unable to close Preview window..");
+//			ActionHelper.staticWait(2);
+//			
+//		}
 		if(pDataObject.optString("schedule_email")!=null && !pDataObject.optString("schedule_email").isEmpty()) {
 			assertTrue(page.selectSchedule(), "Unable to schedule the email..");
 			isScheduledEmail = true;
