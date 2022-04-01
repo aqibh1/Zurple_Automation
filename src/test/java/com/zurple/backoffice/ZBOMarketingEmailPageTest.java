@@ -16,7 +16,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
 import com.zurple.my.PageTest;
 
@@ -89,11 +88,11 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.isMarketingEmailPage(), "Marketing email page is not displayed...");
 		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
 		verifyEmailListingFlyer(lDataObject);
-		if(!getIsProd()) {
-			page=null;
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-		} 
+//		if(!getIsProd()) {
+//			page=null;
+//			getPage("/admin/processemailqueue");
+//			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+//		} 
 		JSONObject cacheObject = new JSONObject();
 		cacheObject.put("email_subject", flyerSubject);
 		emptyFile(CacheFilePathsConstants.EmailListingFlyerCache, "");
@@ -119,11 +118,11 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		assertTrue(page.selectRecipients(lDataObject.optString("recipients")), "Unable to select the recipients...");
 		fillStandardEmailForm(lDataObject);
 		System.out.println("This is email subject: "+emailSubject);
-		if(!getIsProd()) {
-			page=null;
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-		} 
+//		if(!getIsProd()) {
+//			page=null;
+//			getPage("/admin/processemailqueue");
+//			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+//		} 
 		JSONObject cacheObject = new JSONObject();
 		cacheObject.put("email_subject", emailSubject);
 		emptyFile(CacheFilePathsConstants.StandardEmailCache, "");
@@ -156,11 +155,11 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		cacheObject.put("email_subject", bulkEmailSubject);
 		emptyFile(CacheFilePathsConstants.BulkEmailCache, "");
 		writeJsonToFile(CacheFilePathsConstants.BulkEmailCache, cacheObject);
-		if(!getIsProd()) {
-			page=null;
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-		} 
+//		if(!getIsProd()) {
+//			page=null;
+//			getPage("/admin/processemailqueue");
+//			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+//		} 
 //		System.out.println("This is bulk email subject: "+bulkEmailSubject);
 //		testVerifyEmailInMyMessages(lDataObject, bulkEmailSubject);
 		
@@ -479,6 +478,18 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		ActionHelper.staticWait(5);
 		assertFalse(page.isInputLeadEmailIsVisible(), "Email Input field is not visible");
 	}
+	
+	@Test
+	@Parameters({"standardEmailData"})
+	public void testVerifyStandardEmailIsScheduled(String pDataFile) {
+		JSONObject lDataObject = getDataFile(pDataFile);
+		getPage("/marketing/massemail");
+		JSONObject lDataObject2 = getDataFile(CacheFilePathsConstants.ScheduledEmailCache);
+		String emailSubject = lDataObject.getString("subject");
+		assertTrue(isEmailShowingInScheduledEmails(lDataObject, emailSubject), "Email is not showing up under scheduled email section..");
+		testVerifyScheduledEmailInMyMessages(lDataObject, emailSubject);
+	}
+	
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
 		lToEmail = pDataObject.optString("toemail");
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");
@@ -536,26 +547,26 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			assertTrue(page.typeToEmail(lToEmail), "Unable to type lead email..");
 		}
 		ActionHelper.staticWait(2);
-		if(pDataObject.optString("file_path")!=null && !pDataObject.optString("file_path").isEmpty()) {
-			assertTrue(page.clickOnAttachFileButton(), "Unable to click on attach file button..");
-			ActionHelper.staticWait(2);
-			page.getAttachFileForm().switchToBrowserToNewWindow();
-			ActionHelper.staticWait(10);
-//			assertTrue(page.getAttachFileForm().isUploadFileFormVisible(), "Upload file form is not visible..");
-			assertTrue(page.getAttachFileForm().clickAndSelectFile(), "Unable to select the file from upload form ..");
-			ActionHelper.staticWait(5);
-			page.getAttachFileForm().switchToOriginalWindow();
-			ActionHelper.staticWait(5);
-			assertTrue(page.isAttachmentRemoveButtonVisible(), "Remove button after attaching file is not visible..");
-			
-			assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
-			ActionHelper.staticWait(2);
-			assertTrue(page.isAttachmentLabelVisible(), "Attachment file is not visible in preview..");
-			ActionHelper.staticWait(2);
-			assertTrue(page.closePreviewWindow(), "Unable to close Preview window..");
-			ActionHelper.staticWait(2);
-			
-		}
+//		if(pDataObject.optString("file_path")!=null && !pDataObject.optString("file_path").isEmpty()) {
+//			assertTrue(page.clickOnAttachFileButton(), "Unable to click on attach file button..");
+//			ActionHelper.staticWait(2);
+//			page.getAttachFileForm().switchToBrowserToNewWindow();
+//			ActionHelper.staticWait(10);
+////			assertTrue(page.getAttachFileForm().isUploadFileFormVisible(), "Upload file form is not visible..");
+//			assertTrue(page.getAttachFileForm().clickAndSelectFile(), "Unable to select the file from upload form ..");
+//			ActionHelper.staticWait(5);
+//			page.getAttachFileForm().switchToOriginalWindow();
+//			ActionHelper.staticWait(5);
+//			assertTrue(page.isAttachmentRemoveButtonVisible(), "Remove button after attaching file is not visible..");
+//			
+//			assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
+//			ActionHelper.staticWait(2);
+//			assertTrue(page.isAttachmentLabelVisible(), "Attachment file is not visible in preview..");
+//			ActionHelper.staticWait(2);
+//			assertTrue(page.closePreviewWindow(), "Unable to close Preview window..");
+//			ActionHelper.staticWait(2);
+//			
+//		}
 		if(pDataObject.optString("schedule_email")!=null && !pDataObject.optString("schedule_email").isEmpty()) {
 			assertTrue(page.selectSchedule(), "Unable to schedule the email..");
 			isScheduledEmail = true;
@@ -630,9 +641,9 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			getPage("/lead/"+lLeadId);
 			isEmailShoowing = leadDetailPage.verifyScheduledEmail(pEmailSubject);
 			//	Process email queue
-			page=null;
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+//			page=null;
+//			getPage("/admin/processemailqueue");
+//			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
 		} else {
 			lLeadId = pDataObject.optString("leadid");
 			
@@ -711,11 +722,11 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 	}
 	
 	private void processEmailQueue(String pEmailToProcess,String pEmailSubject, String pFileToWrite) {
-		if(!getIsProd()) {
-			page=null;
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processEmailsQueues(pEmailToProcess);
-		} 
+//		if(!getIsProd()) {
+//			page=null;
+//			getPage("/admin/processemailqueue");
+//			new ZAProcessEmailQueuesPage(driver).processEmailsQueues(pEmailToProcess);
+//		} 
 		JSONObject cacheObject = new JSONObject();
 		cacheObject.put("email_subject", pEmailSubject);
 		emptyFile(pFileToWrite, "");

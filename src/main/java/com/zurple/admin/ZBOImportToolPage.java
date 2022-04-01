@@ -63,19 +63,19 @@ public class ZBOImportToolPage extends Page {
 	@FindBy(id="Import")
 	WebElement import_button;
 	
-	ZAProcessEmailQueuesPage processEmailObject;
+//	ZAProcessEmailQueuesPage processEmailObject;
 	ZBOLeadCRMPage leadCRMObject;
 	ZBOLeadDetailPage leadDetailsObject;
 	
 	public ZBOImportToolPage() {
 	}
 	
-	public ZAProcessEmailQueuesPage getEmailQueue() {
-		return processEmailObject;
-	}
-	public void setEmailQueue() {
-		this.processEmailObject = new ZAProcessEmailQueuesPage(driver);
-	}
+//	public ZAProcessEmailQueuesPage getEmailQueue() {
+//		return processEmailObject;
+//	}
+//	public void setEmailQueue() {
+//		this.processEmailObject = new ZAProcessEmailQueuesPage(driver);
+//	}
 	
 	public ZBOLeadCRMPage getLeadsCRM() {
 		return leadCRMObject;
@@ -95,7 +95,7 @@ public class ZBOImportToolPage extends Page {
 		driver = pWebDriver;
 		setLeadsCRM();
 		setLeadDetails();
-		setEmailQueue();
+//		setEmailQueue();
 		PageFactory.initElements(driver, this);
 	}
 	
@@ -174,9 +174,9 @@ public class ZBOImportToolPage extends Page {
 		return leadDetailsObject.isEmailVerified();
 	}
 	
-	public void processEmailQueue() {
-		processEmailObject.processNextDayResponderQueue();
-	}
+//	public void processEmailQueue() {
+//		processEmailObject.processNextDayResponderQueue();
+//	}
 	
 	public boolean isImportCheckinEmailGenerated() {
 		int counter = 0;

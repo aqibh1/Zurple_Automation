@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.AutomationLogger;
+import resources.utility.CacheFilePathsConstants;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
 
@@ -105,6 +106,11 @@ public class ZWHomeEvaluationPageTest extends PageTest{
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ld_email,lLeadId);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId,lLeadId);
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadName,ld_firstName+" "+ld_lastname);
+		
+		JSONObject cacheObject = new JSONObject();
+		cacheObject.put("lead_id", lLeadId);
+		emptyFile(CacheFilePathsConstants.HomeValuationLeadCache, "");
+		writeJsonToFile(CacheFilePathsConstants.HomeValuationLeadCache, cacheObject);
 		
 	}
 	

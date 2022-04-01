@@ -1,0 +1,33 @@
+<suite name="Update and Verify User Settings suite"
+	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+	<test name="Process Email Queues">
+			<classes>
+				<class name="com.zurple.backoffice.ZAProcessEmailQueuePageTest">
+					<methods>
+						<include name="testProcessImmediateResponderQueue" />
+						<include name="testProcessAutoResponderQueue" />
+						<include name="testProcessNextDayResponderQueue" />
+						<include name="testProcessMassEmailQueue" />
+						<include name="testProcessReminderQueue" />
+						<include name="testProcessAlertQueue" />
+						<include name="testProcessCMAEmailQueue" />
+						<include name="testCreateAndSendSummaryEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+</suite>

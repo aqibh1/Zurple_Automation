@@ -1,0 +1,24 @@
+<suite name="Capture Lead From About Me Page"
+	preserve-order="true" verbose="2" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener
+			class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+	</listeners>
+
+		<test name="Verify Home Value lead alerts and emails are triggered" >	
+	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 
+			<classes>
+				<class name="com.zurple.website.ZWHomeValuesPageTest">
+					<methods>
+						<include name="testVerifyHomeVlauationAlertIsTriggered"/>
+						<include name="testVerifyPropertUpdateIsSetToNo"/>
+						<include name="testVerifyHomeVlauationEmailIsTriggered"/>
+					</methods>
+				</class> 
+			</classes>
+	</parameter>
+	</test>
+</suite>

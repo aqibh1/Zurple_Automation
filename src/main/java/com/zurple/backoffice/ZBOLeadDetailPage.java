@@ -1131,7 +1131,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyHomeEvaluationAlert(String pText) {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<15) {
+		while(!isVerified && counter<5) {
 			ActionHelper.staticWait(45);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "300");
@@ -1143,7 +1143,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyHighActivityAlert() {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<15) {
+		while(!isVerified && counter<5) {
 			ActionHelper.staticWait(45);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "400");
@@ -1155,7 +1155,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyHighReturnAlert() {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<15) {
+		while(!isVerified && counter<5) {
 			ActionHelper.staticWait(45);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "500");
@@ -1176,7 +1176,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyAgentInquiryAlert() {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<15) {
+		while(!isVerified && counter<5) {
 			ActionHelper.staticWait(20);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "600");
@@ -1188,7 +1188,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyActivityAlert(String pAlertName) {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<15) {
+		while(!isVerified && counter<5) {
 			ActionHelper.staticWait(20);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "600");
@@ -1200,7 +1200,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyFavoritesAlert(String pCity, String pAddress, String pPrice) {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<15) {
+		while(!isVerified && counter<5) {
 			ActionHelper.staticWait(20);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "600");

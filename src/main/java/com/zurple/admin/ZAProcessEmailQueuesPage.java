@@ -203,6 +203,16 @@ public class ZAProcessEmailQueuesPage extends Page{
 			case "cma_personal_offer":
 				processCMAQueue();
 				break;
+			case "Immediate_Responder":
+				processImmediateResponderQueue();
+				break;
+			case "Next Day Responder Queue":
+				processNextDayResponderQueue();
+				break;
+			case "Reminder Email Queue":
+				processReminderQueue();
+				break;
+				
 			default:
 				break;
 		}

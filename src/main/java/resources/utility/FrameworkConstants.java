@@ -27,4 +27,12 @@ public class FrameworkConstants {
 	public static final String YoutubeIconImage = "icon_post_youtube_32.png";
 	public static final String HomeValueAssesment = "Home Value Assessment";
 	public static final String ThanksForRegistering = "Thank You for Registering";
+	public static final String ImmediateResponderQueue = "Immediate_Responder";
+	public static final String AutoResponderQueue = "Auto_Responder";
+	public static final String NextDayResponderQueue = "Next Day Responder Queue";
+	public static final String MassEmailQueue = "mass_email";
+	public static final String ReminderQueue = "Reminder Email Queue";
+	public static final String AlertQueue = "alerts";
+	public static final String CMAEmailQueue = "cma_personal_offer";
+	public static final String CreateAndSendSummaryEmail = "c1.alert-summary";
 }

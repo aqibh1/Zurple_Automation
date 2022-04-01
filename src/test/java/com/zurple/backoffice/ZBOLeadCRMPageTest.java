@@ -14,7 +14,6 @@ import org.testng.SkipException;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
@@ -284,12 +283,12 @@ public class ZBOLeadCRMPageTest extends PageTest{
 	}
 	public void testVerifyEmailInMyMessages(String pLeadId, String pEmailSubject) {
 		String lLeadId = pLeadId;		
-		if(!getIsProd()) {
-			//	Process email queue
-			page=null;
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-		} 
+//		if(!getIsProd()) {
+//			//	Process email queue
+//			page=null;
+//			getPage("/admin/processemailqueue");
+//			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+//		} 
 		page = null;
 		getPage("/lead/"+lLeadId);
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
@@ -447,7 +446,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 	public void testVerifyCRMListingFlyerEmailFromMyMessages() {
 		doLogin();
 		getPage("/leads/crm");
-		processMassEmailQueue();
+//		processMassEmailQueue();
 		dataObject = getDataFile(CacheFilePathsConstants.CRMEmailListingCache);
 		String ld_email_subject = dataObject.optString("email_subject");
 
@@ -512,12 +511,12 @@ public class ZBOLeadCRMPageTest extends PageTest{
 			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
 		}
 	}
-	private void processMassEmailQueue() {
-		if(!getIsProd()) {
-			//	Process email queue
-			page=null;
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
-		}
-	}
+//	private void processMassEmailQueue() {
+//		if(!getIsProd()) {
+//			//	Process email queue
+//			page=null;
+//			getPage("/admin/processemailqueue");
+//			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
+//		}
+//	}
 }

@@ -17,7 +17,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.backoffice.marketing.ZBOCampaignPage;
 import com.zurple.my.PageTest;
 import com.zurple.website.ZWCommunityReportsPageTest;
@@ -152,7 +151,10 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.verifyPropView(dataObject.optString(DataConstants.Views)), "Unable to verify views in Notes..");
 		assertTrue(page.verifyPropStyle(dataObject.optString(DataConstants.Style)), "Unable to verify style in Notes..");
 
-		AutomationLogger.endTestCase();
+		JSONObject cacheObject = new JSONObject();
+		cacheObject.put("lead_id", lLead);
+		emptyFile(CacheFilePathsConstants.AccountSettingsLeadCache, "");
+		writeJsonToFile(CacheFilePathsConstants.AccountSettingsLeadCache, cacheObject);
 		
 	}
 	
@@ -191,19 +193,21 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.isEmailVerified(), "Email is not verified..");
 		AutomationLogger.endTestCase();
 	}
+	
+	//This test is not being used anywehere
 	@Test(priority = 150 , dependsOnMethods = {"testVerifyValidEmail"}, retryAnalyzer = resources.RetryFailedTestCases.class)
 	public void testVerifyAlerts() {
 		AutomationLogger.startTestCase("Verify Alerts");
 		getPage();
 		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
 		page = null;
-		if(!getIsProd()) {
-			//Process email queue
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
-			new ZAProcessEmailQueuesPage(driver).processImmediateResponderQueue();
-			page =null;
-		}
+//		if(!getIsProd()) {
+//			//Process email queue
+//			getPage("/admin/processemailqueue");
+//			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
+//			new ZAProcessEmailQueuesPage(driver).processImmediateResponderQueue();
+//			page =null;
+//		}
 		getPage("/lead/"+lLeadId);
 		String lAddress = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleProp);
 		assertTrue(page.verifySignupAlert(), "Unable to verify sign up alert..");
@@ -213,26 +217,27 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		
 	}
 	
-	@Test(priority = 200 , dependsOnMethods = {"testVerifyValidEmail"})
+	@Test
 	@Parameters({"userSettings"})
 	public void verifyUserSettingsAlerts(String pDataFile) {
-		AutomationLogger.startTestCase("Verify Alerts");
 		getPage();
 		dataObject = getDataFile(pDataFile);
-		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		JSONObject cacheObject = new JSONObject();
+		cacheObject = getDataFile(CacheFilePathsConstants.AccountSettingsLeadCache);
+//		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		String lLeadId = cacheObject.getString("lead_id");
 		page = null;
-		if(!getIsProd()) {
-			//Process email queue
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
-			new ZAProcessEmailQueuesPage(driver).processImmediateResponderQueue();
-			page =null;
-		}
+//		if(!getIsProd()) {
+//			//Process email queue
+//			getPage("/admin/processemailqueue");
+//			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
+//			new ZAProcessEmailQueuesPage(driver).processImmediateResponderQueue();
+//			page =null;
+//		}
 		getPage("/lead/"+lLeadId);
 //		getPage("/lead/4581389");
 		ActionHelper.staticWait(10);
 		assertTrue(page.verifySignupAlert(), "Unable to verify sign up alert..");
-		
 		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Updated minimum price: "+dataObject.optString(DataConstants.MinPrice).replace("$", "").replace(",", "")), "Unable to verify minimum price in Notes..");
 		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Updated maximum price: "+dataObject.optString(DataConstants.MaxPrice).replace("$", "").replace(",", "")), "Unable to verify maximum price in Notes..");
 		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Updated minimum bedrooms: "+dataObject.optString(DataConstants.Beds_Criteria).replace("+", "")), "Unable to verify Beds in Notes..");
@@ -247,8 +252,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Added property view: "+dataObject.optString(DataConstants.Views).replace("Golf course view", "Golf Course View")), "Unable to verify views in Notes..");
 		assertTrue(page.verifyLeadActivityInAlerts("Modified Search Preferences","Added property style: "+dataObject.optString(DataConstants.Style)), "Unable to verify style in Notes..");
 		
-		//assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subjectg quick question..");
-		AutomationLogger.endTestCase();
+//		assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subjectg quick question..");
 	}
 	
 	@Test 
@@ -433,7 +437,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	@Test
 	public void testVerifyAgentReminderEmail() {
 		getPage();	
-		processReminderEmailQueue();
+//		processReminderEmailQueue();
 		JSONObject lc_object = getDataFile(CacheFilePathsConstants.ReminderEmailLeadDetailCache);
 		Mailinator mailinatorObj = new Mailinator(driver);
 		String lAgentEmail = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_user").split("@")[0];
@@ -599,18 +603,55 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.verifyNoteAndTime(lComment_one), "Unable to verify note and time..");
 		assertTrue(page.verifyNoteAndTime(lComment_two), "Unable to verify note and time..");
 		assertTrue(page.isEmailVerified(), "Email address is not verified..");
-		if(!getIsProd()) {
-			page = null;
-			//Process email queue
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
-		}
+//		if(!getIsProd()) {
+//			page = null;
+//			//Process email queue
+//			getPage("/admin/processemailqueue");
+//			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
+//		}
 		page=null;
 		getPage("/lead/"+lLeadId);
 		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
 		assertTrue(page.verifyHomeEvaluationAlert("Homeowner Asked for a CMA"), "Homeowner Asked for a CMA alert is not verified");
 		assertTrue(page.verifyEmailPreferences("Sold Property Updates", "Yes"), "Sold Property Updates is not set Yes");
 	}
+	
+	@Test
+	public void testVerifyNoteIsAddedForLeadCapturedFromHomeEvaluationPage() {
+		getPage();
+		dataObject = getDataFile(CacheFilePathsConstants.HomeValuationLeadCache);
+		String lLeadId  = dataObject.optString("lead_id");
+		String lComment_one = "System subscribed lead to Sold Property Updates";
+		String lComment_two = "Please provide me with a home value estimate.";
+//		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page = null;
+		getPage("/lead/"+lLeadId);
+		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
+		ActionHelper.ScrollDownByPixels(driver, "800");
+		assertTrue(page.verifyNoteAndTime(lComment_one), "Unable to verify note and time..");
+		assertTrue(page.verifyNoteAndTime(lComment_two), "Unable to verify note and time..");
+	}
+	
+	@Test
+	public void testVerifyHomeEvaluationAlertIsReceived() {
+		getPage();
+		dataObject = getDataFile(CacheFilePathsConstants.HomeValuationLeadCache);
+		String lLeadId  = dataObject.optString("lead_id");
+		getPage("/lead/"+lLeadId);
+		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
+		assertTrue(page.verifyHomeEvaluationAlert("Homeowner Asked for a CMA"), "Homeowner Asked for a CMA alert is not verified");
+	}
+	
+	@Test
+	public void testVerifySoldPropertyUpdatesIsSetToYes() {
+		getPage();
+		dataObject = getDataFile(CacheFilePathsConstants.HomeValuationLeadCache);
+		String lLeadId  = dataObject.optString("lead_id");
+		getPage("/lead/"+lLeadId);
+		assertTrue(page.isLeadDetailPage(), "Lead detail page is not visible..");
+		assertTrue(page.verifyEmailPreferences("Sold Property Updates", "Yes"), "Sold Property Updates is not set Yes");
+	}
+	
 	
 	@Test
 	@Parameters({"dataFile"})
@@ -662,7 +703,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage();
 		dataObject = getDataFile(CacheFilePathsConstants.ScheduleShowingCache);
 		String lLeadId = dataObject.optString("lead_id");
-		processAlertQueue();
+//		processAlertQueue();
 		page=null;
 		getPage("/lead/"+lLeadId);
 		assertTrue(page.verifySignupAlert(), "Unable to verify sign up alert For Lead ID ["+lLeadId+"]");	
@@ -672,7 +713,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage();
 		dataObject = getDataFile(CacheFilePathsConstants.ScheduleShowingCache);
 		String lLeadId = dataObject.optString("lead_id");
-		processAlertQueue();
+//		processAlertQueue();
 		page=null;
 		getPage("/lead/"+lLeadId);
 		String lAddress = dataObject.optString("prop_address");
@@ -685,7 +726,7 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		getPage();
 		dataObject = getDataFile(CacheFilePathsConstants.ScheduleShowingCache);
 		String lLeadId = dataObject.optString("lead_id");
-		processAlertQueue();
+//		processAlertQueue();
 		page=null;
 		getPage("/lead/"+lLeadId);
 		assertTrue(page.isQuickQuestionEmailGenerated(), "Email not generated with Subject [Quick Question] for Lead ID ["+lLeadId+"]..");
@@ -981,23 +1022,23 @@ public class ZBOLeadDetailPageTest extends PageTest{
 			throw new SkipException("PreCondition failed. Unable to add lead..");
 		}
 	}
-	private void processAlertQueue() {	
-		if(!getIsProd()) {
-			//Process email queue
-			page = null;
-			getPage("/admin/processemailqueue");
-			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
-			new ZAProcessEmailQueuesPage(driver).processImmediateResponderQueue();
-			page =null;
-		}
-	}
-	public void processReminderEmailQueue() {
-        if(!getIsProd()) {
-            page=null;
-            getPage("/admin/processemailqueue");
-            new ZAProcessEmailQueuesPage(driver).processReminderQueue();
-        }
-    }
+//	private void processAlertQueue() {	
+//		if(!getIsProd()) {
+//			//Process email queue
+//			page = null;
+//			getPage("/admin/processemailqueue");
+//			new ZAProcessEmailQueuesPage(driver).processAlertQueue();
+//			new ZAProcessEmailQueuesPage(driver).processImmediateResponderQueue();
+//			page =null;
+//		}
+//	}
+//	public void processReminderEmailQueue() {
+//        if(!getIsProd()) {
+//            page=null;
+//            getPage("/admin/processemailqueue");
+//            new ZAProcessEmailQueuesPage(driver).processReminderQueue();
+//        }
+//    }
 	private void searchCommunityResultsPreCond() {
 		ZWCommunityReportsPageTest comreportsTest = new ZWCommunityReportsPageTest();
 		try {

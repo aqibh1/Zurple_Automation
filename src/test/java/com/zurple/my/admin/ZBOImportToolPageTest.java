@@ -196,11 +196,11 @@ public class ZBOImportToolPageTest extends PageTest{
 				AutomationLogger.info("Lead source valid..");
 				isVerified = true;
 			}
-			if(!getIsProd()) {
-				page=null;
-				getPage("/admin/processemailqueue");
-				page.processEmailQueue();
-			}
+//			if(!getIsProd()) {
+//				page=null;
+//				getPage("/admin/processemailqueue");
+//				page.processEmailQueue();
+//			}
 		}
 		return isVerified;
 	}

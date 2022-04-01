@@ -208,11 +208,6 @@
 						<include name="testVerifyValidEmail" />
 					</methods>
 				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-						<include name="verifyUserSettingsAlerts" />
-					</methods>
-				</class>
 				<class name="resources.CurrentPageTest">
 					<methods>
 						<include name="closeBrowser" />
@@ -1921,16 +1916,6 @@
 						<include name="testCaptureLeadFromHomeEvaluationPage" />
 					</methods>
 				</class>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeLogin" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-						<include name="testVerifyLeadCaptureFromHomeEvaluationPage" />
-					</methods>
-				</class>
 				<class name="resources.CurrentPageTest">
 					<methods>
 						<include name="closeBrowser" />
@@ -2153,6 +2138,7 @@
 			</parameter>
 	</test>
 	
+	<!-- VERIFICATIONS SCENARIOS SECTION -->
 	<test name="Verify Reminder Email generated from CRM page">	
 	<parameter name="dataFile" value="/resources/cache/zurple-reminder-email-verification.json"> 
 			<classes>
@@ -2421,6 +2407,50 @@
 			</classes>
 		</test>
 		 
+		 <test name="Verification for lead captured from Home Evaluation Page">
+		<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-home-evaluation.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyNoteIsAddedForLeadCapturedFromHomeEvaluationPage" />
+						<include name="testVerifyHomeEvaluationAlertIsReceived" />
+						<include name="testVerifySoldPropertyUpdatesIsSetToYes" />
+					</methods>
+				</class>
+					<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+	
+	<test name="Verify user setting alerts">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+			<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="verifyUserSettingsAlerts" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
 		<test name="Verify the ads overview page">	
 			<classes>
 				<class name="com.zurple.backoffice.ZBOAdsOverviewPageTest">

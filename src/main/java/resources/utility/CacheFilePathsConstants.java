@@ -56,4 +56,8 @@ public class CacheFilePathsConstants {
 	public static final String APNSUpdatedDataForAdminProfile = "/resources/cache/cache-ap-updated-data-admin-profile.json";
 	public static final String ScheduledEmailListingFlyerCache = "/resources/cache/zurple-scheduled=email-listing-flyer-verification.json";
 	public static final String CRMEmailListingCache = "/resources/cache/zurple-crm-email-listing-verification.json";
+	public static final String HomeValuationLeadCache = "/resources/cache/zurple-homevaluation-lead-verification.json";
+	public static final String AccountSettingsLeadCache = "/resources/cache/zurple-accountsettings-lead-verification.json";
+	public static final String HomeValuePageTestLeadCache = "/resources/cache/zurple-homevaluationtest-lead-verification.json";
+
 }

@@ -5,31 +5,234 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
-	
-<test name="Verify Scheduled FB post">	 
-	<parameter name="datafile" value="/resources/data/zurple/socialapi/scheduled_post_data.json"> 
+<test name="Verify Home Value page and verifications from back office" >	
+	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 
 			<classes>
-			<class name="com.zurple.backoffice.ZBOLoginPageTest">
+				<class name="com.zurple.website.ZWHomeValuesPageTest">
 					<methods>
-						<include name="testBackOfficeAPILogin" />
-					</methods>
-				</class>
- 		   		<class name="com.zurple.rest.ZBORestPostStatusTest">
-					<methods>
-						<include name="testPostStatus" /> 
+						<include name="testUserIsRedirectedToThankYouPage"/>
+						<include name="testVerifyLeadIsAddedInBackOffice"/>
+						<include name="testVerifyLeadSource"/>
+						<include name="testVerifyHomeValueNote"/>
 					</methods>
 				</class> 
-  				<class name="com.zurple.rest.ZBORestGetPostHistoryPageTest">
+			</classes>
+	</parameter>
+	</test>
+
+	<test name="Capture lead from Home Evaluation Page">
+		<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-home-evaluation.json">
+			<classes>
+				<class name="com.zurple.website.ZWHomeEvaluationPageTest">
 					<methods>
-				  		<include name="testGetScheduledPostHistory"/>  
+						<include name="testCaptureLeadFromHomeEvaluationPage" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
 					<methods>
 						<include name="closeBrowser" />
 					</methods>
-				</class>				
+				</class>
+			</classes>
+		</parameter>
+	</test>
+	
+	<test name="Update and Verify User Settings">
+		<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-update-settings.json">
+		<parameter name="userSettings" value="/resources/data/zurple/zurple-user-settings.json">
+			<classes>
+				<class name="com.zurple.website.ZWRegisterUserPageTest">
+					<methods>
+							<include name="testRegisterUser" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWAccountSettingsPageTest">
+					<methods>
+						<include name="testUpdateAccountSettings" />
+					</methods>
+				</class>
+		 		<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>	
+		 		<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifySettingsInNotes" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadEmailPreferencesPageTest">
+					<methods>
+						<include name="testVerifyLeadEmailPreferences" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyValidEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+		</parameter>
+	</test>
+	
+	
+	
+	<test name="Send standard scheduled email">	
+	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+							<include name="testSendScheduledStandardEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
+	
+	<test name="Process Email Queues">
+			<classes>
+				<class name="com.zurple.backoffice.ZAProcessEmailQueuePageTest">
+					<methods>
+						<include name="testProcessImmediateResponderQueue" />
+						<include name="testProcessAutoResponderQueue" />
+						<include name="testProcessNextDayResponderQueue" />
+						<include name="testProcessMassEmailQueue" />
+						<include name="testProcessReminderQueue" />
+						<include name="testProcessAlertQueue" />
+						<include name="testProcessCMAEmailQueue" />
+						<include name="testCreateAndSendSummaryEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+	<test name="Verify Home Value lead alerts and emails are triggered" >	
+	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 
+			<classes>
+				<class name="com.zurple.website.ZWHomeValuesPageTest">
+					<methods>
+						<include name="testVerifyHomeVlauationAlertIsTriggered"/>
+						<include name="testVerifyPropertUpdateIsSetToNo"/>
+						<include name="testVerifyHomeVlauationEmailIsTriggered"/>
+					</methods>
+				</class> 
+			</classes>
+	</parameter>
+	</test>
+	
+	
+	<test name="Verification for lead captured from Home Evaluation Page">
+		<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-home-evaluation.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyNoteIsAddedForLeadCapturedFromHomeEvaluationPage" />
+						<include name="testVerifyHomeEvaluationAlertIsReceived" />
+						<include name="testVerifySoldPropertyUpdatesIsSetToYes" />
+					</methods>
+				</class>
+					<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+	</test>
+	
+	<test name="Verify user setting alerts">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+			<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="verifyUserSettingsAlerts" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+	<test name="Verify standard email is scheduled">	
+	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+							<include name="testSendScheduledStandardEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
+	  <!--
+	<test name="Verify lead import and settings">
+		<parameter name="importLeadCSV" value="/resources/data/ImportToolTest.csv">
+		<parameter name="importLeadData" value="/resources/data/zurple/backoffice/import-tool-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.my.admin.ZBOImportToolPageTest">
+					<methods>
+						<include name="testNeitherOptionsChecked" />
+						<include name="testAllOptionsChecked" />
+						<include name="testUnsubChecked" />	
+						<include name="testNextDayChecked" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
 			</classes>
 			</parameter>
-	</test>
+			</parameter>
+	</test>	
+	-->
 </suite>

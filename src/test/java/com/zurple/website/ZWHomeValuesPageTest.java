@@ -12,7 +12,6 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.backoffice.ZBOLeadCRMPage;
 import com.zurple.backoffice.ZBOLeadDetailPage;
 import com.zurple.my.PageTest;
@@ -21,6 +20,7 @@ import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
+import resources.utility.CacheFilePathsConstants;
 import us.zengtest1.Page;
 
 /**
@@ -199,6 +199,10 @@ public class ZWHomeValuesPageTest extends PageTest{
 		String lLeadId = serachAndSelectLeadPreCond();
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId,lLeadId);
 		assertTrue(!lLeadId.isEmpty(), "Lead ID is not added in the back office "+lLeadId);
+		JSONObject cacheObject = new JSONObject();
+		cacheObject.put("lead_id", lLeadId);
+		emptyFile(CacheFilePathsConstants.HomeValuePageTestLeadCache, "");
+		writeJsonToFile(CacheFilePathsConstants.HomeValuePageTestLeadCache, cacheObject);
 	}
 	@Test//C40426
 	public void testVerifyLeadSource() {
@@ -207,7 +211,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		driver.navigate().to(l_currentUrl);
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
 		assertTrue(leadDetailPage.getLeadSource().equalsIgnoreCase("Zurple Seller+"), "Lead Source value is not Seller Campaign");
-		processEmailQueuesAndAlerts(leadDetailPage);
+//		processEmailQueuesAndAlerts(leadDetailPage);
 	}
 	
 	@Test//C40425
@@ -221,7 +225,9 @@ public class ZWHomeValuesPageTest extends PageTest{
 	
 	@Test //C40424
 	public void testVerifyHomeVlauationEmailIsTriggered() {
-		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		
+		JSONObject dataObject = getDataFile(CacheFilePathsConstants.HomeValuePageTestLeadCache);
+		String lLeadId = dataObject.optString("lead_id");
 		String l_currentUrl =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
 		driver.navigate().to(l_currentUrl);
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
@@ -230,7 +236,10 @@ public class ZWHomeValuesPageTest extends PageTest{
 	
 	@Test //C40423
 	public void testVerifyHomeVlauationAlertIsTriggered() {
-		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		getPage();
+		loginPreCondition();
+		JSONObject dataObject = getDataFile(CacheFilePathsConstants.HomeValuePageTestLeadCache);
+		String lLeadId = dataObject.optString("lead_id");
 		String l_currentUrl =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
 		driver.navigate().to(l_currentUrl);
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
@@ -239,7 +248,8 @@ public class ZWHomeValuesPageTest extends PageTest{
 
 	@Test //C40427
 	public void testVerifyPropertUpdateIsSetToNo() {
-		String lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		JSONObject dataObject = getDataFile(CacheFilePathsConstants.HomeValuePageTestLeadCache);
+		String lLeadId = dataObject.optString("lead_id");
 		String l_currentUrl =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
 		driver.navigate().to(l_currentUrl);
 		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
@@ -324,23 +334,23 @@ public class ZWHomeValuesPageTest extends PageTest{
 		ZBOLeadCRMPage leadcrmpage = new ZBOLeadCRMPage(driver);
 		return leadcrmpage.searchAndGetLeadId(l_firstname);
 	}
-	private void processEmailQueuesAndAlerts(ZBOLeadDetailPage pLeadDetailPage ) {
+//	private void processEmailQueuesAndAlerts(ZBOLeadDetailPage pLeadDetailPage ) {
 		//Triggers the alerts and email
-		if(!getIsProd()) {
-			if(pLeadDetailPage.isEmailVerified()) {
-//				page=null;
-				String l_url = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/admin/processemailqueue";
-//				getPage("/admin/processemailqueue");
-				driver.navigate().to(l_url);
-				ZAProcessEmailQueuesPage processQueue = new ZAProcessEmailQueuesPage(driver);
-				processQueue.processAlertQueue();
-				processQueue.processImmediateResponderQueue();
-				processQueue.processMassEmailQueue();
-				processQueue.processNextDayResponderQueue();
-			}
-		}
+//		if(!getIsProd()) {
+//			if(pLeadDetailPage.isEmailVerified()) {
+////				page=null;
+//				String l_url = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/admin/processemailqueue";
+////				getPage("/admin/processemailqueue");
+//				driver.navigate().to(l_url);
+//				ZAProcessEmailQueuesPage processQueue = new ZAProcessEmailQueuesPage(driver);
+//				processQueue.processAlertQueue();
+//				processQueue.processImmediateResponderQueue();
+//				processQueue.processMassEmailQueue();
+//				processQueue.processNextDayResponderQueue();
+//			}
+//		}
 
-	}
+//	}
 	@AfterTest
 	public void closeBrowser() {
 		closeCurrentBrowser();

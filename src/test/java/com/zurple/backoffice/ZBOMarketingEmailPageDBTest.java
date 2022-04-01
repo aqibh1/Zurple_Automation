@@ -3,37 +3,13 @@
  */
 package com.zurple.backoffice;
 
-import static org.testng.Assert.assertTrue;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
-import org.json.JSONObject;
-import org.openqa.selenium.WebDriver;
-import org.testng.SkipException;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.zurple.admin.ZAProcessEmailQueuesPage;
-import com.zurple.backoffice.marketing.ZBOMarketingEmailMessagePage;
 import com.zurple.my.DBPageTest;
-import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
-import resources.DBHelperMethods;
-import resources.ModuleCacheConstants;
-import resources.ModuleCommonCache;
-import resources.alerts.zurple.backoffice.ZBOSucessAlert;
-import resources.orm.hibernate.models.zurple.Email;
-import resources.utility.ActionHelper;
-import resources.utility.AutomationLogger;
-import resources.utility.CacheFilePathsConstants;
 import resources.utility.DBConstants;
-import resources.utility.GmailEmailVerification;
 
 /**
  * @author habibaaq

@@ -1,16 +1,14 @@
 package com.zurple.backoffice;
 
-import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.testng.SkipException;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import com.zurple.admin.ZACreateActivityAlertPage;
 import com.zurple.admin.ZAProcessEmailQueuesPage;
 import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
+import resources.utility.FrameworkConstants;
 
 public class ZAProcessEmailQueuePageTest extends PageTest{
 	private WebDriver driver;
@@ -26,9 +24,15 @@ public class ZAProcessEmailQueuePageTest extends PageTest{
 			page.setDriver(driver);
 		}
 		return page;
-	}
-	public AbstractPage getPage(String pUrl) {
-		if(page==null) {
+	}	
+	public AbstractPage getPage(String pUrl, boolean pForcefully) {
+		if(pForcefully) {
+			driver = getDriver();
+			page = new ZAProcessEmailQueuesPage(driver);
+			setLoginPage(driver);
+			page.setUrl(pUrl);
+			page.setDriver(driver);
+		}else if(page==null) {
 			driver = getDriver();
 			page = new ZAProcessEmailQueuesPage(driver);
 			setLoginPage(driver);
@@ -38,7 +42,6 @@ public class ZAProcessEmailQueuePageTest extends PageTest{
 		return page;
 		
 	}
-	
 	@Override
 	public void clearPage() {
 		// TODO Auto-generated method stub	
@@ -54,9 +57,70 @@ public class ZAProcessEmailQueuePageTest extends PageTest{
 	@Test
 	public void testProcessEmailsQueues(String pEmailType) {
 		backOfficeLogin();
-		page=null;
-		getPage("/admin/processemailqueue");
+		getPage("/admin/processemailqueue",true);
 		page.processEmailsQueues(pEmailType);
 	}
 
+	@Test
+	public void testProcessImmediateResponderQueue() {
+		backOfficeLogin();
+		skipIfProd();
+		getPage("/admin/processemailqueue",true);
+		page.processEmailsQueues(FrameworkConstants.ImmediateResponderQueue);
+	}
+	
+	@Test
+	public void testProcessAutoResponderQueue() {
+		skipIfProd();
+		getPage("/admin/processemailqueue",true);
+		page.processEmailsQueues(FrameworkConstants.AutoResponderQueue);
+	}
+	
+	@Test
+	public void testProcessNextDayResponderQueue() {
+		skipIfProd();
+		getPage("/admin/processemailqueue",true);
+		page.processEmailsQueues(FrameworkConstants.NextDayResponderQueue);
+	}
+	
+	@Test
+	public void testProcessMassEmailQueue() {
+		skipIfProd();
+		getPage("/admin/processemailqueue",true);
+		page.processEmailsQueues(FrameworkConstants.MassEmailQueue);
+	}
+	
+	@Test
+	public void testProcessReminderQueue() {
+		skipIfProd();
+		getPage("/admin/processemailqueue",true);
+		page.processEmailsQueues(FrameworkConstants.ReminderQueue);
+	}
+	
+	@Test
+	public void testProcessAlertQueue() {
+		skipIfProd();
+		getPage("/admin/processemailqueue",true);
+		page.processEmailsQueues(FrameworkConstants.AlertQueue);
+	}
+	
+	@Test
+	public void testProcessCMAEmailQueue() {
+		skipIfProd();
+		getPage("/admin/processemailqueue",true);
+		page.processEmailsQueues(FrameworkConstants.CMAEmailQueue);
+	}
+	
+	@Test
+	public void testCreateAndSendSummaryEmail() {
+		skipIfProd();
+		getPage("/admin/processemailqueue",true);
+		page.processEmailsQueues(FrameworkConstants.CreateAndSendSummaryEmail);
+	}
+	
+	private void skipIfProd() {
+		if(getIsProd()) {
+			throw new SkipException("Skipping the test on Production.");
+		}
+	}
 }
