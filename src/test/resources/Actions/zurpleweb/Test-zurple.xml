@@ -5,6 +5,34 @@
         <listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         <listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
+	
+	<test name="Import leads with different options">
+		<parameter name="importLeadCSV" value="/resources/data/ImportToolTest.csv">
+		<parameter name="importLeadData" value="/resources/data/zurple/backoffice/import-tool-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.my.admin.ZBOImportToolPageTest">
+					<methods>
+						<include name="testNeitherOptionsChecked" />
+						<include name="testAllOptionsChecked" />
+						<include name="testUnsubChecked" />	
+						<include name="testNextDayChecked" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>	
+			</parameter>
+			</parameter>
+	</test>	
+	
 <test name="Verify Home Value page and verifications from back office" >	
 	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 
 			<classes>
@@ -207,10 +235,8 @@
 			</classes>
 	</parameter>
 	</test>	
-	  <!--
-	<test name="Verify lead import and settings">
-		<parameter name="importLeadCSV" value="/resources/data/ImportToolTest.csv">
-		<parameter name="importLeadData" value="/resources/data/zurple/backoffice/import-tool-data.json"> 
+	  
+	<test name="Verify lead import checking email and settings">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -219,10 +245,10 @@
 				</class>
 				<class name="com.zurple.my.admin.ZBOImportToolPageTest">
 					<methods>
-						<include name="testNeitherOptionsChecked" />
-						<include name="testAllOptionsChecked" />
-						<include name="testUnsubChecked" />	
-						<include name="testNextDayChecked" />
+						<include name="testVerifyMassAndCheckinEmailWhenNeitherOptionsAreChecked" />
+						<include name="testVerifyMassAndCheckinEmailWhenAllOptionsAreChecked" />
+						<include name="testVerifyMassAndCheckinEmailWhenUnsubOptionsAreChecked" />
+						<include name="testVerifyMassAndCheckinEmailWhenNextDayOptionsAreChecked" />					
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
@@ -231,8 +257,6 @@
 					</methods>
 				</class>
 			</classes>
-			</parameter>
-			</parameter>
 	</test>	
-	-->
+	
 </suite>

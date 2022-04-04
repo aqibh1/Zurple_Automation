@@ -186,13 +186,11 @@
 						<include name="testUpdateAccountSettings" />
 					</methods>
 				</class>
-			
 		 		<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
 						<include name="testBackOfficeLogin" />
 					</methods>
-				</class>
-				
+				</class>	
 		 		<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
 					<methods>
 						<include name="testVerifySettingsInNotes" />
@@ -217,6 +215,7 @@
 		</parameter>
 		</parameter>
 	</test>
+	
 	
 	<test name="Add Reminder from CRM page">	
 			<classes>
@@ -921,6 +920,7 @@
 		</parameter>
 	</test>
 
+
 	<test name="Track Property in Lead Details">
 		<parameter name="registerUserDataFile"
 			value="/resources/data/zurple/register_user/register-user-track-search.json">
@@ -1147,6 +1147,21 @@
 				</classes>
 			</parameter>
 		</parameter>
+	</test>
+	
+	<test name="Verify Home Value page and verifications from back office" >	
+	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 
+			<classes>
+				<class name="com.zurple.website.ZWHomeValuesPageTest">
+					<methods>
+						<include name="testUserIsRedirectedToThankYouPage"/>
+						<include name="testVerifyLeadIsAddedInBackOffice"/>
+						<include name="testVerifyLeadSource"/>
+						<include name="testVerifyHomeValueNote"/>
+					</methods>
+				</class> 
+			</classes>
+	</parameter>
 	</test>
 	
 	<test name="Verify Sorting works on Leads Page">	 
@@ -2017,7 +2032,7 @@
 			</classes>
 	</test>
 	
-	<test name="Verify lead import and settings">
+	<test name="Import leads with different options">
 		<parameter name="importLeadCSV" value="/resources/data/ImportToolTest.csv">
 		<parameter name="importLeadData" value="/resources/data/zurple/backoffice/import-tool-data.json"> 
 			<classes>
@@ -2039,7 +2054,7 @@
 						<include name="closeBrowser" />
 					</methods>
 				</class>
-			</classes>
+			</classes>	
 			</parameter>
 			</parameter>
 	</test>	
@@ -2137,6 +2152,138 @@
 			</classes>
 			</parameter>
 	</test>
+	
+	<test name="Process Email Queues">
+			<classes>
+				<class name="com.zurple.backoffice.ZAProcessEmailQueuePageTest">
+					<methods>
+						<include name="testProcessImmediateResponderQueue" />
+						<include name="testProcessAutoResponderQueue" />
+						<include name="testProcessNextDayResponderQueue" />
+						<include name="testProcessMassEmailQueue" />
+						<include name="testProcessReminderQueue" />
+						<include name="testProcessAlertQueue" />
+						<include name="testProcessCMAEmailQueue" />
+						<include name="testCreateAndSendSummaryEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+	<test name="Verify Send CMA Report button is visible on lead details page">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifSendCMAReportButtonIsVisible" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+	<test name="Verify Send CMA Report button is working on lead details page">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testClickOnCMAReportButtonIsWorking" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+	<test name="Verify Send CMA Report page">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/cma-lead-data.json">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOSendReportPageTest">
+					<methods>
+						<include name="testVerifyLeadNameIsDisplayedOnCMAReportPage" />
+						<include name="testVerifyAllFieldsAreDisplayedInPropertySection" />
+						<include name="testVerifyPropertyHeadingIsDisplayedOnCMAReportPage" />
+						<include name="testVerifyActiveListingHeadingIsDisplayedOnCMAReportPage" />
+						<include name="testVerifySoldListingHeadingIsDisplayedOnCMAReportPage" />
+					</methods>
+				</class>
+			</classes>
+			</parameter>
+	</test>
+	
+	<test name="Verify Send CMA Report button is disabled for Invalid lead">	
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyCMAReportIsDisabledForInvalidLead" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	
+	<test name="Verify lead address is populated on Send CMA Report page">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/zurple-add-lead-for-cma.json">
+			<parameter name="dataFile1" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-for-cma-city.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOSendReportPageTest">
+					<methods>
+						<include name="testVerifyLeadAddressIsPopulatedInPropertySection" />
+						<include name="testVerifyLeadAddressIsPopulatedInActiveListingSection" />
+						<include name="testVerifyLeadCityIsPopulatedInActiveListingSection" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+		</parameter>
+	</test>
+	
+	<test name="Verify form validation is working on Send CMA Report page">
+		<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
+		<parameter name="dataFile1" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-for-cma-city.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOSendReportPageTest">
+					<methods>
+						<include name="testVerifyAddressValidationIsWorking" />
+						<include name="testVerifyPriceValidationIsWorking" />
+						<include name="testVerifyErrorAlertIsDisplayedWhenActiveListingIsNotSelected" />
+						<include name="testVerifyErrorAlertIsDisplayedWhenSoldListingIsNotSelected" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+		</parameter>
+	</test>
+	
 	
 	<!-- VERIFICATIONS SCENARIOS SECTION -->
 	<test name="Verify Reminder Email generated from CRM page">	
@@ -2312,6 +2459,52 @@
 	</parameter>
 	</test>	
 	
+	<test name="Verify standard email is scheduled">	
+	<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+							<include name="testSendScheduledStandardEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
+	
+	
+	<test name="Verify lead import checking email and settings">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.my.admin.ZBOImportToolPageTest">
+					<methods>
+						<include name="testVerifyMassAndCheckinEmailWhenNeitherOptionsAreChecked" />
+						<include name="testVerifyMassAndCheckinEmailWhenAllOptionsAreChecked" />
+						<include name="testVerifyMassAndCheckinEmailWhenUnsubOptionsAreChecked" />
+						<include name="testVerifyMassAndCheckinEmailWhenNextDayOptionsAreChecked" />					
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</test>	
+	
 	<test name="Enroll and unenroll lead in campaign">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/create-campaign-data.json">
 		<parameter name="leadFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
@@ -2429,6 +2622,20 @@
 				</class>
 			</classes>
 		</parameter>
+	</test>
+	
+	<test name="Verify Home Value lead alerts and emails are triggered" >	
+	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 
+			<classes>
+				<class name="com.zurple.website.ZWHomeValuesPageTest">
+					<methods>
+						<include name="testVerifyHomeVlauationAlertIsTriggered"/>
+						<include name="testVerifyPropertUpdateIsSetToNo"/>
+						<include name="testVerifyHomeVlauationEmailIsTriggered"/>
+					</methods>
+				</class> 
+			</classes>
+	</parameter>
 	</test>
 	
 	<test name="Verify user setting alerts">
@@ -2780,114 +2987,6 @@
 	</test>
 	--> 
 
-	<test name="Verify Send CMA Report button is visible on lead details page">	
-			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeLogin" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-						<include name="testVerifSendCMAReportButtonIsVisible" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
-			</classes>
-	</test>
-	
-	<test name="Verify Send CMA Report button is working on lead details page">	
-			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeLogin" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-						<include name="testClickOnCMAReportButtonIsWorking" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
-			</classes>
-	</test>
-	
-	<test name="Verify Send CMA Report page">
-	<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/cma-lead-data.json">	
-			<classes>
-				<class name="com.zurple.backoffice.ZBOSendReportPageTest">
-					<methods>
-						<include name="testVerifyLeadNameIsDisplayedOnCMAReportPage" />
-						<include name="testVerifyAllFieldsAreDisplayedInPropertySection" />
-						<include name="testVerifyPropertyHeadingIsDisplayedOnCMAReportPage" />
-						<include name="testVerifyActiveListingHeadingIsDisplayedOnCMAReportPage" />
-						<include name="testVerifySoldListingHeadingIsDisplayedOnCMAReportPage" />
-					</methods>
-				</class>
-			</classes>
-			</parameter>
-	</test>
-	
-	<test name="Verify Send CMA Report button is disabled for Invalid lead">	
-			<classes>
-				<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeLogin" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-						<include name="testVerifyCMAReportIsDisabledForInvalidLead" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
-			</classes>
-	</test>
-	
-	<test name="Verify lead address is populated on Send CMA Report page">
-		<parameter name="dataFile" value="/resources/data/zurple/backoffice/zurple-add-lead-for-cma.json">
-			<parameter name="dataFile1" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-for-cma-city.json">
-			<classes>
-				<class name="com.zurple.backoffice.ZBOSendReportPageTest">
-					<methods>
-						<include name="testVerifyLeadAddressIsPopulatedInPropertySection" />
-						<include name="testVerifyLeadAddressIsPopulatedInActiveListingSection" />
-						<include name="testVerifyLeadCityIsPopulatedInActiveListingSection" />
-					</methods>
-				</class>
-			</classes>
-		</parameter>
-		</parameter>
-	</test>
-	
-	<test name="Verify form validation is working on Send CMA Report page">
-		<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
-		<parameter name="dataFile1" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-for-cma-city.json">
-			<classes>
-				<class name="com.zurple.backoffice.ZBOSendReportPageTest">
-					<methods>
-						<include name="testVerifyAddressValidationIsWorking" />
-						<include name="testVerifyPriceValidationIsWorking" />
-						<include name="testVerifyErrorAlertIsDisplayedWhenActiveListingIsNotSelected" />
-						<include name="testVerifyErrorAlertIsDisplayedWhenSoldListingIsNotSelected" />
-					</methods>
-				</class>
-			</classes>
-		</parameter>
-		</parameter>
-	</test>
 	
 	 <test name="Add and Remove Sold Listings and Verify the errors">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
@@ -2978,23 +3077,7 @@
 	</parameter>
 	</test>
 	
-	<test name="Verify Home Value page and verifications from back office" >	
-	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 
-			<classes>
-				<class name="com.zurple.website.ZWHomeValuesPageTest">
-					<methods>
-						<include name="testUserIsRedirectedToThankYouPage"/>
-						<include name="testVerifyLeadIsAddedInBackOffice"/>
-						<include name="testVerifyLeadSource"/>
-						<include name="testVerifyHomeValueNote"/>
-						<include name="testVerifyHomeVlauationAlertIsTriggered"/>
-						<include name="testVerifyPropertUpdateIsSetToNo"/>
-						<include name="testVerifyHomeVlauationEmailIsTriggered"/>
-					</methods>
-				</class> 
-			</classes>
-	</parameter>
-	</test>
+	
 	
 	<test name="Verify Home Value page is populated and validation is working" >	
 	<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json"> 

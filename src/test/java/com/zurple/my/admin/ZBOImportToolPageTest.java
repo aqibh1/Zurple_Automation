@@ -1,7 +1,6 @@
 package com.zurple.my.admin;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.io.IOException;
@@ -18,6 +17,7 @@ import com.zurple.my.PageTest;
 import resources.AbstractPage;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
+import resources.utility.CacheFilePathsConstants;
 
 public class ZBOImportToolPageTest extends PageTest{
 	ZBOImportToolPage page;
@@ -81,12 +81,7 @@ public class ZBOImportToolPageTest extends PageTest{
 		ActionHelper.staticWait(10);
 		assertTrue(page.clickLeadName(),"Unable to click lead name..");
 		assertTrue(emailVerification(),"Unable to verify lead source..");
-		page=null;
-		getPage(currentUrl);
-//		if(!getIsProd()) {
-//			assertTrue(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
-//		}
-		assertEquals(page.getMassEmailSettings(),"Yes");
+		writeCacheFile(CacheFilePathsConstants.ImportLeadOneOptionCache, currentUrl);
 	}
 	
 	@Test
@@ -103,12 +98,7 @@ public class ZBOImportToolPageTest extends PageTest{
 		ActionHelper.staticWait(10);
 		assertTrue(page.clickLeadName(),"Unable to click lead name..");
 		assertTrue(emailVerification(),"Unable to verify lead source..");
-		page=null;
-		getPage(currentUrl);
-		if(!getIsProd()) {
-			assertFalse(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
-		}
-		assertEquals(page.getMassEmailSettings(),"No");
+		writeCacheFile(CacheFilePathsConstants.ImportLeadTwoOptionCache, currentUrl);
 	}
 	
 	@Test
@@ -125,12 +115,7 @@ public class ZBOImportToolPageTest extends PageTest{
 		ActionHelper.staticWait(10);
 		assertTrue(page.clickLeadName(),"Unable to click lead name..");
 		assertTrue(emailVerification(),"Unable to verify lead source..");
-		page=null;
-		getPage(currentUrl);
-//		if(!getIsProd()) {
-//			assertTrue(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
-//		}
-		assertEquals(page.getMassEmailSettings(),"No");
+		writeCacheFile(CacheFilePathsConstants.ImportLeadThreeOptionCache, currentUrl);
 	}
 	
 	@Test
@@ -147,14 +132,53 @@ public class ZBOImportToolPageTest extends PageTest{
 		ActionHelper.staticWait(10);
 		assertTrue(page.clickLeadName(),"Unable to click lead name..");
 		assertTrue(emailVerification(),"Unable to verify lead source..");
-		page=null;
-		getPage(currentUrl);
+		writeCacheFile(CacheFilePathsConstants.ImportLeadFourOptionCache, currentUrl);
+	}
+	
+	@Test
+	public void testVerifyMassAndCheckinEmailWhenNeitherOptionsAreChecked() {
+		dataObject = getDataFile(CacheFilePathsConstants.ImportLeadOneOptionCache);
+		String l_lead_id = dataObject.getString("lead_id");
+		getPage(l_lead_id);
 		if(!getIsProd()) {
-			assertFalse(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
+			assertTrue(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
 		}
 		assertEquals(page.getMassEmailSettings(),"Yes");
 	}
 	
+	@Test
+	public void testVerifyMassAndCheckinEmailWhenAllOptionsAreChecked() {
+		dataObject = getDataFile(CacheFilePathsConstants.ImportLeadTwoOptionCache);
+		String l_lead_id = dataObject.getString("lead_id");
+		getPage(l_lead_id);
+		if(!getIsProd()) {
+			assertTrue(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
+		}
+		assertEquals(page.getMassEmailSettings(),"No");
+	}
+	
+	@Test
+	public void testVerifyMassAndCheckinEmailWhenUnsubOptionsAreChecked() {
+		dataObject = getDataFile(CacheFilePathsConstants.ImportLeadThreeOptionCache);
+		String l_lead_id = dataObject.getString("lead_id");
+		getPage(l_lead_id);
+		if(!getIsProd()) {
+			assertTrue(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
+		}
+		assertEquals(page.getMassEmailSettings(),"No");
+	}
+	
+	@Test
+	public void testVerifyMassAndCheckinEmailWhenNextDayOptionsAreChecked() {
+		dataObject = getDataFile(CacheFilePathsConstants.ImportLeadFourOptionCache);
+		String l_lead_id = dataObject.getString("lead_id");
+		getPage(l_lead_id);
+		if(!getIsProd()) {
+			assertTrue(page.isImportCheckinEmailGenerated(),"Unable to find import lead checkin email..");
+		}
+		assertEquals(page.getMassEmailSettings(),"Yes");
+	}
+
 	public void importSettings(String checkBoxes, String pCSVDataFile) {
 		if(!getIsProd()) {
 			assertTrue(page.selectPackage(dataObject.optString("package_id_stage")),"Unable to select package..");
@@ -203,6 +227,12 @@ public class ZBOImportToolPageTest extends PageTest{
 //			}
 		}
 		return isVerified;
+	}
+	public void writeCacheFile(String pFileToWrite, String pContentToWrite) {
+		JSONObject cacheObject = new JSONObject();
+		cacheObject.put("lead_id", pContentToWrite);
+		emptyFile(pFileToWrite, "");
+		writeJsonToFile(pFileToWrite, cacheObject);
 	}
 	
 }

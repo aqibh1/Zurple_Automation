@@ -59,5 +59,9 @@ public class CacheFilePathsConstants {
 	public static final String HomeValuationLeadCache = "/resources/cache/zurple-homevaluation-lead-verification.json";
 	public static final String AccountSettingsLeadCache = "/resources/cache/zurple-accountsettings-lead-verification.json";
 	public static final String HomeValuePageTestLeadCache = "/resources/cache/zurple-homevaluationtest-lead-verification.json";
+	public static final String ImportLeadOneOptionCache = "/resources/cache/zurple-lead-importlead1-verification.json";
+	public static final String ImportLeadTwoOptionCache = "/resources/cache/zurple-lead-importlead2-verification.json";
+	public static final String ImportLeadThreeOptionCache = "/resources/cache/zurple-lead-importlead3-verification.json";
+	public static final String ImportLeadFourOptionCache = "/resources/cache/zurple-lead-importlead4-verification.json";
 
 }
