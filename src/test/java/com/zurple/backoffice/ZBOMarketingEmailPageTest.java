@@ -271,6 +271,7 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		String mls_id = EnvironmentFactory.configReader.getPropertyByName("zurple_mls_id").toString();
 		assertTrue(page.typeInputField(mls_id), "Unable to type MLS ID");
 		assertTrue(page.clickOnSearchButton(), "Unable to click on search button");
+		ActionHelper.staticWait(10);
 		assertTrue(page.isListingWithMLSIDPresent(mls_id), "Listing is not present in search results");
 	}
 	

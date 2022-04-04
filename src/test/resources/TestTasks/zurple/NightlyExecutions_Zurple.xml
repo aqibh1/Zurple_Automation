@@ -333,7 +333,7 @@
 		</classes>
 		</parameter>
 	</test>
-	
+	<!--  
 	<test name="Create Youtube video post">
 		<parameter name="YTDataFile" value="/resources/data/zurple/backoffice/social/z-social-yt-posts-data.json">
 		<classes>
@@ -345,7 +345,7 @@
 		</classes>
 		</parameter>
 	</test> 
-	
+	-->
 	<test name="Add reminder from Lead Detail Page">
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-reminder.json">
 		<classes>
@@ -3671,7 +3671,7 @@
 		</classes>
 		</parameter>
 	</test>
-	
+	<!--  
 	<test name="Verify Social Video Post Youtube">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-yt-video-post.json">
 		<classes>
@@ -3689,7 +3689,7 @@
 		</classes>
 		</parameter>
 	</test>  	
-	
+	-->
 	<test name="Verifications on Template manager page">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOTemplateManagerPageTest">
