@@ -951,6 +951,21 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		assertTrue(page.getLeadSource().contains("Paid Social"), "Unable to verify the lead source ");
 		
 	}
+	
+	/**
+	 * Verify lead source of lead registered from website is "Zurple Traffic" on lead detail page
+	 * 48940
+	 */
+	@Test
+	public void testVerifyLeadSourceCapturedFromWebsite(String pDataFile) {
+		getPage();
+		ZWRegisterUserPageTest registerUserObject = new ZWRegisterUserPageTest();
+		registerUserObject.testRegisterUser(pDataFile);
+		String lc_lead_id = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		gotoLeadDetailPage(lc_lead_id);
+		assertTrue(page.getLeadSource().contains("Zurple Traffic"), "Lead source is not Zurple Traffic");		
+	}
+	
 	private String getLeadId(String pDataFile) {
 		String lLeadId = ModuleCommonCache.getElement(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId);
 		if(lLeadId==null) {
@@ -1057,6 +1072,5 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		driver.navigate().to(lUpdatedUrl);
 		ZBOAgentsPage zboAgentPage = new ZBOAgentsPage(driver);
 		return zboAgentPage.getAgentFirstName()+" "+zboAgentPage.getAgentLastName();
-		
 	}
 }

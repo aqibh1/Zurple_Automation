@@ -196,7 +196,7 @@ public class ZBOLeadPage extends Page{
 		return isWorking;
 	}
 	
-	public boolean verifyFilter(String pFilterName, String pFilterValue) throws ParseException {
+	public boolean verifyFilter(String pFilterName, String pFilterValue) {
 		boolean isVerified = false;
 		isProcessingComplete();
 		populateResultsMap();
@@ -220,7 +220,7 @@ public class ZBOLeadPage extends Page{
 			isVerified = verifyDate("Last Visit", pFilterValue);
 			break;
 		case "By Lead Source":
-			isVerified = verifyLeadSource("Social");
+			isVerified = verifyLeadSource(pFilterValue);
 			break;
 		case "By Last Email Sent":
 			break;
@@ -259,7 +259,7 @@ public class ZBOLeadPage extends Page{
 		HashMap<String,String> dataRowMap = rowDataMap.get(randomInt);
 		return pFilterValue.contains(dataRowMap.get(pFilterName));
 	}
-	private boolean verifyDate(String pFilterName, String pFilterValue) throws ParseException {
+	private boolean verifyDate(String pFilterName, String pFilterValue){
 		int days = 0;
 		switch(pFilterValue) {
 		case "Today":
@@ -285,8 +285,15 @@ public class ZBOLeadPage extends Page{
 		
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
 		String currentDateStr = format.format(new Date());
-		Date dateOnPage = format.parse(lDateOnPage);
-		Date curretDate = format.parse(currentDateStr);
+		Date dateOnPage = null;
+		Date curretDate = null;
+		try {
+			dateOnPage = format.parse(lDateOnPage);
+			curretDate = format.parse(currentDateStr);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		     
 		long diff = Math.abs(dateOnPage.getTime() - curretDate.getTime() );
 		long lDiffInDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);;//diff / (24 * 60 * 60 * 1000);

@@ -458,6 +458,28 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		testVerifyEmailInMyMessages(ld_lead_id, ld_email_subject);
 	}
 	
+	/**
+	 * Verify "Zurple Traffic" lead source option should exist in CRM Leads List filter option
+	 * 48942
+	 */
+	@Test
+	public void testApplyZurpleTrafficFilter() {
+		getPage("/leads/crm");
+		String lc_lead_email = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.RegisterFormLeadEmail);
+		assertTrue(page.typeLeadNameOrEmail(lc_lead_email), "Unable to type lead email");
+		applyMultipleFiltersNew("By Lead Source", "Zurple Traffic");
+	}
+	
+	/**
+	 * Verify lead source of lead registered from website is "Zurple Traffic" on CRM lead list
+	 * 48941
+	 */
+	@Test 
+	public void testVerifyLeadSourceFromCRMPage() {
+		getPage("/leads/crm");
+		page.isProcessingComplete();
+		assertTrue(page.getLeadSource().contains("Zurple Traffic"), "Unable to verify Zurple Traffic lead source on CRM page");
+	}
 	public void applyFilter(String pFilterName, String pFilterValue){
 		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
 		assertTrue(leadPage.clickAndSelectFilterName(pFilterName),"Unable to select the filter type "+pFilterName);
