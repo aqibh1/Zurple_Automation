@@ -19,9 +19,11 @@ import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.CurrentPageTest;
+import resources.DBHelperMethods;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.orm.hibernate.models.zurple.Email;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.CacheFilePathsConstants;
@@ -194,7 +196,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		ZBOLeadCRMPage leadCRMPage = new ZBOLeadCRMPage(driver);
 		assertTrue(leadCRMPage.typeLeadEmailOnly("mailinator.com"), "Unable to type lead email..");
 		applyMultipleFilters(lFilterName, lFilterValue);
-		ActionHelper.staticWait(20);
+		page.isProcessingComplete();
 		String lead_name_id = page.getLeadName();
 		String lead_Email_phone = page.getEmail();
 		String l_leadName = lead_name_id.split(",")[0].trim();
@@ -325,7 +327,6 @@ public class ZBOLeadCRMPageTest extends PageTest{
 	@Test
 	@Parameters({"dataFile"})
 	public void testPhoneIconIsDisabledIfPhoneNumberIsNotProvided(String pDataFile) {
-		getPage();
 		doLogin();
 		ZBOAddLeadPageTest addLead = new ZBOAddLeadPageTest();
 		addLead.testAddLead(pDataFile);
@@ -343,7 +344,6 @@ public class ZBOLeadCRMPageTest extends PageTest{
 	 */
 	@Test
 	public void testPhoneIconIsVisibleForLeads() {
-		getPage();
 		doLogin();
 		getPage("/leads/crm",true);
 		assertTrue(page.isPhoneIconVisibleForLeads(), "Lead Phone Icon on CRM page is not visible");
@@ -351,6 +351,135 @@ public class ZBOLeadCRMPageTest extends PageTest{
 //		close.closeBrowser();
 	}
 
+	/**
+	 * Verify clicking on email button on lead crm page take agent to email listing modal
+	 * 49902
+	 */
+	@Test
+	public void testVerifyEmailButtonTakesUserToListingFlyerModal() {
+		doLogin();
+		getPage("/leads/crm",true);
+		page.isProcessingComplete();
+		String l_site_owner = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_site_owner");
+		applyMultipleFiltersNew("By Email Verification,By Contact Preference,By Agent", "Valid Emails,Mass Emails: Yes,"+l_site_owner+"");
+		page.isProcessingComplete();
+		assertTrue(page.clickOnEmailButton(), "Unable to click on email button");
+		assertTrue(page.getSendEmailForm().isSendEmailForm(), "Send email form is not displayed..");
+		assertTrue(page.getSendEmailForm().clickOnSendListingButton(), "Unable to click on send email button..");
+	}
+	
+	/**
+	 * Verify on email listing modal to field is already filled by lead email address
+	 * 49903
+	 */
+	@Test
+	public void testVerifyToInputIsFilledByLeadEmail() {
+		getPage("/leads/crm");
+		String l_lead_email = page.getSendEmailForm().getToEamil();
+		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail, l_lead_email);
+		assertTrue(!l_lead_email.isEmpty(),"Lead email address is not populated in the To input field");
+	}
+	
+	/**
+	 * Verify agent can search the listings by MLS id on email listing modal
+	 * 49904
+	 */
+	@Test 
+	public void testVerifyUserCanSearchTheListingByMLS() {
+		getPage("/leads/crm");
+		String l_mls_id = EnvironmentFactory.configReader.getPropertyByName("zurple_mls_id");
+		assertTrue(page.getSendEmailForm().typeAndSearchListingByMLS(l_mls_id), "Unable to type and search listing by MLS");
+		assertTrue(page.getSendEmailForm().isListingHeadingFetched(), "Listing heading is not fetched by MLS");
+	}
+	
+	/**
+	 * Verify Email listings can be sent to individual lead from lead crm page
+	 * 48856
+	 */
+	@Test
+	public void testVerifySuccessMessageIsDisplayedWhenUserClicksSendButton() {
+		getPage("/leads/crm");
+		String l_subject = updateSubject("Listing Email CRM");
+	
+		String lc_lead_email = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadEmail);
+		
+		assertTrue(page.getSendEmailForm().typeEmailListingSubject(l_subject), "Unable to type the subject..");
+		assertTrue(page.getSendEmailForm().clickOnSendEmailButton(), "Unable to click on send email button");
+		assertTrue(page.getSendEmailForm().isSuccessMessageDisplayed(), "Success message is not displayed");
+		
+		JSONObject cacheObject = new JSONObject();
+		cacheObject.put("email_subject", l_subject);
+		cacheObject.put("lead_email", lc_lead_email);
+	
+		emptyFile(CacheFilePathsConstants.CRMEmailListingCache, "");
+		writeJsonToFile(CacheFilePathsConstants.CRMEmailListingCache, cacheObject);
+		
+	}
+	
+	/**
+	 * Verify Agent can not send Listings to lead assigned to another agent from Lead Crm page
+	 * 48894
+	 */
+	@Test
+	public void testVerifyEmailIsNotSentToOtherThenAssignedAgent() {
+		doLogin();
+		getPage("/leads/crm",true);
+		applyMultipleFilters("By Email Verification,By Contact Preference", "Valid Emails,Mass Emails: Yes");
+		page.isProcessingComplete();
+		applyNonSiteOwnerAgentFilter();
+		assertTrue(page.clickOnEmailButton(), "Unable to click on email button");
+		assertTrue(page.getSendEmailForm().isSendEmailForm(), "Send email form is not displayed..");
+		assertTrue(page.getSendEmailForm().clickOnSendListingButton(), "Unable to click on send listing button..");
+		String l_mls_id = EnvironmentFactory.configReader.getPropertyByName("zurple_mls_id");
+		assertTrue(page.getSendEmailForm().typeAndSearchListingByMLS(l_mls_id), "Unable to type and search listing by MLS");
+		assertTrue(page.getSendEmailForm().isListingHeadingFetched(), "Listing heading is not fetched by MLS");
+		String l_subject = updateSubject("Listing Email CRM");
+		assertTrue(page.getSendEmailForm().typeEmailListingSubject(l_subject), "Unable to type the subject..");
+		assertTrue(page.getSendEmailForm().clickOnSendEmailButton(), "Unable to click on send email button");
+		assertTrue(page.getSendEmailForm().isEmailCannotBeSentErrorDisplayed(), "Email cannot be sent error message is not displayed..");
+	}
+	
+	/**
+	 * Verify Email Sent from CRM page shows in lead details My Messages section
+	 * 49905
+	 */
+	@Test
+	public void testVerifyCRMListingFlyerEmailFromMyMessages() {
+		doLogin();
+		getPage("/leads/crm");
+		processMassEmailQueue();
+		dataObject = getDataFile(CacheFilePathsConstants.CRMEmailListingCache);
+		String ld_email_subject = dataObject.optString("email_subject");
+
+		DBHelperMethods dbHelper = new DBHelperMethods(getEnvironment());
+		Email emailObject = dbHelper.getEmailBySubject(ld_email_subject);
+		
+		String ld_lead_id = emailObject.getUser().toString();
+		testVerifyEmailInMyMessages(ld_lead_id, ld_email_subject);
+	}
+	
+	/**
+	 * Verify "Zurple Traffic" lead source option should exist in CRM Leads List filter option
+	 * 48942
+	 */
+	@Test
+	public void testApplyZurpleTrafficFilter() {
+		getPage("/leads/crm");
+		String lc_lead_email = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.RegisterFormLeadEmail);
+		assertTrue(page.typeLeadNameOrEmail(lc_lead_email), "Unable to type lead email");
+		applyMultipleFiltersNew("By Lead Source", "Zurple Traffic");
+	}
+	
+	/**
+	 * Verify lead source of lead registered from website is "Zurple Traffic" on CRM lead list
+	 * 48941
+	 */
+	@Test 
+	public void testVerifyLeadSourceFromCRMPage() {
+		getPage("/leads/crm");
+		page.isProcessingComplete();
+		assertTrue(page.getLeadSource().contains("Zurple Traffic"), "Unable to verify Zurple Traffic lead source on CRM page");
+	}
 	public void applyFilter(String pFilterName, String pFilterValue){
 		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
 		assertTrue(leadPage.clickAndSelectFilterName(pFilterName),"Unable to select the filter type "+pFilterName);
@@ -366,15 +495,51 @@ public class ZBOLeadCRMPageTest extends PageTest{
 			assertTrue(leadPage.clickAndSelectFilterNameMultiple(lFilterNameList[i],Integer.toString(i+1)),"Unable to select the filter type "+lFilterNameList[i]);
 			ActionHelper.staticWait(10);
 			assertTrue(leadPage.clickAndSelectFilterValueMultiple(lFilterValueList[i],Integer.toString(i+1)),"Unable to select the filter value "+lFilterValueList[i]);
+			ActionHelper.staticWait(5);
 			if(i!=2) {
 				assertTrue(page.clickOnAddFilterButton());
+				ActionHelper.staticWait(2);
 			}
 		}
 		assertTrue(leadPage.clickOnSearchButton(),"Unable to click on search button..");
 	}
+	private void applyMultipleFiltersNew(String pFilterName, String pFilterValue){
+		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
+		String[] lFilterNameList = pFilterName.split(",");
+		String[] lFilterValueList = pFilterValue.split(",");
+		for(int i=0;i<lFilterNameList.length;i++) {
+			assertTrue(leadPage.clickAndSelectFilterNameLast(lFilterNameList[i]),"Unable to select the filter type "+lFilterNameList[i]);
+			ActionHelper.staticWait(10);
+			assertTrue(leadPage.clickAndSelectFilterValueLast(lFilterValueList[i]),"Unable to select the filter value "+lFilterValueList[i]);
+			ActionHelper.staticWait(2);
+			if(i!=2) {
+				assertTrue(page.clickOnAddFilterButton());
+				ActionHelper.staticWait(2);
+			}
+		}
+		assertTrue(leadPage.clickOnSearchButton(),"Unable to click on search button..");
+	}
+	private void applyNonSiteOwnerAgentFilter() {
+		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
+		String l_site_owner = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_site_owner");
+		assertTrue(leadPage.clickAndSelectFilterNameLast("By Agent"),"Unable to select the filter type "+"By Agent");
+		ActionHelper.staticWait(10);
+		assertTrue(leadPage.clickAndSelectFilterValueExcept(l_site_owner),"Unable to select the filter value "+l_site_owner);
+		assertTrue(leadPage.clickOnSearchButton(),"Unable to click on search button..");
+		page.isProcessingComplete();
+	}
 	private void doLogin() {
+		getPage();
 		if(!getLoginPage().doLogin(getZurpeBOUsername(), getZurpeBOPassword())) {
 			throw new SkipException("Skipping the test becasuse [Login] pre-condition was failed.");
+		}
+	}
+	private void processMassEmailQueue() {
+		if(!getIsProd()) {
+			//	Process email queue
+			page=null;
+			getPage("/admin/processemailqueue");
+			new ZAProcessEmailQueuesPage(driver).processMassEmailQueue();
 		}
 	}
 }

@@ -102,7 +102,7 @@ public class ZBORestPostPackage extends RestAPITest{
 		multiParts.put("payers", new Part(lPayers, PartType.STRING));
 		multiParts.put("subsidiary", new Part(lSubsidiary, PartType.STRING));
 		multiParts.put("access_token", new Part(access_token, PartType.STRING));
-	
+		multiParts.put("test_customer", new Part("true", PartType.STRING));
 		emptyFile(packageDataFile,"");
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.writeValue(new File(System.getProperty("user.dir")+packageDataFile), multiParts);

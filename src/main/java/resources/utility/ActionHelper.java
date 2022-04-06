@@ -554,6 +554,23 @@ public class ActionHelper {
 			}
 			return isSuccessful;
 		}
+	   public static boolean selectDropDownaAnyOptionExcept(WebDriver pWebDriver, WebElement pElementToBeClicked,String pOptionNotToSelect) {
+			boolean isSuccessful=false;
+			List<WebElement> list_of_options = new ArrayList<WebElement>();
+			 AutomationLogger.info("Clicking on button "+pElementToBeClicked);
+			 if(ActionHelper.Click(pWebDriver, pElementToBeClicked)) {
+				 list_of_options = pElementToBeClicked.findElements(By.tagName("option"));
+				 for(WebElement element: list_of_options) {
+					 System.out.println(element.getText().trim());
+					 if(!element.getText().trim().equalsIgnoreCase(pOptionNotToSelect)) {
+						 isSuccessful = ActionHelper.Click(pWebDriver, element);
+						 Click(pWebDriver,pElementToBeClicked);
+						 break;
+					 }
+				 }
+			 }
+			return isSuccessful;
+		}
 	   public static boolean selectDropDownOptions(WebDriver pWebDriver, WebElement pElementToBeClicked,String pDropdownOptionsXpath, String[] pOptionsToSelect) {
 		   try {
 			   boolean isSuccessful=false;

@@ -50,9 +50,11 @@ public class ZBOLeadPage extends Page{
 	
 	@FindBy(xpath="//select[@id='location-parent-1']")
 	WebElement filter_dropdown;
+	String select_location_filter ="//*[contains(@id,'filter-dependent-selects')]/descendant::select[contains(@id,'location-parent')]";
 	
 	@FindBy(xpath="//select[@id='location-child-1']")
 	WebElement filter_child_dropdown;
+	String select_child_filter ="//*[contains(@id,'filter-dependent-selects')]/descendant::select[contains(@id,'location-child')]";
 	
 	@FindBy(id="leads-grid-filter-button")
 	WebElement search_button;
@@ -168,13 +170,23 @@ public class ZBOLeadPage extends Page{
 	}
 	
 	public boolean clickAndSelectFilterName(String pFilterName) {
-		return ActionHelper.selectDropDownOption(driver, filter_dropdown, "", pFilterName);
-		
+		return ActionHelper.selectDropDownOption(driver, filter_dropdown, "", pFilterName);	
 	}
 	public boolean clickAndSelectFilterValue(String pFilterValue) {
 		return ActionHelper.selectDropDownOption(driver, filter_child_dropdown, "", pFilterValue);	
 	}
-	
+	public boolean clickAndSelectFilterNameLast(String pFilterName) {
+		List<WebElement> list_of_element = ActionHelper.getListOfElementByXpath(driver,select_location_filter);
+		return ActionHelper.selectDropDownOption(driver, list_of_element.get(list_of_element.size()-1), "", pFilterName);	
+	}
+	public boolean clickAndSelectFilterValueLast(String pFilterValue) {
+		List<WebElement> list_of_element = ActionHelper.getListOfElementByXpath(driver,select_child_filter);
+		return ActionHelper.selectDropDownOption(driver, list_of_element.get(list_of_element.size()-1), "", pFilterValue);	
+	}
+	public boolean clickAndSelectFilterValueExcept(String pFilterValueNotToSelect) {
+		List<WebElement> list_of_element = ActionHelper.getListOfElementByXpath(driver,select_child_filter);
+		return ActionHelper.selectDropDownaAnyOptionExcept(driver, list_of_element.get(list_of_element.size()-1), pFilterValueNotToSelect);	
+	}
 	private boolean isSortingWorking(String pXpathAscending, String pXpathDescending,String pDynamicVariable) {
 		boolean isWorking = false;
 		ActionHelper.staticWait(3);
@@ -184,7 +196,7 @@ public class ZBOLeadPage extends Page{
 		return isWorking;
 	}
 	
-	public boolean verifyFilter(String pFilterName, String pFilterValue) throws ParseException {
+	public boolean verifyFilter(String pFilterName, String pFilterValue) {
 		boolean isVerified = false;
 		isProcessingComplete();
 		populateResultsMap();
@@ -208,7 +220,7 @@ public class ZBOLeadPage extends Page{
 			isVerified = verifyDate("Last Visit", pFilterValue);
 			break;
 		case "By Lead Source":
-			isVerified = verifyLeadSource("Social");
+			isVerified = verifyLeadSource(pFilterValue);
 			break;
 		case "By Last Email Sent":
 			break;
@@ -247,7 +259,7 @@ public class ZBOLeadPage extends Page{
 		HashMap<String,String> dataRowMap = rowDataMap.get(randomInt);
 		return pFilterValue.contains(dataRowMap.get(pFilterName));
 	}
-	private boolean verifyDate(String pFilterName, String pFilterValue) throws ParseException {
+	private boolean verifyDate(String pFilterName, String pFilterValue){
 		int days = 0;
 		switch(pFilterValue) {
 		case "Today":
@@ -273,8 +285,15 @@ public class ZBOLeadPage extends Page{
 		
 		SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
 		String currentDateStr = format.format(new Date());
-		Date dateOnPage = format.parse(lDateOnPage);
-		Date curretDate = format.parse(currentDateStr);
+		Date dateOnPage = null;
+		Date curretDate = null;
+		try {
+			dateOnPage = format.parse(lDateOnPage);
+			curretDate = format.parse(currentDateStr);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		     
 		long diff = Math.abs(dateOnPage.getTime() - curretDate.getTime() );
 		long lDiffInDays = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);;//diff / (24 * 60 * 60 * 1000);

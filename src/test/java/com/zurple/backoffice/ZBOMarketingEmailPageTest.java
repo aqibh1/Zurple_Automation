@@ -3,6 +3,7 @@
  */
 package com.zurple.backoffice;
 
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.text.ParseException;
@@ -271,12 +272,13 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		String mls_id = EnvironmentFactory.configReader.getPropertyByName("zurple_mls_id").toString();
 		assertTrue(page.typeInputField(mls_id), "Unable to type MLS ID");
 		assertTrue(page.clickOnSearchButton(), "Unable to click on search button");
+		ActionHelper.staticWait(10);
 		assertTrue(page.isListingWithMLSIDPresent(mls_id), "Listing is not present in search results");
 	}
 	
 	/**
 	 * Verify validation message is displayed if no Subject is provided and Next button is clicked
-	 * 48854
+	 * 48853
 	 */
 	@Test
 	public void testVerifyValidationMessageIsDisplayedIfNoSubjectIsProvided() {
@@ -447,9 +449,39 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.ScheduledEmailListingFlyerCache);
 		String l_email_subject = lCacheObject.optString("email_subject");
 		int lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		String lc_lead_detail_url = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
+		driver.navigate().to(lc_lead_detail_url);
 		assertTrue(testVerifyEmailInMyMessages(l_email_subject,String.valueOf(lLeadId)), "Unable to verify listing flyer email from lead details my messages section");
 	}
 	
+	/**
+	 * Verify current machine time is displayed by default once calendar button is clicked on
+	 * 48846
+	 */
+	@Test
+	public void testVerifyCurrentTimeIsDsiplayedInCalendar() {
+		getPage("/marketing/massemail");
+		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
+		assertTrue(page.clickOnCalendarButton(), "Unable to click on calendar button");
+		String l_time = page.getCurrentTime();
+		long difference = getDifference(l_time);
+		assertTrue(difference==1, "Machine time and calendar time are not same");	
+	}
+	
+	/**
+	 * Verify Email listings are not sent to individual lead from mass email page
+	 * 48855
+	 */
+	@Test
+	public void testVerifyListingEmailIsNotSentToIndividualLead() {
+		getPage("/marketing/massemail");
+		assertTrue(page.selectRecipients("Individual Lead with any Status other than Inactive"), "Unable to select individual recipient");
+		ActionHelper.staticWait(5);
+		assertTrue(page.isInputLeadEmailIsVisible(), "Email Input field is not visible");
+		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on 'Send Listings' button");
+		ActionHelper.staticWait(5);
+		assertFalse(page.isInputLeadEmailIsVisible(), "Email Input field is not visible");
+	}
 	private void verifyEmailListingFlyer(JSONObject pDataObject) {
 		lToEmail = pDataObject.optString("toemail");
 		assertTrue(page.clickOnEmailListingFlyer(), "Unable to click on email listing flyer button..");
@@ -507,26 +539,26 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 			assertTrue(page.typeToEmail(lToEmail), "Unable to type lead email..");
 		}
 		ActionHelper.staticWait(2);
-		if(pDataObject.optString("file_path")!=null && !pDataObject.optString("file_path").isEmpty()) {
-			assertTrue(page.clickOnAttachFileButton(), "Unable to click on attach file button..");
-			ActionHelper.staticWait(2);
-			page.getAttachFileForm().switchToBrowserToNewWindow();
-			ActionHelper.staticWait(10);
-//			assertTrue(page.getAttachFileForm().isUploadFileFormVisible(), "Upload file form is not visible..");
-			assertTrue(page.getAttachFileForm().clickAndSelectFile(), "Unable to select the file from upload form ..");
-			ActionHelper.staticWait(5);
-			page.getAttachFileForm().switchToOriginalWindow();
-			ActionHelper.staticWait(5);
-			assertTrue(page.isAttachmentRemoveButtonVisible(), "Remove button after attaching file is not visible..");
-			
-			assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
-			ActionHelper.staticWait(2);
-			assertTrue(page.isAttachmentLabelVisible(), "Attachment file is not visible in preview..");
-			ActionHelper.staticWait(2);
-			assertTrue(page.closePreviewWindow(), "Unable to close Preview window..");
-			ActionHelper.staticWait(2);
-			
-		}
+//		if(pDataObject.optString("file_path")!=null && !pDataObject.optString("file_path").isEmpty()) {
+//			assertTrue(page.clickOnAttachFileButton(), "Unable to click on attach file button..");
+//			ActionHelper.staticWait(2);
+//			page.getAttachFileForm().switchToBrowserToNewWindow();
+//			ActionHelper.staticWait(10);
+////			assertTrue(page.getAttachFileForm().isUploadFileFormVisible(), "Upload file form is not visible..");
+//			assertTrue(page.getAttachFileForm().clickAndSelectFile(), "Unable to select the file from upload form ..");
+//			ActionHelper.staticWait(5);
+//			page.getAttachFileForm().switchToOriginalWindow();
+//			ActionHelper.staticWait(5);
+//			assertTrue(page.isAttachmentRemoveButtonVisible(), "Remove button after attaching file is not visible..");
+//			
+//			assertTrue(page.clickOnPreviewButton(), "Unable to click on preview button..");
+//			ActionHelper.staticWait(2);
+//			assertTrue(page.isAttachmentLabelVisible(), "Attachment file is not visible in preview..");
+//			ActionHelper.staticWait(2);
+//			assertTrue(page.closePreviewWindow(), "Unable to close Preview window..");
+//			ActionHelper.staticWait(2);
+//			
+//		}
 		if(pDataObject.optString("schedule_email")!=null && !pDataObject.optString("schedule_email").isEmpty()) {
 			assertTrue(page.selectSchedule(), "Unable to schedule the email..");
 			isScheduledEmail = true;

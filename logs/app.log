@@ -1,44 +1,813 @@
-2022-02-23 02:14:19,214 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:63-----=====Fetching test case ID by Scenario name=====-----
-2022-02-23 02:14:19,226 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:182-----=====--SKIP-- testVerifyLeadReplies Thread ID::15 TEST ID ::=====-----
-2022-02-23 02:14:19,226 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:183-----=====SKIP Test :: Verify_lead_Replies_ZBOMarketingEmailPageTest.testVerifyLeadReplies Thread ID ::15=====-----
-2022-02-23 02:15:19,466 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:63-----=====Fetching test case ID by Scenario name=====-----
-2022-02-23 02:15:19,470 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:182-----=====--SKIP-- testVerifyLeadReplies Thread ID::15 TEST ID ::=====-----
-2022-02-23 02:15:19,470 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:183-----=====SKIP Test :: Verify_lead_Replies_ZBOMarketingEmailPageTest.testVerifyLeadReplies Thread ID ::15=====-----
-2022-02-23 02:16:49,211 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
-2022-02-23 02:16:49,212 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
-2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyLeadReplies       $$$$$$$$$$$$$$$$$$$$$$$$$
-2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
-2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
-2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:79-----=====Thread ID::15=====-----
-2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:63-----=====Fetching test case ID by Scenario name=====-----
-2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:87-----=====Initializing TestRail URL :: https://z57.testrail.com/=====-----
-2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:88-----=====SCENARIO NAME :: Verify lead Replies=====-----
-2022-02-23 02:16:49,213 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:89-----=====TEST NAME :: testVerifyLeadReplies=====-----
-2022-02-23 02:16:49,214 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:90-----=====TESTCASE ID :: =====-----
-2022-02-23 02:16:49,214 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:91-----=====TEST RUN ID :: null=====-----
-2022-02-23 02:16:51,925 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:68-----=====Subject :: Finish setting up your new Google Account=====-----
-2022-02-23 02:16:52,186 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:68-----=====Subject :: 2-Step Verification turned on=====-----
-2022-02-23 02:16:52,446 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:68-----=====Subject :: App password created=====-----
-2022-02-23 02:16:52,700 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:68-----=====Subject :: Quick Question=====-----
-2022-02-23 02:16:52,963 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:68-----=====Subject :: Security alert=====-----
-2022-02-23 02:16:53,221 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:68-----=====Subject :: [stage01] Quick Question=====-----
-2022-02-23 02:16:53,221 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:70-----=====Subject: [stage01] Quick Question=====-----
-2022-02-23 02:16:53,222 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:169-----=====From: Aqib Site Owner <aqibstagetesting_zurpleqa@stage01.zengtest6.us>=====-----
-2022-02-23 02:16:53,223 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:173-----=====Reply-to: aqib.zurple.production@zengtest2.us=====-----
-2022-02-23 02:16:53,223 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 GmailEmailVerification.java:177-----=====To: z57testuser.zurpleqa@gmail.com=====-----
-2022-02-23 02:16:59,553 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----PASS=====testVerifyLeadReplies=====PASS-----
-2022-02-23 02:16:59,554 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----ERROR=====Lead reply email not sent expected [false] but found [true]=====ERROR-----
-2022-02-23 02:17:00,012 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:63-----=====Fetching test case ID by Scenario name=====-----
-2022-02-23 02:17:00,012 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:125-----=====--FAIL-- testVerifyLeadReplies Thread ID::15 TEST ID ::=====-----
-2022-02-23 02:17:00,013 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 TestRailAndExtentReportListener.java:126-----=====FAIL Test :: Verify_lead_Replies_ZBOMarketingEmailPageTest.testVerifyLeadReplies Thread ID ::15=====-----
-2022-02-23 02:17:00,013 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----ERROR=====Lead reply email not sent expected [false] but found [true]=====ERROR-----
-2022-02-23 02:17:00,451 INFO r.u.AutomationLogger [main] Thread ID = 1 FailedTestsListener.java:88-----=====
-<test name="Verify lead Replies">
-<classes>
-<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
-<methods>
-<include name="testVerifyLeadReplies" />
-</methods>
-</class>
-</classes>
-</test>=====-----
+2022-04-06 07:07:48,086 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:07:48,133 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:07:48,134 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testBackOfficeLogin       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:07:48,134 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:07:48,135 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:07:53,252 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:182-----=====Reading Data File: /resources/data/zurple/register_user/register-user-traffic-source-data.json=====-----
+2022-04-06 07:07:53,403 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> id: username]=====-----
+2022-04-06 07:07:53,806 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:32-----=====String typed ->aqibstagetesting_zurpleqa@mailinator.com=====-----
+2022-04-06 07:07:54,855 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> id: passwd]=====-----
+2022-04-06 07:07:55,129 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:32-----=====String typed ->P@ss1234=====-----
+2022-04-06 07:07:56,236 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //button[contains(text(),'Login')]]=====-----
+2022-04-06 07:08:16,635 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:08:16,781 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:172-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====-----
+2022-04-06 07:08:27,364 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----ERROR=====Element is not visible.  -> Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====ERROR-----
+2022-04-06 07:08:27,365 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----ERROR=====Wait max limit is 10 seconds=====ERROR-----
+2022-04-06 07:08:27,365 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----ERROR=====Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']' (tried for 10 second(s) with 500 milliseconds interval)=====ERROR-----
+2022-04-06 07:08:27,366 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZBONewListingCreateAdAlert.java:37-----=====Create Ad Alert is not visible..=====-----
+2022-04-06 07:08:27,367 INFO r.u.AutomationLogger [TestNG-tests-1] XXXXXXXXXXXXXXXXXXXXXXX             -E---N---D-             XXXXXXXXXXXXXXXXXXXXXX
+2022-04-06 07:08:27,367 INFO r.u.AutomationLogger [TestNG-tests-1] X
+2022-04-06 07:08:27,368 INFO r.u.AutomationLogger [TestNG-tests-1] X
+2022-04-06 07:08:27,368 INFO r.u.AutomationLogger [TestNG-tests-1] X
+2022-04-06 07:08:27,368 INFO r.u.AutomationLogger [TestNG-tests-1] X
+2022-04-06 07:08:27,379 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:08:27,380 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:08:27,380 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyLeadSourceCapturedFromWebsite       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:08:27,381 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:08:27,381 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:08:27,409 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:08:27,410 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:08:27,410 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 Register User       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:08:27,410 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:08:27,410 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:08:34,367 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:182-----=====Reading Data File: /resources/data/zurple/register_user/register-user-traffic-source-data.json=====-----
+2022-04-06 07:08:39,560 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:326-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> id: first_name]=====-----
+2022-04-06 07:08:40,148 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:331-----=====String typed ->0406202234662 trafficsourcelead=====-----
+2022-04-06 07:08:41,201 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:326-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> id: email]=====-----
+2022-04-06 07:08:41,818 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:331-----=====String typed ->0406202234415-trafficsourcelead@mailinator.com=====-----
+2022-04-06 07:08:42,870 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:172-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> id: phone]=====-----
+2022-04-06 07:08:42,967 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:326-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> id: phone]=====-----
+2022-04-06 07:08:43,486 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:331-----=====String typed ->202-555-0149=====-----
+2022-04-06 07:08:44,488 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:08:44,608 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //input[@name='register_button']]=====-----
+2022-04-06 07:08:44,953 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:09:40,392 INFO r.u.AutomationLogger [TestNG-tests-1] XXXXXXXXXXXXXXXXXXXXXXX             -E---N---D-             XXXXXXXXXXXXXXXXXXXXXX
+2022-04-06 07:09:40,392 INFO r.u.AutomationLogger [TestNG-tests-1] X
+2022-04-06 07:09:40,393 INFO r.u.AutomationLogger [TestNG-tests-1] X
+2022-04-06 07:09:40,393 INFO r.u.AutomationLogger [TestNG-tests-1] X
+2022-04-06 07:09:40,393 INFO r.u.AutomationLogger [TestNG-tests-1] X
+2022-04-06 07:09:47,484 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:172-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //div[@id='lead-details-main']/descendant::span[text()='Lead Source:']/following-sibling::span]=====-----
+2022-04-06 07:09:47,608 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:238-----=====Element Text :Zurple Traffic=====-----
+2022-04-06 07:09:47,626 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:09:47,626 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:09:47,627 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testApplyZurpleTrafficFilter       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:09:47,627 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:09:47,627 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:09:57,357 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:326-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> id: leadsInputName]=====-----
+2022-04-06 07:09:57,960 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:331-----=====String typed ->0406202234415-trafficsourcelead_ZurpleQA@mailinator.com=====-----
+2022-04-06 07:09:59,080 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:538-----=====Clicking on button [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //*[contains(@id,'filter-dependent-selects')]/descendant::select[contains(@id,'location-parent')]]=====-----
+2022-04-06 07:09:59,081 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //*[contains(@id,'filter-dependent-selects')]/descendant::select[contains(@id,'location-parent')]]=====-----
+2022-04-06 07:09:59,252 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:09:59,267 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:545-----=====Selecting a option from Dropdown =====-----
+2022-04-06 07:09:59,777 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //*[contains(@id,'filter-dependent-selects')]/descendant::select[contains(@id,'location-parent')]]] -> tag name: option]=====-----
+2022-04-06 07:09:59,888 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:09:59,889 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //*[contains(@id,'filter-dependent-selects')]/descendant::select[contains(@id,'location-parent')]]=====-----
+2022-04-06 07:09:59,982 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:10:10,049 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:538-----=====Clicking on button [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //*[contains(@id,'filter-dependent-selects')]/descendant::select[contains(@id,'location-child')]]=====-----
+2022-04-06 07:10:10,050 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //*[contains(@id,'filter-dependent-selects')]/descendant::select[contains(@id,'location-child')]]=====-----
+2022-04-06 07:10:10,360 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:10:10,420 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:545-----=====Selecting a option from Dropdown =====-----
+2022-04-06 07:10:10,681 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //*[contains(@id,'filter-dependent-selects')]/descendant::select[contains(@id,'location-child')]]] -> tag name: option]=====-----
+2022-04-06 07:10:10,787 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:10:10,788 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //*[contains(@id,'filter-dependent-selects')]/descendant::select[contains(@id,'location-child')]]=====-----
+2022-04-06 07:10:10,929 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:10:12,991 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //button[@data-action='increase']]=====-----
+2022-04-06 07:10:13,128 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:10:15,180 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> id: leads-grid-filter-button]=====-----
+2022-04-06 07:10:15,466 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:10:15,470 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:10:15,470 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:10:15,470 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyLeadSourceFromCRMPage       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:10:15,470 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:10:15,470 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:10:18,570 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:172-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //table[@id='leads-table']/descendant::p[@class='lead-source']]=====-----
+2022-04-06 07:10:18,728 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:238-----=====Element Text :Zurple Traffic=====-----
+2022-04-06 07:10:18,733 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:10:18,734 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:10:18,734 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testApplyLeadSourceFilter       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:10:18,734 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:10:18,735 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:10:23,196 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:326-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> id: leadsInputName]=====-----
+2022-04-06 07:10:23,542 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:331-----=====String typed ->0406202234415-trafficsourcelead_ZurpleQA@mailinator.com=====-----
+2022-04-06 07:10:24,662 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:538-----=====Clicking on button [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //select[@id='location-parent-1']]=====-----
+2022-04-06 07:10:24,694 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //select[@id='location-parent-1']]=====-----
+2022-04-06 07:10:24,899 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:10:24,947 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:545-----=====Selecting a option from Dropdown =====-----
+2022-04-06 07:10:25,095 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //select[@id='location-parent-1']]] -> tag name: option]=====-----
+2022-04-06 07:10:25,181 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:10:25,212 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //select[@id='location-parent-1']]=====-----
+2022-04-06 07:10:25,503 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:10:35,570 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:538-----=====Clicking on button [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //select[@id='location-child-1']]=====-----
+2022-04-06 07:10:35,602 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //select[@id='location-child-1']]=====-----
+2022-04-06 07:10:35,905 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:10:35,979 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:545-----=====Selecting a option from Dropdown =====-----
+2022-04-06 07:10:36,421 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[[[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //select[@id='location-child-1']]] -> tag name: option]=====-----
+2022-04-06 07:10:36,545 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:10:36,562 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> xpath: //select[@id='location-child-1']]=====-----
+2022-04-06 07:10:36,794 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:10:36,832 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (629c97cbc68506fc769a90a7ab80b311)] -> id: leads-grid-filter-button]=====-----
+2022-04-06 07:10:37,136 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:10:37,138 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:10:37,138 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:10:37,138 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 closeBrowser       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:10:37,138 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:10:37,138 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:10:37,139 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 CurrentPageTest.java:17-----=====Thread ID 15=====-----
+2022-04-06 07:10:41,301 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 CurrentPageTest.java:20-----=====Browser closed Successfully=====-----
+2022-04-06 07:55:05,141 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:05,145 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:05,146 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testPostPackage       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:05,146 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:05,146 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:05,158 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:182-----=====Reading Data File: /resources/data/zurple/backoffice/create_ap_package_data.json=====-----
+2022-04-06 07:55:05,378 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZBORestPostPackage.java:112-----=====null=====-----
+2022-04-06 07:55:07,581 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostPackage] :: [Post Resp ] :: [200], [OK], [{"message":"Success","package_id":"5800","final_bundles_list":[4,5]}]=====-----
+2022-04-06 07:55:07,594 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZBORestPostPackage.java:70-----=====Package id is:5800=====-----
+2022-04-06 07:55:07,595 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:198-----=====Writing json to file /resources/cache/cache-ap-package-id-data.json=====-----
+2022-04-06 07:55:07,716 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:198-----=====Writing json to file /resources/cache/permanent-ap-package-admin-data.json=====-----
+2022-04-06 07:55:07,746 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:07,746 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:07,746 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testPostAdmin       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:07,746 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:07,746 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:07,747 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:182-----=====Reading Data File: /resources/data/zurple/backoffice/create_ap_admin_data.json=====-----
+2022-04-06 07:55:07,754 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZBORestPostAdmin.java:123-----=====null=====-----
+2022-04-06 07:55:09,560 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (e54974edd019f021885ff05628be964f)] -> id: username]=====-----
+2022-04-06 07:55:09,764 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:32-----=====String typed ->aqibstagetesting_zurpleqa@mailinator.com=====-----
+2022-04-06 07:55:10,797 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (e54974edd019f021885ff05628be964f)] -> id: passwd]=====-----
+2022-04-06 07:55:10,952 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:32-----=====String typed ->P@ss1234=====-----
+2022-04-06 07:55:11,810 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostAdmin] :: [Post Resp ] :: [200], [OK], [{"message":"Success","admin_id":"13308"}]=====-----
+2022-04-06 07:55:11,813 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZBORestPostAdmin.java:72-----=====Admin id is:13308=====-----
+2022-04-06 07:55:11,813 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:198-----=====Writing json to file /resources/cache/cache-ap-admin-id-data.json=====-----
+2022-04-06 07:55:11,815 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:198-----=====Writing json to file /resources/cache/permanent-ap-package-admin-data.json=====-----
+2022-04-06 07:55:11,819 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:11,819 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:11,819 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testPostCheckEmail       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:11,819 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:11,820 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:11,820 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZBORestPostCheckEmail.java:84-----=====null=====-----
+2022-04-06 07:55:12,057 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (e54974edd019f021885ff05628be964f)] -> xpath: //button[contains(text(),'Login')]]=====-----
+2022-04-06 07:55:13,236 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostCheckEmail] :: [Post Resp ] :: [200], [OK], [{"message":"Failed"}]=====-----
+2022-04-06 07:55:13,238 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:13,238 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:13,238 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 closeBrowser       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:13,238 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:13,238 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:13,239 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 CurrentPageTest.java:17-----=====Thread ID 15=====-----
+2022-04-06 07:55:13,350 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 CurrentPageTest.java:20-----=====Browser closed Successfully=====-----
+2022-04-06 07:55:14,869 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:14,870 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:14,870 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testSetup       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:14,870 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:14,870 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:17,444 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:182-----=====Reading Data File: /resources/cache/cache-ap-admin-id-data.json=====-----
+2022-04-06 07:55:17,446 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:182-----=====Reading Data File: /resources/cache/cache-ap-admin-data.json=====-----
+2022-04-06 07:55:17,636 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (2a05a081dd74e01e69686ef1ea30f978)] -> id: username]=====-----
+2022-04-06 07:55:17,886 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:32-----=====String typed ->040620220740-automationadmin@mailinator.com=====-----
+2022-04-06 07:55:18,923 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (2a05a081dd74e01e69686ef1ea30f978)] -> id: passwd]=====-----
+2022-04-06 07:55:19,026 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:32-----=====String typed ->Welcome123=====-----
+2022-04-06 07:55:20,107 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (2a05a081dd74e01e69686ef1ea30f978)] -> xpath: //button[contains(text(),'Login')]]=====-----
+2022-04-06 07:55:20,795 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (a254bd9d8c26df770785769867daa543)] -> id: username]=====-----
+2022-04-06 07:55:20,963 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:32-----=====String typed ->aqibstagetesting_zurpleqa@mailinator.com=====-----
+2022-04-06 07:55:22,000 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (a254bd9d8c26df770785769867daa543)] -> id: passwd]=====-----
+2022-04-06 07:55:22,233 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:32-----=====String typed ->P@ss1234=====-----
+2022-04-06 07:55:23,153 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:55:23,252 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:172-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====-----
+2022-04-06 07:55:23,318 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (a254bd9d8c26df770785769867daa543)] -> xpath: //button[contains(text(),'Login')]]=====-----
+2022-04-06 07:55:28,816 ERROR r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 -----ERROR=====Element is not visible.  -> Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====ERROR-----
+2022-04-06 07:55:28,816 ERROR r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 -----ERROR=====Wait max limit is 10 seconds=====ERROR-----
+2022-04-06 07:55:28,817 ERROR r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 -----ERROR=====Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']' (tried for 5 second(s) with 500 milliseconds interval)=====ERROR-----
+2022-04-06 07:55:28,817 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ZBONewListingCreateAdAlert.java:37-----=====Create Ad Alert is not visible..=====-----
+2022-04-06 07:55:28,826 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:28,827 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:28,827 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testSetup       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:28,827 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:28,828 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:28,828 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 AbstractPageTest.java:182-----=====Reading Data File: /resources/cache/cache-ap-package-id-data.json=====-----
+2022-04-06 07:55:28,832 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 AbstractPageTest.java:182-----=====Reading Data File: /resources/cache/cache-ap-package-data.json=====-----
+2022-04-06 07:55:31,185 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:55:31,324 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:172-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====-----
+2022-04-06 07:55:33,203 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:55:33,283 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:172-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====-----
+2022-04-06 07:55:39,833 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:39,833 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:39,834 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testVerifySubscriptionDate       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:39,834 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:39,835 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:39,850 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:39,938 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:39,938 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:39,938 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testVerifyAdditionalAdmins       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:39,938 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:39,938 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:39,938 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:40,003 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,004 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,004 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testVerifyURLPath       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:40,004 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,004 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,005 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:40,067 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ZAPackageManagerPage.java:80-----=====AutomationAPPackage=====-----
+2022-04-06 07:55:40,068 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ZAPackageManagerPage.java:81-----=====AutomationAPPackage=====-----
+2022-04-06 07:55:40,068 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:40,158 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,159 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,159 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testVerifySetupFee       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:40,159 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,160 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,160 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:40,261 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,261 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,262 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testVerifyFullName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:40,262 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,263 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,263 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:40,344 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,345 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,345 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testVerifyEmail       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:40,345 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,346 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,346 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:40,438 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,438 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,438 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testVerifyCompany       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:40,439 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,439 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,440 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:40,562 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,562 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,563 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testVerifyZurpleClientId       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:40,563 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,563 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,564 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:40,618 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,618 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,619 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testVerifyPackageBundles       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:40,619 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,619 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,620 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:277-----=====Clicking on button -> ms-selected=====-----
+2022-04-06 07:55:40,696 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:280-----=====Clicked on button successful..=====-----
+2022-04-06 07:55:40,702 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,703 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,703 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testVerifyPhone       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:40,703 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,703 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,704 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:40,782 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,782 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,783 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testVerifyFeatureBundles       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:40,783 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,783 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,784 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:277-----=====Clicking on button -> ms-selected=====-----
+2022-04-06 07:55:40,854 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:280-----=====Clicked on button successful..=====-----
+2022-04-06 07:55:40,861 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,861 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,861 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testVerifyPayers       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:40,862 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,862 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:55:40,863 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:41,720 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====Element is not visible.  -> Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====ERROR-----
+2022-04-06 07:55:41,720 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====Wait max limit is 10 seconds=====ERROR-----
+2022-04-06 07:55:41,720 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']' (tried for 10 second(s) with 500 milliseconds interval)=====ERROR-----
+2022-04-06 07:55:41,721 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ZBONewListingCreateAdAlert.java:37-----=====Create Ad Alert is not visible..=====-----
+2022-04-06 07:55:41,908 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:41,909 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:41,909 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testSetup       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:41,909 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:41,909 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:41,909 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 AbstractPageTest.java:182-----=====Reading Data File: /resources/cache/cache-ap-admin-id-data.json=====-----
+2022-04-06 07:55:41,910 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 AbstractPageTest.java:182-----=====Reading Data File: /resources/cache/cache-ap-admin-data.json=====-----
+2022-04-06 07:55:43,781 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----ERROR=====Element is not visible.  -> Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====ERROR-----
+2022-04-06 07:55:43,782 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----ERROR=====Wait max limit is 10 seconds=====ERROR-----
+2022-04-06 07:55:43,782 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----ERROR=====Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']' (tried for 10 second(s) with 500 milliseconds interval)=====ERROR-----
+2022-04-06 07:55:43,783 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZBONewListingCreateAdAlert.java:37-----=====Create Ad Alert is not visible..=====-----
+2022-04-06 07:55:45,849 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:45,849 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:45,849 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyOfficeName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:45,850 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:45,850 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:45,850 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:45,911 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:45,911 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:45,912 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifySMSFlag       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:45,912 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:45,912 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:45,947 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:829-----=====Checking if element is selected[[ChromeDriver: chrome on WINDOWS (a254bd9d8c26df770785769867daa543)] -> id: sms_enabled_flag]=====-----
+2022-04-06 07:55:46,067 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,067 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,067 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyLastName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:46,067 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,067 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,100 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:172-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (a254bd9d8c26df770785769867daa543)] -> id: last_name]=====-----
+2022-04-06 07:55:46,203 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:238-----=====Element Text :=====-----
+2022-04-06 07:55:46,206 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,206 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,207 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyAltEmail       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:46,207 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,207 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,207 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:46,264 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,264 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,264 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifySMSNotificationFlag       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:46,264 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,264 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,288 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:829-----=====Checking if element is selected[[ChromeDriver: chrome on WINDOWS (a254bd9d8c26df770785769867daa543)] -> id: sms_notification_enabled]=====-----
+2022-04-06 07:55:46,313 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,313 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,313 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyPackageId       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:46,313 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,313 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,313 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:46,370 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,370 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,371 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyCMSFlag       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:46,371 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,371 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,395 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:829-----=====Checking if element is selected[[ChromeDriver: chrome on WINDOWS (a254bd9d8c26df770785769867daa543)] -> id: cms_flag]=====-----
+2022-04-06 07:55:46,429 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,430 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,430 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyPropFlag       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:46,430 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,430 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,453 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:829-----=====Checking if element is selected[[ChromeDriver: chrome on WINDOWS (a254bd9d8c26df770785769867daa543)] -> id: property_flag]=====-----
+2022-04-06 07:55:46,496 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,496 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,496 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyAliasPhone       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:46,497 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,497 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,497 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ZAAdminManagerPageTest.java:98-----=====Skipping=====-----
+2022-04-06 07:55:46,498 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:46,520 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (da5f5e0c4fbb2df56c52f0123e1e464d)] -> id: username]=====-----
+2022-04-06 07:55:46,557 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,557 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,557 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyFirstName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:46,558 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,558 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,580 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:172-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (a254bd9d8c26df770785769867daa543)] -> id: first_name]=====-----
+2022-04-06 07:55:46,700 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:238-----=====Element Text :=====-----
+2022-04-06 07:55:46,703 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,703 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,703 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyPhone       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:46,703 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,704 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,704 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ZAAdminManagerPageTest.java:92-----=====Skipping=====-----
+2022-04-06 07:55:46,704 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:46,763 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:32-----=====String typed ->aqibstagetesting_zurpleqa@mailinator.com=====-----
+2022-04-06 07:55:46,763 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,764 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,764 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyForwardEmail       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:46,764 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,764 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,764 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:46,822 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,822 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,822 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyBillingFlag       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:46,822 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,822 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,843 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:829-----=====Checking if element is selected[[ChromeDriver: chrome on WINDOWS (a254bd9d8c26df770785769867daa543)] -> id: billing_access_flag]=====-----
+2022-04-06 07:55:46,888 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,889 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,889 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyAgentCode       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:46,889 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,889 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,889 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:46,947 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,947 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,948 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyLoginEmail       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:46,948 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,948 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:46,948 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:47,002 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,002 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,002 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyOfficeAddress       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:47,003 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,003 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,004 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:47,083 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,084 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,084 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyTimeZone       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:47,084 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,084 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,138 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:829-----=====Checking if element is selected[[ChromeDriver: chrome on WINDOWS (a254bd9d8c26df770785769867daa543)] -> xpath: //select[@id='time_zone']/option]=====-----
+2022-04-06 07:55:47,167 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:829-----=====Checking if element is selected[[ChromeDriver: chrome on WINDOWS (a254bd9d8c26df770785769867daa543)] -> xpath: //select[@id='time_zone']/option]=====-----
+2022-04-06 07:55:47,195 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:829-----=====Checking if element is selected[[ChromeDriver: chrome on WINDOWS (a254bd9d8c26df770785769867daa543)] -> xpath: //select[@id='time_zone']/option]=====-----
+2022-04-06 07:55:47,220 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:473-----=====Fetching attribute: label=====-----
+2022-04-06 07:55:47,256 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,257 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,257 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyOwnerId       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:47,257 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,258 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,258 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:47,348 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,348 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,348 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testVerifyFeed       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:47,348 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,348 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:47,349 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:47,789 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (da5f5e0c4fbb2df56c52f0123e1e464d)] -> id: passwd]=====-----
+2022-04-06 07:55:47,995 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:32-----=====String typed ->P@ss1234=====-----
+2022-04-06 07:55:49,120 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (da5f5e0c4fbb2df56c52f0123e1e464d)] -> xpath: //button[contains(text(),'Login')]]=====-----
+2022-04-06 07:55:49,411 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:49,412 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:49,412 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testPostFetchNSRecord       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:49,412 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:49,412 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:49,412 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 AbstractPageTest.java:182-----=====Reading Data File: /resources/cache/cache-ap-updated-data.json=====-----
+2022-04-06 07:55:49,415 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ZBORestPostFetchNSRecord.java:91-----=====null=====-----
+2022-04-06 07:55:51,877 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostFetchNSRecord] :: [Post Resp ] :: [200], [OK], [{"first_name":"032220222468 fName","last_name":"0322202223209 lName","phone":"16121990329","feed":"312","mls_agent_id":"2044","login_email":"0322202227339-nsautomation@mailinator.com","time_zone":"6","package_type":"1","package_bundle":"1","package_id":"5710","admin_id":"13074","domain":"http:\/\/nengtest54.com","company_name":"Package015 Test","office_name":"0322202226950 officeName","office_phone":"(123) 456-7899","office_address":"test test test CA 92130","dre":"0322202228734 SMRT","al_cycle_start_date":null,"al_cycle_end_date":null,"sp_cycle_start_date":null,"sp_cycle_end_date":null}]=====-----
+2022-04-06 07:55:51,881 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----PASS=====testPostFetchNSRecord=====PASS-----
+2022-04-06 07:55:51,882 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====Unable to verify the NS record data.. expected [true] but found [false]=====ERROR-----
+2022-04-06 07:55:52,269 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,269 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,269 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyUniqueSignOff       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:52,269 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,269 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,270 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:52,318 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,318 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,318 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyPhone       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:52,318 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,318 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,318 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZAAdminProfilePageTest.java:101-----=====Skipping=====-----
+2022-04-06 07:55:52,318 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:52,378 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,378 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,379 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyFirstName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:52,379 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,379 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,399 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:172-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (2a05a081dd74e01e69686ef1ea30f978)] -> id: first_name]=====-----
+2022-04-06 07:55:52,508 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:238-----=====Element Text :=====-----
+2022-04-06 07:55:52,510 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,511 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,511 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyDisplayName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:52,511 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,511 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,511 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:52,550 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,551 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,551 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyBrokerageLogoFlag       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:52,551 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,551 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,569 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:829-----=====Checking if element is selected[[ChromeDriver: chrome on WINDOWS (2a05a081dd74e01e69686ef1ea30f978)] -> id: email_display_brokerage_logo]=====-----
+2022-04-06 07:55:52,591 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,591 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,591 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyLicense       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:52,591 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,591 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,592 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:52,645 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,645 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,645 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyAltEmail       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:52,645 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,645 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,645 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:52,805 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,805 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,805 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyZillowEmail       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:52,805 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,805 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,805 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:52,838 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----ERROR=====Unable to fetch attribute =====ERROR-----
+2022-04-06 07:55:52,840 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,840 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,840 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyBrokerageAddress       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:52,840 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,840 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,841 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:52,890 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,890 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,890 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyTimeZone       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:52,890 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,890 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,910 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:829-----=====Checking if element is selected[[ChromeDriver: chrome on WINDOWS (2a05a081dd74e01e69686ef1ea30f978)] -> xpath: //select[@id='time_zone']/option]=====-----
+2022-04-06 07:55:52,921 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:829-----=====Checking if element is selected[[ChromeDriver: chrome on WINDOWS (2a05a081dd74e01e69686ef1ea30f978)] -> xpath: //select[@id='time_zone']/option]=====-----
+2022-04-06 07:55:52,931 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:829-----=====Checking if element is selected[[ChromeDriver: chrome on WINDOWS (2a05a081dd74e01e69686ef1ea30f978)] -> xpath: //select[@id='time_zone']/option]=====-----
+2022-04-06 07:55:52,938 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:473-----=====Fetching attribute: label=====-----
+2022-04-06 07:55:52,954 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,954 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,954 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyLoginEmail       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:52,954 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,954 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:52,954 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:53,001 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,001 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,001 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyLastName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:53,001 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,001 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,019 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:172-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (2a05a081dd74e01e69686ef1ea30f978)] -> id: last_name]=====-----
+2022-04-06 07:55:53,089 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:238-----=====Element Text :=====-----
+2022-04-06 07:55:53,091 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,091 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,091 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyProfileImageFlag       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:53,091 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,091 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,115 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:829-----=====Checking if element is selected[[ChromeDriver: chrome on WINDOWS (2a05a081dd74e01e69686ef1ea30f978)] -> id: email_display_profile_image]=====-----
+2022-04-06 07:55:53,157 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,157 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,157 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyBrokeragePhone       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:53,157 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,158 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,158 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:53,203 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,203 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,203 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyZillowConnection       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:53,203 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,203 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,223 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,223 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,224 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testVerifyBrokerageName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:53,224 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,224 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:53,224 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:473-----=====Fetching attribute: value=====-----
+2022-04-06 07:55:53,960 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:53,961 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:53,961 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testSetup       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:53,961 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:53,961 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:55:55,393 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:55,393 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:55,393 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testPostFetchNSRecordForAdminProfile       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:55,393 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:55,393 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:55,394 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:182-----=====Reading Data File: /resources/cache/cache-ap-updated-data-admin-profile.json=====-----
+2022-04-06 07:55:55,406 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZBORestPostFetchNSRecord.java:91-----=====null=====-----
+2022-04-06 07:55:56,676 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:55:56,809 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:172-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====-----
+2022-04-06 07:55:57,636 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostFetchNSRecord] :: [Post Resp ] :: [200], [OK], [{"first_name":"032220222468 fName","last_name":"0322202223209 lName","phone":"16121990329","feed":"312","mls_agent_id":"2044","login_email":"0322202227339-nsautomation@mailinator.com","time_zone":"6","package_type":"1","package_bundle":"1","package_id":"5710","admin_id":"13074","domain":"http:\/\/nengtest54.com","company_name":"Package015 Test","office_name":"0322202226950 officeName","office_phone":"(123) 456-7899","office_address":"test test test CA 92130","dre":"0322202228734 SMRT","al_cycle_start_date":null,"al_cycle_end_date":null,"sp_cycle_start_date":null,"sp_cycle_end_date":null}]=====-----
+2022-04-06 07:55:57,643 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----PASS=====testPostFetchNSRecordForAdminProfile=====PASS-----
+2022-04-06 07:55:57,643 ERROR r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 -----ERROR=====Unable to verify the NS record data.. expected [true] but found [false]=====ERROR-----
+2022-04-06 07:55:59,386 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 AbstractPageTest.java:182-----=====Reading Data File: /resources/cache/cache-ap-updated-data.json=====-----
+2022-04-06 07:55:59,556 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (16ab33680e304e885f1a1f3c66c1872c)] -> id: username]=====-----
+2022-04-06 07:55:59,730 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:32-----=====String typed ->0201202206172-nsautomation@mailinator.com=====-----
+2022-04-06 07:55:59,840 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:59,840 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:59,840 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testPostFetchAndRemoveAliasPhone       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:55:59,840 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:55:59,840 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 07:56:00,771 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (16ab33680e304e885f1a1f3c66c1872c)] -> id: passwd]=====-----
+2022-04-06 07:56:01,053 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:32-----=====String typed ->Welcome123=====-----
+2022-04-06 07:56:02,112 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (16ab33680e304e885f1a1f3c66c1872c)] -> xpath: //button[contains(text(),'Login')]]=====-----
+2022-04-06 07:56:05,083 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:56:05,124 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:172-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====-----
+2022-04-06 07:56:07,125 ERROR r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 -----ERROR=====Element is not visible.  -> Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====ERROR-----
+2022-04-06 07:56:07,125 ERROR r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 -----ERROR=====Wait max limit is 10 seconds=====ERROR-----
+2022-04-06 07:56:07,125 ERROR r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 -----ERROR=====Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']' (tried for 10 second(s) with 500 milliseconds interval)=====ERROR-----
+2022-04-06 07:56:07,125 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ZBONewListingCreateAdAlert.java:37-----=====Create Ad Alert is not visible..=====-----
+2022-04-06 07:56:07,126 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:07,126 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:07,126 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testSetup       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:56:07,127 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:07,127 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:09,049 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16102327219]=====-----
+2022-04-06 07:56:11,161 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:11,161 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:11,162 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testUpdateLastName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:56:11,162 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:11,162 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:11,192 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:326-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (da5f5e0c4fbb2df56c52f0123e1e464d)] -> id: last_name]=====-----
+2022-04-06 07:56:11,724 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:331-----=====String typed ->0406202211538 lName=====-----
+2022-04-06 07:56:12,740 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:12,740 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:12,740 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testUpdateFirstName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:56:12,740 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:12,741 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:12,788 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:326-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (da5f5e0c4fbb2df56c52f0123e1e464d)] -> id: first_name]=====-----
+2022-04-06 07:56:13,154 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:331-----=====String typed ->0406202212267 fName=====-----
+2022-04-06 07:56:14,163 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:14,163 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:14,163 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testUpdateOfficeName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:56:14,163 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:14,163 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:14,189 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:326-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (da5f5e0c4fbb2df56c52f0123e1e464d)] -> id: office_name]=====-----
+2022-04-06 07:56:14,225 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16102548463]=====-----
+2022-04-06 07:56:14,464 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:331-----=====String typed ->0406202214439 officeName=====-----
+2022-04-06 07:56:15,401 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====Element is not visible.  -> Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====ERROR-----
+2022-04-06 07:56:15,401 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====Wait max limit is 10 seconds=====ERROR-----
+2022-04-06 07:56:15,401 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']' (tried for 10 second(s) with 500 milliseconds interval)=====ERROR-----
+2022-04-06 07:56:15,401 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ZBONewListingCreateAdAlert.java:37-----=====Create Ad Alert is not visible..=====-----
+2022-04-06 07:56:15,475 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:15,475 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:15,475 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testUpdateEmail       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:56:15,476 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:15,476 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:15,501 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:326-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (da5f5e0c4fbb2df56c52f0123e1e464d)] -> id: email]=====-----
+2022-04-06 07:56:15,767 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:331-----=====String typed ->0406202215778-nsautomation@mailinator.com=====-----
+2022-04-06 07:56:16,524 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:16,524 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:16,524 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testUpdateEmail       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:56:16,524 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:16,524 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:16,543 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:326-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.id: email'=====-----
+2022-04-06 07:56:16,782 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:16,783 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:16,783 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testUpdateLicense       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:56:16,783 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:16,783 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:16,818 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:326-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (da5f5e0c4fbb2df56c52f0123e1e464d)] -> id: dre]=====-----
+2022-04-06 07:56:17,095 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:331-----=====String typed ->0406202216744 SMRT=====-----
+2022-04-06 07:56:18,111 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:18,112 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:18,112 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testUpdatePhone       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:56:18,112 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:18,112 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:18,156 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:326-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (da5f5e0c4fbb2df56c52f0123e1e464d)] -> id: phone]=====-----
+2022-04-06 07:56:18,582 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:331-----=====String typed ->(1612) 252-0970=====-----
+2022-04-06 07:56:18,728 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16102689373]=====-----
+2022-04-06 07:56:19,595 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:19,595 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:19,596 INFO r.u.AutomationLogger [TestNG-tests-2] $$$$$$$$$$$$$$$$$$$$$                 testSubmitUpdates       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:56:19,596 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:19,596 INFO r.u.AutomationLogger [TestNG-tests-2] ****************************************************************************************
+2022-04-06 07:56:19,644 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (da5f5e0c4fbb2df56c52f0123e1e464d)] -> id: update]=====-----
+2022-04-06 07:56:22,700 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16102722584]=====-----
+2022-04-06 07:56:26,818 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16102738237]=====-----
+2022-04-06 07:56:26,954 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----PASS=====testUpdateEmail=====PASS-----
+2022-04-06 07:56:26,954 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====no such element: Unable to locate element: {"method":"css selector","selector":"#email"}
+  (Session info: chrome=99.0.4844.74)
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.14.0', revision: 'aacccce0', time: '2018-08-02T20:19:58.91Z'
+System info: host: 'CRLHL-HABIBAAQ4', ip: '10.240.1.36', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_271'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 99.0.4844.74, chrome: {chromedriverVersion: 98.0.4758.102 (273bf7ac8c90..., userDataDir: C:\Users\habibaaq\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:64864}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: accept, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 16ab33680e304e885f1a1f3c66c1872c
+*** Element info: {Using=id, value=email}=====ERROR-----
+2022-04-06 07:56:27,339 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:27,339 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:27,340 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testUpdateOfficeName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:56:27,341 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:27,342 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:27,406 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:326-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.id: office_name'=====-----
+2022-04-06 07:56:30,787 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16102858492]=====-----
+2022-04-06 07:56:32,586 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 07:56:34,683 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108120]=====-----
+2022-04-06 07:56:37,831 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----PASS=====testUpdateOfficeName=====PASS-----
+2022-04-06 07:56:37,832 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====no such element: Unable to locate element: {"method":"css selector","selector":"#office_name"}
+  (Session info: chrome=99.0.4844.74)
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.14.0', revision: 'aacccce0', time: '2018-08-02T20:19:58.91Z'
+System info: host: 'CRLHL-HABIBAAQ4', ip: '10.240.1.36', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_271'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 99.0.4844.74, chrome: {chromedriverVersion: 98.0.4758.102 (273bf7ac8c90..., userDataDir: C:\Users\habibaaq\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:64864}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: accept, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 16ab33680e304e885f1a1f3c66c1872c
+*** Element info: {Using=id, value=office_name}=====ERROR-----
+2022-04-06 07:56:38,236 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:38,236 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:38,236 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testUpdatePhone       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:56:38,236 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:38,236 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:38,263 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:326-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.id: phone'=====-----
+2022-04-06 07:56:40,494 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108163]=====-----
+2022-04-06 07:56:44,530 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108198]=====-----
+2022-04-06 07:56:48,591 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108204]=====-----
+2022-04-06 07:56:48,737 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----PASS=====testUpdatePhone=====PASS-----
+2022-04-06 07:56:48,738 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====no such element: Unable to locate element: {"method":"css selector","selector":"#phone"}
+  (Session info: chrome=99.0.4844.74)
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.14.0', revision: 'aacccce0', time: '2018-08-02T20:19:58.91Z'
+System info: host: 'CRLHL-HABIBAAQ4', ip: '10.240.1.36', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_271'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 99.0.4844.74, chrome: {chromedriverVersion: 98.0.4758.102 (273bf7ac8c90..., userDataDir: C:\Users\habibaaq\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:64864}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: accept, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 16ab33680e304e885f1a1f3c66c1872c
+*** Element info: {Using=id, value=phone}=====ERROR-----
+2022-04-06 07:56:49,103 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:49,103 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:49,103 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testUpdateLicense       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:56:49,103 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:49,103 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:56:49,133 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:326-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.id: dre'=====-----
+2022-04-06 07:56:52,720 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108208]=====-----
+2022-04-06 07:56:57,824 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108230]=====-----
+2022-04-06 07:56:59,678 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----PASS=====testUpdateLicense=====PASS-----
+2022-04-06 07:56:59,678 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====no such element: Unable to locate element: {"method":"css selector","selector":"#dre"}
+  (Session info: chrome=99.0.4844.74)
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.14.0', revision: 'aacccce0', time: '2018-08-02T20:19:58.91Z'
+System info: host: 'CRLHL-HABIBAAQ4', ip: '10.240.1.36', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_271'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 99.0.4844.74, chrome: {chromedriverVersion: 98.0.4758.102 (273bf7ac8c90..., userDataDir: C:\Users\habibaaq\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:64864}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: accept, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 16ab33680e304e885f1a1f3c66c1872c
+*** Element info: {Using=id, value=dre}=====ERROR-----
+2022-04-06 07:57:00,142 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:57:00,142 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:57:00,142 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testUpdateLastName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:57:00,142 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:57:00,143 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:57:00,204 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:326-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.id: last_name'=====-----
+2022-04-06 07:57:02,008 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108231]=====-----
+2022-04-06 07:57:05,860 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108241]=====-----
+2022-04-06 07:57:09,723 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108242]=====-----
+2022-04-06 07:57:10,614 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----PASS=====testUpdateLastName=====PASS-----
+2022-04-06 07:57:10,614 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====no such element: Unable to locate element: {"method":"css selector","selector":"#last_name"}
+  (Session info: chrome=99.0.4844.74)
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.14.0', revision: 'aacccce0', time: '2018-08-02T20:19:58.91Z'
+System info: host: 'CRLHL-HABIBAAQ4', ip: '10.240.1.36', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_271'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 99.0.4844.74, chrome: {chromedriverVersion: 98.0.4758.102 (273bf7ac8c90..., userDataDir: C:\Users\habibaaq\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:64864}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: accept, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 16ab33680e304e885f1a1f3c66c1872c
+*** Element info: {Using=id, value=last_name}=====ERROR-----
+2022-04-06 07:57:11,064 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:57:11,065 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:57:11,065 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testUpdateFirstName       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:57:11,065 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:57:11,065 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:57:11,114 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:326-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.id: first_name'=====-----
+2022-04-06 07:57:13,820 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108263]=====-----
+2022-04-06 07:57:19,518 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108299]=====-----
+2022-04-06 07:57:21,571 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----PASS=====testUpdateFirstName=====PASS-----
+2022-04-06 07:57:21,571 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====no such element: Unable to locate element: {"method":"css selector","selector":"#first_name"}
+  (Session info: chrome=99.0.4844.74)
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '3.14.0', revision: 'aacccce0', time: '2018-08-02T20:19:58.91Z'
+System info: host: 'CRLHL-HABIBAAQ4', ip: '10.240.1.36', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_271'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 99.0.4844.74, chrome: {chromedriverVersion: 98.0.4758.102 (273bf7ac8c90..., userDataDir: C:\Users\habibaaq\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:64864}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: accept, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 16ab33680e304e885f1a1f3c66c1872c
+*** Element info: {Using=id, value=first_name}=====ERROR-----
+2022-04-06 07:57:21,987 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:57:21,987 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:57:21,988 INFO r.u.AutomationLogger [TestNG-tests-3] $$$$$$$$$$$$$$$$$$$$$                 testSubmitUpdates       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 07:57:21,988 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:57:21,988 INFO r.u.AutomationLogger [TestNG-tests-3] ****************************************************************************************
+2022-04-06 07:57:22,033 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:48-----=====Clicking on button -> Proxy element for: DefaultElementLocator 'By.id: edit-agent-button'=====-----
+2022-04-06 07:57:23,487 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108901]=====-----
+2022-04-06 07:57:27,719 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108902]=====-----
+2022-04-06 07:57:32,513 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====Unable to Click on Proxy element for: DefaultElementLocator 'By.id: edit-agent-button'=====ERROR-----
+2022-04-06 07:57:32,513 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====Expected condition failed: waiting for visibility of Proxy element for: DefaultElementLocator 'By.id: edit-agent-button' (tried for 10 second(s) with 500 milliseconds interval)=====ERROR-----
+2022-04-06 07:57:32,515 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----PASS=====testSubmitUpdates=====PASS-----
+2022-04-06 07:57:32,515 ERROR r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 -----ERROR=====Unable to submit admin updates  13074 expected [true] but found [false]=====ERROR-----
+2022-04-06 07:57:32,888 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108903]=====-----
+2022-04-06 07:57:36,743 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108908]=====-----
+2022-04-06 07:57:41,147 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108912]=====-----
+2022-04-06 07:57:44,935 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108915]=====-----
+2022-04-06 07:57:49,034 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108926]=====-----
+2022-04-06 07:57:55,497 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108931]=====-----
+2022-04-06 07:58:00,418 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108935]=====-----
+2022-04-06 07:58:04,325 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108937]=====-----
+2022-04-06 07:58:08,706 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108968]=====-----
+2022-04-06 07:58:12,489 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108980]=====-----
+2022-04-06 07:58:16,288 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108991]=====-----
+2022-04-06 07:58:20,686 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108992]=====-----
+2022-04-06 07:58:24,783 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostDeprovisionPhone] :: [Post Resp ] :: [200], [OK], [16104108996]=====-----
+2022-04-06 08:00:17,922 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:17,929 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:17,929 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testPostPackage       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 08:00:17,929 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:17,930 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:17,942 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:182-----=====Reading Data File: /resources/data/zurple/backoffice/create_ap_package_data.json=====-----
+2022-04-06 08:00:18,136 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZBORestPostPackage.java:112-----=====null=====-----
+2022-04-06 08:00:19,613 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostPackage] :: [Post Resp ] :: [200], [OK], [{"message":"Success","package_id":"5801","final_bundles_list":[4,5]}]=====-----
+2022-04-06 08:00:19,619 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZBORestPostPackage.java:70-----=====Package id is:5801=====-----
+2022-04-06 08:00:19,620 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:198-----=====Writing json to file /resources/cache/cache-ap-package-id-data.json=====-----
+2022-04-06 08:00:19,693 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:198-----=====Writing json to file /resources/cache/permanent-ap-package-admin-data.json=====-----
+2022-04-06 08:00:19,706 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:19,706 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:19,706 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testPostAdmin       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 08:00:19,706 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:19,706 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:19,706 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:182-----=====Reading Data File: /resources/data/zurple/backoffice/create_ap_admin_data.json=====-----
+2022-04-06 08:00:19,712 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZBORestPostAdmin.java:123-----=====null=====-----
+2022-04-06 08:00:21,372 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (9ba249907123668cfb2b026463401f00)] -> id: username]=====-----
+2022-04-06 08:00:21,372 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (22a953ebd408d0ce40b1a5aa6e3593cc)] -> id: username]=====-----
+2022-04-06 08:00:21,577 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:32-----=====String typed ->aqibstagetesting_zurpleqa@mailinator.com=====-----
+2022-04-06 08:00:21,592 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:32-----=====String typed ->aqibstagetesting_zurpleqa@mailinator.com=====-----
+2022-04-06 08:00:22,608 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (9ba249907123668cfb2b026463401f00)] -> id: passwd]=====-----
+2022-04-06 08:00:22,625 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (22a953ebd408d0ce40b1a5aa6e3593cc)] -> id: passwd]=====-----
+2022-04-06 08:00:22,749 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:32-----=====String typed ->P@ss1234=====-----
+2022-04-06 08:00:22,804 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:32-----=====String typed ->P@ss1234=====-----
+2022-04-06 08:00:23,836 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (9ba249907123668cfb2b026463401f00)] -> xpath: //button[contains(text(),'Login')]]=====-----
+2022-04-06 08:00:23,897 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (22a953ebd408d0ce40b1a5aa6e3593cc)] -> xpath: //button[contains(text(),'Login')]]=====-----
+2022-04-06 08:00:26,128 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostAdmin] :: [Post Resp ] :: [200], [OK], [{"message":"Success","admin_id":"13309"}]=====-----
+2022-04-06 08:00:26,131 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZBORestPostAdmin.java:72-----=====Admin id is:13309=====-----
+2022-04-06 08:00:26,132 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:198-----=====Writing json to file /resources/cache/cache-ap-admin-id-data.json=====-----
+2022-04-06 08:00:26,135 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:198-----=====Writing json to file /resources/cache/permanent-ap-package-admin-data.json=====-----
+2022-04-06 08:00:26,141 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:26,141 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:26,141 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testPostCheckEmail       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 08:00:26,141 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:26,141 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:26,142 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ZBORestPostCheckEmail.java:84-----=====null=====-----
+2022-04-06 08:00:27,498 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 HttpRequestHandler.java:98-----=====[com.restapi.autoprovision.ZBORestPostCheckEmail] :: [Post Resp ] :: [200], [OK], [{"message":"Failed"}]=====-----
+2022-04-06 08:00:27,502 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:27,502 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:27,502 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 closeBrowser       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 08:00:27,502 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:27,502 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:27,503 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 CurrentPageTest.java:17-----=====Thread ID 15=====-----
+2022-04-06 08:00:27,676 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 CurrentPageTest.java:20-----=====Browser closed Successfully=====-----
+2022-04-06 08:00:29,373 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:29,373 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:29,374 INFO r.u.AutomationLogger [TestNG-tests-1] $$$$$$$$$$$$$$$$$$$$$                 testSetup       $$$$$$$$$$$$$$$$$$$$$$$$$
+2022-04-06 08:00:29,374 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:29,374 INFO r.u.AutomationLogger [TestNG-tests-1] ****************************************************************************************
+2022-04-06 08:00:32,429 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:182-----=====Reading Data File: /resources/cache/cache-ap-admin-id-data.json=====-----
+2022-04-06 08:00:32,431 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 AbstractPageTest.java:182-----=====Reading Data File: /resources/cache/cache-ap-admin-data.json=====-----
+2022-04-06 08:00:32,575 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (813a504d4fbb7739df1784ad58c76c91)] -> id: username]=====-----
+2022-04-06 08:00:32,808 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:32-----=====String typed ->0406202219875-automationadmin@mailinator.com=====-----
+2022-04-06 08:00:33,849 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:29-----=====Waiting for the visibility of element ->[[ChromeDriver: chrome on WINDOWS (813a504d4fbb7739df1784ad58c76c91)] -> id: passwd]=====-----
+2022-04-06 08:00:34,048 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:32-----=====String typed ->Welcome123=====-----
+2022-04-06 08:00:35,188 INFO r.u.AutomationLogger [TestNG-tests-1] Thread ID = 15 ActionHelper.java:48-----=====Clicking on button -> [[ChromeDriver: chrome on WINDOWS (813a504d4fbb7739df1784ad58c76c91)] -> xpath: //button[contains(text(),'Login')]]=====-----
+2022-04-06 08:00:39,091 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 08:00:39,192 INFO r.u.AutomationLogger [TestNG-tests-3] Thread ID = 17 ActionHelper.java:172-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====-----
+2022-04-06 08:00:39,254 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:53-----=====Clicked on button successful..=====-----
+2022-04-06 08:00:39,316 INFO r.u.AutomationLogger [TestNG-tests-2] Thread ID = 16 ActionHelper.java:172-----=====Waiting for the visibility of element ->Proxy element for: DefaultElementLocator 'By.xpath: //h2/strong[text()=' Reach More Prospects']'=====-----

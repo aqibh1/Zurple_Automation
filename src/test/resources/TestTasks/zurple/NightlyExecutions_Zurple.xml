@@ -52,8 +52,7 @@
 	</parameter>
 	</test>	
 	
-	<test name="Send Listing flyer email">	
-	<parameter name="listingEmailFlyerData" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json"> 
+	<test name="Send Listing flyer email from marketing">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -61,8 +60,21 @@
 					</methods>
 				</class>
 				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
-					<methods>
-							<include name="testSendEmailListingFlyer" />
+					<methods> 
+						<include name="testVerifySendListingButtonIsVisible" />
+						<include name="testVerifyListingEmailSubjectIsVisibleWhenSendListingIsClciked" />
+						<include name="testVerifySearchOptionsAreVisibleForListingEmail" />
+						<include name="testSearchAndVerifyListingsByMLSID" />
+						<include name="testVerifyValidationMessageIsDisplayedIfNoSubjectIsProvided" />
+						<include name="testVerifyValidationMessageIsDisplayedIfNoListingIsSelected" />
+						<include name="testVerifyUserCanRemoveAddedListing" />
+						<include name="testVerifyDatePickerOpenWhenCalendarButtonIsClicked" />
+						<include name="testVerifyAdminTimeZone" />
+						<include name="testVerifyScheduleLabelIsDisplayed" />
+						<include name="testVerifyRemoveScheduleLabelButton" />
+						<include name="testVerifyCalendarButtonIsRemovedOnceEmailHasBeenScheduled" />
+						<include name="testVerifyPreviewEmailPageIsOpenedWhenNextButtonIsClicked" />
+						<include name="testVerifySuccessMessageIsDisplayedWhenSendNowButtonIsClicked" />
 					</methods>
 				</class>
 				<class name="resources.CurrentPageTest">
@@ -71,7 +83,26 @@
 					</methods>
 				</class>
 			</classes>
-	</parameter>
+	</test>
+	
+	<test name="Send Scheduled Listing flyer email from marketing">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods> 
+						<include name="testSendScheduleListingEmail" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
 	</test>
 	
 	<test name="Send Standard email">	
@@ -307,7 +338,7 @@
 		</classes>
 		</parameter>
 	</test>
-	
+	<!--  
 	<test name="Create Youtube video post">
 		<parameter name="YTDataFile" value="/resources/data/zurple/backoffice/social/z-social-yt-posts-data.json">
 		<classes>
@@ -319,7 +350,7 @@
 		</classes>
 		</parameter>
 	</test> 
-	
+	-->
 	<test name="Add reminder from Lead Detail Page">
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-reminder.json">
 		<classes>
@@ -2272,6 +2303,29 @@
 	</parameter>
 	</test>	
 	
+	<test name="Verify listing flyer email sent from marketing page">	
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+					<methods>
+							<include name="testVerifyScheduledEmailListingFlyerIsSent" />
+							<include name="testVerifyScheduledEmailListingFlyerFromMyMessages" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
+	
 	<test name="Enroll and unenroll lead in campaign">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/create-campaign-data.json">
 		<parameter name="leadFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
@@ -3587,7 +3641,7 @@
 		</classes>
 		</parameter>
 	</test>
-	
+	<!--  
 	<test name="Verify Social Video Post Youtube">
 		<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-yt-video-post.json">
 		<classes>
@@ -3605,7 +3659,7 @@
 		</classes>
 		</parameter>
 	</test>  	
-	
+	-->
 	<test name="Verifications on Template manager page">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOTemplateManagerPageTest">

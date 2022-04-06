@@ -155,7 +155,11 @@ public abstract class AbstractPageTest extends AbstractTest
 		pName=date_to_append+generateRandomInt(1000)+" "+pName;
 		return pName;
     }
-    
+    protected String updateSubject(String pSubject) {
+    	String date_to_append = getCurrentPSTTime().replace("-", "");
+    	pSubject=pSubject+date_to_append;
+		return pSubject;
+    }
     protected String updatePhoneNumber() {
 		return String.format("(1612) %03d-%04d", 
     	        (int) Math.floor(999*Math.random()), 

@@ -34,6 +34,24 @@ public class ZBOSendEmailForm extends AbstractForm{
 	@FindBy(id="subject")
 	WebElement subject;
 	
+	@FindBy(id="toemail")
+	WebElement toemail_input;
+	
+	@FindBy(id="mls_id")
+	WebElement mls_id_input;
+	
+	@FindBy(id="find_listing_button")
+	WebElement find_listing_button;
+	
+	@FindBy(xpath="//div[@id='listing_template_block']/descendant::h1[text()='New Home on the Market']")
+	WebElement heading_new_home;
+	
+	@FindBy(id="email-send-alert")
+	WebElement email_sent_alert;
+	
+	@FindBy(id="send_email_listing_flyer")
+	WebElement send_email_listing_flyer;
+	
 	public ZBOSendEmailForm(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -65,6 +83,31 @@ public class ZBOSendEmailForm extends AbstractForm{
 	}
 	public String getSubject() {
 		return ActionHelper.getTextByValue(driver, ActionHelper.getElementByXpath(driver, "//input[@id='subject']"));
+	}
+	public String getToEamil() {
+		return ActionHelper.getValue(driver, toemail_input);
+	}
+	public boolean typeAndSearchListingByMLS(String pMLSID) {
+		boolean isSuccessful = false;
+		if(ActionHelper.ClearAndType(driver, mls_id_input, pMLSID)) {
+			isSuccessful = ActionHelper.Click(driver, find_listing_button);
+		}
+		return isSuccessful;
+	}
+	public boolean isListingHeadingFetched() {
+		return ActionHelper.waitForElementToBeVisible(driver, heading_new_home,20);
+	}
+	public boolean typeEmailListingSubject(String pSubject) {
+		return ActionHelper.Type(driver,subject, pSubject);
+	}
+	public boolean isSuccessMessageDisplayed() {
+		return ActionHelper.getText(driver, email_sent_alert).equalsIgnoreCase("Email will be sent in 5 minutes");
+	}
+	public boolean isEmailCannotBeSentErrorDisplayed() {
+		return ActionHelper.getText(driver, email_sent_alert).contains("You cannot send an email to this lead because it is assigned to another agent.");
+	}
+	public boolean clickOnSendListingButton() {
+		return ActionHelper.Click(driver, send_email_listing_flyer);
 	}
 	private int generateRandomInt(int pUpperRange){
     	Random random = new Random();

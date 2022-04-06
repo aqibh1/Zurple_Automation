@@ -217,16 +217,33 @@ public class ZBOLeadPageTest extends PageTest{
 		assertTrue(successAlert.clickOnPermanentStatusUpdate(), "Unable to click on Temporary button..");
 		ActionHelper.RefreshPage(driver);
 	}
-	private boolean applyAndVerifyFilter(String pFilterName, String pFilterValue) throws ParseException {
-		boolean isSuccess = false;
+	
+	/**
+	 * Verify "Zurple Traffic" lead source option should exist in Leads List filter option
+	 * 48943
+	 */
+	@Test
+	public void testApplyLeadSourceFilter() {
+		getPage("/leads");
+		String lc_lead_email = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.RegisterFormLeadEmail);
+		assertTrue(page.typeLeadNameToSearch(lc_lead_email), "Unable to type lead email");
+		applyFilter("By Lead Source", "Zurple Traffic");
+	}
+	private boolean applyAndVerifyFilter(String pFilterName, String pFilterValue) {
 		assertTrue(page.isLeadPage(),"Lead Page is not found..");
 		assertTrue(page.clickAndSelectFilterName(pFilterName),"Unable to select the filter type "+pFilterName);
 		ActionHelper.staticWait(30);
 		assertTrue(page.clickAndSelectFilterValue(pFilterValue),"Unable to select the filter value "+pFilterValue);
 		assertTrue(page.clickOnSearchButton(),"Unable to click on search button..");
 		ModuleCommonCache.updateCacheForModuleObject("LeadPage","LeadPage.URL", EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url"));
-
 		return page.verifyFilter(pFilterName,pFilterValue);
+	}
+	private void applyFilter(String pFilterName, String pFilterValue) {
+		assertTrue(page.isLeadPage(),"Lead Page is not found..");
+		assertTrue(page.clickAndSelectFilterName(pFilterName),"Unable to select the filter type "+pFilterName);
+		ActionHelper.staticWait(10);
+		assertTrue(page.clickAndSelectFilterValue(pFilterValue),"Unable to select the filter value "+pFilterValue);
+		assertTrue(page.clickOnSearchButton(),"Unable to click on search button..");
 	}
 	
 	@Test

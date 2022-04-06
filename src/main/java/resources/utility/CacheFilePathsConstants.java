@@ -55,4 +55,5 @@ public class CacheFilePathsConstants {
 	public static final String APNSUpdatedData = "/resources/cache/cache-ap-updated-data.json";
 	public static final String APNSUpdatedDataForAdminProfile = "/resources/cache/cache-ap-updated-data-admin-profile.json";
 	public static final String ScheduledEmailListingFlyerCache = "/resources/cache/zurple-scheduled=email-listing-flyer-verification.json";
+	public static final String CRMEmailListingCache = "/resources/cache/zurple-crm-email-listing-verification.json";
 }

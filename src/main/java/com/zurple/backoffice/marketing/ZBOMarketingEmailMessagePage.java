@@ -176,6 +176,9 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	@FindBy(id="send_now_btn")
 	WebElement send_now_button;
 	
+	@FindBy(xpath="//input[@class='ui_tpicker_time_input']")
+	WebElement current_time;
+	
 	private ZBOInsertImageForm zboInsertImageForm;
 	private ZBOAttachFileForm zbAttachFileForm;
 	private ZBODatePickerBlock datePicker;
@@ -417,5 +420,11 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	}
 	public boolean clickOnSendNowButtonListingPreview() {
 		return ActionHelper.Click(driver, send_now_button);
+	}
+	public String getCurrentTime() {
+		return ActionHelper.getValue(driver, current_time);
+	}
+	public boolean isInputLeadEmailIsVisible() {
+		return ActionHelper.isElementVisible(driver, toEmail_input);
 	}
 }
