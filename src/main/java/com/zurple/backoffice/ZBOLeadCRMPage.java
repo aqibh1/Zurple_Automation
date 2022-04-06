@@ -115,6 +115,9 @@ public class ZBOLeadCRMPage extends Page{
 	
 	String lead_name_row_one = "//table[@id='leads-table']/descendant::a[contains(text(),'"+FrameworkConstants.DYNAMIC_VARIABLE+"')][1]";
 	
+	@FindBy(xpath="//table[@id='leads-table']/descendant::p[@class='lead-source']")
+	WebElement lead_source;
+	
 	private ZBOAddNotesForm addNoteForm;
 	private ZBOAddReminderForm addReminderForm;
 	private ZBOSendEmailForm sendEmailForm;
@@ -374,5 +377,8 @@ public class ZBOLeadCRMPage extends Page{
 			}
 		}
 		return isVisible;
+	}
+	public String getLeadSource() {
+		return ActionHelper.getText(driver, lead_source);
 	}
 }

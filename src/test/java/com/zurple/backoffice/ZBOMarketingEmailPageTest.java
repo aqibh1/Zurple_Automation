@@ -448,6 +448,8 @@ public class ZBOMarketingEmailPageTest extends PageTest{
 		JSONObject lCacheObject = getDataFile(CacheFilePathsConstants.ScheduledEmailListingFlyerCache);
 		String l_email_subject = lCacheObject.optString("email_subject");
 		int lLeadId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		String lc_lead_detail_url = EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;
+		driver.navigate().to(lc_lead_detail_url);
 		assertTrue(testVerifyEmailInMyMessages(l_email_subject,String.valueOf(lLeadId)), "Unable to verify listing flyer email from lead details my messages section");
 	}
 	
