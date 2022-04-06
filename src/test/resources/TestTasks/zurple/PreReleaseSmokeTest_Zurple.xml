@@ -2558,6 +2558,7 @@
 	</test>
 	
 	<test name="Verify user setting alerts">
+	<parameter name="userSettings" value="/resources/data/zurple/zurple-user-settings.json">
 			<classes>
 				<class name="com.zurple.backoffice.ZBOLoginPageTest">
 					<methods>
@@ -2575,6 +2576,7 @@
 					</methods>
 				</class>
 			</classes>
+			</parameter>
 	</test>
 	
 	<test name="Verify standard email is scheduled">	

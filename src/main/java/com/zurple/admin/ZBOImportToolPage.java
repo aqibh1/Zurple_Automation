@@ -199,7 +199,7 @@ public class ZBOImportToolPage extends Page {
 			ActionHelper.staticWait(3);
 			isEmailExists = ActionHelper.waitForElementToBeVisible(driver, import_checkin_subject, 30);
 			if(isEmailExists) {
-				isTimeDateCorrect = ActionHelper.getText(driver, date_time_email).contains(getTodaysDate().replace("2021", "21"));
+				isTimeDateCorrect = ActionHelper.getText(driver, date_time_email).contains(getTodaysDate("MM/dd/yy"));
 			}
 			isVerified = (isEmailExists && isTimeDateCorrect)?true:false;
 		}

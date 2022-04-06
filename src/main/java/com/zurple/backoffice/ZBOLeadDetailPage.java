@@ -260,6 +260,9 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(xpath="//span[text()='Transaction Goals:']/following::span[@class='lead-details-detail'][1]")
 	WebElement transaction_goals;
 	
+	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::div[text()='Loading...']")
+	WebElement my_messages_loading;
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
 
@@ -849,7 +852,7 @@ public class ZBOLeadDetailPage extends Page{
 			AutomationLogger.info("Iteration number ::"+counter+" of 6");
 			ActionHelper.ScrollDownByPixels(driver, "500");
 			if(ActionHelper.isElementVisible(driver, loading_popup)) {
-				ActionHelper.waitForElementToBeDisappeared(driver, loading_popup, 300);
+				ActionHelper.waitforElementToBeDisappearedByRegularIntervals(driver, loading_popup, 30, 10);
 			}
 			List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, pXpathOfEmailsList);
 			ActionHelper.staticWait(2);
@@ -1048,7 +1051,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyScheduledEmail(String pEmailToVerify) {
 		boolean isEmailReceived = false;
 		if(ActionHelper.Click(driver, myMessages_tab_button)) {
-			ActionHelper.staticWait(7);
+			waitForMyMessagesLoadingToBeComplete();
 			isEmailReceived = checkScheduledEmail(pEmailToVerify);
 		}
 		return isEmailReceived;
@@ -1296,5 +1299,8 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public String getTransactionGoalsValue() {
 		return ActionHelper.getText(driver, transaction_goals);
+	}
+	public boolean waitForMyMessagesLoadingToBeComplete() {
+		return ActionHelper.waitForElementToBeDisappeared(driver, my_messages_loading, 150);
 	}
 }
