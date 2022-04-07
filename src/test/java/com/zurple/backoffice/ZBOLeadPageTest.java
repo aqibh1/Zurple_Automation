@@ -227,7 +227,7 @@ public class ZBOLeadPageTest extends PageTest{
 		getPage("/leads");
 		String lc_lead_email = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.RegisterFormLeadEmail);
 		assertTrue(page.typeLeadNameToSearch(lc_lead_email), "Unable to type lead email");
-		applyAndVerifyFilter("By Lead Source", "Zurple Traffic");
+		applyFilter("By Lead Source", "Zurple Traffic");
 	}
 	private boolean applyAndVerifyFilter(String pFilterName, String pFilterValue) {
 		assertTrue(page.isLeadPage(),"Lead Page is not found..");
@@ -237,6 +237,13 @@ public class ZBOLeadPageTest extends PageTest{
 		assertTrue(page.clickOnSearchButton(),"Unable to click on search button..");
 		ModuleCommonCache.updateCacheForModuleObject("LeadPage","LeadPage.URL", EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url"));
 		return page.verifyFilter(pFilterName,pFilterValue);
+	}
+	private void applyFilter(String pFilterName, String pFilterValue) {
+		assertTrue(page.isLeadPage(),"Lead Page is not found..");
+		assertTrue(page.clickAndSelectFilterName(pFilterName),"Unable to select the filter type "+pFilterName);
+		ActionHelper.staticWait(10);
+		assertTrue(page.clickAndSelectFilterValue(pFilterValue),"Unable to select the filter value "+pFilterValue);
+		assertTrue(page.clickOnSearchButton(),"Unable to click on search button..");
 	}
 	
 	@Test

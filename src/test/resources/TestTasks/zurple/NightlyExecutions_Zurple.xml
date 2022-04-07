@@ -4285,6 +4285,26 @@
 			</classes>
 	</parameter>
 	</test>
+	<test name="Verify SMS chat page">	
+	<parameter name="smschatpage" value="/resources/data/zurple/backoffice/sms-chat-page-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOSMSChatPageTest">
+					<methods>
+							<include name="testSetup" />
+							<include name="testSMSChatPageTitle" />
+							<include name="testSMSChatPageLeadName" />
+							<include name="testSMSChatPagPhone" />
+							<include name="testSMSChatPageHeader" />
+							<include name="testSendSMSMessage" />
+							<include name="testAdminInitials" />
+							<include name="testVerifySentMessage" />
+							<include name="testVerifyTimestamp" />
+							<include name="testVerifyLeadDetailsButton" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
  <!--  
 <test name="Bulk update lead status to In Active" >	
 			<classes>

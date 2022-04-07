@@ -91,6 +91,7 @@ public class ZBOLoginPage extends Page{
 			isLoginSuccessful = isLoginSuccessful();
 			if(isLoginSuccessful) {
 				getAdAlert().closeCreateAdModal();
+				getAdAlert().closePendoModal();
 			}
 		}
 		return isLoginSuccessful;

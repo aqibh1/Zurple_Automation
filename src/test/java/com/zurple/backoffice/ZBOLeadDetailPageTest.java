@@ -994,10 +994,11 @@ public class ZBOLeadDetailPageTest extends PageTest{
 	}
 	
 	/**
-	 * Verify lead source of lead registered from website is "Zurple Traffic" on lead detail page
+	 * Verify lead source of lead registered from Website is "Zurple Traffic" on lead detail page
 	 * 48940
 	 */
 	@Test
+	@Parameters({"dataFile"})
 	public void testVerifyLeadSourceCapturedFromWebsite(String pDataFile) {
 		getPage();
 		ZWRegisterUserPageTest registerUserObject = new ZWRegisterUserPageTest();

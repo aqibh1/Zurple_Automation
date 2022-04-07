@@ -24,6 +24,9 @@ public class ZBONewListingCreateAdAlert extends AbstractAlert{
 	@FindBy(xpath="//div[@class='modal-header']/button[@aria-label='Close']")
 	WebElement close_button;
 	
+	@FindBy(xpath="//button[contains(@id,'pendo-close-guide')]")
+	WebElement close_pendo_button;
+	
 	public ZBONewListingCreateAdAlert(WebDriver pWebDriver) {
 		driver = pWebDriver;
 		PageFactory.initElements(driver, this);
@@ -33,6 +36,16 @@ public class ZBONewListingCreateAdAlert extends AbstractAlert{
 		boolean isClosed = false;
 		if(ActionHelper.isElementVisible(driver, reach_more_prospects_heading)) {
 			isClosed = ActionHelper.Click(driver, close_button);
+		}else {
+			AutomationLogger.info("Create Ad Alert is not visible..");
+			isClosed = true;
+		}
+		return isClosed;
+	}
+	public boolean closePendoModal() {
+		boolean isClosed = false;
+		if(ActionHelper.isElementVisible(driver, close_pendo_button)) {
+			isClosed = ActionHelper.Click(driver, close_pendo_button);
 		}else {
 			AutomationLogger.info("Create Ad Alert is not visible..");
 			isClosed = true;
