@@ -11,6 +11,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import resources.DBHelperMethods;
+import resources.EnvironmentFactory;
 import resources.utility.ActionHelper;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
@@ -92,7 +93,11 @@ public class ZWHomeSearchPageTest extends PageTest{
 		assertTrue(page.isHomesForSaleHeadingVisible(), "Search page is not visible");
 		assertTrue(page.selectInputType(dataObject.optString("search_by")), "Unable to select Input Type search criteria");
 		ActionHelper.staticWait(7);
-		assertTrue(page.typeInputString(dataObject.optString("input_search")), "Unable to type input string..");
+		String l_input_Search = dataObject.optString("input_search");
+		if(dataObject.optString("search_by").equalsIgnoreCase("MLS")) {
+			l_input_Search= EnvironmentFactory.configReader.getPropertyByName("zurple_mls_id");
+		}
+		assertTrue(page.typeInputString(l_input_Search), "Unable to type input string..");
 
 		if(!dataObject.optString("minimum_price").isEmpty()) {
 			assertTrue(page.selectMinPrice(dataObject.optString("minimum_price")), "Unable to select minimum price..");

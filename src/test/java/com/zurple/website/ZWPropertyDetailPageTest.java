@@ -14,6 +14,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
 import resources.forms.zurple.website.ZWLeadCaptureForm;
@@ -114,6 +115,7 @@ public class ZWPropertyDetailPageTest extends PageTest{
 			assertTrue(page.getAddress().contains(lInpuSearch),"Address is not according to criteria...");
 			break;
 		case "MLS":
+			lInpuSearch= EnvironmentFactory.configReader.getPropertyByName("zurple_mls_id");
 			assertTrue(page.getListingNumber().equalsIgnoreCase(lInpuSearch),"MLS is not according to criteria...");
 			break;
 		case "Neighborhood":

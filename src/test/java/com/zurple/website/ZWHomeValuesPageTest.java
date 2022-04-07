@@ -254,6 +254,7 @@ public class ZWHomeValuesPageTest extends PageTest{
 		setData();
 		fillInHomeValueForm(l_streetAddress, l_city,l_ZipCode, l_state, l_beds, l_baths, l_sqfeet,l_firstname, l_lastname, l_email,l_phone, l_pun);
 		assertTrue(page.clickOnSubmitButton(), "Unable to click on submit button");
+		ActionHelper.staticWait(30);
 		loginPreCondition();
 		String lLeadId = serachAndSelectLeadPreCond();
 		String l_currentUrl =EnvironmentFactory.configReader.getPropertyByName("zurple_bo_base_url")+"/lead/"+lLeadId;

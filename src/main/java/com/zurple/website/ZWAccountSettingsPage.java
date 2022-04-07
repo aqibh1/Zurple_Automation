@@ -462,4 +462,7 @@ public class ZWAccountSettingsPage extends Page{
 	}public boolean clickOnMarketSnapshotEmailsToggleBuuton(boolean pToggle) {
 		return ActionHelper.checkUncheckInputBox(driver,receive_digest, receive_digest_element, pToggle);
 	}
+	public boolean getAgentEmailToggleValue() {
+		return ActionHelper.isElementSelected(driver, receive_autoresponder);
+	}
 }

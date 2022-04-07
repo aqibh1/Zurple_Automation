@@ -154,7 +154,8 @@ public class ZWAccountSettingsPageTest extends PageTest{
 	public void testVerifyEmailsSubscriptionStatus() {
 		getPage("/my");
 		assertTrue(page.isMyAccountPage(), "Account Setting page is not visible..");
-		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Agent Emails", "Unsubscribed"));
+//		assertTrue(page.verifySubscriptionUnsubscriptionStatus("Agent Emails", "Unsubscribed"));
+		assertTrue(!page.getAgentEmailToggleValue(),"Agent toggle value is true");
 	}
 	
 	@Test
