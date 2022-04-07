@@ -25,7 +25,7 @@ public class ZBORedirectedLeadTest extends PageTest {
 	private JSONObject dataObject;
 	ZBOLeadPage page;
 	ZBOLeadDetailPage leadDetails;
-	String lName,lEmail,lId;
+
 	@Override
 	public AbstractPage getPage() {
 		if(page==null) {
@@ -62,7 +62,12 @@ public class ZBORedirectedLeadTest extends PageTest {
 	@Parameters({"registerUserDataFile"})
 	public void testVerifyRegisterLeadWithSellC(String pDataFile) {
 		getPage();
+		String lName,lEmail,lId="";
 		testVerifyRegisterLeadWithParam(pDataFile,"sell-c");
+		lName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
+		lEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.RegisterFormLeadEmail);
+		lId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		testVerifyRedirectToLeadDetails(lId);
 		assertEquals(leadDetails.getLeadSource().trim(),"Zurple Seller+"); //We can optimize this by creating a mapping file for lead sources for various params
 		assertTrue(leadDetails.verifyLeadEmail(lEmail),"Lead email is not present for user_id "+lId);
 		assertTrue(leadDetails.isLeadNameExist(lName),"Lead name is not present for user_id "+lId);
@@ -74,7 +79,12 @@ public class ZBORedirectedLeadTest extends PageTest {
 	@Parameters({"registerUserDataFile"})
 	public void testVerifyRegisterLeadWithMlb(String pDataFile) {
 		getPage();
+		String lName,lEmail,lId="";
 		testVerifyRegisterLeadWithParam(pDataFile,"mlb");
+		lName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
+		lEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.RegisterFormLeadEmail);
+		lId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		testVerifyRedirectToLeadDetails(lId);
 		assertEquals(leadDetails.getLeadSource().trim(),"Zurple Auto Leads");
 		assertTrue(leadDetails.verifyLeadEmail(lEmail),"Lead email is not present for user_id "+lId);
 		assertTrue(leadDetails.isLeadNameExist(lName),"Lead name is not present for user_id "+lId);
@@ -87,9 +97,9 @@ public class ZBORedirectedLeadTest extends PageTest {
 		ZWRegisterUserPageTest register = new ZWRegisterUserPageTest();
 		ActionHelper.openUrlInCurrentTab(driver, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")+"?"+param);
 		register.testRegisterUser(pDataFile);
-		lName = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadName);
-		lEmail = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.RegisterFormLeadEmail);
-		lId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+	}
+	
+	public void testVerifyRedirectToLeadDetails(String lId) {
 		page=null;
 		getPage("/lead/"+lId);
 		assertTrue(leadDetails.isLeadDetailPage(),"Lead details page is not opened for user_id "+lId);
