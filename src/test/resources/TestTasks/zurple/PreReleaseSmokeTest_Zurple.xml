@@ -4461,7 +4461,17 @@
 				</class>
 			</classes>
 	</test>
-	
+	<test name="Verify Lead Capture With MLB URL Parameter">	
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-email-subscription.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBORedirectedLeadTest">
+					<methods>
+						<include name="testVerifyRegisterLeadWithMlb" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
 	<test name="Verify Lead Capture With SellC URL Parameter">	
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-email-subscription.json"> 
 			<classes>
@@ -4473,7 +4483,26 @@
 			</classes>
 	</parameter>
 	</test>
-	
+	<test name="Verify SMS chat page">	
+	<parameter name="smschatpage" value="/resources/data/zurple/backoffice/sms-chat-page-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOSMSChatPageTest">
+					<methods>
+							<include name="testSetup" />
+							<include name="testSMSChatPageTitle" />
+							<include name="testSMSChatPageLeadName" />
+							<include name="testSMSChatPagPhone" />
+							<include name="testSMSChatPageHeader" />
+							<include name="testSendSMSMessage" />
+							<include name="testAdminInitials" />
+							<include name="testVerifySentMessage" />
+							<include name="testVerifyTimestamp" />
+							<include name="testVerifyLeadDetailsButton" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
 	<!-- 
  <test name="Manage agents page label">
   <parameter name="manageAgentsDataFile" 
