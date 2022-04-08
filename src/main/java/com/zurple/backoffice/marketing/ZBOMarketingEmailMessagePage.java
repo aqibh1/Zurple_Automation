@@ -366,7 +366,7 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	public boolean clickOnSearchButton() {
 		boolean isClicked = false;
 		if(ActionHelper.Click(driver, search_button)) {
-			ActionHelper.waitForElementToBeDisappeared(driver, processing,60);
+			ActionHelper.waitforElementToBeDisappearedByRegularIntervals(driver, processing,5,5);
 			isClicked = true;
 		}
 		return isClicked;

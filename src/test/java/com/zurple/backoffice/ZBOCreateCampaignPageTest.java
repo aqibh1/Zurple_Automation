@@ -112,6 +112,16 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		}
 	}
 	
+	@Test
+	@Parameters({"dataFile"})
+	public void testDeleteAllCampaign(String pDataFile) {
+		dataObject = getDataFile(pDataFile);
+		page=null;
+		getPage("/campaigns");
+		ZBOCampaignPage campaignPage = new ZBOCampaignPage(driver);
+		campaignPage.deleteAllAutoCampaigns("AutoTestCampaign");
+	}
+	
 	private void deleteCampaign(String pCampaignid) {
 		page = null;
 		getPage("/campaigns/enroll/"+pCampaignid);

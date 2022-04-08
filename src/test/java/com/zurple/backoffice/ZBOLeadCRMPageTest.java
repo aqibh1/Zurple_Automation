@@ -220,7 +220,7 @@ public class ZBOLeadCRMPageTest extends PageTest{
 		assertTrue(page.clickOnEmailButton(), "Unable to click on Note button on CRM page..");
 		assertTrue(page.getSendEmailForm().isSendEmailForm(), "Send Email form is not visible..");
 		assertTrue(page.getSendEmailForm().selectTemplate("Test Template"), "Unable to select template from drop down..");
-		ActionHelper.staticWait(10);
+		page.isProcessingComplete();
 		String l_subject = page.getSendEmailForm().getSubject();
 		assertTrue(page.getSendEmailForm().clickOnSendEmailButton(), "Unable to click on send button....");
 		ActionHelper.staticWait(10);
@@ -274,8 +274,8 @@ public class ZBOLeadCRMPageTest extends PageTest{
 	public void testSendAndVerifySendSMS() throws ParseException {
 		getPage("/leads/crm");
 		assertTrue(page.isLeadCRMPage(), "Lead CRM page is not visible..");
-		applyFilter("By Phone Number Provided","All");
-		ActionHelper.staticWait(25);
+		applyFilter("By Phone Number Provided","Yes");
+		page.isProcessingComplete();
 		assertTrue(page.clickOnSMSButton(), "Unable to click on SMS button on CRM page..");
 		assertTrue(page.getSendSMSForm().isSendTextMessageForm(), "Send Text message form is not visible..");
 		assertTrue(page.getSendSMSForm().getPhoneNumber(), "Unable to select template from drop down..");
