@@ -94,6 +94,7 @@ public class ZBORedirectedLeadTest extends PageTest {
 	
 	
 	public void testVerifyRegisterLeadWithParam(String pDataFile, String param) {
+		getPage();
 		ZWRegisterUserPageTest register = new ZWRegisterUserPageTest();
 		ActionHelper.openUrlInCurrentTab(driver, EnvironmentFactory.configReader.getPropertyByName("zurple_site_base_url")+"?"+param);
 		register.testRegisterUser(pDataFile);

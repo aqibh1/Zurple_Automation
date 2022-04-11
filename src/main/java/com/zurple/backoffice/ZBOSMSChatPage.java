@@ -37,6 +37,18 @@ public class ZBOSMSChatPage extends Page{
 	@FindBy(className="initial")
 	WebElement sender_initials;
 	
+	@FindBy(xpath="//section[@class='unroll_subs_cont']/h4")
+	WebElement unenroll_label;
+	
+	@FindBy(xpath="//section[@class='unroll_subs_cont']/descendant::span[@class='campaign_name']")
+	WebElement unenroll_campaign_name;
+	
+	@FindBy(xpath="//section[@class='unroll_subs_cont']/p")
+	WebElement unenroll_message;
+	
+	@FindBy(id="unenroll_campaign_button")
+	WebElement unenroll_button;
+	
 //	@FindBy(className="blue_msg_bg")
 //	WebElement sent_message;
 	
@@ -94,5 +106,24 @@ public class ZBOSMSChatPage extends Page{
 	public boolean getMessageTimestamp(String pExpected) {
 		//List<WebElement> timestampList = ActionHelper.getListOfElementByClassName(driver, message_timestamp);
 		return ActionHelper.getTextByXpathIndex(driver, message_timestamp, messagesList.size()-1).trim().contains(pExpected);
+	}
+	
+	public boolean getUnenrollLabel(String pExpected) {
+		return ActionHelper.getText(driver, unenroll_label).trim().contains(pExpected);
+	}
+	
+	public boolean getUnenrollCampaignName() {
+		return !ActionHelper.getText(driver, unenroll_campaign_name).isEmpty();
+	}
+	
+	public boolean getUnEnrollMessage(String pExpected) {
+		return ActionHelper.getText(driver, unenroll_message).trim().contains(pExpected);
+	}
+	
+	public boolean getUnEnrollButtonText(String pExpected) {
+		return ActionHelper.getText(driver, unenroll_button).trim().contains(pExpected);
+	}
+	public boolean clickUnEnrollButton() {
+		return ActionHelper.Click(driver, unenroll_button);
 	}
 }
