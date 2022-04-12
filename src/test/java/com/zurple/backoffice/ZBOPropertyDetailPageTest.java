@@ -14,7 +14,6 @@ import com.zurple.website.ZWPropertyDetailPage;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
-import resources.utility.ZurpleListingConstants;
 
 /**
  * @author adar
@@ -57,12 +56,9 @@ public class ZBOPropertyDetailPageTest extends PageTest{
 	public void testAddAndVerifyPropertyNote() {
 		getPage();
 		String lNote = updateName("Property note displayed on website");
-		String lUrl = ZurpleListingConstants.zurple_bo_property_url_staging;
-		String lWebsiteUrl = ZurpleListingConstants.zurple_staging_listing;
-		if(getIsProd()) {
-			lUrl = ZurpleListingConstants.zurple_bo_property_url_prod;
-			lWebsiteUrl = ZurpleListingConstants.zurple_production_listing;
-		}
+		String lListing_id=EnvironmentFactory.configReader.getPropertyByName("zurple_listing_id");
+		String lUrl = "/property/"+lListing_id;
+		String lWebsiteUrl = "/CA/San_Diego/"+lListing_id;
 		page=null;
 		getPage(lUrl);
 		assertTrue(page.isPropertyDetailPageVisible(), "Back office property detail page is not visible...");

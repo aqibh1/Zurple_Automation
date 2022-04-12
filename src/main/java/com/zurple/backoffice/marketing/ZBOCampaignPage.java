@@ -59,8 +59,10 @@ public class ZBOCampaignPage extends Page{
 	}
 	public boolean isLeadAddedInCampaign(String pCampaignName) {
 		boolean isSuccess = false;
+		boolean isClickable = false;
 		ActionHelper.selectDropDownOption(driver, number_of_records, "", "100");
 		do {
+			isClickable = false;
 			List<WebElement> list_of_data = ActionHelper.getListOfElementByXpath(driver, "//table[@id='campaigns_table']/descendant::tbody/tr[@class]");
 			for(WebElement row_data: list_of_data) {
 				//			row_data.findElement(By.xpath("td/a[not(contains(@class,'z-btn-inactive'))]"));
@@ -75,7 +77,10 @@ public class ZBOCampaignPage extends Page{
 					}
 				}
 			}
-		}while(!isSuccess && ActionHelper.Click(driver, next_button));
+			if(!ActionHelper.isElementVisible(driver, next_disabled_button)) {
+				isClickable = ActionHelper.Click(driver, next_button);
+			}
+		}while(!isSuccess && isClickable);
 		return isSuccess;
 
 	}

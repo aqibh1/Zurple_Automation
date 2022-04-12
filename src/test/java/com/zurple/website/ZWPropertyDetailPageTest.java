@@ -21,7 +21,6 @@ import resources.forms.zurple.website.ZWLeadCaptureForm;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 import resources.utility.CacheFilePathsConstants;
-import resources.utility.ZurpleListingConstants;
 import us.zengtest1.Page;
 import us.zengtest1.PageTest;
 
@@ -211,12 +210,10 @@ public class ZWPropertyDetailPageTest extends PageTest{
 	@Parameters({"contactAgentData"})
 	public void testContactAgentOnListingDetail(String pDataFile) {
 		AutomationLogger.startTestCase("Contact Agent from listing detail page");
-		String lEnvironment = System.getProperty("environment");
-		if(lEnvironment.equalsIgnoreCase("prod") || lEnvironment.equalsIgnoreCase("autoconvoprod")) {
-			getPage(ZurpleListingConstants.zurple_production_listing);
-		}else {
-			getPage(ZurpleListingConstants.zurple_staging_listing);
-		}
+//		String lEnvironment = System.getProperty("environment");
+		String lListing_id=EnvironmentFactory.configReader.getPropertyByName("zurple_listing_id");
+		String lWebsiteUrl = "/CA/San_Diego/"+lListing_id;
+		getPage(lWebsiteUrl);
 		
 		dataObject = getDataFile(pDataFile);
 		String lName = updateName(dataObject.optString("name"));
@@ -256,11 +253,10 @@ public class ZWPropertyDetailPageTest extends PageTest{
 	@Parameters({"registerUserDataFile"})
 	public void testScheduleShowingUserNotLoggedIn() {
 		AutomationLogger.startTestCase("Schedule Showing User not logged in");
-		if(getIsProd()) {
-			getPage(ZurpleListingConstants.zurple_production_listing);
-		}else {
-			getPage(ZurpleListingConstants.zurple_staging_listing);
-		}
+		String lListing_id=EnvironmentFactory.configReader.getPropertyByName("zurple_listing_id");
+		String lWebsiteUrl = "/CA/San_Diego/"+lListing_id;
+		getPage(lWebsiteUrl);
+		
 		ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleProp, page.getPropHeading().split(",")[0]);
 		assertTrue(page.clickOnScheduleShowingButton(),"Unable to click on Schedule Showing button..");
 		assertTrue(page.selectCurrentDate(),"Unable to select current date..");
@@ -279,11 +275,9 @@ public class ZWPropertyDetailPageTest extends PageTest{
 	@Parameters({"registerUserDataFile"})
 	public void testScheduleShowingUserLoggedIn() {
 		AutomationLogger.startTestCase("Schedule Showing User logged in");
-		if(getIsProd()) {
-			getPage(ZurpleListingConstants.zurple_production_listing);
-		}else {
-			getPage(ZurpleListingConstants.zurple_staging_listing);
-		}
+		String lListing_id=EnvironmentFactory.configReader.getPropertyByName("zurple_listing_id");
+		String lWebsiteUrl = "/CA/San_Diego/"+lListing_id;
+		getPage(lWebsiteUrl);
 		assertTrue(page.isScheduleShowingButtonVisible(),"Schedule Showing button is not visible..");
 		assertTrue(page.clickOnScheduleShowingButton(),"Unable to click on Schedule Showing button..");
 		assertTrue(page.selectCurrentDate(),"Unable to select current date..");
