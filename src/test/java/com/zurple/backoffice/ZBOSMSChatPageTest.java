@@ -15,6 +15,8 @@ import com.zurple.my.PageTest;
 
 import resources.AbstractPage;
 import resources.EnvironmentFactory;
+import resources.ModuleCacheConstants;
+import resources.ModuleCommonCache;
 import resources.utility.ActionHelper;
 import resources.utility.AutomationLogger;
 
@@ -125,6 +127,61 @@ public class ZBOSMSChatPageTest extends PageTest {
 	@Test(dependsOnGroups={"testsetup"})
 	public void testVerifyLeadDetailsButton() {
 		assertTrue(page.clickLeadDetails(), "Lead details button is not working..");
+	}
+	///////////////////////
+	@Test(groups="unenroll")
+	@Parameters({"registerUserDataFile"})
+	public void leadRegisterPreCondition(String pDataFile) {
+		page=null;
+		getPage();
+		String lId = "";
+		ZBORedirectedLeadTest register = new ZBORedirectedLeadTest();
+		register.testVerifyRegisterLeadWithParam(pDataFile,"mlb");
+		lId = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadId);
+		page=null;
+		getPage("/lead/smschatlog/"+lId);
+		ActionHelper.staticWait(15);
+		ActionHelper.RefreshPage(driver);
+	}
+	
+	@Test(dependsOnGroups={"unenroll"})
+	@Parameters({"smschatpage"})
+	public void testUnEnrollLabelIsVisible(String pDataFile) {
+		JSONObject lDataObject = getDataFile(pDataFile);
+		assertTrue(page.getUnenrollLabel(lDataObject.optString("unenroll_label").trim()),"Unable to get unenroll label..");
+	}
+	
+	@Test(dependsOnGroups={"unenroll"})
+	public void testUnEnrollCampaignNameIsVisible() {
+		assertTrue(page.getUnenrollCampaignName(),"Unable to get unenroll campaign name..");
+	}
+	
+	@Test(dependsOnGroups={"unenroll"})
+	@Parameters({"smschatpage"})
+	public void testUnEnrollMessageIsVisible(String pDataFile) {
+		JSONObject lDataObject = getDataFile(pDataFile);
+		assertTrue(page.getUnEnrollMessage(lDataObject.optString("unenroll_message").trim()),"Unable to get unenroll message..");
+	}
+	
+	@Test(dependsOnGroups={"unenroll"})
+	@Parameters({"smschatpage"})
+	public void testUnEnrollButtonText(String pDataFile) {
+		JSONObject lDataObject = getDataFile(pDataFile);
+		assertTrue(page.getUnEnrollButtonText(lDataObject.optString("unenroll_button_text").trim()),"Unable to get unenroll button text..");
+	}
+	
+	@Test(dependsOnGroups={"unenroll"})
+	public void testLeadUnEnrollButtonIsWorking() {
+		assertTrue(page.clickUnEnrollButton(),"Unable to click unenroll button");
+	}
+	
+	@Test(dependsOnGroups={"unenroll"})
+	@Parameters({"smschatpage"})
+	public void testLeadIsUnEnrolledFromCampaign(String pDataFile) {
+		ActionHelper.staticWait(5);
+		ActionHelper.RefreshPage(driver);
+		JSONObject lDataObject = getDataFile(pDataFile);
+		assertFalse(page.getUnEnrollButtonText(lDataObject.optString("unenroll_button_text").trim()),"Lead is not unenrolled from campaign");
 	}
 
 	@AfterTest
