@@ -971,7 +971,8 @@ public class ZBOLeadDetailPageTest extends PageTest{
 		String lLeadId = ModuleCommonCache.getElement(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId);
 		if(lLeadId==null) {
 			ZWRegisterUserPageTest registerLead = new ZWRegisterUserPageTest();
-			registerLead.testRegisterUser(pDataFile);	
+			registerLead.testRegisterUser(pDataFile);
+			ActionHelper.staticWait(15);
 			lLeadId = ModuleCommonCache.getElement(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId);
 		}
 		return lLeadId;

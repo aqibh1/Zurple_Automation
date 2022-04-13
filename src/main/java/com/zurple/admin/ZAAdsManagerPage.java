@@ -54,7 +54,7 @@ public class ZAAdsManagerPage extends Page{
 	@FindBy(xpath="//div[@class='sa-confirm-button-container']/button")
 	WebElement refresh_ok_button;
 	
-	String ad_end_Date = "//tr[@id='"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::td[text()='Ongoing']";
+	String ad_end_Date = "//tr[@id='ad_"+FrameworkConstants.DYNAMIC_VARIABLE+"']/descendant::td[text()='Ongoing']";
 	
 	public ZAAdsManagerPage(WebDriver pWebDriver) {
 		driver = pWebDriver;
