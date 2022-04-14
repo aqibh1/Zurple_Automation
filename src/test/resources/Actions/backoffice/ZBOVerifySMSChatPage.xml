@@ -7,7 +7,7 @@
 	</listeners>
 	
 	<test name="Verify SMS chat page">	
-	<parameter name="smschatpage" value="/resources/data/zurple/backoffice/sms-chat-page-data.json"> 
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/sms-chat-page-data.json"> 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOSMSChatPageTest">
 					<methods>
@@ -28,7 +28,7 @@
 	</test>	
 	
 	<test name="Verify SMS chat page Unenroll section">	
-	<parameter name="smschatpage" value="/resources/data/zurple/backoffice/sms-chat-page-data.json"> 
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/sms-chat-page-data.json"> 
 	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-email-subscription.json"> 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOSMSChatPageTest">
