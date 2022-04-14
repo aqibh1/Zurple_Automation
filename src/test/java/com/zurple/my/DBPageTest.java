@@ -6,8 +6,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.hibernate.Session;
+
 import resources.AbstractPageTest;
 import resources.DBHelperMethods;
+import resources.orm.hibernate.dao.zurple.ManageEmails;
+import resources.orm.hibernate.dao.zurple.ManageUserAlert;
 import resources.orm.hibernate.models.zurple.AlertRule;
 import resources.orm.hibernate.models.zurple.Email;
 import resources.orm.hibernate.models.zurple.UserAlert;
@@ -42,10 +46,11 @@ public abstract class DBPageTest extends AbstractPageTest
 		lSentDateTime = emailObject.getSendDatetime().toString();
 		lUserId = emailObject.getUser().toString();
 		boolean isSuccessful = isEmailSentToday(lSentDateTime);
+		String query = "Select * FROM Email WHERE email_type="+emailType+" Order by sent_datetime desc";
 		if(isSuccessful) {
 			AutomationLogger.info("Today "+lSentDateTime+" "+emailType+"emails are sent: "+lUserId);
 		}
-		assertTrue(isSuccessful,"ALERT!! "+emailType+" Emails are not sent today..");
+		assertTrue(isSuccessful,"ALERT!! "+emailType+" Emails are not sent today. SQL Query: "+query);
 	}
 	
 	public void dbVerification(Integer alertType) {
@@ -59,10 +64,11 @@ public abstract class DBPageTest extends AbstractPageTest
 		AlertRule alertRuleObj = dbObject.getAlertRuleType(alertType);
 		lAlertName = alertRuleObj.getAlertName().toString();
 		boolean isSuccessful = isEmailSentToday(lAlertTrigger);
+		String query = "Select * FROM UserAlert WHERE alert_rule_id="+alertType+" Order by user_alert_triggered desc";
 		if(isSuccessful) {
 			AutomationLogger.info(lAlertName+" alert is Triggered on: "+lAlertTrigger+" with id: "+lUserAlertData+" for user_id: "+lUserId);
 		}
-		assertTrue(isSuccessful,"ALERT!! Alert_Type "+lAlertName+" Emails are not sent today. They were last sent on: "+lAlertTrigger);
+		assertTrue(isSuccessful,"ALERT!! Alert_Type "+lAlertName+" Emails are not sent today. They were last sent on: "+lAlertTrigger+"SQL Query: "+query);
 	}
 	
 }
