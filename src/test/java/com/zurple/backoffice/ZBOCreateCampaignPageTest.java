@@ -522,7 +522,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		getPage("/leads/index/ext/prospect1");
 		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
 		assertTrue(leadPage.isLeadInputVisible(), "Lead page is not displayed..");
-		ActionHelper.staticWait(5);
+		leadPage.isProcessingComplete();
 		assertTrue(leadPage.checkTheLead(), "Unable to click on lead input checkbox..");
 		assertTrue(leadPage.mouseHoverAction(), "Unable to hover mouse on Action button");
 		assertTrue(leadPage.isEnrollInCampaignButtonVisible(), "Enroll in campaign option not visble in actions dropdown");
