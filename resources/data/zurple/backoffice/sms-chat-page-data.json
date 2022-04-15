@@ -7,5 +7,8 @@
 "admin_initials":"A",
 "unenroll_label":"Keep Enrolled in",
 "unenroll_message":"Your lead is enrolled in a 48 hr new lead communication campaign. Would you like to keep them enrolled in the campaign or take it from here?",
-"unenroll_button_text":"Unenroll � I�ll take it from here"
+"unenroll_button_text":"Unenroll",
+"message_text":"Test message",
+"message_type":"c2.manual-message.sms",
+"direction":"c1toc2message"
 }

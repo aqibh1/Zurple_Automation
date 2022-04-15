@@ -46,4 +46,21 @@
 	</parameter>
 	</parameter>
 	</test>	
+	
+	<test name="Verify SMS message from chat page via API call">	
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/sms-chat-page-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeAPILogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.rest.ZBORestPostSMSMessageTest">
+					<methods>
+							<include name="testPostMessage" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
 </suite>
