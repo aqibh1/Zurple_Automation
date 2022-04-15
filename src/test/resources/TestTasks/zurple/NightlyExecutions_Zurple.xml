@@ -172,56 +172,7 @@
 	</parameter>
 	</test>	
 	
-	<test name="Update and Verify User Settings">
-		<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-update-settings.json">
-		<parameter name="userSettings" value="/resources/data/zurple/zurple-user-settings.json">
-			<classes>
-				<class name="com.zurple.website.ZWRegisterUserPageTest">
-					<methods>
-							<include name="testRegisterUser" />
-					</methods>
-				</class>
-				<class name="com.zurple.website.ZWAccountSettingsPageTest">
-					<methods>
-						<include name="testUpdateAccountSettings" />
-					</methods>
-				</class>
-			
-		 		<class name="com.zurple.backoffice.ZBOLoginPageTest">
-					<methods>
-						<include name="testBackOfficeLogin" />
-					</methods>
-				</class>
-				
-		 		<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-						<include name="testVerifySettingsInNotes" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadEmailPreferencesPageTest">
-					<methods>
-						<include name="testVerifyLeadEmailPreferences" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-						<include name="testVerifyValidEmail" />
-					</methods>
-				</class>
-				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-					<methods>
-						<include name="verifyUserSettingsAlerts" />
-					</methods>
-				</class>
-				<class name="resources.CurrentPageTest">
-					<methods>
-						<include name="closeBrowser" />
-					</methods>
-				</class>
-			</classes>
-		</parameter>
-		</parameter>
-	</test>
+	
 	
 	<test name="Add Reminder from CRM page">	
 			<classes>
@@ -3707,6 +3658,57 @@
 			</parameter>
 	</test>
 	
+	<test name="Update and Verify User Settings">
+		<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-update-settings.json">
+		<parameter name="userSettings" value="/resources/data/zurple/zurple-user-settings.json">
+			<classes>
+				<class name="com.zurple.website.ZWRegisterUserPageTest">
+					<methods>
+							<include name="testRegisterUser" />
+					</methods>
+				</class>
+				<class name="com.zurple.website.ZWAccountSettingsPageTest">
+					<methods>
+						<include name="testUpdateAccountSettings" />
+					</methods>
+				</class>
+			
+		 		<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeLogin" />
+					</methods>
+				</class>
+				
+		 		<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifySettingsInNotes" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadEmailPreferencesPageTest">
+					<methods>
+						<include name="testVerifyLeadEmailPreferences" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="testVerifyValidEmail" />
+					</methods>
+				</class>
+				<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+					<methods>
+						<include name="verifyUserSettingsAlerts" />
+					</methods>
+				</class>
+				<class name="resources.CurrentPageTest">
+					<methods>
+						<include name="closeBrowser" />
+					</methods>
+				</class>
+			</classes>
+		</parameter>
+		</parameter>
+	</test>
+	
 	<test name="Verify validation is working on Campaigns Page">
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
 			<classes>
@@ -3941,7 +3943,6 @@
   	<test name="Post Seller lead to Backoffice and verify lead details">	 
 	<parameter name="datafile" value="/resources/data/zurple/socialapi/ads/seller_lead/lead_import_data.json">
 			<classes>
-			
  		   		<class name="com.zurple.rest.sapi.sellerlead.ZBORestPostImportLeadToBackOffice">
 					<methods>
 						<include name="testPostImportLeadToBackOffice" /> 
@@ -4105,10 +4106,8 @@
 	</test>
 	
 	<test name="Verify Buyer Leads Quick Ad by Adding Payment Plan">
-	 <parameter name="dataFile"
-  		value="/resources/data/zurple/backoffice/agent-data-ad-billing.json">
-  		 <parameter name="dataFile1"
-  		value="/resources/data/zurple/ads/credit-card-ad-data.json">
+	 <parameter name="dataFile" value="/resources/data/zurple/backoffice/agent-data-ad-billing.json">
+  		 <parameter name="dataFile1" value="/resources/data/zurple/ads/credit-card-ad-data.json">
 		<classes>
 			<class name="com.zurple.backoffice.ZBOCreateAdPageTest">
 				<methods>
