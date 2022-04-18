@@ -294,7 +294,8 @@ public class ZBOMarketingEmailMessagePage extends Page{
 		return ActionHelper.Click(driver, sendNow_button);
 	}
 	public boolean isSuccessMessage() {
-		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver,success_message , 20, 10);
+		return ActionHelper.waitForElementToBeVisible(driver, success_message, 60);
+//		return ActionHelper.waitForElementToVisibleAfterRegularIntervals(driver,success_message , 20, 10);
 	}
 	public boolean clickOnSendStandardEmailButton() {
 		return ActionHelper.Click(driver, send_standard_email_button);
@@ -366,7 +367,7 @@ public class ZBOMarketingEmailMessagePage extends Page{
 	public boolean clickOnSearchButton() {
 		boolean isClicked = false;
 		if(ActionHelper.Click(driver, search_button)) {
-			ActionHelper.waitforElementToBeDisappearedByRegularIntervals(driver, processing,5,5);
+			ActionHelper.waitForElementToBeDisappeared(driver, address_radio_input, 60);
 			isClicked = true;
 		}
 		return isClicked;
