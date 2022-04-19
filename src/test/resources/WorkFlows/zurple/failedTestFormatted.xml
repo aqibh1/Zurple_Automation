@@ -6,57 +6,6 @@
         	<listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         	<listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
-<test name="Send Listing flyer email from marketing">
-<classes>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
-<methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
-<methods>
-<include name="testVerifySendListingButtonIsVisible"/>
-<include name="testVerifyListingEmailSubjectIsVisibleWhenSendListingIsClciked"/>
-<include name="testVerifySearchOptionsAreVisibleForListingEmail"/>
-<include name="testSearchAndVerifyListingsByMLSID"/>
-<include name="testVerifyValidationMessageIsDisplayedIfNoSubjectIsProvided"/>
-<include name="testVerifyValidationMessageIsDisplayedIfNoListingIsSelected"/>
-<include name="testVerifyUserCanRemoveAddedListing"/>
-<include name="testVerifyDatePickerOpenWhenCalendarButtonIsClicked"/>
-<include name="testVerifyAdminTimeZone"/>
-<include name="testVerifyScheduleLabelIsDisplayed"/>
-<include name="testVerifyRemoveScheduleLabelButton"/>
-<include name="testVerifyCalendarButtonIsRemovedOnceEmailHasBeenScheduled"/>
-<include name="testVerifyPreviewEmailPageIsOpenedWhenNextButtonIsClicked"/>
-<include name="testVerifySuccessMessageIsDisplayedWhenSendNowButtonIsClicked"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</test>
-<test name="Send Scheduled Listing flyer email from marketing">
-<classes>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
-<methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
-<methods>
-<include name="testSendScheduleListingEmail"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</test>
 <test name="Capture and verify lead from Self Serv ad">
 <parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-paid-social.json">
 <classes>
@@ -79,8 +28,8 @@
 </classes>
 </parameter>
 </test>
-<test name="Send Standard email">
-<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/standard-email-data.json">
+<test name="Send standard scheduled email">
+<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json">
 <classes>
 <class name="com.zurple.backoffice.ZBOLoginPageTest">
 <methods>
@@ -89,176 +38,7 @@
 </class>
 <class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
 <methods>
-<include name="testSendStandardEmail"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</parameter>
-</test>
-<test name="Create Twitter Scheduled posts">
-<parameter name="TwitterDataFile" value="/resources/data/zurple/backoffice/social/z-social-twitter-posts-data.json">
-<classes>
-<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
-<methods>
-<include name="testCreateTwitterTextScheduledPost"/>
-<include name="testCreateTwitterLinkScheduledPost"/>
-<include name="testCreateTwitterPhotoScheduledPost"/>
-<include name="testCreateTwitterListingScheduledPost"/>
-<include name="testCreateTwitterListingVideoScheduledPost"/>
-</methods>
-</class>
-</classes>
-</parameter>
-</test>
-<test name="Create Linkedin Scheduled posts">
-<parameter name="LinkedinDataFile" value="/resources/data/zurple/backoffice/social/z-social-linkedin-posts-data.json">
-<classes>
-<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
-<methods>
-<include name="testCreateLinkedinTextScheduledPost"/>
-<include name="testCreateLinkedinLinkScheduledPost"/>
-<include name="testCreateLinkedinPhotoScheduledPost"/>
-<include name="testCreateLinkedinListingScheduledPost"/>
-</methods>
-</class>
-</classes>
-</parameter>
-</test>
-<test name="Search and Verify property on MLS">
-<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-mls.json">
-<classes>
-<class name="com.zurple.website.ZWHomeSearchPageTest">
-<methods>
-<include name="testSearchPropoerty"/>
-</methods>
-</class>
-<class name="com.zurple.website.ZWHomesForSalePageTest">
-<methods>
-<include name="testHomesForSaleSkip"/>
-</methods>
-</class>
-<class name="com.zurple.website.ZWPropertyDetailPageTest">
-<methods>
-<include name="testVerifyPropertyDetails"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</parameter>
-</test>
-<test name="Search and Verify property by Address">
-<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-address.json">
-<classes>
-<class name="com.zurple.website.ZWHomeSearchPageTest">
-<methods>
-<include name="testSearchPropoerty"/>
-</methods>
-</class>
-<class name="com.zurple.website.ZWHomesForSalePageTest">
-<methods>
-<include name="testHomesForSaleSkip"/>
-</methods>
-</class>
-<class name="com.zurple.website.ZWPropertyDetailPageTest">
-<methods>
-<include name="testVerifyPropertyDetails"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</parameter>
-</test>
-<test name="Search and Verify property by MLS with User Logged In">
-<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-mls.json">
-<classes>
-<class name="com.zurple.website.ZWLoginPageTest">
-<methods>
-<include name="testSignIn"/>
-</methods>
-</class>
-<class name="com.zurple.website.ZWHomeSearchPageTest">
-<methods>
-<include name="testSearchPropoertyAfterLoggedIn"/>
-</methods>
-</class>
-<class name="com.zurple.website.ZWHomesForSalePageTest">
-<methods>
-<include name="testHomesForSaleSkip"/>
-</methods>
-</class>
-<class name="com.zurple.website.ZWPropertyDetailPageTest">
-<methods>
-<include name="testVerifyPropertyDetails"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</parameter>
-</test>
-<test name="Search and Verify property by Address with User Logged In">
-<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-address.json">
-<classes>
-<class name="com.zurple.website.ZWLoginPageTest">
-<methods>
-<include name="testSignIn"/>
-</methods>
-</class>
-<class name="com.zurple.website.ZWHomeSearchPageTest">
-<methods>
-<include name="testSearchPropoertyAfterLoggedIn"/>
-</methods>
-</class>
-<class name="com.zurple.website.ZWHomesForSalePageTest">
-<methods>
-<include name="testHomesForSaleSkip"/>
-</methods>
-</class>
-<class name="com.zurple.website.ZWPropertyDetailPageTest">
-<methods>
-<include name="testVerifyPropertyDetails"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</parameter>
-</test>
-<test name="Fill out contact agent form and verify lead">
-<parameter name="contactAgentData" value="/resources/data/zurple/register_user/lead-data-contact-agent.json">
-<classes>
-<class name="com.zurple.website.ZWPropertyDetailPageTest">
-<methods>
-<include name="testContactAgentOnListingDetail"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
-<methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOLeadPageTest">
-<methods>
-<include name="testSearchAndVerifyLead"/>
+<include name="testSendScheduledStandardEmail"/>
 </methods>
 </class>
 <class name="resources.CurrentPageTest">
@@ -338,27 +118,6 @@
 </classes>
 </parameter>
 </test>
-<test name="Verify Reminder Email generated from CRM page">
-<parameter name="dataFile" value="/resources/cache/zurple-reminder-email-verification.json">
-<classes>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
-<methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
-<methods>
-<include name="testVerifyReminderEmail"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</parameter>
-</test>
 <test name="Verify listing flyer email">
 <parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json">
 <classes>
@@ -380,44 +139,6 @@
 </classes>
 </parameter>
 </test>
-<test name="Verify standard email triggered from CRM page">
-<classes>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
-<methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
-<methods>
-<include name="testVerifyEmailIsSent"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</test>
-<test name="Verify standard email triggered from CRM page">
-<classes>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
-<methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
-<methods>
-<include name="testVerifyEmailIsSent"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</test>
 <test name="Verify listing flyer email sent from marketing page">
 <parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json">
 <classes>
@@ -430,6 +151,27 @@
 <methods>
 <include name="testVerifyScheduledEmailListingFlyerIsSent"/>
 <include name="testVerifyScheduledEmailListingFlyerFromMyMessages"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify standard scheduled email">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+<methods>
+<include name="testVerifyScheduledEmailFromMyMessages"/>
 </methods>
 </class>
 <class name="resources.CurrentPageTest">
@@ -474,67 +216,22 @@
 </parameter>
 </parameter>
 </test>
-<test name="Verify Bulk email">
-<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/standard-email-data.json">
+<test name="Verify Home Value page and verifications from back office">
+<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json">
 <classes>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<class name="com.zurple.website.ZWHomeValuesPageTest">
 <methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
-<methods>
-<include name="testVerifyBulkEmail"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
+<include name="testUserIsRedirectedToThankYouPage"/>
+<include name="testVerifyLeadIsAddedInBackOffice"/>
+<include name="testVerifyLeadSource"/>
+<include name="testVerifyHomeValueNote"/>
+<include name="testVerifyHomeVlauationAlertIsTriggered"/>
+<include name="testVerifyPropertUpdateIsSetToNo"/>
+<include name="testVerifyHomeVlauationEmailIsTriggered"/>
 </methods>
 </class>
 </classes>
 </parameter>
-</test>
-<test name="Verify Reminder email generated from Lead Detail Page">
-<classes>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
-<methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-<methods>
-<include name="testVerifyAgentReminderEmail"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</test>
-<test name="Verify the ads overview page">
-<classes>
-<class name="com.zurple.backoffice.ZBOAdsOverviewPageTest">
-<methods>
-<include name="testVerifyAdsManagerIsVisibleInHeader"/>
-<include name="testVerifyAdsManagerDropdownOptionsVisible"/>
-<include name="testClickAdsOverviewFromAdsManager"/>
-<include name="testVerifyAdTypeColumnIsDisplayedOnAdsOverviewPage"/>
-<include name="testVerifyAdIconIsDisplayedOnAdsOverviewPage"/>
-<include name="testVerifyListingAddressIsDisplayedOnAdsOverviewPage"/>
-<include name="testVerifyAdStartingAndEndingIsDisplayed"/>
-<include name="testVerifyAdClickViewStatsAreDisplayed"/>
-<include name="testVerifyAdPricesAreDisplayed"/>
-<include name="testVerifyAdLocationIsDisplayed"/>
-<include name="testVerifyAdRecurringDateIsDisplayed"/>
-<include name="testVerifyAdStatusIsDisplayed"/>
-<include name="testVerifyAdPreviewGetsDisplayedDisplayed"/>
-<include name="testVerifyAdPreviewSlideShowIsWorking"/>
-</methods>
-</class>
-</classes>
 </test>
 <test name="Verify Home Value page is populated and validation is working">
 <parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json">
@@ -549,50 +246,6 @@
 <include name="testVerifyEmptyLastNameTriggersValidationMessage"/>
 <include name="testVerifyEmptyEmailTriggersValidationMessage"/>
 <include name="testVerifyEmptyStreetInputTriggersValidationMessage"/>
-</methods>
-</class>
-</classes>
-</parameter>
-</test>
-<test name="Verify V2 Site Settings And Website">
-<parameter name="dataFile" value="/resources/data/zurple/backoffice/v2-site-settings.json">
-<classes>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
-<methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOV2TemplatePageTest">
-<methods>
-<include name="testVerifyV2Settings"/>
-<include name="testVerifyV2SettingsDisabled"/>
-</methods>
-</class>
-<class name="com.zurple.website.ZWV2TemplateHomePageTest">
-<methods>
-<include name="testVerifyV2WebsiteTemplate"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</parameter>
-</test>
-<test name="Verify Home Value page and verifications from back office">
-<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json">
-<classes>
-<class name="com.zurple.website.ZWHomeValuesPageTest">
-<methods>
-<include name="testUserIsRedirectedToThankYouPage"/>
-<include name="testVerifyLeadIsAddedInBackOffice"/>
-<include name="testVerifyLeadSource"/>
-<include name="testVerifyHomeValueNote"/>
-<include name="testVerifyHomeVlauationAlertIsTriggered"/>
-<include name="testVerifyPropertUpdateIsSetToNo"/>
-<include name="testVerifyHomeVlauationEmailIsTriggered"/>
 </methods>
 </class>
 </classes>
@@ -737,27 +390,6 @@
 <class name="com.zurple.rest.sapi.sellerlead.ZBORestGetLeadInfoFromFacebook">
 <methods>
 <include name="testGetLeadInfoFromFacebook"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</parameter>
-</test>
-<test name="Bulk Enrollment of leads into global campaign">
-<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
-<classes>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
-<methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
-<methods>
-<include name="testBulkEnrollLeadsInZurpleCmapaign"/>
 </methods>
 </class>
 <class name="resources.CurrentPageTest">
