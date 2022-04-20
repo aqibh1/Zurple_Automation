@@ -260,8 +260,7 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(xpath="//span[text()='Transaction Goals:']/following::span[@class='lead-details-detail'][1]")
 	WebElement transaction_goals;
 	
-	@FindBy(xpath="//div[@id='z-activity-details-sent-grid']/descendant::div[text()='Loading...']")
-	WebElement my_messages_loading;
+	String scheduled_email_subject_list = "//div[@id='z-activity-details-scheduled-grid']/descendant::td[@headers='yui-dt6-th-subject ']";
 	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
@@ -852,7 +851,7 @@ public class ZBOLeadDetailPage extends Page{
 			AutomationLogger.info("Iteration number ::"+counter+" of 6");
 			ActionHelper.ScrollDownByPixels(driver, "500");
 			if(ActionHelper.isElementVisible(driver, loading_popup)) {
-				ActionHelper.waitforElementToBeDisappearedByRegularIntervals(driver, loading_popup, 30, 10);
+				ActionHelper.waitForElementToBeDisappeared(driver, loading_popup, 300);
 			}
 			List<WebElement> subjectList = ActionHelper.getListOfElementByXpath(driver, pXpathOfEmailsList);
 			ActionHelper.staticWait(2);
@@ -1051,7 +1050,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyScheduledEmail(String pEmailToVerify) {
 		boolean isEmailReceived = false;
 		if(ActionHelper.Click(driver, myMessages_tab_button)) {
-			waitForMyMessagesLoadingToBeComplete();
+			ActionHelper.staticWait(7);
 			isEmailReceived = checkScheduledEmail(pEmailToVerify);
 		}
 		return isEmailReceived;
@@ -1134,7 +1133,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyHomeEvaluationAlert(String pText) {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<5) {
+		while(!isVerified && counter<15) {
 			ActionHelper.staticWait(45);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "300");
@@ -1146,7 +1145,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyHighActivityAlert() {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<5) {
+		while(!isVerified && counter<15) {
 			ActionHelper.staticWait(45);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "400");
@@ -1158,7 +1157,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyHighReturnAlert() {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<5) {
+		while(!isVerified && counter<15) {
 			ActionHelper.staticWait(45);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "500");
@@ -1179,7 +1178,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyAgentInquiryAlert() {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<5) {
+		while(!isVerified && counter<15) {
 			ActionHelper.staticWait(20);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "600");
@@ -1191,7 +1190,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyActivityAlert(String pAlertName) {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<5) {
+		while(!isVerified && counter<15) {
 			ActionHelper.staticWait(20);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "600");
@@ -1203,7 +1202,7 @@ public class ZBOLeadDetailPage extends Page{
 	public boolean verifyFavoritesAlert(String pCity, String pAddress, String pPrice) {
 		int counter = 0;
 		boolean isVerified = false;
-		while(!isVerified && counter<5) {
+		while(!isVerified && counter<15) {
 			ActionHelper.staticWait(20);
 			ActionHelper.RefreshPage(driver);
 			ActionHelper.ScrollDownByPixels(driver, "600");
@@ -1300,7 +1299,35 @@ public class ZBOLeadDetailPage extends Page{
 	public String getTransactionGoalsValue() {
 		return ActionHelper.getText(driver, transaction_goals);
 	}
-	public boolean waitForMyMessagesLoadingToBeComplete() {
-		return ActionHelper.waitForElementToBeDisappeared(driver, my_messages_loading, 150);
+	public boolean verifyCampaignNameFromMyMessages(String pCampaignNameToVerify) {
+		boolean isAlreadyEnrolledInCampaign = false;
+		if(clickOnMyMessagesTab()) {
+			ActionHelper.staticWait(5);
+			isAlreadyEnrolledInCampaign = getCampaignNameFromMyMessagesNone().equalsIgnoreCase(pCampaignNameToVerify);
+		}
+		return isAlreadyEnrolledInCampaign;
+	}
+	public boolean verifyIsScheudledEmailPresent(String pTemplateName) {
+		boolean isFound = false;
+		if(clickOnMyMessagesTab()) {
+			ActionHelper.staticWait(5);
+			List<WebElement> list_of_element = ActionHelper.getListOfElementByXpath(driver, scheduled_email_subject_list);
+			for(WebElement element: list_of_element) {
+				if(ActionHelper.getText(driver, element).contains(pTemplateName)) {
+					isFound = true;
+					break;
+				}
+			}
+		}
+		return isFound;
+	}
+	public boolean verifyEmailSmsAreScheduled(int pScheduledItems) {
+		boolean isFound = false;
+		if(clickOnMyMessagesTab()) {
+			ActionHelper.staticWait(5);
+			List<WebElement> list_of_element = ActionHelper.getListOfElementByXpath(driver, scheduled_email_subject_list);
+			isFound = list_of_element.size()==pScheduledItems;
+		}
+		return isFound;
 	}
 }

@@ -35,7 +35,8 @@ public class ZDBNetsuiteAPSyncingTest extends DBPageTest{
 				AutomationLogger.error("ACTION :: "+nssyncObject.getAction());
 			}
 		}
-		assertTrue(!isNumberOfFailedTranGreaterThanThree,"Failed transactions count is more than 3 for date: "+l_processed_date+" in netsuite_sync_queue table");
+		String query = "Select * FROM NetsuiteSyncQueue WHERE ERROR IS NOT NULL AND create_datetime>="+l_processed_date;
+		assertTrue(!isNumberOfFailedTranGreaterThanThree,"Failed transactions count is more than 3 for date: "+l_processed_date+" in netsuite_sync_queue table"+ "SQL Query: "+query);
 	}
 
 	@Override

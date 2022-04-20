@@ -20,6 +20,7 @@ import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.forms.zurple.backoffice.ZBOAddTemplateForm;
 import resources.forms.zurple.backoffice.ZBOLeadListForm;
 import resources.utility.ActionHelper;
+import resources.utility.AutomationLogger;
 import resources.utility.FrameworkConstants;
 
 /**
@@ -114,6 +115,9 @@ public class ZBOCreateCampaignPage extends Page{
 	
 	@FindBy(xpath="//li[@id='filtered-lead-list_next' and @class='paginate_button next']/a[text()='Next']")
 	WebElement next_button;
+	
+	@FindBy(xpath="//li[@id='campaigns_table_next' and @class='paginate_button next']")
+	WebElement campaigns_next_button;
 	
 	ZBOAddTemplateForm zboAddTemplateForm;
 	ZBOLeadListForm zboLeadListform;
@@ -278,14 +282,26 @@ public class ZBOCreateCampaignPage extends Page{
 	}
 	public boolean verifyLeadCount(String pCampaignName, int pLeadCount) {
 		boolean isVerifed = false;
-		List<WebElement> l_campaignNamelist = ActionHelper.getListOfElementByXpath(driver, campaign_name_list);
-		List<WebElement> l_campaignLead_count = ActionHelper.getListOfElementByXpath(driver, view_recipients_campaigns);
-		for(int i=0;i<l_campaignNamelist.size();i++) {
-			if(ActionHelper.getText(driver, l_campaignNamelist.get(i)).equalsIgnoreCase(pCampaignName)) {
-				int lead_count = Integer.parseInt(ActionHelper.getText(driver, l_campaignLead_count.get(i)).split(" ")[0]);
-				isVerifed = lead_count==pLeadCount;
-				break;
+		try {
+			while(!isVerifed) {
+				List<WebElement> l_campaignNamelist = ActionHelper.getListOfElementByXpath(driver, campaign_name_list);
+				List<WebElement> l_campaignLead_count = ActionHelper.getListOfElementByXpath(driver, view_recipients_campaigns);
+				for(int i=0;i<l_campaignNamelist.size();i++) {
+					if(ActionHelper.getText(driver, l_campaignNamelist.get(i)).equalsIgnoreCase(pCampaignName)) {
+						int lead_count = Integer.parseInt(ActionHelper.getText(driver, l_campaignLead_count.get(i)).split(" ")[0]);
+						isVerifed = lead_count==pLeadCount;
+						break;
+					}
+				}
+				if(!isVerifed && ActionHelper.isElementVisible(driver, next_button)) {
+					ActionHelper.Click(driver, driver.findElement(By.xpath("//li[@id='campaigns_table_next']/a")));
+					ActionHelper.staticWait(5);
+				}else {
+					break;
+				}					
 			}
+		}catch(Exception ex) {
+			AutomationLogger.info("Lead count was not verified");
 		}
 		return isVerifed;
 	}
@@ -387,6 +403,8 @@ public class ZBOCreateCampaignPage extends Page{
 	}
 	public boolean verifyIsLeadEnrolledInTheList(List<String> pViewMatchingList) {
 		boolean isFound = false;
+		//Waiting for leads to populate in the list
+		ActionHelper.staticWait(10);
 		String l_matching_enrolled_lead = pViewMatchingList.get(0);
 		while(!isFound) {
 			List<WebElement> pViewEnrolledList = getMatchingLeads();

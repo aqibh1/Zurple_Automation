@@ -7,7 +7,7 @@
 	</listeners>
 	
 	<test name="Verify SMS chat page">	
-	<parameter name="smschatpage" value="/resources/data/zurple/backoffice/sms-chat-page-data.json"> 
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/sms-chat-page-data.json"> 
 			<classes>
 				<class name="com.zurple.backoffice.ZBOSMSChatPageTest">
 					<methods>
@@ -21,6 +21,43 @@
 							<include name="testVerifySentMessage" />
 							<include name="testVerifyTimestamp" />
 							<include name="testVerifyLeadDetailsButton" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</test>	
+	
+	<test name="Verify SMS chat page Unenroll section">	
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/sms-chat-page-data.json"> 
+	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-email-subscription.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOSMSChatPageTest">
+					<methods>
+							<include name="leadRegisterPreCondition" />
+							<include name="testUnEnrollLabelIsVisible" />
+							<include name="testUnEnrollCampaignNameIsVisible" />
+							<include name="testUnEnrollMessageIsVisible" />
+							<include name="testUnEnrollButtonText" />
+							<include name="testLeadUnEnrollButtonIsWorking" />
+							<include name="testLeadIsUnEnrolledFromCampaign" />
+					</methods>
+				</class>
+			</classes>
+	</parameter>
+	</parameter>
+	</test>	
+	
+	<test name="Verify SMS message from chat page via API call">	
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/sms-chat-page-data.json"> 
+			<classes>
+				<class name="com.zurple.backoffice.ZBOLoginPageTest">
+					<methods>
+						<include name="testBackOfficeAPILogin" />
+					</methods>
+				</class>
+				<class name="com.zurple.rest.ZBORestPostSMSMessageTest">
+					<methods>
+							<include name="testPostMessage" />
 					</methods>
 				</class>
 			</classes>

@@ -112,6 +112,16 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		}
 	}
 	
+	@Test
+	@Parameters({"dataFile"})
+	public void testDeleteAllCampaign(String pDataFile) {
+		dataObject = getDataFile(pDataFile);
+		page=null;
+		getPage("/campaigns");
+		ZBOCampaignPage campaignPage = new ZBOCampaignPage(driver);
+		campaignPage.deleteAllAutoCampaigns("AutoTestCampaign");
+	}
+	
 	private void deleteCampaign(String pCampaignid) {
 		page = null;
 		getPage("/campaigns/enroll/"+pCampaignid);
@@ -440,7 +450,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	public void testVerifyEnrollmentInCampaignButtonIsVisibleInLeadDetailsPage() {
 		getPage("/leads/index/ext/prospect1");
 		ZBOLeadPage zboleadPage = new ZBOLeadPage(driver);
-		ActionHelper.staticWait(7);
+		zboleadPage.isProcessingComplete();
 		assertTrue(zboleadPage.clickOnLead(), "Unable to click on lead");
 		ZBOLeadDetailPage zboLeadDetailPage = new ZBOLeadDetailPage(driver);
 		assertTrue(zboLeadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages");
@@ -512,7 +522,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		getPage("/leads/index/ext/prospect1");
 		ZBOLeadPage leadPage = new ZBOLeadPage(driver);
 		assertTrue(leadPage.isLeadInputVisible(), "Lead page is not displayed..");
-		ActionHelper.staticWait(5);
+		leadPage.isProcessingComplete();
 		assertTrue(leadPage.checkTheLead(), "Unable to click on lead input checkbox..");
 		assertTrue(leadPage.mouseHoverAction(), "Unable to hover mouse on Action button");
 		assertTrue(leadPage.isEnrollInCampaignButtonVisible(), "Enroll in campaign option not visble in actions dropdown");
@@ -659,7 +669,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 		driver.navigate().to(l_current_url.split("/enroll")[0]);
 		String l_campaign_name = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleCampaignName);
 		int l_lead_count = ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleLeadsCount);
-		ActionHelper.staticWait(250);
+		ActionHelper.staticWait(60);
 		ActionHelper.RefreshPage(driver);
 		ActionHelper.staticWait(10);
 		boolean leadEnrolled = page.verifyLeadCount(l_campaign_name, l_lead_count);

@@ -115,7 +115,7 @@ public class ZBODashboardPage extends Page{
 	}
 	
 	public boolean verifyPhoneNumberText(String pPhoneNumber) {
-		String pNumText = ActionHelper.getText(driver, phoneNumber);
+		String pNumText = ActionHelper.getText(driver, phoneNumber).replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
 		// pNumText = pNumText.replace(' ', '-');
 		AutomationLogger.info("Fetching phone number");
 		return pNumText.equalsIgnoreCase(pPhoneNumber);

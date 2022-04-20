@@ -154,7 +154,7 @@ public class ZWRegisterUserPageTest extends PageTest{
 	if(!getIsProd()) {
 		lEmail = lEmail.replace("@", "_ZurpleQA@");
 	}
-	ActionHelper.staticWait(5);
+	ActionHelper.staticWait(20);
 	lUserName = lEmail.split("@")[0];
 	
 	DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());	
@@ -167,7 +167,7 @@ public class ZWRegisterUserPageTest extends PageTest{
 	ModuleCommonCache.updateCacheForModuleObject(getThreadId().toString(),ModuleCacheConstants.ZurpleLeadId,lLeadId);
 	ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleLeadName,lName);
 
-	ActionHelper.staticWait(30);
+	ActionHelper.staticWait(10);
 }
 
 
@@ -176,7 +176,12 @@ public class ZWRegisterUserPageTest extends PageTest{
 		assertTrue(page.typeName(pName),"Unable to type name..");
 		assertTrue(page.typeEmail(pEmail),"Unable to type email..");
 		if(!lDataObject.optString("phone").isEmpty() && page.isPhoneInputDisplayed()) {
-			assertTrue(page.typePhone(lDataObject.optString("phone")),"Unable to type phone..");
+			int first_part=generateRandomInt(10000, 99999);
+			int sec_part=generateRandomInt(10000, 99999);
+//			assertTrue(page.typePhone(lDataObject.optString("phone")),"Unable to type phone..");
+			String l_phone = String.valueOf(first_part)+String.valueOf(sec_part);
+			assertTrue(page.typePhone(l_phone),"Unable to type phone..");
+			ModuleCommonCache.updateCacheForModuleObject(getThreadId(), ModuleCacheConstants.ZurpleleadPhone,l_phone);
 		}
 		assertTrue(page.isTermsAndCondCheckboxChecked(),"Terms and conditions checkbox is not checked..");
 		assertTrue(page.clickRegisterButton(),"Unable to click on register button..");

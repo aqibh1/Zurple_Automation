@@ -28,8 +28,8 @@ public class ZBOSendEmailForm extends AbstractForm{
 	
 	String select_template_option = "//select[@id='campaign_template']/option";
 	
-	@FindBy(id="send_email_button")
-	WebElement send_email_button;
+	@FindBy(id="send_email_button_2")
+	WebElement send_email_button_standard;
 	
 	@FindBy(id="subject")
 	WebElement subject;
@@ -79,7 +79,7 @@ public class ZBOSendEmailForm extends AbstractForm{
 	}
 	
 	public boolean clickOnSendEmailButton() {
-		return ActionHelper.Click(driver, send_email_button);
+		return ActionHelper.Click(driver, send_email_button_standard);
 	}
 	public String getSubject() {
 		return ActionHelper.getTextByValue(driver, ActionHelper.getElementByXpath(driver, "//input[@id='subject']"));

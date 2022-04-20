@@ -6,15 +6,13 @@
         	<listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         	<listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
-<test name="Verify Lead Capture With SellC URL Parameter123">	
-	<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-email-subscription.json"> 
-			<classes>
-				<class name="com.zurple.backoffice.ZBORedirectedLeadTest">
-					<methods>
-						<include name="testVerifyRegisterLeadWithSellC" />
-					</methods>
-				</class>
-			</classes>
-	</parameter>
-	</test>
+<test name="Verify lead Replies testing">
+<classes>
+<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+<methods>
+<include name="testVerifyLeadReplies"/>
+</methods>
+</class>
+</classes>
+</test>
 </suite>
