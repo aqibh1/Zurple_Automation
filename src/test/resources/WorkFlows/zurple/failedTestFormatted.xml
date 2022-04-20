@@ -6,7 +6,7 @@
         	<listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         	<listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
-<test name="Verify lead Replies testing">
+<test name="Verify lead Replies testing trts">
 <classes>
 <class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
 <methods>
