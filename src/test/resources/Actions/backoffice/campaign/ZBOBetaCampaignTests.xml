@@ -1,0 +1,71 @@
+<suite name="Update and Verify User Settings suite"
+	preserve-order="true" verbose="1" parallel="tests" thread-count="1">
+	<listeners>
+		<listener class-name="resources.ThreadCountChanger" />
+		<listener class-name="resources.ExtentReporterListener" />
+		<listener class-name="resources.ZurpleReporter.ScreenshotTaker" />
+		<listener class-name="resources.CustomTestNGReporter" />
+		<listener class-name="resources.TestRailResultsListener" />
+	</listeners>
+ <!--  
+	<test name="Beta Campaign Validations">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOCampaignDetailsPageTest">
+					<methods>
+						<include name="testVerifyCampaignIsVisible" />
+						<include name="testVerifyAgentIsUnableToEditContentOrTemplates" />
+						<include name="testVerifyPreviewButtonsWorking" />
+						<include name="testVerifyTimeLineInputIsDisabled" />
+						<include name="testVerifyBetaCampaignNameDescriptionIsDisabled" />
+						<include name="testVerifyRecipientsAreDisabled" />
+						<include name="testVerifyLeadSourceCannotBeEdited" />
+						<include name="testVerifyAutoEnrollCanBeToggled" />
+						<include name="testVerifyOnlyLeadWithPhonenumberCannotBeToggled" />
+						<include name="testVerifyProspectNewOptionIsSelectedByDefault" />
+					</methods>
+				</class>
+			</classes>
+			</parameter>
+	</test>
+	
+	
+	
+	<test name="Verify lead without phone number does not gets auto enrolled in Beta Campaign">
+	<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-beta-campaign-without-ph.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOCampaignDetailsPageTest">
+					<methods>
+						<include name="testVerifyLeadWithoutPhoneNumberDoesNotGetsEnrolledInBetaCampaign" />
+					
+					</methods>
+				</class>
+			</classes>
+			</parameter>
+	</test>
+	
+	<test name="Verify lead status is unresponsive for admins with no entry in campaign criteria table">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOCampaignDetailsPageTest">
+					<methods>
+						<include name="testVerifyLeadStatusIsUnresponsiveForAdminsWithNoEntryInCampaignsCriteria" />
+					</methods>
+				</class>
+			</classes>
+	</test>
+	-->
+
+<test name="Verify lead with phone number gets auto enrolled in Beta Campaign">
+	<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-beta-campaign.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOCampaignDetailsPageTest">
+					<methods>
+						<include name="testVerifyLeadWithPhoneNumberGetsEnrolledInBetaCampaign" />
+							<include name="testVerifyScheduledMessagesArePopulatedForLeadsEnrolledInBetaCampaign" />
+					</methods>
+				</class>
+			</classes>
+			</parameter>
+	</test>
+</suite>
+
