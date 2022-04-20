@@ -3,6 +3,7 @@ cd C:\FailedTests\z57_selenium\src\test\resources\WorkFlows\zurple
 Write-Host 'del /f failedTestFormatted.xml'
 del /f failedTestFormatted.xml
 Write-Host 'Adding deleted failedTestFormatted.xml'
+cd C:\FailedTests\z57_selenium
 git add src/test/resources/WorkFlows/zurple/failedTestFormatted.xml
 Write-Host 'Commiting deleted failedTestFormatted.xml'
 git commit -m "Commiting deleted failed tests xml"
@@ -10,7 +11,6 @@ Write-Host 'Pushing deleted failedTestFormatted.xml'
 git push origin sprint
 Write-Host 'Copying failed tests xml to sprint'
 Copy-item -path C:\Users\Administrator\.jenkins\workspace\Zurple_AutomationFramework_Staging\failedTestFormatted.xml -destination C:\FailedTests\z57_selenium\src\test\resources\WorkFlows\zurple -Force
-cd C:\FailedTests\z57_selenium
 Write-Host 'Current branch name'
 git branch 
 Write-Host 'git status'
