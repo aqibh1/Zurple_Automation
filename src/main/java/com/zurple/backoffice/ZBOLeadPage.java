@@ -166,7 +166,7 @@ public class ZBOLeadPage extends Page{
 		return isSortingWorking(sorting_column_ascending_xpath, sorting_column_descending_xpath, "Priority Rank");
 	}
 	public boolean isProcessingComplete() {
-		return ActionHelper.waitForElementToBeDisappeared(driver, procession_notfication,30);
+		return ActionHelper.waitForElementToBeDisappeared(driver, procession_notfication,60);
 	}
 	
 	public boolean clickAndSelectFilterName(String pFilterName) {

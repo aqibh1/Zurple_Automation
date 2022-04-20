@@ -62,7 +62,10 @@ public class ZBODashboardTest extends PageTest
     	getPage();
     	dataObject = getDataFile(pDataFile);
     	String pNum = dataObject.optString(DataConstants.Phone);
-    	
+    	String pCacheNum =ModuleCommonCache.getElement(getThreadId(), ModuleCacheConstants.ZurpleleadPhone);
+    	if(pCacheNum!=null && !pCacheNum.isEmpty()) {
+    		pNum = pCacheNum;
+    	}
         assertTrue(page.verifyPhoneNumberText(pNum), "Phone numbers didn't match..");
         assertTrue(page.verifyPhoneAlert(), "Phone tap Alert not present..");
     }
