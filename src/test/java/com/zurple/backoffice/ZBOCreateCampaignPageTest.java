@@ -450,7 +450,7 @@ public class ZBOCreateCampaignPageTest extends PageTest{
 	public void testVerifyEnrollmentInCampaignButtonIsVisibleInLeadDetailsPage() {
 		getPage("/leads/index/ext/prospect1");
 		ZBOLeadPage zboleadPage = new ZBOLeadPage(driver);
-		ActionHelper.staticWait(7);
+		zboleadPage.isProcessingComplete();
 		assertTrue(zboleadPage.clickOnLead(), "Unable to click on lead");
 		ZBOLeadDetailPage zboLeadDetailPage = new ZBOLeadDetailPage(driver);
 		assertTrue(zboLeadDetailPage.clickOnMyMessagesTab(), "Unable to click on my messages");

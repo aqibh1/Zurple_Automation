@@ -1430,4 +1430,16 @@ public class ActionHelper {
 		   Long value = (Long) executor.executeScript("return window.pageYOffset;");
 		   return value;
 	   }
+	   public static boolean isElementDisabled(WebDriver pWebDriver,WebElement pElement) {
+		   boolean isDisabled = true;
+		   try {
+			   JavascriptExecutor js = (JavascriptExecutor) pWebDriver;		
+			   isDisabled = (boolean) js.executeScript("return arguments[0].hasAttribute(\"disabled\");", pElement);
+		   }catch(Exception ex) {
+			   AutomationLogger.error("Error in Executing script");
+			   isDisabled = false;
+		   }
+		   
+		   return isDisabled;
+	   }
 }
