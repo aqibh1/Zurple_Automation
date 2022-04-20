@@ -6,89 +6,13 @@
         	<listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
         	<listener class-name="resources.CustomTestNGReporter"/>
 	</listeners>
-<test name="Send Listing flyer email from marketing">
+<test name="Verify lead Replies testing">
 <classes>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
-<methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
 <class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
 <methods>
-<include name="testVerifySendListingButtonIsVisible"/>
-<include name="testVerifyListingEmailSubjectIsVisibleWhenSendListingIsClciked"/>
-<include name="testVerifySearchOptionsAreVisibleForListingEmail"/>
-<include name="testSearchAndVerifyListingsByMLSID"/>
-<include name="testVerifyValidationMessageIsDisplayedIfNoSubjectIsProvided"/>
-<include name="testVerifyValidationMessageIsDisplayedIfNoListingIsSelected"/>
-<include name="testVerifyUserCanRemoveAddedListing"/>
-<include name="testVerifyDatePickerOpenWhenCalendarButtonIsClicked"/>
-<include name="testVerifyAdminTimeZone"/>
-<include name="testVerifyScheduleLabelIsDisplayed"/>
-<include name="testVerifyRemoveScheduleLabelButton"/>
-<include name="testVerifyCalendarButtonIsRemovedOnceEmailHasBeenScheduled"/>
-<include name="testVerifyPreviewEmailPageIsOpenedWhenNextButtonIsClicked"/>
-<include name="testVerifySuccessMessageIsDisplayedWhenSendNowButtonIsClicked"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</test>
-<test name="Send Scheduled Listing flyer email from marketing">
-<classes>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
-<methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
-<methods>
-<include name="testSendScheduleListingEmail"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</test>
-<test name="Capture and verify lead from Self Serv ad">
-<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-paid-social.json">
-<classes>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
-<methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
-<methods>
-<include name="testVerifyLeadHasSameAgentAssigned"/>
-<include name="testVerifyLeadSourceIsPaidSocial"/>
-</methods>
-</class>
-<class name="resources.CurrentPageTest">
-<methods>
-<include name="closeBrowser"/>
-</methods>
-</class>
-</classes>
-</parameter>
-</test>
-<test name="Send Standard email">
-<parameter name="standardEmailData" value="/resources/data/zurple/backoffice/marketing/standard-email-data.json">
-<classes>
-<class name="com.zurple.backoffice.ZBOLoginPageTest">
-<methods>
-<include name="testBackOfficeLogin"/>
-</methods>
-</class>
-<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
-<methods>
+<<<<<<< HEAD
+<include name="testVerifyLeadReplies"/>
+=======
 <include name="testSendStandardEmail"/>
 </methods>
 </class>
@@ -779,10 +703,9 @@
 <include name="testUnEnrollButtonText"/>
 <include name="testLeadUnEnrollButtonIsWorking"/>
 <include name="testLeadIsUnEnrolledFromCampaign"/>
+>>>>>>> 03be4386183b3e9cd91c4809aba9c396ea919570
 </methods>
 </class>
 </classes>
-</parameter>
-</parameter>
 </test>
 </suite>
