@@ -260,6 +260,8 @@ public class ZBOLeadDetailPage extends Page{
 	@FindBy(xpath="//span[text()='Transaction Goals:']/following::span[@class='lead-details-detail'][1]")
 	WebElement transaction_goals;
 	
+	String scheduled_email_subject_list = "//div[@id='z-activity-details-scheduled-grid']/descendant::td[@headers='yui-dt6-th-subject ']";
+	
 	private ZBOLeadDetailsSearchBlock leadDetailSearchBlock;
 	private ZBOSelectCampaignAlert selectCampaign;
 
@@ -1296,5 +1298,36 @@ public class ZBOLeadDetailPage extends Page{
 	}
 	public String getTransactionGoalsValue() {
 		return ActionHelper.getText(driver, transaction_goals);
+	}
+	public boolean verifyCampaignNameFromMyMessages(String pCampaignNameToVerify) {
+		boolean isAlreadyEnrolledInCampaign = false;
+		if(clickOnMyMessagesTab()) {
+			ActionHelper.staticWait(5);
+			isAlreadyEnrolledInCampaign = getCampaignNameFromMyMessagesNone().equalsIgnoreCase(pCampaignNameToVerify);
+		}
+		return isAlreadyEnrolledInCampaign;
+	}
+	public boolean verifyIsScheudledEmailPresent(String pTemplateName) {
+		boolean isFound = false;
+		if(clickOnMyMessagesTab()) {
+			ActionHelper.staticWait(5);
+			List<WebElement> list_of_element = ActionHelper.getListOfElementByXpath(driver, scheduled_email_subject_list);
+			for(WebElement element: list_of_element) {
+				if(ActionHelper.getText(driver, element).contains(pTemplateName)) {
+					isFound = true;
+					break;
+				}
+			}
+		}
+		return isFound;
+	}
+	public boolean verifyEmailSmsAreScheduled(int pScheduledItems) {
+		boolean isFound = false;
+		if(clickOnMyMessagesTab()) {
+			ActionHelper.staticWait(5);
+			List<WebElement> list_of_element = ActionHelper.getListOfElementByXpath(driver, scheduled_email_subject_list);
+			isFound = list_of_element.size()==pScheduledItems;
+		}
+		return isFound;
 	}
 }
