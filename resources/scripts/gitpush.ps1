@@ -1,5 +1,6 @@
 Write-Host 'Deleting old failed tests xml'
 del C:\FailedTests\z57_selenium\src\test\resources\WorkFlows\zurple\failedTestFormatted.xml
+cd C:\FailedTests\z57_selenium
 Write-Host 'Current branch name'
 git branch 
 Write-Host 'git status'
@@ -7,7 +8,6 @@ git status
 write-Host 'pulling..'
 git pull origin sprint
 Write-Host 'Adding deleted failedTestFormatted.xml'
-cd C:\FailedTests\z57_selenium
 git add src/test/resources/WorkFlows/zurple/failedTestFormatted.xml
 Write-Host 'Commiting deleted failedTestFormatted.xml'
 git commit -m "Commiting deleted failed tests xml"
