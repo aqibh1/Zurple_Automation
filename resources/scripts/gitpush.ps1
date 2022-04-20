@@ -1,7 +1,5 @@
 Write-Host 'Deleting old failed tests xml'
-cd C:\FailedTests\z57_selenium\src\test\resources\WorkFlows\zurple
-Write-Host 'del /f failedTestFormatted.xml'
-del /f failedTestFormatted.xml
+del C:\FailedTests\z57_selenium\src\test\resources\WorkFlows\zurple\failedTestFormatted.xml
 Write-Host 'Adding deleted failedTestFormatted.xml'
 cd C:\FailedTests\z57_selenium
 git add src/test/resources/WorkFlows/zurple/failedTestFormatted.xml
