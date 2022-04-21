@@ -1,0 +1,1580 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<suite name="Zurple Pre and Post Release Somke Tests" parallel="tests" preserve-order="true" thread-count="1" verbose="2">
+	<listeners>		
+			<listener class-name="resources.ThreadCountChanger"/>
+     	<listener class-name="resources.ExtentReporterListener"/>
+        	<listener class-name="resources.ZurpleReporter.ScreenshotTaker"/>
+        	<listener class-name="resources.CustomTestNGReporter"/>
+	</listeners>
+<test name="Send Listing flyer email from marketing">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+<methods>
+<include name="testVerifySendListingButtonIsVisible"/>
+<include name="testVerifyListingEmailSubjectIsVisibleWhenSendListingIsClciked"/>
+<include name="testVerifySearchOptionsAreVisibleForListingEmail"/>
+<include name="testSearchAndVerifyListingsByMLSID"/>
+<include name="testVerifyValidationMessageIsDisplayedIfNoSubjectIsProvided"/>
+<include name="testVerifyValidationMessageIsDisplayedIfNoListingIsSelected"/>
+<include name="testVerifyUserCanRemoveAddedListing"/>
+<include name="testVerifyDatePickerOpenWhenCalendarButtonIsClicked"/>
+<include name="testVerifyAdminTimeZone"/>
+<include name="testVerifyScheduleLabelIsDisplayed"/>
+<include name="testVerifyRemoveScheduleLabelButton"/>
+<include name="testVerifyCalendarButtonIsRemovedOnceEmailHasBeenScheduled"/>
+<include name="testVerifyPreviewEmailPageIsOpenedWhenNextButtonIsClicked"/>
+<include name="testVerifySuccessMessageIsDisplayedWhenSendNowButtonIsClicked"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</test>
+<test name="Capture and verify lead from Self Serv ad">
+<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-paid-social.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+<methods>
+<include name="testVerifyLeadHasSameAgentAssigned"/>
+<include name="testVerifyLeadSourceIsPaidSocial"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Create Twitter Scheduled posts">
+<parameter name="TwitterDataFile" value="/resources/data/zurple/backoffice/social/z-social-twitter-posts-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
+<methods>
+<include name="testCreateTwitterTextScheduledPost"/>
+<include name="testCreateTwitterLinkScheduledPost"/>
+<include name="testCreateTwitterPhotoScheduledPost"/>
+<include name="testCreateTwitterListingScheduledPost"/>
+<include name="testCreateTwitterListingVideoScheduledPost"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Create Linkedin Scheduled posts">
+<parameter name="LinkedinDataFile" value="/resources/data/zurple/backoffice/social/z-social-linkedin-posts-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
+<methods>
+<include name="testCreateLinkedinTextScheduledPost"/>
+<include name="testCreateLinkedinLinkScheduledPost"/>
+<include name="testCreateLinkedinPhotoScheduledPost"/>
+<include name="testCreateLinkedinListingScheduledPost"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Create Twitter direct posts">
+<parameter name="TwitterDataFile" value="/resources/data/zurple/backoffice/social/z-social-twitter-posts-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
+<methods>
+<include name="testCreateTwitterTextPost"/>
+<include name="testCreateTwitterLinkPost"/>
+<include name="testCreateTwitterPhotoPost"/>
+<include name="testCreateTwitterListingPost"/>
+<include name="testCreateTwitterListingVideoPost"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Create Linkedin direct posts">
+<parameter name="LinkedinDataFile" value="/resources/data/zurple/backoffice/social/z-social-linkedin-posts-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOCreatePostPageTestNew">
+<methods>
+<include name="testCreateLinkedinTextPost"/>
+<include name="testCreateLinkedinLinkPost"/>
+<include name="testCreateLinkedinPhotoPost"/>
+<include name="testCreateLinkedinListingPost"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Search and Verify property by City">
+<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-city.json">
+<classes>
+<class name="com.zurple.website.ZWHomeSearchPageTest">
+<methods>
+<include name="testSearchPropoerty"/>
+</methods>
+</class>
+<class name="com.zurple.website.ZWHomesForSalePageTest">
+<methods>
+<include name="testHomesForSale"/>
+</methods>
+</class>
+<class name="com.zurple.website.ZWPropertyDetailPageTest">
+<methods>
+<include name="testVerifyPropertyDetails"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Search and Verify property by Zip">
+<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-zip.json">
+<classes>
+<class name="com.zurple.website.ZWHomeSearchPageTest">
+<methods>
+<include name="testSearchPropoerty"/>
+</methods>
+</class>
+<class name="com.zurple.website.ZWHomesForSalePageTest">
+<methods>
+<include name="testHomesForSale"/>
+</methods>
+</class>
+<class name="com.zurple.website.ZWPropertyDetailPageTest">
+<methods>
+<include name="testVerifyPropertyDetails"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Search and Verify property by Bed Bath Price and Features with User Logged In">
+<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-01.json">
+<classes>
+<class name="com.zurple.website.ZWLoginPageTest">
+<methods>
+<include name="testSignIn"/>
+</methods>
+</class>
+<class name="com.zurple.website.ZWHomeSearchPageTest">
+<methods>
+<include name="testSearchPropoertyAfterLoggedIn"/>
+</methods>
+</class>
+<class name="com.zurple.website.ZWHomesForSalePageTest">
+<methods>
+<include name="testHomesForSale"/>
+</methods>
+</class>
+<class name="com.zurple.website.ZWPropertyDetailPageTest">
+<methods>
+<include name="testVerifyPropertyDetails"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Create lead and verify details">
+<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+<methods>
+<include name="testAddLead"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+<methods>
+<include name="testVerifyLeadDetails"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Create lead by Zip and verify details">
+<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-by-zip.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+<methods>
+<include name="testAddLead"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+<methods>
+<include name="testVerifyLeadDetails"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Preview Lead Email">
+<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-preview.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+<methods>
+<include name="testAddLead"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOSendEmailPageTest">
+<methods>
+<include name="testVerifyPreview"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Welcome Email">
+<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-verify-welcome.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+<methods>
+<include name="testAddLead"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+<methods>
+<include name="testVerifyLeadDetails"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Lead Capture Form appears for user not signed in on Listing">
+<parameter name="searchPropertyDataFile" value="/resources/data/zurple/property_search/zurple-property-search-lead-capture.json">
+<classes>
+<class name="com.zurple.website.ZWHomeSearchPageTest">
+<methods>
+<include name="testSearchPropoerty"/>
+</methods>
+</class>
+<class name="com.zurple.website.ZWHomesForSalePageTest">
+<methods>
+<include name="testHomesForSale"/>
+</methods>
+</class>
+<class name="com.zurple.website.ZWPropertyDetailPageTest">
+<methods>
+<include name="testVerifyPropertyDetails"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+
+</parameter>
+</test>
+<test name="Add and Verify notes in Lead Details page">
+<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-notes.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+<methods>
+<include name="testAddLead"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+<methods>
+<include name="testAddAndVerifyLeadNotes"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Create lead update and verify status">
+<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-status.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+<methods>
+<include name="testAddLead"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+<methods>
+<include name="testUpdateLeadDetails"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Assignment of lead from Add Lead Page">
+<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-lead-assign-agent-from-lead-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAgentsPageTest">
+<methods>
+<include name="testVerifyLeadCount"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+<methods>
+<include name="testAddLead"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadPageTest">
+<methods>
+<include name="testVerifyLeadAssignment"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Assignment of lead from Leads detail Page">
+<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-lead-assign-agent-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAgentsPageTest">
+<methods>
+<include name="testVerifyLeadCount"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+<methods>
+<include name="testAddLead"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+<methods>
+<include name="testUpdateLeadAgentAssignment"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadPageTest">
+<methods>
+<include name="testVerifyLeadAssignment"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Assignment of lead from Leads CRM Page Action">
+<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-lead-assign-agent-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAgentsPageTest">
+<methods>
+<include name="testVerifyLeadCount"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+<methods>
+<include name="testAddLead"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadPageTest">
+<methods>
+<include name="testAssignLeadToAgentFromCRMPage"/>
+<include name="testVerifyLeadAssignment"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Assignment of lead from Leads CRM page column">
+<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-lead-assign-agent-data.json">
+<parameter name="column" value="true">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAgentsPageTest">
+<methods>
+<include name="testVerifyLeadCount"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+<methods>
+<include name="testAddLead"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadPageTest">
+<methods>
+<include name="testAssignLeadToAgentFromCRMPage"/>
+<include name="testVerifyLeadAssignment"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</parameter>
+</test>
+<test name="Assignment of lead from Leads Page Action">
+<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-lead-assign-agent-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAgentsPageTest">
+<methods>
+<include name="testVerifyLeadCount"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+<methods>
+<include name="testAddLead"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadPageTest">
+<methods>
+<include name="testAssignLeadToAgent"/>
+<include name="testVerifyLeadAssignment"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Dashboard stats">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBODashboardTest">
+<methods>
+<include name="testVerifyDashboardStatsAreDisplayed"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</test>
+<test name="Verify bounced emails">
+<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-bounced-email-data.json">
+<classes>
+<class name="com.zurple.website.ZWRegisterUserPageTest">
+<methods>
+<include name="testRegisterUser"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+<methods>
+<include name="testVerifyBouncedEmail"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify lead enrollment is disabled for new leads">
+<parameter name="addLeadData" value="/resources/data/zurple/backoffice/zurple-add-lead-campaign.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+
+<class name="com.zurple.backoffice.ZBOAddLeadPageTest">
+<methods>
+<include name="testAddLead"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+<methods>
+<include name="testVerifyNewLeadEnrollmentInCampaign"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Send Text message from CRM Page">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+<methods>
+<include name="testSendAndVerifySendSMS"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</test>
+<test name="Register new lead and verify from Dashboard">
+<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-dashboard-verification.json">
+<classes>
+<class name="com.zurple.website.ZWRegisterUserPageTest">
+<methods>
+<include name="testRegisterUser"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBODashboardTest">
+<methods>
+<include name="testIsNewLeadDisplayedOnDashboard"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Reminder Email generated from CRM page">
+<parameter name="dataFile" value="/resources/cache/zurple-reminder-email-verification.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+<methods>
+<include name="testVerifyReminderEmail"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify standard email triggered from CRM page">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+<methods>
+<include name="testVerifyEmailIsSent"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</test>
+<test name="Verify listing flyer email">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+<methods>
+<include name="testVerifyEmailListingFlyer"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify standard scheduled email">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/scheduled-email-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+<methods>
+<include name="testVerifyScheduledEmailFromMyMessages"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify standard email triggered from CRM page">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+<methods>
+<include name="testVerifyEmailIsSent"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</test>
+<test name="Verify listing flyer email sent from marketing page">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/email-listing-flyer-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+<methods>
+<include name="testVerifyScheduledEmailListingFlyerIsSent"/>
+<include name="testVerifyScheduledEmailListingFlyerFromMyMessages"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Bulk email">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/standard-email-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOMarketingEmailPageTest">
+<methods>
+<include name="testVerifyBulkEmail"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify lead address is populated on Send CMA Report page">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/zurple-add-lead-for-cma.json">
+<parameter name="dataFile1" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-for-cma-city.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOSendReportPageTest">
+<methods>
+<include name="testVerifyLeadAddressIsPopulatedInPropertySection"/>
+<include name="testVerifyLeadAddressIsPopulatedInActiveListingSection"/>
+<include name="testVerifyLeadCityIsPopulatedInActiveListingSection"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</parameter>
+</test>
+<test name="Add and Remove Sold Listings and Verify the errors">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOSendReportPageTest">
+<methods>
+<include name="testVerifyThreeSoldPropertiesAdded"/>
+<include name="testVerifyAddButtonIsChangedToAddedTextSoldProps"/>
+<include name="testVerifyErrorAlertWhenMoreThanThreeSoldPropsSelected"/>
+<include name="testVerifySelectedSoldPropsCanBeRemoved"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Add and Remove Active Listings and Verify the errors">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOSendReportPageTest">
+<methods>
+<include name="testVerifyThreeActiveListingsAdded"/>
+<include name="testVerifyAddButtonIsChangedToAddedTextActiveListing"/>
+<include name="testVerifyErrorAlertWhenMoreThanThreeActiveListigsSelected"/>
+<include name="testVerifySelectedActiveListingsCanBeRemoved"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Search and Verify Active Listing on CMA Report page">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-for-al-search.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOSendReportPageTest">
+<methods>
+<include name="testVerifyResultsAreDisplayedUnderActiveListingSection"/>
+<include name="testVerifyResultsAreDsiplayedByAddressUnderActiveListing"/>
+<include name="testVerifyResultsAreDsiplayedByCityUnderActiveListing"/>
+<include name="testVerifyResultsAreDsiplayedByZipUnderActiveListing"/>
+<include name="testVerifyResultsAreDsiplayedByMLSUnderActiveListing"/>
+<include name="testVerifyResultsAreWithAllInformationActiveListing"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verifications on Step2 and Step 3 of CMA Report page">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/cma/zurple-add-lead-with-address.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOSendReportPageTest">
+<methods>
+<include name="testVerifyUserIsRedirectedToStep2WhenEmailDetailsButtonIsClicked"/>
+<include name="testVerifyUserCanAddAdditionalCommentsStep2CMA"/>
+<include name="testVerifyStep3OfCMAReport"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Home Value page and verifications from back office">
+<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json">
+<classes>
+<class name="com.zurple.website.ZWHomeValuesPageTest">
+<methods>
+<include name="testUserIsRedirectedToThankYouPage"/>
+<include name="testVerifyLeadIsAddedInBackOffice"/>
+<include name="testVerifyLeadSource"/>
+<include name="testVerifyHomeValueNote"/>
+<include name="testVerifyHomeVlauationAlertIsTriggered"/>
+<include name="testVerifyPropertUpdateIsSetToNo"/>
+<include name="testVerifyHomeVlauationEmailIsTriggered"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Home Value page is populated and validation is working">
+<parameter name="dataFile" value="/resources/data/zurple/home_value/zurple-home-value-data.json">
+<classes>
+<class name="com.zurple.website.ZWHomeValuesPageTest">
+<methods>
+<include name="testVerifyHomeValuePageIsPopulated"/>
+<include name="testVerifyEmptyCityTriggersValidationMessage"/>
+<include name="testVerifyEmptyZipTriggersValidationMessage"/>
+<include name="testVerifyEmptyStateTriggersValidationMessage"/>
+<include name="testVerifyEmptyFirstNameTriggersValidationMessage"/>
+<include name="testVerifyEmptyLastNameTriggersValidationMessage"/>
+<include name="testVerifyEmptyEmailTriggersValidationMessage"/>
+<include name="testVerifyEmptyStreetInputTriggersValidationMessage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify V2 Site Settings And Website">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/v2-site-settings.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOV2TemplatePageTest">
+<methods>
+<include name="testVerifyV2Settings"/>
+<include name="testVerifyV2SettingsDisabled"/>
+</methods>
+</class>
+<class name="com.zurple.website.ZWV2TemplateHomePageTest">
+<methods>
+<include name="testVerifyV2WebsiteTemplate"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Quick Question email for Schedule Showing user">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+<methods>
+<include name="testVerifQuickQuestionEmailIsGenerated"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</test>
+<test name="Verify Social Text Post Twitter">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-text-post.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyTwitterPostPageTitle"/>
+<include name="testVerifyTwitterPostAccountName"/>
+<include name="testVerifyTwitterPlatformIconIsVisible"/>
+<include name="testVerifyTwitterTextPostIconVisible"/>
+<include name="testVerifyTwitterManualPostTextVisible"/>
+<include name="testVerifyTwitterPostPageDate"/>
+<include name="testVerifyTwitterPostPageTime"/>
+<include name="testVerifyTwitterViewPostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Text Post Twitter - Scheduled">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-text-post-scheduled.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyTwitterPostPageTitle"/>
+<include name="testVerifyTwitterPostAccountName"/>
+<include name="testVerifyTwitterPlatformIconIsVisible"/>
+<include name="testVerifyTwitterTextPostIconVisible"/>
+<include name="testVerifyTwitterManualPostTextVisible"/>
+<include name="testVerifyTwitterPostPageDate"/>
+<include name="testVerifyTwitterPostPageTime"/>
+<include name="testVerifyTwitterViewPostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Photo Post Twitter">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-photo-post.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyTwitterPostPageTitle"/>
+<include name="testVerifyTwitterPostAccountName"/>
+<include name="testVerifyTwitterPlatformIconIsVisible"/>
+<include name="testVerifyTwitterPhotoPostIconVisible"/>
+<include name="testVerifyTwitterImageDisplaying"/>
+<include name="testVerifyTwitterManualPhotPostTextVisible"/>
+<include name="testVerifyTwitterPostPageDate"/>
+<include name="testVerifyTwitterPostPageTime"/>
+<include name="testVerifyTwitterViewPostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Photo Post Twitter - Scheduled">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-photo-post-scheduled.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyTwitterPostPageTitle"/>
+<include name="testVerifyTwitterPostAccountName"/>
+<include name="testVerifyTwitterPlatformIconIsVisible"/>
+<include name="testVerifyTwitterPhotoPostIconVisible"/>
+<include name="testVerifyTwitterImageDisplaying"/>
+<include name="testVerifyTwitterManualPhotPostTextVisible"/>
+<include name="testVerifyTwitterPostPageDate"/>
+<include name="testVerifyTwitterPostPageTime"/>
+<include name="testVerifyTwitterViewPostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Link Post Twitter">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-link-post.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyTwitterPostPageTitle"/>
+<include name="testVerifyTwitterPostAccountName"/>
+<include name="testVerifyTwitterPlatformIconIsVisible"/>
+<include name="testVerifyTwitterPostComputerIconVisible"/>
+<include name="testVerifyTwitterManualLinkPostTextVisible"/>
+<include name="testVerifyTwitterPostPageDate"/>
+<include name="testVerifyTwitterPostPageTime"/>
+<include name="testVerifyTwitterViewPostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Link Post Twitter - Scheduled">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-link-post-scheduled.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyTwitterPostPageTitle"/>
+<include name="testVerifyTwitterPostAccountName"/>
+<include name="testVerifyTwitterPlatformIconIsVisible"/>
+<include name="testVerifyTwitterPostComputerIconVisible"/>
+<include name="testVerifyTwitterManualLinkPostTextVisible"/>
+<include name="testVerifyTwitterPostPageDate"/>
+<include name="testVerifyTwitterPostPageTime"/>
+<include name="testVerifyTwitterViewPostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Listing Video Post Twitter">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyTwitterTwitterVideoTextVisible"/>
+<include name="testVerifyTwitterHomePostListingVideoIconVisible"/>
+<include name="testVerifyTwitterListingWebsiteUrlDisplaying"/>
+<include name="testVerifyTwitterPostPageDate"/>
+<include name="testVerifyTwitterPostPageTime"/>
+<include name="testVerifyTwitterViewPostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Listing Video Post Twitter - Scheduled">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-video-post-scheduled.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyTwitterTwitterVideoTextVisible"/>
+<include name="testVerifyTwitterHomePostListingVideoIconVisible"/>
+<include name="testVerifyTwitterListingWebsiteUrlDisplaying"/>
+<include name="testVerifyTwitterPostPageDate"/>
+<include name="testVerifyTwitterPostPageTime"/>
+<include name="testVerifyTwitterViewPostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Listing Post Twitter">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-post.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyTwitterPostPageTitle"/>
+<include name="testVerifyTwitterPostAccountName"/>
+<include name="testVerifyTwitterPlatformIconIsVisible"/>
+<include name="testVerifyTwitterHomePostIconVisible"/>
+<include name="testVerifyTwitterImageDisplaying"/>
+<include name="testVerifyTwitterManualListingPostTextVisible"/>
+<include name="testVerifyTwitterListingWebsiteUrlDisplaying"/>
+<include name="testVerifyTwitterListingHeadingVisible"/>
+<include name="testVerifyTwitterListingDescVisible"/>
+<include name="testVerifyTwitterPostPageDate"/>
+<include name="testVerifyTwitterPostPageTime"/>
+<include name="testVerifyTwitterViewPostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Listing Post Twitter - Scheduled">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-twitter-listing-post-scheduled.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyTwitterPostPageTitle"/>
+<include name="testVerifyTwitterPostAccountName"/>
+<include name="testVerifyTwitterPlatformIconIsVisible"/>
+<include name="testVerifyTwitterHomePostIconVisible"/>
+<include name="testVerifyTwitterImageDisplaying"/>
+<include name="testVerifyTwitterManualListingPostTextVisible"/>
+<include name="testVerifyTwitterListingWebsiteUrlDisplaying"/>
+<include name="testVerifyTwitterListingHeadingVisible"/>
+<include name="testVerifyTwitterListingDescVisible"/>
+<include name="testVerifyTwitterPostPageDate"/>
+<include name="testVerifyTwitterPostPageTime"/>
+<include name="testVerifyTwitterViewPostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostButtonIsWorking"/>
+<include name="testVerifyTwitterDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Text Post Linkedin">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-text-post.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyLinkedinPostPageTitle"/>
+<include name="testVerifyLinkedinPostAccountName"/>
+<include name="testVerifyLinkedinPlatformIconIsVisible"/>
+<include name="testVerifyLinkedinTextPostIconVisible"/>
+<include name="testVerifyLinkedinManualPostTextVisible"/>
+<include name="testVerifyLinkedinPostPageDate"/>
+<include name="testVerifyLinkedinPostPageTime"/>
+<include name="testVerifyLinkedinViewPostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Text Post Linkedin - Scheduled">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-text-post-scheduled.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyLinkedinPostPageTitle"/>
+<include name="testVerifyLinkedinPostAccountName"/>
+<include name="testVerifyLinkedinPlatformIconIsVisible"/>
+<include name="testVerifyLinkedinTextPostIconVisible"/>
+<include name="testVerifyLinkedinManualPostTextVisible"/>
+<include name="testVerifyLinkedinPostPageDate"/>
+<include name="testVerifyLinkedinPostPageTime"/>
+<include name="testVerifyLinkedinViewPostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Photo Post Linkedin">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-photo-post.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyLinkedinPostPageTitle"/>
+<include name="testVerifyLinkedinPostAccountName"/>
+<include name="testVerifyLinkedinPlatformIconIsVisible"/>
+<include name="testVerifyLinkedinPhotoPostIconVisible"/>
+<include name="testVerifyLinkedinImageDisplaying"/>
+<include name="testVerifyLinkedinManualPhotPostTextVisible"/>
+<include name="testVerifyLinkedinPostPageDate"/>
+<include name="testVerifyLinkedinPostPageTime"/>
+<include name="testVerifyLinkedinViewPostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Photo Post Linkedin - Scheduled">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-photo-post-scheduled.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyLinkedinPostPageTitle"/>
+<include name="testVerifyLinkedinPostAccountName"/>
+<include name="testVerifyLinkedinPlatformIconIsVisible"/>
+<include name="testVerifyLinkedinPhotoPostIconVisible"/>
+<include name="testVerifyLinkedinImageDisplaying"/>
+<include name="testVerifyLinkedinManualPhotPostTextVisible"/>
+<include name="testVerifyLinkedinPostPageDate"/>
+<include name="testVerifyLinkedinPostPageTime"/>
+<include name="testVerifyLinkedinViewPostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Link Post Linkedin">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-link-post.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyLinkedinPostPageTitle"/>
+<include name="testVerifyLinkedinPostAccountName"/>
+<include name="testVerifyLinkedinPlatformIconIsVisible"/>
+<include name="testVerifyLinkedinPostComputerIconVisible"/>
+<include name="testVerifyLinkedinManualLinkPostTextVisible"/>
+<include name="testVerifyLinkedinPostPageDate"/>
+<include name="testVerifyLinkedinPostPageTime"/>
+<include name="testVerifyLinkedinViewPostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Link Post Linkedin - Scheduled">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-link-post-scheduled.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyLinkedinPostPageTitle"/>
+<include name="testVerifyLinkedinPostAccountName"/>
+<include name="testVerifyLinkedinPlatformIconIsVisible"/>
+<include name="testVerifyLinkedinPostComputerIconVisible"/>
+<include name="testVerifyLinkedinManualLinkPostTextVisible"/>
+<include name="testVerifyLinkedinPostPageDate"/>
+<include name="testVerifyLinkedinPostPageTime"/>
+<include name="testVerifyLinkedinViewPostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Listing Post Linkedin">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-listing-post.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyLinkedinPostPageTitle"/>
+<include name="testVerifyLinkedinPostAccountName"/>
+<include name="testVerifyLinkedinPlatformIconIsVisible"/>
+<include name="testVerifyLinkedinHomePostIconVisible"/>
+<include name="testVerifyLinkedinImageDisplaying"/>
+<include name="testVerifyLinkedinManualListingPostTextVisible"/>
+<include name="testVerifyLinkedinListingWebsiteUrlDisplaying"/>
+<include name="testVerifyLinkedinListingHeadingVisible"/>
+<include name="testVerifyLinkedinListingDescVisible"/>
+<include name="testVerifyLinkedinPostPageDate"/>
+<include name="testVerifyLinkedinPostPageTime"/>
+<include name="testVerifyLinkedinViewPostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Social Listing Post Linkedin - Scheduled">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/social/cache-z-social-linkedin-listing-post-scheduled.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOPostHistoryPageTest">
+<methods>
+<include name="testVerifyLinkedinPostPageTitle"/>
+<include name="testVerifyLinkedinPostAccountName"/>
+<include name="testVerifyLinkedinPlatformIconIsVisible"/>
+<include name="testVerifyLinkedinHomePostIconVisible"/>
+<include name="testVerifyLinkedinImageDisplaying"/>
+<include name="testVerifyLinkedinManualListingPostTextVisible"/>
+<include name="testVerifyLinkedinListingWebsiteUrlDisplaying"/>
+<include name="testVerifyLinkedinListingHeadingVisible"/>
+<include name="testVerifyLinkedinListingDescVisible"/>
+<include name="testVerifyLinkedinPostPageDate"/>
+<include name="testVerifyLinkedinPostPageTime"/>
+<include name="testVerifyLinkedinViewPostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostButtonIsWorking"/>
+<include name="testVerifyLinkedinDuplicatePostPage"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Update and Verify User Settings">
+<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-update-settings.json">
+<parameter name="userSettings" value="/resources/data/zurple/zurple-user-settings.json">
+<classes>
+<class name="com.zurple.website.ZWRegisterUserPageTest">
+<methods>
+<include name="testRegisterUser"/>
+</methods>
+</class>
+<class name="com.zurple.website.ZWAccountSettingsPageTest">
+<methods>
+<include name="testUpdateAccountSettings"/>
+</methods>
+</class>
+
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+
+<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+<methods>
+<include name="testVerifySettingsInNotes"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadEmailPreferencesPageTest">
+<methods>
+<include name="testVerifyLeadEmailPreferences"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+<methods>
+<include name="testVerifyValidEmail"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLeadDetailPageTest">
+<methods>
+<include name="verifyUserSettingsAlerts"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</parameter>
+</test>
+<test name="Verifications on Create campaign page">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+<methods>
+<include name="testVerifyCorrectTemplatePreviewIsShownBeforeSavingCampaign"/>
+<include name="testVerifyValidationIsTriggeredForEmptyCampaignName"/>
+<include name="testVerifyCorrectTemplatePreviewIsShownAfterSavingCampaign"/>
+<include name="testVerifyLimitedRecipientsOptionsAreVisible"/>
+<include name="testVerifyMatchingLeadsAreShown"/>
+<include name="testVerifySuccessMessageIsDisplayedWehnEnrolledIsClicked"/>
+<include name="testVerifyLeadsAreEnrolledSuccessfully"/>
+<include name="testVerifyLeadCounterHasIncreased"/>
+<include name="testVerifyLeadsDoesntUnEnrolledFromCurrentlyEnrolledPanelOnCancel"/>
+<include name="testVerifyLeadsGetUnEnrolledFromCurrentlyEnrolledPanel"/>
+<include name="testVerifyUnenrollButtonUnenrollLeadsFromCampaign"/>
+<include name="testDeleteCampaign"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Add Campaign from Lead Details">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+<methods>
+<include name="testVerifyEnrollmentInCampaignButtonIsVisibleInLeadDetailsPage"/>
+<include name="testVerifyCampaignsAreShownToUserInLeadDetails"/>
+<include name="testVerifySuccessMessageAppearsOnSuccessfullEnrollment"/>
+<include name="testVerifyCampaignTitleIsValidLink"/>
+<include name="testVerifyUserCanUnenrollFromCampaignFromLeadDetails"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Get lead info from Facebook">
+<parameter name="datafile" value="/resources/data/zurple/socialapi/ads/seller_lead/get_lead_info.json">
+<classes>
+<class name="com.zurple.rest.sapi.sellerlead.ZBORestGetLeadInfoFromFacebook">
+<methods>
+<include name="testGetLeadInfoFromFacebook"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Bulk Enrollment of leads into global campaign">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/marketing/campaign-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOCreateCampaignPageTest">
+<methods>
+<include name="testBulkEnrollLeadsInZurpleCmapaign"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Checking phone number text on dashboard">
+<parameter name="registerUserDataFile" value="/resources/data/zurple/register_user/register-user-track-phoneNumber.json">
+<classes>
+<class name="com.zurple.website.ZWRegisterUserPageTest">
+<methods>
+<include name="testRegisterUser"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBOLoginPageTest">
+<methods>
+<include name="testBackOfficeLogin"/>
+</methods>
+</class>
+<class name="com.zurple.backoffice.ZBODashboardTest">
+<methods>
+<include name="testPhoneNumber"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify Phone Icon Is Disabled if phone number is not provided">
+<parameter name="dataFile" value="/resources/data/zurple/backoffice/zurple-add-lead-phone-disabled-data.json">
+<classes>
+<class name="com.zurple.backoffice.ZBOLeadCRMPageTest">
+<methods>
+<include name="testPhoneIconIsDisabledIfPhoneNumberIsNotProvided"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verifications on Create Seller lead ad page">
+<parameter name="dataFile" value="/resources/data/zurple/ads/seller_lead/seller-conversion-lead-form-ad.json">
+<classes>
+<class name="com.zurple.backoffice.admin.ZACreateSellerLeadsAdPageTest">
+<methods>
+<include name="testVerifyPackageAlertIsTriggered"/>
+<include name="testVerifyAdminAlertIsTriggered"/>
+<include name="testVerifySLFormatAlertIsTriggered"/>
+<include name="testVerifyBudgetAlertIsTriggered"/>
+<!--   <include name="testVerifyBudgetLessThanHundredAlertIsTriggered" />-->
+<include name="testVerifyZipCodeAlertIsTriggered"/>
+<include name="testVerifyCityAlertIsTriggered"/>
+<include name="testVerifyAdTypeAlertIsTriggered"/>
+<include name="testVerifyCMACarouselAlertIsTriggered"/>
+<include name="testVerifyCMAVideoAlertIsTriggered"/>
+<include name="testVerifyCarouselDownloadAlertIsTriggered"/>
+</methods>
+</class>
+<class name="resources.CurrentPageTest">
+<methods>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</parameter>
+</test>
+<test name="Verify VLC settings">
+<classes>
+<class name="com.zurple.website.ZWVariableLeadCapturePageTest">
+<methods>
+<include name="testVerifyVLCModalForSoftViews0"/>
+<include name="testVerifyVLCModalForSoftViews1"/>
+<include name="testVerifyVLCModalForSoftViews2"/>
+<include name="testVerifyVLCModalForSoftViews4"/>
+<include name="testVerifyVLCModalForSoftViews5"/>
+<include name="testVerifyVLCModalForStrongViews0"/>
+<include name="testVerifyVLCModalForStrongViews1"/>
+<include name="testVerifyVLCModalForStrongViews2"/>
+<include name="testVerifyVLCModalForStrongViews3"/>
+<include name="testVerifyVLCModalForStrongViews4"/>
+<include name="testVerifyVLCModalForStrongViews5"/>
+<include name="testVerifyVLCModalForRegisterViews0"/>
+<include name="testVerifyVLCModalForRegisterViews1"/>
+<include name="testVerifyVLCModalForRegisterViews2"/>
+<include name="testVerifyVLCModalForRegisterViews3"/>
+<include name="testVerifyVLCModalForRegisterViews4"/>
+<include name="testVerifyVLCModalForRegisterViews5"/>
+</methods>
+</class>
+<class name="com.zurple.website.ZWVariableLeadCapturePageTest">
+<methods>
+<include name="testVerifyZVLCModalForSoftViews3"/>
+<include name="closeBrowser"/>
+</methods>
+</class>
+</classes>
+</test>
+</suite>
