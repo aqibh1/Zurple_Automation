@@ -245,6 +245,21 @@ public class ZBOCampaignDetailsPageTest extends PageTest{
 		int number_of_scheduled_emails_sms = page.getTemplateNames().size();
 		assertTrue(verifyTemplateFromScheduledMessages(number_of_scheduled_emails_sms),"The templates are not scheduled under scheduled messages");
 	}
+	
+	/**
+	 * Verify manually created lead does not get enrolled in beta campaign
+	 * 49962
+	 */
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyManuallyAddedLeadDoesntGetEnrolledInCampaign(String pDataFile) {
+		getPage();
+		ZBOAddLeadPageTest addLeadPageTest = new ZBOAddLeadPageTest();
+		addLeadPageTest.testAddLead(pDataFile);
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+		assertTrue(leadDetailPage.verifyCampaignNameFromMyMessages("None"), "Lead is enrolled entolled in beta campaign");
+	}
+	
     private boolean verifyTemplateFromScheduledMessages(int pNumberOfScheduledItems) {
     	gotoLeadDetailPage();
     	ZBOLeadDetailPage leaddetailPage = new ZBOLeadDetailPage(driver);

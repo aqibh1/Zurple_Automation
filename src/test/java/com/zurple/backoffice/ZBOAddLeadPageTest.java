@@ -103,8 +103,11 @@ public class ZBOAddLeadPageTest extends PageTest{
 		if(!getIsProd()) {
 			lLeadEmail = lLeadEmail.replace("@", "_ZurpleQA@");
 		}
+		boolean isWelcomeEmail = false;
+		if(dataObject.optString("welcome_Email")!=null) {
+			isWelcomeEmail = dataObject.optBoolean("welcome_Email");
+		}
 		
-		boolean isWelcomeEmail = dataObject.optString("welcome_Email")!=null?true:false;
 		if(isWelcomeEmail) {
 			assertTrue(page.clickWelcomeEmailToggle(), "Unable to click on welcome email toggle button..");
 		}	

@@ -898,7 +898,7 @@ public class ActionHelper {
 		   if(waitForElementToBeVisible(pWebDriver,pDropdown,GLOBAL_WAIT_COUNT)) {
 			   Click(pWebDriver, pDropdown);
 			   Type(pWebDriver,pDropdown,pStringToType);
-			   staticWait(20);
+			   staticWait(10);
 			   List<WebElement> list_element = getListOfElementByXpath(pWebDriver, pElementToSelect);
 			   for(WebElement element: list_element) {
 				   if(getText(pWebDriver, element).contains(pStringToType)) {
