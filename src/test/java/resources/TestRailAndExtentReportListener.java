@@ -4,9 +4,9 @@
 package resources;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,7 +46,7 @@ public class TestRailAndExtentReportListener implements ITestListener{
 	private static ThreadLocal<ExtentTest> emailTest = new ThreadLocal();
     private static ThreadLocal<ExtentTest> test = new ThreadLocal();
 	private static HashMap<String,String> tests_executed = new HashMap<String,String>(); 
-	private static List<String> failed_test_list = new ArrayList<String>();
+	private static CopyOnWriteArrayList<String> failed_test_list = new CopyOnWriteArrayList<String>();
 	
     ExtentTest testlog;
 
