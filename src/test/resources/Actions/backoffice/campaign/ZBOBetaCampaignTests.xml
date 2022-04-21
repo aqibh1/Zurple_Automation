@@ -53,8 +53,7 @@
 				</class>
 			</classes>
 	</test>
-	-->
-
+	
 <test name="Verify lead with phone number gets auto enrolled in Beta Campaign">
 	<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-beta-campaign.json">
 			<classes>
@@ -62,6 +61,20 @@
 					<methods>
 						<include name="testVerifyLeadWithPhoneNumberGetsEnrolledInBetaCampaign" />
 							<include name="testVerifyScheduledMessagesArePopulatedForLeadsEnrolledInBetaCampaign" />
+					</methods>
+				</class>
+			</classes>
+			</parameter>
+	</test>
+	-->
+	
+		<test name="Verify manual lead added with phone number does not gets auto enrolled in Beta Campaign">
+	<parameter name="dataFile" value="/resources/data/zurple/backoffice/zurple-add-lead-beta-campaign.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOCampaignDetailsPageTest">
+					<methods>
+						<include name="testVerifyManuallyAddedLeadDoesntGetEnrolledInCampaign" />
+					
 					</methods>
 				</class>
 			</classes>
