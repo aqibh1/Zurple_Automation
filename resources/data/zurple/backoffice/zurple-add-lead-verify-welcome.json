@@ -23,5 +23,5 @@
 	"views":"Golf course view",
 	"lot_size":"2,000+ sq ft",
 	"style":"Modern",
-	"welcome_email":"true"
+	"welcome_email":true
 }

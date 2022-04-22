@@ -60,13 +60,13 @@
 				<class name="com.zurple.backoffice.ZBOCampaignDetailsPageTest">
 					<methods>
 						<include name="testVerifyLeadWithPhoneNumberGetsEnrolledInBetaCampaign" />
-							<include name="testVerifyScheduledMessagesArePopulatedForLeadsEnrolledInBetaCampaign" />
+						<include name="testVerifyScheduledMessagesArePopulatedForLeadsEnrolledInBetaCampaign" />
 					</methods>
 				</class>
 			</classes>
 			</parameter>
 	</test>
-	-->
+	
 	
 		<test name="Verify manual lead added with phone number does not gets auto enrolled in Beta Campaign">
 	<parameter name="dataFile" value="/resources/data/zurple/backoffice/zurple-add-lead-beta-campaign.json">
@@ -74,6 +74,33 @@
 				<class name="com.zurple.backoffice.ZBOCampaignDetailsPageTest">
 					<methods>
 						<include name="testVerifyManuallyAddedLeadDoesntGetEnrolledInCampaign" />
+					
+					</methods>
+				</class>
+			</classes>
+			</parameter>
+	</test>
+	
+	
+	<test name="Verify lead gets unenrolled from Beta Campaign when lead prospect is changed">
+	<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-beta-campaign.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOCampaignDetailsPageTest">
+					<methods>
+						<include name="testVerifyLeadsGetUnenrolledWhenLeadProspectIsChanged" />
+					
+					</methods>
+				</class>
+			</classes>
+			</parameter>
+	</test>
+	-->
+	<test name="Verify lead gets enrolled in Beta Campaign when lead prospect is changed to New">
+	<parameter name="dataFile" value="/resources/data/zurple/register_user/register-user-beta-campaign.json">
+			<classes>
+				<class name="com.zurple.backoffice.ZBOCampaignDetailsPageTest">
+					<methods>
+						<include name="testVerifyLeadsDoesNotGetEnrolledWhenLeadProspectIsChangedToNew" />
 					
 					</methods>
 				</class>

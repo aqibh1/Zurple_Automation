@@ -19,7 +19,9 @@ import resources.AbstractPage;
 import resources.EnvironmentFactory;
 import resources.ModuleCacheConstants;
 import resources.ModuleCommonCache;
+import resources.alerts.zurple.backoffice.ZBOSucessAlert;
 import resources.blocks.zurple.ZBOHeadersBlock;
+import resources.utility.ActionHelper;
 
 public class ZBOCampaignDetailsPageTest extends PageTest{
 
@@ -260,6 +262,43 @@ public class ZBOCampaignDetailsPageTest extends PageTest{
 		assertTrue(leadDetailPage.verifyCampaignNameFromMyMessages("None"), "Lead is enrolled entolled in beta campaign");
 	}
 	
+	/**
+	 * Verify Lead gets unenrolled from beta campaign when lead prospect is changed from NEW to any other prospect
+	 * 49964
+	 */
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyLeadsGetUnenrolledWhenLeadProspectIsChanged(String pDataFile) {
+		testVerifyLeadWithPhoneNumberGetsEnrolledInBetaCampaign(pDataFile);
+		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+		leadDetailPage.clickAndSelectLeadProspect("Prospect - Active");
+		assertTrue(successAlert.clickOnTemporaryButton(), "Unable to click on Temporary button..");
+		assertTrue(successAlert.clickOnOkButton(), "Unable to click on OK button..");
+		ActionHelper.staticWait(10);
+		ActionHelper.RefreshPage(driver);
+		assertTrue(leadDetailPage.verifyCampaignNameFromMyMessages("None"), "Lead is not unenrolled from beta campaign");
+		
+	}
+	
+	/**
+	 * Verify Lead is not enrolled when Prospect of an existing lead is changed to New
+	 * 49980
+	 */
+	@Test
+	@Parameters({"dataFile"})
+	public void testVerifyLeadsDoesNotGetEnrolledWhenLeadProspectIsChangedToNew(String pDataFile) {
+		testVerifyLeadsGetUnenrolledWhenLeadProspectIsChanged(pDataFile);
+		ZBOSucessAlert successAlert = new ZBOSucessAlert(driver);
+		ZBOLeadDetailPage leadDetailPage = new ZBOLeadDetailPage(driver);
+		leadDetailPage.clickAndSelectLeadProspect("Prospect - New");
+		assertTrue(successAlert.clickOnTemporaryButton(), "Unable to click on Temporary button..");
+		assertTrue(successAlert.clickOnOkButton(), "Unable to click on OK button..");
+		ActionHelper.staticWait(10);
+		ActionHelper.RefreshPage(driver);
+		assertTrue(leadDetailPage.verifyCampaignNameFromMyMessages("None"), "Lead is not unenrolled from beta campaign");
+		
+	}
     private boolean verifyTemplateFromScheduledMessages(int pNumberOfScheduledItems) {
     	gotoLeadDetailPage();
     	ZBOLeadDetailPage leaddetailPage = new ZBOLeadDetailPage(driver);
