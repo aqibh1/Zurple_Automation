@@ -281,6 +281,10 @@ public class ZBOCampaignDetailsPageTest extends PageTest{
 		
 	}
 	
+	/**
+	 * Verify Lead is not enrolled when Prospect of an existing lead is changed to New
+	 * 49980
+	 */
 	@Test
 	@Parameters({"dataFile"})
 	public void testVerifyLeadsDoesNotGetEnrolledWhenLeadProspectIsChangedToNew(String pDataFile) {
