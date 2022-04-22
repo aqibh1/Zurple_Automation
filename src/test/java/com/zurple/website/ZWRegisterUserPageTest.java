@@ -87,7 +87,7 @@ public class ZWRegisterUserPageTest extends PageTest{
 		if(!getIsProd()) {
 			lEmail = lEmail.replace("@", "_ZurpleQA@");
 		}
-		
+		ActionHelper.staticWait(20);
 		DBHelperMethods dbObject = new DBHelperMethods(getEnvironment());	
 		String lUserName = lEmail.split("@")[0];
 		String lLeadId = dbObject.getZurpleLeadId(lUserName).toString();
@@ -100,7 +100,7 @@ public class ZWRegisterUserPageTest extends PageTest{
 		
 		leadData.put("email", lEmail);
 		leadData.put("name", lName);
-		ActionHelper.staticWait(30);
+		ActionHelper.staticWait(10);
 		AutomationLogger.endTestCase();
 		
 	}
