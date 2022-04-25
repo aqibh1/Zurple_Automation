@@ -1,9 +1,0 @@
-{
-	"lead_prospect":"Prospect - New,Prospect - Unresponsive,Prospect - Active,Prospect - Communicated with Me,Client - Active Opportunity,Client - Sold,Inactive - Stop All Communications",
-	"lead_filters":"new,unresponsive,active,communicated,opportunity,sold,inactive",
-	"leadidstage":"3019938",
-	"leadid":"5138507",
-	"leadNameEmail":"FiltersTestLead",
-	"pageHeaderProspect":"With Status: Prospect - Active",
-	"pageHeaderClient":"With Status: Client - Active Opportunity"
-}

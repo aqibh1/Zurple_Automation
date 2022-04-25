@@ -1,8 +1,0 @@
-{
-	"name":"autouser",
-	"tx_name":"Autouser",
-	"email":"autouser@mailinator.com",
-	"invalid_email":"autouser@mialinator.com",
-	"phone":"202-555-0149",
-	"tx_phone":"(202) 555-0149"
-}

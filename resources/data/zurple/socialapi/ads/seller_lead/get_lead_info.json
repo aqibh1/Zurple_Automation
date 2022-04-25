@@ -1,9 +1,0 @@
-{
-	"status_code":"200",
-	"validation":[
-		{
-			"key":"ZBORestGetLeadInfoFromFacebook",
-			"value":"VERIFY"
-		}
-	]
-}
